@@ -21,7 +21,7 @@
     "releaseDate": "2019-11-21",
     "releaseKit": "별자리 수호자의 보관함"
   },
-    {
+  {
     "name": "검은 안개",
     "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20200220_death/26.mp4",
     "color1": "검은색",
@@ -32,7 +32,7 @@
     "releaseDate": "2020-02-20",
     "releaseKit": "죽음의 인도자의 봉인함"
   },
-    {
+  {
     "name": "그레이스풀 버터플라이",
     "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20200305/12.mp4",
     "color1": "주황색",
@@ -64,5 +64,192 @@
     "loop": false,
     "releaseDate": "2020-03-05",
     "releaseKit": "베리 베리 디저트 박스"
+  },
+  {
+    "name": "블랙 크로우",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20200416_kamagi_98crd3/23.mp4",
+    "color1": "검은색",
+    "color2": "", 
+    "color3": "",
+    "set": "크로우",
+    "loop": false,
+    "releaseDate": "2020-04-16",
+    "releaseKit": "크로우 페더즈 박스"
+  },
+  {
+    "name": "크로우 페더즈",
+    "videoLink": "https://ssl.nexon.com/s2/game/mabinogi/mabiweb/event/2020/0416_kamagi_98crd3/24.jpg",
+    "color1": "검은색",
+    "color2": "", 
+    "color3": "",
+    "set": "크로우",
+    "loop": false,
+    "releaseDate": "2020-04-16",
+    "releaseKit": "크로우 페더즈 박스"
+  },
+  {
+    "name": "화이트 크로우",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20200416_kamagi_98crd3/25.mp4",
+    "color1": "하얀색",
+    "color2": "", 
+    "color3": "",
+    "set": "크로우",
+    "loop": false,
+    "releaseDate": "2020-04-16",
+    "releaseKit": "크로우 페더즈 박스"
+  },
+  {
+    "name": "플로랄 스톰",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20201008_carasek_57xcya/13.mp4",
+    "color1": "하얀색",
+    "color2": "빨간색", 
+    "color3": "",
+    "set": "플로랄 스톰",
+    "loop": false,
+    "releaseDate": "2020-10-08",
+    "releaseKit": "카라젝의 모험 상자"
+  },
+  {
+    "name": "인페르노",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20201008_carasek_57xcya/14.mp4",
+    "color1": "빨간색",
+    "color2": "", 
+    "color3": "",
+    "set": "인페르노",
+    "loop": false,
+    "releaseDate": "2020-10-08",
+    "releaseKit": "카라젝의 모험 상자"
+  },
+  {
+    "name": "블랙 프리클",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20201015_delight_xx3qhk/14.mp4",
+    "color1": "검은색",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2020-10-15",
+    "releaseKit": "딜라이트 미드나잇 파티 박스"
+  },
+  {
+    "name": "파편",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20201105_ailionoa_sjba6v/4.mp4",
+    "color1": "하얀색",
+    "color2": "노란색", 
+    "color3": "빨간색",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2020-11-05",
+    "releaseKit": "엘레노아 뉴룩 박스"
+  },
+  {
+    "name": "고드름",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20201203_pilgrim_w57me7/12.mp4",
+    "color1": "파란색",
+    "color2": "하얀색", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2020-12-03",
+    "releaseKit": "겨울 숲 순례자의 배낭"
+  },
+  {
+    "name": "음표",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20201203_pilgrim_w57me7/13.mp4",
+    "color1": "주황색",
+    "color2": "노란색", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2020-12-03",
+    "releaseKit": "겨울 숲 순례자의 배낭"
+  },
+  {
+    "name": "주얼",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20210114_carasek_fr5wdg/12.mp4",
+    "color1": "분홍색",
+    "color2": "하얀색", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2021-01-14",
+    "releaseKit": "카라젝의 모험 상자"
+  },
+  {
+    "name": "물감",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20210225_graffiti_9dm6kk/16.mp4",
+    "color1": "빨간색",
+    "color2": "초록색", 
+    "color3": "보라색",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2021-02-25",
+    "releaseKit": "스트리트 그래피티 박스"
+  },
+  {
+    "name": "색채",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20210225_graffiti_9dm6kk/17.mp4",
+    "color1": "초록색",
+    "color2": "노란색", 
+    "color3": "주황색",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2021-02-25",
+    "releaseKit": "스트리트 그래피티 박스"
+  },
+  {
+    "name": "칼날",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20210401_uniform_wva8nu/20.mp4",
+    "color1": "하얀색",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2021-04-01",
+    "releaseKit": "호위기사의 제복 상자"
+  },
+  {
+    "name": "금빛 일격",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20210520_merchant/15.mp4",
+    "color1": "노란색",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2021-05-20",
+    "releaseKit": "에린 만물상의 특별한 배낭"
+  },
+  {
+    "name": "질풍",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20210610_summer_qf3qcm/13.mp4",
+    "color1": "하얀색",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2021-06-10",
+    "releaseKit": "썸머 파라다이스 박스"
+  },
+  {
+    "name": "폭죽",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20210610_summer_qf3qcm/14.mp4",
+    "color1": "주황색",
+    "color2": "빨간색", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2021-06-10",
+    "releaseKit": "썸머 파라다이스 박스"
+  },
+  {
+    "name": "",
+    "videoLink": "",
+    "color1": "",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2021-06-10",
+    "releaseKit": "썸머 파라다이스 박스"
   }
 ]
