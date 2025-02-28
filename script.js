@@ -11,7 +11,6 @@ fetch('data/spiritList.json')
                 <video id="video-${index}" 
                        src="${item.videoLink}" 
                        muted 
-                       loop 
                        width="200" 
                        height="150">
                 </video>
@@ -25,11 +24,19 @@ fetch('data/spiritList.json')
 
             container.appendChild(listItem);
 
-            // 자동 재생 설정
+            // 비디오 재생 제어
             const video = document.getElementById(`video-${index}`);
             video.addEventListener('loadedmetadata', () => {
                 video.currentTime = 0;
-                video.play();
+            });
+
+            // 5초 또는 영상 길이만큼 재생
+            video.addEventListener('play', () => {
+                const maxPlayTime = Math.min(5000, video.duration * 1000);
+                setTimeout(() => {
+                    video.pause();
+                    video.currentTime = 0;
+                }, maxPlayTime);
             });
         });
     });
