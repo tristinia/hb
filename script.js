@@ -39,7 +39,16 @@ function showDetailModal(item) {
     modal.innerHTML = `
         <div class="modal-content">
             <span class="close-btn">&times;</span>
-            <video src="${item.videoLink}" controls width="100%"></video>
+            <video 
+                src="${item.videoLink}" 
+                autoplay 
+                muted 
+                loop 
+                playsinline 
+                disablePictureInPicture 
+                controlslist="nodownload noplaybackrate noremoteplayback" 
+                width="100%">
+            </video>
             <h2>${item.name}</h2>
             <p>색상1: ${item.color1}</p>
             <p>색상2: ${item.color2 || '없음'}</p>
@@ -49,6 +58,22 @@ function showDetailModal(item) {
             <p>출시 키트: ${item.releaseKit}</p>
         </div>
     `;
+
+    modal.style.display = 'block';
+    
+    // 닫기 버튼 이벤트
+    const closeBtn = modal.querySelector('.close-btn');
+    closeBtn.onclick = () => {
+        modal.style.display = 'none';
+    };
+
+    // 모달 외부 클릭 시 닫기
+    window.onclick = (event) => {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    };
+}
 
     modal.style.display = 'block';
 
