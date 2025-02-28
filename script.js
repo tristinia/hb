@@ -26,17 +26,24 @@ fetch('data/spiritList.json')
 
             // 비디오 재생 제어
             const video = document.getElementById(`video-${index}`);
+            
+            // 메타데이터 로드 시 초기화
             video.addEventListener('loadedmetadata', () => {
                 video.currentTime = 0;
             });
 
-            // 5초 또는 영상 길이만큼 재생
+            // 재생 시간 제한
             video.addEventListener('play', () => {
                 const maxPlayTime = Math.min(5000, video.duration * 1000);
-                setTimeout(() => {
+                const playTimeout = setTimeout(() => {
                     video.pause();
                     video.currentTime = 0;
                 }, maxPlayTime);
+
+                // 수동 정지 시 타임아웃 제거
+                video.addEventListener('pause', () => {
+                    clearTimeout(playTimeout);
+                });
             });
         });
     });
