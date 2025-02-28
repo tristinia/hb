@@ -11,41 +11,47 @@ fetch('data/spiritList.json')
                 <video id="video-${index}" 
                        src="${item.videoLink}" 
                        muted 
+                       playsinline 
                        width="200" 
                        height="150">
                 </video>
                 <div class="item-name">${item.name}</div>
             `;
 
-            // 클릭 시 상세 정보 모달 
+            // 클릭 이벤트 핸들러
             listItem.addEventListener('click', () => {
                 showDetailModal(item);
             });
 
-            container.appendChild(listItem);
-
-            // 비디오 재생 제어
-            const video = document.getElementById(`video-${index}`);
+            // 비디오 이벤트 디버깅용 리스너 추가
+            const video = listItem.querySelector('video');
             
-            // 메타데이터 로드 시 초기화
+            video.addEventListener('error', (e) => {
+                console.error('비디오 로딩 에러:', e);
+            });
+
             video.addEventListener('loadedmetadata', () => {
+                console.log(`비디오 ${index} 메타데이터 로드 완료`);
                 video.currentTime = 0;
             });
 
-            // 재생 시간 제한
-            video.addEventListener('play', () => {
-                const maxPlayTime = Math.min(5000, video.duration * 1000);
-                const playTimeout = setTimeout(() => {
-                    video.pause();
-                    video.currentTime = 0;
-                }, maxPlayTime);
-
-                // 수동 정지 시 타임아웃 제거
-                video.addEventListener('pause', () => {
-                    clearTimeout(playTimeout);
+            // 호버 시 재생/정지 로직
+            listItem.addEventListener('mouseenter', () => {
+                video.play().catch(err => {
+                    console.error('재생 실패:', err);
                 });
             });
+
+            listItem.addEventListener('mouseleave', () => {
+                video.pause();
+                video.currentTime = 0;
+            });
+
+            container.appendChild(listItem);
         });
+    })
+    .catch(error => {
+        console.error('데이터 로딩 중 오류:', error);
     });
 
 function showDetailModal(item) {
