@@ -61,25 +61,19 @@ function showDetailModal(item) {
 
     modal.style.display = 'block';
     
-    // 닫기 버튼 이벤트
+   // 모달 닫기 버튼과 모달 외부 클릭 이벤트 통합
     const closeBtn = modal.querySelector('.close-btn');
-    closeBtn.onclick = () => {
+    
+    const closeModal = () => {
         modal.style.display = 'none';
     };
 
+    closeBtn.onclick = closeModal;
+    
     // 모달 외부 클릭 시 닫기
-    window.onclick = (event) => {
-        if (event.target == modal) {
-            modal.style.display = 'none';
+    modal.onclick = (event) => {
+        if (event.target === modal) {
+            closeModal();
         }
-    };
-}
-
-    modal.style.display = 'block';
-
-    // 모달 닫기 버튼
-    const closeBtn = modal.querySelector('.close-btn');
-    closeBtn.onclick = () => {
-        modal.style.display = 'none';
     };
 }
