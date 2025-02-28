@@ -1,37 +1,66 @@
-/* styles.css */
-.spirit-container {
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+#video-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 10px;
     justify-content: center;
 }
 
-.spirit-item {
+.video-item {
     width: 200px;
     text-align: center;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-.spirit-thumbnail {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
+.video-item:hover {
+    transform: scale(1.05);
 }
 
-.modal {
+.video-item video {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.item-name {
+    padding: 10px;
+    font-weight: bold;
+}
+
+#detail-modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    display: flex;
+    background-color: rgba(0,0,0,0.7);
+    display: none;
     justify-content: center;
     align-items: center;
     z-index: 1000;
 }
 
 .modal-content {
-    max-width: 80%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
     max-height: 80%;
+    overflow-y: auto;
+}
+
+.close-btn {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
 }
