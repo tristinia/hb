@@ -1,7 +1,7 @@
 [
   {
     "name": "빛의 가루",
-    "videoLink": "",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20191121/24.mp4",
     "color1": "파란색",
     "color2": "", 
     "color3": "",
@@ -12,6 +12,7 @@
   },
   {
     "name": "꽃잎",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20191121/25.mp4",
     "color1": "분홍색",
     "color2": "보라색", 
     "color3": "",
@@ -19,5 +20,49 @@
     "loop": false,
     "releaseDate": "2019-11-21",
     "releaseKit": "별자리 수호자의 보관함"
-  }
+  },
+    {
+    "name": "검은 안개",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20200220_death/26.mp4",
+    "color1": "검은색",
+    "color2": "", 
+    "color3": "",
+    "set": "안개",
+    "loop": false,
+    "releaseDate": "2020-02-20",
+    "releaseKit": "죽음의 인도자의 봉인함"
+  },
+    {
+    "name": "그레이스풀 버터플라이",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20200305/12.mp4",
+    "color1": "주황색",
+    "color2": "빨간색", 
+    "color3": "분홍색",
+    "set": "그레이스풀 버터플라이",
+    "loop": false,
+    "releaseDate": "2020-03-05",
+    "releaseKit": "베리 베리 디저트 박스"
+  },
+  {
+    "name": "레인보우 스타",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20200305/13.mp4",
+    "color1": "보라색",
+    "color2": "노란색", 
+    "color3": "파란색",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2020-03-05",
+    "releaseKit": "베리 베리 디저트 박스"
+  },
+{
+    "name": "라이트닝 파이어",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20200305/14.mp4",
+    "color1": "빨간색",
+    "color2": "파란색", 
+    "color3": "",
+    "set": "라이트닝 파이어",
+    "loop": false,
+    "releaseDate": "2020-03-05",
+    "releaseKit": "베리 베리 디저트 박스"
+  },
 ]
