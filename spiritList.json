@@ -1,0 +1,23 @@
+[
+  {
+    "name": "빛의 가루",
+    "videoLink": "",
+    "color1": "파란색",
+    "color2": "", 
+    "color3": "",
+    "set": "빛의 가루",
+    "loop": false,
+    "releaseDate": "2019-11-21",
+    "releaseKit": "별자리 수호자의 보관함"
+  },
+  {
+    "name": "꽃잎",
+    "color1": "분홍색",
+    "color2": "보라색", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2019-11-21",
+    "releaseKit": "별자리 수호자의 보관함"
+  }
+]
