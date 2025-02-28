@@ -2,7 +2,7 @@ fetch('data/spiritList.json') // JSON 파일 경로 변경
     .then(response => response.json())
     .then(data => {
         const container = document.getElementById('video-container');
-    });
+        
             data.forEach((item, index) => {
                 // 리스트 아이템 생성
                 const listItem = document.createElement('div');
