@@ -1,16 +1,8 @@
-document.addEventListener('DOMContentLoaded', () => {
-    fetch('data.json')
-        .then(response => {
-            console.log('Response status:', response.status);
-            return response.json();
-        })
-        .then(data => {
-            console.log('Loaded ', data);
-            const container = document.getElementById('video-container');
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-
+fetch('data/spiritList.json') // JSON 파일 경로 변경
+    .then(response => response.json())
+    .then(data => {
+        const container = document.getElementById('video-container');
+    });
             data.forEach((item, index) => {
                 // 리스트 아이템 생성
                 const listItem = document.createElement('div');
