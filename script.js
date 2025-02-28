@@ -59,21 +59,19 @@ function showDetailModal(item) {
         </div>
     `;
 
+    // 모달 표시
     modal.style.display = 'block';
-    
-   // 모달 닫기 버튼과 모달 외부 클릭 이벤트 통합
+
+    // 모달 닫기 버튼 이벤트
     const closeBtn = modal.querySelector('.close-btn');
-    
-    const closeModal = () => {
+    closeBtn.onclick = () => {
         modal.style.display = 'none';
     };
 
-    closeBtn.onclick = closeModal;
-    
     // 모달 외부 클릭 시 닫기
-    modal.onclick = (event) => {
-        if (event.target === modal) {
-            closeModal();
+    window.onclick = (event) => {
+        if (event.target == modal) {
+            modal.style.display = 'none';
         }
     };
 }
