@@ -2,25 +2,614 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>정령 형상 변환 리스트</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마비노기 이펙트 카탈로그</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #2c3e50;
+            padding: 20px;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+
+        #search {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            max-width: 1200px;
+            margin: 0 auto 20px;
+        }
+
+        .filter-group {
+            margin-bottom: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 75%; /* 4:3 Aspect Ratio */
+            overflow: hidden;
+        }
+
+        .card-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-info {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .card-tag {
+            background-color: #f1f1f1;
+            border-radius: 4px;
+            padding: 3px 8px;
+            display: inline-block;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-video-container {
+            margin-bottom: 20px;
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        }
+
+        .modal-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal-info h2 {
+            margin-bottom: 15px;
+        }
+
+        .modal-details {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .detail-label {
+            font-weight: bold;
+        }
+
+        .color-dot {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        .stats {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>정령 형상 변환 리스트</h1>
-            <p>마비노기 정령</p>
-        </header>
-        
-        <main>
-            <div id="video-container" class="video-grid">
-                <!-- 동적으로 생성될 비디오 카드 영역 -->
+    <header>
+        <h1>마비노기 이펙트 카탈로그</h1>
+        <div class="search-container">
+            <input type="text" id="search" placeholder="이름 검색...">
+        </div>
+        <div class="filters">
+            <div class="filter-group">
+                <span class="filter-title">색상</span>
+                <select id="colorFilter">
+                    <option value="">모든 색상</option>
+                </select>
             </div>
-        </main>
+            <div class="filter-group">
+                <span class="filter-title">세트</span>
+                <select id="setFilter">
+                    <option value="">모든 세트</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <span class="filter-title">반복 여부</span>
+                <select id="loopFilter">
+                    <option value="">모두</option>
+                    <option value="true">반복</option>
+                    <option value="false">반복 안함</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <span class="filter-title">출시 Kit</span>
+                <select id="kitFilter">
+                    <option value="">모든 Kit</option>
+                </select>
+            </div>
+        </div>
+        <div class="stats" id="stats">
+            총 <span id="totalCount">0</span>개 중 <span id="filteredCount">0</span>개 표시
+        </div>
+    </header>
+
+    <div class="card-container" id="card-container"></div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-video-container">
+                <video class="modal-video" id="modalVideo" controls></video>
+            </div>
+            <div class="modal-info">
+                <h2 id="modalTitle"></h2>
+                <div class="modal-details" id="modalDetails"></div>
+            </div>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // 데이터를 저장할 변수
+        let effectsData = [];
+        let filteredData = [];
+
+        // 필터에 사용될 고유 값들을 저장할 객체
+        const filterValues = {
+            colors: new Set(),
+            sets: new Set(),
+            kits: new Set()
+        };
+
+        // JSON 파일 로드
+        async function loadData() {
+            try {
+                const response = await fetch('effects.json');
+                effectsData = await response.json();
+                filteredData = [...effectsData];
+                
+                // 필터 옵션 설정
+                setupFilterOptions();
+                // 카드 렌더링
+                renderCards(effectsData);
+                // 통계 업데이트
+                updateStats();
+            } catch (error) {
+                console.error('데이터 로드 중 오류 발생:', error);
+            }
+        }
+
+        // 필터 옵션 설정
+        function setupFilterOptions() {
+            // 색상, 세트, 키트의 고유값 수집
+            effectsData.forEach(effect => {
+                // 색상 수집 (color1, color2, color3)
+                if (effect.color1) filterValues.colors.add(effect.color1);
+                if (effect.color2) filterValues.colors.add(effect.color2);
+                if (effect.color3) filterValues.colors.add(effect.color3);
+                
+                // 세트 수집
+                if (effect.set) filterValues.sets.add(effect.set);
+                
+                // 키트 수집
+                if (effect.releaseKit) filterValues.kits.add(effect.releaseKit);
+            });
+
+            // 색상 필터 옵션 추가
+            const colorFilter = document.getElementById('colorFilter');
+            [...filterValues.colors].sort().forEach(color => {
+                const option = document.createElement('option');
+                option.value = color;
+                option.textContent = color;
+                colorFilter.appendChild(option);
+            });
+
+            // 세트 필터 옵션 추가
+            const setFilter = document.getElementById('setFilter');
+            [...filterValues.sets].sort().forEach(set => {
+                const option = document.createElement('option');
+                option.value = set;
+                option.textContent = set;
+                setFilter.appendChild(option);
+            });
+
+            // 키트 필터 옵션 추가
+            const kitFilter = document.getElementById('kitFilter');
+            [...filterValues.kits].sort().forEach(kit => {
+                const option = document.createElement('option');
+                option.value = kit;
+                option.textContent = kit;
+                kitFilter.appendChild(option);
+            });
+        }
+
+        // 카드 렌더링 함수
+        function renderCards(data) {
+            const container = document.getElementById('card-container');
+            container.innerHTML = '';
+
+            data.forEach(effect => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                // 색상 표시를 위한 HTML 생성
+                const colorsHTML = [];
+                if (effect.color1) colorsHTML.push(`<span class="card-tag">${effect.color1}</span>`);
+                if (effect.color2) colorsHTML.push(`<span class="card-tag">${effect.color2}</span>`);
+                if (effect.color3) colorsHTML.push(`<span class="card-tag">${effect.color3}</span>`);
+                
+                card.innerHTML = `
+                    <div class="card-video-container">
+                        <video class="card-video" src="${effect.videoLink}" muted playsinline></video>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-title">${effect.name}</div>
+                        <div class="card-meta">
+                            ${colorsHTML.join('')}
+                            ${effect.set ? `<span class="card-tag">세트: ${effect.set}</span>` : ''}
+                        </div>
+                        <div class="card-meta">
+                            <span class="card-tag">${effect.releaseDate}</span>
+                            <span class="card-tag">${effect.loop ? '반복' : '반복 안함'}</span>
+                        </div>
+                    </div>
+                `;
+
+                // 카드 클릭 이벤트
+                card.addEventListener('click', () => openModal(effect));
+                
+                container.appendChild(card);
+                
+                // 비디오 요소에 이벤트와 설정 추가
+                const video = card.querySelector('.card-video');
+                
+                // 비디오 로드 시 품질 조정 및 반복 설정
+                video.addEventListener('loadeddata', () => {
+                    // 품질 저하 (저용량으로 로딩)
+                    video.setAttribute('preload', 'metadata');
+                    
+                    // 자동 재생 시작
+                    video.play().catch(e => console.log('자동 재생 실패:', e));
+                    
+                    // 5초만 재생 후 정지 (반복 안되는 경우)
+                    if (!effect.loop) {
+                        let playTime = 0;
+                        const checkTime = () => {
+                            playTime += 0.1;
+                            if (playTime >= 5) {
+                                video.pause();
+                                video.currentTime = 0;
+                                return;
+                            }
+                            setTimeout(checkTime, 100);
+                        };
+                        checkTime();
+                    } else {
+                        // 반복 재생 설정
+                        video.loop = true;
+                    }
+                });
+                
+                // 마우스 오버 시 재생
+                card.addEventListener('mouseenter', () => {
+                    video.play().catch(e => console.log('마우스 오버 재생 실패:', e));
+                });
+                
+                // 마우스 아웃 시 정지
+                card.addEventListener('mouseleave', () => {
+                    if (!effect.loop) {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                });
+            });
+            
+            // 카드 생성 후 모든 비디오 자동 재생 시작
+            startAllVideos();
+        }
+
+        // 모든 카드의 비디오 자동 재생 시작
+        function startAllVideos() {
+            const videos = document.querySelectorAll('.card-video');
+            videos.forEach(video => {
+                const card = video.closest('.card');
+                const effectIndex = Array.from(card.parentNode.children).indexOf(card);
+                const effect = filteredData[effectIndex];
+                
+                if (effect) {
+                    video.currentTime = 0;
+                    video.play().catch(e => console.log('자동 재생 실패:', e));
+                    
+                    // 5초 후 반복 안되는 비디오 정지
+                    if (!effect.loop) {
+                        setTimeout(() => {
+                            video.pause();
+                            video.currentTime = 0;
+                        }, 5000);
+                    } else {
+                        video.loop = true;
+                    }
+                }
+            });
+        }
+
+        // 모달 열기
+        function openModal(effect) {
+            const modal = document.getElementById('modal');
+            const modalVideo = document.getElementById('modalVideo');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDetails = document.getElementById('modalDetails');
+            
+            // 비디오 설정
+            modalVideo.src = effect.videoLink;
+            modalVideo.loop = effect.loop;
+            modalVideo.muted = false;
+            
+            // 제목 설정
+            modalTitle.textContent = effect.name;
+            
+            // 세부 정보 채우기
+            modalDetails.innerHTML = '';
+            
+            // 색상 정보
+            const colorDetails = document.createElement('div');
+            colorDetails.innerHTML = `<div class="detail-label">색상</div><div>`;
+            
+            if (effect.color1) {
+                colorDetails.querySelector('div:last-child').innerHTML += `
+                    <span class="color-dot" style="background-color: ${getColorCode(effect.color1)}"></span>${effect.color1}
+                `;
+            }
+            if (effect.color2) {
+                colorDetails.querySelector('div:last-child').innerHTML += `
+                    <span class="color-dot" style="background-color: ${getColorCode(effect.color2)}"></span>${effect.color2}
+                `;
+            }
+            if (effect.color3) {
+                colorDetails.querySelector('div:last-child').innerHTML += `
+                    <span class="color-dot" style="background-color: ${getColorCode(effect.color3)}"></span>${effect.color3}
+                `;
+            }
+            modalDetails.appendChild(colorDetails);
+            
+            // 세트 정보
+            if (effect.set) {
+                const setDetails = document.createElement('div');
+                setDetails.innerHTML = `<div class="detail-label">세트</div><div>${effect.set}</div>`;
+                modalDetails.appendChild(setDetails);
+            }
+            
+            // 반복 여부
+            const loopDetails = document.createElement('div');
+            loopDetails.innerHTML = `<div class="detail-label">반복 여부</div><div>${effect.loop ? '반복' : '반복 안함'}</div>`;
+            modalDetails.appendChild(loopDetails);
+            
+            // 출시일
+            const dateDetails = document.createElement('div');
+            dateDetails.innerHTML = `<div class="detail-label">출시일</div><div>${effect.releaseDate}</div>`;
+            modalDetails.appendChild(dateDetails);
+            
+            // 출시 키트
+            const kitDetails = document.createElement('div');
+            kitDetails.innerHTML = `<div class="detail-label">출시 Kit</div><div>${effect.releaseKit}</div>`;
+            modalDetails.appendChild(kitDetails);
+            
+            // 모달 표시
+            modal.style.display = 'block';
+            
+            // 비디오 재생
+            modalVideo.play().catch(e => console.log('모달 비디오 재생 실패:', e));
+        }
+
+        // 색상 이름에 따른 컬러 코드 반환
+        function getColorCode(colorName) {
+            const colorMap = {
+                '빨간색': '#ff0000',
+                '주황색': '#ffa500',
+                '노란색': '#ffff00',
+                '초록색': '#00ff00',
+                '파란색': '#0000ff',
+                '남색': '#4b0082',
+                '보라색': '#800080',
+                '분홍색': '#ffc0cb',
+                '검은색': '#000000',
+                '흰색': '#ffffff',
+                '회색': '#808080'
+            };
+            
+            return colorMap[colorName] || '#cccccc';
+        }
+
+        // 모달 닫기
+        document.querySelector('.close').addEventListener('click', () => {
+            const modal = document.getElementById('modal');
+            const modalVideo = document.getElementById('modalVideo');
+            
+            modalVideo.pause();
+            modal.style.display = 'none';
+        });
+
+        // 모달 외부 클릭 시 닫기
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                const modalVideo = document.getElementById('modalVideo');
+                modalVideo.pause();
+                modal.style.display = 'none';
+            }
+        });
+
+        // 필터링 함수
+        function filterData() {
+            const searchText = document.getElementById('search').value.toLowerCase();
+            const colorFilter = document.getElementById('colorFilter').value;
+            const setFilter = document.getElementById('setFilter').value;
+            const loopFilter = document.getElementById('loopFilter').value;
+            const kitFilter = document.getElementById('kitFilter').value;
+            
+            // 모든 필터 조건 적용
+            filteredData = effectsData.filter(effect => {
+                // 검색어 필터
+                const nameMatch = effect.name.toLowerCase().includes(searchText);
+                
+                // 색상 필터 (color1, color2, color3 중 하나라도 일치하면 통과)
+                const colorMatch = !colorFilter || 
+                    effect.color1 === colorFilter || 
+                    effect.color2 === colorFilter || 
+                    effect.color3 === colorFilter;
+                
+                // 세트 필터
+                const setMatch = !setFilter || effect.set === setFilter;
+                
+                // 반복 여부 필터
+                const loopMatch = !loopFilter || effect.loop.toString() === loopFilter;
+                
+                // 키트 필터
+                const kitMatch = !kitFilter || effect.releaseKit === kitFilter;
+                
+                return nameMatch && colorMatch && setMatch && loopMatch && kitMatch;
+            });
+            
+            // 필터링된 결과 렌더링
+            renderCards(filteredData);
+            
+            // 통계 업데이트
+            updateStats();
+        }
+
+        // 통계 업데이트
+        function updateStats() {
+            document.getElementById('totalCount').textContent = effectsData.length;
+            document.getElementById('filteredCount').textContent = filteredData.length;
+        }
+
+        // 이벤트 리스너 등록
+        document.getElementById('search').addEventListener('input', filterData);
+        document.getElementById('colorFilter').addEventListener('change', filterData);
+        document.getElementById('setFilter').addEventListener('change', filterData);
+        document.getElementById('loopFilter').addEventListener('change', filterData);
+        document.getElementById('kitFilter').addEventListener('change', filterData);
+
+        // 페이지 로드 시 데이터 로드
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
 </body>
 </html>
