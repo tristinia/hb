@@ -1,39 +1,38 @@
-fetch('data/spiritList.json') // JSON 파일 경로 변경
+fetch('data/spiritList.json')
     .then(response => response.json())
     .then(data => {
         const container = document.getElementById('video-container');
         
-            data.forEach((item, index) => {
-                // 리스트 아이템 생성
-                const listItem = document.createElement('div');
-                listItem.className = 'video-item';
-                listItem.innerHTML = `
-                    <video id="video-${index}" 
-                           src="${item.videoLink}" 
-                           muted 
-                           loop 
-                           width="200" 
-                           height="150">
-                    </video>
-                    <div class="item-name">${item.name}</div>
-                `;
+        data.forEach((item, index) => {
+            // 리스트 아이템 생성
+            const listItem = document.createElement('div');
+            listItem.className = 'video-item';
+            listItem.innerHTML = `
+                <video id="video-${index}" 
+                       src="${item.videoLink}" 
+                       muted 
+                       loop 
+                       width="200" 
+                       height="150">
+                </video>
+                <div class="item-name">${item.name}</div>
+            `;
 
-                // 클릭 시 상세 정보 모달 
-                listItem.addEventListener('click', () => {
-                    showDetailModal(item);
-                });
+            // 클릭 시 상세 정보 모달 
+            listItem.addEventListener('click', () => {
+                showDetailModal(item);
+            });
 
-                container.appendChild(listItem);
+            container.appendChild(listItem);
 
-                // 자동 재생 설정
-                const video = document.getElementById(`video-${index}`);
-                video.addEventListener('loadedmetadata', () => {
-                    video.currentTime = 0;
-                    video.play();
-                });
+            // 자동 재생 설정
+            const video = document.getElementById(`video-${index}`);
+            video.addEventListener('loadedmetadata', () => {
+                video.currentTime = 0;
+                video.play();
             });
         });
-});
+    });
 
 function showDetailModal(item) {
     const modal = document.getElementById('detail-modal');
