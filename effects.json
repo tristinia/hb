@@ -242,6 +242,303 @@
     "releaseKit": "썸머 파라다이스 박스"
   },
   {
+    "name": "갤럭시",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20210819_kingjung_2h7tcj/16.mp4",
+    "color1": "파란색",
+    "color2": "보라색", 
+    "color3": "하얀색",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2021-08-19",
+    "releaseKit": "왕정 마법사의 상자"
+  },
+  {
+    "name": "리프 스플래쉬",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20210819_kingjung_2h7tcj/17.mp4",
+    "color1": "초록색",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2021-08-19",
+    "releaseKit": "왕정 마법사의 상자"
+  },
+  {
+    "name": "얼티밋 인페르노",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20210916_carasek_6dpqsf/17.mp4",
+    "color1": "파란색",
+    "color2": "", 
+    "color3": "",
+    "set": "인페르노",
+    "loop": false,
+    "releaseDate": "2021-09-16",
+    "releaseKit": "카라젝의 모험 상자"
+  },
+  {
+    "name": "화려한 빛의 가루",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20210916_carasek_6dpqsf/18.mp4",
+    "color1": "분홍색",
+    "color2": "", 
+    "color3": "",
+    "set": "빛의 가루",
+    "loop": false,
+    "releaseDate": "2021-09-16",
+    "releaseKit": "카라젝의 모험 상자"
+  },
+  {
+    "name": "헬파이어",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20210916_carasek_6dpqsf/19.mp4",
+    "color1": "빨간색",
+    "color2": "", 
+    "color3": "",
+    "set": "헬파이어",
+    "loop": false,
+    "releaseDate": "2021-09-16",
+    "releaseKit": "카라젝의 모험 상자"
+  },
+  {
+    "name": "썬더볼트",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20210916_carasek_6dpqsf/20.mp4",
+    "color1": "파란색",
+    "color2": "하얀색", 
+    "color3": "",
+    "set": "썬더볼트",
+    "loop": false,
+    "releaseDate": "2021-09-16",
+    "releaseKit": "카라젝의 모험 상자"
+  },
+  {
+    "name": "영혼의 절규",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20211021_wolmong_j2yag4/a18.mp4",
+    "color1": "초록색",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2021-10-21",
+    "releaseKit": "월야 추적자의 소지품"
+  },
+  {
+    "name": "악마의 속삭임",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20211021_wolmong_j2yag4/a19.mp4",
+    "color1": "검은색",
+    "color2": "", 
+    "color3": "",
+    "set": "악마의 속삭임",
+    "loop": false,
+    "releaseDate": "2021-10-21",
+    "releaseKit": "월야 추적자의 소지품"
+  },
+  {
+    "name": "솜사탕 구름",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220113_dream_z8mfu5/14.mp4",
+    "color1": "분홍색",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2022-01-13",
+    "releaseKit": "스위트 드림 박스"
+  },
+  {
+    "name": "달콤한 발자국",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220113_dream_z8mfu5/15.mp4",
+    "color1": "분홍색",
+    "color2": "빨간색", 
+    "color3": "",
+    "set": "달콤한 발자국",
+    "loop": false,
+    "releaseDate": "2022-01-13",
+    "releaseKit": "스위트 드림 박스"
+  },
+  {
+    "name": "크리스마스",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220113_dream_z8mfu5/16.mp4",
+    "color1": "빨간색",
+    "color2": "노란색", 
+    "color3": "초록색",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2022-01-13",
+    "releaseKit": "스위트 드림 박스"
+  },
+  {
+    "name": "눈꽃",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220113_dream_z8mfu5/17.mp4",
+    "color1": "파란색",
+    "color2": "하얀색", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2022-01-13",
+    "releaseKit": "스위트 드림 박스"
+  },
+  {
+    "name": "윈드 브레이커",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220113_dream_z8mfu5/18.mp4",
+    "color1": "초록색",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2022-01-13",
+    "releaseKit": "스위트 드림 박스"
+  },
+  {
+    "name": "붉은 번개",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220203_boxer_mr6uap/11.mp4",
+    "color1": "빨간색",
+    "color2": "", 
+    "color3": "",
+    "set": "번개",
+    "loop": false,
+    "releaseDate": "2022-02-03",
+    "releaseKit": "왕정 격투가의 상자"
+  },
+  {
+    "name": "신비로운 룬",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220203_boxer_mr6uap/12.mp4",
+    "color1": "파란색",
+    "color2": "하얀색", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2022-02-03",
+    "releaseKit": "왕정 격투가의 상자"
+  },
+  {
+    "name": "푸른 소용돌이",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220224_frozen_4cyrgk/15.mp4",
+    "color1": "파란색",
+    "color2": "검은색", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2022-02-24",
+    "releaseKit": "프로즌 하트 박스"
+  },
+  {
+    "name": "눈보라",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220224_frozen_4cyrgk/16.mp4",
+    "color1": "하얀색",
+    "color2": "파란색", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2022-02-24",
+    "releaseKit": "프로즌 하트 박스"
+  },
+  {
+    "name": "향긋한 커피콩",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220317_nobility_w9gnqj/13.mp4",
+    "color1": "갈색",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2022-03-17",
+    "releaseKit": "앤티크 노블리티 박스"
+  },
+  {
+    "name": "이터널 인페르노",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220407_lovesome_ei23ru/18.mp4",
+    "color1": "하얀색",
+    "color2": "", 
+    "color3": "",
+    "set": "인페르노",
+    "loop": false,
+    "releaseDate": "2022-04-07",
+    "releaseKit": "러브섬 데코레이션 가방"
+  },
+  {
+    "name": "인피니트 인페르노",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220407_lovesome_ei23ru/19.mp4",
+    "color1": "분홍색",
+    "color2": "초록색", 
+    "color3": "",
+    "set": "인페르노",
+    "loop": false,
+    "releaseDate": "2022-04-07",
+    "releaseKit": "러브섬 데코레이션 가방"
+  },
+  {
+    "name": "샤이닝 인페르노",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220407_lovesome_ei23ru/20.mp4",
+    "color1": "초록색",
+    "color2": "검은색", 
+    "color3": "",
+    "set": "인페르노",
+    "loop": false,
+    "releaseDate": "2022-04-07",
+    "releaseKit": "러브섬 데코레이션 가방"
+  },
+  {
+    "name": "기간틱 썬더볼트",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220407_lovesome_ei23ru/21.mp4",
+    "color1": "빨간색",
+    "color2": "", 
+    "color3": "",
+    "set": "썬더볼트",
+    "loop": false,
+    "releaseDate": "2022-04-07",
+    "releaseKit": "러브섬 데코레이션 가방"
+  },
+  {
+    "name": "아토믹 썬더볼트",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220407_lovesome_ei23ru/22.mp4",
+    "color1": "검은색",
+    "color2": "", 
+    "color3": "",
+    "set": "썬더볼트",
+    "loop": false,
+    "releaseDate": "2022-04-07",
+    "releaseKit": "러브섬 데코레이션 가방"
+  },
+  {
+    "name": "엠페러 썬더볼트",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220407_lovesome_ei23ru/23.mp4",
+    "color1": "노란색",
+    "color2": "", 
+    "color3": "",
+    "set": "썬더볼트",
+    "loop": false,
+    "releaseDate": "2022-04-07",
+    "releaseKit": "러브섬 데코레이션 가방"
+  },
+  {
+    "name": "아포칼립스 헬파이어",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220407_lovesome_ei23ru/24.mp4",
+    "color1": "파란색",
+    "color2": "", 
+    "color3": "",
+    "set": "헬파이어",
+    "loop": false,
+    "releaseDate": "2022-04-07",
+    "releaseKit": "러브섬 데코레이션 가방"
+  },
+  {
+    "name": "이모탈 헬파이어",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220407_lovesome_ei23ru/25.mp4",
+    "color1": "초록색",
+    "color2": "", 
+    "color3": "",
+    "set": "헬파이어",
+    "loop": false,
+    "releaseDate": "2022-04-07",
+    "releaseKit": "러브섬 데코레이션 가방"
+  },
+  {
+    "name": "데몬 헬파이어",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220407_lovesome_ei23ru/26.mp4",
+    "color1": "검은색",
+    "color2": "", 
+    "color3": "",
+    "set": "헬파이어",
+    "loop": false,
+    "releaseDate": "2022-04-07",
+    "releaseKit": "러브섬 데코레이션 가방"
+  },
+  {
     "name": "",
     "videoLink": "",
     "color1": "",
@@ -249,7 +546,7 @@
     "color3": "",
     "set": "",
     "loop": false,
-    "releaseDate": "2021-06-10",
-    "releaseKit": "썸머 파라다이스 박스"
+    "releaseDate": "",
+    "releaseKit": ""
   }
 ]
