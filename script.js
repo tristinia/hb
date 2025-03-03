@@ -1,22 +1,24 @@
 // 데이터를 저장할 변수
 let effectsData = [];
 let filteredData = [];
-let observer; // Intersection Observer를 위한 변수
 
-// 색상 정의
+// 색상 정의 - 순서대로 정렬
 const colors = [
-    { name: '하얀색', code: '#ffffff', isActive: false },
-    { name: '검은색', code: '#000000', isActive: false },
-    { name: '빨간색', code: '#ff0000', isActive: false },
-    { name: '주황색', code: '#ffa500', isActive: false },
-    { name: '노란색', code: '#ffff00', isActive: false },
-    { name: '초록색', code: '#00ff00', isActive: false },
-    { name: '파란색', code: '#0000ff', isActive: false },
-    { name: '보라색', code: '#800080', isActive: false },
-    { name: '분홍색', code: '#ffc0cb', isActive: false },
-    { name: '하늘색', code: '#87ceeb', isActive: false },
-    { name: '갈색', code: '#a52a2a', isActive: false },
-    { name: '청록색', code: '#008080', isActive: false }
+    // 기본 무지개 색상 (위쪽 행)
+    { name: '빨간색', code: '#ff0000', isActive: false, group: 'basic' },
+    { name: '주황색', code: '#ffa500', isActive: false, group: 'basic' },
+    { name: '노란색', code: '#ffff00', isActive: false, group: 'basic' },
+    { name: '초록색', code: '#00ff00', isActive: false, group: 'basic' },
+    { name: '파란색', code: '#0000ff', isActive: false, group: 'basic' },
+    { name: '보라색', code: '#800080', isActive: false, group: 'basic' },
+    
+    // 기타 색상 (아래쪽 행)
+    { name: '하얀색', code: '#ffffff', isActive: false, group: 'other' },
+    { name: '검은색', code: '#000000', isActive: false, group: 'other' },
+    { name: '분홍색', code: '#ffc0cb', isActive: false, group: 'other' },
+    { name: '하늘색', code: '#87ceeb', isActive: false, group: 'other' },
+    { name: '갈색', code: '#a52a2a', isActive: false, group: 'other' },
+    { name: '청록색', code: '#008080', isActive: false, group: 'other' }
 ];
 
 // 선택된 필터 상태
@@ -26,47 +28,9 @@ let selectedSet = '';
 
 // 초기화 및 데이터 로드
 document.addEventListener('DOMContentLoaded', () => {
-    initIntersectionObserver();
     loadData();
     setupEventListeners();
 });
-
-// Intersection Observer 초기화
-function initIntersectionObserver() {
-    observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            const cardEl = entry.target;
-            const videoEl = cardEl.querySelector('video');
-            
-            if (entry.isIntersecting) {
-                if (videoEl && !videoEl.dataset.played) {
-                    playPreviewVideo(videoEl);
-                }
-            } else {
-                if (videoEl) {
-                    videoEl.pause();
-                    videoEl.currentTime = 0;
-                }
-            }
-        });
-    }, { threshold: 0.1 });
-}
-
-// 비디오 미리보기 재생 (5초만 재생)
-function playPreviewVideo(videoEl) {
-    videoEl.currentTime = 0;
-    videoEl.dataset.played = 'true';
-    
-    videoEl.play().catch(e => console.log('비디오 재생 실패:', e));
-    
-    // 5초 후에 정지
-    setTimeout(() => {
-        if (!videoEl.paused) {
-            videoEl.pause();
-            videoEl.currentTime = 0;
-        }
-    }, 5000);
-}
 
 // JSON 파일 로드
 async function loadData() {
@@ -83,8 +47,8 @@ async function loadData() {
         // 세트 필터 옵션 생성
         populateSetOptions();
         
-        // 카드 렌더링 (청크 단위로)
-        renderCardsInChunks(effectsData);
+        // 카드 렌더링
+        renderCards(effectsData);
         
         // 통계 업데이트
         updateStats();
@@ -143,6 +107,14 @@ function closeModal() {
 function createColorFilters() {
     const colorFiltersContainer = document.getElementById('colorFilters');
     
+    // 두 행으로 나누기
+    const basicColorsDiv = document.createElement('div');
+    basicColorsDiv.className = 'basic-colors';
+    
+    const otherColorsDiv = document.createElement('div');
+    otherColorsDiv.className = 'other-colors';
+    
+    // 색상 필터 버튼 생성
     colors.forEach((color, index) => {
         const colorBtn = document.createElement('div');
         colorBtn.className = 'color-filter';
@@ -176,8 +148,17 @@ function createColorFilters() {
             applyFilters();
         });
         
-        colorFiltersContainer.appendChild(colorBtn);
+        // 그룹에 따라 추가
+        if (color.group === 'basic') {
+            basicColorsDiv.appendChild(colorBtn);
+        } else {
+            otherColorsDiv.appendChild(colorBtn);
+        }
     });
+    
+    // 컨테이너에 추가
+    colorFiltersContainer.appendChild(basicColorsDiv);
+    colorFiltersContainer.appendChild(otherColorsDiv);
 }
 
 // 세트 필터 옵션 채우기
@@ -192,8 +173,8 @@ function populateSetOptions() {
         }
     });
     
-    // 세트 옵션 추가
-    Array.from(sets).sort().forEach(set => {
+    // 세트 옵션 추가 (가나다순 정렬)
+    Array.from(sets).sort((a, b) => a.localeCompare(b, 'ko')).forEach(set => {
         const option = document.createElement('option');
         option.value = set;
         option.textContent = set;
@@ -217,14 +198,14 @@ function applyFilters() {
         // 검색어 필터
         const nameMatch = effect.name.toLowerCase().includes(searchText);
         
-        // 색상 필터 (여러 색상 중 하나라도 일치하면 통과)
+        // 색상 필터 (모든 선택된 색상을 포함하는 경우만 통과)
         let colorMatch = true;
         if (activeColorFilters.length > 0) {
-            colorMatch = activeColorFilters.some(color => 
-                effect.color1 === color || 
-                effect.color2 === color || 
-                effect.color3 === color
-            );
+            colorMatch = activeColorFilters.every(color => {
+                return effect.color1 === color || 
+                       effect.color2 === color || 
+                       effect.color3 === color;
+            });
         }
         
         // 세트 필터
@@ -236,24 +217,17 @@ function applyFilters() {
         return nameMatch && colorMatch && setMatch && loopMatch;
     });
     
-    // 필터링된 결과 다시 렌더링 (청크 단위로)
-    renderCardsInChunks(filteredData);
+    // 필터링된 결과 다시 렌더링
+    renderCards(filteredData);
     
     // 통계 업데이트
     updateStats();
 }
 
-// 카드를 청크 단위로 렌더링 (성능 최적화)
-function renderCardsInChunks(data, chunkSize = 15) {
+// 카드 렌더링 함수
+function renderCards(data) {
     const container = document.getElementById('card-container');
     container.innerHTML = '';
-    
-    // Intersection Observer에서 이전 관찰 중단
-    if (observer) {
-        document.querySelectorAll('.card').forEach(card => {
-            observer.unobserve(card);
-        });
-    }
     
     // 데이터가 없는 경우 메시지 표시
     if (data.length === 0) {
@@ -264,72 +238,79 @@ function renderCardsInChunks(data, chunkSize = 15) {
         return;
     }
     
-    let index = 0;
-    
-    function renderNextChunk() {
-        if (index >= data.length) return;
+    data.forEach(effect => {
+        const card = document.createElement('div');
+        card.className = 'card';
         
-        const chunk = data.slice(index, index + chunkSize);
-        chunk.forEach(effect => createCard(effect, container));
+        // 색상 표시를 위한 HTML 생성
+        const colorsHTML = [];
+        if (effect.color1) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color1)}" title="${effect.color1}"></div>`);
+        if (effect.color2) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color2)}" title="${effect.color2}"></div>`);
+        if (effect.color3) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color3)}" title="${effect.color3}"></div>`);
         
-        index += chunkSize;
+        // 비디오 링크가 이미지인지 확인
+        const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
         
-        if (index < data.length) {
-            // 다음 청크는 requestAnimationFrame으로 브라우저가 준비되었을 때 렌더링
-            window.requestAnimationFrame(renderNextChunk);
+        if (isImage) {
+            card.innerHTML = `
+                <div class="card-video-container">
+                    <img class="card-image" src="${effect.videoLink}" alt="${effect.name}">
+                </div>
+                <div class="card-info">
+                    <div class="card-title">${effect.name}</div>
+                    <div class="card-colors">
+                        ${colorsHTML.join('')}
+                    </div>
+                </div>
+            `;
+        } else {
+            card.innerHTML = `
+                <div class="card-video-container">
+                    <video class="card-video" src="${effect.videoLink}" muted playsinline preload="metadata"></video>
+                </div>
+                <div class="card-info">
+                    <div class="card-title">${effect.name}</div>
+                    <div class="card-colors">
+                        ${colorsHTML.join('')}
+                    </div>
+                </div>
+            `;
+            
+            // 호버링 시 비디오 재생/정지
+            const videoContainer = card.querySelector('.card-video-container');
+            const video = card.querySelector('.card-video');
+            
+            // 마우스 호버 이벤트
+            videoContainer.addEventListener('mouseenter', () => {
+                video.play().catch(e => console.log('비디오 재생 실패:', e));
+            });
+            
+            // 마우스 나가기 이벤트
+            videoContainer.addEventListener('mouseleave', () => {
+                video.pause();
+                video.currentTime = 0;
+            });
+            
+            // 모바일용 터치 이벤트
+            let touchTimer;
+            videoContainer.addEventListener('touchstart', () => {
+                touchTimer = setTimeout(() => {
+                    video.play().catch(e => console.log('비디오 재생 실패:', e));
+                }, 200); // 짧은 터치와 구분하기 위한 딜레이
+            });
+            
+            videoContainer.addEventListener('touchend', () => {
+                clearTimeout(touchTimer);
+                video.pause();
+                video.currentTime = 0;
+            });
         }
-    }
-    
-    renderNextChunk();
-}
-
-// 개별 카드 생성
-function createCard(effect, container) {
-    const card = document.createElement('div');
-    card.className = 'card';
-    
-    // 색상 표시를 위한 HTML 생성
-    const colorsHTML = [];
-    if (effect.color1) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color1)}" title="${effect.color1}"></div>`);
-    if (effect.color2) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color2)}" title="${effect.color2}"></div>`);
-    if (effect.color3) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color3)}" title="${effect.color3}"></div>`);
-    
-    // 비디오 링크가 이미지인지 확인
-    const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
-    
-    if (isImage) {
-        card.innerHTML = `
-            <div class="card-video-container">
-                <img class="card-image" src="${effect.videoLink}" alt="${effect.name}">
-            </div>
-            <div class="card-info">
-                <div class="card-title">${effect.name}</div>
-                <div class="card-colors">
-                    ${colorsHTML.join('')}
-                </div>
-            </div>
-        `;
-    } else {
-        card.innerHTML = `
-            <div class="card-video-container">
-                <video class="card-video" src="${effect.videoLink}" muted playsinline preload="metadata"></video>
-            </div>
-            <div class="card-info">
-                <div class="card-title">${effect.name}</div>
-                <div class="card-colors">
-                    ${colorsHTML.join('')}
-                </div>
-            </div>
-        `;
-    }
-    
-    // 카드 클릭 이벤트
-    card.addEventListener('click', () => openModal(effect));
-    
-    container.appendChild(card);
-    
-    // 새로 추가된 카드를 Intersection Observer로 관찰
-    observer.observe(card);
+        
+        // 카드 클릭 이벤트
+        card.addEventListener('click', () => openModal(effect));
+        
+        container.appendChild(card);
+    });
 }
 
 // 모달 열기
@@ -361,31 +342,34 @@ function openModal(effect) {
     // 제목 설정
     modalTitle.textContent = effect.name;
     
-    // 색상 정보 - 항상 동일한 레이아웃 유지
-    modalColors.innerHTML = '<div class="color-list"></div>';
-    const colorList = modalColors.querySelector('.color-list');
+    // 색상 정보
+    modalColors.innerHTML = '';
     
-    // 색상 정보 추가 (색상이 1~3개여도 동일한 레이아웃)
-    for (let i = 1; i <= 3; i++) {
-        const colorKey = `color${i}`;
-        const colorItem = document.createElement('div');
-        colorItem.className = 'color-item';
-        
-        if (effect[colorKey]) {
-            colorItem.innerHTML = `
-                <div class="color-dot" style="background-color: ${getColorCode(effect[colorKey])}"></div>
-                <span>${effect[colorKey]}</span>
-            `;
-        } else {
-            // 빈 색상 자리 (레이아웃 유지를 위해)
-            colorItem.style.visibility = 'hidden';
-            colorItem.innerHTML = `
-                <div class="color-dot"></div>
-                <span>없음</span>
-            `;
-        }
-        
-        colorList.appendChild(colorItem);
+    if (effect.color1) {
+        modalColors.innerHTML += `
+            <div class="color-item">
+                <div class="color-dot" style="background-color: ${getColorCode(effect.color1)}"></div>
+                <span>${effect.color1}</span>
+            </div>
+        `;
+    }
+    
+    if (effect.color2) {
+        modalColors.innerHTML += `
+            <div class="color-item">
+                <div class="color-dot" style="background-color: ${getColorCode(effect.color2)}"></div>
+                <span>${effect.color2}</span>
+            </div>
+        `;
+    }
+    
+    if (effect.color3) {
+        modalColors.innerHTML += `
+            <div class="color-item">
+                <div class="color-dot" style="background-color: ${getColorCode(effect.color3)}"></div>
+                <span>${effect.color3}</span>
+            </div>
+        `;
     }
     
     // 속성 정보 (세트, 무한지속)
@@ -393,17 +377,21 @@ function openModal(effect) {
     
     // 세트 정보
     if (effect.set && effect.set.trim() !== '') {
-        const setItem = document.createElement('div');
-        setItem.className = 'attribute-item';
-        setItem.innerHTML = `<span class="attribute-label">세트:</span> ${effect.set}`;
-        modalAttributes.appendChild(setItem);
+        modalAttributes.innerHTML += `
+            <div class="attribute-item">
+                ${effect.set}
+            </div>
+        `;
     }
     
-    // 무한지속 여부
-    const loopItem = document.createElement('div');
-    loopItem.className = 'attribute-item';
-    loopItem.innerHTML = `<span class="attribute-label">무한지속:</span> ${effect.loop ? '예' : '아니오'}`;
-    modalAttributes.appendChild(loopItem);
+    // 무한지속 여부 (true인 경우만 표시)
+    if (effect.loop) {
+        modalAttributes.innerHTML += `
+            <div class="attribute-item">
+                무한지속
+            </div>
+        `;
+    }
     
     // 출시 정보 (출시일, 출시 키트)
     modalReleaseInfo.innerHTML = '';
