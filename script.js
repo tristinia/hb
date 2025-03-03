@@ -420,3 +420,40 @@ function openModal(effect) {
     
     // 모달 표시
     modal.style.display = 'block';
+}
+
+// 날짜 형식 변경 (YYYY-MM-DD -> YYYY년 MM월 DD일)
+function formatDate(dateString) {
+    if (!dateString) return '';
+    
+    const parts = dateString.split('-');
+    if (parts.length !== 3) return dateString;
+    
+    return `${parts[0]}년 ${parts[1]}월 ${parts[2]}일`;
+}
+
+// 색상 이름에 따른 컬러 코드 반환
+function getColorCode(colorName) {
+    const colorMap = {
+        '하얀색': '#ffffff',
+        '검은색': '#000000',
+        '빨간색': '#ff0000',
+        '주황색': '#ffa500',
+        '노란색': '#ffff00',
+        '초록색': '#00ff00',
+        '파란색': '#0000ff',
+        '보라색': '#800080',
+        '분홍색': '#ffc0cb',
+        '하늘색': '#87ceeb',
+        '갈색': '#a52a2a',
+        '청록색': '#008080'
+    };
+    
+    return colorMap[colorName] || '#cccccc';
+}
+
+// 통계 업데이트
+function updateStats() {
+    document.getElementById('totalCount').textContent = effectsData.length;
+    document.getElementById('filteredCount').textContent = filteredData.length;
+}
