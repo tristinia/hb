@@ -30,6 +30,7 @@ h3 {
     font-size: 14px;
     margin-bottom: 8px;
     color: rgba(255, 255, 255, 0.8);
+    text-align: center;
 }
 
 .search-container {
@@ -68,6 +69,10 @@ h3 {
 
 .filter-group {
     min-width: 200px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .color-filters {
@@ -75,16 +80,29 @@ h3 {
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 10px;
+    justify-content: center;
+    max-width: 250px;
+}
+
+.basic-colors {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.other-colors {
+    display: flex;
+    justify-content: center;
 }
 
 .color-filter {
     width: 30px;
     height: 30px;
-    border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s, box-shadow 0.2s;
     position: relative;
+    border-radius: 4px;
 }
 
 .color-filter.active {
@@ -99,7 +117,7 @@ h3 {
     left: -3px;
     right: -3px;
     bottom: -3px;
-    border-radius: 50%;
+    border-radius: 4px;
     border: 2px solid #fff;
     pointer-events: none;
 }
@@ -113,6 +131,7 @@ h3 {
     color: white;
     font-size: 14px;
     cursor: pointer;
+    max-width: 200px;
 }
 
 #setFilter:focus {
@@ -135,6 +154,9 @@ h3 {
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
 }
 
 .loop-filter.active {
@@ -200,6 +222,7 @@ main {
     z-index: 1;
     background: rgba(255, 255, 255, 0.9);
     border-top: 1px solid rgba(0, 0, 0, 0.05);
+    text-align: center;
 }
 
 .card-title {
@@ -212,15 +235,16 @@ main {
 .card-colors {
     display: flex;
     gap: 5px;
+    justify-content: center;
 }
 
 .color-dot {
     width: 15px;
     height: 15px;
-    border-radius: 50%;
     display: inline-block;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
 }
 
 /* 모달 스타일 */
@@ -269,39 +293,22 @@ main {
 }
 
 .modal-info h2 {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     color: #2c3e50;
     font-size: 22px;
+    text-align: center;
 }
 
 .modal-details {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
 }
 
 .modal-colors {
-    flex: 1;
-    min-width: 150px;
-    margin-bottom: 15px;
-}
-
-.modal-attributes {
-    flex: 1;
-    min-width: 150px;
-    margin-bottom: 15px;
-}
-
-.modal-release-info {
-    flex-basis: 100%;
-    text-align: right;
-    margin-top: 10px;
-    font-size: 13px;
-    color: #777;
-}
-
-.color-list {
+    margin-bottom: 10px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     gap: 8px;
 }
 
@@ -309,20 +316,29 @@ main {
     display: flex;
     align-items: center;
     gap: 8px;
+    margin: 0 5px;
 }
 
 .color-item span {
     color: #333;
 }
 
+.modal-attributes {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
 .attribute-item {
-    margin-bottom: 8px;
+    display: inline-block;
+    margin: 0 8px;
     color: #333;
 }
 
-.attribute-label {
-    font-weight: bold;
-    margin-right: 5px;
+.modal-release-info {
+    text-align: right;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #777;
 }
 
 /* 모바일 최적화 */
