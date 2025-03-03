@@ -539,6 +539,138 @@
     "releaseKit": "러브섬 데코레이션 가방"
   },
   {
+    "name": "해변의 산책",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220519_wave_xr4ctu/16.mp4",
+    "color1": "빨간색",
+    "color2": "하얀색", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2022-05-19",
+    "releaseKit": "파도의 수호자 상자"
+  },
+  {
+    "name": "파도의 물결",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220519_wave_xr4ctu/17.mp4",
+    "color1": "파란색",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2022-05-19",
+    "releaseKit": "파도의 수호자 상자"
+  },
+  {
+    "name": "매혹적인 향기",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220602_bluezen_2g7dcg/17.mp4",
+    "color1": "주황색",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2022-04-07",
+    "releaseKit": "러브섬 데코레이션 가방"
+  },
+  {
+    "name": "홀리 라이트",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220811_carasek_l07f02/15.mp4",
+    "color1": "청록색",
+    "color2": "하얀색", 
+    "color3": "",
+    "set": "홀리 라이트",
+    "loop": false,
+    "releaseDate": "2022-08-11",
+    "releaseKit": "카라젝의 모험 상자"
+  },
+  {
+    "name": "썬더 브레이커",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220811_carasek_l07f02/16.mp4",
+    "color1": "파란색",
+    "color2": "", 
+    "color3": "",
+    "set": "썬더 브레이커",
+    "loop": true,
+    "releaseDate": "2022-08-11",
+    "releaseKit": "카라젝의 모험 상자"
+  },
+  {
+    "name": "프로미넌스",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220811_carasek_l07f02/17.mp4",
+    "color1": "빨간색",
+    "color2": "주황색", 
+    "color3": "",
+    "set": "썬더 브레이커",
+    "loop": true,
+    "releaseDate": "2022-08-11",
+    "releaseKit": "카라젝의 모험 상자"
+  },
+  {
+    "name": "블루 워터 버터플라이",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220818_blue_lzoaj2/17.mp4",
+    "color1": "파란색",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2022-08-18",
+    "releaseKit": "블루 워터 박스"
+  },
+  {
+    "name": "푸른빛 번개",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220818_blue_lzoaj2/18.mp4",
+    "color1": "파란색",
+    "color2": "", 
+    "color3": "",
+    "set": "번개",
+    "loop": false,
+    "releaseDate": "2022-08-18",
+    "releaseKit": "블루 워터 박스"
+  },
+  {
+    "name": "다크 오라",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220908_cobra_vglvakyq1/12.mp4",
+    "color1": "검은색",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2022-09-08",
+    "releaseKit": "피어스 코브라 박스"
+  },
+  {
+    "name": "블루 엠버",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220908_cobra_vglvakyq1/13.mp4",
+    "color1": "파란색",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2022-09-08",
+    "releaseKit": "피어스 코브라 박스"
+  },
+  {
+    "name": "몽환의 안개",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220908_cobra_vglvakyq1/14.mp4",
+    "color1": "분홍색",
+    "color2": "", 
+    "color3": "",
+    "set": "안개",
+    "loop": false,
+    "releaseDate": "2022-09-08",
+    "releaseKit": "피어스 코브라 박스"
+  },
+  {
+    "name": "빛나는 샘물",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mp4/20220908_cobra_vglvakyq1/15.mp4",
+    "color1": "파란색",
+    "color2": "", 
+    "color3": "",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2022-09-08",
+    "releaseKit": "피어스 코브라 박스"
+  },
+  {
     "name": "",
     "videoLink": "",
     "color1": "",
@@ -548,5 +680,5 @@
     "loop": false,
     "releaseDate": "",
     "releaseKit": ""
-  }
+  },
 ]
