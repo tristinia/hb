@@ -142,6 +142,7 @@ h3 {
     margin: 20px auto;
     max-width: 900px;
     justify-content: center;
+    align-items: center; /* 수직 중앙 정렬 추가 */
 }
 
 .filter-group {
@@ -150,13 +151,15 @@ h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    align-self: center; /* 수직 중앙 정렬 추가 */
 }
 
-.color-filter-group {
+/* PC 환경에서의 필터 순서 */
+.loop-filter-group {
     order: 1;
 }
 
-.loop-filter-group {
+.color-filter-group {
     order: 2;
 }
 
@@ -218,15 +221,13 @@ h3 {
     cursor: pointer;
     max-width: 200px;
     transition: background-color var(--transition-fast);
-    text-align-last: center; /* Better centering for select */
+    text-align-last: center; /* 드롭다운 텍스트 중앙 정렬 */
     text-align: center;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    padding-right: 30px;
+    /* 화살표 제거 */
+    background-image: none;
 }
 
 #setFilter:focus {
@@ -347,15 +348,17 @@ main {
     transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
+/* 개선된 카드 비디오 컨테이너 스타일 */
 .card-video-container {
     position: relative;
     width: 100%;
     height: 0;
-    padding-bottom: 75%; /* 4:3 Aspect Ratio */
+    padding-bottom: 71.43%; /* 840:600 비율 (600/840*100) */
     overflow: hidden;
     background-color: #000;
-    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* Rounded top corners only */
-    margin-bottom: 0; /* Ensure no gap */
+    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* 위쪽만 라운딩 */
+    margin-bottom: 0;
+    z-index: 1; /* 영상이 속성보다 위에 오도록 설정 */
 }
 
 .card-video, .card-image {
@@ -368,14 +371,13 @@ main {
 }
 
 .card-info {
-    padding: 15px;
     position: relative;
-    z-index: 0; /* Changed from 1 to 0 to avoid overlap issues */
     background-color: var(--card-info-bg);
     text-align: center;
-    border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); /* Rounded bottom corners only */
-    margin-top: 0; /* Ensure no gap */
-    display: block; /* Ensure block display */
+    border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); /* 아래쪽만 라운딩 */
+    padding: 15px;
+    margin-top: -5px; /* 약간 겹치게 하여 라운딩 문제 해결 */
+    z-index: 0; /* 속성은 영상 아래에 위치 */
 }
 
 .card-colors {
@@ -431,6 +433,7 @@ main {
     padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
     background-color: #000;
     border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* Rounded top corners only */
+    z-index: 1;
 }
 
 .modal-video, .modal-image {
@@ -445,7 +448,9 @@ main {
     padding: 20px;
     background-color: var(--modal-info-bg);
     border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); /* Rounded bottom corners only */
-    margin-top: 0; /* Ensure no gap */
+    margin-top: -5px; /* 약간 겹치게 하여 라운딩 문제 해결 */
+    position: relative;
+    z-index: 0;
 }
 
 .modal-info h2 {
@@ -541,6 +546,19 @@ main {
         height: 25px;
     }
     
+    /* 모바일에서의 필터 순서 변경 */
+    .color-filter-group {
+        order: 1;
+    }
+    
+    .loop-filter-group {
+        order: 2;
+    }
+    
+    .set-filter-group {
+        order: 3;
+    }
+    
     .modal-content {
         width: 95%;
         margin: 10% auto;
@@ -567,7 +585,7 @@ main {
         height: 100%;
         padding-bottom: 0;
         border-radius: var(--border-radius-md) 0 0 var(--border-radius-md); /* Left side rounded */
-        z-index: 0;
+        z-index: 1;
     }
     
     .card-info {
@@ -578,17 +596,12 @@ main {
         text-align: left;
         padding: 10px 15px;
         border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; /* Right side rounded */
+        margin-top: 0;
+        margin-left: -5px;
         z-index: 0;
     }
     
     .card-colors {
         justify-content: flex-start;
-    }
-    
-    /* Reset ordering for mobile - these will stack in their original order */
-    .color-filter-group,
-    .loop-filter-group,
-    .set-filter-group {
-        order: initial;
     }
 }
