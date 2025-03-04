@@ -65,9 +65,10 @@ body {
     transform: translateY(-100%);
     transition: transform var(--transition-normal);
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     box-shadow: var(--box-shadow);
+    border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
 }
 
 .sticky-header.visible {
@@ -78,15 +79,8 @@ body {
     color: var(--text-dark);
     font-size: 16px;
     font-weight: bold;
-    flex: 1;
     text-align: center;
-}
-
-.sticky-stats {
-    color: var(--text-dark);
-    font-size: 14px;
-    min-width: 80px;
-    text-align: right;
+    cursor: pointer;
 }
 
 header {
@@ -108,6 +102,7 @@ h1 {
 }
 
 h3 {
+    display: none; /* Hide filter titles */
     font-size: 14px;
     margin-bottom: 8px;
     color: var(--text-dark);
@@ -157,11 +152,11 @@ h3 {
 }
 
 .color-filter-group {
-    order: 2;
+    order: 1;
 }
 
 .loop-filter-group {
-    order: 1;
+    order: 2;
 }
 
 .set-filter-group {
@@ -222,7 +217,15 @@ h3 {
     cursor: pointer;
     max-width: 200px;
     transition: background-color var(--transition-fast);
-    text-align: center; /* Center align text */
+    text-align-last: center; /* Better centering for select */
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
 }
 
 #setFilter:focus {
@@ -233,7 +236,7 @@ h3 {
 #setFilter option {
     background-color: var(--bg-light);
     color: var(--text-dark);
-    text-align: center; /* Ensure options are centered too */
+    text-align: center;
 }
 
 .loop-filter {
@@ -286,21 +289,54 @@ main {
     box-shadow: var(--box-shadow);
     transition: transform var(--transition-normal), 
                 box-shadow var(--transition-normal), 
-                background-color var(--transition-normal),
-                opacity 0.2s ease;
+                background-color var(--transition-normal);
     cursor: pointer;
     position: relative;
-    animation: cardAppear 0.3s ease forwards;
 }
 
-@keyframes cardAppear {
+.card.new-card-right {
+    animation: slideInFromRight 0.4s ease forwards;
+}
+
+.card.new-card-left {
+    animation: slideInFromLeft 0.4s ease forwards;
+}
+
+.card.moving-card {
+    animation: movePosition 0.5s ease-in-out;
+}
+
+@keyframes slideInFromRight {
     from {
         opacity: 0;
-        transform: scale(0.9);
+        transform: translateX(50px);
     }
     to {
         opacity: 1;
-        transform: scale(1);
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes movePosition {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(8px);
+    }
+    100% {
+        transform: translateY(0);
     }
 }
 
@@ -317,6 +353,7 @@ main {
     overflow: hidden;
     background-color: #000;
     border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* Rounded top corners only */
+    margin-bottom: 0; /* Ensure no gap */
 }
 
 .card-video, .card-image {
@@ -331,11 +368,13 @@ main {
 .card-info {
     padding: 15px;
     position: relative;
-    z-index: 1;
+    z-index: 0; /* Changed from 1 to 0 to avoid overlap issues */
     background-color: var(--card-info-bg);
     text-align: center;
     transition: background-color var(--transition-normal);
     border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); /* Rounded bottom corners only */
+    margin-top: 0; /* Ensure no gap */
+    display: block; /* Ensure block display */
 }
 
 .card-colors {
