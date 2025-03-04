@@ -5,7 +5,11 @@ let currentlyPlayingVideos = new Set();
 let isLoading = false;
 let currentOffset = 0;
 const ITEMS_PER_PAGE = 20;
-const MAX_INITIAL_VIDEOS = 10; // 최대 비디오 로드 수
+let latestUpdateDate = '';
+
+// 순차적 비디오 로딩을 위한 변수
+let videoLoadQueue = [];
+let isLoadingVideo = false;
 
 // 색상 정의 - 순서대로 정렬
 const colors = [
@@ -36,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSticky();
     loadData();
     setupEventListeners();
-    addFooter();
+    // 푸터는 데이터 로드 후에 추가
 });
 
 // 스크롤 시 헤더 고정
@@ -62,11 +66,14 @@ function setupSticky() {
     });
 }
 
-// 푸터 추가
+// 푸터 추가 (데이터 로드 후 최신 날짜 포함)
 function addFooter() {
     const footer = document.createElement('div');
     footer.className = 'footer';
-    footer.textContent = 'WF신의컨트롤';
+    footer.innerHTML = `
+        <div class="author">WF신의컨트롤</div>
+        <div class="update-date">${latestUpdateDate} 업데이트</div>
+    `;
     document.body.appendChild(footer);
 }
 
@@ -76,6 +83,10 @@ async function loadData() {
         showLoading(true);
         const response = await fetch('effects.json');
         effectsData = await response.json();
+        
+        // 최신 날짜 찾기
+        findLatestUpdateDate();
+        
         // 역순으로 정렬 (최신 항목이 맨 위로)
         effectsData = effectsData.reverse();
         filteredData = [...effectsData];
@@ -91,6 +102,10 @@ async function loadData() {
         
         // 통계 업데이트
         updateStats();
+        
+        // 최신 날짜가 있는 푸터 추가
+        addFooter();
+        
         showLoading(false);
         
         // 스크롤 이벤트 리스너 설정
@@ -98,6 +113,26 @@ async function loadData() {
     } catch (error) {
         console.error('데이터 로드 중 오류 발생:', error);
         showLoading(false);
+        // 오류가 발생해도 푸터는 추가
+        addFooter();
+    }
+}
+
+// 최신 업데이트 날짜 찾기
+function findLatestUpdateDate() {
+    let latestDate = '';
+    
+    effectsData.forEach(effect => {
+        if (effect.releaseDate && effect.releaseDate > latestDate) {
+            latestDate = effect.releaseDate;
+        }
+    });
+    
+    // 날짜 포맷 변경
+    if (latestDate) {
+        latestUpdateDate = formatDate(latestDate);
+    } else {
+        latestUpdateDate = '날짜 정보 없음';
     }
 }
 
@@ -117,10 +152,14 @@ function renderInitialCards() {
     const container = document.getElementById('card-container');
     container.innerHTML = '';
     
+    // 비디오 로딩 큐 초기화
+    videoLoadQueue = [];
+    isLoadingVideo = false;
+    
     renderNextBatch();
 }
 
-// 다음 배치 카드 렌더링 (성능 최적화)
+// 다음 배치 카드 렌더링
 function renderNextBatch() {
     if (isLoading || currentOffset >= filteredData.length) return;
     
@@ -139,36 +178,130 @@ function renderNextBatch() {
     
     isLoading = true;
     
-    // requestAnimationFrame을 사용해 최적의 타이밍에 렌더링
-    requestAnimationFrame(() => {
-        // 문서 프래그먼트를 사용해 DOM 조작 최소화
-        const fragment = document.createDocumentFragment();
+    // 문서 프래그먼트를 사용해 DOM 조작 최소화
+    const fragment = document.createDocumentFragment();
+    
+    // 카드 생성
+    for (let i = 0; i < itemsToRender; i++) {
+        const effect = filteredData[currentOffset + i];
+        const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
         
-        // 배치 처리로 카드 생성
-        for (let i = 0; i < itemsToRender; i++) {
-            const effect = filteredData[currentOffset + i];
-            const card = createCard(effect, i < MAX_INITIAL_VIDEOS);
+        // 이미지는 바로 생성, 비디오는 순차적으로 로드
+        const card = createCard(effect, isImage);
+        
+        // 비디오가 아닌 이미지는 바로 표시
+        if (!isImage) {
+            // 비디오 카드는 로딩 큐에 추가
+            const videoContainer = card.querySelector('.card-video-container');
+            const video = card.querySelector('.card-video');
             
-            // 적은 수의 카드만 애니메이션 적용 (최대 10개)
-            if (i < 10) {
-                if (i % 2 === 0) {
-                    card.classList.add('new-card-left');
-                } else {
-                    card.classList.add('new-card-right');
-                }
-            }
+            // 로딩 표시 추가
+            videoContainer.classList.add('loading');
             
-            fragment.appendChild(card);
+            // 로딩 큐에 추가
+            videoLoadQueue.push({
+                container: videoContainer,
+                video: video,
+                src: effect.videoLink
+            });
         }
         
-        container.appendChild(fragment);
-        currentOffset += itemsToRender;
+        // 애니메이션 클래스 추가
+        if (i % 2 === 0) {
+            card.classList.add('new-card-left');
+        } else {
+            card.classList.add('new-card-right');
+        }
         
-        isLoading = false;
-    });
+        fragment.appendChild(card);
+    }
+    
+    container.appendChild(fragment);
+    currentOffset += itemsToRender;
+    isLoading = false;
+    
+    // 비디오 순차 로딩 시작
+    if (videoLoadQueue.length > 0 && !isLoadingVideo) {
+        loadNextVideo();
+    }
 }
 
-// 스크롤 리스너 설정 (성능 최적화)
+// 순차적으로 비디오 로드
+function loadNextVideo() {
+    if (videoLoadQueue.length === 0) {
+        isLoadingVideo = false;
+        return;
+    }
+    
+    isLoadingVideo = true;
+    const videoInfo = videoLoadQueue.shift();
+    
+    // 비디오 로드 시작
+    videoInfo.video.src = videoInfo.src;
+    
+    // 로드 완료 이벤트
+    videoInfo.video.addEventListener('loadeddata', function onLoad() {
+        // 로딩 표시 제거
+        videoInfo.container.classList.remove('loading');
+        
+        // 이벤트 리스너 제거
+        videoInfo.video.removeEventListener('loadeddata', onLoad);
+        
+        // 다음 비디오 로드
+        setTimeout(() => {
+            loadNextVideo();
+        }, 100); // 약간의 지연으로 시스템 부하 방지
+    });
+    
+    // 로드 오류 처리
+    videoInfo.video.addEventListener('error', function onError() {
+        console.error('비디오 로드 실패:', videoInfo.src);
+        
+        // 로딩 표시 제거
+        videoInfo.container.classList.remove('loading');
+        
+        // 이벤트 리스너 제거
+        videoInfo.video.removeEventListener('error', onError);
+        
+        // 오류 메시지 표시
+        videoInfo.container.innerHTML += `
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+                 background-color: rgba(0,0,0,0.7); color: white; display: flex; 
+                 justify-content: center; align-items: center; text-align: center; padding: 10px;">
+                비디오를 불러올 수 없습니다
+            </div>
+        `;
+        
+        // 다음 비디오 로드
+        setTimeout(() => {
+            loadNextVideo();
+        }, 100);
+    });
+    
+    // 타임아웃 설정 (10초 후에도 로드가 안 되면 다음으로 진행)
+    setTimeout(() => {
+        if (videoInfo.container.classList.contains('loading')) {
+            console.warn('비디오 로드 타임아웃:', videoInfo.src);
+            
+            // 로딩 표시 제거
+            videoInfo.container.classList.remove('loading');
+            
+            // 오류 메시지 표시
+            videoInfo.container.innerHTML += `
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+                     background-color: rgba(0,0,0,0.7); color: white; display: flex; 
+                     justify-content: center; align-items: center; text-align: center; padding: 10px;">
+                    비디오 로딩 시간 초과
+                </div>
+            `;
+            
+            // 다음 비디오 로드
+            loadNextVideo();
+        }
+    }, 10000); // 10초 타임아웃
+}
+
+// 스크롤 리스너 설정
 function setupScrollListener() {
     // 디바운스 적용한 스크롤 핸들러
     let scrollTimeout;
@@ -213,7 +346,10 @@ function setupEventListeners() {
     });
     
     // 검색창 이벤트
-    document.getElementById('search').addEventListener('input', debounce(() => {
+    const searchInput = document.getElementById('search');
+    searchInput.placeholder = "검색..."; // 중앙 정렬에 어울리는 간결한 텍스트로 변경
+    
+    searchInput.addEventListener('input', debounce(() => {
         applyFilters();
     }, 300));
     
@@ -225,24 +361,18 @@ function setupEventListeners() {
     });
     
     // 세트 필터 이벤트
-    document.getElementById('setFilter').addEventListener('change', (e) => {
+    const setFilter = document.getElementById('setFilter');
+    setFilter.addEventListener('change', (e) => {
         selectedSet = e.target.value;
+        
+        // 선택된 경우 클래스 추가
+        if (selectedSet) {
+            setFilter.classList.add('selected');
+        } else {
+            setFilter.classList.remove('selected');
+        }
+        
         applyFilters();
-    });
-    
-    // 모달 닫기 이벤트 (모달 외부 클릭)
-    window.addEventListener('click', (event) => {
-        const modal = document.getElementById('modal');
-        if (event.target === modal) {
-            closeModal();
-        }
-    });
-    
-    // 키보드 ESC 키 이벤트 (모달 닫기)
-    window.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && document.getElementById('modal').style.display === 'block') {
-            closeModal();
-        }
     });
 }
 
@@ -357,7 +487,7 @@ function updateColorFilterUI() {
     });
 }
 
-// 모든 필터 적용 (성능 최적화)
+// 모든 필터 적용
 function applyFilters() {
     // 재생 중인 모든 비디오 정지
     stopAllVideos();
@@ -391,6 +521,10 @@ function applyFilters() {
     // 필터링 결과 저장 
     filteredData = newFilteredData;
     
+    // 비디오 로딩 큐 비우기
+    videoLoadQueue = [];
+    isLoadingVideo = false;
+    
     // 카드를 모두 페이드 아웃
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
@@ -416,8 +550,8 @@ function stopAllVideos() {
     currentlyPlayingVideos.clear();
 }
 
-// 개별 카드 생성 (성능 최적화)
-function createCard(effect, loadVideo = false) {
+// 개별 카드 생성
+function createCard(effect, isImage) {
     const card = document.createElement('div');
     card.className = 'card';
     
@@ -427,10 +561,8 @@ function createCard(effect, loadVideo = false) {
     if (effect.color2) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color2)}" title="${effect.color2}"></div>`);
     if (effect.color3) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color3)}" title="${effect.color3}"></div>`);
     
-    // 비디오 링크가 이미지인지 확인
-    const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
-    
     if (isImage) {
+        // 이미지는 바로 로드
         card.innerHTML = `
             <div class="card-video-container">
                 <img class="card-image" src="${effect.videoLink}" alt="${effect.name}">
@@ -443,10 +575,10 @@ function createCard(effect, loadVideo = false) {
             </div>
         `;
     } else {
-        // 비디오는 초기 10개까지 바로 로드, 그 이후는 호버링 시 로드
+        // 비디오는 초기에 src 없이 생성
         card.innerHTML = `
             <div class="card-video-container">
-                <video class="card-video" muted playsinline preload="${loadVideo ? 'metadata' : 'none'}" ${loadVideo ? `src="${effect.videoLink}"` : ''}></video>
+                <video class="card-video" muted playsinline preload="none"></video>
             </div>
             <div class="card-info">
                 <div class="card-colors">
@@ -460,20 +592,17 @@ function createCard(effect, loadVideo = false) {
         const video = card.querySelector('.card-video');
         const videoContainer = card.querySelector('.card-video-container');
         
-        // 호버링 이벤트 - 기본 비디오 처리
+        // 호버링 이벤트
         videoContainer.addEventListener('mouseenter', () => {
             // 다른 비디오 재생 중이면 중지
             stopAllVideos();
             
-            // 비디오 소스가 없으면 설정
-            if (!video.src && effect.videoLink) {
-                video.src = effect.videoLink;
+            // 비디오가 로드된 경우에만 재생
+            if (video.src) {
+                video.currentTime = 0;
+                video.play().catch(e => console.log('비디오 재생 실패:', e));
+                currentlyPlayingVideos.add(video);
             }
-            
-            // 비디오 재생
-            video.currentTime = 0;
-            video.play().catch(e => console.log('비디오 재생 실패:', e));
-            currentlyPlayingVideos.add(video);
         });
         
         // 마우스 나가기 이벤트
@@ -492,15 +621,12 @@ function createCard(effect, loadVideo = false) {
                 // 다른 비디오 재생 중이면 중지
                 stopAllVideos();
                 
-                // 비디오 소스가 없으면 설정
-                if (!video.src && effect.videoLink) {
-                    video.src = effect.videoLink;
+                // 비디오가 로드된 경우에만 재생
+                if (video.src) {
+                    video.currentTime = 0;
+                    video.play().catch(e => console.log('비디오 재생 실패:', e));
+                    currentlyPlayingVideos.add(video);
                 }
-                
-                // 비디오 재생
-                video.currentTime = 0;
-                video.play().catch(e => console.log('비디오 재생 실패:', e));
-                currentlyPlayingVideos.add(video);
             }, 200); // 짧은 터치와 구분하기 위한 딜레이
         });
         
