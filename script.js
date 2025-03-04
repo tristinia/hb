@@ -45,9 +45,6 @@ function setupSticky() {
     stickyHeader.className = 'sticky-header';
     stickyHeader.innerHTML = `
         <div class="sticky-title">마비노기 정령 형상변환 리큐르</div>
-        <div class="sticky-stats" id="stickyStats">
-            <span id="stickyFilteredCount">0</span>개 표시
-        </div>
     `;
     document.body.appendChild(stickyHeader);
     
@@ -149,17 +146,14 @@ function renderNextBatch() {
             const effect = filteredData[currentOffset + i];
             const card = createCard(effect);
             
-            // Set initial style for animation
-            card.style.opacity = '0';
-            card.style.transform = 'scale(0.9)';
+            // Alternate entrance direction for new cards
+            if (i % 2 === 0) {
+                card.classList.add('new-card-left');
+            } else {
+                card.classList.add('new-card-right');
+            }
             
             fragment.appendChild(card);
-            
-            // Trigger animation with delay for smooth appearance
-            setTimeout(() => {
-                card.style.opacity = '1';
-                card.style.transform = 'scale(1)';
-            }, 30 * i); // Staggered delay
         }
         
         container.appendChild(fragment);
@@ -353,6 +347,10 @@ function applyFilters() {
     // 재생 중인 모든 비디오 정지
     stopAllVideos();
     
+    // 현재 카드 정보 저장 (위치 변경 애니메이션용)
+    const currentCardNames = Array.from(document.querySelectorAll('.card'))
+        .map(card => card.querySelector('.card-title').textContent);
+    
     // 필터링 실행
     const searchText = document.getElementById('search').value.toLowerCase();
     
@@ -379,21 +377,29 @@ function applyFilters() {
         return nameMatch && colorMatch && setMatch && loopMatch;
     });
     
-    // 필터링 결과 저장 및 표시
-    filteredData = newFilteredData;
-    
-    // 카드를 부드럽게 사라지게 하기
+    // 이미 표시된 카드에 애니메이션 추가
     const cards = document.querySelectorAll('.card');
-    cards.forEach((card, i) => {
-        card.style.opacity = '0';
-        card.style.transform = 'scale(0.9)';
+    cards.forEach(card => {
+        const cardName = card.querySelector('.card-title').textContent;
+        
+        // 필터링 후에도 존재하는 카드라면 위치 변경 애니메이션 적용
+        if (newFilteredData.some(effect => effect.name === cardName)) {
+            card.classList.add('moving-card');
+        } else {
+            // 사라지는 카드는 페이드 아웃
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+        }
     });
+    
+    // 필터링 결과 저장
+    filteredData = newFilteredData;
     
     // 약간의 지연 후 새 카드 렌더링
     setTimeout(() => {
         renderInitialCards();
         updateStats();
-    }, 200);
+    }, 300);
 }
 
 // 모든 재생 중인 비디오 정지
@@ -620,5 +626,4 @@ function getColorCode(colorName) {
 function updateStats() {
     document.getElementById('totalCount').textContent = effectsData.length;
     document.getElementById('filteredCount').textContent = filteredData.length;
-    document.getElementById('stickyFilteredCount').textContent = filteredData.length;
 }
