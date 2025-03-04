@@ -14,32 +14,58 @@
     --tag-bg-2: #444444;
     --tag-text-2: #ffffff;
     --border-radius-sm: 6px;
-    --border-radius-md: 16px; /* 곡률 증가 */
+    --border-radius-md: 24px; /* 곡률 증가 */
     --border-radius-lg: 60px;
     --transition-fast: 0.2s;
     --transition-normal: 0.3s;
     --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     --filter-bg: #FFE395;
+    --footer-color: rgba(0, 0, 0, 0.5); /* 푸터 색상 변수 추가 */
 }
 
+/* 다크모드 색상 설정 - 헤더는 일반 모드와 동일하게 유지 */
 @media (prefers-color-scheme: dark) {
     :root {
-        --primary-color: #3F3926; /* 더 어둡고 가독성 좋은 노란색 계열 */
-        --primary-dark: #2A271B;
-        --accent-color: #D6B95A; /* 더 밝은 노란색 강조 */
-        --text-light: #f3f4f6;
-        --text-dark: #f0f0f0; /* 더 밝은 텍스트 색상 */
-        --bg-light: #1E1C15; /* 노란빛이 감도는 어두운 배경 */
-        --bg-dark: #2A271B;
-        --card-bg: #2A271B; /* 약간 밝은 배경 */
-        --card-info-bg: #e8e8e8; /* 일반 모드와 동일 */
-        --modal-bg: #2A271B;
-        --modal-info-bg: #e8e8e8;
-        --tag-bg-1: #e3f2fd;
-        --tag-bg-2: #444444;
+        --primary-color: #f9d56e; /* 일반 모드와 동일 */
+        --primary-dark: #e9c55e; /* 일반 모드와 동일 */
+        --accent-color: #f9a826; /* 일반 모드와 동일 */
+        --text-light: #ffffff;
+        --text-dark: #ffffff; /* 다크모드에서 텍스트는 흰색으로 */
+        --bg-light: #272416; /* 어두운 노란빛 배경 */
+        --bg-dark: #1A1810; /* 더 어두운 노란빛 배경 */
+        --card-bg: #2A2518; /* 카드 배경 */
+        --card-info-bg: #3A3420; /* 다크모드 카드 정보 배경 */
+        --modal-bg: #2A2518;
+        --modal-info-bg: #3A3420;
+        --tag-bg-1: #614E1D; /* 더 어두운 노란빛 태그 */
+        --tag-bg-2: #3D3415; /* 더 어두운 태그 */
         --tag-text-2: #ffffff;
         --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         --filter-bg: #a38f56;
+        --footer-color: rgba(255, 255, 255, 0.6); /* 다크모드 푸터 색상 */
+    }
+}
+
+/* 안드로이드 호환성을 위한 추가 미디어 쿼리 */
+@media screen and (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #f9d56e;
+        --primary-dark: #e9c55e;
+        --accent-color: #f9a826;
+        --text-light: #ffffff;
+        --text-dark: #ffffff;
+        --bg-light: #272416;
+        --bg-dark: #1A1810;
+        --card-bg: #2A2518;
+        --card-info-bg: #3A3420;
+        --modal-bg: #2A2518;
+        --modal-info-bg: #3A3420;
+        --tag-bg-1: #614E1D;
+        --tag-bg-2: #3D3415;
+        --tag-text-2: #ffffff;
+        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        --filter-bg: #a38f56;
+        --footer-color: rgba(255, 255, 255, 0.6);
     }
 }
 
@@ -366,7 +392,7 @@ main {
     transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
-/* 비디오 라운딩 처리 수정 */
+/* 개선된 곡률 처리 - 비디오/이미지 컨테이너 */
 .card-video-container {
     position: relative;
     width: 100%;
@@ -374,9 +400,9 @@ main {
     padding-bottom: 71.43%; /* 840:600 비율 (600/840*100) */
     overflow: hidden;
     background-color: #000;
-    border-radius: var(--border-radius-md); /* 전체 라운딩 처리 */
+    border-radius: var(--border-radius-md); /* 전체 모서리 라운딩 처리 */
     margin-bottom: 0;
-    z-index: 1; /* 영상이 속성보다 위에 오도록 설정 */
+    z-index: 0; /* 정보 영역이 위에 올라오도록 z-index 낮춤 */
 }
 
 .card-video, .card-image {
@@ -386,7 +412,7 @@ main {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: var(--border-radius-md); /* 비디오 자체도 라운딩 처리 */
+    border-radius: var(--border-radius-md); /* 비디오/이미지 자체도 라운딩 처리 */
 }
 
 .card-video-container.loading::before {
@@ -401,7 +427,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: var(--border-radius-md); /* 로딩 오버레이도 라운딩 처리 */
+    border-radius: var(--border-radius-md);
 }
 
 .card-video-container.loading::after {
@@ -425,14 +451,15 @@ main {
     100% { transform: rotate(360deg); }
 }
 
+/* 개선된 정보 영역 - 미디어와의 겹침 처리 */
 .card-info {
     position: relative;
     background-color: var(--card-info-bg);
     text-align: center;
-    border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); /* 아래쪽만 라운딩 */
-    padding: 15px;
-    margin-top: -8px; /* 겹침 조정 - 색상정보와 비디오 간격 확보 */
-    z-index: 0; /* 속성은 영상 아래에 위치 */
+    border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); /* 하단만 라운딩 */
+    padding: 20px 15px 15px; /* 상단 패딩 증가 */
+    margin-top: -20px; /* 위로 올려서 미디어 영역과 겹치게 함 */
+    z-index: 1; /* 미디어 영역 위에 오도록 z-index 설정 */
 }
 
 .card-colors {
@@ -440,7 +467,6 @@ main {
     gap: 5px;
     justify-content: center;
     margin-bottom: 8px;
-    margin-top: 5px; /* 색상 정보와 영상 간의 간격 추가 */
 }
 
 .card-title {
@@ -467,6 +493,7 @@ main {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     overflow: auto;
+    cursor: pointer; /* 모달 전체 영역 클릭 가능하도록 설정 */
 }
 
 .modal-content {
@@ -479,17 +506,19 @@ main {
     position: relative;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    will-change: transform, opacity; /* 하드웨어 가속 힌트 */
+    will-change: transform, opacity;
+    cursor: default; /* 모달 콘텐츠 영역은 기본 커서로 설정 */
 }
 
+/* 개선된 모달 미디어 컨테이너 */
 .modal-media-container {
     position: relative;
     width: 100%;
     height: 0;
     padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
     background-color: #000;
-    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* Rounded top corners only */
-    z-index: 1;
+    border-radius: var(--border-radius-md); /* 전체 모서리 라운딩 처리 */
+    z-index: 0;
 }
 
 .modal-video, .modal-image {
@@ -498,15 +527,17 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
+    border-radius: var(--border-radius-md);
 }
 
+/* 개선된 모달 정보 영역 */
 .modal-info {
-    padding: 20px;
+    padding: 25px 20px 20px; /* 상단 패딩 증가 */
     background-color: var(--modal-info-bg);
-    border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); /* Rounded bottom corners only */
-    margin-top: -5px; /* 약간 겹치게 하여 라운딩 문제 해결 */
+    border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); /* 하단만 라운딩 */
+    margin-top: -20px; /* 위로 올려서 미디어 영역과 겹치게 함 */
     position: relative;
-    z-index: 0;
+    z-index: 1;
 }
 
 .modal-info h2 {
@@ -576,7 +607,7 @@ main {
 .footer {
     text-align: center;
     padding: 80px 0 100px;
-    color: rgba(0, 0, 0, 0.2);
+    color: var(--footer-color);
     font-size: 14px;
     display: flex;
     flex-direction: column;
@@ -642,38 +673,40 @@ main {
         gap: 15px;
     }
     
+    /* 모바일 카드 레이아웃 - 배경색 통일 */
     .card {
         display: flex;
         flex-direction: row;
         height: 120px;
         overflow: hidden;
-        background-color: var(--card-info-bg); /* 카드 전체를 카드 정보 배경색으로 통일 */
+        background-color: var(--card-info-bg);
     }
     
+    /* 모바일 비디오 컨테이너 - 왼쪽만 라운딩 */
     .card-video-container {
         width: 40%;
         height: 100%;
         padding-bottom: 0;
-        border-radius: var(--border-radius-md) 0 0 var(--border-radius-md); /* Left side rounded */
-        z-index: 1;
+        border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);
+        z-index: 0;
     }
     
+    /* 모바일 카드 정보 영역 - 오른쪽만 라운딩 */
     .card-info {
         width: 60%;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: flex-start; /* 왼쪽 정렬 */
+        align-items: flex-start;
         text-align: left;
         padding: 10px 15px;
-        border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; /* Right side rounded */
-        margin-top: 0;
-        margin-left: 0; /* 간격 제거하여 바로 붙이기 */
+        border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+        margin-top: 0; /* 겹침 제거 */
         z-index: 0;
     }
     
     .card-colors {
         justify-content: flex-start;
-        margin-top: 0; /* 모바일에서는 상단 마진 제거 */
+        margin-top: 0;
     }
 }
