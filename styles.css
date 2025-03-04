@@ -14,32 +14,32 @@
     --tag-bg-2: #444444;
     --tag-text-2: #ffffff;
     --border-radius-sm: 6px;
-    --border-radius-md: 12px;
-    --border-radius-lg: 60px; /* Increased for deeper header rounding */
+    --border-radius-md: 16px; /* 곡률 증가 */
+    --border-radius-lg: 60px;
     --transition-fast: 0.2s;
     --transition-normal: 0.3s;
     --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    --filter-bg: #FFE395; /* 필터 배경색 변경 */
+    --filter-bg: #FFE395;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --primary-color: #2d2a20; /* Dark yellow-tinged color */
-        --primary-dark: #201e17; /* Darker yellow-tinged color */
-        --accent-color: #8f7b2d; /* Yellow accent */
+        --primary-color: #3F3926; /* 더 어둡고 가독성 좋은 노란색 계열 */
+        --primary-dark: #2A271B;
+        --accent-color: #D6B95A; /* 더 밝은 노란색 강조 */
         --text-light: #f3f4f6;
-        --text-dark: #d1d5db;
-        --bg-light: #1a1814; /* Dark yellow-tinged background */
-        --bg-dark: #24211c; /* Darker yellow-tinged background */
-        --card-bg: #24211c;
-        --card-info-bg: #e8e8e8; /* 카드 속성 일반모드와 동일하게 변경 */
-        --modal-bg: #24211c;
-        --modal-info-bg: #e8e8e8; /* 모달 속성 일반모드와 동일하게 변경 */
-        --tag-bg-1: #e3f2fd; /* 일반모드와 같게 변경 */
-        --tag-bg-2: #444444; /* 일반모드와 같게 변경 */
+        --text-dark: #f0f0f0; /* 더 밝은 텍스트 색상 */
+        --bg-light: #1E1C15; /* 노란빛이 감도는 어두운 배경 */
+        --bg-dark: #2A271B;
+        --card-bg: #2A271B; /* 약간 밝은 배경 */
+        --card-info-bg: #e8e8e8; /* 일반 모드와 동일 */
+        --modal-bg: #2A271B;
+        --modal-info-bg: #e8e8e8;
+        --tag-bg-1: #e3f2fd;
+        --tag-bg-2: #444444;
         --tag-text-2: #ffffff;
         --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        --filter-bg: #a38f56; /* 다크모드 필터 배경색 변경 */
+        --filter-bg: #a38f56;
     }
 }
 
@@ -227,7 +227,7 @@ h3 {
     padding: 10px;
     border-radius: var(--border-radius-md);
     border: none;
-    background-color: var(--filter-bg); /* 기본 상태는 검색창과 같은 배경색 */
+    background-color: var(--filter-bg);
     color: var(--text-dark);
     font-size: 14px;
     cursor: pointer;
@@ -261,7 +261,7 @@ h3 {
 
 .loop-filter {
     display: inline-block;
-    background-color: var(--filter-bg); /* 검색창과 같은 배경색 */
+    background-color: var(--filter-bg);
     color: var(--text-dark);
     padding: 10px 20px;
     border: none;
@@ -431,7 +431,7 @@ main {
     text-align: center;
     border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); /* 아래쪽만 라운딩 */
     padding: 15px;
-    margin-top: -15px; /* 더 깊게 겹치게 조정 */
+    margin-top: -8px; /* 겹침 조정 - 색상정보와 비디오 간격 확보 */
     z-index: 0; /* 속성은 영상 아래에 위치 */
 }
 
@@ -440,6 +440,7 @@ main {
     gap: 5px;
     justify-content: center;
     margin-bottom: 8px;
+    margin-top: 5px; /* 색상 정보와 영상 간의 간격 추가 */
 }
 
 .card-title {
@@ -646,6 +647,7 @@ main {
         flex-direction: row;
         height: 120px;
         overflow: hidden;
+        background-color: var(--card-info-bg); /* 카드 전체를 카드 정보 배경색으로 통일 */
     }
     
     .card-video-container {
@@ -661,15 +663,17 @@ main {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: flex-start; /* 왼쪽 정렬 */
         text-align: left;
         padding: 10px 15px;
         border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; /* Right side rounded */
         margin-top: 0;
-        margin-left: -15px; /* 더 깊게 겹치게 조정 */
+        margin-left: 0; /* 간격 제거하여 바로 붙이기 */
         z-index: 0;
     }
     
     .card-colors {
         justify-content: flex-start;
+        margin-top: 0; /* 모바일에서는 상단 마진 제거 */
     }
 }
