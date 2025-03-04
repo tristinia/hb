@@ -19,6 +19,7 @@
     --transition-fast: 0.2s;
     --transition-normal: 0.3s;
     --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --filter-bg: rgba(255, 246, 214, 0.6); /* 더 연한 노란색 배경 */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,6 +39,7 @@
         --tag-bg-2: #151515;
         --tag-text-2: #e0e0e0;
         --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        --filter-bg: rgba(49, 45, 30, 0.6); /* 다크모드용 더 어두운 노란색 배경 */
     }
 }
 
@@ -113,6 +115,7 @@ h3 {
 .search-container {
     max-width: 800px;
     margin: 0 auto 20px;
+    position: relative;
 }
 
 #search {
@@ -121,13 +124,15 @@ h3 {
     border: none;
     border-radius: var(--border-radius-md);
     font-size: 16px;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: var(--filter-bg);
     color: var(--text-dark);
     transition: background-color var(--transition-fast);
+    text-align: center; /* 검색창 텍스트 중앙 정렬 */
 }
 
 #search::placeholder {
     color: rgba(0, 0, 0, 0.5);
+    text-align: center; /* placeholder도 중앙 정렬 */
 }
 
 #search:focus {
@@ -142,7 +147,7 @@ h3 {
     margin: 20px auto;
     max-width: 900px;
     justify-content: center;
-    align-items: center; /* 수직 중앙 정렬 추가 */
+    align-items: center; /* 수직 중앙 정렬 */
 }
 
 .filter-group {
@@ -151,12 +156,12 @@ h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    align-self: center; /* 수직 중앙 정렬 추가 */
 }
 
 /* PC 환경에서의 필터 순서 */
 .loop-filter-group {
     order: 1;
+    margin-top: 30px; /* 색상 필터 중앙에 맞추기 위한 여백 */
 }
 
 .color-filter-group {
@@ -165,6 +170,7 @@ h3 {
 
 .set-filter-group {
     order: 3;
+    margin-top: 30px; /* 색상 필터 중앙에 맞추기 위한 여백 */
 }
 
 .color-filters {
@@ -215,19 +221,18 @@ h3 {
     padding: 10px;
     border-radius: var(--border-radius-md);
     border: none;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: var(--filter-bg); /* 기본 상태는 검색창과 같은 배경색 */
     color: var(--text-dark);
     font-size: 14px;
     cursor: pointer;
     max-width: 200px;
     transition: background-color var(--transition-fast);
-    text-align-last: center; /* 드롭다운 텍스트 중앙 정렬 */
+    text-align-last: center;
     text-align: center;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    /* 화살표 제거 */
-    background-image: none;
+    background-image: none; /* 화살표 제거 */
 }
 
 #setFilter:focus {
@@ -241,9 +246,16 @@ h3 {
     text-align: center;
 }
 
+/* 세트 필터가 선택된 경우(값이 있는 경우) 스타일 변경 */
+#setFilter.selected {
+    background-color: var(--accent-color);
+    color: var(--text-dark);
+    box-shadow: var(--box-shadow);
+}
+
 .loop-filter {
     display: inline-block;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: var(--filter-bg); /* 검색창과 같은 배경색 */
     color: var(--text-dark);
     padding: 10px 20px;
     border: none;
@@ -280,7 +292,7 @@ main {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     min-height: 300px;
-    position: relative; /* 컨테이너에 포지션 값 추가 */
+    position: relative;
 }
 
 /* 최적화된 카드 애니메이션 */
@@ -359,6 +371,41 @@ main {
     border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* 위쪽만 라운딩 */
     margin-bottom: 0;
     z-index: 1; /* 영상이 속성보다 위에 오도록 설정 */
+}
+
+.card-video-container.loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-video-container.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+    margin-left: -20px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    animation: spin 1s linear infinite;
+    z-index: 3;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .card-video, .card-image {
@@ -475,7 +522,7 @@ main {
 }
 
 .modal-attributes {
-    margin-bottom: 15px;
+    margin-bottom: 25px; /* 출시 정보와의 간격 증가 */
     text-align: center;
     display: flex;
     gap: 10px;
@@ -519,9 +566,20 @@ main {
 
 .footer {
     text-align: center;
-    padding: 100px 0;
+    padding: 80px 0 100px;
     color: rgba(0, 0, 0, 0.2);
     font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.footer .author {
+    font-weight: bold;
+}
+
+.footer .update-date {
+    font-size: 12px;
 }
 
 /* Mobile optimization */
@@ -539,6 +597,7 @@ main {
     .filter-group {
         width: 100%; /* Full width for each filter group */
         min-width: 0;
+        margin-top: 0 !important; /* 모바일에서는 모두 상단 여백 제거 */
     }
     
     .color-filter {
@@ -584,7 +643,7 @@ main {
         width: 40%;
         height: 100%;
         padding-bottom: 0;
-        border-radius: var(--border-radius-md) 0 0 var(--border-radius-md); /* Left side rounded */
+        border-radius: var(--border-radius-md) var(--border-radius-md); /* Left side rounded */
         z-index: 1;
     }
     
