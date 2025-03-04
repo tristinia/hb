@@ -186,10 +186,10 @@ function renderNextBatch() {
         const effect = filteredData[currentOffset + i];
         const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
         
-        // 이미지는 바로 생성, 비디오는 순차적으로 로드
+        // 모든 카드 생성 (비디오/이미지)
         const card = createCard(effect, isImage);
         
-        // 비디오가 아닌 이미지는 바로 표시
+        // 비디오가 아닌 이미지는 바로 표시, 비디오는 로딩 큐에 추가
         if (!isImage) {
             // 비디오 카드는 로딩 큐에 추가
             const videoContainer = card.querySelector('.card-video-container');
@@ -267,7 +267,8 @@ function loadNextVideo() {
         videoInfo.container.innerHTML += `
             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
                  background-color: rgba(0,0,0,0.7); color: white; display: flex; 
-                 justify-content: center; align-items: center; text-align: center; padding: 10px;">
+                 justify-content: center; align-items: center; text-align: center; padding: 10px;
+                 border-radius: 12px;">
                 비디오를 불러올 수 없습니다
             </div>
         `;
@@ -290,7 +291,8 @@ function loadNextVideo() {
             videoInfo.container.innerHTML += `
                 <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
                      background-color: rgba(0,0,0,0.7); color: white; display: flex; 
-                     justify-content: center; align-items: center; text-align: center; padding: 10px;">
+                     justify-content: center; align-items: center; text-align: center; padding: 10px;
+                     border-radius: 12px;">
                     비디오 로딩 시간 초과
                 </div>
             `;
@@ -347,7 +349,7 @@ function setupEventListeners() {
     
     // 검색창 이벤트
     const searchInput = document.getElementById('search');
-    searchInput.placeholder = "검색..."; // 중앙 정렬에 어울리는 간결한 텍스트로 변경
+    searchInput.placeholder = "검색"; // 검색 텍스트로 변경
     
     searchInput.addEventListener('input', debounce(() => {
         applyFilters();
@@ -373,6 +375,21 @@ function setupEventListeners() {
         }
         
         applyFilters();
+    });
+    
+    // 모달 닫기 이벤트 (모달 외부 클릭)
+    window.addEventListener('click', (event) => {
+        const modal = document.getElementById('modal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // 키보드 ESC 키 이벤트 (모달 닫기)
+    window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && document.getElementById('modal').style.display === 'block') {
+            closeModal();
+        }
     });
 }
 
@@ -575,7 +592,7 @@ function createCard(effect, isImage) {
             </div>
         `;
     } else {
-        // 비디오는 초기에 src 없이 생성
+        // 비디오는 로딩이 필요하지만 src는 바로 설정 (로딩 큐에서 처리)
         card.innerHTML = `
             <div class="card-video-container">
                 <video class="card-video" muted playsinline preload="none"></video>
@@ -667,8 +684,9 @@ function openModal(effect) {
             <img class="modal-image" src="${effect.videoLink}" alt="${effect.name}">
         `;
     } else {
+        // 모든 비디오는 무한 반복 활성화
         modalMediaContainer.innerHTML = `
-            <video class="modal-video" src="${effect.videoLink}" controls autoplay ${effect.loop ? 'loop' : ''}></video>
+            <video class="modal-video" src="${effect.videoLink}" controls autoplay loop></video>
         `;
     }
     
