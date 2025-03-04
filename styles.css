@@ -446,6 +446,7 @@ main {
     background-color: var(--modal-info-bg);
     border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); /* Rounded bottom corners only */
     transition: background-color var(--transition-normal);
+    margin-top: 0; /* Ensure no gap */
 }
 
 .modal-info h2 {
@@ -563,6 +564,7 @@ main {
         display: flex;
         flex-direction: row;
         height: 120px;
+        overflow: hidden;
     }
     
     .card-video-container {
@@ -570,6 +572,7 @@ main {
         height: 100%;
         padding-bottom: 0;
         border-radius: var(--border-radius-md) 0 0 var(--border-radius-md); /* Left side rounded */
+        z-index: 0;
     }
     
     .card-info {
@@ -580,13 +583,14 @@ main {
         text-align: left;
         padding: 10px 15px;
         border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; /* Right side rounded */
+        z-index: 0;
     }
     
     .card-colors {
         justify-content: flex-start;
     }
     
-    /* Reset ordering for mobile */
+    /* Reset ordering for mobile - these will stack in their original order */
     .color-filter-group,
     .loop-filter-group,
     .set-filter-group {
