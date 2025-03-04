@@ -5,7 +5,7 @@ let currentlyPlayingVideos = new Set();
 let isLoading = false;
 let currentOffset = 0;
 const ITEMS_PER_PAGE = 20;
-let videoPreloadTimeout = null;
+const MAX_INITIAL_VIDEOS = 10; // 최대 비디오 로드 수
 
 // 색상 정의 - 순서대로 정렬
 const colors = [
@@ -147,7 +147,7 @@ function renderNextBatch() {
         // 배치 처리로 카드 생성
         for (let i = 0; i < itemsToRender; i++) {
             const effect = filteredData[currentOffset + i];
-            const card = createCard(effect);
+            const card = createCard(effect, i < MAX_INITIAL_VIDEOS);
             
             // 적은 수의 카드만 애니메이션 적용 (최대 10개)
             if (i < 10) {
@@ -362,11 +362,6 @@ function applyFilters() {
     // 재생 중인 모든 비디오 정지
     stopAllVideos();
     
-    // 애니메이션 타이머 초기화
-    if (videoPreloadTimeout) {
-        clearTimeout(videoPreloadTimeout);
-    }
-    
     // 필터링 실행
     const searchText = document.getElementById('search').value.toLowerCase();
     
@@ -396,10 +391,8 @@ function applyFilters() {
     // 필터링 결과 저장 
     filteredData = newFilteredData;
     
-    // 최적화된 카드 전환 처리
+    // 카드를 모두 페이드 아웃
     const cards = document.querySelectorAll('.card');
-    
-    // 카드를 모두 페이드 아웃 (성능을 위해 opacity 변경만 사용)
     cards.forEach(card => {
         card.style.opacity = '0';
         card.style.pointerEvents = 'none'; // 클릭 비활성화
@@ -423,15 +416,8 @@ function stopAllVideos() {
     currentlyPlayingVideos.clear();
 }
 
-// 비디오 지연 로드 (성능 최적화)
-function lazyLoadVideo(video, src) {
-    if (!video.getAttribute('src') && src) {
-        video.setAttribute('src', src);
-    }
-}
-
 // 개별 카드 생성 (성능 최적화)
-function createCard(effect) {
+function createCard(effect, loadVideo = false) {
     const card = document.createElement('div');
     card.className = 'card';
     
@@ -457,10 +443,10 @@ function createCard(effect) {
             </div>
         `;
     } else {
-        // 비디오 태그에는 처음에 src를 설정하지 않고 placeholder 표시
+        // 비디오는 초기 10개까지 바로 로드, 그 이후는 호버링 시 로드
         card.innerHTML = `
             <div class="card-video-container">
-                <video class="card-video" muted playsinline preload="none"></video>
+                <video class="card-video" muted playsinline preload="${loadVideo ? 'metadata' : 'none'}" ${loadVideo ? `src="${effect.videoLink}"` : ''}></video>
             </div>
             <div class="card-info">
                 <div class="card-colors">
@@ -474,30 +460,25 @@ function createCard(effect) {
         const video = card.querySelector('.card-video');
         const videoContainer = card.querySelector('.card-video-container');
         
-        // 마우스 호버 이벤트 - 최적화된 비디오 처리
+        // 호버링 이벤트 - 기본 비디오 처리
         videoContainer.addEventListener('mouseenter', () => {
             // 다른 비디오 재생 중이면 중지
             stopAllVideos();
             
-            // 필요한 경우 비디오 소스 로드
-            lazyLoadVideo(video, effect.videoLink);
+            // 비디오 소스가 없으면 설정
+            if (!video.src && effect.videoLink) {
+                video.src = effect.videoLink;
+            }
             
-            // 타임아웃 설정: 사용자가 실수로 호버하는 경우 즉시 로드되지 않도록
-            videoPreloadTimeout = setTimeout(() => {
-                video.currentTime = 0;
-                video.play().catch(e => console.log('비디오 재생 실패:', e));
-                currentlyPlayingVideos.add(video);
-            }, 100);
+            // 비디오 재생
+            video.currentTime = 0;
+            video.play().catch(e => console.log('비디오 재생 실패:', e));
+            currentlyPlayingVideos.add(video);
         });
         
         // 마우스 나가기 이벤트
         videoContainer.addEventListener('mouseleave', () => {
-            // 타임아웃 취소
-            if (videoPreloadTimeout) {
-                clearTimeout(videoPreloadTimeout);
-            }
-            
-            if (video.src) { // src가 설정된 경우에만 처리
+            if (video.src) {
                 video.pause();
                 video.currentTime = 0;
                 currentlyPlayingVideos.delete(video);
@@ -511,10 +492,12 @@ function createCard(effect) {
                 // 다른 비디오 재생 중이면 중지
                 stopAllVideos();
                 
-                // 필요한 경우 비디오 소스 로드
-                lazyLoadVideo(video, effect.videoLink);
+                // 비디오 소스가 없으면 설정
+                if (!video.src && effect.videoLink) {
+                    video.src = effect.videoLink;
+                }
                 
-                // 현재 비디오 재생
+                // 비디오 재생
                 video.currentTime = 0;
                 video.play().catch(e => console.log('비디오 재생 실패:', e));
                 currentlyPlayingVideos.add(video);
