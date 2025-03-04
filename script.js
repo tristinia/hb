@@ -7,12 +7,14 @@ let currentOffset = 0;
 const ITEMS_PER_PAGE = 20;
 let latestUpdateDate = '';
 
+// 이미 로드된 비디오 URL을 저장하는 Set (캐싱)
+const loadedVideos = new Set();
+
 // 순차적 비디오 로딩을 위한 변수
 let videoLoadQueue = [];
 let isLoadingVideo = false;
 let maxConcurrentLoads = 3; // 최대 동시 로드 수
 let activeLoads = 0; // 현재 로드 중인 수
-let hasInitiatedAutoLoading = false; // 자동 로딩 시작 여부
 
 // 색상 정의 - 순서대로 정렬
 const colors = [
@@ -114,14 +116,10 @@ async function loadData() {
         // 스크롤 이벤트 리스너 설정
         setupScrollListener();
         
-        // 화면 표시 후 바로 모든 비디오 자동 로드 시작
-        // 약간의 지연을 두어 초기 렌더링 완료 후 로드 시작
+        // 첫 페이지 비디오 자동 로드 시작 (약간 지연)
         setTimeout(() => {
-            if (!hasInitiatedAutoLoading) {
-                hasInitiatedAutoLoading = true;
-                autoLoadAllVideos();
-            }
-        }, 1000);
+            autoLoadAllVideos();
+        }, 500);
         
     } catch (error) {
         console.error('데이터 로드 중 오류 발생:', error);
@@ -133,46 +131,47 @@ async function loadData() {
 
 // 자동으로 모든 비디오 로드
 function autoLoadAllVideos() {
-    console.log('모든 비디오 자동 로드 시작');
+    console.log('비디오 자동 로드 시작');
     
-    // 이미 로드 큐에 있는 항목들 우선 처리
-    if (videoLoadQueue.length > 0 && !isLoadingVideo) {
-        loadVideosInParallel();
-    }
-    
-    // 화면에 보이지 않는 비디오 컨테이너들도 모두 로드 큐에 추가
     const allVideoContainers = document.querySelectorAll('.card-video-container');
+    const allVideos = document.querySelectorAll('.card-video');
     
-    // 현재 로딩 중이지 않은 비디오만 큐에 추가
-    allVideoContainers.forEach(container => {
-        if (container.classList.contains('loading')) {
-            const video = container.querySelector('video');
-            
-            // 이미 로드 중인 비디오가 아닌 경우에만 큐에 추가
-            if (video && !video.src) {
-                // data-src 속성에서 원래 URL 가져오기
-                const effectName = container.nextElementSibling.querySelector('.card-title').textContent;
-                const effect = filteredData.find(e => e.name === effectName);
+    // 모든 비디오 컨테이너 확인
+    allVideoContainers.forEach((container, index) => {
+        const video = allVideos[index];
+        
+        // 이미 로드된 비디오는 건너뛰기
+        if (video.src) return;
+        
+        // 비디오 URL 가져오기
+        const title = container.nextElementSibling.querySelector('.card-title').textContent;
+        const effect = filteredData.find(e => e.name === title);
+        
+        if (effect && effect.videoLink) {
+            // 이미 캐시된 URL인지 확인
+            if (loadedVideos.has(effect.videoLink)) {
+                // 이미 로드된 비디오는 로딩 표시 없이 바로 src 설정
+                video.src = effect.videoLink;
+                container.classList.remove('loading');
+            } else {
+                // 아직 로드되지 않은 비디오만 큐에 추가
+                const alreadyInQueue = videoLoadQueue.some(item => 
+                    item.src === effect.videoLink);
                 
-                if (effect && effect.videoLink) {
-                    // 이미 큐에 있는지 확인 후 추가
-                    const alreadyInQueue = videoLoadQueue.some(item => 
-                        item.video === video || item.container === container);
-                        
-                    if (!alreadyInQueue) {
-                        videoLoadQueue.push({
-                            container: container,
-                            video: video,
-                            src: effect.videoLink
-                        });
-                    }
+                if (!alreadyInQueue) {
+                    container.classList.add('loading');
+                    videoLoadQueue.push({
+                        container: container,
+                        video: video,
+                        src: effect.videoLink
+                    });
                 }
             }
         }
     });
     
-    // 병렬 로딩 시작
-    if (!isLoadingVideo && videoLoadQueue.length > 0) {
+    // 로딩 큐에 항목이 있고 현재 로딩 중이 아니면 로딩 시작
+    if (videoLoadQueue.length > 0 && !isLoadingVideo) {
         loadVideosInParallel();
     }
 }
@@ -197,8 +196,9 @@ function loadVideosInParallel() {
 
 // 단일 비디오 로드
 function loadSingleVideo(videoInfo) {
-    // 이미 로드된 비디오인지 확인
-    if (videoInfo.video.src) {
+    // 이미 로드된 비디오인지 확인 (캐시)
+    if (loadedVideos.has(videoInfo.src)) {
+        videoInfo.video.src = videoInfo.src;
         videoInfo.container.classList.remove('loading');
         finishVideoLoading();
         return;
@@ -215,13 +215,16 @@ function loadSingleVideo(videoInfo) {
         // 이벤트 리스너 제거
         videoInfo.video.removeEventListener('loadeddata', onLoad);
         
+        // 캐시에 추가
+        loadedVideos.add(videoInfo.src);
+        
         // 로드 완료 처리
         finishVideoLoading();
     });
     
     // 로드 오류 처리
-    videoInfo.video.addEventListener('error', function onError() {
-        console.error('비디오 로드 실패:', videoInfo.src);
+    videoInfo.video.addEventListener('error', function onError(e) {
+        console.error('비디오 로드 실패:', videoInfo.src, e);
         
         // 로딩 표시 제거
         videoInfo.container.classList.remove('loading');
@@ -234,7 +237,7 @@ function loadSingleVideo(videoInfo) {
             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
                  background-color: rgba(0,0,0,0.7); color: white; display: flex; 
                  justify-content: center; align-items: center; text-align: center; padding: 10px;
-                 border-radius: 16px;">
+                 border-radius: 24px;">
                 비디오를 불러올 수 없습니다
             </div>
         `;
@@ -256,7 +259,7 @@ function loadSingleVideo(videoInfo) {
                 <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
                      background-color: rgba(0,0,0,0.7); color: white; display: flex; 
                      justify-content: center; align-items: center; text-align: center; padding: 10px;
-                     border-radius: 16px;">
+                     border-radius: 24px;">
                     비디오 로딩 시간 초과
                 </div>
             `;
@@ -358,23 +361,6 @@ function renderNextBatch() {
         // 모든 카드 생성 (비디오/이미지)
         const card = createCard(effect, isImage);
         
-        // 비디오가 아닌 이미지는 바로 표시, 비디오는 로딩 큐에 추가
-        if (!isImage) {
-            // 비디오 카드는 로딩 큐에 추가
-            const videoContainer = card.querySelector('.card-video-container');
-            const video = card.querySelector('.card-video');
-            
-            // 로딩 표시 추가
-            videoContainer.classList.add('loading');
-            
-            // 로딩 큐에 추가
-            videoLoadQueue.push({
-                container: videoContainer,
-                video: video,
-                src: effect.videoLink
-            });
-        }
-        
         // 애니메이션 클래스 추가
         if (i % 2 === 0) {
             card.classList.add('new-card-left');
@@ -389,15 +375,8 @@ function renderNextBatch() {
     currentOffset += itemsToRender;
     isLoading = false;
     
-    // 비디오 로딩 시작
-    if (hasInitiatedAutoLoading) {
-        // 자동 로딩이 이미 시작되었으면 병렬 로딩 계속
-        if (videoLoadQueue.length > 0 && !isLoadingVideo) {
-            loadVideosInParallel();
-        }
-    } else {
-        // 페이지 첫 로드 시에는 나중에 autoLoadAllVideos()로 처리
-    }
+    // 비디오 자동 로드 시작
+    autoLoadAllVideos();
 }
 
 // 스크롤 리스너 설정
@@ -474,17 +453,30 @@ function setupEventListeners() {
         applyFilters();
     });
     
-    // 모달 닫기 이벤트 (모달 외부 클릭)
-    window.addEventListener('click', (event) => {
-        const modal = document.getElementById('modal');
+    // iOS 모달창 외부 터치 문제 해결을 위한 이벤트 처리
+    const modal = document.getElementById('modal');
+    
+    // 클릭 이벤트 (PC)
+    modal.addEventListener('click', (event) => {
         if (event.target === modal) {
             closeModal();
         }
     });
     
+    // 터치 이벤트 (iOS 전용)
+    modal.addEventListener('touchend', (event) => {
+        // 모달 외부 터치인지 확인 (모달 컨텐츠가 포함되어 있지 않은지)
+        if (!event.target.closest('.modal-content') && event.target === modal) {
+            closeModal();
+            // 이벤트 전파 중지
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    }, { passive: false });
+    
     // 키보드 ESC 키 이벤트 (모달 닫기)
     window.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && document.getElementById('modal').style.display === 'block') {
+        if (event.key === 'Escape' && modal.style.display === 'block') {
             closeModal();
         }
     });
@@ -651,11 +643,6 @@ function applyFilters() {
     setTimeout(() => {
         renderInitialCards();
         updateStats();
-        
-        // 필터링 후 자동 로딩 다시 시작
-        setTimeout(() => {
-            autoLoadAllVideos();
-        }, 500);
     }, 200);
 }
 
@@ -695,9 +682,9 @@ function createCard(effect, isImage) {
             </div>
         `;
     } else {
-        // 비디오는 로딩이 필요하지만 src는 바로 설정하지 않음
+        // 비디오는 캐싱 확인 후 처리
         card.innerHTML = `
-            <div class="card-video-container">
+            <div class="card-video-container ${loadedVideos.has(effect.videoLink) ? '' : 'loading'}">
                 <video class="card-video" muted playsinline preload="none"></video>
             </div>
             <div class="card-info">
@@ -712,6 +699,11 @@ function createCard(effect, isImage) {
         const video = card.querySelector('.card-video');
         const videoContainer = card.querySelector('.card-video-container');
         
+        // 이미 로드된 비디오인 경우 바로 src 설정
+        if (loadedVideos.has(effect.videoLink)) {
+            video.src = effect.videoLink;
+        }
+        
         // 호버링 이벤트
         videoContainer.addEventListener('mouseenter', () => {
             // 다른 비디오 재생 중이면 중지
@@ -722,22 +714,6 @@ function createCard(effect, isImage) {
                 video.currentTime = 0;
                 video.play().catch(e => console.log('비디오 재생 실패:', e));
                 currentlyPlayingVideos.add(video);
-            } else if (!videoContainer.classList.contains('loading')) {
-                // 아직 로드되지 않았고, 로딩 중이 아니면 지금 로드
-                videoContainer.classList.add('loading');
-                video.src = effect.videoLink;
-                
-                video.addEventListener('loadeddata', function onLoad() {
-                    videoContainer.classList.remove('loading');
-                    video.removeEventListener('loadeddata', onLoad);
-                    
-                    // 로드 완료 후 재생
-                    if (videoContainer.matches(':hover')) {
-                        video.currentTime = 0;
-                        video.play().catch(e => console.log('비디오 재생 실패:', e));
-                        currentlyPlayingVideos.add(video);
-                    }
-                });
             }
         });
         
@@ -762,20 +738,6 @@ function createCard(effect, isImage) {
                     video.currentTime = 0;
                     video.play().catch(e => console.log('비디오 재생 실패:', e));
                     currentlyPlayingVideos.add(video);
-                } else if (!videoContainer.classList.contains('loading')) {
-                    // 아직 로드되지 않았고, 로딩 중이 아니면 지금 로드
-                    videoContainer.classList.add('loading');
-                    video.src = effect.videoLink;
-                    
-                    video.addEventListener('loadeddata', function onLoad() {
-                        videoContainer.classList.remove('loading');
-                        video.removeEventListener('loadeddata', onLoad);
-                        
-                        // 로드 완료 후 재생
-                        video.currentTime = 0;
-                        video.play().catch(e => console.log('비디오 재생 실패:', e));
-                        currentlyPlayingVideos.add(video);
-                    });
                 }
             }, 200); // 짧은 터치와 구분하기 위한 딜레이
         });
