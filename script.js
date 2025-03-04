@@ -1,6 +1,10 @@
 // 데이터를 저장할 변수
 let effectsData = [];
 let filteredData = [];
+let currentlyPlayingVideos = new Set();
+let isLoading = false;
+let currentOffset = 0;
+const ITEMS_PER_PAGE = 20;
 
 // 색상 정의 - 순서대로 정렬
 const colors = [
@@ -28,13 +32,41 @@ let selectedSet = '';
 
 // 초기화 및 데이터 로드
 document.addEventListener('DOMContentLoaded', () => {
+    setupSticky();
     loadData();
     setupEventListeners();
 });
 
+// 스크롤 시 헤더 고정
+function setupSticky() {
+    // 스티키 헤더 생성
+    const stickyHeader = document.createElement('div');
+    stickyHeader.className = 'sticky-header';
+    stickyHeader.innerHTML = `
+        <div class="sticky-title">마비노기 정령 형상변환 리큐르</div>
+        <div class="sticky-stats" id="stickyStats">
+            <span id="stickyFilteredCount">0</span>개 표시
+        </div>
+    `;
+    document.body.appendChild(stickyHeader);
+    
+    // 스크롤 이벤트 리스너
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        const headerBottom = header.getBoundingClientRect().bottom;
+        
+        if (headerBottom <= 0) {
+            stickyHeader.classList.add('visible');
+        } else {
+            stickyHeader.classList.remove('visible');
+        }
+    });
+}
+
 // JSON 파일 로드
 async function loadData() {
     try {
+        showLoading(true);
         const response = await fetch('effects.json');
         effectsData = await response.json();
         // 역순으로 정렬 (최신 항목이 맨 위로)
@@ -47,20 +79,92 @@ async function loadData() {
         // 세트 필터 옵션 생성
         populateSetOptions();
         
-        // 카드 렌더링
-        renderCards(effectsData);
+        // 첫 페이지 카드 렌더링
+        renderInitialCards();
         
         // 통계 업데이트
         updateStats();
+        showLoading(false);
+        
+        // 스크롤 이벤트 리스너 설정
+        setupScrollListener();
     } catch (error) {
         console.error('데이터 로드 중 오류 발생:', error);
+        showLoading(false);
     }
+}
+
+// 로딩 상태 표시
+function showLoading(isLoading) {
+    const container = document.getElementById('card-container');
+    if (isLoading) {
+        container.classList.add('transition');
+    } else {
+        container.classList.remove('transition');
+    }
+}
+
+// 초기 카드 렌더링
+function renderInitialCards() {
+    currentOffset = 0;
+    const container = document.getElementById('card-container');
+    container.innerHTML = '';
+    
+    renderNextBatch();
+}
+
+// 다음 배치 카드 렌더링
+function renderNextBatch() {
+    if (isLoading || currentOffset >= filteredData.length) return;
+    
+    const container = document.getElementById('card-container');
+    const itemsToRender = Math.min(ITEMS_PER_PAGE, filteredData.length - currentOffset);
+    
+    if (itemsToRender <= 0) return;
+    
+    isLoading = true;
+    showLoading(true);
+    
+    // 애니메이션 프레임에 맞춰 렌더링
+    setTimeout(() => {
+        const fragment = document.createDocumentFragment();
+        
+        for (let i = 0; i < itemsToRender; i++) {
+            const effect = filteredData[currentOffset + i];
+            const card = createCard(effect);
+            fragment.appendChild(card);
+        }
+        
+        container.appendChild(fragment);
+        currentOffset += itemsToRender;
+        
+        isLoading = false;
+        showLoading(false);
+    }, 10);
+}
+
+// 스크롤 리스너 설정
+function setupScrollListener() {
+    window.addEventListener('scroll', () => {
+        if (isLoading) return;
+        
+        const scrollHeight = document.documentElement.scrollHeight;
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const clientHeight = document.documentElement.clientHeight;
+        
+        // 페이지 하단에 도달하면 다음 배치 로드
+        if (scrollTop + clientHeight >= scrollHeight - 500) {
+            renderNextBatch();
+        }
+    });
 }
 
 // 이벤트 리스너 설정
 function setupEventListeners() {
     // 검색창 이벤트
-    document.getElementById('search').addEventListener('input', applyFilters);
+    document.getElementById('search').addEventListener('input', debounce(() => {
+        applyFilters();
+    }, 300));
     
     // 무한지속 필터 이벤트
     document.getElementById('loopFilter').addEventListener('click', () => {
@@ -89,6 +193,18 @@ function setupEventListeners() {
             closeModal();
         }
     });
+}
+
+// 디바운스 함수 (연속 호출 방지)
+function debounce(func, wait) {
+    let timeout;
+    return function() {
+        const context = this, args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func.apply(context, args);
+        }, wait);
+    };
 }
 
 // 모달 닫기 함수
@@ -192,125 +308,147 @@ function updateColorFilterUI() {
 
 // 모든 필터 적용
 function applyFilters() {
-    const searchText = document.getElementById('search').value.toLowerCase();
+    showLoading(true);
     
-    filteredData = effectsData.filter(effect => {
-        // 검색어 필터
-        const nameMatch = effect.name.toLowerCase().includes(searchText);
+    setTimeout(() => {
+        const searchText = document.getElementById('search').value.toLowerCase();
         
-        // 색상 필터 (모든 선택된 색상을 포함하는 경우만 통과)
-        let colorMatch = true;
-        if (activeColorFilters.length > 0) {
-            colorMatch = activeColorFilters.every(color => {
-                return effect.color1 === color || 
-                       effect.color2 === color || 
-                       effect.color3 === color;
-            });
-        }
+        filteredData = effectsData.filter(effect => {
+            // 검색어 필터
+            const nameMatch = effect.name.toLowerCase().includes(searchText);
+            
+            // 색상 필터 (모든 선택된 색상을 포함하는 경우만 통과)
+            let colorMatch = true;
+            if (activeColorFilters.length > 0) {
+                colorMatch = activeColorFilters.every(color => {
+                    return effect.color1 === color || 
+                        effect.color2 === color || 
+                        effect.color3 === color;
+                });
+            }
+            
+            // 세트 필터
+            const setMatch = !selectedSet || effect.set === selectedSet;
+            
+            // 무한지속 필터
+            const loopMatch = !loopFilterActive || effect.loop === true;
+            
+            return nameMatch && colorMatch && setMatch && loopMatch;
+        });
         
-        // 세트 필터
-        const setMatch = !selectedSet || effect.set === selectedSet;
+        // 렌더링 시작 전에 재생 중인 모든 비디오 정지
+        stopAllVideos();
         
-        // 무한지속 필터
-        const loopMatch = !loopFilterActive || effect.loop === true;
+        // 필터링된 결과 다시 렌더링
+        renderInitialCards();
         
-        return nameMatch && colorMatch && setMatch && loopMatch;
-    });
-    
-    // 필터링된 결과 다시 렌더링
-    renderCards(filteredData);
-    
-    // 통계 업데이트
-    updateStats();
+        // 통계 업데이트
+        updateStats();
+        
+        showLoading(false);
+    }, 10);
 }
 
-// 카드 렌더링 함수
-function renderCards(data) {
-    const container = document.getElementById('card-container');
-    container.innerHTML = '';
+// 모든 재생 중인 비디오 정지
+function stopAllVideos() {
+    currentlyPlayingVideos.forEach(videoEl => {
+        if (!videoEl.paused) {
+            videoEl.pause();
+            videoEl.currentTime = 0;
+        }
+    });
+    currentlyPlayingVideos.clear();
+}
+
+// 개별 카드 생성
+function createCard(effect) {
+    const card = document.createElement('div');
+    card.className = 'card';
     
-    // 데이터가 없는 경우 메시지 표시
-    if (data.length === 0) {
-        const noResults = document.createElement('div');
-        noResults.className = 'no-results';
-        noResults.textContent = '검색 결과가 없습니다.';
-        container.appendChild(noResults);
-        return;
+    // 색상 표시를 위한 HTML 생성
+    const colorsHTML = [];
+    if (effect.color1) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color1)}" title="${effect.color1}"></div>`);
+    if (effect.color2) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color2)}" title="${effect.color2}"></div>`);
+    if (effect.color3) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color3)}" title="${effect.color3}"></div>`);
+    
+    // 비디오 링크가 이미지인지 확인
+    const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+    
+    if (isImage) {
+        card.innerHTML = `
+            <div class="card-video-container">
+                <img class="card-image" src="${effect.videoLink}" alt="${effect.name}">
+            </div>
+            <div class="card-info">
+                <div class="card-colors">
+                    ${colorsHTML.join('')}
+                </div>
+                <div class="card-title">${effect.name}</div>
+            </div>
+        `;
+    } else {
+        card.innerHTML = `
+            <div class="card-video-container">
+                <video class="card-video" src="${effect.videoLink}" muted playsinline preload="metadata"></video>
+            </div>
+            <div class="card-info">
+                <div class="card-colors">
+                    ${colorsHTML.join('')}
+                </div>
+                <div class="card-title">${effect.name}</div>
+            </div>
+        `;
+        
+        // 비디오 요소 참조
+        const video = card.querySelector('.card-video');
+        
+        // 호버링 시 비디오 재생/정지
+        const videoContainer = card.querySelector('.card-video-container');
+        
+        // 마우스 호버 이벤트
+        videoContainer.addEventListener('mouseenter', () => {
+            // 다른 비디오 재생 중이면 중지
+            stopAllVideos();
+            
+            // 현재 비디오 재생
+            video.currentTime = 0;
+            video.play().catch(e => console.log('비디오 재생 실패:', e));
+            currentlyPlayingVideos.add(video);
+        });
+        
+        // 마우스 나가기 이벤트
+        videoContainer.addEventListener('mouseleave', () => {
+            video.pause();
+            video.currentTime = 0;
+            currentlyPlayingVideos.delete(video);
+        });
+        
+        // 모바일용 터치 이벤트
+        let touchTimer;
+        videoContainer.addEventListener('touchstart', () => {
+            touchTimer = setTimeout(() => {
+                // 다른 비디오 재생 중이면 중지
+                stopAllVideos();
+                
+                // 현재 비디오 재생
+                video.currentTime = 0;
+                video.play().catch(e => console.log('비디오 재생 실패:', e));
+                currentlyPlayingVideos.add(video);
+            }, 200); // 짧은 터치와 구분하기 위한 딜레이
+        });
+        
+        videoContainer.addEventListener('touchend', () => {
+            clearTimeout(touchTimer);
+            video.pause();
+            video.currentTime = 0;
+            currentlyPlayingVideos.delete(video);
+        });
     }
     
-    data.forEach(effect => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        
-        // 색상 표시를 위한 HTML 생성
-        const colorsHTML = [];
-        if (effect.color1) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color1)}" title="${effect.color1}"></div>`);
-        if (effect.color2) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color2)}" title="${effect.color2}"></div>`);
-        if (effect.color3) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color3)}" title="${effect.color3}"></div>`);
-        
-        // 비디오 링크가 이미지인지 확인
-        const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
-        
-        if (isImage) {
-            card.innerHTML = `
-                <div class="card-video-container">
-                    <img class="card-image" src="${effect.videoLink}" alt="${effect.name}">
-                </div>
-                <div class="card-info">
-                    <div class="card-title">${effect.name}</div>
-                    <div class="card-colors">
-                        ${colorsHTML.join('')}
-                    </div>
-                </div>
-            `;
-        } else {
-            card.innerHTML = `
-                <div class="card-video-container">
-                    <video class="card-video" src="${effect.videoLink}" muted playsinline preload="metadata"></video>
-                </div>
-                <div class="card-info">
-                    <div class="card-title">${effect.name}</div>
-                    <div class="card-colors">
-                        ${colorsHTML.join('')}
-                    </div>
-                </div>
-            `;
-            
-            // 호버링 시 비디오 재생/정지
-            const videoContainer = card.querySelector('.card-video-container');
-            const video = card.querySelector('.card-video');
-            
-            // 마우스 호버 이벤트
-            videoContainer.addEventListener('mouseenter', () => {
-                video.play().catch(e => console.log('비디오 재생 실패:', e));
-            });
-            
-            // 마우스 나가기 이벤트
-            videoContainer.addEventListener('mouseleave', () => {
-                video.pause();
-                video.currentTime = 0;
-            });
-            
-            // 모바일용 터치 이벤트
-            let touchTimer;
-            videoContainer.addEventListener('touchstart', () => {
-                touchTimer = setTimeout(() => {
-                    video.play().catch(e => console.log('비디오 재생 실패:', e));
-                }, 200); // 짧은 터치와 구분하기 위한 딜레이
-            });
-            
-            videoContainer.addEventListener('touchend', () => {
-                clearTimeout(touchTimer);
-                video.pause();
-                video.currentTime = 0;
-            });
-        }
-        
-        // 카드 클릭 이벤트
-        card.addEventListener('click', () => openModal(effect));
-        
-        container.appendChild(card);
-    });
+    // 카드 클릭 이벤트
+    card.addEventListener('click', () => openModal(effect));
+    
+    return card;
 }
 
 // 모달 열기
@@ -347,28 +485,19 @@ function openModal(effect) {
     
     if (effect.color1) {
         modalColors.innerHTML += `
-            <div class="color-item">
-                <div class="color-dot" style="background-color: ${getColorCode(effect.color1)}"></div>
-                <span>${effect.color1}</span>
-            </div>
+            <div class="color-dot" style="background-color: ${getColorCode(effect.color1)}" title="${effect.color1}"></div>
         `;
     }
     
     if (effect.color2) {
         modalColors.innerHTML += `
-            <div class="color-item">
-                <div class="color-dot" style="background-color: ${getColorCode(effect.color2)}"></div>
-                <span>${effect.color2}</span>
-            </div>
+            <div class="color-dot" style="background-color: ${getColorCode(effect.color2)}" title="${effect.color2}"></div>
         `;
     }
     
     if (effect.color3) {
         modalColors.innerHTML += `
-            <div class="color-item">
-                <div class="color-dot" style="background-color: ${getColorCode(effect.color3)}"></div>
-                <span>${effect.color3}</span>
-            </div>
+            <div class="color-dot" style="background-color: ${getColorCode(effect.color3)}" title="${effect.color3}"></div>
         `;
     }
     
@@ -378,7 +507,7 @@ function openModal(effect) {
     // 세트 정보
     if (effect.set && effect.set.trim() !== '') {
         modalAttributes.innerHTML += `
-            <div class="attribute-item">
+            <div class="attribute-tag set-tag">
                 ${effect.set}
             </div>
         `;
@@ -387,7 +516,7 @@ function openModal(effect) {
     // 무한지속 여부 (true인 경우만 표시)
     if (effect.loop) {
         modalAttributes.innerHTML += `
-            <div class="attribute-item">
+            <div class="attribute-tag loop-tag">
                 무한지속
             </div>
         `;
@@ -444,4 +573,5 @@ function getColorCode(colorName) {
 function updateStats() {
     document.getElementById('totalCount').textContent = effectsData.length;
     document.getElementById('filteredCount').textContent = filteredData.length;
+    document.getElementById('stickyFilteredCount').textContent = filteredData.length;
 }
