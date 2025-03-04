@@ -15,7 +15,7 @@
     --tag-text-2: #ffffff;
     --border-radius-sm: 6px;
     --border-radius-md: 12px;
-    --border-radius-lg: 40px;
+    --border-radius-lg: 60px; /* Increased for deeper header rounding */
     --transition-fast: 0.2s;
     --transition-normal: 0.3s;
     --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -23,18 +23,18 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --primary-color: #2d2a20;
-        --primary-dark: #201e17;
-        --accent-color: #8f7b2d;
+        --primary-color: #2d2a20; /* Dark yellow-tinged color */
+        --primary-dark: #201e17; /* Darker yellow-tinged color */
+        --accent-color: #8f7b2d; /* Yellow accent */
         --text-light: #f3f4f6;
         --text-dark: #d1d5db;
-        --bg-light: #111827;
-        --bg-dark: #1f2937;
-        --card-bg: #1f2937;
-        --card-info-bg: #2d3748;
-        --modal-bg: #1f2937;
-        --modal-info-bg: #2d3748;
-        --tag-bg-1: #1e3a5f;
+        --bg-light: #1a1814; /* Dark yellow-tinged background */
+        --bg-dark: #24211c; /* Darker yellow-tinged background */
+        --card-bg: #24211c;
+        --card-info-bg: #2d2a20;
+        --modal-bg: #24211c;
+        --modal-info-bg: #2d2a20;
+        --tag-bg-1: #332e22;
         --tag-bg-2: #151515;
         --tag-text-2: #e0e0e0;
         --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -104,6 +104,7 @@ h1 {
     text-align: center;
     margin-bottom: 20px;
     font-size: 24px;
+    cursor: pointer; /* Make title clickable */
 }
 
 h3 {
@@ -221,6 +222,7 @@ h3 {
     cursor: pointer;
     max-width: 200px;
     transition: background-color var(--transition-fast);
+    text-align: center; /* Center align text */
 }
 
 #setFilter:focus {
@@ -231,6 +233,7 @@ h3 {
 #setFilter option {
     background-color: var(--bg-light);
     color: var(--text-dark);
+    text-align: center; /* Ensure options are centered too */
 }
 
 .loop-filter {
@@ -275,14 +278,30 @@ main {
     min-height: 300px;
 }
 
+/* Add animation for filtering */
 .card {
     background-color: var(--card-bg);
     border-radius: var(--border-radius-md);
     overflow: hidden;
     box-shadow: var(--box-shadow);
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal), background-color var(--transition-normal);
+    transition: transform var(--transition-normal), 
+                box-shadow var(--transition-normal), 
+                background-color var(--transition-normal),
+                opacity 0.2s ease;
     cursor: pointer;
     position: relative;
+    animation: cardAppear 0.3s ease forwards;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .card:hover {
@@ -297,7 +316,7 @@ main {
     padding-bottom: 75%; /* 4:3 Aspect Ratio */
     overflow: hidden;
     background-color: #000;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* Rounded top corners only */
 }
 
 .card-video, .card-image {
@@ -316,8 +335,7 @@ main {
     background-color: var(--card-info-bg);
     text-align: center;
     transition: background-color var(--transition-normal);
-    border-radius: var(--border-radius-md);
-    margin-top: -12px;
+    border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); /* Rounded bottom corners only */
 }
 
 .card-colors {
@@ -341,7 +359,7 @@ main {
     border-radius: var(--border-radius-sm);
 }
 
-/* 모달 스타일 */
+/* Modal styles */
 .modal {
     display: none;
     position: fixed;
@@ -373,7 +391,7 @@ main {
     height: 0;
     padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
     background-color: #000;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* Rounded top corners only */
 }
 
 .modal-video, .modal-image {
@@ -387,9 +405,8 @@ main {
 .modal-info {
     padding: 20px;
     background-color: var(--modal-info-bg);
-    border-radius: var(--border-radius-md);
+    border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); /* Rounded bottom corners only */
     transition: background-color var(--transition-normal);
-    margin-top: -12px;
 }
 
 .modal-info h2 {
@@ -467,18 +484,21 @@ main {
     font-size: 14px;
 }
 
-/* 모바일 최적화 */
+/* Mobile optimization */
 @media (max-width: 768px) {
     h1 {
         font-size: 20px;
     }
     
     .filter-section {
-        gap: 10px;
+        flex-direction: column; /* Stack filters vertically on mobile */
+        align-items: center;
+        gap: 15px;
     }
     
     .filter-group {
-        min-width: 150px;
+        width: 100%; /* Full width for each filter group */
+        min-width: 0;
     }
     
     .color-filter {
@@ -492,7 +512,7 @@ main {
     }
     
     .modal-media-container {
-        padding-bottom: 75%; /* 더 큰 비율로 조정 */
+        padding-bottom: 75%; /* Adjusted for mobile */
     }
     
     .card-container {
@@ -510,8 +530,7 @@ main {
         width: 40%;
         height: 100%;
         padding-bottom: 0;
-        border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);
-        margin-top: 0;
+        border-radius: var(--border-radius-md) 0 0 var(--border-radius-md); /* Left side rounded */
     }
     
     .card-info {
@@ -521,24 +540,17 @@ main {
         justify-content: center;
         text-align: left;
         padding: 10px 15px;
-        border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
-        margin-top: 0;
+        border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; /* Right side rounded */
     }
     
     .card-colors {
         justify-content: flex-start;
     }
     
-    .color-filter-group {
-        order: 1;
-        width: 100%;
-    }
-    
-    .loop-filter-group {
-        order: 2;
-    }
-    
+    /* Reset ordering for mobile */
+    .color-filter-group,
+    .loop-filter-group,
     .set-filter-group {
-        order: 3;
+        order: initial;
     }
 }
