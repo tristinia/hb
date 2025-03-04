@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSticky();
     loadData();
     setupEventListeners();
+    addFooter();
 });
 
 // 스크롤 시 헤더 고정
@@ -61,6 +62,14 @@ function setupSticky() {
             stickyHeader.classList.remove('visible');
         }
     });
+}
+
+// 푸터 추가
+function addFooter() {
+    const footer = document.createElement('div');
+    footer.className = 'footer';
+    footer.textContent = 'WF신의컨트롤';
+    document.body.appendChild(footer);
 }
 
 // JSON 파일 로드
@@ -98,9 +107,9 @@ async function loadData() {
 function showLoading(isLoading) {
     const container = document.getElementById('card-container');
     if (isLoading) {
-        container.classList.add('transition');
+        container.style.opacity = '0.7';
     } else {
-        container.classList.remove('transition');
+        container.style.opacity = '1';
     }
 }
 
@@ -120,13 +129,20 @@ function renderNextBatch() {
     const container = document.getElementById('card-container');
     const itemsToRender = Math.min(ITEMS_PER_PAGE, filteredData.length - currentOffset);
     
-    if (itemsToRender <= 0) return;
+    if (itemsToRender <= 0) {
+        if (filteredData.length === 0) {
+            const noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.textContent = '검색 결과가 없습니다.';
+            container.appendChild(noResults);
+        }
+        return;
+    }
     
     isLoading = true;
-    showLoading(true);
     
     // 애니메이션 프레임에 맞춰 렌더링
-    setTimeout(() => {
+    requestAnimationFrame(() => {
         const fragment = document.createDocumentFragment();
         
         for (let i = 0; i < itemsToRender; i++) {
@@ -139,8 +155,7 @@ function renderNextBatch() {
         currentOffset += itemsToRender;
         
         isLoading = false;
-        showLoading(false);
-    }, 10);
+    });
 }
 
 // 스크롤 리스너 설정
@@ -308,45 +323,41 @@ function updateColorFilterUI() {
 
 // 모든 필터 적용
 function applyFilters() {
-    showLoading(true);
+    // 재생 중인 모든 비디오 정지
+    stopAllVideos();
     
-    setTimeout(() => {
-        const searchText = document.getElementById('search').value.toLowerCase();
+    // 필터링 실행
+    const searchText = document.getElementById('search').value.toLowerCase();
+    
+    const newFilteredData = effectsData.filter(effect => {
+        // 검색어 필터
+        const nameMatch = effect.name.toLowerCase().includes(searchText);
         
-        filteredData = effectsData.filter(effect => {
-            // 검색어 필터
-            const nameMatch = effect.name.toLowerCase().includes(searchText);
-            
-            // 색상 필터 (모든 선택된 색상을 포함하는 경우만 통과)
-            let colorMatch = true;
-            if (activeColorFilters.length > 0) {
-                colorMatch = activeColorFilters.every(color => {
-                    return effect.color1 === color || 
-                        effect.color2 === color || 
-                        effect.color3 === color;
-                });
-            }
-            
-            // 세트 필터
-            const setMatch = !selectedSet || effect.set === selectedSet;
-            
-            // 무한지속 필터
-            const loopMatch = !loopFilterActive || effect.loop === true;
-            
-            return nameMatch && colorMatch && setMatch && loopMatch;
-        });
+        // 색상 필터 (모든 선택된 색상을 포함하는 경우만 통과)
+        let colorMatch = true;
+        if (activeColorFilters.length > 0) {
+            colorMatch = activeColorFilters.every(color => {
+                return effect.color1 === color || 
+                    effect.color2 === color || 
+                    effect.color3 === color;
+            });
+        }
         
-        // 렌더링 시작 전에 재생 중인 모든 비디오 정지
-        stopAllVideos();
+        // 세트 필터
+        const setMatch = !selectedSet || effect.set === selectedSet;
         
-        // 필터링된 결과 다시 렌더링
-        renderInitialCards();
+        // 무한지속 필터
+        const loopMatch = !loopFilterActive || effect.loop === true;
         
-        // 통계 업데이트
-        updateStats();
-        
-        showLoading(false);
-    }, 10);
+        return nameMatch && colorMatch && setMatch && loopMatch;
+    });
+    
+    // 필터링 결과 저장 및 표시
+    filteredData = newFilteredData;
+    renderInitialCards();
+    
+    // 통계 업데이트
+    updateStats();
 }
 
 // 모든 재생 중인 비디오 정지
