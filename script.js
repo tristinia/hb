@@ -148,7 +148,18 @@ function renderNextBatch() {
         for (let i = 0; i < itemsToRender; i++) {
             const effect = filteredData[currentOffset + i];
             const card = createCard(effect);
+            
+            // Set initial style for animation
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.9)';
+            
             fragment.appendChild(card);
+            
+            // Trigger animation with delay for smooth appearance
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'scale(1)';
+            }, 30 * i); // Staggered delay
         }
         
         container.appendChild(fragment);
@@ -176,6 +187,22 @@ function setupScrollListener() {
 
 // 이벤트 리스너 설정
 function setupEventListeners() {
+    // 제목 클릭 시 상단으로 스크롤
+    document.querySelector('h1').addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // 스티키 헤더 제목 클릭 시 상단으로 스크롤
+    document.querySelector('.sticky-title').addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
     // 검색창 이벤트
     document.getElementById('search').addEventListener('input', debounce(() => {
         applyFilters();
@@ -354,10 +381,19 @@ function applyFilters() {
     
     // 필터링 결과 저장 및 표시
     filteredData = newFilteredData;
-    renderInitialCards();
     
-    // 통계 업데이트
-    updateStats();
+    // 카드를 부드럽게 사라지게 하기
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((card, i) => {
+        card.style.opacity = '0';
+        card.style.transform = 'scale(0.9)';
+    });
+    
+    // 약간의 지연 후 새 카드 렌더링
+    setTimeout(() => {
+        renderInitialCards();
+        updateStats();
+    }, 200);
 }
 
 // 모든 재생 중인 비디오 정지
