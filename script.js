@@ -5,6 +5,7 @@ let currentlyPlayingVideos = new Set();
 let isLoading = false;
 let currentOffset = 0;
 const ITEMS_PER_PAGE = 20;
+let videoPreloadTimeout = null;
 
 // 색상 정의 - 순서대로 정렬
 const colors = [
@@ -119,7 +120,7 @@ function renderInitialCards() {
     renderNextBatch();
 }
 
-// 다음 배치 카드 렌더링
+// 다음 배치 카드 렌더링 (성능 최적화)
 function renderNextBatch() {
     if (isLoading || currentOffset >= filteredData.length) return;
     
@@ -138,19 +139,23 @@ function renderNextBatch() {
     
     isLoading = true;
     
-    // 애니메이션 프레임에 맞춰 렌더링
+    // requestAnimationFrame을 사용해 최적의 타이밍에 렌더링
     requestAnimationFrame(() => {
+        // 문서 프래그먼트를 사용해 DOM 조작 최소화
         const fragment = document.createDocumentFragment();
         
+        // 배치 처리로 카드 생성
         for (let i = 0; i < itemsToRender; i++) {
             const effect = filteredData[currentOffset + i];
             const card = createCard(effect);
             
-            // Alternate entrance direction for new cards
-            if (i % 2 === 0) {
-                card.classList.add('new-card-left');
-            } else {
-                card.classList.add('new-card-right');
+            // 적은 수의 카드만 애니메이션 적용 (최대 10개)
+            if (i < 10) {
+                if (i % 2 === 0) {
+                    card.classList.add('new-card-left');
+                } else {
+                    card.classList.add('new-card-right');
+                }
             }
             
             fragment.appendChild(card);
@@ -163,19 +168,29 @@ function renderNextBatch() {
     });
 }
 
-// 스크롤 리스너 설정
+// 스크롤 리스너 설정 (성능 최적화)
 function setupScrollListener() {
+    // 디바운스 적용한 스크롤 핸들러
+    let scrollTimeout;
+    
     window.addEventListener('scroll', () => {
         if (isLoading) return;
         
-        const scrollHeight = document.documentElement.scrollHeight;
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        const clientHeight = document.documentElement.clientHeight;
-        
-        // 페이지 하단에 도달하면 다음 배치 로드
-        if (scrollTop + clientHeight >= scrollHeight - 500) {
-            renderNextBatch();
+        // 스크롤 이벤트 디바운싱
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
         }
+        
+        scrollTimeout = setTimeout(() => {
+            const scrollHeight = document.documentElement.scrollHeight;
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const clientHeight = document.documentElement.clientHeight;
+            
+            // 페이지 하단에 도달하면 다음 배치 로드
+            if (scrollTop + clientHeight >= scrollHeight - 500) {
+                renderNextBatch();
+            }
+        }, 100); // 100ms 디바운스
     });
 }
 
@@ -342,14 +357,15 @@ function updateColorFilterUI() {
     });
 }
 
-// 모든 필터 적용
+// 모든 필터 적용 (성능 최적화)
 function applyFilters() {
     // 재생 중인 모든 비디오 정지
     stopAllVideos();
     
-    // 현재 카드 정보 저장 (위치 변경 애니메이션용)
-    const currentCardNames = Array.from(document.querySelectorAll('.card'))
-        .map(card => card.querySelector('.card-title').textContent);
+    // 애니메이션 타이머 초기화
+    if (videoPreloadTimeout) {
+        clearTimeout(videoPreloadTimeout);
+    }
     
     // 필터링 실행
     const searchText = document.getElementById('search').value.toLowerCase();
@@ -377,29 +393,23 @@ function applyFilters() {
         return nameMatch && colorMatch && setMatch && loopMatch;
     });
     
-    // 이미 표시된 카드에 애니메이션 추가
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-        const cardName = card.querySelector('.card-title').textContent;
-        
-        // 필터링 후에도 존재하는 카드라면 위치 변경 애니메이션 적용
-        if (newFilteredData.some(effect => effect.name === cardName)) {
-            card.classList.add('moving-card');
-        } else {
-            // 사라지는 카드는 페이드 아웃
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-        }
-    });
-    
-    // 필터링 결과 저장
+    // 필터링 결과 저장 
     filteredData = newFilteredData;
+    
+    // 최적화된 카드 전환 처리
+    const cards = document.querySelectorAll('.card');
+    
+    // 카드를 모두 페이드 아웃 (성능을 위해 opacity 변경만 사용)
+    cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.pointerEvents = 'none'; // 클릭 비활성화
+    });
     
     // 약간의 지연 후 새 카드 렌더링
     setTimeout(() => {
         renderInitialCards();
         updateStats();
-    }, 300);
+    }, 200);
 }
 
 // 모든 재생 중인 비디오 정지
@@ -413,7 +423,14 @@ function stopAllVideos() {
     currentlyPlayingVideos.clear();
 }
 
-// 개별 카드 생성
+// 비디오 지연 로드 (성능 최적화)
+function lazyLoadVideo(video, src) {
+    if (!video.getAttribute('src') && src) {
+        video.setAttribute('src', src);
+    }
+}
+
+// 개별 카드 생성 (성능 최적화)
 function createCard(effect) {
     const card = document.createElement('div');
     card.className = 'card';
@@ -440,9 +457,10 @@ function createCard(effect) {
             </div>
         `;
     } else {
+        // 비디오 태그에는 처음에 src를 설정하지 않고 placeholder 표시
         card.innerHTML = `
             <div class="card-video-container">
-                <video class="card-video" src="${effect.videoLink}" muted playsinline preload="metadata"></video>
+                <video class="card-video" muted playsinline preload="none"></video>
             </div>
             <div class="card-info">
                 <div class="card-colors">
@@ -454,26 +472,36 @@ function createCard(effect) {
         
         // 비디오 요소 참조
         const video = card.querySelector('.card-video');
-        
-        // 호버링 시 비디오 재생/정지
         const videoContainer = card.querySelector('.card-video-container');
         
-        // 마우스 호버 이벤트
+        // 마우스 호버 이벤트 - 최적화된 비디오 처리
         videoContainer.addEventListener('mouseenter', () => {
             // 다른 비디오 재생 중이면 중지
             stopAllVideos();
             
-            // 현재 비디오 재생
-            video.currentTime = 0;
-            video.play().catch(e => console.log('비디오 재생 실패:', e));
-            currentlyPlayingVideos.add(video);
+            // 필요한 경우 비디오 소스 로드
+            lazyLoadVideo(video, effect.videoLink);
+            
+            // 타임아웃 설정: 사용자가 실수로 호버하는 경우 즉시 로드되지 않도록
+            videoPreloadTimeout = setTimeout(() => {
+                video.currentTime = 0;
+                video.play().catch(e => console.log('비디오 재생 실패:', e));
+                currentlyPlayingVideos.add(video);
+            }, 100);
         });
         
         // 마우스 나가기 이벤트
         videoContainer.addEventListener('mouseleave', () => {
-            video.pause();
-            video.currentTime = 0;
-            currentlyPlayingVideos.delete(video);
+            // 타임아웃 취소
+            if (videoPreloadTimeout) {
+                clearTimeout(videoPreloadTimeout);
+            }
+            
+            if (video.src) { // src가 설정된 경우에만 처리
+                video.pause();
+                video.currentTime = 0;
+                currentlyPlayingVideos.delete(video);
+            }
         });
         
         // 모바일용 터치 이벤트
@@ -482,6 +510,9 @@ function createCard(effect) {
             touchTimer = setTimeout(() => {
                 // 다른 비디오 재생 중이면 중지
                 stopAllVideos();
+                
+                // 필요한 경우 비디오 소스 로드
+                lazyLoadVideo(video, effect.videoLink);
                 
                 // 현재 비디오 재생
                 video.currentTime = 0;
@@ -492,9 +523,11 @@ function createCard(effect) {
         
         videoContainer.addEventListener('touchend', () => {
             clearTimeout(touchTimer);
-            video.pause();
-            video.currentTime = 0;
-            currentlyPlayingVideos.delete(video);
+            if (video.src) {
+                video.pause();
+                video.currentTime = 0;
+                currentlyPlayingVideos.delete(video);
+            }
         });
     }
     
