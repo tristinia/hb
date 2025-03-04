@@ -19,7 +19,7 @@
     --transition-fast: 0.2s;
     --transition-normal: 0.3s;
     --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    --filter-bg: rgba(255, 246, 214, 0.6); /* 더 연한 노란색 배경 */
+    --filter-bg: #FFE395; /* 필터 배경색 변경 */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -32,14 +32,14 @@
         --bg-light: #1a1814; /* Dark yellow-tinged background */
         --bg-dark: #24211c; /* Darker yellow-tinged background */
         --card-bg: #24211c;
-        --card-info-bg: #2d2a20;
+        --card-info-bg: #e8e8e8; /* 카드 속성 일반모드와 동일하게 변경 */
         --modal-bg: #24211c;
-        --modal-info-bg: #2d2a20;
-        --tag-bg-1: #332e22;
-        --tag-bg-2: #151515;
-        --tag-text-2: #e0e0e0;
+        --modal-info-bg: #e8e8e8; /* 모달 속성 일반모드와 동일하게 변경 */
+        --tag-bg-1: #e3f2fd; /* 일반모드와 같게 변경 */
+        --tag-bg-2: #444444; /* 일반모드와 같게 변경 */
+        --tag-text-2: #ffffff;
         --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        --filter-bg: rgba(49, 45, 30, 0.6); /* 다크모드용 더 어두운 노란색 배경 */
+        --filter-bg: #a38f56; /* 다크모드 필터 배경색 변경 */
     }
 }
 
@@ -161,7 +161,10 @@ h3 {
 /* PC 환경에서의 필터 순서 */
 .loop-filter-group {
     order: 1;
-    margin-top: 30px; /* 색상 필터 중앙에 맞추기 위한 여백 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 76px; /* 색상 필터와 동일한 높이 */
 }
 
 .color-filter-group {
@@ -170,7 +173,10 @@ h3 {
 
 .set-filter-group {
     order: 3;
-    margin-top: 30px; /* 색상 필터 중앙에 맞추기 위한 여백 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 76px; /* 색상 필터와 동일한 높이 */
 }
 
 .color-filters {
@@ -360,7 +366,7 @@ main {
     transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
-/* 개선된 카드 비디오 컨테이너 스타일 */
+/* 비디오 라운딩 처리 수정 */
 .card-video-container {
     position: relative;
     width: 100%;
@@ -368,9 +374,19 @@ main {
     padding-bottom: 71.43%; /* 840:600 비율 (600/840*100) */
     overflow: hidden;
     background-color: #000;
-    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* 위쪽만 라운딩 */
+    border-radius: var(--border-radius-md); /* 전체 라운딩 처리 */
     margin-bottom: 0;
     z-index: 1; /* 영상이 속성보다 위에 오도록 설정 */
+}
+
+.card-video, .card-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius-md); /* 비디오 자체도 라운딩 처리 */
 }
 
 .card-video-container.loading::before {
@@ -385,6 +401,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: var(--border-radius-md); /* 로딩 오버레이도 라운딩 처리 */
 }
 
 .card-video-container.loading::after {
@@ -408,22 +425,13 @@ main {
     100% { transform: rotate(360deg); }
 }
 
-.card-video, .card-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 .card-info {
     position: relative;
     background-color: var(--card-info-bg);
     text-align: center;
     border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); /* 아래쪽만 라운딩 */
     padding: 15px;
-    margin-top: -5px; /* 약간 겹치게 하여 라운딩 문제 해결 */
+    margin-top: -15px; /* 더 깊게 겹치게 조정 */
     z-index: 0; /* 속성은 영상 아래에 위치 */
 }
 
@@ -598,6 +606,7 @@ main {
         width: 100%; /* Full width for each filter group */
         min-width: 0;
         margin-top: 0 !important; /* 모바일에서는 모두 상단 여백 제거 */
+        height: auto !important; /* 높이 리셋 */
     }
     
     .color-filter {
@@ -656,7 +665,7 @@ main {
         padding: 10px 15px;
         border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; /* Right side rounded */
         margin-top: 0;
-        margin-left: -5px;
+        margin-left: -15px; /* 더 깊게 겹치게 조정 */
         z-index: 0;
     }
     
