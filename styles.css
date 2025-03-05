@@ -702,9 +702,9 @@ main {
     object-fit: cover;
 }
 
-/* 모달 정보 영역 - 요소 재정렬 및 간격 조정 */
+/* 모달 정보 영역 - 요소 세로 배치 */
 .modal-info {
-    padding: 25px 20px 30px; /* 하단 패딩 증가 */
+    padding: 25px 20px 40px; /* 하단 패딩 증가 - 출시 정보 공간 확보 */
     background-color: var(--modal-info-bg);
     border-radius: var(--border-radius-md);
     margin-top: 10px;
@@ -725,21 +725,51 @@ main {
     text-align: center;
 }
 
-/* 속성 정보 - 제목 다음에 배치 */
-.modal-attributes {
+/* 색상 정보 - 제목 아래 배치 */
+.modal-colors {
     display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    width: 100%;
+    gap: 10px;
     justify-content: center;
-    margin-bottom: 5px; /* 세트/무한 지속 태그와의 간격 */
+    margin-bottom: 20px; /* 색상과 세트 정보 사이 간격 */
 }
 
-/* 출시 정보 위치 - 우측 하단에 배치 */
+/* 속성 태그 공통 스타일 */
+.attribute-tag {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: var(--border-radius-md);
+    color: var(--text-inverse);
+    font-size: 14px;
+    margin-bottom: 15px; /* 세트와 무한 지속 사이 간격 */
+}
+
+/* 개별 세트 태그와 무한 지속 태그 스타일 */
+.set-tag, .loop-tag {
+    width: auto;
+    max-width: 80%; /* 너무 길 경우 제한 */
+}
+
+.set-tag {
+    background-color: var(--set-tag-bg);
+    border: none;
+}
+
+.loop-tag {
+    background-color: var(--loop-tag-bg);
+    border: none;
+    margin-bottom: 0; /* 마지막 요소는 하단 여백 제거 */
+}
+
+/* 속성 태그 컨테이너 삭제 - 개별 요소로 분리 */
+.modal-attributes {
+    display: none; /* 기존 컨테이너 숨김 */
+}
+
+/* 출시 정보 위치 - 모달 오른쪽 아래 끝으로 정확히 배치 */
 .modal-release-info {
     position: absolute;
-    right: 20px;
-    bottom: 15px;
+    right: 10px;
+    bottom: 10px;
     text-align: right;
     font-size: 11px;
     color: var(--text-secondary);
