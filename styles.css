@@ -4,7 +4,7 @@
  * 최종 수정: 2025-03-05
  */
 
-/* 변수 정의 */
+/* ===== 변수 정의 ===== */
 :root {
     /* 색상 변수 */
     --primary-color: #f9d56e;
@@ -35,7 +35,7 @@
     --footer-color: rgba(0, 0, 0, 0.5); /* 푸터 색상 변수 */
 }
 
-/* 다크모드 색상 설정 */
+/* ===== 다크모드 색상 설정 ===== */
 @media (prefers-color-scheme: dark) {
     :root {
         --primary-color: #f9d56e; /* 일반 모드와 동일 */
@@ -85,7 +85,7 @@
     }
 }
 
-/* 기본 스타일 */
+/* ===== 기본 스타일 ===== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -99,7 +99,7 @@ body {
     transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
-/* 내비게이션 스타일 */
+/* ===== 내비게이션 스타일 ===== */
 .nav-container {
     background-color: var(--nav-bg);
     padding: 10px 0;
@@ -141,7 +141,7 @@ body {
     transform: translateY(-2px);
 }
 
-/* 스티키 헤더 스타일 */
+/* ===== 스티키 헤더 스타일 ===== */
 .sticky-header {
     position: fixed;
     top: 0;
@@ -172,7 +172,7 @@ body {
     cursor: pointer;
 }
 
-/* 헤더 스타일 */
+/* ===== 헤더 스타일 ===== */
 header {
     background-color: var(--primary-color);
     padding: 20px;
@@ -199,7 +199,7 @@ h3 {
     text-align: center;
 }
 
-/* 검색 입력창 */
+/* ===== 검색 입력창 ===== */
 .search-container {
     max-width: 800px;
     margin: 0 auto 20px;
@@ -214,8 +214,9 @@ h3 {
     font-size: 16px;
     background-color: var(--filter-bg);
     color: var(--text-dark);
-    transition: background-color var(--transition-fast);
+    transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
     text-align: center; /* 검색창 텍스트 중앙 정렬 */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 #search::placeholder {
@@ -226,9 +227,10 @@ h3 {
 #search:focus {
     outline: none;
     background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
-/* 필터 섹션 스타일 */
+/* ===== 필터 섹션 스타일 ===== */
 .filter-section {
     display: flex;
     flex-wrap: wrap;
@@ -268,7 +270,7 @@ h3 {
     height: 76px; /* 색상 필터와 동일한 높이 */
 }
 
-/* 색상 필터 스타일 */
+/* ===== 색상 필터 스타일 ===== */
 .color-filters {
     display: flex;
     flex-direction: column;
@@ -295,6 +297,11 @@ h3 {
     border-radius: var(--border-radius-sm);
 }
 
+.color-filter:hover {
+    transform: scale(1.05);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
 .color-filter.active {
     transform: scale(1.1);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
@@ -312,7 +319,7 @@ h3 {
     pointer-events: none;
 }
 
-/* 세트 필터 스타일 */
+/* ===== 세트 필터 스타일 ===== */
 #setFilter {
     width: 100%;
     padding: 10px;
@@ -323,18 +330,20 @@ h3 {
     font-size: 14px;
     cursor: pointer;
     max-width: 200px;
-    transition: background-color var(--transition-fast);
+    transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
     text-align-last: center;
     text-align: center;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     background-image: none; /* 화살표 제거 */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 #setFilter:focus {
     outline: none;
     background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
 #setFilter option {
@@ -347,10 +356,10 @@ h3 {
 #setFilter.selected {
     background-color: var(--accent-color);
     color: var(--text-dark);
-    box-shadow: var(--box-shadow);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* 무한지속 필터 스타일 */
+/* ===== 무한지속 필터 스타일 ===== */
 .loop-filter {
     display: inline-block;
     background-color: var(--filter-bg);
@@ -360,19 +369,24 @@ h3 {
     border-radius: var(--border-radius-md);
     cursor: pointer;
     font-size: 14px;
-    transition: background-color var(--transition-fast);
+    transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
     width: 100%;
     max-width: 200px;
     text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.loop-filter:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
 .loop-filter.active {
     background-color: var(--accent-color);
     color: var(--text-dark);
-    box-shadow: var(--box-shadow);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* 통계 정보 스타일 */
+/* ===== 통계 정보 스타일 ===== */
 .stats {
     text-align: center;
     margin: 15px 0;
@@ -380,23 +394,25 @@ h3 {
     color: var(--text-dark);
 }
 
-/* 메인 컨텐츠 영역 */
+/* ===== 메인 컨텐츠 영역 ===== */
 main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* 카드 컨테이너 스타일 */
+/* ===== 카드 컨테이너 스타일 ===== */
 .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 20px;
     min-height: 300px;
     position: relative;
+    align-items: stretch; /* 모든 카드를 동일한 높이로 */
+    perspective: 1000px; /* 3D 효과를 위한 원근감 설정 */
 }
 
-/* 오류 메시지 스타일 */
+/* ===== 오류 메시지 스타일 ===== */
 .error-message {
     grid-column: 1 / -1;
     text-align: center;
@@ -408,7 +424,7 @@ main {
     margin: 20px 0;
 }
 
-/* 결과 없음 표시 */
+/* ===== 결과 없음 표시 ===== */
 .no-results {
     grid-column: 1 / -1;
     text-align: center;
@@ -420,63 +436,67 @@ main {
     background-color: var(--bg-light);
     margin: 20px auto;
     border-radius: var(--border-radius-md);
+    animation: fadeInScale 0.5s ease forwards;
 }
 
-/* 카드 스타일 */
+/* ===== 카드 스타일 ===== */
 .card {
     background-color: var(--card-bg);
     border-radius: var(--border-radius-md);
     overflow: hidden;
-    box-shadow: var(--box-shadow);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* 더 가벼운 그림자 기본값 */
     cursor: pointer;
     position: relative;
-    margin-bottom: 20px; /* 아래쪽 여백 */
-    margin-top: 0; /* 초기 상단 여백 0 */
-    will-change: margin-top, margin-bottom, box-shadow;
-    transition: margin-top 0.25s ease, 
-                margin-bottom 0.25s ease,
-                box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transform-origin: center bottom; /* 변환 원점 설정 */
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), /* 약간의 바운스 효과 */
+                box-shadow 0.3s ease,
+                opacity 0.3s ease;
+    opacity: 0; /* 시작은 투명하게 */
+    will-change: transform, opacity, box-shadow; /* 성능 최적화 */
 }
 
-/* 호버링 시 효과 - 섬세하게 위쪽으로 이동 */
+/* ===== 호버링 효과 ===== */
 .card:hover {
-    margin-top: -5px; /* 상단 여백을 음수로 주어 위로 이동 (더 작은 이동) */
-    margin-bottom: 25px; /* 아래쪽 여백 늘려서 전체 높이 유지 (20px 원래 + 5px 이동) */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* 그림자 강화 (더 미묘하게) */
+    transform: translateY(-8px) scale(1.02); /* 약간 위로 + 미세하게 확대 */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12); /* 더 진한 그림자 */
 }
 
-/* 애니메이션 스타일 - 단순화 */
-@keyframes fadeInFromRight {
-    from {
+/* ===== 모던 애니메이션 - 페이드 업 + 스케일 ===== */
+@keyframes fadeInScale {
+    0% {
         opacity: 0;
-        transform: translateX(30px);
+        transform: translateY(20px) scale(0.96);
     }
-    to {
+    100% {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0) scale(1);
     }
 }
 
-@keyframes fadeInFromLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+/* ===== 카드 등장 애니메이션 - 공통 적용 ===== */
+.card {
+    animation: fadeInScale 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-fill-mode: both; /* 애니메이션 끝 상태 유지 */
 }
 
-.card.new-card-right {
-    animation: fadeInFromRight 0.3s ease-out forwards;
-}
+/* ===== 지연 시간을 다르게 적용해 순차적 등장 효과 ===== */
+.card-container .card:nth-child(1) { animation-delay: 0.05s; }
+.card-container .card:nth-child(2) { animation-delay: 0.1s; }
+.card-container .card:nth-child(3) { animation-delay: 0.15s; }
+.card-container .card:nth-child(4) { animation-delay: 0.2s; }
+.card-container .card:nth-child(5) { animation-delay: 0.25s; }
+.card-container .card:nth-child(6) { animation-delay: 0.3s; }
+.card-container .card:nth-child(7) { animation-delay: 0.35s; }
+.card-container .card:nth-child(8) { animation-delay: 0.4s; }
+.card-container .card:nth-child(9) { animation-delay: 0.45s; }
+.card-container .card:nth-child(10) { animation-delay: 0.5s; }
+/* 11개 이상은 일정한 지연 적용 */
+.card-container .card:nth-child(n+11) { animation-delay: 0.5s; }
 
-.card.new-card-left {
-    animation: fadeInFromLeft 0.3s ease-out forwards;
-}
-
-/* 비디오/이미지 컨테이너 스타일 */
+/* ===== 비디오/이미지 컨테이너 스타일 ===== */
 .card-video-container {
     position: relative;
     width: 100%;
@@ -484,9 +504,14 @@ main {
     padding-bottom: 71.43%; /* 840:600 비율 (600/840*100) */
     overflow: hidden;
     background-color: #000;
-    border-radius: var(--border-radius-md); /* 전체 모서리 라운딩 처리 */
-    margin-bottom: 0;
+    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* 상단만 둥글게 */
     z-index: 1; /* 비디오를 위로 올림 */
+    transition: transform 0.3s ease; /* 트랜지션 추가 */
+}
+
+/* ===== 호버 시 비디오 컨테이너에 미세한 스케일 효과 ===== */
+.card:hover .card-video-container {
+    transform: scale(1.02); /* 미세하게 확대 */
 }
 
 .card-video, .card-image {
@@ -496,15 +521,15 @@ main {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* 상단만 둥글게 */
 }
 
-/* 이미지 크기 조정 - 전체 표시 */
+/* ===== 이미지 크기 조정 - 전체 표시 ===== */
 .card-image {
     object-fit: contain;
 }
 
-/* 비디오 로딩 관련 스타일 */
+/* ===== 비디오 로딩 관련 스타일 ===== */
 .card-video-container.loading::before {
     content: '';
     position: absolute;
@@ -517,7 +542,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: var(--border-radius-md); /* 모든 모서리 라운딩 */
+    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* 상단만 둥글게 */
 }
 
 .card-video-container.loading::after {
@@ -541,7 +566,7 @@ main {
     100% { transform: rotate(360deg); }
 }
 
-/* 비디오 없는 경우 대체 표시 */
+/* ===== 비디오 없는 경우 대체 표시 ===== */
 .no-video {
     position: absolute;
     top: 0;
@@ -554,10 +579,10 @@ main {
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
     font-size: 14px;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* 상단만 둥글게 */
 }
 
-/* 카드 정보 영역 스타일 */
+/* ===== 카드 정보 영역 스타일 ===== */
 .card-info {
     position: relative;
     background-color: var(--card-info-bg);
@@ -566,6 +591,11 @@ main {
     padding: 30px 15px 15px; /* 상단 패딩 증가 */
     margin-top: -20px; /* 위로 올려서 미디어 영역과 겹치게 함 */
     z-index: 0; /* 미디어 영역 아래로 내려가도록 z-index 낮춤 */
+    flex-grow: 1; /* 남은 공간 채우기 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: transform 0.3s ease; /* 트랜지션 추가 */
 }
 
 .card-colors {
@@ -588,7 +618,24 @@ main {
     border-radius: var(--border-radius-sm);
 }
 
-/* 모달 스타일 */
+/* ===== 필터 적용 시 페이드 아웃 효과 개선 ===== */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/* ===== 필터 적용 시 카드에 페이드 아웃 효과 적용 ===== */
+.card.fade-out {
+    animation: fadeOut 0.25s ease forwards;
+}
+
+/* ===== 모달 스타일 ===== */
 .modal {
     display: none;
     position: fixed;
@@ -597,9 +644,14 @@ main {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0);
     overflow: auto;
     cursor: pointer; /* 모달 전체 영역 클릭 가능하도록 설정 */
+    transition: background-color 0.4s ease;
+}
+
+.modal.open {
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .modal-content {
@@ -612,11 +664,19 @@ main {
     position: relative;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    will-change: transform, opacity;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+                opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     cursor: default; /* 모달 콘텐츠 영역은 기본 커서로 설정 */
 }
 
-/* 모달 미디어 컨테이너 스타일 */
+.modal.open .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* ===== 모달 미디어 컨테이너 스타일 ===== */
 .modal-media-container {
     position: relative;
     width: 100%;
@@ -638,7 +698,7 @@ main {
     object-fit: cover;
 }
 
-/* 모달 내 미디어 없을 때 대체 표시 */
+/* ===== 모달 내 미디어 없을 때 대체 표시 ===== */
 .no-media {
     position: absolute;
     top: 0;
@@ -654,7 +714,7 @@ main {
     border-radius: var(--border-radius-md);
 }
 
-/* 모달 정보 영역 스타일 */
+/* ===== 모달 정보 영역 스타일 ===== */
 .modal-info {
     padding: 25px 20px 20px; /* 상단 패딩 증가 */
     background-color: var(--modal-info-bg);
@@ -710,7 +770,7 @@ main {
     color: var(--tag-text-2);
 }
 
-/* 모달 출시 정보 위치 조정 */
+/* ===== 모달 출시 정보 위치 조정 ===== */
 .modal-release-info {
     position: absolute;
     right: -10px;
@@ -720,7 +780,7 @@ main {
     color: #777;
 }
 
-/* 푸터 스타일 */
+/* ===== 푸터 스타일 ===== */
 .footer {
     text-align: center;
     padding: 80px 0 100px;
@@ -740,7 +800,7 @@ main {
     margin-bottom: 5px;
 }
 
-/* 중간 크기 화면에서 필터 모바일 형태로 표시 (650~696px) */
+/* ===== 중간 크기 화면에서 필터 모바일 형태로 표시 (650~696px) ===== */
 @media (max-width: 696px) {
     .filter-section {
         flex-direction: column; /* 필터를 세로로 배치 */
@@ -769,7 +829,7 @@ main {
     }
 }
 
-/* 모바일 최적화 */
+/* ===== 모바일 최적화 ===== */
 @media (max-width: 649px) {
     h1 {
         font-size: 20px;
@@ -836,13 +896,18 @@ main {
         height: 120px;
         overflow: hidden;
         background-color: var(--card-info-bg);
-        margin-bottom: 15px; /* 모바일에서는 기본 여백 줄임 */
+        margin-bottom: 0;
+    }
+    
+    /* 모바일에서 애니메이션 조정 */
+    .card {
+        animation: fadeInScale 0.4s ease forwards;
     }
     
     /* 모바일에서 호버링 효과 줄임 */
     .card:hover {
-        margin-top: -3px; /* 모바일에서는 더 작은 이동 */
-        margin-bottom: 18px; /* 아래쪽 여백 조정 (15px 원래 + 3px 이동) */
+        transform: translateY(-3px) scale(1.01);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     }
     
     /* 모바일 비디오 컨테이너 - 전체 라운딩 */
@@ -853,6 +918,10 @@ main {
         border-radius: var(--border-radius-md); /* 전체 라운딩 처리 */
         z-index: 1;
         margin-right: 5px; /* 오른쪽 여백 추가 */
+    }
+    
+    .card-video, .card-image, .no-video, .card-video-container.loading::before {
+        border-radius: var(--border-radius-md); /* 전체 라운딩 처리 */
     }
     
     /* 모바일 카드 정보 영역 - 전체 라운딩 */
