@@ -181,7 +181,7 @@ body {
 
 /* ===== 헤더 스타일 ===== */
 header {
-    background-color: var(--primary-color);
+    background-color: #ffffff;
     padding: 20px;
     color: var(--text-dark);
     border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
@@ -626,7 +626,7 @@ main {
 
 /* 호버 시 테두리 효과가 카드 정보 영역에도 영향 주도록 */
 .card.visible:hover .card-info {
-    background-color: var(--card-hover-bg);
+    background-color: #242424;
 }
 
 .card-colors {
