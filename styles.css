@@ -473,22 +473,31 @@ main {
     backface-visibility: hidden;
 }
 
-/* 카드에 visible 클래스가 추가되면 애니메이션 활성화 */
+/* 카드 애니메이션 간소화 - 통일된 애니메이션 */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: none;
+    will-change: transform, opacity;
+}
+
 .card.visible {
-    animation: fadeIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    /* 호버 효과를 위한 트랜지션 활성화 */
+    animation: fadeIn 0.5s ease forwards;
     transition: transform 0.4s ease, 
                 box-shadow 0.4s ease, 
                 border-color 0.4s ease,
                 background-color 0.4s ease;
-}
-
-/* 페이드인 키프레임 */
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 /* 지연 시간 적용 - 카드 수 무관하게 연속적으로 적용 */
@@ -544,7 +553,7 @@ main {
     object-fit: contain;
 }
 
-/* ===== 비디오 로딩 관련 스타일 ===== */
+/* 개선된 로딩 인디케이터 */
 .card-video-container.loading::before {
     content: '';
     position: absolute;
@@ -557,7 +566,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: var(--border-radius-md); /* 모든 모서리 둥글게 변경 */
+    border-radius: var(--border-radius-md);
     transition: opacity 0.3s ease;
 }
 
@@ -566,10 +575,10 @@ main {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 40px;
-    height: 40px;
-    margin-top: -20px;
-    margin-left: -20px;
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    margin-left: -15px;
     border-radius: 50%;
     border: 3px solid rgba(255, 255, 255, 0.3);
     border-top-color: #fff;
@@ -961,5 +970,54 @@ main {
     .card-colors {
         justify-content: flex-start;
         margin-top: 0;
+    }
+}
+
+/* 모달 로딩 인디케이터 */
+.modal-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    border-radius: var(--border-radius-md);
+}
+
+.modal-loading .spinner {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    animation: spin 1s linear infinite;
+}
+
+/* 비디오 로드 시 메모리 최적화를 위한 설정 */
+.card-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 스크롤 성능 향상 */
+.card-container {
+    contain: content;
+}
+
+/* 방문자 하드웨어 성능에 따른 애니메이션 조절 */
+@media (prefers-reduced-motion: reduce) {
+    .card.visible {
+        animation: none !important;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .modal-content {
+        transition: none !important;
     }
 }
