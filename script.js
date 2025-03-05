@@ -333,32 +333,22 @@ function renderNextBatch() {
     const fragment = document.createDocumentFragment();
     
     // 카드 생성
-for (let i = 0; i < itemsToRender; i++) {
-    const effect = filteredData[currentOffset + i];
-    const isImage = effect.videoLink && effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
-    
-    // 모든 카드 생성 (비디오/이미지)
-    const card = createCard(effect, isImage);
-    
-    // 애니메이션 클래스 추가 (단순화된 방식)
-    if (i % 2 === 0) {
-        card.classList.add('new-card-left');
-    } else {
-        card.classList.add('new-card-right');
-    }
-    
-    // 애니메이션 완료 후 클래스 제거를 위한 이벤트 리스너 추가
-    card.addEventListener('animationend', function() {
-        // 애니메이션 클래스 제거
-        this.classList.remove('new-card-left');
-        this.classList.remove('new-card-right');
+    for (let i = 0; i < itemsToRender; i++) {
+        const effect = filteredData[currentOffset + i];
+        const isImage = effect.videoLink && effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
         
-        // transform 초기화를 위한 인라인 스타일 적용
-        this.style.transform = 'translateX(0)';
-    });
-    
-    fragment.appendChild(card);
-}
+        // 모든 카드 생성 (비디오/이미지)
+        const card = createCard(effect, isImage);
+        
+        // 애니메이션 클래스 추가 (단순화된 방식)
+        if (i % 2 === 0) {
+            card.classList.add('new-card-left');
+        } else {
+            card.classList.add('new-card-right');
+        }
+        
+        fragment.appendChild(card);
+    }
     
     container.appendChild(fragment);
     currentOffset += itemsToRender;
