@@ -2,24 +2,16 @@
  * 마비노기 정령 형상변환 리큐르 & 부가 효과 뷰어 스타일
  * 작성자: WF신의컨트롤
  * 최종 수정: 2025-03-05
- * 최적화: 2025-03-05
+ * 최적화: 2025-03-06
  */
 
-/* ===== 변수 정의 ===== */
+/* ===== 디자인 토큰 (기본 색상 팔레트) ===== */
 :root {
-    /* 기본 색상 팔레트 (디자인 토큰) */
-    --color-gold: #f9d56e;
-    --color-gold-dark: #e9c55e;
-    --color-gold-light: #ffe395;
-    --color-orange: #f9a826;
-    --color-red: #ff5252;
-    --color-red-light: #fe6348;
-    --color-blue: #75b7d5;
-    --color-blue-dark: #339193;
+    /* 중립 색상 팔레트 */
     --color-white: #ffffff;
     --color-black: #111111;
-    --color-gray-50: #f4f5f7;
-    --color-gray-100: #f2f2f2;
+    --color-gray-50: #f9f9f9;
+    --color-gray-100: #f4f5f7;
     --color-gray-200: #e9e9e9;
     --color-gray-300: #d1d1d1;
     --color-gray-400: #a9a9a9;
@@ -29,61 +21,94 @@
     --color-gray-800: #333333;
     --color-gray-900: #242424;
     
-    /* 배경 색상 */
-    --bg-primary: var(--color-white);
-    --bg-secondary: var(--color-gray-50);
-    --bg-card: var(--color-white);
-    --bg-card-info: var(--color-gray-600);
-    --bg-card-hover: var(--color-gray-100);
-    --bg-card-info-hover: var(--color-gray-900);
+    /* 브랜드 색상 팔레트 */
+    --color-gold-light: #ffe395;
+    --color-gold: #f9d56e;
+    --color-gold-dark: #e9c55e;
+    --color-orange: #f9a826;
     
-    /* 모달 색상 */
-    --modal-bg: var(--color-white);
-    --modal-info-bg: var(--color-black);
+    /* 액센트 색상 팔레트 */
+    --color-red: #ff5252;
+    --color-red-light: #fe6348;
+    --color-blue: #75b7d5;
+    --color-blue-dark: #339193;
     
-    /* 텍스트 색상 */
-    --text-primary: var(--color-gray-800);
-    --text-secondary: var(--color-gray-500);
-    --text-inverse: var(--color-white);
-    --text-accent: var(--color-gold-light);
+    /* 테두리 및 그림자 강도 */
+    --shadow-light: rgba(0, 0, 0, 0.06);
+    --shadow-medium: rgba(0, 0, 0, 0.08);
+    --shadow-dark: rgba(0, 0, 0, 0.12);
+    --shadow-darker: rgba(0, 0, 0, 0.2);
     
-    /* 테두리 및 그림자 */
-    --border-light: rgba(0, 0, 0, 0.08);
-    --border-dark: rgba(0, 0, 0, 0.15);
-    --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.08);
-    --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 6px 14px rgba(0, 0, 0, 0.12);
+    /* 테두리 라운딩 */
+    --radius-xs: 2px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
     
-    /* 컴포넌트별 색상 */
-    --nav-bg: var(--color-black);
-    --nav-text: var(--color-gold-light);
-    --nav-active: var(--color-orange);
-    --nav-hover: rgba(255, 255, 255, 0.2);
+    /* 애니메이션 타이밍 */
+    --time-fast: 0.2s;
+    --time-normal: 0.3s;
+    --time-slow: 0.4s;
     
-    --filter-bg: var(--color-white);
-    --filter-text: var(--color-gray-700);
-    --filter-active-bg: var(--color-black);
-    --filter-active-text: var(--color-gold-light);
-    
-    --error-bg: rgba(255, 82, 82, 0.1);
-    
-    --set-tag-bg: var(--color-blue);
-    --set-tag-border: var(--color-blue-dark);
-    --loop-tag-bg: var(--color-red-light);
-    --loop-tag-border: var(--color-red-light);
-    
-    /* 크기 및 애니메이션 */
-    --border-radius-sm: 2px;
-    --border-radius-md: 4px;
-    --border-radius-lg: 8px;
-    --border-radius-xl: 24px;
-    
-    --transition-fast: 0.2s;
-    --transition-normal: 0.3s;
-    --transition-slow: 0.4s;
+    /* 간격 (spacing) */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
 }
 
-/* 다크모드 미디어 쿼리 완전 제거 */
+/* ===== 의미론적 변수 (Semantic Variables) ===== */
+:root {
+    /* 텍스트 색상 */
+    --text-primary: var(--color-gray-800);     /* 기본 텍스트 */
+    --text-secondary: var(--color-gray-500);   /* 부가 텍스트 */
+    --text-inverse: var(--color-white);        /* 반전 텍스트 (어두운 배경) */
+    --text-accent: var(--color-gold-light);    /* 강조 텍스트 */
+    
+    /* 배경 색상 */
+    --bg-primary: var(--color-white);          /* 기본 배경 */
+    --bg-secondary: var(--color-gray-100);     /* 부가 배경 */
+    --bg-accent: var(--color-gold-light);      /* 강조 배경 */
+    
+    /* 카드 관련 색상 */
+    --card-bg: var(--color-white);             /* 카드 배경 */
+    --card-info-bg: var(--color-gray-600);     /* 카드 정보 영역 배경 */
+    --card-hover-bg: var(--color-gray-100);    /* 카드 호버 배경 */
+    --card-info-hover: var(--color-gray-900);  /* 카드 정보 호버 배경 */
+    
+    /* 모달 관련 색상 */
+    --modal-bg: var(--color-white);            /* 모달 배경 */
+    --modal-info-bg: var(--color-black);       /* 모달 정보 영역 배경 */
+    
+    /* 네비게이션 관련 색상 */
+    --nav-bg: var(--color-black);              /* 네비게이션 배경 */
+    --nav-text: var(--color-gold-light);       /* 네비게이션 텍스트 */
+    --nav-active: var(--color-orange);         /* 네비게이션 활성화 */
+    --nav-hover: rgba(255, 255, 255, 0.2);     /* 네비게이션 호버 */
+    
+    /* 필터 관련 색상 */
+    --filter-bg: var(--color-white);           /* 필터 배경 */
+    --filter-text: var(--color-gray-700);      /* 필터 텍스트 */
+    --filter-active-bg: var(--color-black);    /* 필터 활성화 배경 */
+    --filter-active-text: var(--color-gold-light); /* 필터 활성화 텍스트 */
+    
+    /* 태그 관련 색상 */
+    --tag-set-bg: var(--color-blue);           /* 세트 태그 배경 */
+    --tag-set-border: var(--color-blue-dark);  /* 세트 태그 테두리 */
+    --tag-loop-bg: var(--color-red-light);     /* 무한 지속 태그 배경 */
+    --tag-loop-border: var(--color-red-light); /* 무한 지속 태그 테두리 */
+    
+    /* 그림자 스타일 */
+    --shadow-sm: 0 2px 6px var(--shadow-medium);   /* 작은 그림자 */
+    --shadow-md: 0 4px 10px var(--shadow-medium);  /* 중간 그림자 */
+    --shadow-lg: 0 6px 14px var(--shadow-dark);    /* 큰 그림자 */
+    
+    /* 상태 색상 */
+    --error: var(--color-red);                 /* 오류 상태 */
+    --error-bg: rgba(255, 82, 82, 0.1);        /* 오류 배경 */
+}
 
 /* ===== 기본 스타일 ===== */
 * {
@@ -96,7 +121,7 @@
 body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    transition: background-color var(--transition-normal), color var(--transition-normal);
+    transition: background-color var(--time-normal), color var(--time-normal);
 }
 
 /* ===== 애니메이션 정의 ===== */
@@ -131,9 +156,9 @@ body {
 /* ===== 내비게이션 스타일 ===== */
 .nav-container {
     background-color: var(--nav-bg);
-    padding: 10px 0;
+    padding: var(--space-sm) 0;
     position: relative;
-    border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm);
+    border-radius: 0 0 var(--radius-xs) var(--radius-xs);
     text-align: center;
     box-shadow: var(--shadow-md);
 }
@@ -142,22 +167,22 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: var(--space-sm);
     max-width: 800px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 var(--space-md);
 }
 
 .nav-button {
     background-color: transparent;
     color: var(--nav-text);
     border: none;
-    padding: 10px 15px;
-    border-radius: var(--border-radius-sm);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-xs);
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
-    transition: background-color var(--transition-fast), transform var(--transition-fast);
+    transition: background-color var(--time-fast), transform var(--time-fast);
 }
 
 .nav-button:hover {
@@ -177,15 +202,15 @@ body {
     left: 0;
     right: 0;
     background-color: var(--nav-bg);
-    padding: 10px 20px;
+    padding: var(--space-sm) var(--space-md);
     z-index: 900;
     transform: translateY(-100%);
-    transition: transform var(--transition-normal);
+    transition: transform var(--time-normal);
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: var(--shadow-md);
-    border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
     will-change: transform;
 }
 
@@ -204,17 +229,17 @@ body {
 /* ===== 헤더 스타일 ===== */
 header {
     background-color: var(--bg-primary);
-    padding: 20px;
+    padding: var(--space-md);
     color: var(--text-primary);
-    border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
-    margin-bottom: 20px;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    margin-bottom: var(--space-md);
     box-shadow: var(--shadow-md);
-    transition: background-color var(--transition-normal), color var(--transition-normal);
+    transition: background-color var(--time-normal), color var(--time-normal);
     position: relative;
 }
 
 h1 {
-    color: var(--color-black);
+    color: var(--text-primary);
     text-align: center;
     margin-bottom: 28px;
     margin-top: 18px;
@@ -225,7 +250,7 @@ h1 {
 h3 {
     display: none;
     font-size: 14px;
-    margin-bottom: 8px;
+    margin-bottom: var(--space-sm);
     color: var(--text-primary);
     text-align: center;
 }
@@ -233,21 +258,21 @@ h3 {
 /* ===== 검색 입력창 ===== */
 .search-container {
     max-width: 800px;
-    margin: 0 auto 20px;
+    margin: 0 auto var(--space-md);
     position: relative;
 }
 
 #search {
     width: 100%;
-    padding: 12px 16px;
+    padding: var(--space-sm) var(--space-md);
     border: none;
-    border-radius: 24px;
+    border-radius: var(--radius-xl);
     font-size: 16px;
     background-color: var(--bg-primary);
     outline-style: solid;
     outline-width: 2px;
     color: var(--text-primary);
-    transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition: background-color var(--time-fast), box-shadow var(--time-fast);
     text-align: center;
     box-shadow: var(--shadow-sm);
 }
@@ -267,8 +292,8 @@ h3 {
 .filter-section {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    margin: 20px auto;
+    gap: var(--space-md);
+    margin: var(--space-md) auto;
     max-width: 900px;
     justify-content: center;
     align-items: center;
@@ -307,8 +332,8 @@ h3 {
 .color-filters {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-bottom: 10px;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
     justify-content: center;
     align-items: center;
     max-width: 250px;
@@ -317,22 +342,22 @@ h3 {
 .basic-colors, .other-colors {
     display: flex;
     justify-content: center;
-    gap: 8px;
+    gap: var(--space-sm);
 }
 
 .color-filter {
     width: 30px;
     height: 30px;
     cursor: pointer;
-    box-shadow: var(--box-shadow);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    box-shadow: var(--shadow-md);
+    transition: transform var(--time-fast), box-shadow var(--time-fast);
     position: relative;
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
 }
 
 .color-filter:hover {
     transform: scale(1.03);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-sm);
 }
 
 .color-filter.active {
@@ -347,23 +372,23 @@ h3 {
     left: -3px;
     right: -3px;
     bottom: -3px;
-    border-radius: var(--border-radius-sm);
-    border: 2px solid var(--text-dark);
+    border-radius: var(--radius-xs);
+    border: 2px solid var(--text-primary);
     pointer-events: none;
 }
 
 /* ===== 세트 필터 스타일 ===== */
 #setFilter {
     width: 100%;
-    padding: 10px;
-    border-radius: 16px;
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
     border: none;
     background-color: var(--filter-bg);
     color: var(--filter-text);
     font-size: 14px;
     cursor: pointer;
     max-width: 200px;
-    transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition: background-color var(--time-fast), box-shadow var(--time-fast);
     text-align-last: center;
     text-align: center;
     -webkit-appearance: none;
@@ -396,12 +421,12 @@ h3 {
     display: inline-block;
     background-color: var(--filter-bg);
     color: var(--filter-text);
-    padding: 10px 20px;
+    padding: var(--space-sm) var(--space-md);
     border: none;
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     cursor: pointer;
     font-size: 14px;
-    transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition: background-color var(--time-fast), box-shadow var(--time-fast);
     width: 100%;
     max-width: 200px;
     text-align: center;
@@ -430,34 +455,34 @@ h3 {
 main {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 var(--space-md);
 }
 
 /* ===== 카드 컨테이너 스타일 ===== */
 .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
+    gap: var(--space-md);
     min-height: 300px;
     position: relative;
     align-items: stretch;
     overflow: hidden;
-    transition: opacity 0.2s ease;
-    contain: content; /* 스크롤 성능 향상 */
+    transition: opacity var(--time-fast) ease;
+    contain: content;
 }
 
 /* ===== 오류 메시지와 결과 없음 메시지 ===== */
 .error-message, .no-results {
     grid-column: 1 / -1;
     text-align: center;
-    padding: 30px;
+    padding: var(--space-xl);
     font-size: 18px;
-    margin: 20px 0;
-    border-radius: var(--border-radius-md);
+    margin: var(--space-md) 0;
+    border-radius: var(--radius-sm);
 }
 
 .error-message {
-    color: var(--color-red);
+    color: var(--error);
     background-color: var(--error-bg);
     padding: 40px;
 }
@@ -470,8 +495,8 @@ main {
 
 /* ===== 카드 스타일 ===== */
 .card {
-    background-color: var(--bg-card);
-    border-radius: var(--border-radius-md);
+    background-color: var(--card-bg);
+    border-radius: var(--radius-sm);
     overflow: hidden;
     box-shadow: var(--shadow-md);
     cursor: pointer;
@@ -489,10 +514,10 @@ main {
 
 .card.visible {
     animation: fadeIn 0.5s ease forwards;
-    transition: transform 0.4s ease, 
-                box-shadow 0.4s ease, 
-                border-color 0.4s ease,
-                background-color 0.4s ease;
+    transition: transform var(--time-slow) ease, 
+                box-shadow var(--time-slow) ease, 
+                border-color var(--time-slow) ease,
+                background-color var(--time-slow) ease;
 }
 
 /* 카드 애니메이션 지연 시간 */
@@ -511,8 +536,8 @@ main {
 /* 카드 호버 효과 */
 .card.visible:hover {
     transform: translateY(-6px);
-    border-color: var(--border-light);
-    background-color: var(--bg-card-hover);
+    border-color: rgba(0, 0, 0, 0.08);
+    background-color: var(--card-hover-bg);
     box-shadow: var(--shadow-lg);
 }
 
@@ -523,10 +548,10 @@ main {
     height: 0;
     padding-bottom: 71.43%; /* 840:600 비율 */
     overflow: hidden;
-    background-color: #000;
-    border-radius: var(--border-radius-md);
+    background-color: var(--color-black);
+    border-radius: var(--radius-sm);
     z-index: 1;
-    transition: box-shadow var(--transition-normal);
+    transition: box-shadow var(--time-normal);
 }
 
 .card-video, .card-image {
@@ -536,7 +561,7 @@ main {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--radius-sm);
 }
 
 .card-image {
@@ -556,8 +581,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: var(--border-radius-md);
-    transition: opacity 0.3s ease;
+    border-radius: var(--radius-sm);
+    transition: opacity var(--time-normal) ease;
 }
 
 .card-video-container.loading::after {
@@ -571,10 +596,10 @@ main {
     margin-left: -15px;
     border-radius: 50%;
     border: 3px solid rgba(255, 255, 255, 0.3);
-    border-top-color: #fff;
+    border-top-color: var(--color-white);
     animation: spin 1s linear infinite;
     z-index: 3;
-    transition: opacity 0.3s ease;
+    transition: opacity var(--time-normal) ease;
 }
 
 /* 비디오 없는 경우 대체 표시 */
@@ -588,8 +613,8 @@ main {
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    border-radius: var(--border-radius-md);
+    color: var(--color-white);
+    border-radius: var(--radius-sm);
 }
 
 .no-video {
@@ -603,9 +628,9 @@ main {
 /* ===== 카드 정보 영역 스타일 ===== */
 .card-info {
     position: relative;
-    background-color: var(--bg-card-info);
+    background-color: var(--card-info-bg);
     text-align: center;
-    border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
     padding: 30px 15px 15px;
     margin-top: -20px;
     z-index: 0;
@@ -616,14 +641,14 @@ main {
 }
 
 .card.visible:hover .card-info {
-    background-color: var(--bg-card-info-hover);
+    background-color: var(--card-info-hover);
 }
 
 .card-colors {
     display: flex;
     gap: 5px;
     justify-content: center;
-    margin-bottom: 8px;
+    margin-bottom: var(--space-sm);
 }
 
 .card-title {
@@ -636,7 +661,7 @@ main {
     width: 18px;
     height: 18px;
     display: inline-block;
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--radius-xs);
 }
 
 /* ===== 모달 스타일 ===== */
@@ -651,7 +676,7 @@ main {
     background-color: rgba(0, 0, 0, 0);
     overflow: hidden;
     cursor: pointer;
-    transition: background-color 0.4s ease;
+    transition: background-color var(--time-slow) ease;
     will-change: background-color;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -664,8 +689,8 @@ main {
 .modal-content {
     background-color: var(--modal-bg);
     margin: 5% auto;
-    padding: 10px;
-    border-radius: var(--border-radius-md);
+    padding: var(--space-sm);
+    border-radius: var(--radius-sm);
     width: 90%;
     max-width: 800px;
     position: relative;
@@ -687,7 +712,7 @@ main {
     height: 0;
     padding-bottom: 56.25%; /* 16:9 비율 */
     background-color: var(--color-black);
-    border-radius: var(--border-radius-md);
+    border-radius: var(--radius-sm);
     z-index: 0;
     overflow: hidden !important;
 }
@@ -698,117 +723,78 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--radius-sm);
     object-fit: cover;
 }
 
-/* 모달 정보 영역 - 요소 세로 배치 */
+/* 모달 정보 영역 */
 .modal-info {
-    padding: 25px 20px 40px; /* 하단 패딩 증가 - 출시 정보 공간 확보 */
+    padding: var(--space-lg) var(--space-md) var(--space-md);
     background-color: var(--modal-info-bg);
-    border-radius: var(--border-radius-md);
-    margin-top: 10px;
+    border-radius: var(--radius-sm);
+    margin-top: var(--space-sm);
     position: relative;
     z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 모든 요소 중앙 정렬 */
-    text-align: center;
 }
 
-/* 제목 - 맨 위에 배치 */
 .modal-info h2 {
+    margin-top: calc(-1 * var(--space-sm));
+    margin-bottom: var(--space-sm);
     color: var(--text-inverse);
     font-size: 22px;
-    margin: 0 0 20px 0; /* 하단 여백 추가 */
-    width: 100%;
     text-align: center;
 }
 
-/* 색상 정보 - 제목 아래 배치 */
-.modal-colors {
+.modal-details {
     display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px; /* 색상과 속성 사이 간격 */
-}
-
-/* 속성 태그 컨테이너 - 세로 배치로 변경 */
-.modal-attributes {
-    display: flex;
-    flex-direction: column; /* 세로 배치 */
+    flex-direction: column;
     align-items: center;
-    gap: 15px; /* 태그 사이 간격 */
-    width: 100%;
-    margin-bottom: 20px; /* 다른 요소와의 간격 */
+    position: relative;
 }
 
-/* 속성 태그 공통 스타일 */
+.modal-colors {
+    margin-bottom: var(--space-sm);
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+}
+
+.modal-attributes {
+    margin-bottom: var(--space-lg);
+    text-align: center;
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .attribute-tag {
     display: inline-block;
-    padding: 6px 12px;
-    border-radius: var(--border-radius-md);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-sm);
     color: var(--text-inverse);
-    font-size: 14px;
-    width: auto;
-    max-width: 80%; /* 너무 길 경우 제한 */
 }
 
-/* 세트 태그 스타일 */
 .set-tag {
-    background-color: var(--set-tag-bg);
-    border: none;
+    background-color: var(--tag-set-bg);
+    border: solid;
+    border-color: var(--tag-set-border);
 }
 
-/* 무한 지속 태그 스타일 */
 .loop-tag {
-    background-color: var(--loop-tag-bg);
-    border: none;
+    background-color: var(--tag-loop-bg);
+    color: var(--text-inverse);
+    border: solid;
+    border-color: var(--tag-loop-border);
 }
 
-/* 출시 정보 강제 오른쪽 하단 배치 확실히 적용 */
 .modal-release-info {
-    position: absolute !important; /* 강제 적용 */
-    right: 10px !important;
-    bottom: 10px !important;
-    left: auto !important; /* 왼쪽 정렬 방지 */
-    text-align: right !important;
+    position: absolute;
+    right: var(--space-sm);
+    bottom: var(--space-sm);
+    text-align: right;
     font-size: 11px;
     color: var(--text-secondary);
-    max-width: 50%; /* 너비 제한 */
-    margin: 0 !important; /* 마진 제거 */
-    padding: 0 !important; /* 패딩 제거 */
-    transform: none !important; /* 변형 방지 */
-    z-index: 10; /* 다른 요소보다 위에 표시 */
-    background: transparent !important; /* 배경 투명 */
-}
-
-.attribute-tag {
-    display: inline-block;
-    padding: 8px 14px;
-    border-radius: var(--border-radius-md); /* 다른 요소와 동일한 라운딩 적용 */
-    color: var(--text-inverse);
-    font-size: 14px; /* 글자 크기 감소 */
-}
-
-.set-tag {
-    background-color: var(--set-tag-bg);
-    border: none; /* 테두리 제거 */
-}
-
-.loop-tag {
-    background-color: var(--loop-tag-bg);
-    color: var(--text-inverse);
-    border: none; /* 테두리 제거 */
-}
-
-.modal-release-info {
-    position: static; /* 위치 고정 해제 */
-    width: 100%;
-    text-align: left; /* 왼쪽 정렬 */
-    font-size: 12px; 
-    color: var(--text-secondary);
-    margin-top: 5px; /* 상단 여백 추가 */
 }
 
 /* 모달 로딩 인디케이터 */
@@ -823,7 +809,7 @@ main {
     align-items: center;
     background-color: rgba(0, 0, 0, 0.3);
     z-index: 2;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--radius-sm);
 }
 
 .modal-loading .spinner {
@@ -831,7 +817,7 @@ main {
     height: 40px;
     border-radius: 50%;
     border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top-color: #fff;
+    border-top-color: var(--color-white);
     animation: spin 1s linear infinite;
 }
 
@@ -860,7 +846,7 @@ main {
     .filter-section {
         flex-direction: column;
         align-items: center;
-        gap: 15px;
+        gap: var(--space-md);
     }
     
     .filter-group {
@@ -883,11 +869,11 @@ main {
     }
     
     .nav-buttons {
-        padding: 0 10px;
+        padding: 0 var(--space-sm);
     }
     
     .nav-button {
-        padding: 8px 12px;
+        padding: var(--space-sm);
         font-size: 13px;
     }
     
@@ -907,19 +893,18 @@ main {
     
     .card-container {
         grid-template-columns: 1fr;
-        gap: 15px;
+        gap: var(--space-md);
     }
     
-    /* 모바일 카드 레이아웃 - 통합된 배경색 사용 */
+    /* 모바일 카드 레이아웃 수정 */
     .card {
         display: flex;
         flex-direction: row;
         height: 120px;
         overflow: hidden;
-        background-color: var(--bg-card-info);
+        background-color: var(--card-info-bg);
         margin-bottom: 0;
-        /* 모바일에서 일관된 테두리 반경 사용 */
-        border-radius: var(--border-radius-md);
+        border-radius: var(--radius-sm);
     }
     
     /* 모바일에서 애니메이션 간소화 */
@@ -927,7 +912,7 @@ main {
         animation: fadeIn 0.4s ease forwards;
     }
     
-    /* 모바일에서 호버 효과 수정 - 가운데 틈 문제 해결 */
+    /* 모바일에서 호버 효과 감소 */
     .card.visible:hover {
         transform: translateY(-2px);
         box-shadow: var(--shadow-md);
@@ -935,7 +920,7 @@ main {
     
     /* 모바일 카드에서는 호버 시 배경색 변경 없음 */
     .card.visible:hover .card-info {
-        background-color: var(--bg-card-info);
+        background-color: var(--card-info-bg);
     }
     
     /* 모바일 비디오 컨테이너 - 내부 마진 제거 */
@@ -943,13 +928,13 @@ main {
         width: 45%;
         height: 100%;
         padding-bottom: 0;
-        border-radius: var(--border-radius-md) 0 0 var(--border-radius-md); /* 왼쪽 모서리만 둥글게 */
+        border-radius: var(--radius-sm) 0 0 var(--radius-sm); /* 왼쪽 모서리만 둥글게 */
         z-index: 1;
         margin-right: 0; /* 마진 제거 */
     }
     
     .card-video, .card-image, .no-video, .card-video-container.loading::before {
-        border-radius: var(--border-radius-md) 0 0 var(--border-radius-md); /* 왼쪽 모서리만 둥글게 */
+        border-radius: var(--radius-sm) 0 0 var(--radius-sm); /* 왼쪽 모서리만 둥글게 */
     }
     
     /* 모바일 카드 정보 영역 - 틈 없는 디자인 */
@@ -960,8 +945,8 @@ main {
         justify-content: center;
         align-items: flex-start;
         text-align: left;
-        padding: 10px 15px;
-        border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; /* 오른쪽 모서리만 둥글게 */
+        padding: var(--space-sm) var(--space-md);
+        border-radius: 0 var(--radius-sm) var(--radius-sm) 0; /* 오른쪽 모서리만 둥글게 */
         margin-top: 0;
         z-index: 0;
     }
