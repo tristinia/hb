@@ -15,7 +15,7 @@
     --bg-light: #ffffff;
     --bg-dark: #f4f5f7;
     --card-bg: #ffffff;
-    --card-info-bg: #e8e8e8;
+    --card-info-bg: #4f4f4f;
     --card-hover-bg: #f2f2f2; /* 호버 배경색 */
     --card-hover-border: rgba(0, 0, 0, 0.08); /* 호버 테두리 색상 */
     --card-hover-shadow: rgba(0, 0, 0, 0.06); /* 호버 그림자 색상 */
@@ -28,13 +28,10 @@
     --nav-active: #ffb800;
     
     /* 사이즈 및 모양 변수 */
-    --border-radius-sm: 6px;
-    --border-radius-md: 27px; /* 곡률 */
-    --border-radius-lg: 100px;
+    --border-radius-md: 4px; /* 곡률 */
     --transition-fast: 0.2s;
     --transition-normal: 0.3s;
     --transition-slow: 0.4s;
-    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     --filter-bg: #FFE395;
     --footer-color: rgba(0, 0, 0, 0.5); /* 푸터 색상 변수 */
 }
@@ -111,7 +108,7 @@ body {
 
 /* ===== 내비게이션 스타일 ===== */
 .nav-container {
-    background-color: var(--nav-bg);
+    background-color: #111111;
     padding: 10px 0;
     position: relative;
     border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm);
@@ -131,7 +128,7 @@ body {
 
 .nav-button {
     background-color: transparent;
-    color: var(--text-dark);
+    color: #ffe395;
     border: none;
     padding: 10px 15px;
     border-radius: var(--border-radius-sm);
@@ -146,8 +143,8 @@ body {
 }
 
 .nav-button.active {
-    background-color: var(--nav-active);
     box-shadow: var(--box-shadow);
+    border-bottom: solid;
     transform: translateY(-2px);
 }
 
@@ -157,7 +154,7 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background-color: var(--primary-color);
+    background-color: #111111;
     padding: 10px 20px;
     z-index: 900;
     transform: translateY(-100%);
@@ -175,7 +172,7 @@ body {
 }
 
 .sticky-title {
-    color: var(--text-dark);
+    color: #ffe395;
     font-size: 16px;
     font-weight: bold;
     text-align: center;
@@ -195,9 +192,11 @@ header {
 }
 
 h1 {
+    #000000;
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
+    margin-bottom: 28px;
+    margin-top: 18px;
+    font-size: 30px;
     cursor: pointer; /* 제목 클릭 가능 */
 }
 
@@ -222,8 +221,10 @@ h3 {
     border: none;
     border-radius: var(--border-radius-md);
     font-size: 16px;
-    background-color: var(--filter-bg);
-    color: var(--text-dark);
+    background-color: #ffffff;
+    outline-style: solid;
+    outline-width: 2px;
+    color: #111111;
     transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
     text-align: center; /* 검색창 텍스트 중앙 정렬 */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
@@ -304,7 +305,7 @@ h3 {
     box-shadow: var(--box-shadow);
     transition: transform var(--transition-fast), box-shadow var(--transition-fast);
     position: relative;
-    border-radius: var(--border-radius-sm);
+    border-radius: 4px;
 }
 
 .color-filter:hover {
@@ -335,8 +336,8 @@ h3 {
     padding: 10px;
     border-radius: var(--border-radius-md);
     border: none;
-    background-color: var(--filter-bg);
-    color: var(--text-dark);
+    background-color: #ffffff;
+    color: #444444;
     font-size: 14px;
     cursor: pointer;
     max-width: 200px;
@@ -364,16 +365,16 @@ h3 {
 
 /* 세트 필터가 선택된 경우(값이 있는 경우) 스타일 변경 */
 #setFilter.selected {
-    background-color: var(--accent-color);
-    color: var(--text-dark);
+    background-color: #111111;
+    color: #ffe395;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* ===== 무한지속 필터 스타일 ===== */
 .loop-filter {
     display: inline-block;
-    background-color: var(--filter-bg);
-    color: var(--text-dark);
+    background-color: #ffffff;
+    color: #444444;
     padding: 10px 20px;
     border: none;
     border-radius: var(--border-radius-md);
@@ -391,17 +392,17 @@ h3 {
 }
 
 .loop-filter.active {
-    background-color: var(--accent-color);
-    color: var(--text-dark);
+    background-color: #111111;
+    color: #ffe395;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* ===== 통계 정보 스타일 ===== */
 .stats {
+    color: #767676;
     text-align: center;
     margin: 15px 0;
     font-size: 14px;
-    color: var(--text-dark);
 }
 
 /* ===== 메인 컨텐츠 영역 ===== */
@@ -636,9 +637,9 @@ main {
 }
 
 .card-title {
+    color: #ffffff;
     font-size: 16px;
     font-weight: bold;
-    color: var(--text-dark);
 }
 
 .color-dot {
