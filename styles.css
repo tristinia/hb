@@ -321,7 +321,7 @@ main {
 
 .card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 20px;
     min-height: 300px;
     position: relative;
@@ -415,42 +415,6 @@ main {
     border-radius: var(--border-radius-md); /* 비디오/이미지 자체도 라운딩 처리 */
 }
 
-.card-video-container.loading::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: var(--border-radius-md);
-}
-
-.card-video-container.loading::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 40px;
-    height: 40px;
-    margin-top: -20px;
-    margin-left: -20px;
-    border-radius: 50%;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-top-color: #fff;
-    animation: spin 1s linear infinite;
-    z-index: 3;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
 /* 개선된 정보 영역 - 미디어와의 겹침 처리 */
 .card-info {
     position: relative;
@@ -519,6 +483,7 @@ main {
     background-color: #000;
     border-radius: var(--border-radius-md); /* 전체 모서리 라운딩 처리 */
     z-index: 0;
+    overflow: hidden; /* 라운딩 처리를 위해 오버플로우 숨김 */
 }
 
 .modal-video, .modal-image {
@@ -527,7 +492,7 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-md); /* 비디오/이미지 자체도 라운딩 처리 */
 }
 
 /* 개선된 모달 정보 영역 */
@@ -622,8 +587,16 @@ main {
     font-size: 12px;
 }
 
+/* 반응형 레이아웃 개선 */
+/* 태블릿 및 중간 사이즈 화면 (8인치 아이패드 등 고려) */
+@media (max-width: 820px) and (min-width: 650px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 /* Mobile optimization */
-@media (max-width: 768px) {
+@media (max-width: 649px) {
     h1 {
         font-size: 20px;
     }
@@ -682,16 +655,17 @@ main {
         background-color: var(--card-info-bg);
     }
     
-    /* 모바일 비디오 컨테이너 - 왼쪽만 라운딩 */
+    /* 모바일 비디오 컨테이너 */
     .card-video-container {
         width: 40%;
         height: 100%;
         padding-bottom: 0;
-        border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);
+        border-radius: var(--border-radius-md); /* 전체 라운딩 처리 */
         z-index: 0;
+        margin-right: 5px; /* 오른쪽 여백 추가 */
     }
     
-    /* 모바일 카드 정보 영역 - 오른쪽만 라운딩 */
+    /* 모바일 카드 정보 영역 */
     .card-info {
         width: 60%;
         display: flex;
@@ -700,7 +674,7 @@ main {
         align-items: flex-start;
         text-align: left;
         padding: 10px 15px;
-        border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+        border-radius: var(--border-radius-md); /* 전체 라운딩 처리 */
         margin-top: 0; /* 겹침 제거 */
         z-index: 0;
     }
