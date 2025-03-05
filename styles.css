@@ -387,7 +387,7 @@ main {
     padding: 0 20px;
 }
 
-/* 카드 컨테이너 스타일 */
+/* 카드 컨테이너 스타일 - 결과 수에 관계없이 그리드 레이아웃 유지 */
 .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -396,12 +396,11 @@ main {
     position: relative;
 }
 
-/* 결과 수에 따른 카드 컨테이너 스타일 조정 */
+/* few-results 클래스 제거 - 그리드 레이아웃 유지 */
 .card-container.few-results {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+    /* 이 클래스는 이제 사용하지 않음 */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 }
 
 .card-container.few-results .card {
@@ -711,8 +710,8 @@ main {
 /* 모달 출시 정보 위치 변경 - 오른쪽 정렬 */
 .modal-release-info {
     position: absolute;
-    right: 20px;
-    bottom: 15px;
+    right: -10px;
+    bottom: -10px;
     text-align: right;
     font-size: 11px;
     color: #777;
