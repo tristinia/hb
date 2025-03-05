@@ -135,7 +135,7 @@ function resetFilters() {
     activeColorFilters = [];
     updateColorFilterUI();
     
-    // 무한지속 필터 초기화
+    // 무한 지속 필터 초기화
     loopFilterActive = false;
     const loopFilter = document.getElementById('loopFilter');
     if (loopFilter) {
@@ -435,7 +435,7 @@ function setupEventListeners() {
         applyFilters();
     }, 300));
     
-    // 무한지속 필터 이벤트
+    // 무한 지속 필터 이벤트
     document.getElementById('loopFilter').addEventListener('click', () => {
         loopFilterActive = !loopFilterActive;
         document.getElementById('loopFilter').classList.toggle('active', loopFilterActive);
@@ -588,7 +588,7 @@ function openModal(effect) {
         `;
     }
     
-    // 속성 정보 (세트, 무한지속)
+    // 속성 정보 (세트, 무한 지속)
     modalAttributes.innerHTML = '';
     
     // 세트 정보
@@ -600,11 +600,11 @@ function openModal(effect) {
         `;
     }
     
-    // 무한지속 여부 (true인 경우만 표시)
+    // 무한 지속 여부 (true인 경우만 표시)
     if (effect.loop) {
         modalAttributes.innerHTML += `
             <div class="attribute-tag loop-tag">
-                무한지속
+                무한 지속
             </div>
         `;
     }
@@ -778,7 +778,7 @@ function applyFilters() {
         // 세트 필터
         const setMatch = !selectedSet || effect.set === selectedSet;
         
-        // 무한지속 필터
+        // 무한 지속 필터
         const loopMatch = !loopFilterActive || effect.loop === true;
         
         return nameMatch && colorMatch && setMatch && loopMatch;
