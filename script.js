@@ -47,18 +47,21 @@ let loopFilterActive = false;
 let activeColorFilters = [];
 let selectedSet = '';
 
-// 페이지 데이터 매핑
+// 페이지 데이터 매핑 - 버튼 텍스트와 페이지 제목 분리
 const pageConfig = {
     'liqueur': {
-        title: '정령 형변',
+        buttonText: '정령 형변',
+        title: '마비노기 정령 형상변환 리큐르',
         dataPath: 'data/spiritLiqueur.json'
     },
     'effectCard': {
-        title: '이펙트 변경 카드',
+        buttonText: '이펙트 변경 카드',
+        title: '마비노기 이펙트 변경 카드',
         dataPath: 'data/effectCard.json'
     },
     'titleEffect': {
-        title: '2차 타이틀',
+        buttonText: '2차 타이틀',
+        title: '마비노기 2차 타이틀 이펙트',
         dataPath: 'data/titleEffect.json'
     }
 };
@@ -67,6 +70,11 @@ const pageConfig = {
 document.addEventListener('DOMContentLoaded', () => {
     setupNavigation();
     setupSticky();
+    
+    // 초기 페이지 제목 설정
+    document.querySelector('h1').textContent = pageConfig[currentPage].title;
+    document.querySelector('.sticky-title').textContent = pageConfig[currentPage].title;
+    
     loadData(currentPage);
     setupEventListeners();
 });
@@ -83,7 +91,7 @@ function setupNavigation() {
     Object.keys(pageConfig).forEach(pageKey => {
         const button = document.createElement('button');
         button.className = 'nav-button';
-        button.textContent = pageConfig[pageKey].title;
+        button.textContent = pageConfig[pageKey].buttonText; // buttonText 사용
         button.dataset.page = pageKey;
         
         // 현재 페이지면 활성화
@@ -108,7 +116,7 @@ function setupNavigation() {
                 // 새 데이터 로드
                 loadData(currentPage);
                 
-                // 페이지 타이틀 업데이트
+                // 페이지 타이틀 업데이트 - 여기에서 title 속성 사용
                 document.querySelector('h1').textContent = pageConfig[pageKey].title;
                 document.querySelector('.sticky-title').textContent = pageConfig[pageKey].title;
             }
@@ -309,6 +317,13 @@ function renderNextBatch() {
     const container = document.getElementById('card-container');
     const itemsToRender = Math.min(ITEMS_PER_PAGE, filteredData.length - currentOffset);
     
+    // 결과 수에 따라 컨테이너 클래스 조정
+    if (filteredData.length <= 3) {
+        container.classList.add('few-results');
+    } else {
+        container.classList.remove('few-results');
+    }
+    
     if (itemsToRender <= 0) {
         if (filteredData.length === 0) {
             const noResults = document.createElement('div');
@@ -332,11 +347,13 @@ function renderNextBatch() {
         // 모든 카드 생성 (비디오/이미지)
         const card = createCard(effect, isImage);
         
-        // 애니메이션 클래스 추가
-        if (i % 2 === 0) {
-            card.classList.add('new-card-left');
-        } else {
-            card.classList.add('new-card-right');
+        // 결과 수가 많을 때만 애니메이션 클래스 추가
+        if (filteredData.length > 3) {
+            if (i % 2 === 0) {
+                card.classList.add('new-card-left');
+            } else {
+                card.classList.add('new-card-right');
+            }
         }
         
         fragment.appendChild(card);
@@ -620,6 +637,13 @@ function applyFilters() {
         // 카드 컨테이너 비우기
         const container = document.getElementById('card-container');
         container.innerHTML = '';
+        
+        // 결과 수에 따라 컨테이너 클래스 조정
+        if (filteredData.length <= 3) {
+            container.classList.add('few-results');
+        } else {
+            container.classList.remove('few-results');
+        }
         
         // 오프셋 초기화 및 새 배치 렌더링
         currentOffset = 0;
