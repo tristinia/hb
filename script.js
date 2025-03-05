@@ -317,13 +317,6 @@ function renderNextBatch() {
     const container = document.getElementById('card-container');
     const itemsToRender = Math.min(ITEMS_PER_PAGE, filteredData.length - currentOffset);
     
-    // 결과 수에 따라 컨테이너 클래스 조정
-    if (filteredData.length <= 3) {
-        container.classList.add('few-results');
-    } else {
-        container.classList.remove('few-results');
-    }
-    
     if (itemsToRender <= 0) {
         if (filteredData.length === 0) {
             const noResults = document.createElement('div');
@@ -347,13 +340,11 @@ function renderNextBatch() {
         // 모든 카드 생성 (비디오/이미지)
         const card = createCard(effect, isImage);
         
-        // 결과 수가 많을 때만 애니메이션 클래스 추가
-        if (filteredData.length > 3) {
-            if (i % 2 === 0) {
-                card.classList.add('new-card-left');
-            } else {
-                card.classList.add('new-card-right');
-            }
+        // 애니메이션 클래스 추가 (단순화된 방식)
+        if (i % 2 === 0) {
+            card.classList.add('new-card-left');
+        } else {
+            card.classList.add('new-card-right');
         }
         
         fragment.appendChild(card);
@@ -637,13 +628,6 @@ function applyFilters() {
         // 카드 컨테이너 비우기
         const container = document.getElementById('card-container');
         container.innerHTML = '';
-        
-        // 결과 수에 따라 컨테이너 클래스 조정
-        if (filteredData.length <= 3) {
-            container.classList.add('few-results');
-        } else {
-            container.classList.remove('few-results');
-        }
         
         // 오프셋 초기화 및 새 배치 렌더링
         currentOffset = 0;
