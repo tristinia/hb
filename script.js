@@ -1,14 +1,27 @@
-// 데이터를 저장할 변수
-let effectsData = [];
-let filteredData = [];
-let currentlyPlayingVideos = new Set();
-let isLoading = false;
-let currentOffset = 0;
-const ITEMS_PER_PAGE = 20;
-let latestUpdateDate = '';
+/**
+ * 마비노기 정령 형상변환 리큐르 & 부가 효과 뷰어
+ * 작성자: WF신의컨트롤
+ * 최종 수정: 2025-03-05
+ */
+
+// 데이터 및 상태 변수
+let effectsData = []; // 현재 표시 중인 데이터
+let filteredData = []; // 필터링된 데이터
+let currentlyPlayingVideos = new Set(); // 현재 재생 중인 비디오 추적
+let isLoading = false; // 로딩 상태
+let currentOffset = 0; // 무한 스크롤 오프셋
+const ITEMS_PER_PAGE = 20; // 한 번에 로드할 항목 수
+let latestUpdateDate = ''; // 최신 업데이트 날짜
+let currentPage = 'liqueur'; // 현재 페이지 (기본값: liqueur)
 
 // 이미 로드된 비디오 URL을 저장하는 Set (캐싱)
 const loadedVideos = new Set();
+
+// 순차적 비디오 로딩을 위한 변수
+let videoLoadQueue = [];
+let isLoadingVideo = false;
+let maxConcurrentLoads = 3; // 최대 동시 로드 수
+let activeLoads = 0; // 현재 로드 중인 수
 
 // 색상 정의 - 순서대로 정렬
 const colors = [
@@ -34,13 +47,113 @@ let loopFilterActive = false;
 let activeColorFilters = [];
 let selectedSet = '';
 
-// 초기화 및 데이터 로드
+// 페이지 데이터 매핑
+const pageConfig = {
+    'liqueur': {
+        title: '마비노기 정령 형상변환 리큐르',
+        dataPath: 'data/spiritLiqueur.json'
+    },
+    'effectCard': {
+        title: '이펙트 변경 카드',
+        dataPath: 'data/effectCard.json'
+    },
+    'titleEffect': {
+        title: '2차타이틀 이펙트',
+        dataPath: 'data/titleEffect.json'
+    }
+};
+
+// 페이지 초기화 및 데이터 로드
 document.addEventListener('DOMContentLoaded', () => {
+    setupNavigation();
     setupSticky();
-    loadData();
+    loadData(currentPage);
     setupEventListeners();
-    // 푸터는 데이터 로드 후에 추가
 });
+
+// 페이지 내비게이션 설정
+function setupNavigation() {
+    const navContainer = document.createElement('div');
+    navContainer.className = 'nav-container';
+    
+    const navButtons = document.createElement('div');
+    navButtons.className = 'nav-buttons';
+    
+    // 내비게이션 버튼 생성
+    Object.keys(pageConfig).forEach(pageKey => {
+        const button = document.createElement('button');
+        button.className = 'nav-button';
+        button.textContent = pageConfig[pageKey].title;
+        button.dataset.page = pageKey;
+        
+        // 현재 페이지면 활성화
+        if (pageKey === currentPage) {
+            button.classList.add('active');
+        }
+        
+        // 클릭 이벤트
+        button.addEventListener('click', () => {
+            if (pageKey !== currentPage) {
+                document.querySelectorAll('.nav-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                button.classList.add('active');
+                
+                // 페이지 변경
+                currentPage = pageKey;
+                
+                // 모든 필터 초기화
+                resetFilters();
+                
+                // 새 데이터 로드
+                loadData(currentPage);
+                
+                // 페이지 타이틀 업데이트
+                document.querySelector('h1').textContent = pageConfig[pageKey].title;
+                document.querySelector('.sticky-title').textContent = pageConfig[pageKey].title;
+            }
+        });
+        
+        navButtons.appendChild(button);
+    });
+    
+    navContainer.appendChild(navButtons);
+    
+    // 헤더 앞에 삽입
+    const header = document.querySelector('header');
+    document.body.insertBefore(navContainer, header);
+}
+
+// 필터 초기화
+function resetFilters() {
+    // 색상 필터 초기화
+    colors.forEach(color => {
+        color.isActive = false;
+    });
+    activeColorFilters = [];
+    updateColorFilterUI();
+    
+    // 무한지속 필터 초기화
+    loopFilterActive = false;
+    const loopFilter = document.getElementById('loopFilter');
+    if (loopFilter) {
+        loopFilter.classList.remove('active');
+    }
+    
+    // 세트 필터 초기화
+    selectedSet = '';
+    const setFilter = document.getElementById('setFilter');
+    if (setFilter) {
+        setFilter.value = '';
+        setFilter.classList.remove('selected');
+    }
+    
+    // 검색어 초기화
+    const searchInput = document.getElementById('search');
+    if (searchInput) {
+        searchInput.value = '';
+    }
+}
 
 // 스크롤 시 헤더 고정
 function setupSticky() {
@@ -48,7 +161,7 @@ function setupSticky() {
     const stickyHeader = document.createElement('div');
     stickyHeader.className = 'sticky-header';
     stickyHeader.innerHTML = `
-        <div class="sticky-title">마비노기 정령 형상변환 리큐르</div>
+        <div class="sticky-title">${pageConfig[currentPage].title}</div>
     `;
     document.body.appendChild(stickyHeader);
     
@@ -67,6 +180,12 @@ function setupSticky() {
 
 // 푸터 추가 (데이터 로드 후 최신 날짜 포함)
 function addFooter() {
+    // 기존 푸터 제거
+    const existingFooter = document.querySelector('.footer');
+    if (existingFooter) {
+        existingFooter.remove();
+    }
+    
     const footer = document.createElement('div');
     footer.className = 'footer';
     footer.innerHTML = `
@@ -77,10 +196,26 @@ function addFooter() {
 }
 
 // JSON 파일 로드
-async function loadData() {
+async function loadData(page) {
     try {
         showLoading(true);
-        const response = await fetch('effects.json');
+        
+        // 재생 중인 비디오 모두 정지
+        stopAllVideos();
+        
+        // 카드 컨테이너 비우기
+        const container = document.getElementById('card-container');
+        container.innerHTML = '';
+        
+        // 세트 필터 비우기
+        const setFilter = document.getElementById('setFilter');
+        if (setFilter) {
+            setFilter.innerHTML = '<option value="">모든 세트</option>';
+        }
+        
+        // 데이터 로드
+        const dataPath = pageConfig[page].dataPath;
+        const response = await fetch(dataPath);
         effectsData = await response.json();
         
         // 최신 날짜 찾기
@@ -90,14 +225,18 @@ async function loadData() {
         effectsData = effectsData.reverse();
         filteredData = [...effectsData];
         
-        // 색상 필터 버튼 생성
-        createColorFilters();
+        // 색상 필터 버튼 생성 (처음 한 번만)
+        const colorFiltersContainer = document.getElementById('colorFilters');
+        if (colorFiltersContainer && colorFiltersContainer.children.length === 0) {
+            createColorFilters();
+        }
         
         // 세트 필터 옵션 생성
         populateSetOptions();
         
         // 첫 페이지 카드 렌더링
-        renderInitialCards();
+        currentOffset = 0;
+        renderNextBatch();
         
         // 통계 업데이트
         updateStats();
@@ -107,12 +246,24 @@ async function loadData() {
         
         showLoading(false);
         
-        // 스크롤 이벤트 리스너 설정
-        setupScrollListener();
+        // 비디오 로딩 큐 초기화
+        videoLoadQueue = [];
+        isLoadingVideo = false;
+        activeLoads = 0;
+        
+        // 첫 페이지 비디오 자동 로드 시작 (약간 지연)
+        setTimeout(() => {
+            autoLoadAllVideos();
+        }, 500);
         
     } catch (error) {
         console.error('데이터 로드 중 오류 발생:', error);
         showLoading(false);
+        
+        // 오류 메시지 표시
+        const container = document.getElementById('card-container');
+        container.innerHTML = `<div class="error-message">데이터를 불러오는 데 실패했습니다.</div>`;
+        
         // 오류가 발생해도 푸터는 추가
         addFooter();
     }
@@ -146,15 +297,6 @@ function showLoading(isLoading) {
     }
 }
 
-// 초기 카드 렌더링
-function renderInitialCards() {
-    currentOffset = 0;
-    const container = document.getElementById('card-container');
-    container.innerHTML = '';
-    
-    renderNextBatch();
-}
-
 // 다음 배치 카드 렌더링
 function renderNextBatch() {
     if (isLoading || currentOffset >= filteredData.length) return;
@@ -180,7 +322,7 @@ function renderNextBatch() {
     // 카드 생성
     for (let i = 0; i < itemsToRender; i++) {
         const effect = filteredData[currentOffset + i];
-        const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+        const isImage = effect.videoLink && effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
         
         // 모든 카드 생성 (비디오/이미지)
         const card = createCard(effect, isImage);
@@ -198,32 +340,40 @@ function renderNextBatch() {
     container.appendChild(fragment);
     currentOffset += itemsToRender;
     isLoading = false;
+    
+    // 새로 추가된 비디오들을 로딩 큐에 추가
+    autoLoadAllVideos();
 }
 
 // 스크롤 리스너 설정
 function setupScrollListener() {
-    // 디바운스 적용한 스크롤 핸들러
-    let scrollTimeout;
+    // 기존 스크롤 이벤트 제거
+    window.removeEventListener('scroll', scrollHandler);
     
-    window.addEventListener('scroll', () => {
-        if (isLoading) return;
+    // 새 스크롤 이벤트 추가
+    window.addEventListener('scroll', scrollHandler);
+}
+
+// 디바운스 적용한 스크롤 핸들러
+let scrollTimeout;
+function scrollHandler() {
+    if (isLoading) return;
+    
+    // 스크롤 이벤트 디바운싱
+    if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+    }
+    
+    scrollTimeout = setTimeout(() => {
+        const scrollHeight = document.documentElement.scrollHeight;
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const clientHeight = document.documentElement.clientHeight;
         
-        // 스크롤 이벤트 디바운싱
-        if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
+        // 페이지 하단에 도달하면 다음 배치 로드
+        if (scrollTop + clientHeight >= scrollHeight - 500) {
+            renderNextBatch();
         }
-        
-        scrollTimeout = setTimeout(() => {
-            const scrollHeight = document.documentElement.scrollHeight;
-            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            const clientHeight = document.documentElement.clientHeight;
-            
-            // 페이지 하단에 도달하면 다음 배치 로드
-            if (scrollTop + clientHeight >= scrollHeight - 500) {
-                renderNextBatch();
-            }
-        }, 100); // 100ms 디바운스
-    });
+    }, 100); // 100ms 디바운스
 }
 
 // 이벤트 리스너 설정
@@ -301,6 +451,9 @@ function setupEventListeners() {
             closeModal();
         }
     });
+    
+    // 스크롤 이벤트 설정
+    setupScrollListener();
 }
 
 // 디바운스 함수 (연속 호출 방지)
@@ -409,9 +562,11 @@ function populateSetOptions() {
 // 색상 필터 UI 업데이트
 function updateColorFilterUI() {
     const colorFilters = document.querySelectorAll('.color-filter');
-    colors.forEach((color, index) => {
-        colorFilters[index].classList.toggle('active', color.isActive);
-    });
+    if (colorFilters.length > 0) {
+        colors.forEach((color, index) => {
+            colorFilters[index].classList.toggle('active', color.isActive);
+        });
+    }
 }
 
 // 모든 필터 적용
@@ -424,7 +579,7 @@ function applyFilters() {
     
     const newFilteredData = effectsData.filter(effect => {
         // 검색어 필터
-        const nameMatch = effect.name.toLowerCase().includes(searchText);
+        const nameMatch = effect.name && effect.name.toLowerCase().includes(searchText);
         
         // 색상 필터 (모든 선택된 색상을 포함하는 경우만 통과)
         let colorMatch = true;
@@ -457,7 +612,15 @@ function applyFilters() {
     
     // 약간의 지연 후 새 카드 렌더링
     setTimeout(() => {
-        renderInitialCards();
+        // 카드 컨테이너 비우기
+        const container = document.getElementById('card-container');
+        container.innerHTML = '';
+        
+        // 오프셋 초기화 및 새 배치 렌더링
+        currentOffset = 0;
+        renderNextBatch();
+        
+        // 통계 업데이트
         updateStats();
     }, 200);
 }
@@ -471,6 +634,147 @@ function stopAllVideos() {
         }
     });
     currentlyPlayingVideos.clear();
+}
+
+// 자동으로 모든 비디오 로드
+function autoLoadAllVideos() {
+    console.log('비디오 자동 로드 시작');
+    
+    const allVideoContainers = document.querySelectorAll('.card-video-container');
+    const allVideos = document.querySelectorAll('.card-video');
+    
+    // 모든 비디오 컨테이너 확인
+    allVideoContainers.forEach((container, index) => {
+        const video = allVideos[index];
+        
+        // 이미 로드된 비디오는 건너뛰기
+        if (video.src) return;
+        
+        // 비디오 URL 가져오기
+        const title = container.nextElementSibling.querySelector('.card-title').textContent;
+        const effect = filteredData.find(e => e.name === title);
+        
+        if (effect && effect.videoLink) {
+            // 이미 캐시된 URL인지 확인
+            if (loadedVideos.has(effect.videoLink)) {
+                // 이미 로드된 비디오는 로딩 표시 없이 바로 src 설정
+                video.src = effect.videoLink;
+                container.classList.remove('loading');
+            } else {
+                // 아직 로드되지 않은 비디오만 큐에 추가
+                const alreadyInQueue = videoLoadQueue.some(item => 
+                    item.src === effect.videoLink);
+                
+                if (!alreadyInQueue) {
+                    container.classList.add('loading');
+                    videoLoadQueue.push({
+                        container: container,
+                        video: video,
+                        src: effect.videoLink
+                    });
+                }
+            }
+        }
+    });
+    
+    // 로딩 큐에 항목이 있고 현재 로딩 중이 아니면 로딩 시작
+    if (videoLoadQueue.length > 0 && !isLoadingVideo) {
+        loadVideosInParallel();
+    }
+}
+
+// 병렬로 비디오 로드
+function loadVideosInParallel() {
+    if (videoLoadQueue.length === 0) {
+        isLoadingVideo = false;
+        activeLoads = 0;
+        return;
+    }
+    
+    isLoadingVideo = true;
+    
+    // 현재 동시 로드 수가 최대치 미만인 경우에만 새 로드 시작
+    while (videoLoadQueue.length > 0 && activeLoads < maxConcurrentLoads) {
+        activeLoads++;
+        const videoInfo = videoLoadQueue.shift();
+        loadSingleVideo(videoInfo);
+    }
+}
+
+// 단일 비디오 로드
+function loadSingleVideo(videoInfo) {
+    // 이미 로드된 비디오인지 확인 (캐시)
+    if (loadedVideos.has(videoInfo.src)) {
+        videoInfo.video.src = videoInfo.src;
+        videoInfo.container.classList.remove('loading');
+        finishVideoLoading();
+        return;
+    }
+    
+    // 비디오 로드 시작
+    videoInfo.video.src = videoInfo.src;
+    videoInfo.video.preload = "metadata"; // 메타데이터만 먼저 로드
+    
+    // 로드 완료 이벤트
+    videoInfo.video.addEventListener('loadeddata', function onLoad() {
+        // 로딩 표시 제거
+        videoInfo.container.classList.remove('loading');
+        
+        // 이벤트 리스너 제거
+        videoInfo.video.removeEventListener('loadeddata', onLoad);
+        
+        // 캐시에 추가
+        loadedVideos.add(videoInfo.src);
+        
+        // 로드 완료 처리
+        finishVideoLoading();
+    });
+    
+    // 로드 오류 처리
+    videoInfo.video.addEventListener('error', function onError(e) {
+        console.error('비디오 로드 실패:', videoInfo.src, e);
+        
+        // 로딩 표시 제거
+        videoInfo.container.classList.remove('loading');
+        
+        // 이벤트 리스너 제거
+        videoInfo.video.removeEventListener('error', onError);
+        
+        // 로드 완료 처리
+        finishVideoLoading();
+    });
+    
+    // 타임아웃 설정 (6초 후에도 로드가 안 되면 다음으로 진행)
+    const timeoutId = setTimeout(() => {
+        if (videoInfo.container.classList.contains('loading')) {
+            console.warn('비디오 로드 타임아웃:', videoInfo.src);
+            
+            // 로딩 표시 제거
+            videoInfo.container.classList.remove('loading');
+            
+            // 로드 완료 처리
+            finishVideoLoading();
+        }
+    }, 6000); // 6초 타임아웃
+    
+    // 비디오 로드 완료 처리
+    function finishVideoLoading() {
+        clearTimeout(timeoutId);
+        activeLoads--;
+        
+        // 다음 비디오 로드
+        if (activeLoads < maxConcurrentLoads && videoLoadQueue.length > 0) {
+            const nextVideoInfo = videoLoadQueue.shift();
+            loadSingleVideo(nextVideoInfo);
+        } else if (activeLoads === 0) {
+            isLoadingVideo = false;
+            
+            // 만약 큐가 남아있다면 다시 시작
+            if (videoLoadQueue.length > 0) {
+                loadVideosInParallel();
+            }
+        }
+    }
 }
 
 // 개별 카드 생성
@@ -497,11 +801,11 @@ function createCard(effect, isImage) {
                 <div class="card-title">${effect.name}</div>
             </div>
         `;
-    } else {
-        // 비디오는 바로 src 설정
+    } else if (effect.videoLink) {
+        // 비디오는 로딩 큐에 추가하기 위해 src 없이 생성
         card.innerHTML = `
-            <div class="card-video-container">
-                <video class="card-video" muted playsinline preload="metadata" src="${effect.videoLink}"></video>
+            <div class="card-video-container loading">
+                <video class="card-video" muted playsinline preload="metadata"></video>
             </div>
             <div class="card-info">
                 <div class="card-colors">
@@ -520,10 +824,12 @@ function createCard(effect, isImage) {
             // 다른 비디오 재생 중이면 중지
             stopAllVideos();
             
-            // 비디오 재생
-            video.currentTime = 0;
-            video.play().catch(e => console.log('비디오 재생 실패:', e));
-            currentlyPlayingVideos.add(video);
+            // 비디오가 로드된 경우에만 재생
+            if (video.src) {
+                video.currentTime = 0;
+                video.play().catch(e => console.log('비디오 재생 실패:', e));
+                currentlyPlayingVideos.add(video);
+            }
         });
         
         // 마우스 나가기 이벤트
@@ -542,10 +848,12 @@ function createCard(effect, isImage) {
                 // 다른 비디오 재생 중이면 중지
                 stopAllVideos();
                 
-                // 비디오 재생
-                video.currentTime = 0;
-                video.play().catch(e => console.log('비디오 재생 실패:', e));
-                currentlyPlayingVideos.add(video);
+                // 비디오가 로드된 경우에만 재생
+                if (video.src) {
+                    video.currentTime = 0;
+                    video.play().catch(e => console.log('비디오 재생 실패:', e));
+                    currentlyPlayingVideos.add(video);
+                }
             }, 200); // 짧은 터치와 구분하기 위한 딜레이
         });
         
@@ -557,6 +865,19 @@ function createCard(effect, isImage) {
                 currentlyPlayingVideos.delete(video);
             }
         });
+    } else {
+        // 비디오 링크가 없는 경우 대체 표시
+        card.innerHTML = `
+            <div class="card-video-container">
+                <div class="no-video">미리보기 없음</div>
+            </div>
+            <div class="card-info">
+                <div class="card-colors">
+                    ${colorsHTML.join('')}
+                </div>
+                <div class="card-title">${effect.name}</div>
+            </div>
+        `;
     }
     
     // 카드 클릭 이벤트
@@ -577,23 +898,31 @@ function openModal(effect) {
     // 미디어 컨테이너 초기화
     modalMediaContainer.innerHTML = '';
     
-    // 비디오 링크가 이미지인지 확인
-    const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
-    
-    // 미디어 요소 추가 (비디오 또는 이미지)
-    if (isImage) {
-        modalMediaContainer.innerHTML = `
-            <img class="modal-image" src="${effect.videoLink}" alt="${effect.name}">
-        `;
+    // 비디오 링크가 있는지 확인
+    if (effect.videoLink) {
+        // 비디오 링크가 이미지인지 확인
+        const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+        
+        // 미디어 요소 추가 (비디오 또는 이미지)
+        if (isImage) {
+            modalMediaContainer.innerHTML = `
+                <img class="modal-image" src="${effect.videoLink}" alt="${effect.name}">
+            `;
+        } else {
+            // 모든 비디오는 무한 반복 활성화
+            modalMediaContainer.innerHTML = `
+                <video class="modal-video" src="${effect.videoLink}" controls autoplay loop></video>
+            `;
+        }
     } else {
-        // 모든 비디오는 무한 반복 활성화
+        // 비디오 링크가 없는 경우 대체 표시
         modalMediaContainer.innerHTML = `
-            <video class="modal-video" src="${effect.videoLink}" controls autoplay loop></video>
+            <div class="no-media">미리보기 없음</div>
         `;
     }
     
     // 제목 설정
-    modalTitle.textContent = effect.name;
+    modalTitle.textContent = effect.name || '제목 없음';
     
     // 색상 정보
     modalColors.innerHTML = '';
