@@ -387,25 +387,13 @@ main {
     padding: 0 20px;
 }
 
-/* 카드 컨테이너 스타일 - 결과 수에 관계없이 그리드 레이아웃 유지 */
+/* 카드 컨테이너 스타일 */
 .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 20px;
     min-height: 300px;
     position: relative;
-}
-
-/* few-results 클래스 제거 - 그리드 레이아웃 유지 */
-.card-container.few-results {
-    /* 이 클래스는 이제 사용하지 않음 */
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-}
-
-.card-container.few-results .card {
-    max-width: 300px;
-    width: 100%;
 }
 
 /* 오류 메시지 스타일 */
@@ -418,6 +406,20 @@ main {
     background-color: rgba(255, 82, 82, 0.1);
     border-radius: var(--border-radius-md);
     margin: 20px 0;
+}
+
+/* 결과 없음 표시 */
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 30px;
+    font-size: 18px;
+    color: var(--text-dark);
+    width: 100%;
+    display: block;
+    background-color: var(--bg-light);
+    margin: 20px auto;
+    border-radius: var(--border-radius-md);
 }
 
 /* 카드 스타일 */
@@ -443,34 +445,35 @@ main {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* 그림자 강화 (더 미묘하게) */
 }
 
+/* 애니메이션 스타일 - 단순화 */
+@keyframes fadeInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 .card.new-card-right {
-    animation: slideInFromRight 0.3s ease-out forwards;
+    animation: fadeInFromRight 0.3s ease-out forwards;
 }
 
 .card.new-card-left {
-    animation: slideInFromLeft 0.3s ease-out forwards;
-}
-
-@keyframes slideInFromRight {
-    0% {
-        opacity: 0;
-        transform: translate3d(30px, 0, 0);
-    }
-    100% {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-@keyframes slideInFromLeft {
-    0% {
-        opacity: 0;
-        transform: translate3d(-30px, 0, 0);
-    }
-    100% {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
+    animation: fadeInFromLeft 0.3s ease-out forwards;
 }
 
 /* 비디오/이미지 컨테이너 스타일 */
@@ -707,7 +710,7 @@ main {
     color: var(--tag-text-2);
 }
 
-/* 모달 출시 정보 위치 변경 - 오른쪽 정렬 */
+/* 모달 출시 정보 위치 조정 */
 .modal-release-info {
     position: absolute;
     right: -10px;
@@ -715,20 +718,6 @@ main {
     text-align: right;
     font-size: 11px;
     color: #777;
-}
-
-/* 결과 없음 표시 */
-.no-results {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 30px;
-    font-size: 18px;
-    color: var(--text-dark);
-    width: 100%;
-    display: block;
-    background-color: var(--bg-light);
-    margin: 20px auto;
-    border-radius: var(--border-radius-md);
 }
 
 /* 푸터 스타일 */
