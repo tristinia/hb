@@ -396,6 +396,19 @@ main {
     position: relative;
 }
 
+/* 결과 수에 따른 카드 컨테이너 스타일 조정 */
+.card-container.few-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.card-container.few-results .card {
+    max-width: 300px;
+    width: 100%;
+}
+
 /* 오류 메시지 스타일 */
 .error-message {
     grid-column: 1 / -1;
@@ -416,9 +429,19 @@ main {
     box-shadow: var(--box-shadow);
     cursor: pointer;
     position: relative;
-    /* translate3d를 사용하여 GPU 가속을 활용 */
-    transform: translate3d(0, 0, 0);
-    will-change: transform, opacity; /* 브라우저에 변경될 속성 힌트 제공 */
+    margin-bottom: 20px; /* 아래쪽 여백 */
+    margin-top: 0; /* 초기 상단 여백 0 */
+    will-change: margin-top, margin-bottom, box-shadow;
+    transition: margin-top 0.25s ease, 
+                margin-bottom 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+/* 호버링 시 효과 - 섬세하게 위쪽으로 이동 */
+.card:hover {
+    margin-top: -5px; /* 상단 여백을 음수로 주어 위로 이동 (더 작은 이동) */
+    margin-bottom: 25px; /* 아래쪽 여백 늘려서 전체 높이 유지 (20px 원래 + 5px 이동) */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* 그림자 강화 (더 미묘하게) */
 }
 
 .card.new-card-right {
@@ -449,12 +472,6 @@ main {
         opacity: 1;
         transform: translate3d(0, 0, 0);
     }
-}
-
-.card:hover {
-    transform: translate3d(0, -5px, 0);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
 /* 비디오/이미지 컨테이너 스타일 */
@@ -544,7 +561,7 @@ main {
     background-color: var(--card-info-bg);
     text-align: center;
     border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); /* 하단만 라운딩 */
-    padding: 20px 15px 15px; /* 상단 패딩 증가 */
+    padding: 30px 15px 15px; /* 상단 패딩 증가 */
     margin-top: -20px; /* 위로 올려서 미디어 영역과 겹치게 함 */
     z-index: 0; /* 미디어 영역 아래로 내려가도록 z-index 낮춤 */
 }
@@ -691,23 +708,28 @@ main {
     color: var(--tag-text-2);
 }
 
+/* 모달 출시 정보 위치 변경 - 오른쪽 정렬 */
 .modal-release-info {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    text-align: center;
-    font-size: 12px;
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+    text-align: right;
+    font-size: 11px;
     color: #777;
-    padding-top: 10px;
 }
 
 /* 결과 없음 표시 */
 .no-results {
+    grid-column: 1 / -1;
     text-align: center;
     padding: 30px;
     font-size: 18px;
     color: var(--text-dark);
-    grid-column: 1 / -1;
+    width: 100%;
+    display: block;
+    background-color: var(--bg-light);
+    margin: 20px auto;
+    border-radius: var(--border-radius-md);
 }
 
 /* 푸터 스타일 */
@@ -730,8 +752,34 @@ main {
     margin-bottom: 5px;
 }
 
-/* 반응형 레이아웃 스타일 */
-/* 8인치 태블릿 모드 제거 */
+/* 중간 크기 화면에서 필터 모바일 형태로 표시 (650~696px) */
+@media (max-width: 696px) {
+    .filter-section {
+        flex-direction: column; /* 필터를 세로로 배치 */
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .filter-group {
+        width: 100%; /* 전체 너비 */
+        min-width: 0;
+        margin-top: 0 !important;
+        height: auto !important; /* 높이 리셋 */
+    }
+    
+    /* 모바일과 동일한 필터 순서 */
+    .color-filter-group {
+        order: 1;
+    }
+    
+    .loop-filter-group {
+        order: 2;
+    }
+    
+    .set-filter-group {
+        order: 3;
+    }
+}
 
 /* 모바일 최적화 */
 @media (max-width: 649px) {
@@ -800,6 +848,13 @@ main {
         height: 120px;
         overflow: hidden;
         background-color: var(--card-info-bg);
+        margin-bottom: 15px; /* 모바일에서는 기본 여백 줄임 */
+    }
+    
+    /* 모바일에서 호버링 효과 줄임 */
+    .card:hover {
+        margin-top: -3px; /* 모바일에서는 더 작은 이동 */
+        margin-bottom: 18px; /* 아래쪽 여백 조정 (15px 원래 + 3px 이동) */
     }
     
     /* 모바일 비디오 컨테이너 - 전체 라운딩 */
