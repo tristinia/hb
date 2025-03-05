@@ -481,16 +481,23 @@ function debounce(func, wait) {
     };
 }
 
-// 모달 닫기 함수
+// 모달 닫기 함수 수정
 function closeModal() {
     const modal = document.getElementById('modal');
     const modalVideo = document.querySelector('.modal-video');
     
+    // 애니메이션 클래스 제거
+    modal.classList.remove('open');
+    
+    // 비디오 정지
     if (modalVideo) {
         modalVideo.pause();
     }
     
-    modal.style.display = 'none';
+    // 애니메이션이 끝나면 모달 숨기기
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 400); // CSS 트랜지션 시간과 맞춤
 }
 
 // 색상 필터 버튼 생성
@@ -582,7 +589,7 @@ function updateColorFilterUI() {
     }
 }
 
-// 모든 필터 적용
+// 필터링 시 애니메이션 적용을 위한 applyFilters 함수 수정
 function applyFilters() {
     // 재생 중인 모든 비디오 정지
     stopAllVideos();
@@ -616,10 +623,10 @@ function applyFilters() {
     // 필터링 결과 저장 
     filteredData = newFilteredData;
     
-    // 카드를 모두 페이드 아웃
+    // 카드를 모두 페이드 아웃 (fade-out 클래스 이용)
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
-        card.style.opacity = '0';
+        card.classList.add('fade-out');
         card.style.pointerEvents = 'none'; // 클릭 비활성화
     });
     
@@ -635,7 +642,7 @@ function applyFilters() {
         
         // 통계 업데이트
         updateStats();
-    }, 200);
+    }, 250); // 애니메이션 시간과 맞춤
 }
 
 // 모든 재생 중인 비디오 정지
@@ -899,7 +906,7 @@ function createCard(effect, isImage) {
     return card;
 }
 
-// 모달 열기
+// 모달 열기 함수 수정
 function openModal(effect) {
     const modal = document.getElementById('modal');
     const modalMediaContainer = document.getElementById('modalMediaContainer');
@@ -992,8 +999,13 @@ function openModal(effect) {
         modalReleaseInfo.innerHTML += `<div>${effect.releaseKit}</div>`;
     }
     
-    // 모달 표시
+    // 모달 표시 - 애니메이션을 위한 클래스 추가
     modal.style.display = 'block';
+    
+    // 애니메이션을 위한 약간의 지연
+    setTimeout(() => {
+        modal.classList.add('open');
+    }, 10);
 }
 
 // 날짜 형식 변경 (YYYY-MM-DD -> YYYY년 MM월 DD일)
