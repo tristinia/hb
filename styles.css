@@ -29,21 +29,17 @@
     --color-gray-800: #333333;
     --color-gray-900: #242424;
     
-    /* 어두운 테마 전용 색상 */
-    --color-brown-100: #403726;
-    --color-brown-200: #3A3420;
-    --color-brown-300: #332e1f;
-    --color-brown-400: #2C2515;
-    --color-brown-500: #2A2518;
-    --color-brown-600: #272416;
-    --color-brown-700: #1A1810;
-    
     /* 배경 색상 */
     --bg-primary: var(--color-white);
     --bg-secondary: var(--color-gray-50);
     --bg-card: var(--color-white);
     --bg-card-info: var(--color-gray-600);
     --bg-card-hover: var(--color-gray-100);
+    --bg-card-info-hover: var(--color-gray-900);
+    
+    /* 모달 색상 */
+    --modal-bg: var(--color-white);
+    --modal-info-bg: var(--color-black);
     
     /* 텍스트 색상 */
     --text-primary: var(--color-gray-800);
@@ -87,40 +83,7 @@
     --transition-slow: 0.4s;
 }
 
-/* ===== 다크모드 색상 설정 (미디어 쿼리 통합) ===== */
-@media (prefers-color-scheme: dark) {
-    :root {
-        /* 기본 배경 색상을 다크테마로 전환 */
-        --bg-primary: var(--color-brown-600);
-        --bg-secondary: var(--color-brown-700);
-        --bg-card: var(--color-brown-500);
-        --bg-card-info: var(--color-brown-200);
-        --bg-card-hover: var(--color-brown-300);
-        
-        /* 텍스트 색상 변경 */
-        --text-primary: var(--color-white);
-        --text-secondary: var(--color-gray-300);
-        
-        /* 테두리 및 그림자 */
-        --border-light: rgba(255, 255, 255, 0.1);
-        --border-dark: rgba(0, 0, 0, 0.15);
-        --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.12);
-        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
-        --shadow-lg: 0 6px 16px rgba(0, 0, 0, 0.25);
-        
-        /* 컴포넌트별 색상 */
-        --filter-bg: var(--color-gray-100);
-        --nav-bg: var(--color-brown-400);
-        --nav-active: var(--color-brown-300);
-        
-        /* 카드 정보 호버 색상 */
-        --bg-card-info-hover: var(--color-brown-100);
-        
-        /* 모달 배경 */
-        --modal-bg: var(--color-brown-500);
-        --modal-info-bg: var(--color-brown-400);
-    }
-}
+/* 다크모드 미디어 쿼리 완전 제거 */
 
 /* ===== 기본 스타일 ===== */
 * {
@@ -739,9 +702,9 @@ main {
     object-fit: cover;
 }
 
-/* 모달 정보 영역 */
+/* 모달 정보 영역 - 요소 재정렬 및 간격 조정 */
 .modal-info {
-    padding: 25px 20px 20px;
+    padding: 25px 20px 30px; /* 하단 패딩 증가 */
     background-color: var(--modal-info-bg);
     border-radius: var(--border-radius-md);
     margin-top: 10px;
@@ -749,45 +712,37 @@ main {
     z-index: 1;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    align-items: center; /* 모든 요소 중앙 정렬 */
+    text-align: center;
 }
 
-/* 요소 순서 변경: 색상 → 제목 → 속성태그 */
-.modal-colors {
-    display: flex;
-    gap: 12px;
-    width: 100%;
-    justify-content: center; /* 가운데 정렬로 복원 */
-    order: 1;
-}
-
+/* 제목 - 맨 위에 배치 */
 .modal-info h2 {
     color: var(--text-inverse);
     font-size: 22px;
+    margin: 0 0 20px 0; /* 하단 여백 추가 */
+    width: 100%;
     text-align: center;
-    margin: 0;
-    order: 2;
 }
 
+/* 속성 정보 - 제목 다음에 배치 */
 .modal-attributes {
     display: flex;
-    gap: 10px;
+    gap: 15px;
     flex-wrap: wrap;
     width: 100%;
-    justify-content: center; /* 가운데 정렬로 복원 */
-    order: 3;
+    justify-content: center;
+    margin-bottom: 5px; /* 세트/무한 지속 태그와의 간격 */
 }
 
-/* 출시 정보 위치 복원 */
+/* 출시 정보 위치 - 우측 하단에 배치 */
 .modal-release-info {
-    position: absolute; /* 절대 위치로 복원 */
-    right: 10px;
-    bottom: 10px;
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
     text-align: right;
     font-size: 11px;
     color: var(--text-secondary);
-    width: auto; /* 너비 자동으로 변경 */
-    margin-top: 0; /* 기존 마진 제거 */
 }
 
 .attribute-tag {
