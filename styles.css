@@ -29,8 +29,8 @@
     
     /* 사이즈 및 모양 변수 */
     --border-radius-sm: 6px;
-    --border-radius-md: 24px; /* 곡률 */
-    --border-radius-lg: 60px;
+    --border-radius-md: 27px; /* 곡률 */
+    --border-radius-lg: 100px;
     --transition-fast: 0.2s;
     --transition-normal: 0.3s;
     --transition-slow: 0.4s;
