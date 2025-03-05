@@ -310,7 +310,7 @@ function showLoading(isLoading) {
     }
 }
 
-// 다음 배치 카드 렌더링
+// 다음 배치 카드 렌더링 - 깜빡임 해결 최적화
 function renderNextBatch() {
     if (isLoading || currentOffset >= filteredData.length) return;
     
@@ -340,19 +340,23 @@ function renderNextBatch() {
         // 모든 카드 생성 (비디오/이미지)
         const card = createCard(effect, isImage);
         
-        // 애니메이션 클래스 추가 (단순화된 방식)
-        if (i % 2 === 0) {
-            card.classList.add('new-card-left');
-        } else {
-            card.classList.add('new-card-right');
-        }
-        
+        // visible 클래스는 지연 추가
         fragment.appendChild(card);
     }
     
     container.appendChild(fragment);
     currentOffset += itemsToRender;
-    isLoading = false;
+    
+    // 트릭: RAF로 DOM 업데이트 확인 후 visible 클래스 추가
+    requestAnimationFrame(() => {
+        setTimeout(() => {
+            const newCards = container.querySelectorAll('.card:not(.visible)');
+            newCards.forEach(card => {
+                card.classList.add('visible');
+            });
+            isLoading = false;
+        }, 20);
+    });
     
     // 새로 추가된 비디오들을 로딩 큐에 추가
     autoLoadAllVideos();
@@ -481,23 +485,147 @@ function debounce(func, wait) {
     };
 }
 
-// 모달 닫기 함수 수정
+// 모달 열기 함수 수정 - 깜빡임 없는 모달
+function openModal(effect) {
+    const modal = document.getElementById('modal');
+    const modalContent = modal.querySelector('.modal-content');
+    const modalMediaContainer = document.getElementById('modalMediaContainer');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalColors = document.getElementById('modalColors');
+    const modalAttributes = document.getElementById('modalAttributes');
+    const modalReleaseInfo = document.getElementById('modalReleaseInfo');
+    
+    // 모달 콘텐츠를 먼저 숨기고 표시
+    modalContent.style.opacity = '0';
+    modalContent.style.transform = 'translateY(30px)';
+    
+    // 모달 표시 (배경만 먼저)
+    modal.style.display = 'block';
+    
+    // 미디어 컨테이너 초기화
+    modalMediaContainer.innerHTML = '';
+    
+    // 비디오 링크가 있는지 확인
+    if (effect.videoLink) {
+        // 비디오 링크가 이미지인지 확인
+        const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+        
+        // 미디어 요소 추가 (비디오 또는 이미지)
+        if (isImage) {
+            modalMediaContainer.innerHTML = `
+                <img class="modal-image" src="${effect.videoLink}" alt="${effect.name}">
+            `;
+        } else {
+            // 모든 비디오는 무한 반복 활성화
+            modalMediaContainer.innerHTML = `
+                <video class="modal-video" src="${effect.videoLink}" controls autoplay loop></video>
+            `;
+        }
+    } else {
+        // 비디오 링크가 없는 경우 대체 표시
+        modalMediaContainer.innerHTML = `
+            <div class="no-media">미리보기 없음</div>
+        `;
+    }
+    
+    // 제목 설정
+    modalTitle.textContent = effect.name || '제목 없음';
+    
+    // 색상 정보
+    modalColors.innerHTML = '';
+    
+    if (effect.color1) {
+        modalColors.innerHTML += `
+            <div class="color-dot" style="background-color: ${getColorCode(effect.color1)}" title="${effect.color1}"></div>
+        `;
+    }
+    
+    if (effect.color2) {
+        modalColors.innerHTML += `
+            <div class="color-dot" style="background-color: ${getColorCode(effect.color2)}" title="${effect.color2}"></div>
+        `;
+    }
+    
+    if (effect.color3) {
+        modalColors.innerHTML += `
+            <div class="color-dot" style="background-color: ${getColorCode(effect.color3)}" title="${effect.color3}"></div>
+        `;
+    }
+    
+    // 속성 정보 (세트, 무한지속)
+    modalAttributes.innerHTML = '';
+    
+    // 세트 정보
+    if (effect.set && effect.set.trim() !== '') {
+        modalAttributes.innerHTML += `
+            <div class="attribute-tag set-tag">
+                ${effect.set}
+            </div>
+        `;
+    }
+    
+    // 무한지속 여부 (true인 경우만 표시)
+    if (effect.loop) {
+        modalAttributes.innerHTML += `
+            <div class="attribute-tag loop-tag">
+                무한지속
+            </div>
+        `;
+    }
+    
+    // 출시 정보 (출시일, 출시 키트)
+    modalReleaseInfo.innerHTML = '';
+    
+    // 출시일
+    if (effect.releaseDate) {
+        modalReleaseInfo.innerHTML += `<div>${formatDate(effect.releaseDate)}</div>`;
+    }
+    
+    // 출시 키트
+    if (effect.releaseKit) {
+        modalReleaseInfo.innerHTML += `<div>${effect.releaseKit}</div>`;
+    }
+    
+    // 배경을 서서히 표시 (1프레임 지연)
+    requestAnimationFrame(() => {
+        modal.classList.add('open');
+        
+        // 콘텐츠를 서서히 표시 (배경 페이드인 후)
+        setTimeout(() => {
+            modalContent.style.transition = 'transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1)';
+            modalContent.style.opacity = '1';
+            modalContent.style.transform = 'translateY(0)';
+        }, 100);
+    });
+}
+
+// 모달 닫기 함수 수정 - 깜빡임 없는 모달 닫기
 function closeModal() {
     const modal = document.getElementById('modal');
+    const modalContent = modal.querySelector('.modal-content');
     const modalVideo = document.querySelector('.modal-video');
-    
-    // 애니메이션 클래스 제거
-    modal.classList.remove('open');
     
     // 비디오 정지
     if (modalVideo) {
         modalVideo.pause();
     }
     
-    // 애니메이션이 끝나면 모달 숨기기
+    // 콘텐츠 먼저 페이드 아웃
+    modalContent.style.opacity = '0';
+    modalContent.style.transform = 'translateY(30px)';
+    
+    // 콘텐츠가 사라진 후 배경 페이드 아웃
     setTimeout(() => {
-        modal.style.display = 'none';
-    }, 400); // CSS 트랜지션 시간과 맞춤
+        modal.classList.remove('open');
+        
+        // 배경이 사라진 후 모달 숨기기
+        setTimeout(() => {
+            modal.style.display = 'none';
+            
+            // 모달 콘텐츠 초기화 (다음 열기를 위해)
+            modalContent.style.transition = 'none';
+        }, 400);
+    }, 200);
 }
 
 // 색상 필터 버튼 생성
@@ -589,7 +717,7 @@ function updateColorFilterUI() {
     }
 }
 
-// 필터링 시 애니메이션 적용을 위한 applyFilters 함수 수정
+// 모든 필터 적용 - 깜빡임 방지 최적화
 function applyFilters() {
     // 재생 중인 모든 비디오 정지
     stopAllVideos();
@@ -623,26 +751,32 @@ function applyFilters() {
     // 필터링 결과 저장 
     filteredData = newFilteredData;
     
-    // 카드를 모두 페이드 아웃 (fade-out 클래스 이용)
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-        card.classList.add('fade-out');
-        card.style.pointerEvents = 'none'; // 클릭 비활성화
-    });
+    // 컨테이너 페이드 아웃
+    const container = document.getElementById('card-container');
+    container.style.transition = 'opacity 0.2s ease';
+    container.style.opacity = '0';
     
-    // 약간의 지연 후 새 카드 렌더링
+    // 페이드 아웃 완료 후 내용 비우기
     setTimeout(() => {
-        // 카드 컨테이너 비우기
-        const container = document.getElementById('card-container');
+        // 트랜지션 제거 후 내용 변경
+        container.style.transition = 'none';
         container.innerHTML = '';
         
-        // 오프셋 초기화 및 새 배치 렌더링
-        currentOffset = 0;
-        renderNextBatch();
-        
-        // 통계 업데이트
-        updateStats();
-    }, 250); // 애니메이션 시간과 맞춤
+        // 다음 프레임에서 오프셋 초기화 및 렌더링 
+        requestAnimationFrame(() => {
+            currentOffset = 0;
+            renderNextBatch();
+            
+            // 통계 업데이트
+            updateStats();
+            
+            // 트랜지션 복원 및 페이드인
+            requestAnimationFrame(() => {
+                container.style.transition = 'opacity 0.3s ease';
+                container.style.opacity = '1';
+            });
+        });
+    }, 200);
 }
 
 // 모든 재생 중인 비디오 정지
@@ -721,7 +855,7 @@ function loadVideosInParallel() {
     }
 }
 
-// 단일 비디오 로드
+// 단일 비디오 로드 - 최적화 버전
 function loadSingleVideo(videoInfo) {
     // 이미 로드된 비디오인지 확인 (캐시)
     if (loadedVideos.has(videoInfo.src)) {
@@ -904,108 +1038,6 @@ function createCard(effect, isImage) {
     card.addEventListener('click', () => openModal(effect));
     
     return card;
-}
-
-// 모달 열기 함수 수정
-function openModal(effect) {
-    const modal = document.getElementById('modal');
-    const modalMediaContainer = document.getElementById('modalMediaContainer');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalColors = document.getElementById('modalColors');
-    const modalAttributes = document.getElementById('modalAttributes');
-    const modalReleaseInfo = document.getElementById('modalReleaseInfo');
-    
-    // 미디어 컨테이너 초기화
-    modalMediaContainer.innerHTML = '';
-    
-    // 비디오 링크가 있는지 확인
-    if (effect.videoLink) {
-        // 비디오 링크가 이미지인지 확인
-        const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
-        
-        // 미디어 요소 추가 (비디오 또는 이미지)
-        if (isImage) {
-            modalMediaContainer.innerHTML = `
-                <img class="modal-image" src="${effect.videoLink}" alt="${effect.name}">
-            `;
-        } else {
-            // 모든 비디오는 무한 반복 활성화
-            modalMediaContainer.innerHTML = `
-                <video class="modal-video" src="${effect.videoLink}" controls autoplay loop></video>
-            `;
-        }
-    } else {
-        // 비디오 링크가 없는 경우 대체 표시
-        modalMediaContainer.innerHTML = `
-            <div class="no-media">미리보기 없음</div>
-        `;
-    }
-    
-    // 제목 설정
-    modalTitle.textContent = effect.name || '제목 없음';
-    
-    // 색상 정보
-    modalColors.innerHTML = '';
-    
-    if (effect.color1) {
-        modalColors.innerHTML += `
-            <div class="color-dot" style="background-color: ${getColorCode(effect.color1)}" title="${effect.color1}"></div>
-        `;
-    }
-    
-    if (effect.color2) {
-        modalColors.innerHTML += `
-            <div class="color-dot" style="background-color: ${getColorCode(effect.color2)}" title="${effect.color2}"></div>
-        `;
-    }
-    
-    if (effect.color3) {
-        modalColors.innerHTML += `
-            <div class="color-dot" style="background-color: ${getColorCode(effect.color3)}" title="${effect.color3}"></div>
-        `;
-    }
-    
-    // 속성 정보 (세트, 무한지속)
-    modalAttributes.innerHTML = '';
-    
-    // 세트 정보
-    if (effect.set && effect.set.trim() !== '') {
-        modalAttributes.innerHTML += `
-            <div class="attribute-tag set-tag">
-                ${effect.set}
-            </div>
-        `;
-    }
-    
-    // 무한지속 여부 (true인 경우만 표시)
-    if (effect.loop) {
-        modalAttributes.innerHTML += `
-            <div class="attribute-tag loop-tag">
-                무한지속
-            </div>
-        `;
-    }
-    
-    // 출시 정보 (출시일, 출시 키트)
-    modalReleaseInfo.innerHTML = '';
-    
-    // 출시일
-    if (effect.releaseDate) {
-        modalReleaseInfo.innerHTML += `<div>${formatDate(effect.releaseDate)}</div>`;
-    }
-    
-    // 출시 키트
-    if (effect.releaseKit) {
-        modalReleaseInfo.innerHTML += `<div>${effect.releaseKit}</div>`;
-    }
-    
-    // 모달 표시 - 애니메이션을 위한 클래스 추가
-    modal.style.display = 'block';
-    
-    // 애니메이션을 위한 약간의 지연
-    setTimeout(() => {
-        modal.classList.add('open');
-    }, 10);
 }
 
 // 날짜 형식 변경 (YYYY-MM-DD -> YYYY년 MM월 DD일)
