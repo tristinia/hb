@@ -2,93 +2,123 @@
  * 마비노기 정령 형상변환 리큐르 & 부가 효과 뷰어 스타일
  * 작성자: WF신의컨트롤
  * 최종 수정: 2025-03-05
+ * 최적화: 2025-03-05
  */
 
 /* ===== 변수 정의 ===== */
 :root {
-    /* 색상 변수 */
-    --primary-color: #f9d56e;
-    --primary-dark: #e9c55e;
-    --accent-color: #f9a826;
-    --text-light: #ffffff;
-    --text-dark: #333333;
-    --bg-light: #ffffff;
-    --bg-dark: #f4f5f7;
-    --card-bg: #ffffff;
-    --card-info-bg: #4f4f4f;
-    --card-hover-bg: #f2f2f2; /* 호버 배경색 */
-    --card-hover-border: rgba(0, 0, 0, 0.08); /* 호버 테두리 색상 */
-    --card-hover-shadow: rgba(0, 0, 0, 0.06); /* 호버 그림자 색상 */
-    --modal-bg: #ffffff;
-    --modal-info-bg: #444444;
-    --tag-bg-1: #ffffff;
-    --tag-bg-2: #ffffff;
-    --tag-text-2: #ffffff;
-    --nav-bg: #ffd566;
-    --nav-active: #ffb800;
+    /* 기본 색상 팔레트 (디자인 토큰) */
+    --color-gold: #f9d56e;
+    --color-gold-dark: #e9c55e;
+    --color-gold-light: #ffe395;
+    --color-orange: #f9a826;
+    --color-red: #ff5252;
+    --color-red-light: #fe6348;
+    --color-blue: #75b7d5;
+    --color-blue-dark: #339193;
+    --color-white: #ffffff;
+    --color-black: #111111;
+    --color-gray-50: #f4f5f7;
+    --color-gray-100: #f2f2f2;
+    --color-gray-200: #e9e9e9;
+    --color-gray-300: #d1d1d1;
+    --color-gray-400: #a9a9a9;
+    --color-gray-500: #767676;
+    --color-gray-600: #4f4f4f;
+    --color-gray-700: #444444;
+    --color-gray-800: #333333;
+    --color-gray-900: #242424;
     
-    /* 사이즈 및 모양 변수 */
-    --border-radius-md: 4px; /* 곡률 */
+    /* 어두운 테마 전용 색상 */
+    --color-brown-100: #403726;
+    --color-brown-200: #3A3420;
+    --color-brown-300: #332e1f;
+    --color-brown-400: #2C2515;
+    --color-brown-500: #2A2518;
+    --color-brown-600: #272416;
+    --color-brown-700: #1A1810;
+    
+    /* 배경 색상 */
+    --bg-primary: var(--color-white);
+    --bg-secondary: var(--color-gray-50);
+    --bg-card: var(--color-white);
+    --bg-card-info: var(--color-gray-600);
+    --bg-card-hover: var(--color-gray-100);
+    
+    /* 텍스트 색상 */
+    --text-primary: var(--color-gray-800);
+    --text-secondary: var(--color-gray-500);
+    --text-inverse: var(--color-white);
+    --text-accent: var(--color-gold-light);
+    
+    /* 테두리 및 그림자 */
+    --border-light: rgba(0, 0, 0, 0.08);
+    --border-dark: rgba(0, 0, 0, 0.15);
+    --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 6px 14px rgba(0, 0, 0, 0.12);
+    
+    /* 컴포넌트별 색상 */
+    --nav-bg: var(--color-black);
+    --nav-text: var(--color-gold-light);
+    --nav-active: var(--color-orange);
+    --nav-hover: rgba(255, 255, 255, 0.2);
+    
+    --filter-bg: var(--color-white);
+    --filter-text: var(--color-gray-700);
+    --filter-active-bg: var(--color-black);
+    --filter-active-text: var(--color-gold-light);
+    
+    --error-bg: rgba(255, 82, 82, 0.1);
+    
+    --set-tag-bg: var(--color-blue);
+    --set-tag-border: var(--color-blue-dark);
+    --loop-tag-bg: var(--color-red-light);
+    --loop-tag-border: var(--color-red-light);
+    
+    /* 크기 및 애니메이션 */
+    --border-radius-sm: 2px;
+    --border-radius-md: 4px;
+    --border-radius-lg: 8px;
+    --border-radius-xl: 24px;
+    
     --transition-fast: 0.2s;
     --transition-normal: 0.3s;
     --transition-slow: 0.4s;
-    --filter-bg: #FFE395;
-    --footer-color: rgba(0, 0, 0, 0.5); /* 푸터 색상 변수 */
 }
 
-/* ===== 다크모드 색상 설정 ===== */
+/* ===== 다크모드 색상 설정 (미디어 쿼리 통합) ===== */
 @media (prefers-color-scheme: dark) {
     :root {
-        --primary-color: #f9d56e;
-        --primary-dark: #e9c55e;
-        --accent-color: #f9a826;
-        --text-light: #ffffff;
-        --text-dark: #ffffff; /* 다크모드에서 텍스트는 흰색으로 */
-        --bg-light: #272416; /* 어두운 노란빛 배경 */
-        --bg-dark: #1A1810; /* 더 어두운 노란빛 배경 */
-        --card-bg: #2A2518; /* 카드 배경 */
-        --card-info-bg: #3A3420; /* 다크모드 카드 정보 배경 */
-        --card-hover-bg: #332e1f; /* 다크모드 호버 배경색 */
-        --card-hover-border: rgba(255, 255, 255, 0.1); /* 다크모드 호버 테두리 색상 */
-        --card-hover-shadow: rgba(0, 0, 0, 0.15); /* 다크모드 호버 그림자 색상 */
-        --modal-bg: #2A2518;
-        --modal-info-bg: #3A3420;
-        --tag-bg-1: #614E1D; /* 더 어두운 노란빛 태그 */
-        --tag-bg-2: #3D3415; /* 더 어두운 태그 */
-        --tag-text-2: #ffffff;
-        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        --filter-bg: #a38f56;
-        --footer-color: rgba(255, 255, 255, 0.6); /* 다크모드 푸터 색상 */
-        --nav-bg: #4e421c;
-        --nav-active: #6e5d26;
-    }
-}
-
-/* 안드로이드 호환성을 위한 추가 미디어 쿼리 */
-@media screen and (prefers-color-scheme: dark) {
-    :root {
-        --primary-color: #f9d56e;
-        --primary-dark: #e9c55e;
-        --accent-color: #f9a826;
-        --text-light: #ffffff;
-        --text-dark: #ffffff;
-        --bg-light: #272416;
-        --bg-dark: #1A1810;
-        --card-bg: #2A2518;
-        --card-info-bg: #3A3420;
-        --card-hover-bg: #332e1f;
-        --card-hover-border: rgba(255, 255, 255, 0.1);
-        --card-hover-shadow: rgba(0, 0, 0, 0.15);
-        --modal-bg: #2A2518;
-        --modal-info-bg: #3A3420;
-        --tag-bg-1: #614E1D;
-        --tag-bg-2: #3D3415;
-        --tag-text-2: #ffffff;
-        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        --filter-bg: #a38f56;
-        --footer-color: rgba(255, 255, 255, 0.6);
-        --nav-bg: #4e421c;
-        --nav-active: #6e5d26;
+        /* 기본 배경 색상을 다크테마로 전환 */
+        --bg-primary: var(--color-brown-600);
+        --bg-secondary: var(--color-brown-700);
+        --bg-card: var(--color-brown-500);
+        --bg-card-info: var(--color-brown-200);
+        --bg-card-hover: var(--color-brown-300);
+        
+        /* 텍스트 색상 변경 */
+        --text-primary: var(--color-white);
+        --text-secondary: var(--color-gray-300);
+        
+        /* 테두리 및 그림자 */
+        --border-light: rgba(255, 255, 255, 0.1);
+        --border-dark: rgba(0, 0, 0, 0.15);
+        --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.12);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
+        --shadow-lg: 0 6px 16px rgba(0, 0, 0, 0.25);
+        
+        /* 컴포넌트별 색상 */
+        --filter-bg: var(--color-gray-100);
+        --nav-bg: var(--color-brown-400);
+        --nav-active: var(--color-brown-300);
+        
+        /* 카드 정보 호버 색상 */
+        --bg-card-info-hover: var(--color-brown-100);
+        
+        /* 모달 배경 */
+        --modal-bg: var(--color-brown-500);
+        --modal-info-bg: var(--color-brown-400);
     }
 }
 
@@ -101,19 +131,48 @@
 }
 
 body {
-    background-color: var(--bg-light);
-    color: var(--text-dark);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* ===== 애니메이션 정의 ===== */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.97);
+        visibility: hidden;
+    }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 /* ===== 내비게이션 스타일 ===== */
 .nav-container {
-    background-color: #111111;
+    background-color: var(--nav-bg);
     padding: 10px 0;
     position: relative;
     border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm);
     text-align: center;
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--shadow-md);
 }
 
 .nav-buttons {
@@ -128,7 +187,7 @@ body {
 
 .nav-button {
     background-color: transparent;
-    color: #ffe395;
+    color: var(--nav-text);
     border: none;
     padding: 10px 15px;
     border-radius: var(--border-radius-sm);
@@ -139,11 +198,11 @@ body {
 }
 
 .nav-button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--nav-hover);
 }
 
 .nav-button.active {
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--shadow-md);
     border-bottom: solid;
     transform: translateY(-2px);
 }
@@ -154,7 +213,7 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background-color: #111111;
+    background-color: var(--nav-bg);
     padding: 10px 20px;
     z-index: 900;
     transform: translateY(-100%);
@@ -162,9 +221,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--shadow-md);
     border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
-    will-change: transform; /* 하드웨어 가속 힌트 */
+    will-change: transform;
 }
 
 .sticky-header.visible {
@@ -172,7 +231,7 @@ body {
 }
 
 .sticky-title {
-    color: #ffe395;
+    color: var(--nav-text);
     font-size: 16px;
     font-weight: bold;
     text-align: center;
@@ -181,30 +240,30 @@ body {
 
 /* ===== 헤더 스타일 ===== */
 header {
-    background-color: #ffffff;
+    background-color: var(--bg-primary);
     padding: 20px;
-    color: var(--text-dark);
+    color: var(--text-primary);
     border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
     margin-bottom: 20px;
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--shadow-md);
     transition: background-color var(--transition-normal), color var(--transition-normal);
     position: relative;
 }
 
 h1 {
-    #000000;
+    color: var(--color-black);
     text-align: center;
     margin-bottom: 28px;
     margin-top: 18px;
     font-size: 30px;
-    cursor: pointer; /* 제목 클릭 가능 */
+    cursor: pointer;
 }
 
 h3 {
-    display: none; /* 필터 제목 숨김 */
+    display: none;
     font-size: 14px;
     margin-bottom: 8px;
-    color: var(--text-dark);
+    color: var(--text-primary);
     text-align: center;
 }
 
@@ -221,24 +280,24 @@ h3 {
     border: none;
     border-radius: 24px;
     font-size: 16px;
-    background-color: #ffffff;
+    background-color: var(--bg-primary);
     outline-style: solid;
     outline-width: 2px;
-    color: #111111;
+    color: var(--text-primary);
     transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
-    text-align: center; /* 검색창 텍스트 중앙 정렬 */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
 }
 
 #search::placeholder {
-    color: rgba(0, 0, 0, 0.5);
-    text-align: center; /* placeholder도 중앙 정렬 */
+    color: var(--text-secondary);
+    text-align: center;
 }
 
 #search:focus {
     outline: none;
     background-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-md);
 }
 
 /* ===== 필터 섹션 스타일 ===== */
@@ -249,7 +308,7 @@ h3 {
     margin: 20px auto;
     max-width: 900px;
     justify-content: center;
-    align-items: center; /* 수직 중앙 정렬 */
+    align-items: center;
 }
 
 .filter-group {
@@ -260,13 +319,13 @@ h3 {
     align-items: center;
 }
 
-/* PC 환경에서의 필터 순서 */
+/* 필터 그룹 순서 - PC 환경 */
 .loop-filter-group {
     order: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 76px; /* 색상 필터와 동일한 높이 */
+    height: 76px;
 }
 
 .color-filter-group {
@@ -278,7 +337,7 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 76px; /* 색상 필터와 동일한 높이 */
+    height: 76px;
 }
 
 /* ===== 색상 필터 스타일 ===== */
@@ -309,8 +368,8 @@ h3 {
 }
 
 .color-filter:hover {
-    transform: scale(1.03); /* 축소 */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* 더 부드러운 그림자 */
+    transform: scale(1.03);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .color-filter.active {
@@ -336,8 +395,8 @@ h3 {
     padding: 10px;
     border-radius: 16px;
     border: none;
-    background-color: #ffffff;
-    color: #444444;
+    background-color: var(--filter-bg);
+    color: var(--filter-text);
     font-size: 14px;
     cursor: pointer;
     max-width: 200px;
@@ -347,34 +406,33 @@ h3 {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: none; /* 화살표 제거 */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    background-image: none;
+    box-shadow: var(--shadow-sm);
 }
 
 #setFilter:focus {
     outline: none;
     background-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-md);
 }
 
 #setFilter option {
-    background-color: var(--bg-light);
-    color: var(--text-dark);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     text-align: center;
 }
 
-/* 세트 필터가 선택된 경우(값이 있는 경우) 스타일 변경 */
 #setFilter.selected {
-    background-color: #111111;
-    color: #ffe395;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    background-color: var(--filter-active-bg);
+    color: var(--filter-active-text);
+    box-shadow: var(--shadow-md);
 }
 
 /* ===== 무한지속 필터 스타일 ===== */
 .loop-filter {
     display: inline-block;
-    background-color: #ffffff;
-    color: #444444;
+    background-color: var(--filter-bg);
+    color: var(--filter-text);
     padding: 10px 20px;
     border: none;
     border-radius: 16px;
@@ -384,22 +442,22 @@ h3 {
     width: 100%;
     max-width: 200px;
     text-align: center;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-sm);
 }
 
 .loop-filter:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-md);
 }
 
 .loop-filter.active {
-    background-color: #111111;
-    color: #ffe395;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    background-color: var(--filter-active-bg);
+    color: var(--filter-active-text);
+    box-shadow: var(--shadow-md);
 }
 
 /* ===== 통계 정보 스타일 ===== */
 .stats {
-    color: #767676;
+    color: var(--text-secondary);
     text-align: center;
     margin: 15px 0;
     font-size: 14px;
@@ -419,78 +477,51 @@ main {
     gap: 20px;
     min-height: 300px;
     position: relative;
-    align-items: stretch; /* 모든 카드를 동일한 높이로 */
-    overflow: hidden; /* 필터링 시 오버플로우로 인한 깜빡임 방지 */
+    align-items: stretch;
+    overflow: hidden;
     transition: opacity 0.2s ease;
+    contain: content; /* 스크롤 성능 향상 */
 }
 
-/* ===== 오류 메시지 스타일 ===== */
-.error-message {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 40px;
-    font-size: 18px;
-    color: #ff5252;
-    background-color: rgba(255, 82, 82, 0.1);
-    border-radius: var(--border-radius-md);
-    margin: 20px 0;
-}
-
-/* ===== 결과 없음 표시 ===== */
-.no-results {
+/* ===== 오류 메시지와 결과 없음 메시지 ===== */
+.error-message, .no-results {
     grid-column: 1 / -1;
     text-align: center;
     padding: 30px;
     font-size: 18px;
-    color: var(--text-dark);
-    width: 100%;
-    display: block;
-    background-color: var(--bg-light);
-    margin: 20px auto;
+    margin: 20px 0;
     border-radius: var(--border-radius-md);
+}
+
+.error-message {
+    color: var(--color-red);
+    background-color: var(--error-bg);
+    padding: 40px;
+}
+
+.no-results {
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
     animation: fadeIn 0.5s ease forwards;
 }
 
 /* ===== 카드 스타일 ===== */
 .card {
-    background-color: var(--card-bg);
+    background-color: var(--bg-card);
     border-radius: var(--border-radius-md);
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-md);
     cursor: pointer;
     position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
-    /* 초기 상태 설정 - 애니메이션 위해 */
-    opacity: 0;
-    transform: translateY(20px); /* 아래에서 위로 나타나는 효과 */
-    /* 트랜지션 없음 - 초기에는 트랜지션 비활성화 */
-    transition: none;
-    /* 경계선 추가 - 호버 효과용 */
-    border: 1px solid transparent;
-    /* 렌더링 최적화 */
-    will-change: transform, opacity, box-shadow, border-color;
-    backface-visibility: hidden;
-}
-
-/* 카드 애니메이션 간소화 - 통일된 애니메이션 */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.card {
     opacity: 0;
     transform: translateY(20px);
     transition: none;
-    will-change: transform, opacity;
+    border: 1px solid transparent;
+    will-change: transform, opacity, box-shadow, border-color;
+    backface-visibility: hidden;
 }
 
 .card.visible {
@@ -501,7 +532,7 @@ main {
                 background-color 0.4s ease;
 }
 
-/* 지연 시간 적용 - 카드 수 무관하게 연속적으로 적용 */
+/* 카드 애니메이션 지연 시간 */
 .card.visible:nth-child(1) { animation-delay: 50ms; }
 .card.visible:nth-child(2) { animation-delay: 80ms; }
 .card.visible:nth-child(3) { animation-delay: 110ms; }
@@ -514,16 +545,12 @@ main {
 .card.visible:nth-child(10) { animation-delay: 320ms; }
 .card.visible:nth-child(n+11) { animation-delay: 350ms; }
 
-/* ===== Scale 없는 호버 효과 ===== */
+/* 카드 호버 효과 */
 .card.visible:hover {
-    /* 위로 올라가는 효과만 유지하고 scale 제거 */
     transform: translateY(-6px);
-    /* 더 선명한 그림자 대신 테두리 강조 */
-    border-color: var(--card-hover-border);
-    /* 살짝 더 밝은 배경색 */
-    background-color: var(--card-hover-bg);
-    /* 부드러운 그림자 */
-    box-shadow: 0 6px 14px var(--card-hover-shadow);
+    border-color: var(--border-light);
+    background-color: var(--bg-card-hover);
+    box-shadow: var(--shadow-lg);
 }
 
 /* ===== 비디오/이미지 컨테이너 스타일 ===== */
@@ -531,10 +558,10 @@ main {
     position: relative;
     width: 100%;
     height: 0;
-    padding-bottom: 71.43%; /* 840:600 비율 (600/840*100) */
+    padding-bottom: 71.43%; /* 840:600 비율 */
     overflow: hidden;
     background-color: #000;
-    border-radius: var(--border-radius-md); /* 모든 모서리 둥글게 변경 */
+    border-radius: var(--border-radius-md);
     z-index: 1;
     transition: box-shadow var(--transition-normal);
 }
@@ -546,15 +573,14 @@ main {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: var(--border-radius-md); /* 모든 모서리 둥글게 변경 */
+    border-radius: var(--border-radius-md);
 }
 
-/* ===== 이미지 크기 조정 - 전체 표시 ===== */
 .card-image {
     object-fit: contain;
 }
 
-/* 개선된 로딩 인디케이터 */
+/* 로딩 인디케이터 */
 .card-video-container.loading::before {
     content: '';
     position: absolute;
@@ -588,13 +614,8 @@ main {
     transition: opacity 0.3s ease;
 }
 
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* ===== 비디오 없는 경우 대체 표시 ===== */
-.no-video {
+/* 비디오 없는 경우 대체 표시 */
+.no-video, .no-media {
     position: absolute;
     top: 0;
     left: 0;
@@ -605,28 +626,34 @@ main {
     align-items: center;
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
+    border-radius: var(--border-radius-md);
+}
+
+.no-video {
     font-size: 14px;
-    border-radius: var(--border-radius-md); /* 모든 모서리 둥글게 변경 */
+}
+
+.no-media {
+    font-size: 18px;
 }
 
 /* ===== 카드 정보 영역 스타일 ===== */
 .card-info {
     position: relative;
-    background-color: var(--card-info-bg);
+    background-color: var(--bg-card-info);
     text-align: center;
-    border-radius: 0 0 var(--border-radius-md) var(--border-radius-md); /* 하단만 라운딩 */
-    padding: 30px 15px 15px; /* 상단 패딩 증가 */
-    margin-top: -20px; /* 위로 올려서 미디어 영역과 겹치게 함 */
-    z-index: 0; /* 미디어 영역 아래로 내려가도록 z-index 낮춤 */
-    flex-grow: 1; /* 남은 공간 채우기 */
+    border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
+    padding: 30px 15px 15px;
+    margin-top: -20px;
+    z-index: 0;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
-/* 호버 시 테두리 효과가 카드 정보 영역에도 영향 주도록 */
 .card.visible:hover .card-info {
-    background-color: #242424;
+    background-color: var(--bg-card-info-hover);
 }
 
 .card-colors {
@@ -637,7 +664,7 @@ main {
 }
 
 .card-title {
-    color: #ffffff;
+    color: var(--text-inverse);
     font-size: 16px;
     font-weight: bold;
 }
@@ -647,19 +674,6 @@ main {
     height: 18px;
     display: inline-block;
     border-radius: var(--border-radius-sm);
-}
-
-/* ===== 페이드아웃 애니메이션 수정 - 명확한 시작과 끝점 ===== */
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-    to {
-        opacity: 0;
-        transform: translateY(-10px) scale(0.97);
-        visibility: hidden; /* 완전히 보이지 않도록 */
-    }
 }
 
 /* ===== 모달 스타일 ===== */
@@ -672,10 +686,9 @@ main {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0);
-    overflow: hidden; /* 스크롤바 깜빡임 방지 */
+    overflow: hidden;
     cursor: pointer;
     transition: background-color 0.4s ease;
-    /* GPU 가속을 위한 설정 */
     will-change: background-color;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -688,7 +701,7 @@ main {
 .modal-content {
     background-color: var(--modal-bg);
     margin: 5% auto;
-    padding: 10px; /* 전체 모달에 패딩 추가 */
+    padding: 10px;
     border-radius: var(--border-radius-md);
     width: 90%;
     max-width: 800px;
@@ -697,25 +710,23 @@ main {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     opacity: 0;
     transform: translateY(30px);
-    /* 트랜지션 없음 - JavaScript에서 추가 */
     transition: none;
-    /* GPU 가속을 위한 설정 */
     will-change: transform, opacity;
     backface-visibility: hidden;
     -webkit-font-smoothing: antialiased;
-    cursor: default; /* 모달 콘텐츠 영역은 기본 커서로 설정 */
+    cursor: default;
 }
 
-/* ===== 모달 미디어 컨테이너 스타일 ===== */
+/* 모달 미디어 컨테이너 */
 .modal-media-container {
     position: relative;
     width: 100%;
     height: 0;
-    padding-bottom: 56.25%; /* 16:9 비율 유지 */
-    background-color: #000;
-    border-radius: var(--border-radius-md); /* 모든 모서리 라운딩 */
+    padding-bottom: 56.25%; /* 16:9 비율 */
+    background-color: var(--color-black);
+    border-radius: var(--border-radius-md);
     z-index: 0;
-    overflow: hidden !important; /* 오버플로우 강제 숨김 */
+    overflow: hidden !important;
 }
 
 .modal-video, .modal-image {
@@ -724,261 +735,80 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: var(--border-radius-md); /* 비디오/이미지 자체도 라운딩 */
+    border-radius: var(--border-radius-md);
     object-fit: cover;
 }
 
-/* ===== 모달 내 미디어 없을 때 대체 표시 ===== */
-.no-media {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    font-size: 18px;
-    border-radius: var(--border-radius-md);
-}
-
-/* ===== 모달 정보 영역 스타일 ===== */
+/* 모달 정보 영역 */
 .modal-info {
-    padding: 25px 20px 20px; /* 상단 패딩 증가 */
-    background-color: #111111;
-    border-radius: var(--border-radius-md); /* 모든 모서리 라운딩 */
-    margin-top: 10px; /* 비디오와 간격 추가 */
+    padding: 25px 20px 20px;
+    background-color: var(--modal-info-bg);
+    border-radius: var(--border-radius-md);
+    margin-top: 10px;
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 모든 요소 사이에 동일한 간격 적용 */
 }
 
 .modal-info h2 {
-    margin-top: -10px;
-    margin-bottom: 10px;
-    color: #ffffff;
+    color: var(--text-inverse);
     font-size: 22px;
     text-align: center;
+    margin: 0; /* 마진 제거로 간격 일관성 유지 */
 }
 
 .modal-details {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; /* 왼쪽 정렬로 변경 */
     position: relative;
+    gap: 15px; /* 내부 요소들 간의 간격 */
+    width: 100%;
 }
 
 .modal-colors {
-    margin-bottom: 10px;
     display: flex;
-    justify-content: center;
     gap: 12px;
+    width: 100%;
+    justify-content: flex-start; /* 왼쪽 정렬 */
 }
 
 .modal-attributes {
-    margin-bottom: 25px; /* 출시 정보와의 간격 증가 */
-    text-align: center;
     display: flex;
     gap: 10px;
-    justify-content: center;
     flex-wrap: wrap;
+    width: 100%;
+    justify-content: flex-start; /* 왼쪽 정렬 */
 }
 
 .attribute-tag {
     display: inline-block;
     padding: 8px 14px;
-    border-radius: 24px;
-    color: #ffffff;
+    border-radius: var(--border-radius-md); /* 다른 요소와 동일한 라운딩 적용 */
+    color: var(--text-inverse);
+    font-size: 14px; /* 글자 크기 감소 */
 }
 
 .set-tag {
-    background-color: #75b7d5;
-    border: solid;
-    border-color: #339193;
-    border-radius: 24px;
+    background-color: var(--set-tag-bg);
+    border: none; /* 테두리 제거 */
 }
 
 .loop-tag {
-    background-color: #fe6348;
-    color: var(--tag-text-2);
-    border: solid;
-    border-color:#fe6348;
-    border-radius: 24px;
+    background-color: var(--loop-tag-bg);
+    color: var(--text-inverse);
+    border: none; /* 테두리 제거 */
 }
 
-/* ===== 모달 출시 정보 위치 조정 ===== */
 .modal-release-info {
-    position: absolute;
-    right: -10px;
-    bottom: -10px;
-    text-align: right;
-    font-size: 11px;
-    color: #777;
-}
-
-/* ===== 푸터 스타일 ===== */
-.footer {
-    text-align: center;
-    padding: 80px 0 100px;
-    color: var(--footer-color);
-    font-size: 14px;
-    display: flex;
-    flex-direction: column-reverse; /* 순서 반전 */
-    gap: 5px;
-}
-
-.footer .author {
-    font-weight: bold;
-}
-
-.footer .update-date {
-    font-size: 12px;
-    margin-bottom: 5px;
-}
-
-/* ===== 중간 크기 화면에서 필터 모바일 형태로 표시 (650~696px) ===== */
-@media (max-width: 696px) {
-    .filter-section {
-        flex-direction: column; /* 필터를 세로로 배치 */
-        align-items: center;
-        gap: 15px;
-    }
-    
-    .filter-group {
-        width: 100%; /* 전체 너비 */
-        min-width: 0;
-        margin-top: 0 !important;
-        height: auto !important; /* 높이 리셋 */
-    }
-    
-    /* 모바일과 동일한 필터 순서 */
-    .color-filter-group {
-        order: 1;
-    }
-    
-    .loop-filter-group {
-        order: 2;
-    }
-    
-    .set-filter-group {
-        order: 3;
-    }
-}
-
-/* ===== 모바일 최적화 ===== */
-@media (max-width: 649px) {
-    h1 {
-        font-size: 20px;
-    }
-    
-    .nav-buttons {
-        padding: 0 10px;
-    }
-    
-    .nav-button {
-        padding: 8px 12px;
-        font-size: 13px;
-    }
-    
-    .filter-section {
-        flex-direction: column; /* Stack filters vertically on mobile */
-        align-items: center;
-        gap: 15px;
-    }
-    
-    .filter-group {
-        width: 100%; /* Full width for each filter group */
-        min-width: 0;
-        margin-top: 0 !important; /* 모바일에서는 모두 상단 여백 제거 */
-        height: auto !important; /* 높이 리셋 */
-    }
-    
-    .color-filter {
-        width: 25px;
-        height: 25px;
-    }
-    
-    /* 모바일에서의 필터 순서 변경 */
-    .color-filter-group {
-        order: 1;
-    }
-    
-    .loop-filter-group {
-        order: 2;
-    }
-    
-    .set-filter-group {
-        order: 3;
-    }
-    
-    .modal-content {
-        width: 95%;
-        margin: 10% auto;
-    }
-    
-    .modal-media-container {
-        padding-bottom: 75%; /* Adjusted for mobile */
-    }
-    
-    .card-container {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-    
-    /* 모바일 카드 레이아웃 - 배경색 통일 */
-    .card {
-        display: flex;
-        flex-direction: row;
-        height: 120px;
-        overflow: hidden;
-        background-color: var(--card-info-bg);
-        margin-bottom: 0;
-    }
-    
-    /* 모바일에서 애니메이션 조정 */
-    .card {
-        animation: fadeIn 0.4s ease forwards;
-    }
-    
-    /* 모바일에서 호버링 효과 줄임 */
-    .card.visible:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    }
-    
-    /* 모바일 비디오 컨테이너 - 전체 라운딩 */
-    .card-video-container {
-        width: 50%; /* 45%에서 증가 */
-        height: 100%;
-        padding-bottom: 0;
-        border-radius: var(--border-radius-md); /* 전체 라운딩 처리 */
-        z-index: 1;
-        margin-right: 5px; /* 오른쪽 여백 추가 */
-    }
-    
-    .card-video, .card-image, .no-video, .card-video-container.loading::before {
-        border-radius: var(--border-radius-md); /* 전체 라운딩 처리 */
-    }
-    
-    /* 모바일 카드 정보 영역 - 전체 라운딩 */
-    .card-info {
-        width: 50%; /* 비디오 컨테이너 크기 증가에 맞춰 조정 */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        text-align: left;
-        padding: 10px 15px;
-        border-radius: var(--border-radius-md); /* 전체 라운딩 처리 */
-        margin-top: 0; /* 겹침 제거 */
-        z-index: 0;
-    }
-    
-    .card-colors {
-        justify-content: flex-start;
-        margin-top: 0;
-    }
+    position: static; /* 위치 고정 해제 */
+    width: 100%;
+    text-align: left; /* 왼쪽 정렬 */
+    font-size: 12px; 
+    color: var(--text-secondary);
+    margin-top: 5px; /* 상단 여백 추가 */
 }
 
 /* 모달 로딩 인디케이터 */
@@ -1005,19 +835,144 @@ main {
     animation: spin 1s linear infinite;
 }
 
-/* 비디오 로드 시 메모리 최적화를 위한 설정 */
-.card-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+/* ===== 푸터 스타일 ===== */
+.footer {
+    text-align: center;
+    padding: 80px 0 100px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 5px;
 }
 
-/* 스크롤 성능 향상 */
-.card-container {
-    contain: content;
+.footer .author {
+    font-weight: bold;
 }
 
-/* 방문자 하드웨어 성능에 따른 애니메이션 조절 */
+.footer .update-date {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+/* ===== 미디어 쿼리 - 중간 크기 화면 (650~696px) ===== */
+@media (max-width: 696px) {
+    .filter-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .filter-group {
+        width: 100%;
+        min-width: 0;
+        margin-top: 0 !important;
+        height: auto !important;
+    }
+    
+    /* 모바일과 동일한 필터 순서 */
+    .color-filter-group { order: 1; }
+    .loop-filter-group { order: 2; }
+    .set-filter-group { order: 3; }
+}
+
+/* ===== 모바일 최적화 ===== */
+@media (max-width: 649px) {
+    h1 {
+        font-size: 20px;
+    }
+    
+    .nav-buttons {
+        padding: 0 10px;
+    }
+    
+    .nav-button {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
+    .color-filter {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .modal-media-container {
+        padding-bottom: 75%;
+    }
+    
+    .card-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    /* 모바일 카드 레이아웃 - 통합된 배경색 사용 */
+    .card {
+        display: flex;
+        flex-direction: row;
+        height: 120px;
+        overflow: hidden;
+        background-color: var(--bg-card-info);
+        margin-bottom: 0;
+        /* 모바일에서 일관된 테두리 반경 사용 */
+        border-radius: var(--border-radius-md);
+    }
+    
+    /* 모바일에서 애니메이션 간소화 */
+    .card {
+        animation: fadeIn 0.4s ease forwards;
+    }
+    
+    /* 모바일에서 호버 효과 수정 - 가운데 틈 문제 해결 */
+    .card.visible:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+    
+    /* 모바일 카드에서는 호버 시 배경색 변경 없음 */
+    .card.visible:hover .card-info {
+        background-color: var(--bg-card-info);
+    }
+    
+    /* 모바일 비디오 컨테이너 - 내부 마진 제거 */
+    .card-video-container {
+        width: 45%;
+        height: 100%;
+        padding-bottom: 0;
+        border-radius: var(--border-radius-md) 0 0 var(--border-radius-md); /* 왼쪽 모서리만 둥글게 */
+        z-index: 1;
+        margin-right: 0; /* 마진 제거 */
+    }
+    
+    .card-video, .card-image, .no-video, .card-video-container.loading::before {
+        border-radius: var(--border-radius-md) 0 0 var(--border-radius-md); /* 왼쪽 모서리만 둥글게 */
+    }
+    
+    /* 모바일 카드 정보 영역 - 틈 없는 디자인 */
+    .card-info {
+        width: 55%; /* 너비 증가 */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        text-align: left;
+        padding: 10px 15px;
+        border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; /* 오른쪽 모서리만 둥글게 */
+        margin-top: 0;
+        z-index: 0;
+    }
+    
+    .card-colors {
+        justify-content: flex-start;
+        margin-top: 0;
+    }
+}
+
+/* ===== 애니메이션 감소 설정 ===== */
 @media (prefers-reduced-motion: reduce) {
     .card.visible {
         animation: none !important;
