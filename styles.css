@@ -20,9 +20,9 @@
     --card-hover-border: rgba(0, 0, 0, 0.08); /* 호버 테두리 색상 */
     --card-hover-shadow: rgba(0, 0, 0, 0.06); /* 호버 그림자 색상 */
     --modal-bg: #ffffff;
-    --modal-info-bg: #e8e8e8;
-    --tag-bg-1: #e3f2fd;
-    --tag-bg-2: #444444;
+    --modal-info-bg: #444444;
+    --tag-bg-1: #ffffff;
+    --tag-bg-2: #ffffff;
     --tag-text-2: #ffffff;
     --nav-bg: #ffd566;
     --nav-active: #ffb800;
@@ -747,7 +747,7 @@ main {
 /* ===== 모달 정보 영역 스타일 ===== */
 .modal-info {
     padding: 25px 20px 20px; /* 상단 패딩 증가 */
-    background-color: var(--modal-info-bg);
+    background-color: #111111;
     border-radius: var(--border-radius-md); /* 모든 모서리 라운딩 */
     margin-top: 10px; /* 비디오와 간격 추가 */
     position: relative;
@@ -787,18 +787,24 @@ main {
 
 .attribute-tag {
     display: inline-block;
-    padding: 5px 12px;
-    border-radius: var(--border-radius-sm);
-    color: var(--text-dark);
+    padding: 8px 14px;
+    border-radius: 24px;
+    color: #ffffff;
 }
 
 .set-tag {
-    background-color: var(--tag-bg-1);
+    background-color: #75b7d5;
+    border: solid;
+    border-color: #339193;
+    border-radius: 24px;
 }
 
 .loop-tag {
-    background-color: var(--tag-bg-2);
+    background-color: #fe6348;
     color: var(--tag-text-2);
+    border: solid;
+    border-color:#fe6348;
+    border-radius: 24px;
 }
 
 /* ===== 모달 출시 정보 위치 조정 ===== */
