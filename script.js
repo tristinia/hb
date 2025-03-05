@@ -50,7 +50,7 @@ let selectedSet = '';
 // 페이지 데이터 매핑
 const pageConfig = {
     'liqueur': {
-        title: '마비노기 정령 형상변환 리큐르',
+        title: '정령 형변',
         dataPath: 'data/spiritLiqueur.json'
     },
     'effectCard': {
@@ -58,7 +58,7 @@ const pageConfig = {
         dataPath: 'data/effectCard.json'
     },
     'titleEffect': {
-        title: '2차타이틀 이펙트',
+        title: '2차 타이틀',
         dataPath: 'data/titleEffect.json'
     }
 };
@@ -221,8 +221,13 @@ async function loadData(page) {
         // 최신 날짜 찾기
         findLatestUpdateDate();
         
-        // 역순으로 정렬 (최신 항목이 맨 위로)
-        effectsData = effectsData.reverse();
+        // 날짜순으로 정렬 (최신 항목이 맨 위로)
+        effectsData.sort((a, b) => {
+            if (!a.releaseDate) return 1;
+            if (!b.releaseDate) return -1;
+            return b.releaseDate.localeCompare(a.releaseDate);
+        });
+        
         filteredData = [...effectsData];
         
         // 색상 필터 버튼 생성 (처음 한 번만)
