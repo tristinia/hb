@@ -16,6 +16,9 @@
     --bg-dark: #f4f5f7;
     --card-bg: #ffffff;
     --card-info-bg: #e8e8e8;
+    --card-hover-bg: #f2f2f2; /* 호버 배경색 */
+    --card-hover-border: rgba(0, 0, 0, 0.08); /* 호버 테두리 색상 */
+    --card-hover-shadow: rgba(0, 0, 0, 0.06); /* 호버 그림자 색상 */
     --modal-bg: #ffffff;
     --modal-info-bg: #e8e8e8;
     --tag-bg-1: #e3f2fd;
@@ -30,7 +33,8 @@
     --border-radius-lg: 60px;
     --transition-fast: 0.2s;
     --transition-normal: 0.3s;
-    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --transition-slow: 0.4s;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     --filter-bg: #FFE395;
     --footer-color: rgba(0, 0, 0, 0.5); /* 푸터 색상 변수 */
 }
@@ -38,21 +42,24 @@
 /* ===== 다크모드 색상 설정 ===== */
 @media (prefers-color-scheme: dark) {
     :root {
-        --primary-color: #f9d56e; /* 일반 모드와 동일 */
-        --primary-dark: #e9c55e; /* 일반 모드와 동일 */
-        --accent-color: #f9a826; /* 일반 모드와 동일 */
+        --primary-color: #f9d56e;
+        --primary-dark: #e9c55e;
+        --accent-color: #f9a826;
         --text-light: #ffffff;
         --text-dark: #ffffff; /* 다크모드에서 텍스트는 흰색으로 */
         --bg-light: #272416; /* 어두운 노란빛 배경 */
         --bg-dark: #1A1810; /* 더 어두운 노란빛 배경 */
         --card-bg: #2A2518; /* 카드 배경 */
         --card-info-bg: #3A3420; /* 다크모드 카드 정보 배경 */
+        --card-hover-bg: #332e1f; /* 다크모드 호버 배경색 */
+        --card-hover-border: rgba(255, 255, 255, 0.1); /* 다크모드 호버 테두리 색상 */
+        --card-hover-shadow: rgba(0, 0, 0, 0.15); /* 다크모드 호버 그림자 색상 */
         --modal-bg: #2A2518;
         --modal-info-bg: #3A3420;
         --tag-bg-1: #614E1D; /* 더 어두운 노란빛 태그 */
         --tag-bg-2: #3D3415; /* 더 어두운 태그 */
         --tag-text-2: #ffffff;
-        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         --filter-bg: #a38f56;
         --footer-color: rgba(255, 255, 255, 0.6); /* 다크모드 푸터 색상 */
         --nav-bg: #4e421c;
@@ -72,12 +79,15 @@
         --bg-dark: #1A1810;
         --card-bg: #2A2518;
         --card-info-bg: #3A3420;
+        --card-hover-bg: #332e1f;
+        --card-hover-border: rgba(255, 255, 255, 0.1);
+        --card-hover-shadow: rgba(0, 0, 0, 0.15);
         --modal-bg: #2A2518;
         --modal-info-bg: #3A3420;
         --tag-bg-1: #614E1D;
         --tag-bg-2: #3D3415;
         --tag-text-2: #ffffff;
-        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         --filter-bg: #a38f56;
         --footer-color: rgba(255, 255, 255, 0.6);
         --nav-bg: #4e421c;
@@ -298,8 +308,8 @@ h3 {
 }
 
 .color-filter:hover {
-    transform: scale(1.05);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.03); /* 축소 */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* 더 부드러운 그림자 */
 }
 
 .color-filter.active {
@@ -409,7 +419,8 @@ main {
     min-height: 300px;
     position: relative;
     align-items: stretch; /* 모든 카드를 동일한 높이로 */
-    perspective: 1000px; /* 3D 효과를 위한 원근감 설정 */
+    overflow: hidden; /* 필터링 시 오버플로우로 인한 깜빡임 방지 */
+    transition: opacity 0.2s ease;
 }
 
 /* ===== 오류 메시지 스타일 ===== */
@@ -436,7 +447,7 @@ main {
     background-color: var(--bg-light);
     margin: 20px auto;
     border-radius: var(--border-radius-md);
-    animation: fadeInScale 0.5s ease forwards;
+    animation: fadeIn 0.5s ease forwards;
 }
 
 /* ===== 카드 스타일 ===== */
@@ -444,57 +455,66 @@ main {
     background-color: var(--card-bg);
     border-radius: var(--border-radius-md);
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* 더 가벼운 그림자 기본값 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     cursor: pointer;
     position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
-    transform-origin: center bottom; /* 변환 원점 설정 */
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), /* 약간의 바운스 효과 */
-                box-shadow 0.3s ease,
-                opacity 0.3s ease;
-    opacity: 0; /* 시작은 투명하게 */
-    will-change: transform, opacity, box-shadow; /* 성능 최적화 */
+    /* 초기 상태 설정 - 애니메이션 위해 */
+    opacity: 0;
+    transform: translateY(20px); /* 아래에서 위로 나타나는 효과 */
+    /* 트랜지션 없음 - 초기에는 트랜지션 비활성화 */
+    transition: none;
+    /* 경계선 추가 - 호버 효과용 */
+    border: 1px solid transparent;
+    /* 렌더링 최적화 */
+    will-change: transform, opacity, box-shadow, border-color;
+    backface-visibility: hidden;
 }
 
-/* ===== 호버링 효과 ===== */
-.card:hover {
-    transform: translateY(-8px) scale(1.02); /* 약간 위로 + 미세하게 확대 */
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12); /* 더 진한 그림자 */
+/* 카드에 visible 클래스가 추가되면 애니메이션 활성화 */
+.card.visible {
+    animation: fadeIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    /* 호버 효과를 위한 트랜지션 활성화 */
+    transition: transform 0.4s ease, 
+                box-shadow 0.4s ease, 
+                border-color 0.4s ease,
+                background-color 0.4s ease;
 }
 
-/* ===== 모던 애니메이션 - 페이드 업 + 스케일 ===== */
-@keyframes fadeInScale {
-    0% {
-        opacity: 0;
-        transform: translateY(20px) scale(0.96);
-    }
-    100% {
+/* 페이드인 키프레임 */
+@keyframes fadeIn {
+    to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
     }
 }
 
-/* ===== 카드 등장 애니메이션 - 공통 적용 ===== */
-.card {
-    animation: fadeInScale 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    animation-fill-mode: both; /* 애니메이션 끝 상태 유지 */
-}
+/* 지연 시간 적용 - 카드 수 무관하게 연속적으로 적용 */
+.card.visible:nth-child(1) { animation-delay: 50ms; }
+.card.visible:nth-child(2) { animation-delay: 80ms; }
+.card.visible:nth-child(3) { animation-delay: 110ms; }
+.card.visible:nth-child(4) { animation-delay: 140ms; }
+.card.visible:nth-child(5) { animation-delay: 170ms; }
+.card.visible:nth-child(6) { animation-delay: 200ms; }
+.card.visible:nth-child(7) { animation-delay: 230ms; }
+.card.visible:nth-child(8) { animation-delay: 260ms; }
+.card.visible:nth-child(9) { animation-delay: 290ms; }
+.card.visible:nth-child(10) { animation-delay: 320ms; }
+.card.visible:nth-child(n+11) { animation-delay: 350ms; }
 
-/* ===== 지연 시간을 다르게 적용해 순차적 등장 효과 ===== */
-.card-container .card:nth-child(1) { animation-delay: 0.05s; }
-.card-container .card:nth-child(2) { animation-delay: 0.1s; }
-.card-container .card:nth-child(3) { animation-delay: 0.15s; }
-.card-container .card:nth-child(4) { animation-delay: 0.2s; }
-.card-container .card:nth-child(5) { animation-delay: 0.25s; }
-.card-container .card:nth-child(6) { animation-delay: 0.3s; }
-.card-container .card:nth-child(7) { animation-delay: 0.35s; }
-.card-container .card:nth-child(8) { animation-delay: 0.4s; }
-.card-container .card:nth-child(9) { animation-delay: 0.45s; }
-.card-container .card:nth-child(10) { animation-delay: 0.5s; }
-/* 11개 이상은 일정한 지연 적용 */
-.card-container .card:nth-child(n+11) { animation-delay: 0.5s; }
+/* ===== Scale 없는 호버 효과 ===== */
+.card.visible:hover {
+    /* 위로 올라가는 효과만 유지하고 scale 제거 */
+    transform: translateY(-6px);
+    /* 더 선명한 그림자 대신 테두리 강조 */
+    border-color: var(--card-hover-border);
+    /* 살짝 더 밝은 배경색 */
+    background-color: var(--card-hover-bg);
+    /* 부드러운 그림자 */
+    box-shadow: 0 6px 14px var(--card-hover-shadow);
+}
 
 /* ===== 비디오/이미지 컨테이너 스타일 ===== */
 .card-video-container {
@@ -504,14 +524,9 @@ main {
     padding-bottom: 71.43%; /* 840:600 비율 (600/840*100) */
     overflow: hidden;
     background-color: #000;
-    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* 상단만 둥글게 */
-    z-index: 1; /* 비디오를 위로 올림 */
-    transition: transform 0.3s ease; /* 트랜지션 추가 */
-}
-
-/* ===== 호버 시 비디오 컨테이너에 미세한 스케일 효과 ===== */
-.card:hover .card-video-container {
-    transform: scale(1.02); /* 미세하게 확대 */
+    border-radius: var(--border-radius-md); /* 모든 모서리 둥글게 변경 */
+    z-index: 1;
+    transition: box-shadow var(--transition-normal);
 }
 
 .card-video, .card-image {
@@ -521,7 +536,7 @@ main {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* 상단만 둥글게 */
+    border-radius: var(--border-radius-md); /* 모든 모서리 둥글게 변경 */
 }
 
 /* ===== 이미지 크기 조정 - 전체 표시 ===== */
@@ -542,7 +557,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* 상단만 둥글게 */
+    border-radius: var(--border-radius-md); /* 모든 모서리 둥글게 변경 */
+    transition: opacity 0.3s ease;
 }
 
 .card-video-container.loading::after {
@@ -559,11 +575,12 @@ main {
     border-top-color: #fff;
     animation: spin 1s linear infinite;
     z-index: 3;
+    transition: opacity 0.3s ease;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 /* ===== 비디오 없는 경우 대체 표시 ===== */
@@ -579,7 +596,7 @@ main {
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
     font-size: 14px;
-    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* 상단만 둥글게 */
+    border-radius: var(--border-radius-md); /* 모든 모서리 둥글게 변경 */
 }
 
 /* ===== 카드 정보 영역 스타일 ===== */
@@ -595,7 +612,11 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    transition: transform 0.3s ease; /* 트랜지션 추가 */
+}
+
+/* 호버 시 테두리 효과가 카드 정보 영역에도 영향 주도록 */
+.card.visible:hover .card-info {
+    background-color: var(--card-hover-bg);
 }
 
 .card-colors {
@@ -618,21 +639,17 @@ main {
     border-radius: var(--border-radius-sm);
 }
 
-/* ===== 필터 적용 시 페이드 아웃 효과 개선 ===== */
+/* ===== 페이드아웃 애니메이션 수정 - 명확한 시작과 끝점 ===== */
 @keyframes fadeOut {
-    0% {
+    from {
         opacity: 1;
-        transform: scale(1);
+        transform: translateY(0) scale(1);
     }
-    100% {
+    to {
         opacity: 0;
-        transform: scale(0.95);
+        transform: translateY(-10px) scale(0.97);
+        visibility: hidden; /* 완전히 보이지 않도록 */
     }
-}
-
-/* ===== 필터 적용 시 카드에 페이드 아웃 효과 적용 ===== */
-.card.fade-out {
-    animation: fadeOut 0.25s ease forwards;
 }
 
 /* ===== 모달 스타일 ===== */
@@ -645,9 +662,13 @@ main {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0);
-    overflow: auto;
-    cursor: pointer; /* 모달 전체 영역 클릭 가능하도록 설정 */
+    overflow: hidden; /* 스크롤바 깜빡임 방지 */
+    cursor: pointer;
     transition: background-color 0.4s ease;
+    /* GPU 가속을 위한 설정 */
+    will-change: background-color;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .modal.open {
@@ -664,16 +685,15 @@ main {
     position: relative;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    transform: translateY(30px);
     opacity: 0;
-    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
-                opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    transform: translateY(30px);
+    /* 트랜지션 없음 - JavaScript에서 추가 */
+    transition: none;
+    /* GPU 가속을 위한 설정 */
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
     cursor: default; /* 모달 콘텐츠 영역은 기본 커서로 설정 */
-}
-
-.modal.open .modal-content {
-    transform: translateY(0);
-    opacity: 1;
 }
 
 /* ===== 모달 미디어 컨테이너 스타일 ===== */
@@ -901,18 +921,18 @@ main {
     
     /* 모바일에서 애니메이션 조정 */
     .card {
-        animation: fadeInScale 0.4s ease forwards;
+        animation: fadeIn 0.4s ease forwards;
     }
     
     /* 모바일에서 호버링 효과 줄임 */
-    .card:hover {
-        transform: translateY(-3px) scale(1.01);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    .card.visible:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     }
     
     /* 모바일 비디오 컨테이너 - 전체 라운딩 */
     .card-video-container {
-        width: 45%; /* 40%에서 크게 증가 */
+        width: 50%; /* 45%에서 증가 */
         height: 100%;
         padding-bottom: 0;
         border-radius: var(--border-radius-md); /* 전체 라운딩 처리 */
@@ -926,7 +946,7 @@ main {
     
     /* 모바일 카드 정보 영역 - 전체 라운딩 */
     .card-info {
-        width: 55%; /* 60%에서 감소 */
+        width: 50%; /* 비디오 컨테이너 크기 증가에 맞춰 조정 */
         display: flex;
         flex-direction: column;
         justify-content: center;
