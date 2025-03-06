@@ -368,6 +368,7 @@ h3 {
 
 #setFilter option {
     background-color: var(--bg-primary);
+    color: var(--filter-text);
 }
 
 #setFilter.selected {
