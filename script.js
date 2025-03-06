@@ -813,68 +813,68 @@ function createCard(effect) {
             <div class="no-image">이미지 없음</div>
         </div>
         <div class="card-info">
- <div class="카드-colors">
- {colors}HTML.join('')}
- </div>
- <div class="카드-title">${effect.name }<div>
- </div>
- `;
+            <div class="card-colors">
+                ${colorsHTML.join('')}
+            </div>
+            <div class="card-title">${effect.name}</div>
+        </div>
+    `;
     
- // 이미지 로드 테스트
- constimg = new Image();
- img.onload = () => {
- // 이미지 로드 성공하면 이미지로 교체
- const imgContainer = 카드.쿼리 셀렉터('카드-이미지-컨테이너');
- 만약 (imgContainer) {
- imgContainer.innerHTML = '<img class="card-image" src="${imagePath}" alt="${effect.name }">;
- }
- };
- img.onerror = () => {
- // 이미지 로드 실패하면 '이미지 없음' 메시지 유지 (이미 설정되어 있음)
- console.warn('카드 이미지 로드 실패: ${imagePath}');
- };
+    // 이미지 로드 테스트
+    const img = new Image();
+    img.onload = () => {
+        // 이미지 로드 성공하면 이미지로 교체
+        const imgContainer = card.querySelector('.card-image-container');
+        if (imgContainer) {
+            imgContainer.innerHTML = `<img class="card-image" src="${imagePath}" alt="${effect.name}">`;
+        }
+    };
+    img.onerror = () => {
+        // 이미지 로드 실패하면 '이미지 없음' 메시지 유지 (이미 설정되어 있음)
+        console.warn(`카드 이미지 로드 실패: ${imagePath}`);
+    };
     
- // 이미지 로드 시작
- img.src = imagePath;
+    // 이미지 로드 시작
+    img.src = imagePath;
     
- // 카드 클릭 이벤트
- card.addEventListener('클릭', () => openModal(효과);
+    // 카드 클릭 이벤트
+    card.addEventListener('click', () => openModal(effect));
     
- 반품 카드;
+    return card;
 }
 
 // 날짜 형식 변경 (YYYY-MM-DD -> YYYY년 MM월 DD일)
-함수 형식Date(dateString) {
- (!dateString)이 반환되면;
+function formatDate(dateString) {
+    if (!dateString) return '';
     
- constparts = dateString.split('-');
- 만약 (parts.length!== 3) return dateString;
+    const parts = dateString.split('-');
+    if (parts.length !== 3) return dateString;
     
- '${parts[0]}년 ${parts[1]}월 ${parts[2]}일'를 반환합니다;
+    return `${parts[0]}년 ${parts[1]}월 ${parts[2]}일`;
 }
 
 // 색상 이름에 따른 컬러 코드 반환
-함수 getColorCode(colorName) {
- const colorMap = {
- '하얀색': '#fffffff',
- '검은색': '#000000',
- '빨간색': '#ff0000',
- '주황색': '#ffa500',
- '노란색': '#ffff00',
- '초록색': '#00ff00',
- '파란색': '#0000ff',
- '보라색': '#800080',
- '분홍색': '#ffc0cb',
- '하늘색': '#87ceeb',
- '갈색': '#a52a2a',
- '청록색': '#008080'
- };
+function getColorCode(colorName) {
+    const colorMap = {
+        '하얀색': '#ffffff',
+        '검은색': '#000000',
+        '빨간색': '#ff0000',
+        '주황색': '#ffa500',
+        '노란색': '#ffff00',
+        '초록색': '#00ff00',
+        '파란색': '#0000ff',
+        '보라색': '#800080',
+        '분홍색': '#ffc0cb',
+        '하늘색': '#87ceeb',
+        '갈색': '#a52a2a',
+        '청록색': '#008080'
+    };
     
- colorMap[colorName] || '#cccccc' 반환;
+    return colorMap[colorName] || '#cccccc';
 }
 
 // 통계 업데이트
-함수 updateStats() {
- document.getElementById('총 개수').텍스트 내용 = effectsData.length;
- document.getElementById('필터링된 개수').텍스트 내용 = filteredData.length;
+function updateStats() {
+    document.getElementById('totalCount').textContent = effectsData.length;
+    document.getElementById('filteredCount').textContent = filteredData.length;
 }
