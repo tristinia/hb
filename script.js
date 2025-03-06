@@ -479,7 +479,7 @@ function debounce(func, wait) {
     };
 }
 
-// 모달 열기 함수 수정 - 이미지만 사용하는 방식으로 수정
+// 모달 열기 함수 수정 - 동영상 재생 기능 복원
 function openModal(effect) {
     const modal = document.getElementById('modal');
     const modalContent = modal.querySelector('.modal-content');
@@ -499,56 +499,98 @@ function openModal(effect) {
     // 미디어 컨테이너 초기화
     modalMediaContainer.innerHTML = '';
     
-    // 이미지 경로 설정
-    const imagePath = `${pageConfig[currentPage].imagePath}/${effect.name}.webp`;
-    console.log(`모달 이미지 로드 시도: ${imagePath}`);
-    
-    // 이미지 로드 시도
-    const img = new Image();
-    img.className = 'modal-image';
-    img.alt = effect.name;
-    
-    // 로딩 상태 표시
-    const loadingIndicator = document.createElement('div');
-    loadingIndicator.className = 'modal-loading';
-    loadingIndicator.innerHTML = '<div class="spinner"></div>';
-    modalMediaContainer.appendChild(loadingIndicator);
-    
-    // 이미지 로드 완료 시
-    img.onload = () => {
-        console.log(`이미지 로드 성공: ${imagePath}`);
-        modalMediaContainer.querySelector('.modal-loading')?.remove();
-        modalMediaContainer.appendChild(img);
-    };
-    
-    // 이미지 로드 실패 시
-    img.onerror = () => {
-        console.error(`이미지 로드 실패: ${imagePath}`);
-        modalMediaContainer.querySelector('.modal-loading')?.remove();
+    // 비디오 링크가 있는지 확인
+    if (effect.videoLink) {
+        // 로딩 상태 표시
+        const loadingIndicator = document.createElement('div');
+        loadingIndicator.className = 'modal-loading';
+        loadingIndicator.innerHTML = '<div class="spinner"></div>';
+        modalMediaContainer.appendChild(loadingIndicator);
         
-        // 비디오 링크가 있으면 대체 표시
-        if (effect.videoLink) {
-            const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+        // 비디오 링크가 이미지인지 확인
+        const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+        
+        // 미디어 요소 추가 (비디오 또는 이미지)
+        if (isImage) {
+            console.log(`모달 이미지 로드: ${effect.videoLink}`);
+            const img = new Image();
+            img.className = 'modal-image';
+            img.alt = effect.name;
             
-            if (isImage) {
-                console.log(`대체 이미지 사용: ${effect.videoLink}`);
+            // 이미지 로드 완료 시
+            img.onload = () => {
+                modalMediaContainer.querySelector('.modal-loading')?.remove();
+                modalMediaContainer.appendChild(img);
+            };
+            
+            // 이미지 로드 실패 시
+            img.onerror = () => {
+                modalMediaContainer.querySelector('.modal-loading')?.remove();
                 modalMediaContainer.innerHTML = `
-                    <img class="modal-image" src="${effect.videoLink}" alt="${effect.name}">
+                    <div class="no-media">이미지 로드 실패</div>
                 `;
-            } else {
-                modalMediaContainer.innerHTML = `
-                    <div class="no-media">이미지 없음</div>
-                `;
-            }
+            };
+            
+            // 이미지 로드 시작
+            img.src = effect.videoLink;
         } else {
-            modalMediaContainer.innerHTML = `
-                <div class="no-media">이미지 없음</div>
-            `;
+            console.log(`모달 비디오 로드: ${effect.videoLink}`);
+            
+            // 비디오 요소 생성
+            const videoElement = document.createElement('video');
+            videoElement.className = 'modal-video';
+            videoElement.src = effect.videoLink;
+            videoElement.controls = true;
+            videoElement.autoplay = true;
+            videoElement.loop = true;
+            
+            // 비디오 로드 완료 시
+            videoElement.addEventListener('loadeddata', () => {
+                modalMediaContainer.querySelector('.modal-loading')?.remove();
+                modalMediaContainer.appendChild(videoElement);
+            });
+            
+            // 비디오 로드 에러 시
+            videoElement.addEventListener('error', () => {
+                console.error(`비디오 로드 실패: ${effect.videoLink}`);
+                modalMediaContainer.querySelector('.modal-loading')?.remove();
+                modalMediaContainer.innerHTML = `
+                    <div class="no-media">동영상 로드 실패</div>
+                `;
+            });
         }
-    };
-    
-    // 이미지 로드 시작
-    img.src = imagePath;
+    } else {
+        // 비디오 링크가 없는 경우, webp 이미지를 시도
+        const imagePath = `${pageConfig[currentPage].imagePath}/${effect.name}.webp`;
+        console.log(`모달 이미지 로드 시도: ${imagePath}`);
+        
+        const img = new Image();
+        img.className = 'modal-image';
+        img.alt = effect.name;
+        
+        // 로딩 상태 표시
+        const loadingIndicator = document.createElement('div');
+        loadingIndicator.className = 'modal-loading';
+        loadingIndicator.innerHTML = '<div class="spinner"></div>';
+        modalMediaContainer.appendChild(loadingIndicator);
+        
+        // 이미지 로드 완료 시
+        img.onload = () => {
+            modalMediaContainer.querySelector('.modal-loading')?.remove();
+            modalMediaContainer.appendChild(img);
+        };
+        
+        // 이미지 로드 실패 시
+        img.onerror = () => {
+            modalMediaContainer.querySelector('.modal-loading')?.remove();
+            modalMediaContainer.innerHTML = `
+                <div class="no-media">미리보기 없음</div>
+            `;
+        };
+        
+        // 이미지 로드 시작
+        img.src = imagePath;
+    }
     
     // 제목 설정
     modalTitle.textContent = effect.name || '제목 없음';
@@ -621,10 +663,16 @@ function openModal(effect) {
     });
 }
 
-// 모달 닫기 함수
+// 모달 닫기 함수 - 비디오 정지 추가
 function closeModal() {
     const modal = document.getElementById('modal');
     const modalContent = modal.querySelector('.modal-content');
+    const modalVideo = document.querySelector('.modal-video');
+    
+    // 비디오 정지
+    if (modalVideo) {
+        modalVideo.pause();
+    }
     
     // 콘텐츠 먼저 페이드 아웃
     modalContent.style.opacity = '0';
