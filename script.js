@@ -42,25 +42,26 @@ const pageConfig = {
     'liqueur': {
         buttonText: '정령 형변',
         title: '정령 형상변환 리큐르',
-        dataPath: 'data/spiritLiqueur.json',
-        imagePath: 'image/spiritLiqueur'
+        dataPath: './data/spiritLiqueur.json', // 경로 수정
+        imagePath: './image/spiritLiqueur'     // 경로 수정
     },
     'effectCard': {
         buttonText: '이펙트 변경 카드',
         title: '이펙트 변경 카드',
-        dataPath: 'data/effectCard.json',
-        imagePath: 'image/effectCard'
+        dataPath: './data/effectCard.json',    // 경로 수정
+        imagePath: './image/effectCard'        // 경로 수정
     },
     'titleEffect': {
         buttonText: '2차 타이틀',
         title: '2차 타이틀 이펙트',
-        dataPath: 'data/titleEffect.json',
-        imagePath: 'image/titleEffect'
+        dataPath: './data/titleEffect.json',   // 경로 수정
+        imagePath: './image/titleEffect'       // 경로 수정
     }
 };
 
 // 페이지 초기화 및 데이터 로드
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM 로드 완료, 초기화 시작');
     setupNavigation();
     setupSticky();
     
@@ -213,8 +214,19 @@ async function loadData(page) {
         
         // 데이터 로드
         const dataPath = pageConfig[page].dataPath;
-        const response = await fetch(dataPath);
-        effectsData = await response.json();
+        console.log(`데이터 파일 로드 시도: ${dataPath}`);
+        
+        try {
+            const response = await fetch(dataPath);
+            if (!response.ok) {
+                throw new Error(`HTTP 오류: ${response.status}`);
+            }
+            effectsData = await response.json();
+            console.log(`데이터 로드 성공: ${effectsData.length}개 항목`);
+        } catch (error) {
+            console.error(`데이터 로드 실패: ${error.message}`);
+            throw error; // 상위 catch 블록으로 에러 전달
+        }
         
         // 최신 날짜 찾기
         findLatestUpdateDate();
@@ -255,7 +267,7 @@ async function loadData(page) {
         
         // 오류 메시지 표시
         const container = document.getElementById('card-container');
-        container.innerHTML = `<div class="error-message">데이터를 불러오는 데 실패했습니다.</div>`;
+        container.innerHTML = `<div class="error-message">데이터를 불러오는 데 실패했습니다. (${error.message})</div>`;
         
         // 오류가 발생해도 푸터는 추가
         addFooter();
@@ -285,17 +297,21 @@ function showLoading(isLoading) {
     const container = document.getElementById('card-container');
     if (isLoading) {
         container.style.opacity = '0.7';
+        // 로딩 인디케이터 추가
+        container.innerHTML = '<div class="loading-indicator"><div class="spinner"></div><div>데이터를 불러오는 중...</div></div>';
     } else {
         container.style.opacity = '1';
     }
 }
 
-// 다음 배치 카드 렌더링 - 개선된 방식
+// 다음 배치 카드 렌더링
 function renderNextBatch() {
     if (isLoading || currentOffset >= filteredData.length) return;
     
     const container = document.getElementById('card-container');
     const itemsToRender = Math.min(ITEMS_PER_PAGE, filteredData.length - currentOffset);
+    
+    console.log(`카드 렌더링: ${currentOffset}부터 ${itemsToRender}개`);
     
     if (itemsToRender <= 0) {
         if (filteredData.length === 0) {
@@ -485,6 +501,7 @@ function openModal(effect) {
     
     // 이미지 경로 설정
     const imagePath = `${pageConfig[currentPage].imagePath}/${effect.name}.webp`;
+    console.log(`모달 이미지 로드 시도: ${imagePath}`);
     
     // 이미지 로드 시도
     const img = new Image();
@@ -499,12 +516,14 @@ function openModal(effect) {
     
     // 이미지 로드 완료 시
     img.onload = () => {
+        console.log(`이미지 로드 성공: ${imagePath}`);
         modalMediaContainer.querySelector('.modal-loading')?.remove();
         modalMediaContainer.appendChild(img);
     };
     
     // 이미지 로드 실패 시
     img.onerror = () => {
+        console.error(`이미지 로드 실패: ${imagePath}`);
         modalMediaContainer.querySelector('.modal-loading')?.remove();
         
         // 비디오 링크가 있으면 대체 표시
@@ -512,6 +531,7 @@ function openModal(effect) {
             const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
             
             if (isImage) {
+                console.log(`대체 이미지 사용: ${effect.videoLink}`);
                 modalMediaContainer.innerHTML = `
                     <img class="modal-image" src="${effect.videoLink}" alt="${effect.name}">
                 `;
@@ -722,7 +742,7 @@ function applyFilters() {
         // 검색어 필터
         const nameMatch = effect.name && effect.name.toLowerCase().includes(searchText);
         
-        // 색상 필터
+        // 색상 필터 (선택된 색상 중 하나라도 포함하는 경우 통과) - OR 로직으로 변경
         let colorMatch = true;
         if (activeColorFilters.length > 0) {
             colorMatch = activeColorFilters.some(color => {
@@ -785,48 +805,46 @@ function createCard(effect) {
     
     // 이미지 경로 생성
     const imagePath = `${pageConfig[currentPage].imagePath}/${effect.name}.webp`;
-    
-    // 이미지 로드 테스트
-    const img = new Image();
-    img.onload = () => {
-        // 이미지 로드 성공하면 이미지로 교체
-        const imgContainer = card.querySelector('.card-image-container');
-        if (imgContainer) {
-            imgContainer.innerHTML = `<img class="card-image" src="${imagePath}" alt="${effect.name}">`;
-        }
-    };
- img.onerror = () => {
-        // 이미지 로드 실패하면 '이미지 없음' 메시지 유지
- const imgContainer = 카드.쿼리 셀렉터('카드-이미지-컨테이너');
- 만약 (imgContainer & imgContainer).쿼리 선택기(.no-image') {
-            // 이미 '이미지 없음' 메시지가 있다면 유지
-        }
- }
-    
-    // 이미지 로드 시작
- img.src = imagePath;
+    console.log(`카드 이미지 로드: ${imagePath}`);
     
     // 카드 HTML 생성 (기본적으로 '이미지 없음' 표시)
- 카드.innerHTML = '
+    card.innerHTML = `
         <div class="card-image-container">
             <div class="no-image">이미지 없음</div>
         </div>
         <div class="card-info">
-            <div class="card-colors">
+ <div class="카드-colors">
  {colors}HTML.join('')}
-            </div>
+ </div>
  <div class="카드-title">${effect.name }<div>
-        </div>
- `
+ </div>
+ `;
     
-    // 카드 클릭 이벤트
+ // 이미지 로드 테스트
+ constimg = new Image();
+ img.onload = () => {
+ // 이미지 로드 성공하면 이미지로 교체
+ const imgContainer = 카드.쿼리 셀렉터('카드-이미지-컨테이너');
+ 만약 (imgContainer) {
+ imgContainer.innerHTML = '<img class="card-image" src="${imagePath}" alt="${effect.name }">;
+ }
+ };
+ img.onerror = () => {
+ // 이미지 로드 실패하면 '이미지 없음' 메시지 유지 (이미 설정되어 있음)
+ console.warn('카드 이미지 로드 실패: ${imagePath}');
+ };
+    
+ // 이미지 로드 시작
+ img.src = imagePath;
+    
+ // 카드 클릭 이벤트
  card.addEventListener('클릭', () => openModal(효과);
     
  반품 카드;
 }
 
 // 날짜 형식 변경 (YYYY-MM-DD -> YYYY년 MM월 DD일)
-기능. 형식 날짜(날짜 문자열) {
+함수 형식Date(dateString) {
  (!dateString)이 반환되면;
     
  constparts = dateString.split('-');
@@ -836,7 +854,7 @@ function createCard(effect) {
 }
 
 // 색상 이름에 따른 컬러 코드 반환
-기능. getColorCode(colorName) {
+함수 getColorCode(colorName) {
  const colorMap = {
  '하얀색': '#fffffff',
  '검은색': '#000000',
@@ -850,13 +868,13 @@ function createCard(effect) {
  '하늘색': '#87ceeb',
  '갈색': '#a52a2a',
  '청록색': '#008080'
- }
+ };
     
  colorMap[colorName] || '#cccccc' 반환;
 }
 
 // 통계 업데이트
-기능. 업데이트통계() {
+함수 updateStats() {
  document.getElementById('총 개수').텍스트 내용 = effectsData.length;
  document.getElementById('필터링된 개수').텍스트 내용 = filteredData.length;
 }
