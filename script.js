@@ -45,17 +45,17 @@ let selectedSet = '';
 const pageConfig = {
     'liqueur': {
         buttonText: '정령 형변',
-        title: '마비노기 정령 형상변환 리큐르',
+        title: '정령 형상변환 리큐르',
         dataPath: 'data/spiritLiqueur.json'
     },
     'effectCard': {
         buttonText: '이펙트 변경 카드',
-        title: '마비노기 이펙트 변경 카드',
+        title: '이펙트 변경 카드',
         dataPath: 'data/effectCard.json'
     },
     'titleEffect': {
         buttonText: '2차 타이틀',
-        title: '마비노기 2차 타이틀 이펙트',
+        title: '2차 타이틀 이펙트',
         dataPath: 'data/titleEffect.json'
     }
 };
