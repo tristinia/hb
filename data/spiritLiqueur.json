@@ -669,5 +669,16 @@
     "loop": false,
     "releaseDate": "2022-09-08",
     "releaseKit": "피어스 코브라 박스"
+  },
+  {
+    "name": "터지는 솜사탕",
+    "videoLink": "https://mabinogi.vod.nexoncdn.co.kr/mabinogi_event/2025/0306_check_j4z8f8/9.mp4",
+    "color1": "하얀색",
+    "color2": "분홍색", 
+    "color3": "파란색",
+    "set": "",
+    "loop": false,
+    "releaseDate": "2025-09-07",
+    "releaseKit": ""
   }
 ]
