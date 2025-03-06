@@ -49,7 +49,7 @@
     --space-sm: 8px;     /* 기본 간격 */
     --space-md: 16px;
     --space-lg: 24px;
-    --space-xl: 32px;
+    --space-xl: 25px;
 }
 
 /* ===== 의미론적 변수 (Semantic Variables) ===== */
@@ -184,7 +184,7 @@ body {
     left: 0;
     right: 0;
     background-color: var(--nav-bg);
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-sm);
     z-index: 900;
     transform: translateY(-100%);
     transition: transform var(--time-normal);
@@ -210,7 +210,7 @@ header {
     background-color: var(--bg-primary);
     padding: var(--space-md);
     border-radius: 0 0 var(--radius-md) var(--radius-md);
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-lg);
     box-shadow: var(--shadow-md);
     transition: background-color var(--time-normal), color var(--time-normal);
     position: relative;
@@ -237,7 +237,7 @@ h3 {
 
 #search {
     width: 100%;
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-sm);
     border: none;
     border-radius: var(--radius-xl);
     font-size: 16px;
@@ -691,18 +691,69 @@ main {
     object-fit: cover;
 }
 
+/* ===== 모달 스타일 ===== */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transition: background-color var(--time-slow) ease;
+    will-change: background-color;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.modal.open {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    background-color: var(--modal-bg);
+    margin: 10vh auto;
+    padding: var(--space-sm);
+    border-radius: var(--radius-sm);
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: none;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    cursor: default;
+}
+
+/* 모달 미디어 컨테이너 */
+.modal-media-container {
+    position: relative;
+    padding-bottom: 71.43%;
+    border-radius: var(--radius-sm);
+    z-index: 0;
+}
+
+.modal-video, .modal-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-sm);
+}
+
 /* 모달 정보 영역 */
 .modal-info {
-    padding: var(--space-lg) var(--space-md) var(--space-md);
-    background-color: var(--modal-info-bg);
+    padding: var(--space-lg);
+    background-color: #111111;
     border-radius: var(--radius-sm);
     margin-top: var(--space-sm);
-    position: relative;
     z-index: 1;
 }
 
 .modal-info h2 {
-    margin-top: calc(-1 * var(--space-sm));
     margin-bottom: var(--space-sm);
     color: var(--text-inverse);
     font-size: 22px;
@@ -713,7 +764,6 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
 }
 
 .modal-colors {
@@ -731,7 +781,6 @@ main {
 }
 
 .attribute-tag {
-    display: inline-block;
     padding: var(--space-sm) var(--space-md);
     border-radius: var(--radius-sm);
     color: var(--text-inverse);
@@ -747,8 +796,8 @@ main {
 
 .modal-release-info {
     position: absolute;
-    right: var(--space-sm);
-    bottom: var(--space-sm);
+    right: var(--space-md);
+    bottom: var(--space-md);
     text-align: right;
     font-size: 11px;
     color: var(--text-secondary);
