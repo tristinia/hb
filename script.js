@@ -1,21 +1,17 @@
 /**
  * 마비노기 정령 형상변환 리큐르 & 부가 효과 뷰어
  * 작성자: WF신의컨트롤
- * 최종 수정: 2025-03-05
+ * 최종 수정: 2025-03-07
  */
 
 // 데이터 및 상태 변수
 let effectsData = []; // 현재 표시 중인 데이터
 let filteredData = []; // 필터링된 데이터
-let currentlyPlayingVideos = new Set(); // 현재 재생 중인 비디오 추적
 let isLoading = false; // 로딩 상태
 let currentOffset = 0; // 무한 스크롤 오프셋
 const ITEMS_PER_PAGE = 20; // 한 번에 로드할 항목 수
 let latestUpdateDate = ''; // 최신 업데이트 날짜
 let currentPage = 'liqueur'; // 현재 페이지 (기본값: liqueur)
-
-// 이미 로드된 비디오 URL을 저장하는 Set (캐싱)
-const loadedVideos = new Set();
 
 // 색상 정의 - 순서대로 정렬
 const colors = [
@@ -46,17 +42,20 @@ const pageConfig = {
     'liqueur': {
         buttonText: '정령 형변',
         title: '정령 형상변환 리큐르',
-        dataPath: 'data/spiritLiqueur.json'
+        dataPath: 'data/spiritLiqueur.json',
+        imagePath: 'image/spiritLiqueur'
     },
     'effectCard': {
         buttonText: '이펙트 변경 카드',
         title: '이펙트 변경 카드',
-        dataPath: 'data/effectCard.json'
+        dataPath: 'data/effectCard.json',
+        imagePath: 'image/effectCard'
     },
     'titleEffect': {
         buttonText: '2차 타이틀',
         title: '2차 타이틀 이펙트',
-        dataPath: 'data/titleEffect.json'
+        dataPath: 'data/titleEffect.json',
+        imagePath: 'image/titleEffect'
     }
 };
 
@@ -202,9 +201,6 @@ async function loadData(page) {
     try {
         showLoading(true);
         
-        // 재생 중인 비디오 모두 정지
-        stopAllVideos();
-        
         // 카드 컨테이너 비우기
         const container = document.getElementById('card-container');
         container.innerHTML = '';
@@ -252,11 +248,6 @@ async function loadData(page) {
         addFooter();
         
         showLoading(false);
-        
-        // 초기 화면에 보이는 비디오 카드 준비
-        setTimeout(() => {
-            checkVisibleVideos();
-        }, 500);
         
     } catch (error) {
         console.error('데이터 로드 중 오류 발생:', error);
@@ -324,10 +315,9 @@ function renderNextBatch() {
     // 카드 생성
     for (let i = 0; i < itemsToRender; i++) {
         const effect = filteredData[currentOffset + i];
-        const isImage = effect.videoLink && effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
         
-        // 모든 카드 생성 (비디오/이미지)
-        const card = createCard(effect, isImage);
+        // 카드 생성
+        const card = createCard(effect);
         
         // 애니메이션 클래스 추가
         card.classList.add('new-card');
@@ -346,9 +336,6 @@ function renderNextBatch() {
                 card.classList.add('visible');
             });
             isLoading = false;
-            
-            // 새로 추가된 카드에 비디오 준비하기
-            checkVisibleVideos();
         }, 20);
     });
 }
@@ -377,36 +364,11 @@ function scrollHandler() {
         const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
         const clientHeight = document.documentElement.clientHeight;
         
-        // 화면에 보이는 비디오 카드 준비
-        checkVisibleVideos();
-        
         // 페이지 하단에 도달하면 다음 배치 로드
         if (scrollTop + clientHeight >= scrollHeight - 500) {
             renderNextBatch();
         }
     }, 200); // 200ms 디바운스
-}
-
-// 화면에 보이는 비디오 카드 준비하기 - 새로운 함수
-function checkVisibleVideos() {
-    const cards = document.querySelectorAll('.card');
-    
-    cards.forEach(card => {
-        const videoContainer = card.querySelector('.card-video-container');
-        if (!videoContainer) return; // 비디오가 없는 카드는 건너뛰기
-        
-        // 화면에 보이는지 확인
-        const rect = card.getBoundingClientRect();
-        const isVisible = (
-            rect.top <= (window.innerHeight + 300) &&
-            rect.bottom >= -300
-        );
-        
-        // 화면에 보이면 비디오 카드 준비 상태로 설정
-        if (isVisible) {
-            videoContainer.dataset.ready = 'true';
-        }
-    });
 }
 
 // 이벤트 리스너 설정
@@ -501,7 +463,7 @@ function debounce(func, wait) {
     };
 }
 
-// 모달 열기 함수 수정 - 깜빡임 없는 모달, 고화질 비디오
+// 모달 열기 함수 수정 - 이미지만 사용하는 방식으로 수정
 function openModal(effect) {
     const modal = document.getElementById('modal');
     const modalContent = modal.querySelector('.modal-content');
@@ -521,48 +483,52 @@ function openModal(effect) {
     // 미디어 컨테이너 초기화
     modalMediaContainer.innerHTML = '';
     
-    // 비디오 링크가 있는지 확인
-    if (effect.videoLink) {
-        // 비디오 링크가 이미지인지 확인
-        const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+    // 이미지 경로 설정
+    const imagePath = `${pageConfig[currentPage].imagePath}/${effect.name}.webp`;
+    
+    // 이미지 로드 시도
+    const img = new Image();
+    img.className = 'modal-image';
+    img.alt = effect.name;
+    
+    // 로딩 상태 표시
+    const loadingIndicator = document.createElement('div');
+    loadingIndicator.className = 'modal-loading';
+    loadingIndicator.innerHTML = '<div class="spinner"></div>';
+    modalMediaContainer.appendChild(loadingIndicator);
+    
+    // 이미지 로드 완료 시
+    img.onload = () => {
+        modalMediaContainer.querySelector('.modal-loading')?.remove();
+        modalMediaContainer.appendChild(img);
+    };
+    
+    // 이미지 로드 실패 시
+    img.onerror = () => {
+        modalMediaContainer.querySelector('.modal-loading')?.remove();
         
-        // 미디어 요소 추가 (비디오 또는 이미지)
-        if (isImage) {
-            modalMediaContainer.innerHTML = `
-                <img class="modal-image" src="${effect.videoLink}" alt="${effect.name}">
-            `;
-        } else {
-            // 모달에서는 항상 원본 고화질 비디오 사용
-            modalMediaContainer.innerHTML = `
-                <video class="modal-video" src="${effect.videoLink}" controls autoplay loop></video>
-            `;
+        // 비디오 링크가 있으면 대체 표시
+        if (effect.videoLink) {
+            const isImage = effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i);
             
-            // 로딩 상태 표시
-            const modalVideo = modalMediaContainer.querySelector('.modal-video');
-            const loadingIndicator = document.createElement('div');
-            loadingIndicator.className = 'modal-loading';
-            loadingIndicator.innerHTML = '<div class="spinner"></div>';
-            modalMediaContainer.appendChild(loadingIndicator);
-            
-            // 비디오 로드 완료 시
-            modalVideo.addEventListener('loadeddata', () => {
-                modalMediaContainer.querySelector('.modal-loading')?.remove();
-            });
-            
-            // 비디오 로드 에러 시
-            modalVideo.addEventListener('error', () => {
-                modalMediaContainer.querySelector('.modal-loading')?.remove();
+            if (isImage) {
                 modalMediaContainer.innerHTML = `
-                    <div class="no-media">비디오 로드 실패</div>
+                    <img class="modal-image" src="${effect.videoLink}" alt="${effect.name}">
                 `;
-            });
+            } else {
+                modalMediaContainer.innerHTML = `
+                    <div class="no-media">이미지 없음</div>
+                `;
+            }
+        } else {
+            modalMediaContainer.innerHTML = `
+                <div class="no-media">이미지 없음</div>
+            `;
         }
-    } else {
-        // 비디오 링크가 없는 경우 대체 표시
-        modalMediaContainer.innerHTML = `
-            <div class="no-media">미리보기 없음</div>
-        `;
-    }
+    };
+    
+    // 이미지 로드 시작
+    img.src = imagePath;
     
     // 제목 설정
     modalTitle.textContent = effect.name || '제목 없음';
@@ -639,12 +605,6 @@ function openModal(effect) {
 function closeModal() {
     const modal = document.getElementById('modal');
     const modalContent = modal.querySelector('.modal-content');
-    const modalVideo = document.querySelector('.modal-video');
-    
-    // 비디오 정지
-    if (modalVideo) {
-        modalVideo.pause();
-    }
     
     // 콘텐츠 먼저 페이드 아웃
     modalContent.style.opacity = '0';
@@ -755,9 +715,6 @@ function updateColorFilterUI() {
 
 // 모든 필터 적용 - 깜빡임 방지 최적화
 function applyFilters() {
-    // 재생 중인 모든 비디오 정지
-    stopAllVideos();
-    
     // 필터링 실행
     const searchText = document.getElementById('search').value.toLowerCase();
     
@@ -815,19 +772,8 @@ function applyFilters() {
     }, 200);
 }
 
-// 모든 재생 중인 비디오 정지
-function stopAllVideos() {
-    currentlyPlayingVideos.forEach(videoEl => {
-        if (!videoEl.paused) {
-            videoEl.pause();
-            videoEl.currentTime = 0;
-        }
-    });
-    currentlyPlayingVideos.clear();
-}
-
-// 개별 카드 생성 - 개선된 로딩 방식 적용
-function createCard(effect, isImage) {
+// 개별 카드 생성 - webp 이미지 사용하도록 수정
+function createCard(effect) {
     const card = document.createElement('div');
     card.className = 'card';
     
@@ -837,170 +783,41 @@ function createCard(effect, isImage) {
     if (effect.color2) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color2)}" title="${effect.color2}"></div>`);
     if (effect.color3) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color3)}" title="${effect.color3}"></div>`);
     
-    if (isImage) {
-        // 이미지는 바로 로드
-        card.innerHTML = `
-            <div class="card-video-container">
-                <img class="card-image" src="${effect.videoLink}" alt="${effect.name}">
+    // 이미지 경로 생성
+    const imagePath = `${pageConfig[currentPage].imagePath}/${effect.name}.webp`;
+    
+    // 이미지 로드 테스트
+    const img = new Image();
+    img.onload = () => {
+        // 이미지 로드 성공하면 이미지로 교체
+        const imgContainer = card.querySelector('.card-image-container');
+        if (imgContainer) {
+            imgContainer.innerHTML = `<img class="card-image" src="${imagePath}" alt="${effect.name}">`;
+        }
+    };
+    img.onerror = () => {
+        // 이미지 로드 실패하면 '이미지 없음' 메시지 유지
+        const imgContainer = card.querySelector('.card-image-container');
+        if (imgContainer && imgContainer.querySelector('.no-image')) {
+            // 이미 '이미지 없음' 메시지가 있다면 유지
+        }
+    };
+    
+    // 이미지 로드 시작
+    img.src = imagePath;
+    
+    // 카드 HTML 생성 (기본적으로 '이미지 없음' 표시)
+    card.innerHTML = `
+        <div class="card-image-container">
+            <div class="no-image">이미지 없음</div>
+        </div>
+        <div class="card-info">
+            <div class="card-colors">
+                ${colorsHTML.join('')}
             </div>
-            <div class="card-info">
-                <div class="card-colors">
-                    ${colorsHTML.join('')}
-                </div>
-                <div class="card-title">${effect.name}</div>
-            </div>
-        `;
-    } else if (effect.videoLink) {
-        // 비디오 카드 생성 - src 없이 생성, 호버 시에만 로드
-        card.innerHTML = `
-            <div class="card-video-container" data-video-url="${effect.videoLink}">
-                <video class="card-video" muted playsinline preload="none"></video>
-            </div>
-            <div class="card-info">
-                <div class="card-colors">
-                    ${colorsHTML.join('')}
-                </div>
-                <div class="card-title">${effect.name}</div>
-            </div>
-        `;
-        
-        // 비디오 요소 참조
-        const videoContainer = card.querySelector('.card-video-container');
-        const video = card.querySelector('.card-video');
-        
-        // 호버링 이벤트 - 비디오 로드 및 재생
-        videoContainer.addEventListener('mouseenter', () => {
-            // 다른 비디오 재생 중이면 중지
-            stopAllVideos();
-            
-            // 아직 로드되지 않았으면 로드
-            if (!video.src) {
-                // 로딩 표시 추가
-                videoContainer.classList.add('loading');
-                
-                // 비디오 URL 가져오기
-                const videoUrl = videoContainer.dataset.videoUrl;
-                
-                // 비디오 src 설정 및 로드
-                video.src = videoUrl;
-                
-                // 로드 완료 이벤트
-                video.addEventListener('loadeddata', function onLoad() {
-                    videoContainer.classList.remove('loading');
-                    video.removeEventListener('loadeddata', onLoad);
-                    
-                    // 로드 완료 후 재생
-                    video.currentTime = 0;
-                    video.play().catch(e => console.log('비디오 재생 실패:', e));
-                    currentlyPlayingVideos.add(video);
-                    
-                    // 캐싱
-                    loadedVideos.add(videoUrl);
-                }, { once: true });
-                
-                // 로드 에러 이벤트
-                video.addEventListener('error', function onError() {
-                    videoContainer.classList.remove('loading');
-                    console.error('비디오 로드 실패:', videoUrl);
-                    
-                    // 에러 표시 (선택적)
-                    videoContainer.innerHTML = '<div class="no-video">로드 실패</div>';
-                }, { once: true });
-                
-                // 6초 타임아웃
-                setTimeout(() => {
-                    if (videoContainer.classList.contains('loading')) {
-                        videoContainer.classList.remove('loading');
-                    }
-                }, 6000);
-            } else {
-                // 이미 로드됐으면 바로 재생
-                video.currentTime = 0;
-                video.play().catch(e => console.log('비디오 재생 실패:', e));
-                currentlyPlayingVideos.add(video);
-            }
-        });
-        
-        // 마우스 나가기 이벤트
-        videoContainer.addEventListener('mouseleave', () => {
-            if (!video.paused) {
-                video.pause();
-                video.currentTime = 0;
-                currentlyPlayingVideos.delete(video);
-            }
-        });
-        
-        // 모바일용 터치 이벤트 - 터치 시작 시 로드 및 재생 시작
-        let touchTimer;
-        videoContainer.addEventListener('touchstart', () => {
-            touchTimer = setTimeout(() => {
-                if (!video.src) {
-                    // 로딩 표시 추가
-                    videoContainer.classList.add('loading');
-                    
-                    // 비디오 URL 가져오기
-                    const videoUrl = videoContainer.dataset.videoUrl;
-                    
-                    // 비디오 src 설정
-                    video.src = videoUrl;
-                    
-                    // 타임아웃 및 이벤트 처리는 PC와 동일
-                    video.addEventListener('loadeddata', function onLoad() {
-                        videoContainer.classList.remove('loading');
-                        video.removeEventListener('loadeddata', onLoad);
-                        
-                        stopAllVideos();
-                        video.currentTime = 0;
-                        video.play().catch(e => console.log('비디오 재생 실패:', e));
-                        currentlyPlayingVideos.add(video);
-                        
-                        loadedVideos.add(videoUrl);
-                    }, { once: true });
-                    
-                    // 동일한 에러 처리
-                    video.addEventListener('error', function onError() {
-                        videoContainer.classList.remove('loading');
-                    }, { once: true });
-                    
-                    // 6초 타임아웃
-                    setTimeout(() => {
-                        if (videoContainer.classList.contains('loading')) {
-                            videoContainer.classList.remove('loading');
-                        }
-                    }, 6000);
-                } else {
-                    // 이미 로드됐으면 바로 재생
-                    stopAllVideos();
-                    video.currentTime = 0;
-                    video.play().catch(e => console.log('비디오 재생 실패:', e));
-                    currentlyPlayingVideos.add(video);
-                }
-            }, 200); // 짧은 터치와 구분하기 위한 딜레이
-        });
-        
-        // 터치 종료 시 타이머 취소 및 비디오 정지
-        videoContainer.addEventListener('touchend', () => {
-            clearTimeout(touchTimer);
-            if (!video.paused) {
-                video.pause();
-                video.currentTime = 0;
-                currentlyPlayingVideos.delete(video);
-            }
-        });
-    } else {
-        // 비디오 링크가 없는 경우 대체 표시
-        card.innerHTML = `
-            <div class="card-video-container">
-                <div class="no-video">미리보기 없음</div>
-            </div>
-            <div class="card-info">
-                <div class="card-colors">
-                    ${colorsHTML.join('')}
-                </div>
-                <div class="card-title">${effect.name}</div>
-            </div>
-        `;
-    }
+            <div class="card-title">${effect.name}</div>
+        </div>
+    `;
     
     // 카드 클릭 이벤트
     card.addEventListener('click', () => openModal(effect));
