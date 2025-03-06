@@ -722,10 +722,10 @@ function applyFilters() {
         // 검색어 필터
         const nameMatch = effect.name && effect.name.toLowerCase().includes(searchText);
         
-        // 색상 필터 (모든 선택된 색상을 포함하는 경우만 통과)
+        // 색상 필터
         let colorMatch = true;
         if (activeColorFilters.length > 0) {
-            colorMatch = activeColorFilters.every(color => {
+            colorMatch = activeColorFilters.some(color => {
                 return effect.color1 === color || 
                     effect.color2 === color || 
                     effect.color3 === color;
