@@ -5,7 +5,7 @@ on:
     paths:
       - 'data/spiritLiqueur.json'  # spiritLiqueur.json 파일 변경 감지
   schedule:
-    - cron: '0 */6 * * *'  # 6시간마다 실행 (하루 4번)
+    - cron: '0 */8 * * *'  # 8시간마다 실행 (하루 3번, 일일 호출 제한 고려)
   workflow_dispatch:  # 수동 실행 옵션
 
 jobs:
