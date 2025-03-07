@@ -561,6 +561,7 @@ main {
 
 /* ===== 모달 스타일 ===== */
 .modal {
+    display: none;
     position: fixed;
     z-index: 1000;
     top: 0;
