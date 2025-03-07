@@ -1,35 +1,54 @@
-name: API 테스트
+name: Nexon API 직접 테스트
 
 on:
-  workflow_dispatch:
-    inputs:
-      item_name:
-        description: '테스트할 아이템 이름'
-        required: true
-        default: '빛의 가루'
+  workflow_dispatch:  # 수동 실행 옵션
 
 jobs:
   test-api:
     runs-on: ubuntu-latest
     steps:
-      - name: API 호출 테스트
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
-          ITEM_NAME: ${{ github.event.inputs.item_name }}
+      - name: 직접 API 호출 테스트
         run: |
-          ENCODED_NAME=$(echo "정령 형상변환 리큐르($ITEM_NAME)" | jq -s -R -r @uri)
-          echo "테스트 아이템: 정령 형상변환 리큐르($ITEM_NAME)"
-          echo "인코딩된 이름: $ENCODED_NAME"
+          echo "API 테스트 시작..."
           
-          echo "API 호출 시작..."
-          RESPONSE=$(curl -s -w "\n%{http_code}" -X GET \
-            "https://open.api.nexon.com/mabinogi/v1/auction/list?auction_item_category=%EA%B8%B0%ED%83%80%20%EC%86%8C%EB%AA%A8%ED%92%88&item_name=$ENCODED_NAME" \
-            -H "accept: application/json" \
-            -H "x-nxopen-api-key: $API_KEY")
+          # 정확히 제공된 curl 명령어 실행 (백슬래시 제거, 한 줄로 작성)
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X 'GET' \
+          'https://open.api.nexon.com/mabinogi/v1/auction/list?item_name=%EC%A0%95%EB%A0%B9%20%ED%98%95%EC%83%81%EB%B3%80%ED%99%98%20%EB%A6%AC%ED%81%90%EB%A5%B4%28%EB%B9%9B%EC%9D%98%20%EA%B0%80%EB%A3%A8%29' \
+          -H 'accept: application/json' \
+          -H 'x-nxopen-api-key: test_46b3fb5e1112538399c48e242a8a661be0bc6e05c4155923fb7302c44f2461b5efe8d04e6d233bd35cf2fabdeb93fb0d')
           
+          # 결과 파싱
           HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
           BODY=$(echo "$RESPONSE" | sed '$d')
           
           echo "HTTP 응답 코드: $HTTP_CODE"
           echo "응답 본문:"
-          echo "$BODY" | jq '.'
+          echo "$BODY" | jq '.' || echo "$BODY"
+          
+          # 다른 변형 테스트: auction_item_category 추가
+          echo -e "\n카테고리 포함 API 호출 시도..."
+          RESPONSE2=$(curl -s -w "\n%{http_code}" -X 'GET' \
+          'https://open.api.nexon.com/mabinogi/v1/auction/list?auction_item_category=%EA%B8%B0%ED%83%80%20%EC%86%8C%EB%AA%A8%ED%92%88&item_name=%EC%A0%95%EB%A0%B9%20%ED%98%95%EC%83%81%EB%B3%80%ED%99%98%20%EB%A6%AC%ED%81%90%EB%A5%B4%28%EB%B9%9B%EC%9D%98%20%EA%B0%80%EB%A3%A8%29' \
+          -H 'accept: application/json' \
+          -H 'x-nxopen-api-key: test_46b3fb5e1112538399c48e242a8a661be0bc6e05c4155923fb7302c44f2461b5efe8d04e6d233bd35cf2fabdeb93fb0d')
+          
+          HTTP_CODE2=$(echo "$RESPONSE2" | tail -n1)
+          BODY2=$(echo "$RESPONSE2" | sed '$d')
+          
+          echo "HTTP 응답 코드: $HTTP_CODE2"
+          echo "응답 본문:"
+          echo "$BODY2" | jq '.' || echo "$BODY2"
+          
+          # 테스트용 키가 아닌 실제 저장된 API 키로 테스트
+          echo -e "\n저장된 API 키로 테스트..."
+          RESPONSE3=$(curl -s -w "\n%{http_code}" -X 'GET' \
+          'https://open.api.nexon.com/mabinogi/v1/auction/list?item_name=%EC%A0%95%EB%A0%B9%20%ED%98%95%EC%83%81%EB%B3%80%ED%99%98%20%EB%A6%AC%ED%81%90%EB%A5%B4%28%EB%B9%9B%EC%9D%98%20%EA%B0%80%EB%A3%A8%29' \
+          -H 'accept: application/json' \
+          -H "x-nxopen-api-key: ${{ secrets.API_KEY }}")
+          
+          HTTP_CODE3=$(echo "$RESPONSE3" | tail -n1)
+          BODY3=$(echo "$RESPONSE3" | sed '$d')
+          
+          echo "HTTP 응답 코드: $HTTP_CODE3"
+          echo "응답 본문:"
+          echo "$BODY3" | jq '.' || echo "$BODY3"
