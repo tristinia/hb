@@ -13,15 +13,13 @@ const sleep = promisify(setTimeout);
 // API 설정
 const API_KEY = process.env.API_KEY;
 const API_BASE_URL = 'https://open.api.nexon.com/mabinogi/v1/auction/list';
-const AUCTION_CATEGORY = encodeURIComponent('기타 소모품');
 
 // 설정
 const DATA_DIR = './data';
 const SOURCE_FILE = 'spiritLiqueur.json';
 const TARGET_FILE = 'spiritLiqueur_auction.json';
-const API_REQUEST_DELAY = 1000; // 1초 (API 호출 간 지연 시간)
+const API_REQUEST_DELAY = 1500; // 1.5초 (API 호출 간 지연 시간)
 const MAX_RETRIES = 3; // 최대 재시도 횟수
-const MIN_SUCCESS_THRESHOLD = 0.3; // 최소 30% 이상의 호출이 성공해야 함
 
 // 메인 함수
 async function main() {
@@ -69,6 +67,7 @@ async function main() {
     // 빈 API 결과 객체 초기화
     const apiResults = [];
     let successCount = 0;
+    let serverErrorCount = 0;
     let totalAttempts = 0;
     
     // 각 아이템에 대해 API 호출
@@ -90,8 +89,19 @@ async function main() {
       
       // API 호출
       try {
-        const price = await getLowestPrice(searchName);
-        if (price !== null) {
+        const { price, isServerError } = await getLowestPrice(searchName);
+        
+        if (isServerError) {
+          serverErrorCount++;
+          console.log(`${item.name} 서버 오류 발생`);
+          
+          // 기존 데이터에서 동일한 아이템 찾기
+          const existingItem = existingResults.find(e => e.name === item.name);
+          if (existingItem && existingItem.auctionPrice) {
+            apiResult.auctionPrice = existingItem.auctionPrice;
+            console.log(`${item.name} 기존 가격 정보 유지: ${existingItem.auctionPrice}`);
+          }
+        } else if (price !== null) {
           apiResult.auctionPrice = price.toString();
           successCount++;
         }
@@ -115,13 +125,16 @@ async function main() {
       }
     }
     
-    // 성공 비율 계산
+    // 성공 비율과 서버 오류 비율 계산
     const successRate = totalAttempts > 0 ? successCount / totalAttempts : 0;
-    console.log(`API 호출 성공률: ${(successRate * 100).toFixed(2)}% (${successCount}/${totalAttempts})`);
+    const serverErrorRate = totalAttempts > 0 ? serverErrorCount / totalAttempts : 0;
     
-    // 성공 비율이 임계값보다 낮으면 기존 데이터 유지
-    if (successRate < MIN_SUCCESS_THRESHOLD && existingResults.length > 0) {
-      console.warn(`API 호출 성공률이 너무 낮습니다(${(successRate * 100).toFixed(2)}%). 기존 데이터를 유지합니다.`);
+    console.log(`API 호출 성공률: ${(successRate * 100).toFixed(2)}% (${successCount}/${totalAttempts})`);
+    console.log(`서버 오류 비율: ${(serverErrorRate * 100).toFixed(2)}% (${serverErrorCount}/${totalAttempts})`);
+    
+    // 서버 오류 비율이 100%인 경우 (모든 호출이 서버 오류) 기존 데이터 유지
+    if (serverErrorCount === totalAttempts && existingResults.length > 0) {
+      console.warn(`모든 API 호출이 서버 오류입니다. 기존 데이터를 유지합니다.`);
       
       // 새로운 아이템이 있는지 확인하여 추가
       for (const newItem of apiResults) {
@@ -131,15 +144,15 @@ async function main() {
         }
       }
       
-      // 최종 결과 설정
+      // 최종 결과 설정 (기존 갱신 날짜 유지)
       const finalResults = {
-        lastUpdate: lastUpdate, // 기존 갱신 날짜 유지
+        lastUpdate: lastUpdate,
         items: existingResults
       };
       
       // 결과 파일 쓰기
       fs.writeFileSync(targetFilePath, JSON.stringify(finalResults, null, 2));
-      console.log(`API 호출 성공률이 낮아 기존 데이터 유지됨`);
+      console.log(`모든 API 호출이 서버 오류로 기존 데이터 유지됨`);
       return;
     }
     
@@ -172,15 +185,15 @@ async function main() {
 /**
  * 경매장에서 아이템의 최저가를 가져옵니다.
  * @param {string} itemName - 검색할 아이템 이름
- * @returns {number|null} - 최저가 또는 null (결과 없음)
+ * @returns {Object} - {price: number|null, isServerError: boolean} 최저가 또는 null (결과 없음)
  */
 async function getLowestPrice(itemName, retryCount = 0) {
   try {
-    // URL 인코딩
-    const encodedName = encodeURIComponent(itemName);
+    // URL 인코딩 - trim()으로 앞뒤 공백 제거
+    const encodedName = encodeURIComponent(itemName.trim());
     
-    // API 호출
-    const response = await axios.get(`${API_BASE_URL}?auction_item_category=${AUCTION_CATEGORY}&item_name=${encodedName}`, {
+    // API 호출 - 카테고리 없이 아이템명만으로 호출
+    const response = await axios.get(`${API_BASE_URL}?item_name=${encodedName}`, {
       headers: {
         'accept': 'application/json',
         'x-nxopen-api-key': API_KEY
@@ -193,15 +206,18 @@ async function getLowestPrice(itemName, retryCount = 0) {
       const prices = response.data.auction_item.map(item => item.auction_price_per_unit);
       
       // 최저가 반환
-      return Math.min(...prices);
+      return { price: Math.min(...prices), isServerError: false };
     }
     
     // 결과 없음
-    return null;
+    return { price: null, isServerError: false };
   } catch (error) {
     // 오류 처리 및 재시도
     if (error.response) {
       const status = error.response.status;
+      
+      // 서버 오류 (500번대) 체크
+      const isServerError = status >= 500;
       
       // 429 (Too Many Requests) 또는 500번대 오류는 재시도
       if ((status === 429 || status >= 500) && retryCount < MAX_RETRIES) {
@@ -213,9 +229,17 @@ async function getLowestPrice(itemName, retryCount = 0) {
         
         return getLowestPrice(itemName, retryCount + 1);
       }
+      
+      // 서버 오류인 경우 표시
+      if (isServerError) {
+        console.error(`${itemName} 서버 오류: ${status}`);
+        return { price: null, isServerError: true };
+      }
     }
     
-    throw new Error(`API 호출 실패 (${error.message})`);
+    // 클라이언트 오류나 기타 오류
+    console.error(`${itemName} API 호출 실패: ${error.message}`);
+    return { price: null, isServerError: false };
   }
 }
 
