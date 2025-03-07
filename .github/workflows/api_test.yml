@@ -44,7 +44,7 @@ jobs:
           RESPONSE3=$(curl -s -w "\n%{http_code}" -X 'GET' \
           'https://open.api.nexon.com/mabinogi/v1/auction/list?item_name=%EC%A0%95%EB%A0%B9%20%ED%98%95%EC%83%81%EB%B3%80%ED%99%98%20%EB%A6%AC%ED%81%90%EB%A5%B4%28%EB%B9%9B%EC%9D%98%20%EA%B0%80%EB%A3%A8%29' \
           -H 'accept: application/json' \
-          -H "x-nxopen-api-key: ${{ secrets.API_KEY }}")
+          -H 'x-nxopen-api-key: ${{ secrets.API_KEY }}')
           
           HTTP_CODE3=$(echo "$RESPONSE3" | tail -n1)
           BODY3=$(echo "$RESPONSE3" | sed '$d')
