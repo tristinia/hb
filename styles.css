@@ -94,11 +94,6 @@ body {
     }
 }
 
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
 /* ===== 내비게이션 스타일 ===== */
 .nav-container {
     background-color: var(--color-black);
@@ -502,23 +497,6 @@ main {
     transition: opacity var(--time-normal) ease;
 }
 
-.card-video-container.loading::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 30px;
-    height: 30px;
-    margin-top: -15px;
-    margin-left: -15px;
-    border-radius: 50%;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-top-color: var(--color-white);
-    animation: spin 1s linear infinite;
-    z-index: 3;
-    transition: opacity var(--time-normal) ease;
-}
-
 /* 비디오 없는 경우 대체 표시 */
 .no-video, .no-media {
     position: absolute;
@@ -634,7 +612,7 @@ main {
     border-radius: var(--radius-sm);
 }
 
-/* 모달 로딩 인디케이터 */
+/* 모달 로딩 인디케이터 - 간단한 메시지로 대체 */
 .modal-loading {
     position: absolute;
     top: 0;
@@ -646,15 +624,8 @@ main {
     align-items: center;
     background-color: var(--color-black-50);
     border-radius: var(--radius-sm);
-}
-
-.spinner {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top-color: var(--color-white);
-    animation: spin 1s linear infinite;
+    color: var(--color-white);
+    font-size: 16px;
 }
 
 /* 모달 정보 영역 */
