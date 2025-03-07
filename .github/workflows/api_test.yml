@@ -1,36 +1,47 @@
-name: Nexon API 직접 테스트
+name: Nexon API 키 테스트 (카테고리 없음)
 
 on:
   workflow_dispatch:  # 수동 실행 옵션
 
 jobs:
-  test-api:
+  test-api-keys:
     runs-on: ubuntu-latest
     steps:
-      - name: 직접 API 호출 테스트
+      - name: API 키 테스트 (카테고리 제거)
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          TEST_KEY: "test_46b3fb5e1112538399c48e242a8a661be0bc6e05c4155923fb7302c44f2461b5efe8d04e6d233bd35cf2fabdeb93fb0d"
         run: |
-          echo "API 테스트 시작..."
+          echo "==================== API 키 테스트 시작 ===================="
           
-          # 정확히 제공된 curl 명령어 실행 (백슬래시 제거, 한 줄로 작성)
-          RESPONSE=$(curl -s -w "\n%{http_code}" -X 'GET' \
-          'https://open.api.nexon.com/mabinogi/v1/auction/list?item_name=%EC%A0%95%EB%A0%B9%20%ED%98%95%EC%83%81%EB%B3%80%ED%99%98%20%EB%A6%AC%ED%81%90%EB%A5%B4%28%EB%B9%9B%EC%9D%98%20%EA%B0%80%EB%A3%A8%29' \
+          # 아이템 이름 설정
+          ITEM_NAME="정령 형상변환 리큐르(빛의 가루)"
+          echo "테스트 대상 아이템: $ITEM_NAME"
+          
+          # URL 인코딩 (echo -n으로 개행 문자 방지)
+          ENCODED_NAME=$(echo -n "$ITEM_NAME" | jq -s -R -r @uri)
+          echo "인코딩된 이름: $ENCODED_NAME"
+          
+          # 테스트 1: 테스트 키 (하드코딩)로 API 호출
+          echo -e "\n테스트 1: 하드코딩된 테스트 키로 API 호출"
+          RESPONSE1=$(curl -s -w "\n%{http_code}" -X 'GET' \
+          "https://open.api.nexon.com/mabinogi/v1/auction/list?item_name=$ENCODED_NAME" \
           -H 'accept: application/json' \
-          -H 'x-nxopen-api-key: test_46b3fb5e1112538399c48e242a8a661be0bc6e05c4155923fb7302c44f2461b5efe8d04e6d233bd35cf2fabdeb93fb0d')
+          -H "x-nxopen-api-key: $TEST_KEY")
           
-          # 결과 파싱
-          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
-          BODY=$(echo "$RESPONSE" | sed '$d')
+          HTTP_CODE1=$(echo "$RESPONSE1" | tail -n1)
+          BODY1=$(echo "$RESPONSE1" | sed '$d')
           
-          echo "HTTP 응답 코드: $HTTP_CODE"
+          echo "HTTP 응답 코드: $HTTP_CODE1"
           echo "응답 본문:"
-          echo "$BODY" | jq '.' || echo "$BODY"
+          echo "$BODY1" | jq '.' || echo "$BODY1"
           
-          # 다른 변형 테스트: auction_item_category 추가
-          echo -e "\n카테고리 포함 API 호출 시도..."
+          # 테스트 2: GitHub Secrets에 저장된 API 키로 호출
+          echo -e "\n테스트 2: GitHub Secrets API 키로 호출"
           RESPONSE2=$(curl -s -w "\n%{http_code}" -X 'GET' \
-          'https://open.api.nexon.com/mabinogi/v1/auction/list?auction_item_category=%EA%B8%B0%ED%83%80%20%EC%86%8C%EB%AA%A8%ED%92%88&item_name=%EC%A0%95%EB%A0%B9%20%ED%98%95%EC%83%81%EB%B3%80%ED%99%98%20%EB%A6%AC%ED%81%90%EB%A5%B4%28%EB%B9%9B%EC%9D%98%20%EA%B0%80%EB%A3%A8%29' \
+          "https://open.api.nexon.com/mabinogi/v1/auction/list?item_name=$ENCODED_NAME" \
           -H 'accept: application/json' \
-          -H 'x-nxopen-api-key: test_46b3fb5e1112538399c48e242a8a661be0bc6e05c4155923fb7302c44f2461b5efe8d04e6d233bd35cf2fabdeb93fb0d')
+          -H "x-nxopen-api-key: $API_KEY")
           
           HTTP_CODE2=$(echo "$RESPONSE2" | tail -n1)
           BODY2=$(echo "$RESPONSE2" | sed '$d')
@@ -39,16 +50,40 @@ jobs:
           echo "응답 본문:"
           echo "$BODY2" | jq '.' || echo "$BODY2"
           
-          # 테스트용 키가 아닌 실제 저장된 API 키로 테스트
-          echo -e "\n저장된 API 키로 테스트..."
-          RESPONSE3=$(curl -s -w "\n%{http_code}" -X 'GET' \
-          'https://open.api.nexon.com/mabinogi/v1/auction/list?item_name=%EC%A0%95%EB%A0%B9%20%ED%98%95%EC%83%81%EB%B3%80%ED%99%98%20%EB%A6%AC%ED%81%90%EB%A5%B4%28%EB%B9%9B%EC%9D%98%20%EA%B0%80%EB%A3%A8%29' \
-          -H 'accept: application/json' \
-          -H 'x-nxopen-api-key: ${{ secrets.API_KEY }}')
+          # 테스트 3: 두 API 키 비교
+          echo -e "\n테스트 3: API 키 비교"
           
-          HTTP_CODE3=$(echo "$RESPONSE3" | tail -n1)
-          BODY3=$(echo "$RESPONSE3" | sed '$d')
+          # 키 길이 확인
+          TEST_KEY_LENGTH=${#TEST_KEY}
+          STORED_KEY_LENGTH=${#API_KEY}
           
-          echo "HTTP 응답 코드: $HTTP_CODE3"
-          echo "응답 본문:"
-          echo "$BODY3" | jq '.' || echo "$BODY3"
+          echo "테스트 키 길이: $TEST_KEY_LENGTH"
+          echo "저장된 키 길이: $STORED_KEY_LENGTH"
+          
+          # 키 값 일부 확인 (첫 10자, 마지막 10자)
+          TEST_KEY_START=${TEST_KEY:0:10}
+          TEST_KEY_END=${TEST_KEY: -10}
+          
+          STORED_KEY_START=${API_KEY:0:10}
+          STORED_KEY_END=${API_KEY: -10}
+          
+          echo "테스트 키 시작: $TEST_KEY_START..."
+          echo "테스트 키 끝: ...$TEST_KEY_END"
+          
+          echo "저장된 키 시작: $STORED_KEY_START..."
+          echo "저장된 키 끝: ...$STORED_KEY_END"
+          
+          # 키가 같은지 확인
+          if [ "$TEST_KEY" == "$API_KEY" ]; then
+            echo "✅ 두 API 키가 정확히 일치합니다."
+          else
+            echo "❌ 두 API 키가 다릅니다!"
+            
+            # 차이점 위치 확인
+            for ((i=0; i<$TEST_KEY_LENGTH && i<$STORED_KEY_LENGTH; i++)); do
+              if [ "${TEST_KEY:$i:1}" != "${API_KEY:$i:1}" ]; then
+                echo "첫 번째 불일치 위치: $i (테스트키: '${TEST_KEY:$i:1}', 저장된키: '${API_KEY:$i:1}')"
+                break
+              fi
+            done
+          fi
