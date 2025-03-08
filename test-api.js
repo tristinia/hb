@@ -1,3 +1,4 @@
+// test-api.js - 수정된 버전
 const axios = require('axios');
 
 // API 키
@@ -12,19 +13,20 @@ async function testApi() {
   try {
     console.log('마비노기 API 테스트 중...');
     
-    // 테스트 카테고리 목록
+    // 한글 카테고리로 테스트
     const testCategories = [
-      'blade',       // 검
-      'blunt',       // 둔기
-      'lance',       // 랜스
-      'ecostone',    // 에코스톤
-      'enchant_scroll' // 인챈트 스크롤
+      '검',       // 검
+      '둔기',     // 둔기
+      '랜스',     // 랜스
+      '에코스톤',  // 에코스톤
+      '인챈트 스크롤' // 인챈트 스크롤
     ];
     
     for (const category of testCategories) {
       console.log(`카테고리 테스트: ${category}`);
       
-      const response = await axios.get(`https://open.api.nexon.com/mabinogi/v1/auction/list?category=${category}`, {
+      const encodedCategory = encodeURIComponent(category);
+      const response = await axios.get(`https://open.api.nexon.com/mabinogi/v1/auction/list?auction_item_category=${encodedCategory}`, {
         headers: {
           'accept': 'application/json',
           'x-nxopen-api-key': API_KEY
