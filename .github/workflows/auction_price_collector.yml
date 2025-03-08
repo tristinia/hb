@@ -1,37 +1,35 @@
-name: 마비노기 경매장 가격 수집
+name: 마비노기 경매장 데이터 수집
 
 on:
-  push:
-    paths:
-      - 'data/spiritLiqueur.json'  # spiritLiqueur.json 파일 변경 감지
   schedule:
-    - cron: '0 */8 * * *'  # 8시간마다 실행 (하루 3번, 일일 호출 제한 고려)
+    # 매일 오후 6시(KST) = UTC 09:00
+    - cron: '0 9 * * *'
   workflow_dispatch:  # 수동 실행 옵션
 
 jobs:
-  update-prices:
+  collect-data:
     runs-on: ubuntu-latest
     steps:
       - name: 코드 체크아웃
         uses: actions/checkout@v3
-        
+      
       - name: Node.js 설정
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
-          
-      - name: 필요한 패키지 설치
-        run: npm install axios fs-extra
-
-      - name: 경매장 가격 수집 스크립트 실행
+          node-version: '18'
+      
+      - name: 의존성 설치
+        run: npm ci
+      
+      - name: 데이터 수집 실행
         env:
           API_KEY: ${{ secrets.API_KEY }}
-        run: node .github/scripts/auction_price_collector.js
-        
-      - name: 변경사항 확인 및 커밋
+        run: node collect-data.js
+      
+      - name: 변경사항 커밋 및 푸시
         run: |
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'actions@github.com'
-          git add data/spiritLiqueur_auction.json
-          git diff --quiet && git diff --staged --quiet || git commit -m "자동 업데이트: 경매장 가격 정보 갱신 $(date '+%Y-%m-%d %H:%M:%S')"
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add data/
+          git diff --staged --quiet || git commit -m "데이터 갱신: $(date +'%Y-%m-%d %H:%M')"
           git push
