@@ -11,7 +11,7 @@ module.exports = {
   
   // 오류 설정
   CONSECUTIVE_ERROR_THRESHOLD: 3, // 연속 오류 임계값
-  MAX_PAGES_PER_CATEGORY: 10,     // 카테고리당 최대 페이지 수
+  MAX_PAGES_PER_CATEGORY: 100,    // 카테고리당 최대 페이지 수
   
   // 로깅 설정
   VERBOSE: true, // 상세 로깅 활성화
