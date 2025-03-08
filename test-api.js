@@ -1,4 +1,3 @@
-// test-api.js - 수정된 버전
 const axios = require('axios');
 
 // API 키
