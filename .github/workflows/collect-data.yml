@@ -19,7 +19,7 @@ jobs:
           node-version: '18'
       
       - name: 의존성 설치
-        run: npm ci
+        run: npm install
       
       - name: 데이터 수집 실행
         env:
