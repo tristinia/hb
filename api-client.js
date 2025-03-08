@@ -25,7 +25,7 @@ async function callApi(categoryId, cursor = null, retryCount = 0) {
   try {
     // API 키 확인
     if (!config.API_KEY) {
-      throw new Error('API 키가 설정되지 않았습니다. GitHub Secrets에 API_KEY를 설정하세요.');
+      throw new Error('API 키가 설정되지 않았습니다.');
     }
     
     // API 딜레이 적용
@@ -36,7 +36,7 @@ async function callApi(categoryId, cursor = null, retryCount = 0) {
       auction_item_category: categoryId
     });
     
-    // 커서가 있으면 추가 (주의: 파라미터 이름이 next_cursor가 아니라 cursor입니다)
+    // 커서가 있으면 추가
     if (cursor) {
       params.append('cursor', cursor);
     }
@@ -77,32 +77,32 @@ async function callApi(categoryId, cursor = null, retryCount = 0) {
     if (state.consecutiveErrors >= config.CONSECUTIVE_ERROR_THRESHOLD) {
       // 1. 유효하지 않은 파라미터 오류인 경우 (카테고리 ID 문제일 가능성 높음)
       if (errorCode === 'OPENAPI00004') {
-        throw new Error(`치명적 오류: 카테고리 ID '${categoryId}'가 유효하지 않습니다. 마비노기 API 설명서를 확인하세요.`);
+        throw new Error(`오류: 카테고리 '${categoryId}'가 유효하지 않음.`);
       }
       
       // 2. API 키 오류인 경우
       if (errorCode === 'OPENAPI00005') {
-        throw new Error('치명적 오류: API 키가 유효하지 않습니다. API 키를 확인하세요.');
+        throw new Error('오류: API 키가 유효하지 않음.');
       }
       
       // 3. API 점검 중인 경우
       if (errorCode === 'OPENAPI00011') {
-        throw new Error('API 점검 중입니다. 나중에 다시 시도하세요.');
+        throw new Error('오류: API 점검 중.');
       }
       
       // 4. 게임 점검 중인 경우
       if (errorCode === 'OPENAPI00010') {
-        throw new Error('게임 점검 중입니다. 나중에 다시 시도하세요.');
+        throw new Error('오류: 게임 점검 중.');
       }
       
       // 5. API 호출량 초과한 경우
       if (errorCode === 'OPENAPI00007' || status === 429) {
-        throw new Error('API 호출량 제한에 도달했습니다. 내일 다시 시도하세요.');
+        throw new Error('오류: API 호출량 제한에 도달.');
       }
       
       // 6. 서버 오류가 연속으로 발생하는 경우
       if (status >= 500) {
-        throw new Error('서버 오류가 연속으로 발생하여 수집을 중단합니다.');
+        throw new Error('서버 오류가 연속으로 발생하여 중단.');
       }
     }
     
@@ -145,7 +145,7 @@ async function testApi() {
     
     // API 키 확인
     if (!config.API_KEY) {
-      console.error('API 키가 설정되지 않았습니다.');
+      console.error('API 키가 설정되지 않음.');
       return false;
     }
     
@@ -156,10 +156,10 @@ async function testApi() {
     const result = await callApi(testCategory);
     
     if (result.items && result.items.length > 0) {
-      console.log(`API 테스트 성공: ${result.items.length}개 아이템 수신됨`);
+      console.log(`API 테스트 성공: ${result.items.length}개 아이템 수신됨.`);
       return true;
     } else {
-      console.error('API 테스트 실패: 아이템이 없습니다.');
+      console.error('API 테스트 실패: 아이템이 없음.');
       return false;
     }
   } catch (error) {
@@ -209,17 +209,16 @@ async function collectCategoryItems(category) {
         nextCursor = result.next_cursor;
         pageCount++;
         
-        console.log(`  페이지 ${pageCount} 처리 완료: ${result.items?.length || 0}개 아이템, 현재 총 ${allItems.length}개, 다음 커서: ${nextCursor ? '있음' : '없음'}`);
+        console.log(`  페이지 ${pageCount} 처리 완료, ${allItems.length}개 아이템 확인.'}`);
         
         // 최대 페이지 수 체크
         if (pageCount >= MAX_PAGES) {
-          console.warn(`  최대 페이지 수(${MAX_PAGES})에 도달했습니다. 수집을 중단합니다.`);
+          console.warn(`  최대 페이지 수(${MAX_PAGES})에 도달하여 수집 중단.`);
           break;
         }
         
         // 다음 커서가 없거나 빈 문자열이면 중단
         if (!nextCursor || nextCursor === '') {
-          console.log(`  다음 커서가 없음. 페이징 완료.`);
           break;
         }
         
