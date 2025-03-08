@@ -73,7 +73,7 @@ module.exports = {
     { id: '에코스톤', name: '에코스톤', mainCategory: '특수 장비' },
     { id: '에이도스', name: '에이도스', mainCategory: '특수 장비' },
     { id: '유물', name: '유물', mainCategory: '특수 장비' },
-    { id: '기타장비', name: '기타장비', mainCategory: '특수 장비' },
+    { id: '기타 장비', name: '기타 장비', mainCategory: '특수 장비' },
     
     // 설치물
     { id: '의자/사물', name: '의자/사물', mainCategory: '설치물' },
