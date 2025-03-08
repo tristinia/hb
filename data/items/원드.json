@@ -1,0 +1,7030 @@
+{
+  "updated": "2025-03-08T11:47:10.380Z",
+  "count": 878,
+  "items": [
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드 R",
+      "display_name": "축복받은 스피리츄얼 인튜이션 파이어 원드 R",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 광포한 구도자의 켈틱 트라이볼트 원드",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "축복받은 초보자 아이스 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 6500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "얼루어링 피폴 와인 글라스",
+      "display_name": "얼루어링 피폴 와인 글라스",
+      "price": 8500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 130000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 광포한 나이트폴 페러시우스 아케인 원드",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 45000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 899999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 899999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 899999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 베어헌터 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 1500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피어스 코브라 고블릿",
+      "display_name": "피어스 코브라 고블릿",
+      "price": 480000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 8950,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "축복받은 라이트닝 원드",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "축복받은 초보자 아이스 원드",
+      "price": 164999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 190000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 파이어 원드",
+      "price": 9000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 39500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페어리 라이트닝 원드",
+      "display_name": "페어리 라이트닝 원드",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 13000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 50000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "마나 니들 위습 파이어 원드",
+      "price": 12989,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 1369999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 13000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "축복받은 엔지니어의 동백나무 힐링 원드",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 19900,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 8950,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "딸기 스틱 원드",
+      "display_name": "딸기 스틱 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 11000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 11000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라데카 아이스 원드",
+      "display_name": "축복받은 라데카 아이스 원드",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "초보자 아이스 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 13900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "신성한 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 595000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 13000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "얼루어링 피폴 와인 글라스",
+      "display_name": "얼루어링 피폴 와인 글라스",
+      "price": 8500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 19000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 광포한 나이트폴 페러시우스 아케인 원드",
+      "price": 430000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "축복받은 키위 위습 힐링 원드",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 14000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 160000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "라이트닝 원드",
+      "price": 8299,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 베어헌터 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 14700,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 199990,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 13000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "요정의 크리스탈 라이트닝 원드",
+      "price": 1700000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 280000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 98000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 850000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "축복받은 힐링 원드",
+      "price": 14000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 광포한 나이트폴 페러시우스 아케인 원드",
+      "price": 210000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 14000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 정신적인 나이트폴 페러시우스 아케인 원드",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "축복받은 힐링 원드",
+      "price": 24000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 16000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 2200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드 R",
+      "display_name": "축복받은 파이어 원드 R",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "스피리츄얼 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 480000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 학구적인 직관의 켈틱 트라이볼트 원드",
+      "price": 65000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 1150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 75000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 65000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "정신적인 나이트폴 페러시우스 아케인 원드",
+      "price": 94500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 티카 나무 힐링 원드",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "베어헌터 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 130000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 힐링 원드",
+      "display_name": "초보자 힐링 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 380000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 13000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 12000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 12000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 9350,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 9350,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라데카 아이스 원드",
+      "display_name": "라데카 아이스 원드",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 14000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 8000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 8000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "마나 니들 위습 파이어 원드",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "마나 니들 위습 파이어 원드",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페어리 파이어 원드",
+      "display_name": "축복받은 페어리 파이어 원드",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페어리 아이스 원드",
+      "display_name": "축복받은 페어리 아이스 원드",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 힐링 원드",
+      "display_name": "축복받은 초보자 힐링 원드",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 45000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 트라이볼트 원드",
+      "display_name": "디바인 트라이볼트 원드",
+      "price": 4290000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 8950,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 9000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 14300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 13000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 19000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 힐링 원드",
+      "display_name": "축복받은 초보자 힐링 원드",
+      "price": 12000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 7400000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 베어헌터 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 38000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 9900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "DIY 정복자의 홀",
+      "display_name": "DIY 정복자의 홀",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1680000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 정신적인 직관의 페러시우스 아케인 원드",
+      "price": 260000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 819000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드 R",
+      "display_name": "축복받은 엔지니어의 동백나무 파이어 원드 R",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 파이어 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 8800,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 스피리츄얼 동백나무 티카 나무 힐링 원드",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 740000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 파이어 원드",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "얼루어링 피폴 와인 글라스",
+      "display_name": "얼루어링 피폴 와인 글라스",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 켈틱 트라이볼트 원드",
+      "price": 11999999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1000000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 엔지니어의 동백나무 켈틱 트라이볼트 원드",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "축복받은 새도우 헌터 피닉스 파이어 원드",
+      "price": 45000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 9900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 830000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 티카 나무 힐링 원드",
+      "price": 48000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "샤인 스테이지 응원봉",
+      "display_name": "샤인 스테이지 응원봉",
+      "price": 2390000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "마나 니들 위습 파이어 원드",
+      "price": 50000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "베어헌터 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 190000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 엔지니어의 동백나무 켈틱 트라이볼트 원드",
+      "price": 29000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 광포한 구도자의 켈틱 트라이볼트 원드",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "나이트브링어 엘리멘토",
+      "price": 480000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 14400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "초보자 아이스 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 470000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 베어헌터 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 호프 티카 나무 힐링 원드",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 300000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 670000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 75000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 광포한 구도자의 켈틱 트라이볼트 원드",
+      "price": 230000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "마나 니들 위습 파이어 원드",
+      "price": 13000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 광포한 나이트폴 페러시우스 아케인 원드",
+      "price": 590000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 8950,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 165000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 광포한 나이트폴 페러시우스 아케인 원드",
+      "price": 260000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아이스 원드",
+      "display_name": "아이스 원드",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 정신적인 나이트폴 페러시우스 아케인 원드",
+      "price": 217000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 8888,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 힐링 원드",
+      "display_name": "축복받은 초보자 힐링 원드",
+      "price": 250000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "초보자 아이스 원드",
+      "price": 64000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "초보자 아이스 원드",
+      "price": 64000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "축복받은 초보자 아이스 원드",
+      "price": 64000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "신성한 레이븐 슬레이어 멧돼지 힐링 원드",
+      "price": 2000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 980000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "마나 니들 위습 파이어 원드",
+      "price": 100000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 23000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 파이어 원드",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 1450000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 13700000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 7500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 8888,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "신성한 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 420000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아이스 원드",
+      "display_name": "아이스 원드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "라이트닝 원드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 20000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 65000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페어리 아이스 원드",
+      "display_name": "축복받은 페어리 아이스 원드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 7400000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 힐링 원드",
+      "display_name": "초보자 힐링 원드",
+      "price": 80000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "초보자 아이스 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "축복받은 힐링 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 510000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "축복받은 스네이크 크라운 아이스 원드",
+      "price": 50000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 베어헌터 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 215000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 250000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 55000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 아이스 원드",
+      "display_name": "야만적인 아이스 원드",
+      "price": 9900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 엔지니어의 켈틱 트라이볼트 원드",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페어리 라이트닝 원드",
+      "display_name": "축복받은 페어리 라이트닝 원드",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 14500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 950000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "열정의 타격용 원드",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 870000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 광포한 구도자의 켈틱 트라이볼트 원드",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "강아지 풀 원드",
+      "display_name": "축복받은 강아지 풀 원드",
+      "price": 79998,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "마력의 동백나무 티카 나무 힐링 원드",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 110000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 1200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 11000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 11000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1850000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 520000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하트 아이스 원드",
+      "display_name": "축복받은 리자드 하트 아이스 원드",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 989999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 850000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 엔지니어의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 430000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 37000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 40000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 14990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1180000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 9900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 아이스 원드",
+      "display_name": "야만적인 아이스 원드",
+      "price": 9998,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "칵테일 주스",
+      "display_name": "축복받은 칵테일 주스",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페어리 아이스 원드",
+      "display_name": "축복받은 페어리 아이스 원드",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1830000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 19800,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 179900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 240000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 9900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "하트 라이트닝 원드",
+      "display_name": "축복받은 하트 라이트닝 원드",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하트 아이스 원드",
+      "display_name": "축복받은 하트 아이스 원드",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라데카 아이스 원드",
+      "display_name": "라데카 아이스 원드",
+      "price": 80000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "초보자 아이스 원드",
+      "price": 480000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 12000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 888888888,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 칼리번 티카 나무 힐링 원드",
+      "price": 1750000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 파이어 원드",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 베어헌터 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 55000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 430000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 켈틱 트라이볼트 원드",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "신성한 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 489000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 위자드 티카 나무 힐링 원드",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 250000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드 R",
+      "display_name": "축복받은 스피리츄얼 파이어 원드 R",
+      "price": 38000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페어리 파이어 원드",
+      "display_name": "페어리 파이어 원드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 65000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 14500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아이스 원드",
+      "display_name": "아이스 원드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "라이트닝 원드",
+      "price": 8300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "라이트닝 원드",
+      "price": 8300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 89500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 힐링 원드",
+      "display_name": "축복받은 초보자 힐링 원드",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 힐링 원드",
+      "display_name": "축복받은 호프 초보자 힐링 원드",
+      "price": 80000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 11000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피어스 코브라 고블릿",
+      "display_name": "피어스 코브라 고블릿",
+      "price": 480000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 60000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "초보자 아이스 원드",
+      "price": 50000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 410000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 23000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 아이스 원드",
+      "display_name": "축복받은 야만적인 아이스 원드",
+      "price": 14000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "축복받은 크리스탈 라이트닝 원드",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "얼루어링 피폴 와인 글라스",
+      "display_name": "얼루어링 피폴 와인 글라스",
+      "price": 8500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 힐링 원드",
+      "display_name": "초보자 힐링 원드",
+      "price": 99999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 파이어 원드",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 19900,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 14000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 18000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 위자드 티카 나무 힐링 원드",
+      "price": 99000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 8999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 광포한 구도자의 켈틱 트라이볼트 원드",
+      "price": 22000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 광포한 직관의 켈틱 트라이볼트 원드",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라데카 아이스 원드",
+      "display_name": "축복받은 라데카 아이스 원드",
+      "price": 90000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "얼루어링 피폴 와인 글라스",
+      "display_name": "축복받은 얼루어링 피폴 와인 글라스",
+      "price": 8600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 광포한 직관의 켈틱 트라이볼트 원드",
+      "price": 49000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 인튜이션 티카 나무 힐링 원드",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 2000000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 광포한 구도자의 켈틱 트라이볼트 원드",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 광포한 직관의 켈틱 트라이볼트 원드",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 티카 나무 힐링 원드",
+      "price": 11000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아이스크림 아이스 원드",
+      "display_name": "축복받은 아이스크림 아이스 원드",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 180000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 51000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 46000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1060000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 160000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 라이트닝 원드",
+      "display_name": "야만적인 라이트닝 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 라이트닝 원드",
+      "display_name": "야만적인 라이트닝 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 라이트닝 원드",
+      "display_name": "야만적인 라이트닝 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 16000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "정신적인 나이트폴 나이트브링어 엘리멘토",
+      "price": 1100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 파이어 원드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 12000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 8999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "광포한 켈틱 트라이볼트 원드",
+      "price": 20250000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "라이트닝 원드",
+      "price": 8399,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 48000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 28000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "축복받은 크라운 아이스 원드",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1050000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 16000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 20000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아이스크림 파이어 원드",
+      "display_name": "아이스크림 파이어 원드",
+      "price": 1990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 510000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1080000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "라이트닝 원드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 16000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 16000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 27000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 켈틱 트라이볼트 원드",
+      "price": 12000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 37000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 19990,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 정신적인 직관의 페러시우스 아케인 원드",
+      "price": 190000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 650000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 파이어 원드",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 2380000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아이스크림 아이스 원드",
+      "display_name": "축복받은 달콤한 청과물 아이스크림 아이스 원드",
+      "price": 9000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 새싹 티카 나무 힐링 원드",
+      "price": 13000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 2940000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 베어헌터 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 170000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 270000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 8900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 14000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "광포한 직관의 켈틱 트라이볼트 원드",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 16000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 정신적인 구도자의 나이트브링어 엘리멘토",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 파이어 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 70000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 24000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "정신적인 켈틱 트라이볼트 원드",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "풍선 크리스탈 라이트닝 원드",
+      "price": 700000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아이스크림 파이어 원드",
+      "display_name": "축복받은 아이스크림 파이어 원드",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "신성한 정신적인 나이트폴 나이트브링어 엘리멘토",
+      "price": 1100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드 S",
+      "display_name": "축복받은 도둑 파이어 원드 S",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피어스 코브라 고블릿",
+      "display_name": "피어스 코브라 고블릿",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "라이트닝 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 마나 니들 위습 파이어 원드",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 트라이볼트 원드",
+      "display_name": "디바인 트라이볼트 원드",
+      "price": 18000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1750000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 학구적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 광포한 켈틱 트라이볼트 원드",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "마력의 티카 나무 힐링 원드",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 510000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "얼루어링 피폴 와인 글라스",
+      "display_name": "축복받은 얼루어링 피폴 와인 글라스",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 파이어 원드",
+      "price": 68000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 16000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 켈틱 트라이볼트 원드",
+      "price": 24000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 54000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 칼리번 티카 나무 힐링 원드",
+      "price": 120000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 광포한 직관의 켈틱 트라이볼트 원드",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 9000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "요정의 크리스탈 라이트닝 원드",
+      "price": 1700000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 광포한 나이트폴 페러시우스 아케인 원드",
+      "price": 430000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "축복받은 피닉스 파이어 원드",
+      "price": 1900000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 12000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 8800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 7500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 80000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "정신적인 켈틱 트라이볼트 원드",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 60000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 55000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "요정의 타격용 원드",
+      "price": 450000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 9900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 파이어 원드",
+      "display_name": "축복받은 야만적인 파이어 원드",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 학구적인 아일랜드 켈틱 트라이볼트 원드",
+      "price": 11500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 파이어 원드",
+      "display_name": "정신적인 직관의 야만적인 파이어 원드",
+      "price": 18000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 티카 나무 힐링 원드",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 광포한 나이트폴 페러시우스 아케인 원드",
+      "price": 199000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "축복받은 중고의 타격용 원드",
+      "price": 4200000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "축복받은 크리스탈 라이트닝 원드",
+      "price": 1470000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 570000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 199990,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "축복받은 힐링 원드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 광포한 직관의 켈틱 트라이볼트 원드",
+      "price": 430000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 베어헌터 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 480000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아이스크림 라이트닝 원드",
+      "display_name": "축복받은 달콤한 아이스크림 라이트닝 원드",
+      "price": 240000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "마력의 티카 나무 힐링 원드",
+      "price": 160000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페어리 라이트닝 원드",
+      "display_name": "축복받은 페어리 라이트닝 원드",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "라이트닝 원드",
+      "price": 8400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 32000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "라이트닝 원드",
+      "price": 8500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "딸기 스틱 원드",
+      "display_name": "축복받은 딸기 스틱 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 900000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 175000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "라이트닝 원드",
+      "price": 8500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 17000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 광포한 나이트폴 페러시우스 아케인 원드",
+      "price": 300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 199990,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "축복받은 힐링 원드",
+      "price": 1920000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 파이어 원드",
+      "display_name": "마나 니들 격식있는 야만적인 파이어 원드",
+      "price": 50000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 38000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피어스 코브라 고블릿",
+      "display_name": "피어스 코브라 고블릿",
+      "price": 600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "라이트닝 원드",
+      "price": 8999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 켈틱 트라이볼트 원드",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "화이트 스틱 원드",
+      "display_name": "화이트 스틱 원드",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "화이트 스틱 원드",
+      "display_name": "화이트 스틱 원드",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 정신적인 나이트폴 나이트브링어 엘리멘토",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 34000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 라이트닝 원드",
+      "display_name": "야만적인 라이트닝 원드",
+      "price": 17777,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피어스 코브라 고블릿",
+      "display_name": "피어스 코브라 고블릿",
+      "price": 650000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1670000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "신성한 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 740000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "학구적인 직관의 켈틱 트라이볼트 원드",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 파이어 원드",
+      "display_name": "축복받은 마나 니들 격식있는 야만적인 파이어 원드",
+      "price": 77777777,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 티카 나무 힐링 원드",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아이스 원드",
+      "display_name": "축복받은 아이스 원드",
+      "price": 9500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "축복받은 라이트닝 원드",
+      "price": 35000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "DIY 정복자의 홀",
+      "display_name": "축복받은 DIY 정복자의 홀",
+      "price": 36000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "DIY 정복자의 홀",
+      "display_name": "축복받은 DIY 정복자의 홀",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 8500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "신성한 광포한 나이트폴 페러시우스 아케인 원드",
+      "price": 250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "샤인 스테이지 응원봉",
+      "display_name": "샤인 스테이지 응원봉",
+      "price": 2400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 85000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 베어헌터 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 75000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 16000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페어리 라이트닝 원드",
+      "display_name": "페어리 라이트닝 원드",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "신성한 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 499000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 440000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 16000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "라이트닝 원드",
+      "price": 38000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "샤인 스테이지 응원봉",
+      "display_name": "샤인 스테이지 응원봉",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 16000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 힐링 원드",
+      "display_name": "축복받은 초보자 힐링 원드",
+      "price": 80000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 8800,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 광포한 구도자의 켈틱 트라이볼트 원드",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "나이트브링어 엘리멘토",
+      "price": 369369369,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "중고의 타격용 원드",
+      "price": 50000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 17000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 13000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "마나 니들 위습 파이어 원드",
+      "price": 13333,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "딸기 스틱 원드",
+      "display_name": "딸기 스틱 원드",
+      "price": 210000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 11000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 1370000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 115000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 85000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 마나 니들 파이어 원드",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "풍선 타격용 원드",
+      "price": 1200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 힐링 원드",
+      "display_name": "초보자 힐링 원드",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 13000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "대담한 파이어 원드",
+      "price": 13000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "초보자 아이스 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 1380000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 1380000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "마력의 동백나무 티카 나무 힐링 원드",
+      "price": 19500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 파이어 원드",
+      "display_name": "야만적인 파이어 원드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 아이스 원드",
+      "display_name": "야만적인 아이스 원드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 마나 위치 티카 나무 힐링 원드",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 29000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 19000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 트라이볼트 원드",
+      "display_name": "축복받은 광포한 나이트폴 디바인 트라이볼트 원드",
+      "price": 32000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "신성한 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 680000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 19000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "피닉스 파이어 원드",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "피닉스 파이어 원드",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 아이스 원드",
+      "display_name": "야만적인 아이스 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 티카 나무 힐링 원드",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 150000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "풍선 라이트닝 원드",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 켈틱 트라이볼트 원드",
+      "price": 10500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 470000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 16400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "칵테일 주스",
+      "display_name": "축복받은 칵테일 주스",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 마나 위치 티카 나무 힐링 원드",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 광포한 나이트폴 페러시우스 아케인 원드",
+      "price": 239000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "축복받은 요정의 크라운 아이스 원드",
+      "price": 990000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 85000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 힐링 원드",
+      "display_name": "초보자 힐링 원드",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "강아지 풀 원드",
+      "display_name": "축복받은 강아지 풀 원드",
+      "price": 79998,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아이스크림 아이스 원드",
+      "display_name": "축복받은 달콤한 청과물 아이스크림 아이스 원드",
+      "price": 9000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 12280,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 27000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 810000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "마력의 티카 나무 힐링 원드",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "축복받은 요정의 풍선 크리스탈 라이트닝 원드",
+      "price": 800000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 파이어 원드",
+      "display_name": "야만적인 파이어 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 290000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 광포한 나이트폴 페러시우스 아케인 원드",
+      "price": 260000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "피닉스 파이어 원드",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 29000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 140000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 14900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "축복받은 초보자 아이스 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 1500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드 S",
+      "display_name": "축복받은 스피리츄얼 인튜이션 파이어 원드 S",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 9500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 1900000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아이스크림 라이트닝 원드",
+      "display_name": "축복받은 달콤한 아이스크림 라이트닝 원드",
+      "price": 130000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 17000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 파이어 원드",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 43000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "요정의 파이어 원드",
+      "price": 850000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 트라이볼트 원드",
+      "display_name": "축복받은 마나 니들 마법사 디바인 트라이볼트 원드",
+      "price": 19000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마나 니들 아일랜드 티카 나무 힐링 원드",
+      "price": 2050000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 9333,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "초보자 아이스 원드",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 정신적인 나이트폴 나이트브링어 엘리멘토",
+      "price": 550000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 550000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 파이어 원드",
+      "display_name": "축복받은 야만적인 파이어 원드",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 힐링 원드",
+      "display_name": "초보자 힐링 원드",
+      "price": 80000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 289999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 280000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "초보자 아이스 원드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "아일랜드 티카 나무 힐링 원드",
+      "price": 1890000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 아일랜드 티카 나무 힐링 원드",
+      "price": 1850000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 14900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 샤프 위습 티카 나무 힐링 원드",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 광포한 구도자의 켈틱 트라이볼트 원드",
+      "price": 22000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 베어헌터 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 65000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 70000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 900000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 12000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 티카 나무 힐링 원드",
+      "price": 31000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "초보자 아이스 원드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 250000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "마력의 티카 나무 힐링 원드",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 2100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1570000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 아이스 원드",
+      "display_name": "초보자 아이스 원드",
+      "price": 64000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "얼루어링 피폴 와인 글라스",
+      "display_name": "얼루어링 피폴 와인 글라스",
+      "price": 12000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 아이스 원드",
+      "display_name": "야만적인 아이스 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 라이트닝 원드",
+      "display_name": "야만적인 라이트닝 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 499000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 18000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 18000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "얼루어링 피폴 와인 글라스",
+      "display_name": "얼루어링 피폴 와인 글라스",
+      "price": 8800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "스피리츄얼 나이트폴 티카 나무 힐링 원드",
+      "price": 185000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 120000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 75000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1380000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 3500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아이스크림 라이트닝 원드",
+      "display_name": "축복받은 달콤한 청과물 아이스크림 라이트닝 원드",
+      "price": 250000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 3500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1900000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 720000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 670000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 525000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 아이스 원드",
+      "display_name": "야만적인 아이스 원드",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 티카 나무 힐링 원드",
+      "price": 34000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 510000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 490000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 엔지니어의 켈틱 트라이볼트 원드",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 470000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 20000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "화이트 스틱 원드",
+      "display_name": "화이트 스틱 원드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "딸기 스틱 원드",
+      "display_name": "딸기 스틱 원드",
+      "price": 350000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "신성한 영감 나이트폴 나이트브링어 엘리멘토",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 19000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1950000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 2890000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 27000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 18000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 동백나무 티카 나무 힐링 원드",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 27000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "신성한 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1000000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "풍선 크리스탈 라이트닝 원드",
+      "price": 1900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 위자드 티카 나무 힐링 원드",
+      "price": 700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 1070000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 광포한 나이트폴 페러시우스 아케인 원드",
+      "price": 440000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 광포한 나이트폴 페러시우스 아케인 원드",
+      "price": 270000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 8888,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "축복받은 크라운 아이스 원드",
+      "price": 35000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 35000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 스피리츄얼 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 140000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 67000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 파이어 원드",
+      "display_name": "야만적인 파이어 원드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 24000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 820000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 100000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 19000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 매서운 티카 나무 힐링 원드",
+      "price": 19999999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "풍선 파이어 원드",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아이스크림 아이스 원드",
+      "display_name": "축복받은 달콤한 아이스크림 아이스 원드",
+      "price": 8500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페어리 파이어 원드",
+      "display_name": "페어리 파이어 원드",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 23000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 파이어 원드",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피어스 코브라 고블릿",
+      "display_name": "피어스 코브라 고블릿",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피어스 코브라 고블릿",
+      "display_name": "피어스 코브라 고블릿",
+      "price": 680000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 정신적인 나이트폴 나이트브링어 엘리멘토",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 50000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 100000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 100000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "트루스시커 파이어 원드",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "켈틱 트라이볼트 원드",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 19800000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 9000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 12999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "샤인 스테이지 응원봉",
+      "display_name": "샤인 스테이지 응원봉",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "딸기 스틱 원드",
+      "display_name": "딸기 스틱 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트브링어 엘리멘토",
+      "price": 350000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 파이어 원드",
+      "price": 48000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "마력의 힐링 원드",
+      "price": 7000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "마력의 마나 위치 티카 나무 힐링 원드",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 라이트닝 원드",
+      "display_name": "축복받은 마나 니들 아일랜드 야만적인 라이트닝 원드",
+      "price": 1800000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1850000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 825000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피어스 코브라 고블릿",
+      "display_name": "피어스 코브라 고블릿",
+      "price": 680000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 광포한 직관의 켈틱 트라이볼트 원드",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 정신적인 나이트폴 페러시우스 아케인 원드",
+      "price": 219000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "축복받은 광포한 구도자의 페러시우스 아케인 원드",
+      "price": 180000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 19000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 마나 니들 위습 파이어 원드",
+      "price": 12000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 7980000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "축복받은 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 1399000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 베어헌터 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 160000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 파이어 원드",
+      "display_name": "마나 니들 격식있는 야만적인 파이어 원드",
+      "price": 49999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 힐링 원드",
+      "display_name": "마력의 마나 위치 초보자 힐링 원드",
+      "price": 15500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "피닉스 파이어 원드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "피닉스 파이어 원드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 파이어 원드",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "축복받은 새도우 헌터 피닉스 파이어 원드",
+      "price": 9000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "신성한 광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 18000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 라이트닝 원드",
+      "display_name": "야만적인 라이트닝 원드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 13000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 460000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 18000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마나 니들 회색늑대 티카 나무 힐링 원드",
+      "price": 180000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아이스크림 아이스 원드",
+      "display_name": "아이스크림 아이스 원드",
+      "price": 9900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 18000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 19000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 9500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 아케인 원드",
+      "display_name": "정신적인 나이트폴 페러시우스 아케인 원드",
+      "price": 330000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "티카 나무 힐링 원드",
+      "price": 29000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 힐링 원드",
+      "display_name": "초보자 힐링 원드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 13000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 8500,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 19990000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 2900000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 슈퍼내츄럴 티카 나무 힐링 원드",
+      "price": 180000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "야만적인 라이트닝 원드",
+      "display_name": "축복받은 마나 니들 아일랜드 야만적인 라이트닝 원드",
+      "price": 2000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타격용 원드",
+      "display_name": "타격용 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 라이트닝 원드",
+      "display_name": "크리스탈 라이트닝 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 위자드 티카 나무 힐링 원드",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 구도자의 켈틱 트라이볼트 원드",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 티카 나무 힐링 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "샤인 스테이지 응원봉",
+      "display_name": "샤인 스테이지 응원봉",
+      "price": 2800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 12000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피닉스 파이어 원드",
+      "display_name": "새도우 헌터 피닉스 파이어 원드",
+      "price": 9899,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "파이어 원드",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 힐링 원드",
+      "display_name": "축복받은 초보자 힐링 원드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페어리 라이트닝 원드",
+      "display_name": "축복받은 페어리 라이트닝 원드",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 엘리멘토",
+      "display_name": "광포한 나이트폴 나이트브링어 엘리멘토",
+      "price": 480000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아이스 원드",
+      "display_name": "각진 아이스 원드",
+      "price": 18000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 정신적인 직관의 켈틱 트라이볼트 원드",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 폭스 위습 티카 나무 힐링 원드",
+      "price": 21000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 티카 나무 힐링 원드",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 원드",
+      "display_name": "축복받은 스피리츄얼 인튜이션 파이어 원드",
+      "price": 7000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "축복받은 켈틱 트라이볼트 원드",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 나무 힐링 원드",
+      "display_name": "축복받은 마력의 티카 나무 힐링 원드",
+      "price": 120000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트닝 원드",
+      "display_name": "라이트닝 원드",
+      "price": 38888,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 19999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "힐링 원드",
+      "display_name": "힐링 원드",
+      "price": 19999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크라운 아이스 원드",
+      "display_name": "크라운 아이스 원드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초코 스틱 원드",
+      "display_name": "초코 스틱 원드",
+      "price": 650000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 트라이볼트 원드",
+      "display_name": "광포한 나이트폴 켈틱 트라이볼트 원드",
+      "price": 280000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    }
+  ]
+}

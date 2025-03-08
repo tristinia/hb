@@ -1,0 +1,2734 @@
+{
+  "updated": "2025-03-08T11:46:59.932Z",
+  "count": 341,
+  "items": [
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "축복받은 쾌속의 달인 데모닉 솔리투드 너클",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "멀린의 실리엔 마력 너클",
+      "display_name": "멀린의 실리엔 마력 너클",
+      "price": 400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 다운버스트 페러시우스 토멘티드 너클",
+      "price": 450000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 스플린터 너클",
+      "display_name": "레버넌트 스플린터 너클",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 스플린터 너클",
+      "display_name": "레버넌트 스플린터 너클",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 스플린터 너클",
+      "display_name": "레버넌트 스플린터 너클",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 스플린터 너클",
+      "display_name": "레버넌트 스플린터 너클",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 스플린터 너클",
+      "display_name": "레버넌트 스플린터 너클",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 스플린터 너클",
+      "display_name": "레버넌트 스플린터 너클",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 스플린터 너클",
+      "display_name": "레버넌트 스플린터 너클",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 스플린터 너클",
+      "display_name": "레버넌트 스플린터 너클",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 190000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "열정의 스파이크드 너클",
+      "price": 1280000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 400000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "축복받은 요정의 홉네일 너클",
+      "price": 1999999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 베가본드",
+      "display_name": "축복받은 쾌속의 다운버스트 나이트브링어 베가본드",
+      "price": 580000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "쾌속의 데모닉 솔리투드 너클",
+      "price": 4000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "귤 업그레이드형",
+      "display_name": "축복받은 귤 업그레이드형",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "풍선 홉네일 너클",
+      "price": 2500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "브레이스 너클",
+      "price": 35000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "데모닉 솔리투드 너클",
+      "price": 980000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1479,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 켈틱 엣지드 너클",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "랑그히리스 체이서",
+      "display_name": "랑그히리스 체이서",
+      "price": 320000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "데모닉 솔리투드 너클",
+      "price": 950000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "축복받은 햄스터헌터 흰거미 베어 너클",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "쾌속의 브레이스 너클",
+      "price": 5900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클 R",
+      "display_name": "축복받은 브레이스 너클 R",
+      "price": 23500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 1000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 2980000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 8800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "데모닉 솔리투드 너클(미완성)",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 켈틱 엣지드 너클",
+      "price": 11790000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "페러시우스 토멘티드 너클",
+      "price": 40000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "페러시우스 토멘티드 너클",
+      "price": 40000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1480,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1480,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1480,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1480,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 베가본드",
+      "display_name": "축복받은 쾌속의 기르가쉬 나이트브링어 베가본드",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 1890000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 1200,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "축복받은 데모닉 솔리투드 너클",
+      "price": 4500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "축복받은 데모닉 솔리투드 너클",
+      "price": 4500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 3280000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 2222,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 너클",
+      "display_name": "레트로 전설의 너클",
+      "price": 49900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 589000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1484,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 켈틱 엣지드 너클",
+      "price": 13000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "축복받은 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "마족표 베어 너클",
+      "display_name": "마족표 베어 너클",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "브레이스 너클",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 다운버스트 페러시우스 토멘티드 너클",
+      "price": 250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1485,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실리엔 마력 너클",
+      "display_name": "축복받은 실리엔 마력 너클",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "디그너파이드 하드 펀치 챔피언 너클",
+      "price": 650000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "축복받은 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 485000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 230000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 9000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 3288888,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "멀린의 실리엔 마력 너클",
+      "display_name": "축복받은 멀린의 실리엔 마력 너클",
+      "price": 4500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "귤 기본형",
+      "display_name": "축복받은 귤 기본형",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 9500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클 S",
+      "display_name": "브레이스 너클 S",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 켈틱 엣지드 너클",
+      "price": 10800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 베가본드",
+      "display_name": "신성한 쾌속의 다운버스트 나이트브링어 베가본드",
+      "price": 2500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "축복받은 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1590,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 너클",
+      "display_name": "레트로 전설의 너클",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "페러시우스 토멘티드 너클",
+      "price": 100000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 35000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "데모닉 솔리투드 너클",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 11000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 11000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1590,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1590,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "데모닉 솔리투드 너클",
+      "price": 1200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 380000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "축복받은 쾌속의 다운버스트 페러시우스 토멘티드 너클",
+      "price": 380000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실리엔 마력 너클",
+      "display_name": "축복받은 실리엔 마력 너클",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "디그너파이드 하드 펀치 챔피언 너클",
+      "price": 599900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "브레이스 너클",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 3350000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "하드 펀치 챔피언 너클",
+      "price": 180000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 400000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 2400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 다운버스트 페러시우스 토멘티드 너클",
+      "price": 450000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "달걀 장갑",
+      "display_name": "달걀 장갑",
+      "price": 920000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 다운버스트 페러시우스 토멘티드 너클",
+      "price": 190000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 8888,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 8888,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 8888,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 8888,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 8888,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "축복받은 스파이크드 너클",
+      "price": 13000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클 R",
+      "display_name": "축복받은 주먹의 기르가쉬 챔피언 너클 R",
+      "price": 7500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 8888,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 8888,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 8888,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "데모닉 솔리투드 너클",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 8888,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "디그너파이드 하드 펀치 챔피언 너클",
+      "price": 540000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 2400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 110000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 35000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "귤 고급형",
+      "display_name": "축복받은 상큼한 청과물 귤 고급형",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "귤 기본형",
+      "display_name": "상큼한 청과물 귤 기본형",
+      "price": 88888888,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "쾌속의 데모닉 솔리투드 너클",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1590,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 양 너클",
+      "display_name": "챔피언 양 너클",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1590,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1590,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1590,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1590,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1590,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1590,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1590,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1590,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1590,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 2540,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클 R",
+      "display_name": "축복받은 쾌속의 럭키 펀치 데모닉 솔리투드 너클 R",
+      "price": 56240000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "하드 펀치 챔피언 너클",
+      "price": 200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 22222,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 스플린터 너클",
+      "display_name": "신성한 쾌속의 기르가쉬 레버넌트 스플린터 너클",
+      "price": 160000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "디그너파이드 하드 펀치 챔피언 너클",
+      "price": 540000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1590,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1590,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 켈틱 엣지드 너클",
+      "price": 11940000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 13000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실리엔 마력 너클",
+      "display_name": "축복받은 실리엔 마력 너클",
+      "price": 49990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 켈틱 엣지드 너클",
+      "price": 12000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 17990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 베가본드",
+      "display_name": "신성한 쾌속의 다운버스트 나이트브링어 베가본드",
+      "price": 1000000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "축복받은 거센 파워풀 스파이크드 너클",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 3333,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 3333,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "멀린의 실리엔 마력 너클",
+      "display_name": "축복받은 리치 기르가쉬 멀린의 실리엔 마력 너클",
+      "price": 750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1600,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 10800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "등껍질 스파이크드 너클",
+      "price": 1390000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클 R",
+      "display_name": "쾌속의 하드 펀치 챔피언 너클 R",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "축복받은 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 298000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "축복받은 쾌속의 다운버스트 페러시우스 토멘티드 너클",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 36900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 430000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 베가본드",
+      "display_name": "신성한 쾌속의 다운버스트 나이트브링어 베가본드",
+      "price": 1040000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클(미완성)",
+      "price": 1380000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "풍선 스파이크드 너클",
+      "price": 750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 11000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "귤 기본형",
+      "display_name": "축복받은 상큼한 청과물 귤 기본형",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "축복받은 쾌속의 다운버스트 페러시우스 토멘티드 너클",
+      "price": 380000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 켈틱 엣지드 너클",
+      "price": 12000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "축복받은 햄스터헌터 베어 너클",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 3390000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 440000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 440000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 440000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 440000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 440000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "요정의 홉네일 너클",
+      "price": 1400000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "귤 기본형",
+      "display_name": "귤 기본형",
+      "price": 6989000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "축복받은 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 98000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 스파이크드 너클",
+      "display_name": "초보자 스파이크드 너클",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 스플린터 너클",
+      "display_name": "레버넌트 스플린터 너클",
+      "price": 6900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "브레이스 너클",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 쾌속의 다운버스트 켈틱 엣지드 너클",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "랑그히리스 체이서",
+      "display_name": "랑그히리스 체이서",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "멀린의 실리엔 마력 너클",
+      "display_name": "축복받은 멀린의 실리엔 마력 너클",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 크리티컬 너클",
+      "display_name": "크리스마스 크리티컬 너클",
+      "price": 2100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "챔피언 너클",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "데미 리치 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클(미완성)",
+      "price": 1300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "멀린의 실리엔 마력 너클",
+      "display_name": "축복받은 칼라 바바리안 멀린의 실리엔 마력 너클",
+      "price": 38000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "풍선 홉네일 너클",
+      "price": 1450000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 켈틱 엣지드 너클",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1600,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 켈틱 엣지드 너클",
+      "price": 11000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 켈틱 엣지드 너클",
+      "price": 11000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 켈틱 엣지드 너클",
+      "price": 11000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 베가본드",
+      "display_name": "신성한 쾌속의 다운버스트 나이트브링어 베가본드",
+      "price": 1220000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 38000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 38000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 8800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "디그너파이드 하드 펀치 챔피언 너클",
+      "price": 549975,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 489975,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "열정의 스파이크드 너클",
+      "price": 1300000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "디그너파이드 하드 펀치 챔피언 너클",
+      "price": 549975,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 14000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 14000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 14000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 14000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "데모닉 솔리투드 너클",
+      "price": 2290000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "쾌속의 데모닉 솔리투드 너클",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "축복받은 브레이스 너클",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실리엔 마력 너클",
+      "display_name": "실리엔 마력 너클",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "멀린의 실리엔 마력 너클",
+      "display_name": "축복받은 멀린의 실리엔 마력 너클",
+      "price": 2450000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 4999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1695,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1695,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "등껍질 스파이크드 너클",
+      "price": 1300000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "하드 펀치 브레이스 너클",
+      "price": 1300000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "멀린의 실리엔 마력 너클",
+      "display_name": "멀린의 실리엔 마력 너클",
+      "price": 400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "하드 펀치 챔피언 너클",
+      "price": 7000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "디그너파이드 하드 펀치 챔피언 너클",
+      "price": 549975,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 17000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "브레이스 너클",
+      "price": 35000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 5650000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 다운버스트 페러시우스 토멘티드 너클",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 베가본드",
+      "display_name": "신성한 쾌속의 다운버스트 나이트브링어 베가본드",
+      "price": 2000000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "멀린의 실리엔 마력 너클",
+      "display_name": "축복받은 멀린의 실리엔 마력 너클",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "브레이스 너클",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 베가본드",
+      "display_name": "신성한 쾌속의 다운버스트 나이트브링어 베가본드",
+      "price": 1500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "등껍질 스파이크드 너클",
+      "price": 750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "디그너파이드 하드 펀치 챔피언 너클",
+      "price": 549975,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 490000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 켈틱 엣지드 너클",
+      "price": 10800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 다운버스트 페러시우스 토멘티드 너클",
+      "price": 260000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 225000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 10800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 스플린터 너클",
+      "display_name": "축복받은 쾌속의 기르가쉬 레버넌트 스플린터 너클",
+      "price": 150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 양 너클",
+      "display_name": "챔피언 양 너클",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "달인 베어 너클",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 베가본드",
+      "display_name": "신성한 쾌속의 다운버스트 나이트브링어 베가본드",
+      "price": 2150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "멀린의 실리엔 마력 너클",
+      "display_name": "축복받은 언테임드 격렬한 멀린의 실리엔 마력 너클",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 190000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 켈틱 엣지드 너클",
+      "price": 11600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1700,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1700,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1700,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "달인 베어 너클",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "축복받은 챔피언 너클",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "축복받은 챔피언 너클",
+      "price": 9999999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "데모닉 솔리투드 너클",
+      "price": 1898888,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "등껍질 스파이크드 너클",
+      "price": 800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 다운버스트 페러시우스 토멘티드 너클",
+      "price": 370000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "요정의 스파이크드 너클",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 스플린터 너클",
+      "display_name": "신성한 쾌속의 기르가쉬 레버넌트 스플린터 너클",
+      "price": 95000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "달걀 장갑",
+      "display_name": "축복받은 달걀 장갑",
+      "price": 930000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "멀린의 실리엔 마력 너클",
+      "display_name": "멀린의 실리엔 마력 너클",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "멀린의 실리엔 마력 너클",
+      "display_name": "축복받은 멀린의 실리엔 마력 너클",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1890,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클",
+      "display_name": "디그너파이드 하드 펀치 브레이스 너클",
+      "price": 550000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "멀린의 실리엔 마력 너클",
+      "display_name": "축복받은 멀린의 실리엔 마력 너클",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "데모닉 솔리투드 너클",
+      "price": 1900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 3300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 다운버스트 페러시우스 토멘티드 너클",
+      "price": 320000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "축복받은 쾌속의 다운버스트 페러시우스 토멘티드 너클",
+      "price": 290000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 1889,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 7000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "디그너파이드 하드 펀치 챔피언 너클",
+      "price": 549975,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 12990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "축복받은 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 120000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "멀린의 실리엔 마력 너클",
+      "display_name": "축복받은 리치 기르가쉬 멀린의 실리엔 마력 너클",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "디그너파이드 하드 펀치 챔피언 너클",
+      "price": 549975,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 4999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "멀린의 실리엔 마력 너클",
+      "display_name": "축복받은 멀린의 실리엔 마력 너클",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 베가본드",
+      "display_name": "신성한 격투장인 다운버스트 나이트브링어 베가본드",
+      "price": 800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 켈틱 엣지드 너클",
+      "price": 11600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "축복받은 쾌속의 하드 펀치 켈틱 엣지드 너클",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "요정의 스파이크드 너클",
+      "price": 1450000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브레이스 너클 R",
+      "display_name": "축복받은 언테임드 바바리안 브레이스 너클 R",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "축복받은 쾌속의 기르가쉬 페러시우스 토멘티드 너클",
+      "price": 240000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "챔피언 너클",
+      "price": 3900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "신성한 격투장인 다운버스트 페러시우스 토멘티드 너클",
+      "price": 210000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 너클",
+      "display_name": "레트로 전설의 너클",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "열정의 스파이크드 너클",
+      "price": 1400000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 토멘티드 너클",
+      "display_name": "페러시우스 토멘티드 너클",
+      "price": 28000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "귤 기본형",
+      "display_name": "축복받은 청과물 귤 기본형",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "요정의 스파이크드 너클",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 너클",
+      "display_name": "레트로 전설의 너클",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 너클",
+      "display_name": "레트로 전설의 너클",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "챔피언 너클",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스파이크드 너클",
+      "display_name": "스파이크드 너클",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "챔피언 너클",
+      "display_name": "디그너파이드 하드 펀치 챔피언 너클",
+      "price": 550000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 40000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "홉네일 너클",
+      "display_name": "홉네일 너클",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 엣지드 너클",
+      "display_name": "켈틱 엣지드 너클",
+      "price": 13000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 솔리투드 너클",
+      "display_name": "데모닉 솔리투드 너클",
+      "price": 1990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 너클",
+      "display_name": "레트로 전설의 너클",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "베어 너클",
+      "display_name": "베어 너클",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    }
+  ]
+}

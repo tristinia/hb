@@ -1,0 +1,5246 @@
+{
+  "updated": "2025-03-08T11:47:56.638Z",
+  "count": 655,
+  "items": [
+    {
+      "name": "슬렌더 로브",
+      "display_name": "축복받은 슬렌더 로브",
+      "price": 7000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스타라이트 로브",
+      "display_name": "스타라이트 로브",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나타네 설산용 코트",
+      "display_name": "나타네 설산용 코트",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코코 래빗 로브",
+      "display_name": "축복받은 코코 래빗 로브",
+      "price": 99999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "모험가의 로브(여성용)",
+      "display_name": "모험가의 로브(여성용)",
+      "price": 6700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "야광 머플러 로브",
+      "price": 870000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 9330,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "펭귄 로브",
+      "display_name": "축복받은 펭귄 로브",
+      "price": 2750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "매지컬 빅 할로윈 캣 로브",
+      "price": 7500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한 입 먹힌 말랑말랑 젤리 곰 로브",
+      "display_name": "한 입 먹힌 말랑말랑 젤리 곰 로브",
+      "price": 990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(여성용)",
+      "display_name": "축복받은 누아자 로브(여성용)",
+      "price": 27900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축복받은 축제 기념 헤보나 로브",
+      "price": 14870000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "도렌 로브",
+      "display_name": "도렌 로브",
+      "price": 600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "귀엽닭 로브",
+      "display_name": "축복받은 귀엽닭 로브",
+      "price": 1250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "축복받은 퀘사르 로브",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "자부신선 임페리얼 로브",
+      "display_name": "자부신선 임페리얼 로브",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 할로윈 캣 로브",
+      "display_name": "매지컬 할로윈 캣 로브",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(여성용)",
+      "display_name": "축복받은 누아자 로브(여성용)",
+      "price": 28000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (여성용)",
+      "display_name": "축복받은 어린이날 기념 로브 (여성용)",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "전장의 군인 우비",
+      "display_name": "전장의 군인 우비",
+      "price": 5100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "곰 로브",
+      "display_name": "곰 로브",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(에일레르)",
+      "display_name": "고대 알반 기사단의 예복(에일레르)",
+      "price": 660000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "축복받은 매지컬 빅 할로윈 캣 로브",
+      "price": 7600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 캣 로브",
+      "display_name": "할로윈 캣 로브",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "로브",
+      "display_name": "축복받은 로브",
+      "price": 900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(여성용)",
+      "display_name": "누아자 로브(여성용)",
+      "price": 28300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "트루디 레인 로브",
+      "display_name": "트루디 레인 로브",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "트루디 레인 로브",
+      "display_name": "트루디 레인 로브",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "축복받은 퀘사르 로브",
+      "price": 3500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈팅스타 로브",
+      "display_name": "슈팅스타 로브",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코코 래빗 로브",
+      "display_name": "코코 래빗 로브",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "왕방울 로브(자이언트 여성용)",
+      "display_name": "왕방울 로브(자이언트 여성용)",
+      "price": 480000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(남성용)",
+      "display_name": "파멸의 로브(남성용)",
+      "price": 5433333333,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "무지개 양 로브",
+      "display_name": "축복받은 무지개 양 로브",
+      "price": 1700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 24999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "머쉬룸 로브",
+      "display_name": "머쉬룸 로브",
+      "price": 34550000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "유령 로브",
+      "display_name": "유령 로브",
+      "price": 2800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "키홀의 로브(여성용)",
+      "display_name": "키홀의 로브(여성용)",
+      "price": 1700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순례자 로브(여성용)",
+      "display_name": "순례자 로브(여성용)",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순록 로브",
+      "display_name": "축복받은 순록 로브",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "퀘사르 로브",
+      "price": 6500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(남성용)",
+      "display_name": "누아자 로브(남성용)",
+      "price": 7900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바다코끼리 로브(자이언트 여성용)",
+      "display_name": "바다코끼리 로브(자이언트 여성용)",
+      "price": 1490000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(여성용)",
+      "display_name": "축복받은 파멸의 로브(여성용)",
+      "price": 4950000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "무지개 양 로브",
+      "display_name": "무지개 양 로브",
+      "price": 1700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(남성용)",
+      "display_name": "축복받은 누아자 로브(남성용)",
+      "price": 1000000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "커다란 호박머리 로브",
+      "display_name": "축복받은 커다란 호박머리 로브",
+      "price": 11900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 위치 로브",
+      "display_name": "축복받은 할로윈 위치 로브",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 호박 로브",
+      "display_name": "할로윈 호박 로브",
+      "price": 3500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "늑대 로브",
+      "price": 11000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "모험가의 로브(남성용)",
+      "display_name": "축복받은 모험가의 로브(남성용)",
+      "price": 2400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "시크릿 로브",
+      "display_name": "축복받은 시크릿 로브",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(여성용)",
+      "display_name": "파멸의 로브(여성용)(미완성)",
+      "price": 1500000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "매지컬 빅 할로윈 캣 로브",
+      "price": 7600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "무지개 양 로브",
+      "display_name": "무지개 양 로브",
+      "price": 5400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나쿠루 드래곤 문양 마법사 로브(여성용)",
+      "display_name": "축복받은 나쿠루 드래곤 문양 마법사 로브(여성용)",
+      "price": 14000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(여성용)",
+      "display_name": "축복받은 파멸의 로브(여성용)",
+      "price": 5000000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "매지컬 빅 할로윈 캣 로브",
+      "price": 7950000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "매지컬 빅 할로윈 캣 로브",
+      "price": 7950000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "매지컬 빅 할로윈 캣 로브",
+      "price": 7950000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "축복받은 매지컬 빅 할로윈 캣 로브",
+      "price": 7950000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "축복받은 매지컬 빅 할로윈 캣 로브",
+      "price": 7950000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "축복받은 매지컬 빅 할로윈 캣 로브",
+      "price": 7950000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오리엔탈 크레센트 로브",
+      "display_name": "오리엔탈 크레센트 로브",
+      "price": 4500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "빈티지 스타라이트 로브",
+      "display_name": "빈티지 스타라이트 로브",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "코치닐 토끼 로브",
+      "price": 60000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "코치닐 토끼 로브",
+      "price": 60000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "트루디 레이어드 로브",
+      "display_name": "트루디 레이어드 로브",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라데카 로브(여성용)",
+      "display_name": "축복받은 라데카 로브(여성용)",
+      "price": 26000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(남성용)",
+      "display_name": "누아자 로브(남성용)",
+      "price": 7900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "머쉬룸 로브",
+      "display_name": "머쉬룸 로브",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(에일레르)",
+      "display_name": "고대 알반 기사단의 예복(에일레르)",
+      "price": 690000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 9330,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(남성용)",
+      "display_name": "파멸의 로브(남성용)(미완성)",
+      "price": 1240000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "로브",
+      "display_name": "로브",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라바 캣 로브",
+      "display_name": "축복받은 라바 캣 로브",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "로브",
+      "display_name": "로브",
+      "price": 900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "강아지 로브",
+      "display_name": "강아지 로브",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "코치닐 토끼 로브",
+      "price": 70000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "잭크루지 로브",
+      "display_name": "잭크루지 로브",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 2900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "켈틱 디자인 로브",
+      "price": 1200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "전장의 군인 우비",
+      "display_name": "전장의 군인 우비",
+      "price": 2900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "트리콜로르 로브",
+      "display_name": "트리콜로르 로브",
+      "price": 8400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "커다란 해골머리 로브",
+      "display_name": "커다란 해골머리 로브",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(남성용)",
+      "display_name": "누아자 로브(남성용)",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(남성용)",
+      "display_name": "누아자 로브(남성용)",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(여성용)",
+      "display_name": "누아자 로브(여성용)",
+      "price": 28500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "광대 로브",
+      "display_name": "광대 로브",
+      "price": 588888,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "사신의 로브",
+      "display_name": "축복받은 사신의 로브",
+      "price": 9490000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 캣 로브",
+      "display_name": "할로윈 캣 로브",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한 입 먹힌 말랑말랑 젤리 곰 로브",
+      "display_name": "축복받은 한 입 먹힌 말랑말랑 젤리 곰 로브",
+      "price": 899999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오리엔탈 크레센트 로브",
+      "display_name": "축복받은 오리엔탈 크레센트 로브",
+      "price": 499999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "곰 로브",
+      "display_name": "곰 로브",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "칠석 기념 헤보나 로브",
+      "display_name": "화이트데이 기념 헤보나 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "트리콜로르 로브",
+      "display_name": "축복받은 트리콜로르 로브",
+      "price": 8400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "커다란 해골머리 로브",
+      "display_name": "커다란 해골머리 로브",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순례자 로브(여성용)",
+      "display_name": "순례자 로브(여성용)",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아름다운 자연을 담은 로브",
+      "display_name": "아름다운 자연을 담은 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아름다운 자연을 담은 로브",
+      "display_name": "아름다운 자연을 담은 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "자연을 담은 로브",
+      "display_name": "자연을 담은 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "자연을 담은 로브",
+      "display_name": "자연을 담은 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "자연을 담은 로브",
+      "display_name": "자연을 담은 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 9333,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "자연을 담은 로브",
+      "display_name": "자연을 담은 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 2800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "머플러 로브",
+      "display_name": "축복받은 머플러 로브",
+      "price": 5440000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (여성용)",
+      "display_name": "어린이날 기념 로브 (여성용)",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "퀘사르 로브",
+      "price": 3500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "말랑말랑 젤리 곰 로브",
+      "display_name": "말랑말랑 젤리 곰 로브",
+      "price": 2300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바다코끼리 로브(자이언트 남성용)",
+      "display_name": "축복받은 바다코끼리 로브(자이언트 남성용)",
+      "price": 1100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(남성용)",
+      "display_name": "파멸의 로브(남성용)",
+      "price": 5099990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "머쉬룸 로브",
+      "display_name": "머쉬룸 로브",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "축복받은 야광 머플러 로브",
+      "price": 900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "코치닐 토끼 로브",
+      "price": 80000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크루시즈 로브",
+      "display_name": "크루시즈 로브",
+      "price": 21000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "켈틱 디자인 로브",
+      "price": 1200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 9500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "켈틱 디자인 로브",
+      "price": 1999900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "호랑이 로브",
+      "display_name": "축복받은 호랑이 로브",
+      "price": 4000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드루이드의 로브(여성용)",
+      "display_name": "드루이드의 로브(여성용)",
+      "price": 1400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 위치 로브",
+      "display_name": "할로윈 위치 로브",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "모험가의 로브(남성용)",
+      "display_name": "축복받은 모험가의 로브(남성용)",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "축복받은 야광 머플러 로브",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "머플러 로브",
+      "display_name": "축복받은 머플러 로브",
+      "price": 5444444,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(에일레르)",
+      "display_name": "고대 알반 기사단의 예복(에일레르)",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(에일레르)",
+      "display_name": "축복받은 고대 알반 기사단의 예복(에일레르)",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "늑대 로브",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (남성용)",
+      "display_name": "축복받은 어린이날 기념 로브 (남성용)",
+      "price": 18000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라바 캣 로브",
+      "display_name": "축복받은 라바 캣 로브",
+      "price": 50000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "매지컬 빅 할로윈 캣 로브",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 9500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "잭크루지 로브",
+      "display_name": "잭크루지 로브",
+      "price": 1800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "시크릿 로브",
+      "display_name": "시크릿 로브",
+      "price": 9000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 1980000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 1980000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축제 기념 헤보나 로브",
+      "price": 200000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 1990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(헤루인)",
+      "display_name": "고대 알반 기사단의 예복(헤루인)",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(에일레르)",
+      "display_name": "고대 알반 기사단의 예복(에일레르)",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아름다운 자연을 담은 로브",
+      "display_name": "아름다운 자연을 담은 로브",
+      "price": 250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "로브",
+      "display_name": "로브",
+      "price": 900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 할로윈 캣 로브",
+      "display_name": "매지컬 할로윈 캣 로브",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "켈틱 디자인 로브",
+      "price": 1200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순례자 로브(남성용)",
+      "display_name": "순례자 로브(남성용)",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "시크릿 로브",
+      "display_name": "축복받은 시크릿 로브",
+      "price": 6190000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "펭귄 로브",
+      "display_name": "펭귄 로브",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(남성용)",
+      "display_name": "축복받은 파멸의 로브(남성용)",
+      "price": 6000000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "축복받은 헤보나 로브",
+      "price": 210000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "전장의 군인 우비",
+      "display_name": "전장의 군인 우비",
+      "price": 4200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "모험가의 로브(남성용)",
+      "display_name": "축복받은 모험가의 로브(남성용)",
+      "price": 2900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "전장의 군인 우비",
+      "display_name": "축복받은 전장의 군인 우비",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "코치닐 토끼 로브",
+      "price": 89000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드루이드의 로브(여성용)",
+      "display_name": "드루이드의 로브(여성용)",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순례자 로브(남성용)",
+      "display_name": "순례자 로브(남성용)",
+      "price": 4500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순례자 로브(남성용)",
+      "display_name": "순례자 로브(남성용)",
+      "price": 4500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "늑대 로브",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오리엔탈 크레센트 로브",
+      "display_name": "오리엔탈 크레센트 로브",
+      "price": 550000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아름다운 자연을 담은 로브",
+      "display_name": "아름다운 자연을 담은 로브",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "코치닐 토끼 로브",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "잭크루지 로브",
+      "display_name": "잭크루지 로브",
+      "price": 600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축복받은 축제 기념 헤보나 로브",
+      "price": 17900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축복받은 축제 기념 헤보나 로브",
+      "price": 14880000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "트루디 레이어드 로브",
+      "display_name": "트루디 레이어드 로브",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "잭크루지 로브",
+      "display_name": "잭크루지 로브",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(남성용)",
+      "display_name": "축복받은 파멸의 로브(남성용)",
+      "price": 5100000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "야광 머플러 로브",
+      "price": 1400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "모험가의 로브(여성용)",
+      "display_name": "모험가의 로브(여성용)",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "모험가의 로브(여성용)",
+      "display_name": "축복받은 모험가의 로브(여성용)",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라데카 로브(여성용)",
+      "display_name": "축복받은 라데카 로브(여성용)",
+      "price": 27000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "매지컬 빅 할로윈 캣 로브",
+      "price": 8888888,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 캣 로브",
+      "display_name": "할로윈 캣 로브",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "야광 머플러 로브",
+      "price": 900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "켈틱 디자인 로브",
+      "price": 1900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 위치 로브",
+      "display_name": "할로윈 위치 로브",
+      "price": 990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(남성용)",
+      "display_name": "누아자 로브(남성용)",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "새 문양 로브",
+      "display_name": "새 문양 로브",
+      "price": 1850000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "늑대 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "늑대 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라데카 로브(여성용)",
+      "display_name": "축복받은 라데카 로브(여성용)",
+      "price": 26000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "늑대 로브",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "유령 로브",
+      "display_name": "축복받은 유령 로브",
+      "price": 2300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축제 기념 헤보나 로브",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "키홀의 로브(여성용)",
+      "display_name": "키홀의 로브(여성용)",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "켈틱 디자인 로브",
+      "price": 1290000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "켈틱 디자인 로브",
+      "price": 1290000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "켈틱 디자인 로브",
+      "price": 1290000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "켈틱 디자인 로브",
+      "price": 1290000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "무지개 양 로브",
+      "display_name": "무지개 양 로브",
+      "price": 1800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "시크릿 로브",
+      "display_name": "축복받은 시크릿 로브",
+      "price": 8880000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "축복받은 야광 머플러 로브",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "사신의 로브",
+      "display_name": "사신의 로브",
+      "price": 9490000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "야광 머플러 로브",
+      "price": 1400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "세룰리안 탈 로브",
+      "display_name": "세룰리안 탈 로브",
+      "price": 8200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "강아지 로브",
+      "display_name": "강아지 로브",
+      "price": 12800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(아르후안)",
+      "display_name": "축복받은 고대 알반 기사단의 예복(아르후안)",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "말랑말랑 젤리 곰 로브",
+      "display_name": "말랑말랑 젤리 곰 로브",
+      "price": 2300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(엘베드)",
+      "display_name": "축복받은 고대 알반 기사단의 예복(엘베드)",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(여성용)",
+      "display_name": "누아자 로브(여성용)",
+      "price": 28500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "축복받은 퀘사르 로브",
+      "price": 5790000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (남성용)",
+      "display_name": "축복받은 어린이날 기념 로브 (남성용)",
+      "price": 13000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(남성용)",
+      "display_name": "누아자 로브(남성용)",
+      "price": 9000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "커다란 해골머리 로브",
+      "display_name": "축복받은 커다란 해골머리 로브",
+      "price": 23000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "커다란 호박머리 로브",
+      "display_name": "축복받은 커다란 호박머리 로브",
+      "price": 12000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "왕방울 로브(자이언트 남성용)",
+      "display_name": "왕방울 로브(자이언트 남성용)",
+      "price": 1770000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "야광 머플러 로브",
+      "price": 740000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "모험가의 로브(남성용)",
+      "display_name": "축복받은 모험가의 로브(남성용)",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "귀엽닭 로브",
+      "display_name": "귀엽닭 로브",
+      "price": 1280000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(남성용)",
+      "display_name": "축복받은 파멸의 로브(남성용)",
+      "price": 6000000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "광대 로브",
+      "display_name": "광대 로브",
+      "price": 590000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "자이언트 늑대 로브",
+      "display_name": "자이언트 늑대 로브",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "말랑말랑 젤리 곰 로브",
+      "display_name": "축복받은 말랑말랑 젤리 곰 로브",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "축복받은 켈틱 디자인 로브",
+      "price": 1400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 2750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "무지개 양 로브",
+      "display_name": "축복받은 무지개 양 로브",
+      "price": 1900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "백호 로브",
+      "display_name": "백호 로브",
+      "price": 650000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(에일레르)",
+      "display_name": "고대 알반 기사단의 예복(에일레르)",
+      "price": 740000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 할로윈 캣 로브",
+      "display_name": "매지컬 할로윈 캣 로브",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (남성용)",
+      "display_name": "어린이날 기념 로브 (남성용)",
+      "price": 49000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스타라이트 로브",
+      "display_name": "스타라이트 로브",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라바 캣 로브",
+      "display_name": "라바 캣 로브",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(엘베드)",
+      "display_name": "축복받은 고대 알반 기사단의 예복(엘베드)",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "칠석 기념 헤보나 로브",
+      "display_name": "화이트데이 기념 헤보나 로브",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (여성용)",
+      "display_name": "축복받은 어린이날 기념 로브 (여성용)",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "빈티지 스타라이트 로브",
+      "display_name": "빈티지 스타라이트 로브",
+      "price": 999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "무지개 양 로브",
+      "display_name": "축복받은 무지개 양 로브",
+      "price": 1999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(헤루인)",
+      "display_name": "축복받은 고대 알반 기사단의 예복(헤루인)",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(헤루인)",
+      "display_name": "축복받은 고대 알반 기사단의 예복(헤루인)",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크루시즈 로브",
+      "display_name": "크루시즈 로브",
+      "price": 22000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "빈티지 스타라이트 로브",
+      "display_name": "빈티지 스타라이트 로브",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "켈틱 디자인 로브",
+      "price": 1300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "돔 로브",
+      "display_name": "축복받은 돔 로브",
+      "price": 3800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "트리콜로르 로브",
+      "display_name": "트리콜로르 로브",
+      "price": 8600,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마비노기 7000일 기념 로브",
+      "display_name": "마비노기 7000일 기념 로브",
+      "price": 399999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크루시즈 로브",
+      "display_name": "크루시즈 로브",
+      "price": 22000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "퀘사르 로브",
+      "price": 9000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "시크릿 로브",
+      "display_name": "시크릿 로브",
+      "price": 7500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "세룰리안 탈 로브",
+      "display_name": "세룰리안 탈 로브",
+      "price": 8200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "빈티지 스타라이트 로브",
+      "display_name": "빈티지 스타라이트 로브",
+      "price": 90000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "시크릿 로브",
+      "display_name": "시크릿 로브",
+      "price": 6500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "새 문양 로브",
+      "display_name": "축복받은 새 문양 로브",
+      "price": 1900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순례자 로브(여성용)",
+      "display_name": "축복받은 순례자 로브(여성용)",
+      "price": 1200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아름다운 자연을 담은 로브",
+      "display_name": "아름다운 자연을 담은 로브",
+      "price": 250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "자연을 담은 로브",
+      "display_name": "자연을 담은 로브",
+      "price": 250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축제 기념 헤보나 로브(미완성)",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "금빛 휘장의 로브",
+      "display_name": "금빛 휘장의 로브",
+      "price": 150000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (남성용)",
+      "display_name": "축복받은 어린이날 기념 로브 (남성용)",
+      "price": 14000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(남성용)",
+      "display_name": "축복받은 파멸의 로브(남성용)",
+      "price": 5100000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한 입 먹힌 말랑말랑 젤리 곰 로브",
+      "display_name": "한 입 먹힌 말랑말랑 젤리 곰 로브",
+      "price": 900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "말랑말랑 젤리 곰 로브",
+      "display_name": "말랑말랑 젤리 곰 로브",
+      "price": 2800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 13000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "시크릿 로브",
+      "display_name": "축복받은 시크릿 로브",
+      "price": 7500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(에일레르)",
+      "display_name": "축복받은 고대 알반 기사단의 예복(에일레르)",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "곰 로브",
+      "display_name": "축복받은 곰 로브",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (남성용)",
+      "display_name": "어린이날 기념 로브 (남성용)",
+      "price": 14000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오리엔탈 크레센트 로브",
+      "display_name": "오리엔탈 크레센트 로브",
+      "price": 550000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "강아지 로브",
+      "display_name": "강아지 로브",
+      "price": 12800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축복받은 축제 기념 헤보나 로브",
+      "price": 18000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축복받은 축제 기념 헤보나 로브",
+      "price": 18000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축제 기념 헤보나 로브",
+      "price": 14999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "축복받은 퀘사르 로브",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "빈티지 스타라이트 로브",
+      "display_name": "빈티지 스타라이트 로브",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순록 로브",
+      "display_name": "순록 로브",
+      "price": 230000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순록 로브",
+      "display_name": "순록 로브",
+      "price": 230000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순록 로브",
+      "display_name": "순록 로브",
+      "price": 230000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "전장의 군인 우비",
+      "display_name": "전장의 군인 우비",
+      "price": 2900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축제 기념 헤보나 로브",
+      "price": 17000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "전장의 군인 우비",
+      "display_name": "전장의 군인 우비",
+      "price": 4900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(남성용)",
+      "display_name": "누아자 로브(남성용)",
+      "price": 12000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "켈틱 디자인 로브",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "잭크루지 로브",
+      "display_name": "잭크루지 로브",
+      "price": 1490000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "신비한 눈사람 로브",
+      "display_name": "신비한 눈사람 로브",
+      "price": 540000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축제 기념 헤보나 로브",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축제 기념 헤보나 로브",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (남성용)",
+      "display_name": "축복받은 어린이날 기념 로브 (남성용)",
+      "price": 14500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마비노기 7000일 기념 로브",
+      "display_name": "마비노기 7000일 기념 로브",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순례자 로브(여성용)",
+      "display_name": "순례자 로브(여성용)",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오리엔탈 크레센트 로브",
+      "display_name": "오리엔탈 크레센트 로브",
+      "price": 650000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순례자 로브(여성용)",
+      "display_name": "순례자 로브(여성용)",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "사신의 로브",
+      "display_name": "축복받은 사신의 로브",
+      "price": 10500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마비노기 7000일 기념 로브",
+      "display_name": "마비노기 7000일 기념 로브",
+      "price": 80000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "금빛 휘장의 로브",
+      "display_name": "축복받은 금빛 휘장의 로브",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "트루디 레인 로브",
+      "display_name": "트루디 레인 로브",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "야광 머플러 로브",
+      "price": 2900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "코치닐 토끼 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "도렌 로브",
+      "display_name": "도렌 로브",
+      "price": 580000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "유령 로브",
+      "display_name": "유령 로브",
+      "price": 7490000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "무지개 양 로브",
+      "display_name": "축복받은 무지개 양 로브",
+      "price": 1999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오리엔탈 크레센트 로브",
+      "display_name": "오리엔탈 크레센트 로브",
+      "price": 690000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 호박 로브",
+      "display_name": "할로윈 호박 로브",
+      "price": 400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "무지개 양 로브",
+      "display_name": "축복받은 무지개 양 로브",
+      "price": 2350000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마비노기 7000일 기념 로브",
+      "display_name": "마비노기 7000일 기념 로브",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (남성용)",
+      "display_name": "축복받은 어린이날 기념 로브 (남성용)",
+      "price": 100000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "금빛 휘장의 로브",
+      "display_name": "축복받은 금빛 휘장의 로브",
+      "price": 28000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (여성용)",
+      "display_name": "축복받은 어린이날 기념 로브 (여성용)",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순록 로브",
+      "display_name": "순록 로브",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "모험가의 로브(여성용)",
+      "display_name": "모험가의 로브(여성용)",
+      "price": 8490000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "트리콜로르 로브",
+      "display_name": "트리콜로르 로브",
+      "price": 8700,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 1200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 230000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "축복받은 야광 머플러 로브",
+      "price": 70000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "축복받은 야광 머플러 로브",
+      "price": 70000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "축복받은 야광 머플러 로브",
+      "price": 70000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "축복받은 야광 머플러 로브",
+      "price": 70000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "축복받은 야광 머플러 로브",
+      "price": 70000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "축복받은 야광 머플러 로브",
+      "price": 70000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "축복받은 야광 머플러 로브",
+      "price": 70000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "축복받은 야광 머플러 로브",
+      "price": 70000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "축복받은 야광 머플러 로브",
+      "price": 70000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "축복받은 야광 머플러 로브",
+      "price": 70000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "축복받은 야광 머플러 로브",
+      "price": 70000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "트루디 레인 로브",
+      "display_name": "트루디 레인 로브",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "잭크루지 로브",
+      "display_name": "잭크루지 로브",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "야광 머플러 로브",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "빈티지 스타라이트 로브",
+      "display_name": "빈티지 스타라이트 로브",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(여성용)",
+      "display_name": "축복받은 파멸의 로브(여성용)",
+      "price": 5500000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "시크릿 로브",
+      "display_name": "축복받은 시크릿 로브",
+      "price": 6500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마비노기 7000일 기념 로브",
+      "display_name": "마비노기 7000일 기념 로브",
+      "price": 48888,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(헤루인)",
+      "display_name": "축복받은 고대 알반 기사단의 예복(헤루인)",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "축복받은 헤보나 로브",
+      "price": 190000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "모험가의 로브(여성용)",
+      "display_name": "축복받은 모험가의 로브(여성용)",
+      "price": 8500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "귀엽닭 로브",
+      "display_name": "귀엽닭 로브",
+      "price": 3500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "빈티지 스타라이트 로브",
+      "display_name": "빈티지 스타라이트 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 24000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(남성용)",
+      "display_name": "파멸의 로브(남성용)",
+      "price": 5800000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (남성용)",
+      "display_name": "축복받은 어린이날 기념 로브 (남성용)",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순례자 로브(여성용)",
+      "display_name": "순례자 로브(여성용)",
+      "price": 4000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(남성용)",
+      "display_name": "축복받은 파멸의 로브(남성용)",
+      "price": 5150000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 힘이 사라진 항마의 로브",
+      "display_name": "마법의 힘이 사라진 항마의 로브",
+      "price": 9900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "유령 로브",
+      "display_name": "유령 로브",
+      "price": 7300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 3999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "전장의 군인 우비",
+      "display_name": "축복받은 전장의 군인 우비",
+      "price": 2900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "야광 머플러 로브",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "빈티지 스타라이트 로브",
+      "display_name": "빈티지 스타라이트 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "개구리 로브",
+      "display_name": "개구리 로브",
+      "price": 14000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(여성용)",
+      "display_name": "축복받은 누아자 로브(여성용)",
+      "price": 300000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "로브",
+      "display_name": "로브",
+      "price": 1290,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(남성용)",
+      "display_name": "누아자 로브(남성용)",
+      "price": 13000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "세룰리안 탈 로브",
+      "display_name": "축복받은 세룰리안 탈 로브",
+      "price": 8300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "곰 로브",
+      "display_name": "곰 로브",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "곰 로브",
+      "display_name": "곰 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "팬텀 로브",
+      "display_name": "팬텀 로브",
+      "price": 1555555,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 3800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "매지컬 빅 할로윈 캣 로브",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(남성용)",
+      "display_name": "누아자 로브(남성용)",
+      "price": 13999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "늑대 로브",
+      "price": 3333,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "늑대 로브",
+      "price": 3333,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "늑대 로브",
+      "price": 3333,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "곰 로브",
+      "display_name": "곰 로브",
+      "price": 3333,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "빈티지 스타라이트 로브",
+      "display_name": "빈티지 스타라이트 로브",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마비노기 7000일 기념 로브",
+      "display_name": "마비노기 7000일 기념 로브",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "매지컬 빅 할로윈 캣 로브",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "곰 로브",
+      "display_name": "곰 로브",
+      "price": 99980,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "도렌 로브",
+      "display_name": "축복받은 도렌 로브",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "칠석 기념 헤보나 로브",
+      "display_name": "화이트데이 기념 헤보나 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "모험가의 로브(남성용)",
+      "display_name": "모험가의 로브(남성용)",
+      "price": 6790000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "머플러 로브",
+      "display_name": "축복받은 머플러 로브",
+      "price": 5500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "축복받은 야광 머플러 로브",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "야광 머플러 로브",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 힘이 사라진 항마의 로브",
+      "display_name": "마법의 힘이 사라진 항마의 로브",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "축복받은 헤보나 로브",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "축복받은 늑대 로브",
+      "price": 4999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (여성용)",
+      "display_name": "어린이날 기념 로브 (여성용)",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(여성용)",
+      "display_name": "축복받은 파멸의 로브(여성용)",
+      "price": 5400000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "축복받은 헤보나 로브",
+      "price": 99000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "왕방울 로브(자이언트 남성용)",
+      "display_name": "왕방울 로브(자이언트 남성용)",
+      "price": 1770000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "새 문양 로브",
+      "display_name": "새 문양 로브",
+      "price": 2250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (남성용)",
+      "display_name": "축복받은 어린이날 기념 로브 (남성용)",
+      "price": 15490000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "전장의 군인 우비",
+      "display_name": "전장의 군인 우비",
+      "price": 5400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 13000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 13000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (남성용)",
+      "display_name": "축복받은 어린이날 기념 로브 (남성용)",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "무지개 양 로브",
+      "display_name": "무지개 양 로브",
+      "price": 1999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "신비한 눈사람 로브",
+      "display_name": "신비한 눈사람 로브",
+      "price": 500000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈팅스타 로브",
+      "display_name": "슈팅스타 로브",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "빈티지 스타라이트 로브",
+      "display_name": "축복받은 빈티지 스타라이트 로브",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "금빛 휘장의 로브",
+      "display_name": "축복받은 금빛 휘장의 로브",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (여성용)",
+      "display_name": "어린이날 기념 로브 (여성용)",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (여성용)",
+      "display_name": "어린이날 기념 로브 (여성용)",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "축복받은 퀘사르 로브",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(엘베드)",
+      "display_name": "축복받은 고대 알반 기사단의 예복(엘베드)",
+      "price": 740000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 위치 로브",
+      "display_name": "축복받은 할로윈 위치 로브",
+      "price": 1200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (남성용)",
+      "display_name": "어린이날 기념 로브 (남성용)",
+      "price": 15500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 호박 로브",
+      "display_name": "할로윈 호박 로브",
+      "price": 1250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(남성용)",
+      "display_name": "축복받은 누아자 로브(남성용)",
+      "price": 13999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순례자 로브(남성용)",
+      "display_name": "순례자 로브(남성용)",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순례자 로브(남성용)",
+      "display_name": "순례자 로브(남성용)",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(에일레르)",
+      "display_name": "축복받은 고대 알반 기사단의 예복(에일레르)",
+      "price": 749000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "머쉬룸 로브",
+      "display_name": "축복받은 머쉬룸 로브",
+      "price": 29000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 13333,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "모험가의 로브(남성용)",
+      "display_name": "축복받은 모험가의 로브(남성용)",
+      "price": 3400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(에일레르)",
+      "display_name": "고대 알반 기사단의 예복(에일레르)",
+      "price": 850000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "개구리 로브",
+      "display_name": "개구리 로브",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "자이언트 베어 로브",
+      "display_name": "자이언트 베어 로브",
+      "price": 990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "호랑이 로브",
+      "display_name": "축복받은 호랑이 로브",
+      "price": 4400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "축복받은 헤보나 로브",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "전장의 군인 우비",
+      "display_name": "전장의 군인 우비",
+      "price": 3900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "귀엽닭 로브",
+      "display_name": "귀엽닭 로브",
+      "price": 1250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "코치닐 토끼 로브",
+      "price": 499999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "코치닐 토끼 로브",
+      "price": 499999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드루이드의 로브(여성용)",
+      "display_name": "드루이드의 로브(여성용)",
+      "price": 1800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "왕방울 로브(자이언트 여성용)",
+      "display_name": "왕방울 로브(자이언트 여성용)",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "축복받은 코치닐 토끼 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "축복받은 퀘사르 로브",
+      "price": 5990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "퀘사르 로브",
+      "price": 5800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "유령 로브",
+      "display_name": "유령 로브",
+      "price": 2300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "매지컬 빅 할로윈 캣 로브",
+      "price": 7960000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "늑대 로브",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "왕방울 로브(자이언트 남성용)",
+      "display_name": "왕방울 로브(자이언트 남성용)",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 24000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (여성용)",
+      "display_name": "어린이날 기념 로브 (여성용)",
+      "price": 27500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "늑대 로브",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크루시즈 로브",
+      "display_name": "크루시즈 로브",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "젬마 레이어드 로브",
+      "display_name": "젬마 레이어드 로브",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "유령 로브",
+      "display_name": "유령 로브",
+      "price": 4500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순록 로브",
+      "display_name": "순록 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "매지컬 빅 할로윈 캣 로브",
+      "price": 14500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "트루디 레이어드 로브",
+      "display_name": "트루디 레이어드 로브",
+      "price": 4500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(에일레르)",
+      "display_name": "고대 알반 기사단의 예복(에일레르)",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(아르후안)",
+      "display_name": "고대 알반 기사단의 예복(아르후안)",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 13333,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "켈틱 디자인 로브",
+      "price": 1400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오리엔탈 크레센트 로브",
+      "display_name": "오리엔탈 크레센트 로브",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(아르후안)",
+      "display_name": "고대 알반 기사단의 예복(아르후안)",
+      "price": 900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "개구리 로브",
+      "display_name": "축복받은 개구리 로브",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "유령 로브",
+      "display_name": "유령 로브",
+      "price": 2300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "늑대 로브",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "곰 로브",
+      "display_name": "곰 로브",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "무지개 양 로브",
+      "display_name": "무지개 양 로브",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 힘이 사라진 항마의 로브",
+      "display_name": "마법의 힘이 사라진 항마의 로브",
+      "price": 530000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "호랑이 로브",
+      "display_name": "호랑이 로브",
+      "price": 7500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "축복받은 퀘사르 로브",
+      "price": 8700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "칠석 기념 헤보나 로브",
+      "display_name": "화이트데이 기념 헤보나 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "칠석 기념 헤보나 로브",
+      "display_name": "화이트데이 기념 헤보나 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "칠석 기념 헤보나 로브",
+      "display_name": "화이트데이 기념 헤보나 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "전장의 군인 우비",
+      "display_name": "축복받은 전장의 군인 우비",
+      "price": 3901000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(에일레르)",
+      "display_name": "축복받은 고대 알반 기사단의 예복(에일레르)",
+      "price": 950000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코코 래빗 로브",
+      "display_name": "코코 래빗 로브",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "트루디 레인 로브",
+      "display_name": "트루디 레인 로브",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "칠석 기념 헤보나 로브",
+      "display_name": "화이트데이 기념 헤보나 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "칠석 기념 헤보나 로브",
+      "display_name": "화이트데이 기념 헤보나 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "로브",
+      "display_name": "로브",
+      "price": 1000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 555555,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 13333,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 14449,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(엘베드)",
+      "display_name": "축복받은 고대 알반 기사단의 예복(엘베드)",
+      "price": 740000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 힘이 사라진 항마의 로브",
+      "display_name": "축복받은 마법의 힘이 사라진 항마의 로브",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오리엔탈 로브",
+      "display_name": "오리엔탈 로브",
+      "price": 385000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "늑대 로브",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "켈틱 디자인 로브",
+      "price": 1980000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(남성용)",
+      "display_name": "파멸의 로브(남성용)(미완성)",
+      "price": 1090000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축복받은 축제 기념 헤보나 로브",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "키홀의 로브(남성용)",
+      "display_name": "키홀의 로브(남성용)",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(에일레르)",
+      "display_name": "축복받은 고대 알반 기사단의 예복(에일레르)",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "코치닐 토끼 로브",
+      "price": 99999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(헤루인)",
+      "display_name": "축복받은 고대 알반 기사단의 예복(헤루인)",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "호랑이 로브",
+      "display_name": "축복받은 호랑이 로브",
+      "price": 4400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순록 로브",
+      "display_name": "순록 로브",
+      "price": 777777,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "빈티지 스타라이트 로브",
+      "display_name": "빈티지 스타라이트 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나타네 설산용 코트",
+      "display_name": "나타네 설산용 코트",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "개구리 로브",
+      "display_name": "축복받은 개구리 로브",
+      "price": 24900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "야광 머플러 로브",
+      "price": 70000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(남성용)",
+      "display_name": "누아자 로브(남성용)",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 48000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "축복받은 퀘사르 로브",
+      "price": 5990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "야광 머플러 로브",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "왕방울 로브(자이언트 남성용)",
+      "display_name": "왕방울 로브(자이언트 남성용)",
+      "price": 1770000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "축복받은 헤보나 로브",
+      "price": 200000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "축복받은 상어 로브",
+      "price": 3300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "새 문양 로브",
+      "display_name": "축복받은 새 문양 로브",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "켈틱 디자인 로브(미완성)",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(에일레르)",
+      "display_name": "축복받은 고대 알반 기사단의 예복(에일레르)",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(엘베드)",
+      "display_name": "고대 알반 기사단의 예복(엘베드)",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "빈티지 스타라이트 로브",
+      "display_name": "빈티지 스타라이트 로브",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "곰 로브",
+      "display_name": "곰 로브",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "새 문양 로브",
+      "display_name": "새 문양 로브",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바다코끼리 로브(자이언트 남성용)",
+      "display_name": "바다코끼리 로브(자이언트 남성용)",
+      "price": 600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "늑대 로브",
+      "price": 5554,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "축복받은 코치닐 토끼 로브",
+      "price": 140000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "축복받은 헤보나 로브",
+      "price": 250000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "고대 알반 기사단의 예복(엘베드)",
+      "display_name": "고대 알반 기사단의 예복(엘베드)",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어린이날 기념 로브 (여성용)",
+      "display_name": "축복받은 어린이날 기념 로브 (여성용)",
+      "price": 26500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "젬마 레이어드 로브",
+      "display_name": "젬마 레이어드 로브",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "곰 로브",
+      "display_name": "축복받은 곰 로브",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "무지개 양 로브",
+      "display_name": "무지개 양 로브",
+      "price": 2050000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "축복받은 늑대 로브",
+      "price": 5554,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마비노기 7000일 기념 로브",
+      "display_name": "마비노기 7000일 기념 로브",
+      "price": 90000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축복받은 축제 기념 헤보나 로브",
+      "price": 99900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라바 캣 로브",
+      "display_name": "라바 캣 로브",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "개구리 로브",
+      "display_name": "축복받은 개구리 로브",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "도렌 로브",
+      "display_name": "도렌 로브",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "세룰리안 탈 로브",
+      "display_name": "세룰리안 탈 로브",
+      "price": 9300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "빈티지 스타라이트 로브",
+      "display_name": "빈티지 스타라이트 로브",
+      "price": 84444,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "코치닐 토끼 로브",
+      "price": 950000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "축복받은 늑대 로브",
+      "price": 5554,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 위치 로브",
+      "display_name": "축복받은 할로윈 위치 로브",
+      "price": 1900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈팅스타 로브",
+      "display_name": "축복받은 슈팅스타 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈팅스타 로브",
+      "display_name": "축복받은 슈팅스타 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 2080000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "귀엽닭 로브",
+      "display_name": "귀엽닭 로브",
+      "price": 1300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "사샤 로브",
+      "display_name": "사샤 로브",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "커다란 해골머리 로브",
+      "display_name": "커다란 해골머리 로브",
+      "price": 23980000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(여성용)",
+      "display_name": "누아자 로브(여성용)",
+      "price": 29000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "곰 로브",
+      "display_name": "축복받은 곰 로브",
+      "price": 7000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마비노기 7000일 기념 로브",
+      "display_name": "마비노기 7000일 기념 로브",
+      "price": 79000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "트리콜로르 로브",
+      "display_name": "트리콜로르 로브",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오리엔탈 크레센트 로브",
+      "display_name": "오리엔탈 크레센트 로브",
+      "price": 730000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "코치닐 토끼 로브",
+      "price": 140000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "코치닐 토끼 로브",
+      "price": 140000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "전장의 군인 우비",
+      "display_name": "전장의 군인 우비",
+      "price": 5200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(여성용)",
+      "display_name": "축복받은 누아자 로브(여성용)",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "귀엽닭 로브",
+      "display_name": "귀엽닭 로브",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 3332,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라데카 로브(여성용)",
+      "display_name": "라데카 로브(여성용)",
+      "price": 27000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "축복받은 퀘사르 로브",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크루시즈 로브",
+      "display_name": "크루시즈 로브",
+      "price": 27432,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "무지개 양 로브",
+      "display_name": "무지개 양 로브",
+      "price": 2250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 19000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 299999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "왕방울 로브(자이언트 남성용)",
+      "display_name": "왕방울 로브(자이언트 남성용)",
+      "price": 1770000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 3999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 3650000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "트루디 레인 로브",
+      "display_name": "트루디 레인 로브",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코코 판다 로브",
+      "display_name": "코코 판다 로브",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코코 판다 로브",
+      "display_name": "코코 판다 로브",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 호박 로브",
+      "display_name": "할로윈 호박 로브",
+      "price": 450000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "축복받은 헤보나 로브",
+      "price": 45000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스타라이트 로브",
+      "display_name": "스타라이트 로브",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "매지컬 빅 할로윈 캣 로브",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 고스트 로브",
+      "display_name": "할로윈 고스트 로브",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "순록 로브",
+      "display_name": "축복받은 순록 로브",
+      "price": 890000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "상어 로브",
+      "display_name": "상어 로브",
+      "price": 3400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "야광 머플러 로브",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "야광 머플러 로브",
+      "price": 889990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축제 기념 헤보나 로브",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "말랑말랑 젤리 곰 로브",
+      "display_name": "말랑말랑 젤리 곰 로브",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(남성용)",
+      "display_name": "축복받은 누아자 로브(남성용)",
+      "price": 19000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "잭크루지 로브",
+      "display_name": "잭크루지 로브",
+      "price": 1800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 고스트 로브",
+      "display_name": "할로윈 고스트 로브",
+      "price": 444444444,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "신비한 눈사람 로브",
+      "display_name": "축복받은 신비한 눈사람 로브",
+      "price": 650000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 할로윈 캣 로브",
+      "display_name": "축복받은 매지컬 할로윈 캣 로브",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(남성용)",
+      "display_name": "축복받은 파멸의 로브(남성용)",
+      "price": 5555555555,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "늑대 로브",
+      "display_name": "축복받은 늑대 로브",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "강아지 로브",
+      "display_name": "축복받은 강아지 로브",
+      "price": 14500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오리엔탈 로브",
+      "display_name": "오리엔탈 로브",
+      "price": 690000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "빈티지 스타라이트 로브",
+      "display_name": "빈티지 스타라이트 로브",
+      "price": 90000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매지컬 빅 할로윈 캣 로브",
+      "display_name": "매지컬 빅 할로윈 캣 로브",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "강아지 로브",
+      "display_name": "강아지 로브",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 3700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈팅스타 로브",
+      "display_name": "축복받은 슈팅스타 로브",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 위치 로브",
+      "display_name": "할로윈 위치 로브",
+      "price": 2200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(여성용)",
+      "display_name": "축복받은 누아자 로브(여성용)",
+      "price": 70000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 디자인 로브",
+      "display_name": "켈틱 디자인 로브",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 27000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "축제 기념 헤보나 로브",
+      "display_name": "축제 기념 헤보나 로브(미완성)",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "신비한 눈사람 로브",
+      "display_name": "신비한 눈사람 로브",
+      "price": 494000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "퀘사르 로브",
+      "price": 6080000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "축복받은 퀘사르 로브",
+      "price": 6080000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "야광 머플러 로브",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "왕방울 로브(자이언트 여성용)",
+      "display_name": "왕방울 로브(자이언트 여성용)",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "도렌 로브",
+      "display_name": "도렌 로브",
+      "price": 580000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스라스 라인 로브(여성용)",
+      "display_name": "스라스 라인 로브(여성용)",
+      "price": 350000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "귀엽닭 로브",
+      "display_name": "귀엽닭 로브",
+      "price": 1450000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 21000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파멸의 로브(남성용)",
+      "display_name": "파멸의 로브(남성용)(미완성)",
+      "price": 6050000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "축복받은 마법의 개구리 로브",
+      "price": 2200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오리엔탈 로브",
+      "display_name": "축복받은 오리엔탈 로브",
+      "price": 395000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "퀘사르 로브",
+      "price": 6090000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "유령 로브",
+      "display_name": "유령 로브",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "신비한 눈사람 로브",
+      "display_name": "축복받은 신비한 눈사람 로브",
+      "price": 650000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "트루디 레이어드 로브",
+      "display_name": "트루디 레이어드 로브",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤보나 로브",
+      "display_name": "헤보나 로브",
+      "price": 6500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "야광 머플러 로브",
+      "display_name": "야광 머플러 로브",
+      "price": 1650000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한 입 먹힌 말랑말랑 젤리 곰 로브",
+      "display_name": "한 입 먹힌 말랑말랑 젤리 곰 로브",
+      "price": 990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "모험가의 로브(여성용)",
+      "display_name": "모험가의 로브(여성용)",
+      "price": 6700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "유령 로브",
+      "display_name": "유령 로브",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "세룰리안 탈 로브",
+      "display_name": "세룰리안 탈 로브",
+      "price": 9500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "전장의 군인 우비",
+      "display_name": "전장의 군인 우비",
+      "price": 5500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "키홀의 로브(여성용)",
+      "display_name": "키홀의 로브(여성용)",
+      "price": 1750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 2600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 2600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 2600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 2600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마법의 개구리 로브",
+      "display_name": "마법의 개구리 로브",
+      "price": 2600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "퀘사르 로브",
+      "display_name": "퀘사르 로브",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "잭크루지 로브",
+      "display_name": "잭크루지 로브",
+      "price": 900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 호박 로브",
+      "display_name": "할로윈 호박 로브",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "할로윈 위치 로브",
+      "display_name": "축복받은 할로윈 위치 로브",
+      "price": 4950000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 루돌프 로브",
+      "display_name": "크리스마스 루돌프 로브",
+      "price": 21000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "코치닐 토끼 로브",
+      "display_name": "코치닐 토끼 로브",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(여성용)",
+      "display_name": "누아자 로브(여성용)",
+      "price": 80000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "누아자 로브(남성용)",
+      "display_name": "축복받은 누아자 로브(남성용)",
+      "price": 80000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    }
+  ]
+}

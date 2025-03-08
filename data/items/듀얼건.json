@@ -1,0 +1,3902 @@
+{
+  "updated": "2025-03-08T11:47:03.861Z",
+  "count": 487,
+  "items": [
+    {
+      "name": "타우네스 MK3",
+      "display_name": "타우네스 MK3",
+      "price": 350000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "켈틱 다우라 제로",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스페이스 듀얼건",
+      "display_name": "스페이스 듀얼건",
+      "price": 720000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스페이스 듀얼건",
+      "display_name": "스페이스 듀얼건",
+      "price": 450000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 오토매틱 다우라 SE",
+      "price": 90000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3200,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3200,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "메르엘 PE",
+      "display_name": "메르엘 PE",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "데미 리치 기르가쉬 타우네스 MK3",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "신성한 회오리 유인 디바인 신시엘라크 L2",
+      "price": 520000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 14990000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스페이스 듀얼건",
+      "display_name": "축복받은 데미 리치 오토매틱 스페이스 듀얼건",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "디바인 신시엘라크 L2",
+      "price": 8900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 오토매틱 다우라 SE",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "축복받은 오라클 썬로드 콜트",
+      "price": 9000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 별",
+      "display_name": "축복받은 검은 별",
+      "price": 350000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "메르엘 PE",
+      "display_name": "축복받은 메르엘 PE",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스페이스 듀얼건",
+      "display_name": "스페이스 듀얼건",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "신성한 회오리 기르가쉬 켈틱 다우라 제로",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3200,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3200,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3200,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "디바인 신시엘라크 L2",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 기르가쉬 타우네스 MK3",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3200,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 언테임드 난폭한 타우네스 MK3",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 회오리 샤프 슈터 켈틱 다우라 제로",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "오피서의 사나운 타우네스 MK3",
+      "price": 90000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 33333,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3200,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 35000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 33333,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 켈틱 다우라 제로",
+      "price": 4000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 켈틱 다우라 제로",
+      "price": 4000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 켈틱 다우라 제로",
+      "price": 4000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 별",
+      "display_name": "검은 별",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 별",
+      "display_name": "검은 별",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 별",
+      "display_name": "검은 별",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "등껍질 다우라 SE",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 언테임드 난폭한 다우라 SE",
+      "price": 23000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 기르가쉬 타우네스 MK3",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라의 황금 총",
+      "display_name": "다우라의 황금 총",
+      "price": 540000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "다우라 SE",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 오토매틱 다우라 SE",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "오피서의 샤프 슈터 켈틱 다우라 제로",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "켈틱 다우라 제로",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "켈틱 다우라 제로",
+      "price": 3900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "켈틱 다우라 제로",
+      "price": 3900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 나이트스톰 듀얼건",
+      "display_name": "축복받은 회오리 다운버스트 페러시우스 나이트스톰 듀얼건",
+      "price": 520000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 580000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라의 황금 총",
+      "display_name": "다우라의 황금 총",
+      "price": 550000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 회오리 샤프 슈터 켈틱 다우라 제로",
+      "price": 370000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 나이트스톰 듀얼건",
+      "display_name": "축복받은 오피서의 다운버스트 페러시우스 나이트스톰 듀얼건",
+      "price": 160000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "축복받은 반자동 오라클 썬로드 콜트",
+      "price": 100000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스페이스 듀얼건",
+      "display_name": "축복받은 스페이스 듀얼건",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "다우라 SE",
+      "price": 19999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "풍선 제더 II",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "오토매틱 제더 II",
+      "price": 100000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "켈틱 다우라 제로",
+      "price": 29000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "켈틱 다우라 제로",
+      "price": 6500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 회오리 다운버스트 다우라 SE",
+      "price": 290000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크로스 엠파이어 듀얼건",
+      "display_name": "축복받은 오피서의 난폭한 크로스 엠파이어 듀얼 건",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 13000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "썬로드 콜트",
+      "display_name": "썬로드 콜트",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 데미 리치 기르가쉬 다우라 SE",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 380000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "축복받은 오라클 썬로드 콜트",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라의 황금 총",
+      "display_name": "축복받은 다우라의 황금 총",
+      "price": 4500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 6900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 언테임드 오토매틱 다우라 SE",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 기르가쉬 타우네스 MK3",
+      "price": 220000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "반자동 제더 II",
+      "price": 300000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 260000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 66000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 데미 리치 기르가쉬 켈틱 다우라 제로",
+      "price": 300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 데미 리치 기르가쉬 켈틱 다우라 제로",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3695,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 오피서의 기르가쉬 켈틱 다우라 제로",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "오피서의 사나운 타우네스 MK3",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 듀얼건",
+      "display_name": "레트로 전설의 듀얼건",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "오피서의 유인 디바인 신시엘라크 L2",
+      "price": 150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 399750,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크로스 엠파이어 듀얼건",
+      "display_name": "축복받은 오피서의 기르가쉬 크로스 엠파이어 듀얼 건",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 35000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 35000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 데미 리치 기르가쉬 다우라 SE",
+      "price": 8000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "데미 리치 오토매틱 다우라 SE",
+      "price": 48000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 데미 리치 기르가쉬 다우라 SE",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 6998,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 399750,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 599750,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "축복받은 회오리 다운버스트 디바인 신시엘라크 L2",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 8690,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 별",
+      "display_name": "축복받은 검은 별",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "언테임드 난폭한 다우라 SE",
+      "price": 50000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "낭만 해적단 단원의 듀얼건",
+      "display_name": "축복받은 스나이퍼의 오토매틱 낭만 해적단 단원의 듀얼건",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "오피서의 기르가쉬 켈틱 다우라 제로",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "디바인 신시엘라크 L2",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "기르가쉬 타우네스 MK3",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "오피서의 샤프 슈터 켈틱 다우라 제로",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "디바인 신시엘라크 L2",
+      "price": 9999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "디바인 신시엘라크 L2",
+      "price": 9999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "디바인 신시엘라크 L2",
+      "price": 9999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 399750,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "디바인 신시엘라크 L2",
+      "price": 9999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3600,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3600,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3600,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3600,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "오피서의 사나운 타우네스 MK3",
+      "price": 70000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "메르엘 PE",
+      "display_name": "축복받은 공작 반자동 메르엘 PE",
+      "price": 2400000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3600,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3600,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 사나운 타우네스 MK3",
+      "price": 45000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "풍선 제더 II",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3600,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "켈틱 다우라 제로",
+      "price": 18500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "켈틱 다우라 제로",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "신성한 오피서의 유인 디바인 신시엘라크 L2",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "디바인 신시엘라크 L2",
+      "price": 9999997,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스페이스 듀얼건",
+      "display_name": "스페이스 듀얼건",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 300000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅퀴셔",
+      "display_name": "축복받은 회오리 퓨리 나이트브링어 뱅퀴셔",
+      "price": 870000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "축복받은 제더 II",
+      "price": 3695,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "오피서의 사나운 타우네스 MK3",
+      "price": 100000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 399990,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3698,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3698,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "축복받은 베테랑의 격렬한 오라클 썬로드 콜트",
+      "price": 8000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 나이트스톰 듀얼건",
+      "display_name": "페러시우스 나이트스톰 듀얼건",
+      "price": 60000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 오피서의 샤프 슈터 켈틱 다우라 제로",
+      "price": 110000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "디바인 신시엘라크 L2",
+      "price": 9800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "켈틱 다우라 제로",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "타우네스 MK3",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3698,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "신성한 속사광 다운버스트 타우네스 MK3",
+      "price": 120000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "신성한 오피서의 기르가쉬 타우네스 MK3",
+      "price": 19999999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "풍선 다우라 SE",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 400000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 599750,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "열정의 다우라 SE",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 599750,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 599750,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "이글 제더 II",
+      "price": 3600,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 449975,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 449975,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 별",
+      "display_name": "축복받은 검은 별",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 사나운 다우라 SE",
+      "price": 250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3698,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3698,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "오피서의 사나운 타우네스 MK3",
+      "price": 220000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 나이트스톰 듀얼건",
+      "display_name": "오피서의 다운버스트 페러시우스 나이트스톰 듀얼건",
+      "price": 150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "메르엘 PE",
+      "display_name": "메르엘 PE",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스페이스 듀얼건",
+      "display_name": "스페이스 듀얼건",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "켈틱 다우라 제로",
+      "price": 6666666,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3698,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3698,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "언테임드 난폭한 다우라 SE",
+      "price": 80000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 켈틱 다우라 제로",
+      "price": 11000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라의 황금 총",
+      "display_name": "축복받은 다우라의 황금 총",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 6500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 6500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3898,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3898,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 오토매틱 다우라 SE",
+      "price": 26900000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3998,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3998,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 사나운 타우네스 MK3",
+      "price": 8000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 6200,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 6200,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 별",
+      "display_name": "축복받은 검은 별",
+      "price": 12999999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3898,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3898,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3898,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 언테임드 스파이크 다우라 SE",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "언테임드 난폭한 다우라 SE",
+      "price": 130000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라의 황금 총",
+      "display_name": "다우라의 황금 총",
+      "price": 550000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 34000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 450000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오토매틱 다우라 SE",
+      "price": 200000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 데미 리치 크로코다일 다우라 SE",
+      "price": 119500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 사나운 타우네스 MK3",
+      "price": 115000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3899,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3899,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "오피서의 제더 II",
+      "price": 230000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 나이트스톰 듀얼건",
+      "display_name": "축복받은 오피서의 다운버스트 페러시우스 나이트스톰 듀얼건",
+      "price": 149997777,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "다우라 SE",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "타우네스 MK3",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 448000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 448000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 448000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 듀얼건",
+      "display_name": "레트로 전설의 듀얼건",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 14900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3899,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "축복받은 회오리 유인 디바인 신시엘라크 L2",
+      "price": 127000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 회오리 기르가쉬 다우라 SE",
+      "price": 350000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 언테임드 오토매틱 타우네스 MK3",
+      "price": 300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "다우라 SE",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅퀴셔",
+      "display_name": "회오리 퓨리 나이트브링어 뱅퀴셔",
+      "price": 1200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 오토매틱 다우라 SE",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 3900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 11111,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 데미 리치 악어 켈틱 다우라 제로",
+      "price": 39999999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "데미 리치 크로코다일 다우라 SE",
+      "price": 19999999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 12890,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "신성한 오피서의 다운버스트 켈틱 다우라 제로",
+      "price": 170000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "축복받은 오피서의 유인 디바인 신시엘라크 L2",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 기르가쉬 타우네스 MK3",
+      "price": 220000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "언테임드 난폭한 다우라 SE",
+      "price": 90000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "축복받은 오피서의 유인 디바인 신시엘라크 L2",
+      "price": 95000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "신성한 데미 리치 기르가쉬 켈틱 다우라 제로",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 오피서의 기르가쉬 켈틱 다우라 제로",
+      "price": 28000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "유인 디바인 신시엘라크 L2",
+      "price": 45000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라의 황금 총",
+      "display_name": "축복받은 다우라의 황금 총",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 기르가쉬 타우네스 MK3",
+      "price": 900000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "타우네스 MK3",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "풍선 제더 II",
+      "price": 1400000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅퀴셔",
+      "display_name": "신성한 회오리 퓨리 나이트브링어 뱅퀴셔",
+      "price": 850000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 신병의 반자동 다우라 SE",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 신병의 반자동 타우네스 MK3",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "다우라 SE",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 나이트스톰 듀얼건",
+      "display_name": "축복받은 회오리 샤프 슈터 페러시우스 나이트스톰 듀얼건",
+      "price": 79000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "다우라 SE",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "축복받은 오라클 썬로드 콜트",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "켈틱 다우라 제로",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 오토매틱 다우라 SE",
+      "price": 3333333,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "타우네스 MK3",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라의 황금 총",
+      "display_name": "다우라의 황금 총",
+      "price": 22000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "신성한 회오리 다운버스트 켈틱 다우라 제로",
+      "price": 210000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 다우라 SE",
+      "price": 1990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "오피서의 오토매틱 켈틱 다우라 제로",
+      "price": 38000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 오피서의 기르가쉬 켈틱 다우라 제로",
+      "price": 18000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "타우네스 MK3",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 6999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "축복받은 엔지니어의 유인 디바인 신시엘라크 L2",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스마스 스피디 듀얼건",
+      "display_name": "축복받은 크리스마스 스피디 듀얼건",
+      "price": 399999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "다우라 SE",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "다우라 SE",
+      "price": 400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "타우네스 MK3",
+      "price": 7999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅퀴셔",
+      "display_name": "신성한 충돌의 퓨리 나이트브링어 뱅퀴셔",
+      "price": 900000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스페이스 듀얼건",
+      "display_name": "스페이스 듀얼건",
+      "price": 725000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "다우라 SE",
+      "price": 18000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "메르엘 PE",
+      "display_name": "메르엘 PE",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 샤프 슈터 타우네스 MK3",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 샤프 슈터 다우라 SE",
+      "price": 29999999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 오피서의 기르가쉬 켈틱 다우라 제로",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 난폭한 다우라 SE",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 기르가쉬 다우라 SE",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 별",
+      "display_name": "축복받은 검은 별",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 별",
+      "display_name": "축복받은 검은 별",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 기르가쉬 다우라 SE",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 데미 리치 기르가쉬 다우라 SE",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 기르가쉬 다우라 SE",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 데미 리치 기르가쉬 다우라 SE",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 기르가쉬 다우라 SE",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "축복받은 오라클 썬로드 콜트",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "신성한 오피서의 크로코다일 타우네스 MK3",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 켈틱 다우라 제로",
+      "price": 17000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 오토매틱 다우라 SE",
+      "price": 9740000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "축복받은 오피서의 유인 디바인 신시엘라크 L2",
+      "price": 130000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "오피서의 사나운 타우네스 MK3",
+      "price": 16000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 38877,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "앤티크 우든 듀얼건",
+      "display_name": "축복받은 오피서의 오토매틱 앤티크 우든 듀얼건",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 528000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 켈틱 다우라 제로",
+      "price": 4000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "다우라 SE",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "신성한 오피서의 기르가쉬 타우네스 MK3",
+      "price": 150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5200,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "메르엘 PE",
+      "display_name": "메르엘 PE",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "메르엘 PE",
+      "display_name": "메르엘 PE",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "썬로드 콜트",
+      "display_name": "썬로드 콜트",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 회오리 샤프 슈터 켈틱 다우라 제로",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "속사광 켈틱 다우라 제로",
+      "price": 12750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 언테임드 스파이크 타우네스 MK3",
+      "price": 600000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "메르엘 PE",
+      "display_name": "메르엘 PE",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스페이스 듀얼건",
+      "display_name": "스페이스 듀얼건",
+      "price": 725000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라의 황금 총",
+      "display_name": "축복받은 다우라의 황금 총",
+      "price": 7500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "오피서의 기르가쉬 켈틱 다우라 제로",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 데미 리치 오토매틱 다우라 SE",
+      "price": 8500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "타우네스 MK3",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 오토매틱 다우라 SE",
+      "price": 8000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 크로코다일 타우네스 MK3",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 오토매틱 다우라 SE",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 오토매틱 켈틱 다우라 제로",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라의 황금 총",
+      "display_name": "축복받은 다우라의 황금 총",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 2990000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "속사광 켈틱 다우라 제로",
+      "price": 13750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "속사광 켈틱 다우라 제로",
+      "price": 12750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "언테임드 난폭한 다우라 SE",
+      "price": 90000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "신성한 오피서의 기르가쉬 타우네스 MK3",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 529975,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 기르가쉬 다우라 SE",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 2990000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 2990000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "타우네스 MK3",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "켈틱 다우라 제로",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "켈틱 다우라 제로",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 38877,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "다우라 SE",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 오토매틱 다우라 SE",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라의 황금 총",
+      "display_name": "다우라의 황금 총",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "축복받은 신병의 반자동 오라클 썬로드 콜트",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 62000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 12900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 속사광 기르가쉬 켈틱 다우라 제로",
+      "price": 48000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 데미 리치 기르가쉬 켈틱 다우라 제로",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 크로코다일 다우라 SE",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "오피서의 사나운 타우네스 MK3",
+      "price": 8000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라의 황금 총",
+      "display_name": "다우라의 황금 총",
+      "price": 600000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "축복받은 신병의 반자동 오라클 썬로드 콜트",
+      "price": 45000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 사나운 다우라 SE",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 사나운 타우네스 MK3",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 오토매틱 다우라 SE",
+      "price": 800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "축복받은 신병의 반자동 제더 II",
+      "price": 800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 오토매틱 다우라 SE",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 오피서의 샤프 슈터 켈틱 다우라 제로",
+      "price": 380000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스페이스 듀얼건",
+      "display_name": "축복받은 오피서의 기르가쉬 스페이스 듀얼건",
+      "price": 75000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 회오리 샤프 슈터 켈틱 다우라 제로",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 오피서의 기르가쉬 켈틱 다우라 제로",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "다우라 SE",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 언테임드 스파이크 다우라 SE",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크로스 엠파이어 듀얼건",
+      "display_name": "축복받은 오피서의 기르가쉬 크로스 엠파이어 듀얼 건",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 듀얼건",
+      "display_name": "레트로 전설의 듀얼건",
+      "price": 149000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 사나운 타우네스 MK3",
+      "price": 7000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 듀얼건",
+      "display_name": "레트로 전설의 듀얼건",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 기르가쉬 다우라 SE",
+      "price": 43000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 28000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 12900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 엔지니어의 사나운 다우라 SE",
+      "price": 19000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 나이트스톰 듀얼건",
+      "display_name": "페러시우스 나이트스톰 듀얼건",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 38877,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "축복받은 오피서의 유인 디바인 신시엘라크 L2",
+      "price": 550000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "축복받은 오라클 썬로드 콜트",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "신병의 반자동 제더 II",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 데미 리치 기르가쉬 켈틱 다우라 제로",
+      "price": 160000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 사나운 타우네스 MK3",
+      "price": 7000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "다우라 SE",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "오피서의 사나운 타우네스 MK3",
+      "price": 170000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 크로코다일 타우네스 MK3",
+      "price": 350000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 11000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "디바인 신시엘라크 L2",
+      "price": 9000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "신성한 회오리 다운버스트 켈틱 다우라 제로",
+      "price": 150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅퀴셔",
+      "display_name": "축복받은 회오리 퓨리 나이트브링어 뱅퀴셔",
+      "price": 980000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 나이트스톰 듀얼건",
+      "display_name": "회오리 퓨리 페러시우스 나이트스톰 듀얼건",
+      "price": 170000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라의 황금 총",
+      "display_name": "다우라의 황금 총",
+      "price": 550000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "디바인 신시엘라크 L2",
+      "price": 9990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 언테임드 난폭한 다우라 SE",
+      "price": 90000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "축복받은 반자동 제더 II",
+      "price": 70000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크로스 엠파이어 듀얼건",
+      "display_name": "축복받은 오피서의 기르가쉬 크로스 엠파이어 듀얼 건",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅퀴셔",
+      "display_name": "축복받은 회오리 퓨리 나이트브링어 뱅퀴셔",
+      "price": 695000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 언테임드 기르가쉬 타우네스 MK3",
+      "price": 7000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 오토매틱 다우라 SE",
+      "price": 75000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 오토매틱 다우라 SE",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 켈틱 다우라 제로",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 사나운 타우네스 MK3",
+      "price": 800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅퀴셔",
+      "display_name": "신성한 회오리 퓨리 나이트브링어 뱅퀴셔",
+      "price": 890000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 회오리 기르가쉬 켈틱 다우라 제로",
+      "price": 240000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 오피서의 퓨리 켈틱 다우라 제로",
+      "price": 170000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 별",
+      "display_name": "검은 별",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "다우라 SE",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "축복받은 오피서의 유인 디바인 신시엘라크 L2",
+      "price": 650000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 13000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 11000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 18900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "메르엘 PE",
+      "display_name": "폭스 레이븐 메르엘 PE",
+      "price": 13000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 13000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "켈틱 다우라 제로",
+      "price": 9000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 신시엘라크 L2",
+      "display_name": "디바인 신시엘라크 L2",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 13000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 5800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "오라클 썬로드 콜트",
+      "display_name": "오라클 썬로드 콜트",
+      "price": 38887,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 6900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 6900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 490000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 490000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "반자동 제더 II",
+      "price": 6000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 13000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "스페이스 듀얼건",
+      "display_name": "스페이스 듀얼건",
+      "price": 290000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라의 황금 총",
+      "display_name": "축복받은 다우라의 황금 총",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "데미 리치 기르가쉬 켈틱 다우라 제로",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "오피서의 오토매틱 다우라 SE",
+      "price": 299000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라의 황금 총",
+      "display_name": "축복받은 다우라의 황금 총",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅퀴셔",
+      "display_name": "신성한 회오리 퓨리 나이트브링어 뱅퀴셔",
+      "price": 1500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "등껍질 제더 II",
+      "price": 750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "오피서의 사나운 타우네스 MK3",
+      "price": 80000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 오피서의 오토매틱 다우라 SE",
+      "price": 55000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 회오리 기르가쉬 켈틱 다우라 제로",
+      "price": 150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타우네스 MK3",
+      "display_name": "축복받은 오피서의 다운버스트 타우네스 MK3",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 다우라 제로",
+      "display_name": "축복받은 기르가쉬 켈틱 다우라 제로",
+      "price": 125000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "제더 II",
+      "price": 14000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "메르엘 PE",
+      "display_name": "메르엘 PE",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 언테임드 스파이크 다우라 SE",
+      "price": 5500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "다우라 SE",
+      "display_name": "축복받은 기르가쉬 다우라 SE",
+      "price": 18000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "제더 II",
+      "display_name": "반자동 제더 II",
+      "price": 79999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    }
+  ]
+}

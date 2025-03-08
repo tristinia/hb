@@ -1,0 +1,4582 @@
+{
+  "updated": "2025-03-08T11:46:58.688Z",
+  "count": 572,
+  "items": [
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 560000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "페러시우스 게일 랜스",
+      "price": 43000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "세인츠 가디언 랜스",
+      "display_name": "축복받은 블라인드 관통하는 세인츠 가디언 랜스",
+      "price": 4000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "카르텔 피시스 우든 랜스",
+      "price": 2500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 2700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스 R",
+      "display_name": "신성한 카르텔 돌파하는 데모닉 스케일아이 랜스 R",
+      "price": 354000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 79999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 58900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 58900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 58900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 58900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 250000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 58900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 79999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 58900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 58900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스",
+      "display_name": "데모닉 스케일아이 랜스",
+      "price": 250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스",
+      "display_name": "데모닉 스케일아이 랜스",
+      "price": 250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "디바인 스몰 랜스",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 1400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 충돌의 다운버스트 나이트브링어 스피어헤드",
+      "price": 1799999999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 400000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "축복받은 블라인드 관통하는 나이트 랜스",
+      "price": 24000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 랜시아 디바인 스몰 랜스",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 강렬한 랜시아 디바인 스몰 랜스",
+      "price": 340000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 1230000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 980000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "디바인 스몰 랜스",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 700000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "축복받은 강렬한 다운버스트 페러시우스 게일 랜스",
+      "price": 320000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 28500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 1300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 480000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 다운버스트 디바인 스몰 랜스",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1970000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 354500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 28522,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 28522,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "카르텔 피시스 우든 랜스",
+      "price": 2480000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 28522,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 799000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 29999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 29999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 29999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 1180000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "관통하는 나이트 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 355000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 38000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 38000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 38000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 38000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 29999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "카르텔 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 650000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 357500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "페러시우스 게일 랜스",
+      "price": 47000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 910000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "페러시우스 게일 랜스",
+      "price": 80000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "페러시우스 게일 랜스",
+      "price": 60000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 2500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 카르텔 랜시아 켈틱 잉곳 랜스",
+      "price": 90000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "격렬한 피시스 우든 랜스",
+      "price": 49999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 카르텔 돌파하는 디바인 스몰 랜스",
+      "price": 55000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 80000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 3500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "위벨의 지팡이(랜스) 레플리카",
+      "display_name": "축복받은 위벨의 지팡이(랜스) 레플리카",
+      "price": 42000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 59000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 2500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 543210000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 520000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 400000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "꿰뚫어 찌르는 죽음의 가시 창",
+      "display_name": "꿰뚫어 찌르는 죽음의 가시 창",
+      "price": 39000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 720000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 관통하는 디바인 스몰 랜스",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 410000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "축복받은 카르텔 다운버스트 페러시우스 게일 랜스",
+      "price": 128000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 디바인 스몰 랜스",
+      "price": 100000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아투이의 랜스",
+      "display_name": "아투이의 랜스",
+      "price": 900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 카르텔 랜시아 켈틱 잉곳 랜스",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 680000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 650000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 600000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스",
+      "display_name": "데모닉 스케일아이 랜스",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 디바인 스몰 랜스",
+      "price": 22000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 켈틱 잉곳 랜스",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 48990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아투이의 랜스",
+      "display_name": "아투이의 랜스",
+      "price": 3500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 820000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 강렬한 랜시아 디바인 스몰 랜스",
+      "price": 34000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 1900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 1900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 켈틱 잉곳 랜스",
+      "price": 2150000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 59000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 59000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 59000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1140000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 59000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 59000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "꿰뚫어 찌르는 죽음의 가시 창",
+      "display_name": "꿰뚫어 찌르는 죽음의 가시 창",
+      "price": 44000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 돌파하는 디바인 스몰 랜스",
+      "price": 350000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 990000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 돌파하는 디바인 스몰 랜스",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "신성한 카르텔 다운버스트 페러시우스 게일 랜스",
+      "price": 234567890,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "축복받은 피시스 우든 랜스",
+      "price": 100000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 300000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 2000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 1185000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1350000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 1150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 630000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스 R",
+      "display_name": "축복받은 카르텔 관통하는 나이트 랜스 R",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 강렬한 돌파하는 디바인 스몰 랜스",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 620000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 4000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "세인츠 가디언 랜스",
+      "display_name": "세인츠 가디언 랜스",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 3200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 켈틱 잉곳 랜스",
+      "price": 4000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 290000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 2000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 450000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 강렬한 랜시아 디바인 스몰 랜스",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 120000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "신성한 카르텔 다운버스트 페러시우스 게일 랜스",
+      "price": 320000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "암네시아 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 2500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 카르텔 돌파하는 디바인 스몰 랜스",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 다운버스트 디바인 스몰 랜스",
+      "price": 210000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 510000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 1400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 카르텔 랜시아 디바인 스몰 랜스",
+      "price": 280000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이온 크로 랜스",
+      "display_name": "축복받은 폭스 레이븐 라이온 크로 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스",
+      "display_name": "데모닉 스케일아이 랜스",
+      "price": 1800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 777777777,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 970000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 920000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스 R",
+      "display_name": "축복받은 블라인드 관통하는 나이트 랜스 R",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 카르텔 돌파하는 디바인 스몰 랜스",
+      "price": 150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 다운버스트 디바인 스몰 랜스",
+      "price": 1000000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 충돌의 다운버스트 나이트브링어 스피어헤드",
+      "price": 1500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 카르텔 코리브 켈틱 잉곳 랜스",
+      "price": 51000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "랑그히리스 본브레이커",
+      "display_name": "축복받은 카르텔 관통하는 랑그히리스 본브레이커",
+      "price": 59000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 700000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 18000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 45000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 190000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "위벨의 지팡이(랜스) 레플리카",
+      "display_name": "위벨의 지팡이(랜스) 레플리카",
+      "price": 41500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 440000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 1000200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 4000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1350000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 강렬한 돌파하는 디바인 스몰 랜스",
+      "price": 220000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1415000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 4800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "위벨의 지팡이(랜스) 레플리카",
+      "display_name": "축복받은 위벨의 지팡이(랜스) 레플리카",
+      "price": 41500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "요정의 나이트 랜스",
+      "price": 2500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "축복받은 데미 리치 나이트 랜스",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 4990000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "암네시아 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 3500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "신성한 카르텔 랜시아 켈틱 잉곳 랜스",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 랜시아 디바인 스몰 랜스",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "관통하는 피시스 우든 랜스",
+      "price": 290000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "메달 피시스 우든 랜스",
+      "price": 499999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 357777777,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 카르텔 다운버스트 디바인 스몰 랜스",
+      "price": 47950000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 359550000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 170000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 150000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 4500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "축복받은 카르텔 관통하는 나이트 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "축복받은 리치 스파이크 나이트 랜스",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 440000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 496000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 켈틱 잉곳 랜스",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 650000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 620000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 510000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 1500000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 랜시아 디바인 스몰 랜스",
+      "price": 85000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 카르텔 랜시아 켈틱 잉곳 랜스",
+      "price": 44000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 1400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이온 크로 랜스",
+      "display_name": "라이온 크로 랜스",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 49000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 374000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1019000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 510000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스 R",
+      "display_name": "축복받은 블라인드 관통하는 나이트 랜스 R",
+      "price": 4000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "관통하는 나이트 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 강렬한 다운버스트 켈틱 잉곳 랜스",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 145000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 나이트브링어 스피어헤드",
+      "price": 580000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 1190000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 890000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 충돌의 다운버스트 나이트브링어 스피어헤드",
+      "price": 2400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 485000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스 R",
+      "display_name": "축복받은 블라인드 관통하는 나이트 랜스 R",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "카르텔 관통하는 나이트 랜스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "카르텔 기둥 디바인 스몰 랜스",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "카르텔 코리브 디바인 스몰 랜스",
+      "price": 36000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "관통하는 피시스 우든 랜스",
+      "price": 300000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "요정의 나이트 랜스",
+      "price": 2500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "축복받은 페러시우스 게일 랜스",
+      "price": 44000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 켈틱 잉곳 랜스",
+      "price": 74999999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스 R",
+      "display_name": "신성한 카르텔 돌파하는 데모닉 스케일아이 랜스 R",
+      "price": 45000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "관통하는 나이트 랜스",
+      "price": 1990000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 카르텔 기둥 디바인 스몰 랜스",
+      "price": 250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 강렬한 기둥 디바인 스몰 랜스",
+      "price": 660000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 나이트브링어 스피어헤드",
+      "price": 700000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 970000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 카르텔 랜시아 켈틱 잉곳 랜스",
+      "price": 99999999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스 R",
+      "display_name": "축복받은 카르텔 돌파하는 데모닉 스케일아이 랜스 R",
+      "price": 2000000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 520000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 999999999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 흑요석 피시스 우든 랜스",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스",
+      "display_name": "데모닉 스케일아이 랜스",
+      "price": 220000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 랜시아 디바인 스몰 랜스",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "신성한 카르텔 돌파하는 페러시우스 게일 랜스",
+      "price": 130000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스 R",
+      "display_name": "축복받은 카르텔 돌파하는 데모닉 스케일아이 랜스 R",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1000000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "축복받은 카르텔 다운버스트 페러시우스 게일 랜스",
+      "price": 120000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "네크로맨서 피시스 우든 랜스",
+      "price": 144444,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 카르텔 랜시아 켈틱 잉곳 랜스",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "축복받은 풍선 피시스 우든 랜스",
+      "price": 200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 2200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 1400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스 R",
+      "display_name": "축복받은 블라인드 돌파하는 데모닉 스케일아이 랜스 R",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 충돌의 다운버스트 나이트브링어 스피어헤드",
+      "price": 2300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "신성한 카르텔 다운버스트 페러시우스 게일 랜스",
+      "price": 165000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이온 크로 랜스",
+      "display_name": "축복받은 꿰뚫는 메달 라이온 크로 랜스",
+      "price": 5640000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 300000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 600000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 990000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 990000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "꿰뚫어 찌르는 죽음의 가시 창",
+      "display_name": "축복받은 꿰뚫어 찌르는 죽음의 가시 창",
+      "price": 40000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아투이의 랜스",
+      "display_name": "아투이의 랜스",
+      "price": 3500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 나이트브링어 스피어헤드",
+      "price": 650000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 2200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 돌파하는 디바인 스몰 랜스",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 카르텔 랜시아 켈틱 잉곳 랜스",
+      "price": 49000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 충돌의 다운버스트 나이트브링어 스피어헤드",
+      "price": 1500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 4000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스 R",
+      "display_name": "신성한 카르텔 관통하는 데모닉 스케일아이 랜스 R",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1411111111,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 충돌의 다운버스트 나이트브링어 스피어헤드",
+      "price": 900000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "페러시우스 게일 랜스",
+      "price": 120000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 59000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 강렬한 랜시아 켈틱 잉곳 랜스",
+      "price": 45000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 550000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스 R",
+      "display_name": "축복받은 블라인드 관통하는 데모닉 스케일아이 랜스 R",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 나이트브링어 스피어헤드",
+      "price": 2700000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 1300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 890000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 1450000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 830000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 830000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 680000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 2200000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "신성한 카르텔 다운버스트 페러시우스 게일 랜스",
+      "price": 650000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 카르텔 미티어로이드 디바인 스몰 랜스",
+      "price": 1400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 강렬한 랜시아 디바인 스몰 랜스",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 6500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "축복받은 페러시우스 게일 랜스",
+      "price": 80000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스 R",
+      "display_name": "신성한 강렬한 랜시아 데모닉 스케일아이 랜스 R",
+      "price": 300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "세인츠 가디언 랜스",
+      "display_name": "축복받은 세인츠 가디언 랜스",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스 R",
+      "display_name": "신성한 카르텔 관통하는 데모닉 스케일아이 랜스 R",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스 R",
+      "display_name": "축복받은 블라인드 관통하는 나이트 랜스 R",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "축복받은 언테임드 난폭한 나이트 랜스",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "신성한 카르텔 다운버스트 페러시우스 게일 랜스",
+      "price": 560000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 디바인 스몰 랜스",
+      "price": 21000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 1500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 380000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "축복받은 강렬한 다운버스트 페러시우스 게일 랜스",
+      "price": 150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "축복받은 카르텔 다운버스트 페러시우스 게일 랜스",
+      "price": 240000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 4500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 450000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 라이온 크로 랜스",
+      "display_name": "초보자 라이온 크로 랜스",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 카르텔 훈장 켈틱 잉곳 랜스",
+      "price": 45000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 150000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스 R",
+      "display_name": "축복받은 카르텔 랜시아 데모닉 스케일아이 랜스 R",
+      "price": 8000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 다운버스트 디바인 스몰 랜스",
+      "price": 5000000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 나이트브링어 스피어헤드",
+      "price": 1050000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 코리브 디바인 스몰 랜스",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 49000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 400000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 랜시아 디바인 스몰 랜스",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1350000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 90000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 4500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 충돌의 다운버스트 나이트브링어 스피어헤드",
+      "price": 1250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 2000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 블라인드 돌파하는 켈틱 잉곳 랜스",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 210000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "축복받은 블라인드 관통하는 나이트 랜스",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 충돌의 다운버스트 나이트브링어 스피어헤드",
+      "price": 3480000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스",
+      "display_name": "데모닉 스케일아이 랜스",
+      "price": 260000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 라이온 크로 랜스",
+      "display_name": "축복받은 여신의 칼리번 초보자 라이온 크로 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 700000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 1800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 강렬한 기둥 디바인 스몰 랜스",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "랑그히리스 본브레이커",
+      "display_name": "신성한 블라인드 돌파하는 랑그히리스 본브레이커",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "강렬한 다운버스트 디바인 스몰 랜스",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "디바인 스몰 랜스",
+      "price": 40000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 카르텔 랜시아 켈틱 잉곳 랜스",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "축복받은 강렬한 다운버스트 페러시우스 게일 랜스",
+      "price": 220000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 730000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "네크로맨서 피시스 우든 랜스",
+      "price": 2990000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 카르텔 랜시아 디바인 스몰 랜스",
+      "price": 63000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 카르텔 코리브 디바인 스몰 랜스",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이온 크로 랜스",
+      "display_name": "언테임드 스파이크 라이온 크로 랜스",
+      "price": 800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "관통하는 피시스 우든 랜스",
+      "price": 800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "관통하는 피시스 우든 랜스",
+      "price": 800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "리치 스파이크 나이트 랜스",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1339000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1045000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 950000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 700000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 690000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 다운버스트 디바인 스몰 랜스",
+      "price": 120000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 855555555,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스 R",
+      "display_name": "축복받은 블라인드 관통하는 나이트 랜스 R",
+      "price": 9000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 520000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 650000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 900000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "랑그히리스 본브레이커",
+      "display_name": "축복받은 카르텔 메달 랑그히리스 본브레이커",
+      "price": 43210987,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 4500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 910000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 680000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "관통하는 피시스 우든 랜스",
+      "price": 380000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 1200000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 2200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 2200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 2200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 2200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 2200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 2200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 코리브 디바인 스몰 랜스",
+      "price": 190000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 켈틱 잉곳 랜스",
+      "price": 75000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 270000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 50000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스 R",
+      "display_name": "축복받은 카르텔 관통하는 데모닉 스케일아이 랜스 R",
+      "price": 26000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스 R",
+      "display_name": "축복받은 블라인드 관통하는 나이트 랜스 R",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 850000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "메달 피시스 우든 랜스",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "강렬한 기둥 디바인 스몰 랜스",
+      "price": 690000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 코리브 디바인 스몰 랜스",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 강렬한 기둥 디바인 스몰 랜스",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스",
+      "display_name": "데모닉 스케일아이 랜스",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 코리브 디바인 스몰 랜스",
+      "price": 240000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 정복자 다운버스트 나이트브링어 스피어헤드",
+      "price": 980000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스",
+      "display_name": "축복받은 블라인드 돌파하는 데모닉 스케일아이 랜스",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 890000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 350000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 데들리 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "네크로맨서 피시스 우든 랜스",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이온 크로 랜스",
+      "display_name": "언테임드 스파이크 라이온 크로 랜스",
+      "price": 300000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 강렬한 랜시아 디바인 스몰 랜스",
+      "price": 450000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이온 크로 랜스",
+      "display_name": "등껍질 라이온 크로 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 라이온 크로 랜스",
+      "display_name": "축복받은 초보자 라이온 크로 랜스",
+      "price": 250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 랜시아 디바인 스몰 랜스",
+      "price": 520000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스",
+      "display_name": "데모닉 스케일아이 랜스",
+      "price": 180000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 강렬한 돌파하는 디바인 스몰 랜스",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스 R",
+      "display_name": "축복받은 카르텔 돌파하는 데모닉 스케일아이 랜스 R",
+      "price": 29000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 99999999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 충돌의 다운버스트 나이트브링어 스피어헤드",
+      "price": 1250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 560000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 150000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 꿰뚫는 랜시아 켈틱 잉곳 랜스",
+      "price": 150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "디바인 스몰 랜스",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 1800000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 480000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 켈틱 잉곳 랜스",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 켈틱 잉곳 랜스",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스",
+      "display_name": "데모닉 스케일아이 랜스",
+      "price": 180000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 2000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "켈틱 잉곳 랜스",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "신성한 카르텔 다운버스트 페러시우스 게일 랜스",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 630000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "위벨의 지팡이(랜스) 레플리카",
+      "display_name": "위벨의 지팡이(랜스) 레플리카",
+      "price": 78000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스",
+      "display_name": "데모닉 스케일아이 랜스",
+      "price": 190000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 180000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 1050000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1340000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1350000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 1250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "네크로맨서 피시스 우든 랜스",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1025000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "랑그히리스 본브레이커",
+      "display_name": "축복받은 블라인드 관통하는 랑그히리스 본브레이커",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 850000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 꿰뚫는 다운버스트 나이트브링어 스피어헤드",
+      "price": 680000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 3400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 1400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 정복자 다운버스트 나이트브링어 스피어헤드",
+      "price": 1400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1750000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1320000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "충돌의 다운버스트 나이트브링어 스피어헤드",
+      "price": 1180000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 400000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1550000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 520000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "랑그히리스 본브레이커",
+      "display_name": "축복받은 카르텔 돌파하는 랑그히리스 본브레이커",
+      "price": 250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "레이븐 슬레이어 풍선 피시스 우든 랜스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스 R",
+      "display_name": "축복받은 블라인드 관통하는 나이트 랜스 R",
+      "price": 25555555,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 367990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 디바인 스몰 랜스",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "디바인 스몰 랜스",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "위벨의 지팡이(랜스) 레플리카",
+      "display_name": "위벨의 지팡이(랜스) 레플리카",
+      "price": 90000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 카르텔 랜시아 디바인 스몰 랜스",
+      "price": 120000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 충돌의 다운버스트 나이트브링어 스피어헤드",
+      "price": 1400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "꿰뚫는 다운버스트 나이트브링어 스피어헤드",
+      "price": 5000000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 940000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "신성한 카르텔 다운버스트 페러시우스 게일 랜스",
+      "price": 180000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 4000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 강렬한 기둥 디바인 스몰 랜스",
+      "price": 55000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스 R",
+      "display_name": "축복받은 블라인드 관통하는 나이트 랜스 R",
+      "price": 150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스 R",
+      "display_name": "축복받은 블라인드 관통하는 나이트 랜스 R",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 4000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "나이트 랜스(미완성)",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "카르텔 관통하는 나이트 랜스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트 랜스",
+      "display_name": "블라인드 나이트 랜스",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 130000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스 R",
+      "display_name": "축복받은 블라인드 관통하는 데모닉 스케일아이 랜스 R",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스",
+      "display_name": "데모닉 스케일아이 랜스",
+      "price": 220000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1550000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 500000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 600000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 380000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "신성한 강렬한 랜시아 켈틱 잉곳 랜스",
+      "price": 1590000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "페러시우스 게일 랜스",
+      "price": 38000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이온 크로 랜스",
+      "display_name": "언테임드 스파이크 라이온 크로 랜스",
+      "price": 388888,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 650000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "피시스 우든 랜스",
+      "price": 395000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 1780000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "위벨의 지팡이(랜스) 레플리카",
+      "display_name": "위벨의 지팡이(랜스) 레플리카",
+      "price": 55000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1520000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "등껍질 피시스 우든 랜스",
+      "price": 4000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 돌파하는 피시스 우든 랜스",
+      "price": 2500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 카르텔 랜시아 켈틱 잉곳 랜스",
+      "price": 55000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 700000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 700000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 강렬한 기둥 디바인 스몰 랜스",
+      "price": 300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "위벨의 지팡이(랜스) 레플리카",
+      "display_name": "축복받은 위벨의 지팡이(랜스) 레플리카",
+      "price": 49000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "축복받은 강렬한 훈장 디바인 스몰 랜스",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 나이트브링어 스피어헤드",
+      "price": 859000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 3200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스 R",
+      "display_name": "축복받은 카르텔 돌파하는 데모닉 스케일아이 랜스 R",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 카르텔 다운버스트 켈틱 잉곳 랜스",
+      "price": 45000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "카르텔 피시스 우든 랜스",
+      "price": 2490000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스",
+      "display_name": "축복받은 블라인드 관통하는 데모닉 스케일아이 랜스",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 충돌의 다운버스트 나이트브링어 스피어헤드",
+      "price": 1500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "축복받은 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1350000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 3000000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "페러시우스 게일 랜스",
+      "price": 35000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "카르텔 피시스 우든 랜스",
+      "price": 2490000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 4000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "충돌의 다운버스트 나이트브링어 스피어헤드",
+      "price": 1800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스",
+      "display_name": "데모닉 스케일아이 랜스",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 500000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 스케일아이 랜스 R",
+      "display_name": "신성한 카르텔 랜시아 데모닉 스케일아이 랜스 R",
+      "price": 850000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 2500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "꿰뚫어 찌르는 죽음의 가시 창",
+      "display_name": "축복받은 꿰뚫어 찌르는 죽음의 가시 창",
+      "price": 43000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "네크로맨서 피시스 우든 랜스",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 130000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "돌파하는 디바인 스몰 랜스",
+      "price": 18000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "랑그히리스 본브레이커",
+      "display_name": "신성한 카르텔 메달 랑그히리스 본브레이커",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 와이번 피시스 우든 랜스",
+      "price": 170000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 강렬한 다운버스트 나이트브링어 스피어헤드",
+      "price": 3000000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 130000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 400000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 잉곳 랜스",
+      "display_name": "축복받은 카르텔 랜시아 켈틱 잉곳 랜스",
+      "price": 55000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 충돌의 다운버스트 나이트브링어 스피어헤드",
+      "price": 1080000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 1050000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 850000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "나이트브링어 스피어헤드",
+      "price": 750000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "요정의 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "열정의 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "피시스 우든 랜스",
+      "display_name": "풍선 피시스 우든 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 게일 랜스",
+      "display_name": "페러시우스 게일 랜스",
+      "price": 130000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 스피어헤드",
+      "display_name": "신성한 카르텔 다운버스트 나이트브링어 스피어헤드",
+      "price": 1800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 랜시아 디바인 스몰 랜스",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이온 크로 랜스",
+      "display_name": "요정의 레이븐 라이온 크로 랜스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "디바인 스몰 랜스",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "디바인 스몰 랜스",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "위벨의 지팡이(랜스) 레플리카",
+      "display_name": "위벨의 지팡이(랜스) 레플리카",
+      "price": 41500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 스몰 랜스",
+      "display_name": "신성한 강렬한 기둥 디바인 스몰 랜스",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    }
+  ]
+}
