@@ -499,20 +499,13 @@ function openModal(effect) {
                 <img class="modal-image" src="${effect.videoLink}" alt="${effect.name}">
             `;
         } else {
-            // 모달에서는 항상 원본 고화질 비디오 사용
             modalMediaContainer.innerHTML = `
                 <video class="modal-video" src="${effect.videoLink}" controls autoplay loop></video>
             `;
             
-            modalVideo.addEventListener('error', () => {
-            modalMediaContainer.innerHTML = `
-            <div class="no-media">비디오 로드 실패</div>
-                `;
-            });
-            
             // 비디오 로드 에러 시
+            const modalVideo = modalMediaContainer.querySelector('.modal-video');
             modalVideo.addEventListener('error', () => {
-                modalMediaContainer.querySelector('.modal-loading')?.remove();
                 modalMediaContainer.innerHTML = `
                     <div class="no-media">비디오 로드 실패</div>
                 `;
