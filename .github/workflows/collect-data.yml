@@ -1,3 +1,4 @@
+# .github/workflows/collect-data.yml
 name: 마비노기 경매장 데이터 수집
 
 on:
