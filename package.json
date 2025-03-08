@@ -2,13 +2,13 @@
   "name": "mabinogi-auction-data-collector",
   "version": "1.0.0",
   "description": "마비노기 경매장 데이터 수집기",
-  "main": "collect-data.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node collect-data.js",
-    "collect": "node collect-data.js"
+    "start": "node index.js",
+    "test": "node test-api.js"
   },
   "dependencies": {
-    "axios": "^1.6.0",
+    "axios": "^1.6.2",
     "fs-extra": "^11.1.1"
   }
 }
