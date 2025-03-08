@@ -1,54 +1,34 @@
-// test-api.js - 수정된 버전
-const axios = require('axios');
-
-// API 키
-const API_KEY = process.env.API_KEY;
-
-async function testApi() {
-  if (!API_KEY) {
-    console.error('API 키가 설정되지 않았습니다. API_KEY 환경 변수를 설정하세요.');
-    process.exit(1);
-  }
+// 마비노기 API 카테고리 목록 (한글 이름으로 수정)
+const categories = [
+  // 근거리 무기
+  { id: '검', name: '검', mainCategory: '근거리 장비' },
+  { id: '둔기', name: '둔기', mainCategory: '근거리 장비' },
+  { id: '랜스', name: '랜스', mainCategory: '근거리 장비' },
+  { id: '도끼', name: '도끼', mainCategory: '근거리 장비' },
+  { id: '너클', name: '너클', mainCategory: '근거리 장비' },
+  { id: '석궁', name: '석궁', mainCategory: '원거리 장비' },
+  { id: '활', name: '활', mainCategory: '원거리 장비' },
+  { id: '듀얼건', name: '듀얼건', mainCategory: '원거리 장비' },
+  { id: '수리검', name: '수리검', mainCategory: '원거리 장비' },
+  { id: '실린더', name: '실린더', mainCategory: '마법 장비' },
+  { id: '원드', name: '원드', mainCategory: '마법 장비' },
+  { id: '스태프', name: '스태프', mainCategory: '마법 장비' },
   
-  try {
-    console.log('마비노기 API 테스트 중...');
-    
-    // 한글 카테고리로 테스트
-    const testCategories = [
-      '검',       // 검
-      '둔기',     // 둔기
-      '랜스',     // 랜스
-      '에코스톤',  // 에코스톤
-      '인챈트 스크롤' // 인챈트 스크롤
-    ];
-    
-    for (const category of testCategories) {
-      console.log(`카테고리 테스트: ${category}`);
-      
-      const encodedCategory = encodeURIComponent(category);
-      const response = await axios.get(`https://open.api.nexon.com/mabinogi/v1/auction/list?auction_item_category=${encodedCategory}`, {
-        headers: {
-          'accept': 'application/json',
-          'x-nxopen-api-key': API_KEY
-        },
-        timeout: 10000
-      });
-      
-      const itemCount = response.data.auction_item?.length || 0;
-      console.log(`- 성공: ${itemCount}개 아이템 수신`);
-    }
-    
-    console.log('\nAPI 테스트 성공!');
-  } catch (error) {
-    console.error('API 테스트 실패:', error.message);
-    
-    if (error.response) {
-      console.error('상태 코드:', error.response.status);
-      console.error('오류 데이터:', error.response.data);
-    }
-    
-    process.exit(1);
-  }
-}
-
-testApi();
+  // 방어구
+  { id: '경갑옷', name: '경갑옷', mainCategory: '갑옷' },
+  { id: '중갑옷', name: '중갑옷', mainCategory: '갑옷' },
+  { id: '로브', name: '로브', mainCategory: '방어 장비' },
+  { id: '투구', name: '투구', mainCategory: '방어 장비' },
+  { id: '장갑', name: '장갑', mainCategory: '방어 장비' },
+  { id: '신발', name: '신발', mainCategory: '방어 장비' },
+  { id: '방패', name: '방패', mainCategory: '방어 장비' },
+  
+  // 액세서리
+  { id: '귀걸이', name: '귀걸이', mainCategory: '액세서리' },
+  { id: '반지', name: '반지', mainCategory: '액세서리' },
+  { id: '목걸이', name: '목걸이', mainCategory: '액세서리' },
+  
+  // 특수 장비
+  { id: '에코스톤', name: '에코스톤', mainCategory: '특수 장비' },
+  { id: '인챈트 스크롤', name: '인챈트 스크롤', mainCategory: '인챈트 용품' }
+];
