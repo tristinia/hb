@@ -1,0 +1,4622 @@
+{
+  "updated": "2025-03-08T17:04:10.922Z",
+  "count": 577,
+  "items": [
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "신성한 판타스틱 단장 나이트브링어 뱅가드",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "냄비 뚜껑",
+      "display_name": "냄비 뚜껑",
+      "price": 350000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타지 실드",
+      "display_name": "타지 실드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 79999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "신성한 교수 드래곤 실드",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "마력의 단장 나이트브링어 뱅가드",
+      "price": 490000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "파인 라운드 실드",
+      "price": 1700,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "주시자의 방패",
+      "display_name": "축복받은 주시자의 방패",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 450000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "주시자의 방패",
+      "display_name": "단장 주시자의 방패",
+      "price": 4000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 마력의 단장 나이트브링어 뱅가드",
+      "price": 565000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "축복받은 아본의 방패",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 8500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 8800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 8500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 8700,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "콜로넬 티카 실드",
+      "price": 4100000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "신성한 단장 데모닉 피어 실드",
+      "price": 19000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "신성한 마력의 단장 나이트브링어 뱅가드",
+      "price": 460000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "나이트브링어 뱅가드",
+      "price": 355000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 38000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 광포한 단장 페러시우스 센티널 실드",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "마력의 단장 페러시우스 센티널 실드",
+      "price": 32000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "날선 들끓는 나이트브링어 뱅가드",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "올드 라운드 실드",
+      "price": 2500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "아본의 방패",
+      "price": 5100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 판타스틱 직감의 매시브 디스페어 실드",
+      "price": 45000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "리버레이터 실드",
+      "display_name": "축복받은 리버레이터 실드",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "수호의 단장 나이트브링어 뱅가드",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "탄탄한 라운드 실드",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "로열 크리스탈 윙 실드",
+      "display_name": "엔지니어의 로열 크리스탈 윙 실드",
+      "price": 650000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "레트로 전설의 방패",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 9990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 9990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "판타스틱 직감의 나이트브링어 뱅가드",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "로열 크리스탈 윙 실드",
+      "display_name": "경호원 로열 크리스탈 윙 실드",
+      "price": 700000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "레트로 전설의 방패",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "냄비 뚜껑",
+      "display_name": "냄비 뚜껑",
+      "price": 369900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 39990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "리버레이터 실드",
+      "display_name": "축복받은 리버레이터 실드",
+      "price": 2800000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "디바인 실드",
+      "price": 16000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "리지드 드래곤 실드",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "신성한 마력의 단장 나이트브링어 뱅가드",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "특이한 라운드 실드",
+      "price": 2000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "축복받은 리지드 마샬 히터 실드",
+      "price": 70000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "발키리의 방패",
+      "display_name": "축복받은 폭스헌터 변화의 발키리의 방패",
+      "price": 3500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 29999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "축복받은 딱딱한 사령관 아본의 방패",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "축복받은 수호의 단장 아본의 방패",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "축복받은 딱딱한 단장 아본의 방패",
+      "price": 9000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 마력의 단장 페러시우스 센티널 실드",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "발키리의 방패",
+      "display_name": "축복받은 발키리의 방패",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 광포한 들끓는 나이트브링어 뱅가드",
+      "price": 375000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "로열 크리스탈 윙 실드",
+      "display_name": "경호원 로열 크리스탈 윙 실드",
+      "price": 699750,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "로열 크리스탈 윙 실드",
+      "display_name": "경호원 로열 크리스탈 윙 실드",
+      "price": 699750,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타지 실드",
+      "display_name": "타지 실드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "매시브 디스페어 실드",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 39990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "쿠키 방패",
+      "display_name": "축복받은 쿠키 방패",
+      "price": 390000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 32000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 39999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 32000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 마력의 페러시우스 센티널 실드",
+      "price": 32000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 12000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "이웨카 실드",
+      "display_name": "축복받은 이웨카 실드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "축복받은 스톤 아본의 방패",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "신성한 마력의 단장 페러시우스 센티널 실드",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "레트로 전설의 방패",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트 헤테로 카이트 실드",
+      "display_name": "라이트 헤테로 카이트 실드",
+      "price": 6300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 실드",
+      "display_name": "콤포짓 실드",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "파인 라운드 실드",
+      "price": 1900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "축복받은 괴상한 교수 데모닉 피어 실드",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "로열 크리스탈 윙 실드",
+      "display_name": "경호원 로열 크리스탈 윙 실드",
+      "price": 700000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "축복받은 리지드 알터레이션 발레스 실드",
+      "price": 888888,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 광포한 들끓는 매시브 디스페어 실드",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "페러시우스 센티널 실드",
+      "price": 32000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 11111,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "이웨카 실드",
+      "display_name": "이웨카 실드",
+      "price": 99999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "노던 플로리스 실드",
+      "price": 250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "리지드 알터레이션 발레스 실드",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 32000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 32000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 광포한 단장 매시브 디스페어 실드",
+      "price": 16000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "노던 플로리스 실드",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "노던 플로리스 실드",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "아본의 방패",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "축복받은 망각 단장 노던 플로리스 실드",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "신성한 마력의 단장 나이트브링어 뱅가드",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트 헤테로 카이트 실드",
+      "display_name": "라이트 헤테로 카이트 실드",
+      "price": 9900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "콜로넬 티카 실드",
+      "price": 4400000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "콜로넬 티카 실드",
+      "price": 4400000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 수호의 단장 나이트브링어 뱅가드",
+      "price": 370000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 32000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 엔지니어의 나이트브링어 뱅가드",
+      "price": 465000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드(미완성)",
+      "price": 44,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "로열 크리스탈 윙 실드",
+      "display_name": "신중한 로열 크리스탈 윙 실드",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 광포한 단장 매시브 디스페어 실드",
+      "price": 55000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 광포한 단장 매시브 디스페어 실드",
+      "price": 45000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "매시브 디스페어 실드",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트 헤테로 카이트 실드",
+      "display_name": "라이트 헤테로 카이트 실드(미완성)",
+      "price": 6400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "마력의 단장 디바인 실드",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "수호의 단장 페러시우스 센티널 실드",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "주시자의 방패",
+      "display_name": "축복받은 딱딱한 교수 주시자의 방패",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "신성한 단장 페러시우스 센티널 실드",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 실드",
+      "display_name": "콤포짓 실드",
+      "price": 2650000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 마력의 단장 나이트브링어 뱅가드",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "노던 플로리스 실드",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "괴상한 라운드 실드",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "축복받은 데모닉 피어 실드",
+      "price": 67890,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 마력의 힐러 페러시우스 센티널 실드",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크로스 엠파이어 실드",
+      "display_name": "축복받은 딱딱한 변화의 크로스 엠파이어 실드",
+      "price": 2000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "냄비 뚜껑",
+      "display_name": "냄비 뚜껑",
+      "price": 370000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "신성한 수호의 단장 아본의 방패",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 50000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "페러시우스 센티널 실드",
+      "price": 33000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 실드",
+      "display_name": "축복받은 특이한 변화의 콤포짓 실드",
+      "price": 7000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "축복받은 폭스헌터 노던 플로리스 실드",
+      "price": 2000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "별난 라운드 실드",
+      "price": 3500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 날선 직감의 나이트브링어 뱅가드",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "신성한 광포한 단장 나이트브링어 뱅가드",
+      "price": 650000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 실드",
+      "display_name": "탄탄한 사령관 콤포짓 실드",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 60000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "매시브 디스페어 실드",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "이웨카 실드",
+      "display_name": "축복받은 이웨카 실드",
+      "price": 250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "드래곤 실드",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "축복받은 수호의 단장 아본의 방패",
+      "price": 48000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "축복받은 단장 데모닉 피어 실드",
+      "price": 8000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "특이한 라운드 실드",
+      "price": 1900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "특이한 라운드 실드",
+      "price": 3000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "축복받은 딱딱한 자이언트 아본의 방패",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "축복받은 디바인 실드",
+      "price": 16000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "마력의 단장 나이트브링어 뱅가드",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 광포한 단장 매시브 디스페어 실드",
+      "price": 43000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 1800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "탄탄한 라운드 실드",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "드래곤 실드",
+      "price": 220000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 페러시우스 센티널 실드",
+      "price": 40000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "드래곤 실드",
+      "price": 224000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 45000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 판타스틱 단장 매시브 디스페어 실드",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "주시자의 방패",
+      "display_name": "축복받은 딱딱한 교수 주시자의 방패",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 마력의 마나 위자드 페러시우스 센티널 실드",
+      "price": 75000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타지 실드",
+      "display_name": "타지 실드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 80000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "축복받은 마력의 단장 디바인 실드",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "축복받은 데모닉 피어 실드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "냄비 뚜껑",
+      "display_name": "축복받은 교수 냄비 뚜껑",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "매시브 디스페어 실드",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "파인 라운드 실드",
+      "price": 2000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "특이한 라운드 실드",
+      "price": 2000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "신성한 수호의 단장 디바인 실드",
+      "price": 32000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "축복받은 신중한 힐러 라운드 실드",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "냄비 뚜껑",
+      "display_name": "냄비 뚜껑",
+      "price": 175000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "마력의 단장 페러시우스 센티널 실드",
+      "price": 72000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 판타스틱 단장 나이트브링어 뱅가드",
+      "price": 410000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "윈터 로열 카이트 실드",
+      "display_name": "축복받은 윈터 로열 카이트 실드",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크로스 엠파이어 실드",
+      "display_name": "축복받은 딱딱한 교수 크로스 엠파이어 실드",
+      "price": 6000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "매시브 디스페어 실드",
+      "price": 2900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "신성한 영감 직감의 나이트브링어 뱅가드",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 광포한 단장 매시브 디스페어 실드",
+      "price": 12000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "드래곤 실드",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타지 실드",
+      "display_name": "타지 실드",
+      "price": 55000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "드래곤 실드",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 광포한 단장 매시브 디스페어 실드",
+      "price": 29999999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 마력의 교수 매시브 디스페어 실드",
+      "price": 12000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 실드",
+      "display_name": "콤포짓 실드",
+      "price": 2650000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "축복받은 수호의 단장 디바인 실드",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "축복받은 드래곤 실드",
+      "price": 225000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "헤테로 카이트 실드",
+      "display_name": "축복받은 메모리 교수 헤테로 카이트 실드",
+      "price": 4300000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "레트로 전설의 방패",
+      "price": 490000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "축복받은 스팀 백작 카이트 실드",
+      "price": 120000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 80000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 60000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 60000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 마력의 교수 나이트브링어 뱅가드",
+      "price": 355000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크로스 엠파이어 실드",
+      "display_name": "축복받은 딱딱한 교수 크로스 엠파이어 실드",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "나이트브링어 뱅가드",
+      "price": 480000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "매시브 디스페어 실드",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "축복받은 특이한 단장 노던 플로리스 실드",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "이웨카 실드",
+      "display_name": "이웨카 실드",
+      "price": 290000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "쿠키 방패",
+      "display_name": "쿠키 방패",
+      "price": 440000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 판타스틱 직감의 매시브 디스페어 실드",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "리버레이터 실드",
+      "display_name": "리버레이터 실드",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "매시브 디스페어 실드",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "특이한 라운드 실드",
+      "price": 2200,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "탄탄한 도둑 드래곤 실드",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 52999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "버클러",
+      "display_name": "축복받은 버클러",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "축복받은 라운드 실드",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 광포한 단장 매시브 디스페어 실드",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "리버레이터 실드",
+      "display_name": "축복받은 리버레이터 실드",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "축복받은 수호의 단장 아본의 방패",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "달맞이 라데카 실드",
+      "display_name": "달맞이 라데카 실드",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 마력의 마나 위치 나이트브링어 뱅가드",
+      "price": 550000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "판타스틱 직감의 나이트브링어 뱅가드",
+      "price": 450000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라데카 실드",
+      "display_name": "축복받은 라데카 실드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 79990,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "거센 라운드 실드",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "윈터 로열 카이트 실드",
+      "display_name": "윈터 로열 카이트 실드",
+      "price": 900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 마력의 교수 나이트브링어 뱅가드",
+      "price": 700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "마력의 디바인 실드",
+      "price": 19000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 52999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "축복받은 마력의 단장 데모닉 피어 실드",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 광포한 멧돼지 매시브 디스페어 실드",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 단장 직감의 나이트브링어 뱅가드",
+      "price": 700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "리지드 알터레이션 발레스 실드",
+      "price": 250000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 광포한 단장 매시브 디스페어 실드",
+      "price": 55000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "드래곤 실드",
+      "price": 340000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 32000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 32000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "매시브 디스페어 실드",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 실드",
+      "display_name": "축복받은 콤포짓 실드",
+      "price": 200000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발키리의 방패",
+      "display_name": "발키리의 방패",
+      "price": 2800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크로스 엠파이어 실드",
+      "display_name": "축복받은 딱딱한 교수 크로스 엠파이어 실드",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "신성한 마력의 단장 나이트브링어 뱅가드",
+      "price": 450000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "축복받은 디바인 실드",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "축복받은 마력의 교수 아본의 방패",
+      "price": 69000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "축복받은 카이트 실드",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "축복받은 마력의 단장 디바인 실드",
+      "price": 26000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라데카 실드",
+      "display_name": "라데카 실드",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "축복받은 딱딱한 교수 아본의 방패",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "별난 라운드 실드",
+      "price": 4398,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "레트로 전설의 방패",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 53000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "축복받은 가드 콜로넬 카이트 실드",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "축복받은 특이한 드래곤 실드",
+      "price": 6000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "노던 플로리스 실드",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "광포한 들끓는 매시브 디스페어 실드",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라데카 실드",
+      "display_name": "축복받은 라데카 실드",
+      "price": 40000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "괴상한 라운드 실드",
+      "price": 2000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 영감 직감의 매시브 디스페어 실드",
+      "price": 99000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "축복받은 리지드 드래곤 실드",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 마력의 교수 나이트브링어 뱅가드",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 마력의 교수 나이트브링어 뱅가드",
+      "price": 550000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "신성한 침잠 직감의 페러시우스 센티널 실드",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "레트로 전설의 방패",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "레트로 전설의 방패",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "레트로 전설의 방패",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "레트로 전설의 방패",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "레트로 전설의 방패",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "달맞이 라데카 실드",
+      "display_name": "축복받은 달맞이 라데카 실드",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "축복받은 마나 스톤 데모닉 피어 실드",
+      "price": 2500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 마력의 교수 페러시우스 센티널 실드",
+      "price": 55000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 판타스틱 직감의 매시브 디스페어 실드",
+      "price": 90000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "레트로 전설의 방패",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트 헤테로 카이트 실드",
+      "display_name": "라이트 헤테로 카이트 실드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "레트로 전설의 방패",
+      "price": 1200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "리버레이터 실드",
+      "display_name": "축복받은 멧돼지 리버레이터 실드",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "별난 라운드 실드",
+      "price": 3999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 60000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "축복받은 리지드 알터레이션 발레스 실드",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 2990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 38500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "주시자의 방패",
+      "display_name": "주시자의 방패",
+      "price": 7000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "마력의 단장 나이트브링어 뱅가드",
+      "price": 360000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "축복받은 노던 플로리스 실드",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "축복받은 마력의 단장 디바인 실드",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 광포한 매시브 디스페어 실드",
+      "price": 24000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "냄비 뚜껑",
+      "display_name": "냄비 뚜껑",
+      "price": 180000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "신성한 마력의 교수 페러시우스 센티널 실드",
+      "price": 130000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "축복받은 티카 실드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "축복받은 아본의 방패",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "아본의 방패",
+      "price": 3500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 35000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 35000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 2500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타지 실드",
+      "display_name": "타지 실드",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "축복받은 날선 단장 디바인 실드",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "축복받은 라운드 실드",
+      "price": 30000000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "신성한 마력의 페러시우스 센티널 실드",
+      "price": 75000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 실드",
+      "display_name": "콤포짓 실드",
+      "price": 60000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "축복받은 리지드 카이트 실드",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "리지드 드래곤 실드",
+      "price": 1100000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 29999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 단장 매시브 디스페어 실드",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "탄탄한 카이트 실드",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 8900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트 헤테로 카이트 실드",
+      "display_name": "라이트 헤테로 카이트 실드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "리버레이터 실드",
+      "display_name": "축복받은 리버레이터 실드",
+      "price": 3500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 60000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "마력의 단장 페러시우스 센티널 실드",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "축복받은 리지드 콜로넬 히터 실드",
+      "price": 4800000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 판타스틱 직감의 매시브 디스페어 실드",
+      "price": 23000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 광포한 단장 매시브 디스페어 실드",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 12000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 13000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "별난 라운드 실드",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "특이한 라운드 실드",
+      "price": 3000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "드래곤 실드",
+      "price": 230000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "신성한 단장 데모닉 피어 실드",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 2700,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "매시브 디스페어 실드",
+      "price": 80000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크로스 엠파이어 실드",
+      "display_name": "딱딱한 단장 크로스 엠파이어 실드",
+      "price": 7700000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 53000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 80000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 80000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "이웨카 실드",
+      "display_name": "축복받은 이웨카 실드",
+      "price": 9000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "아본의 방패",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "축복받은 드래곤 실드",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "달맞이 라데카 실드",
+      "display_name": "축복받은 달맞이 라데카 실드",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 11000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "드래곤 실드",
+      "price": 400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "축복받은 레트로 전설의 방패",
+      "price": 222222,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "축복받은 레트로 전설의 방패",
+      "price": 222222,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "축복받은 가드 알터레이션 라운드 실드",
+      "price": 2960000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "별난 라운드 실드",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "신성한 단장 데모닉 피어 실드",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "주시자의 방패",
+      "display_name": "주시자의 방패",
+      "price": 6449,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "로열 크리스탈 윙 실드",
+      "display_name": "축복받은 로열 크리스탈 윙 실드",
+      "price": 1200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 광포한 단장 매시브 디스페어 실드",
+      "price": 1450000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "신성한 광포한 직감의 나이트브링어 뱅가드",
+      "price": 800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 침잠 들끓는 매시브 디스페어 실드",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트 헤테로 카이트 실드",
+      "display_name": "라이트 헤테로 카이트 실드",
+      "price": 7000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 110000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 110000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "축복받은 망각 멧돼지 노던 플로리스 실드",
+      "price": 5550000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "드래곤 실드",
+      "price": 4190000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 41500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 광포한 단장 매시브 디스페어 실드",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 2800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발키리의 방패",
+      "display_name": "발키리의 방패",
+      "price": 3500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 단장 매시브 디스페어 실드",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "축복받은 교수 데모닉 피어 실드",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "주시자의 방패",
+      "display_name": "주시자의 방패",
+      "price": 6450,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 광포한 직감의 매시브 디스페어 실드",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 11000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라데카 실드",
+      "display_name": "라데카 실드",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 11000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 광포한 단장 매시브 디스페어 실드",
+      "price": 85000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "드래곤 실드",
+      "price": 400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 80000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 54000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 광포한 단장 페러시우스 센티널 실드",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "축복받은 드래곤 실드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "레트로 전설의 방패",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "광포한 단장 나이트브링어 뱅가드",
+      "price": 920000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "신성한 마력의 단장 데모닉 피어 실드",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "축복받은 라운드 실드",
+      "price": 49200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타지 실드",
+      "display_name": "축복받은 타지 실드",
+      "price": 9300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "노던 플로리스 실드",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "축복받은 노던 플로리스 실드",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 마력의 교수 페러시우스 센티널 실드",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "리버레이터 실드",
+      "display_name": "축복받은 칼라 리버레이터 실드",
+      "price": 2000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "주시자의 방패",
+      "display_name": "주시자의 방패",
+      "price": 7000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "달맞이 라데카 실드",
+      "display_name": "축복받은 달맞이 라데카 실드",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "윈터 로열 카이트 실드",
+      "display_name": "윈터 로열 카이트 실드",
+      "price": 999000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "판의 방패",
+      "display_name": "특이한 판의 방패",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "신성한 마력의 단장 디바인 실드",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "축복받은 드래곤 실드",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "신성한 마력의 단장 페러시우스 센티널 실드",
+      "price": 120000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 11000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 마력의 단장 나이트브링어 뱅가드",
+      "price": 409000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트 헤테로 카이트 실드",
+      "display_name": "라이트 헤테로 카이트 실드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "괴상한 라운드 실드",
+      "price": 2000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "신성한 침잠 교수 페러시우스 센티널 실드",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 11000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 2800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 54000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "리지드 알터레이션 발레스 실드",
+      "price": 950000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 11090,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "특이한 라운드 실드",
+      "price": 2000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "축복받은 마력의 단장 디바인 실드",
+      "price": 34000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 마력의 단장 나이트브링어 뱅가드",
+      "price": 620000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "마력의 마나 위치 페러시우스 센티널 실드",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "신성한 단장 데모닉 피어 실드",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "냄비 뚜껑",
+      "display_name": "냄비 뚜껑",
+      "price": 155555,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "주시자의 방패",
+      "display_name": "축복받은 딱딱한 단장 주시자의 방패",
+      "price": 6000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 마력의 단장 나이트브링어 뱅가드",
+      "price": 505000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "드래곤 실드",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "샤프 라운드 실드",
+      "price": 2000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 54000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 2962,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트 헤테로 카이트 실드",
+      "display_name": "축복받은 라이트 헤테로 카이트 실드",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "광포한 마나 위자드 페러시우스 센티널 실드",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 11000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 12000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 광포한 단장 페러시우스 센티널 실드",
+      "price": 130000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 침잠 멧돼지 매시브 디스페어 실드",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발키리의 방패",
+      "display_name": "축복받은 발키리의 방패",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 33000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 4800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 4800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 33000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "축복받은 발레스 실드",
+      "price": 54000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 12000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "신성한 판타스틱 단장 나이트브링어 뱅가드",
+      "price": 4600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트 헤테로 카이트 실드",
+      "display_name": "라이트 헤테로 카이트 실드",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타지 실드",
+      "display_name": "마샬 타지 실드",
+      "price": 18000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 광포한 직감의 매시브 디스페어 실드",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "축복받은 카이트 실드",
+      "price": 12000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 35000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 54000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "축복받은 노던 플로리스 실드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 54000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라데카 실드",
+      "display_name": "축복받은 라데카 실드",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 34000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 판타스틱 들끓는 매시브 디스페어 실드",
+      "price": 23000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "마나 스톤 데모닉 피어 실드",
+      "price": 4500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 광포한 단장 나이트브링어 뱅가드",
+      "price": 650000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "축복받은 마력의 단장 디바인 실드",
+      "price": 23000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "신중한 드래곤 실드",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 15000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "축복받은 데모닉 피어 실드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "축복받은 노던 플로리스 실드",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "매시브 디스페어 실드",
+      "price": 18000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "축복받은 탄탄한 카이트 실드",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "축복받은 드래곤 실드",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 영감 단장 매시브 디스페어 실드",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 마력의 새싹 매시브 디스페어 실드",
+      "price": 13000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "이웨카 실드",
+      "display_name": "이웨카 실드",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "냄비 뚜껑",
+      "display_name": "냄비 뚜껑",
+      "price": 1900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 4800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트 헤테로 카이트 실드",
+      "display_name": "축복받은 특이한 라이트 헤테로 카이트 실드",
+      "price": 150000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 실드",
+      "display_name": "축복받은 단장 단장 콤포짓 실드",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트 헤테로 카이트 실드",
+      "display_name": "라이트 헤테로 카이트 실드",
+      "price": 8800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 기억 멧돼지 매시브 디스페어 실드",
+      "price": 27000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "신성한 단장 단장 나이트브링어 뱅가드",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타지 실드",
+      "display_name": "축복받은 타지 실드",
+      "price": 49000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "축복받은 특이한 교수 노던 플로리스 실드",
+      "price": 659999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "축복받은 라운드 실드",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "드래곤 실드",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라데카 실드",
+      "display_name": "라데카 실드",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 350000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 마력의 단장 페러시우스 센티널 실드",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 판타스틱 들끓는 매시브 디스페어 실드",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 방패",
+      "display_name": "레트로 전설의 방패",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "노던 플로리스 실드",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 90000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 490000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "축복받은 드래곤 실드",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "발레스 실드",
+      "price": 54000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 마력의 페러시우스 센티널 실드",
+      "price": 48000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "축복받은 광포한 단장 디바인 실드",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "축복받은 드래곤 실드",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "아본의 방패",
+      "price": 100000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "신성한 딱딱한 단장 데모닉 피어 실드",
+      "price": 9000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "매시브 디스페어 실드",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "티카 실드",
+      "display_name": "티카 실드",
+      "price": 120000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크로스 엠파이어 실드",
+      "display_name": "축복받은 딱딱한 교수 크로스 엠파이어 실드",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "별난 라운드 실드",
+      "price": 4200,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "축복받은 라운드 실드",
+      "price": 4000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 판타스틱 교수 매시브 디스페어 실드",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "마력의 단장 나이트브링어 뱅가드",
+      "price": 510000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 판타스틱 직감의 나이트브링어 뱅가드",
+      "price": 540000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 광포한 들끓는 매시브 디스페어 실드",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 페러시우스 센티널 실드",
+      "price": 42000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "펑크 아웃 부서진 전자 기타",
+      "display_name": "펑크 아웃 부서진 전자 기타",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "신성한 판타스틱 단장 나이트브링어 뱅가드",
+      "price": 510000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 날선 들끓는 나이트브링어 뱅가드",
+      "price": 499000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "버클러",
+      "display_name": "버클러",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "신성한 광포한 단장 나이트브링어 뱅가드",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "판타스틱 직감의 나이트브링어 뱅가드",
+      "price": 540000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 490000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "드래곤 실드",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 페러시우스 센티널 실드",
+      "price": 40000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "별난 라운드 실드",
+      "price": 4200,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "축복받은 데모닉 피어 실드",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "리버레이터 실드",
+      "display_name": "축복받은 리버레이터 실드",
+      "price": 4988000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "탄탄한 라운드 실드",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 판타스틱 직감의 매시브 디스페어 실드",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 광포한 직감의 매시브 디스페어 실드",
+      "price": 73000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "노던 플로리스 실드",
+      "display_name": "축복받은 강옥 교수 노던 플로리스 실드",
+      "price": 9000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "냄비 뚜껑",
+      "display_name": "냄비 뚜껑",
+      "price": 400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "펑크 아웃 부서진 전자 기타",
+      "display_name": "펑크 아웃 부서진 전자 기타",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 페러시우스 센티널 실드",
+      "price": 50000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트 헤테로 카이트 실드",
+      "display_name": "라이트 헤테로 카이트 실드",
+      "price": 4444444,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "축복받은 드래곤 실드",
+      "price": 3333333,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 마력의 단장 페러시우스 센티널 실드",
+      "price": 53000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 39000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "축복받은 드래곤 실드",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "축복받은 괴상한 드래곤 실드",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "드래곤 실드",
+      "price": 1955555,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "축복받은 광포한 단장 디바인 실드",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크로스 엠파이어 실드",
+      "display_name": "딱딱한 단장 크로스 엠파이어 실드",
+      "price": 7800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "신성한 수호의 단장 아본의 방패",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "파인 라운드 실드",
+      "price": 100000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "아본의 방패(미완성)",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 광포한 단장 매시브 디스페어 실드",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "냄비 뚜껑",
+      "display_name": "냄비 뚜껑",
+      "price": 180000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드(미완성)",
+      "price": 1999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "축복받은 마나 스톤 데모닉 피어 실드",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "발레스 실드",
+      "display_name": "리지드 알터레이션 발레스 실드",
+      "price": 950000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "신성한 판타스틱 단장 나이트브링어 뱅가드",
+      "price": 666666666,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 120000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아본의 방패",
+      "display_name": "축복받은 신중한 아본의 방패",
+      "price": 2800000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 90000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 판타스틱 직감의 매시브 디스페어 실드",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "페러시우스 센티널 실드",
+      "price": 40000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "굿 페이션스 카이트 실드",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "축복받은 마력의 단장 데모닉 피어 실드",
+      "price": 12000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "카이트 실드",
+      "display_name": "카이트 실드",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "히터 실드",
+      "display_name": "히터 실드",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "축복받은 마력의 단장 데모닉 피어 실드",
+      "price": 6000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "라운드 실드",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "디바인 실드",
+      "display_name": "축복받은 마력의 디바인 실드",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "드래곤 실드",
+      "display_name": "드래곤 실드",
+      "price": 280000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트 헤테로 카이트 실드",
+      "display_name": "라이트 헤테로 카이트 실드",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "데모닉 피어 실드",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "축복받은 광포한 단장 매시브 디스페어 실드",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 페러시우스 센티널 실드",
+      "price": 40000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 광포한 직감의 매시브 디스페어 실드",
+      "price": 85000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "신성한 광포한 단장 나이트브링어 뱅가드",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라이트 헤테로 카이트 실드",
+      "display_name": "라이트 헤테로 카이트 실드",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타지 실드",
+      "display_name": "타지 실드",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 센티널 실드",
+      "display_name": "축복받은 마력의 단장 페러시우스 센티널 실드",
+      "price": 130000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "냄비 뚜껑",
+      "display_name": "축복받은 교수 냄비 뚜껑",
+      "price": 150000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "축복받은 나이트브링어 뱅가드",
+      "price": 600000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 뱅가드",
+      "display_name": "판타스틱 직감의 나이트브링어 뱅가드",
+      "price": 580000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "매시브 디스페어 실드",
+      "display_name": "신성한 광포한 들끓는 매시브 디스페어 실드",
+      "price": 21000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "라운드 실드",
+      "display_name": "별난 라운드 실드",
+      "price": 4248,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 피어 실드",
+      "display_name": "신성한 마력의 단장 데모닉 피어 실드",
+      "price": 9000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    }
+  ]
+}

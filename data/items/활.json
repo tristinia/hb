@@ -1,0 +1,6790 @@
+{
+  "updated": "2025-03-08T17:03:05.732Z",
+  "count": 848,
+  "items": [
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 4500,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 7000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 163000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 1000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 1000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 680000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 1233,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 1395,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "나이트브링어 프레데터",
+      "price": 260000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 160000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 1000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 97000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 4900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "노빌러티 종려나무 하이랜더 롱 보우",
+      "price": 63000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "폭스테이머 콤포짓 보우",
+      "price": 2500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 4500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바나나 기본형",
+      "display_name": "축복받은 바나나 기본형",
+      "price": 197900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 4500,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 4500,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "명중 롱 보우",
+      "price": 2000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 8900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 163000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "로열 크리스탈 윙 보우",
+      "display_name": "로열 크리스탈 윙 보우",
+      "price": 98500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 164500,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "파이어 숏 보우",
+      "price": 150000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 161000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 845000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 845000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 패러독시컬 바펠세파르 헌터",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 4500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 1400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 4900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 2800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 4900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 4900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "창백한 명사수 나이트브링어 프레데터",
+      "price": 620000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "폭죽형 활",
+      "display_name": "축복받은 폭죽형 활",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 2990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 마크스맨 바펠세파르 헌터",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 162000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 163000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 161000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 162000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 162000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 162000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 162000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 163000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 162000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 162000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 162000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 162000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 162000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 162000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 162000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 162000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 175000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "올드 숏 보우",
+      "price": 4900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "구원의 활 R",
+      "display_name": "축복받은 별빛 망상의 구원의 활 R",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "구원의 활",
+      "display_name": "축복받은 별빛 구원의 활",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 스나이핑 바펠세파르 헌터",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "스네이크테이머 콤포짓 보우",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "하이랜더 롱 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 177000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "스네이크테이머 콤포짓 보우",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 177000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 마크스맨 바펠세파르 헌터",
+      "price": 58000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 14000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 179998,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 8000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 8000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "글로리어스 콤포짓 보우",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우 R",
+      "display_name": "축복받은 노빌러티 팬시 하이랜더 롱 보우 R",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 스나이핑 바펠세파르 헌터",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 320000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 180000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9700,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9700,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9700,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9700,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 410000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "창백한 명사수 나이트브링어 프레데터",
+      "price": 1500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 패러독시컬 바펠세파르 헌터",
+      "price": 120000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 3300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "장난감 활",
+      "display_name": "장난감 활",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "축복받은 레더 롱 보우",
+      "price": 9950000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바나나 기본형",
+      "display_name": "축복받은 바나나 기본형",
+      "price": 250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "노스리의 활",
+      "display_name": "노스리의 활",
+      "price": 400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 190000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 190000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 190000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 190000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 190000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1900000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 3333333,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 179998,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "윙 보우",
+      "display_name": "축복받은 윙 보우",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 690000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 810000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 1400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 1400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 3600,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 720000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "글로리어스 콤포짓 보우",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 3800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 8999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "축복받은 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 450000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1050000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "링 보우",
+      "display_name": "링 보우",
+      "price": 100000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 620000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 619000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "스네이크테이머 롱 보우",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "폭죽형 활",
+      "display_name": "축복받은 폭죽형 활",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "글로리어스 콤포짓 보우",
+      "price": 6990,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 720000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스터디 숏 보우",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "올드 숏 보우",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "장난감 활",
+      "display_name": "장난감 활",
+      "price": 50000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 5500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 1550000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 540000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 650000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "이미테이션 숏 보우",
+      "price": 4999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "폭스테이머 롱 보우",
+      "price": 9000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 169000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 마크스맨 바펠세파르 헌터",
+      "price": 450000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 550000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 3400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 3790,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 3790,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "하이랜더 롱 보우",
+      "price": 7000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 방랑자 바펠세파르 헌터",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1899950000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 6000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 4500,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3300,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "크리스탈 숏 보우",
+      "display_name": "축복받은 글로리어스 팬시 크리스탈 숏 보우",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 475000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 4890,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1000000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "안드라스의 활",
+      "display_name": "축복받은 안드라스의 활",
+      "price": 290000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 900000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 패스트 보우",
+      "display_name": "축복받은 깍지 방랑자 켈틱 패스트 보우",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 169000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 노빌러티 패러독시컬 바펠세파르 헌터",
+      "price": 90000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 바펠세파르 헌터",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 3790,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 3400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 169000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 530000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 방랑자 바펠세파르 헌터",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "축복받은 페러시우스 위스퍼링 보우",
+      "price": 85000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 1200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "라이온헌터 바펠세파르 헌터",
+      "price": 42000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "폭죽형 활",
+      "display_name": "폭죽형 활",
+      "price": 50000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "나이트브링어 프레데터",
+      "price": 200000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 1500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "하이랜더 롱 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1550000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 1520,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "올드 숏 보우",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 820000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 1500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 마크스맨 바펠세파르 헌터",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 패스트 보우",
+      "display_name": "축복받은 켈틱 패스트 보우",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 바펠세파르 헌터",
+      "price": 4000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 2200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 7777777,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "창백한 명사수 나이트브링어 프레데터",
+      "price": 750000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "스탬프 콤포짓 보우",
+      "price": 150000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 마크스맨 바펠세파르 헌터",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 3400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 370000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 마크스맨 바펠세파르 헌터",
+      "price": 75000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 610900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "축복받은 엘븐 숏 보우",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 22999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "구원의 활 R",
+      "display_name": "축복받은 별빛 망상의 구원의 활 R",
+      "price": 4800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "장난감 활",
+      "display_name": "장난감 활",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3100,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3100,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 16000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 630000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "폭스헌터 콤포짓 보우",
+      "price": 6500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 3790,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 2000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 3790,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 650000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "축복받은 노빌러티 콤포짓 보우",
+      "price": 900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 2200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 마크스맨 바펠세파르 헌터",
+      "price": 90000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "열정의 숏 보우",
+      "price": 980000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "요정의 숏 보우",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 라이온헌터 방랑자 바펠세파르 헌터",
+      "price": 45000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 4000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 3790,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3100,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3100,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 169999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "폭죽형 활",
+      "display_name": "축복받은 폭죽형 활",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9775,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9775,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9775,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9775,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9775,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9775,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9775,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1000000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 3400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9500,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바나나 업그레이드형",
+      "display_name": "바나나 업그레이드형",
+      "price": 6500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 6800000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 850000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "마스터피스 보우",
+      "display_name": "마스터피스 보우",
+      "price": 4500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "구원의 활",
+      "display_name": "축복받은 구원의 활",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 활",
+      "display_name": "레트로 전설의 활",
+      "price": 190000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 475000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 11111,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1678000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 610000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "축복받은 레더 롱 보우",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "엘븐 숏 보우",
+      "price": 4500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "축복받은 폭스 레이븐 레더 롱 보우",
+      "price": 94000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 177777,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 177777,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "열정의 숏 보우",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 라이온헌터 스나이핑 바펠세파르 헌터",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3100,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 마크스맨 바펠세파르 헌터",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "폭스헌터 콤포짓 보우",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 방랑자 바펠세파르 헌터",
+      "price": 144444444,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 활",
+      "display_name": "레트로 전설의 활",
+      "price": 440000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3100,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3100,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "축복받은 리자드 스파이크 콤포짓 보우",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "안드라스의 활",
+      "display_name": "안드라스의 활",
+      "price": 9999999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "로열 크리스탈 윙 보우",
+      "display_name": "로열 크리스탈 윙 보우",
+      "price": 98500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "축복받은 페러시우스 위스퍼링 보우",
+      "price": 110000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "로열 크리스탈 윙 보우",
+      "display_name": "로열 크리스탈 윙 보우",
+      "price": 99000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 180000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "마스터피스 보우",
+      "display_name": "축복받은 마스터피스 보우",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 3899999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 4500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 4500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 4500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "스네이크테이머 콤포짓 보우",
+      "price": 9998,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "노스리의 활",
+      "display_name": "노스리의 활",
+      "price": 400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 930000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 200000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "축복받은 노빌러티 종려나무 하이랜더 롱 보우",
+      "price": 2000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 220000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 220000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 220000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 220000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 마크스맨 바펠세파르 헌터",
+      "price": 42000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "창백한 명사수 나이트브링어 프레데터",
+      "price": 1500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "열정의 숏 보우",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 마크스맨 바펠세파르 헌터",
+      "price": 298500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 60000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우 R",
+      "display_name": "축복받은 라이온헌터 방랑자 하이랜더 롱 보우 R",
+      "price": 12500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "창백한 명사수 나이트브링어 프레데터",
+      "price": 1150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 3400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "창백한 마크스맨 바펠세파르 헌터",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 4998,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 4998,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 4998,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 20000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "축복받은 스노드롭 솜씨좋은 하이랜더 롱 보우",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 324900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 900000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아처의 활",
+      "display_name": "아처의 활",
+      "price": 100000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 650000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 마크스맨 바펠세파르 헌터",
+      "price": 300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "폭스헌터 콤포짓 보우",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "이미테이션 숏 보우",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 마크스맨 바펠세파르 헌터",
+      "price": 690000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "폭죽형 활",
+      "display_name": "폭죽형 활",
+      "price": 3500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "용섬제십궁",
+      "display_name": "용섬제십궁",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "글로리어스 콤포짓 보우",
+      "price": 50000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 12000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 12000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 12000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 12000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 패러독시컬 바펠세파르 헌터",
+      "price": 90000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 3400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "명중 롱 보우",
+      "price": 4500,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 로켓 방랑자 바펠세파르 헌터",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 65000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 480000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "풍선 숏 보우",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 스나이핑 바펠세파르 헌터",
+      "price": 160000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "풍선 숏 보우",
+      "price": 1990000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "구원의 활",
+      "display_name": "축복받은 구원의 활",
+      "price": 230000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 50000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "축복받은 글로리어스 팬시 하이랜더 롱 보우",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "링 보우",
+      "display_name": "축복받은 링 보우",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 190000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 950000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "열정의 숏 보우",
+      "price": 2300000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 활",
+      "display_name": "레트로 전설의 활",
+      "price": 199750,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 마크스맨 바펠세파르 헌터",
+      "price": 395000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "하이랜더 롱 보우",
+      "price": 6299,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 305000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "링 보우",
+      "display_name": "링 보우",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 220000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 마크스맨 바펠세파르 헌터",
+      "price": 120000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "폭스테이머 롱 보우",
+      "price": 9000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 720000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 179998,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 179998,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 3800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 825000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스터디 숏 보우",
+      "price": 4999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 모순적인 페러시우스 위스퍼링 보우",
+      "price": 490000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 2500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "엘븐 숏 보우",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 2100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "축복받은 창백한 모순적인 페러시우스 위스퍼링 보우",
+      "price": 170000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 3777,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 3800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "요정의 숏 보우",
+      "price": 900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "글로리어스 콤포짓 보우",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "구원의 활",
+      "display_name": "축복받은 별빛 망상의 구원의 활",
+      "price": 3999999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "나이트브링어 프레데터",
+      "price": 700000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 마크스맨 바펠세파르 헌터",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 16000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 900000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 480000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "요정의 숏 보우",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 135000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바나나 업그레이드형",
+      "display_name": "축복받은 바나나 업그레이드형",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "축복받은 롱 보우",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "축복받은 리자드 칼리번 하이랜더 롱 보우",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "축복받은 페러시우스 위스퍼링 보우",
+      "price": 95000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "창백한 명사수 나이트브링어 프레데터",
+      "price": 670000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "엘븐 숏 보우",
+      "price": 169900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "로빈훗 패러독시컬 바펠세파르 헌터",
+      "price": 180000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 399000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 399000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 399000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 399000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 399000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 399000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바나나 기본형",
+      "display_name": "바나나 기본형",
+      "price": 198900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 라이온헌터 방랑자 바펠세파르 헌터",
+      "price": 140000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "구원의 활",
+      "display_name": "축복받은 라이온헌터 구원의 활",
+      "price": 900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "가시연꽃 숏 보우",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "등껍질 숏 보우",
+      "price": 1650000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 177777,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 4999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3300,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 480000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 620000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 2100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "폭죽형 활",
+      "display_name": "폭죽형 활",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "폭죽형 활",
+      "display_name": "폭죽형 활",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 바펠세파르 헌터",
+      "price": 99999999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "안드라스의 활",
+      "display_name": "안드라스의 활",
+      "price": 290000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3100,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "글로리어스 콤포짓 보우",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 900000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 마크스맨 바펠세파르 헌터",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 485000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 670000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 430000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 710000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "등껍질 숏 보우",
+      "price": 780000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 마크스맨 바펠세파르 헌터",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 패러독시컬 바펠세파르 헌터",
+      "price": 89000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 6200,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "폭죽형 활",
+      "display_name": "축복받은 종려나무 폭죽형 활",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1299000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 2500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "러스티 숏 보우",
+      "price": 4990,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 6300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 노빌러티 패러독시컬 바펠세파르 헌터",
+      "price": 56000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 노빌러티 패러독시컬 바펠세파르 헌터",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "나이트브링어 프레데터",
+      "price": 430000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 마크스맨 바펠세파르 헌터",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 220000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 글로리어스 칼리번 바펠세파르 헌터",
+      "price": 22000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "하이랜더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "장난감 활",
+      "display_name": "축복받은 장난감 활",
+      "price": 4000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3100,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "요정의 숏 보우",
+      "price": 900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 2000000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "구원의 활",
+      "display_name": "축복받은 구원의 활",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 390000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3150,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 패러독시컬 바펠세파르 헌터",
+      "price": 320000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 6400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 노빌러티 종려나무 바펠세파르 헌터",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1599000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 169990,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 모순적인 페러시우스 위스퍼링 보우",
+      "price": 379990000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "명중 롱 보우",
+      "price": 4900,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "구원의 활",
+      "display_name": "축복받은 구원의 활",
+      "price": 230000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "요정의 레더 롱 보우",
+      "price": 2000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "하이랜더 롱 보우",
+      "price": 6300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 20000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 5555,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 마크스맨 바펠세파르 헌터",
+      "price": 90000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 5990,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "명중 롱 보우",
+      "price": 170000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 999999999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3150,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1350000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3150,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 나이트브링어 프레데터",
+      "price": 400000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 라이온헌터 팬시 바펠세파르 헌터",
+      "price": 6500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 라이온헌터 팬시 바펠세파르 헌터",
+      "price": 9000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 290000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3150,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "글로리어스 종려나무 바펠세파르 헌터",
+      "price": 8500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 노빌러티 패러독시컬 바펠세파르 헌터",
+      "price": 85000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 방랑자 바펠세파르 헌터",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 활",
+      "display_name": "레트로 전설의 활",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 190000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 28000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 6500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "열정의 숏 보우",
+      "price": 6000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "가시연꽃 숏 보우",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "하이랜더 롱 보우",
+      "price": 6300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "구원의 활",
+      "display_name": "구원의 활",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 6900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "바펠세파르 헌터",
+      "price": 40000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "엘븐 숏 보우",
+      "price": 19000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 4999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 4999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 4999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 깍지 스나이핑 바펠세파르 헌터",
+      "price": 65000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3300,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1050000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 스나이핑 바펠세파르 헌터",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "하이랜더 롱 보우",
+      "price": 6300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 패러독시컬 바펠세파르 헌터",
+      "price": 385000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 방랑자 바펠세파르 헌터",
+      "price": 250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 1050000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "구원의 활 R",
+      "display_name": "축복받은 별빛 구원의 활 R",
+      "price": 9670000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 마크스맨 바펠세파르 헌터",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 169999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스터디 숏 보우",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "윙 보우",
+      "display_name": "축복받은 리자드 윙 보우",
+      "price": 2500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "이미테이션 숏 보우",
+      "price": 5898,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "러스티 숏 보우",
+      "price": 4990,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "열정의 숏 보우",
+      "price": 780000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "등껍질 레더 롱 보우",
+      "price": 2220000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 40000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 노빌러티 팬시 바펠세파르 헌터",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 850000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 노빌러티 패러독시컬 바펠세파르 헌터",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 850000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "폭스 레이븐 레더 롱 보우",
+      "price": 95000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "라이온헌터 레이븐 하이랜더 롱 보우",
+      "price": 24000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 4900000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 490000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 490000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "등껍질 콤포짓 보우",
+      "price": 790000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "용섬제십궁",
+      "display_name": "용섬제십궁",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "러스티 숏 보우",
+      "price": 170000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 18000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스터디 숏 보우",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 마크스맨 바펠세파르 헌터",
+      "price": 78000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 노빌러티 패러독시컬 바펠세파르 헌터",
+      "price": 90000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 810000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "구원의 활",
+      "display_name": "구원의 활",
+      "price": 240000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 6400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 29000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 210000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "창백한 명사수 나이트브링어 프레데터",
+      "price": 650000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "축복받은 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 240000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "윙 보우 R",
+      "display_name": "축복받은 노빌러티 스나이핑 윙 보우 R",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "하이랜더 롱 보우",
+      "price": 6300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "풍선 콤포짓 보우",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "열정의 숏 보우",
+      "price": 900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1099000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "축복받은 엘븐 숏 보우",
+      "price": 11000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 9500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 19000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 160000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "폭스헌터 콤포짓 보우",
+      "price": 7420,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 590000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 바펠세파르 헌터",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 240000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 마크스맨 바펠세파르 헌터",
+      "price": 395000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "축복받은 글로리어스 하이랜더 롱 보우",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "하이에나헌터 콤포짓 보우",
+      "price": 4800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "축복받은 칼라 솜씨좋은 하이랜더 롱 보우",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 노빌러티 스나이핑 바펠세파르 헌터",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 530000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 패러독시컬 바펠세파르 헌터",
+      "price": 140000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "명중 롱 보우",
+      "price": 170000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 319000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 패러독시컬 바펠세파르 헌터",
+      "price": 450000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 방랑자 나이트브링어 프레데터",
+      "price": 1222222222,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "윈터 로열 배틀 보우",
+      "display_name": "축복받은 영광스러운 저격의 윈터 로열 배틀 보우",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "윈터 로열 배틀 보우",
+      "display_name": "축복받은 윈터 로열 배틀 보우",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 3900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우 R",
+      "display_name": "축복받은 팬시 레더 롱 보우 R",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "명중 롱 보우",
+      "price": 170000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 바펠세파르 헌터",
+      "price": 42000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "링 보우",
+      "display_name": "링 보우",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우 R",
+      "display_name": "축복받은 하이랜더 롱 보우 R",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 49000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "롱 보우",
+      "price": 49000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "폭죽형 활",
+      "display_name": "축복받은 폭죽형 활",
+      "price": 68000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 글로리어스 가시연꽃 바펠세파르 헌터",
+      "price": 110000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 2200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 900000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "라이온헌터 스나이핑 바펠세파르 헌터",
+      "price": 23000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "칩 숏 보우",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 스나이핑 바펠세파르 헌터",
+      "price": 65000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 680000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "등껍질 숏 보우",
+      "price": 780000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 활",
+      "display_name": "레트로 전설의 활",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "축복받은 글로리어스 종려나무 엘븐 롱 보우",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "창백한 명사수 나이트브링어 프레데터",
+      "price": 1200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 11111,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 마크스맨 바펠세파르 헌터",
+      "price": 1200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 645000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "이미테이션 숏 보우",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "하이랜더 롱 보우",
+      "price": 6300,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 1400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 패스트 보우",
+      "display_name": "켈틱 패스트 보우",
+      "price": 2200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 바펠세파르 헌터",
+      "price": 19000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 590000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "축복받은 레더 롱 보우",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "폭스헌터 레더 롱 보우",
+      "price": 30000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "스네이크테이머 롱 보우",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 로켓 스나이핑 바펠세파르 헌터",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 20000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 노빌러티 스나이핑 바펠세파르 헌터",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 21000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 774499,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 3333333,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 175000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바나나 기본형",
+      "display_name": "축복받은 바나나 기본형",
+      "price": 340000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "장난감 활",
+      "display_name": "장난감 활",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "엘븐 숏 보우",
+      "price": 9999999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 180000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "라이온헌터 팬시 바펠세파르 헌터",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 마크스맨 바펠세파르 헌터",
+      "price": 430000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 바펠세파르 헌터",
+      "price": 85000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 패러독시컬 바펠세파르 헌터",
+      "price": 640000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "축복받은 창백한 모순적인 페러시우스 위스퍼링 보우",
+      "price": 155000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우 R",
+      "display_name": "축복받은 글로리어스 팬시 하이랜더 롱 보우 R",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "안드라스의 활",
+      "display_name": "안드라스의 활",
+      "price": 290000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 210000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "창백한 모순적인 페러시우스 위스퍼링 보우",
+      "price": 300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 패러독시컬 바펠세파르 헌터",
+      "price": 1300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 1111111111,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 590000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1699000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 방랑자 바펠세파르 헌터",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 950000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 900000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "러스티 숏 보우",
+      "price": 4998,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 4890000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 530000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 530000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 550000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "명중 롱 보우",
+      "price": 4900,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 5999999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "페러시우스 위스퍼링 보우",
+      "price": 95000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1099000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 패러독시컬 바펠세파르 헌터",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 770000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 625000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 210000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 활",
+      "display_name": "레트로 전설의 활",
+      "price": 219000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레트로 전설의 활",
+      "display_name": "레트로 전설의 활",
+      "price": 219000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 2990000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1950000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 640000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 530000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 730000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 630000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 930000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 750000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 3700,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 3700,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 3700,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "풍선 숏 보우",
+      "price": 1333333,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "풍선 숏 보우",
+      "price": 1333333,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바나나 활",
+      "display_name": "축복받은 바나나 활",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 2500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "링 보우",
+      "display_name": "축복받은 링 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "윙 보우",
+      "display_name": "축복받은 윙 보우",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "명중 롱 보우",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "로열 크리스탈 윙 보우",
+      "display_name": "로열 크리스탈 윙 보우",
+      "price": 100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1650000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 1650000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 노빌러티 패러독시컬 바펠세파르 헌터",
+      "price": 90000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "나이트브링어 프레데터",
+      "price": 300000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 30000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 스나이핑 바펠세파르 헌터",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "풍선 숏 보우",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 깍지 종려나무 바펠세파르 헌터",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 28000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롱 보우",
+      "display_name": "명중 롱 보우",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 1900000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "축복받은 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 540000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "윙 보우 R",
+      "display_name": "축복받은 새도우 헌터 스파이크 윙 보우 R",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "축복받은 창백한 명사수 나이트브링어 프레데터",
+      "price": 1050000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "등껍질 숏 보우",
+      "price": 780000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 950000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 970000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 840000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 4900,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "엘븐 숏 보우",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "링 보우",
+      "display_name": "축복받은 링 보우",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "스노드롭 망상의 가디언 보우",
+      "price": 20000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 마크스맨 바펠세파르 헌터",
+      "price": 160000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 숏 보우",
+      "display_name": "멜로디 엘븐 숏 보우",
+      "price": 39995,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 카운트리스 보우",
+      "display_name": "축복받은 라이온헌터 레이븐 데모닉 카운트리스 보우",
+      "price": 1400000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "폭스 레이븐 레더 롱 보우",
+      "price": 900000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 패스트 보우",
+      "display_name": "축복받은 존귀한 가시연꽃 켈틱 패스트 보우",
+      "price": 34000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 라이온헌터 바펠세파르 헌터",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 패러독시컬 바펠세파르 헌터",
+      "price": 90000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 방랑자 바펠세파르 헌터",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 방랑자 바펠세파르 헌터",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "윙 보우",
+      "display_name": "윙 보우",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "하이랜더 롱 보우",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "폭죽형 활",
+      "display_name": "축복받은 폭죽형 활",
+      "price": 4000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 850000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "하이랜더 롱 보우",
+      "price": 7000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 방랑자 바펠세파르 헌터",
+      "price": 470000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 50000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "아처의 활",
+      "display_name": "축복받은 연사 아처의 활",
+      "price": 15000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "축복받은 페러시우스 위스퍼링 보우",
+      "price": 98500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "요정의 숏 보우",
+      "price": 800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "구원의 활",
+      "display_name": "구원의 활",
+      "price": 250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "안드라스의 활",
+      "display_name": "안드라스의 활",
+      "price": 300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "장난감 활",
+      "display_name": "축복받은 장난감 활",
+      "price": 50000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 3800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 550000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "축복받은 검은 용기사의 활",
+      "price": 774500,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "폭죽형 활",
+      "display_name": "축복받은 엔지니어의 동백나무 폭죽형 활",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "엘븐 롱 보우",
+      "display_name": "엘븐 롱 보우",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 방랑자 바펠세파르 헌터",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 590000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 590000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 패스트 보우",
+      "display_name": "축복받은 라이온헌터 칼리번 켈틱 패스트 보우",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "글로리어스 콤포짓 보우",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "구원의 활 R",
+      "display_name": "축복받은 별빛 망상의 구원의 활 R",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "신성한 창백한 패러독시컬 바펠세파르 헌터",
+      "price": 102000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "하이랜더 롱 보우",
+      "display_name": "노빌러티 종려나무 하이랜더 롱 보우",
+      "price": 2000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "콤포짓 보우",
+      "display_name": "콤포짓 보우",
+      "price": 80000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "폭죽형 활",
+      "display_name": "축복받은 폭죽형 활",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "창백한 명사수 나이트브링어 프레데터",
+      "price": 970000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바나나 기본형",
+      "display_name": "축복받은 바나나 기본형",
+      "price": 400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 260000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 스나이핑 바펠세파르 헌터",
+      "price": 440000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "검은 용기사의 활",
+      "display_name": "검은 용기사의 활",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "바펠세파르 헌터",
+      "display_name": "축복받은 창백한 마크스맨 바펠세파르 헌터",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 패스트 보우",
+      "display_name": "축복받은 켈틱 패스트 보우",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 프레데터",
+      "display_name": "신성한 창백한 명사수 나이트브링어 프레데터",
+      "price": 710000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 위스퍼링 보우",
+      "display_name": "신성한 창백한 명사수 페러시우스 위스퍼링 보우",
+      "price": 420000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 219000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "스켈레톤 숏 보우",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레더 롱 보우",
+      "display_name": "레더 롱 보우",
+      "price": 50000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "숏 보우",
+      "display_name": "숏 보우",
+      "price": 180000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "가디언 보우",
+      "display_name": "가디언 보우",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    }
+  ]
+}

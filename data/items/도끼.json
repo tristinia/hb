@@ -1,0 +1,3726 @@
+{
+  "updated": "2025-03-08T17:02:55.875Z",
+  "count": 465,
+  "items": [
+    {
+      "name": "프랑키스카",
+      "display_name": "프랑키스카",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "자연 한손도끼",
+      "price": 4499,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 180000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 180000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 160000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "프랑키스카",
+      "display_name": "축복받은 울프헌터 레이븐 프랑키스카",
+      "price": 30000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "프랑키스카",
+      "display_name": "축복받은 프랑키스카",
+      "price": 290000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 5999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "녹색 흉터 한손도끼",
+      "price": 3799,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "요정의 스매시 한손도끼",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 블러드 한손도끼",
+      "price": 6500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "윈드밀 한손도끼",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "축복받은 악몽의 헤비레인 켈틱 로열 배틀 액스",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 위크니스 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "녹색 흉터 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "녹색 흉터 한손도끼",
+      "price": 12000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 169999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 데미 리치 기르가쉬 켈틱 로열 워리어 액스",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막여우 근육의 한손도끼",
+      "price": 9000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 4000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막여우 헬스 한손도끼",
+      "price": 9000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 650000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "기운찬 비펜니스",
+      "price": 4500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "요정의 한손도끼",
+      "price": 990000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "방어의 한손도끼",
+      "price": 11000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "악몽의 검은안개 켈틱 로열 배틀 액스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "자연 한손도끼",
+      "price": 4800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 위크니스 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 근육의 한손도끼",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 90000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "자연 한손도끼",
+      "price": 4500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "기운찬 비펜니스",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 180000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈타르크의 도끼 레플리카",
+      "display_name": "슈타르크의 도끼 레플리카",
+      "price": 24000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "자연 한손도끼",
+      "price": 4700,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 980000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "황옥 한손도끼",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막거미 근육의 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "기운찬 비펜니스",
+      "price": 8000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막거미 헬스 한손도끼",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "기운찬 비펜니스",
+      "price": 4800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 174000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 174000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "기운찬 비펜니스",
+      "price": 4800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 410000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 250000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 250000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "자연 한손도끼",
+      "price": 4700,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브로드 액스",
+      "display_name": "브로드 액스",
+      "price": 19400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 워리어 액스",
+      "price": 640000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막거미 헬스 한손도끼",
+      "price": 4444,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "나이트 비펜니스",
+      "price": 12000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "녹색 흉터 한손도끼",
+      "price": 3800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "낭만 해적단 해적선의 무거운 닻",
+      "display_name": "축복받은 낭만 해적단 해적선의 무거운 닻",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "스파이크 비펜니스",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "지배자 한손도끼",
+      "price": 4000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "형석 한손도끼",
+      "price": 6887,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "방어의 한손도끼",
+      "price": 4200,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "자연 한손도끼",
+      "price": 4700,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "자연 한손도끼",
+      "price": 4700,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "거대 한손도끼",
+      "price": 6700,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 180000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "방어의 한손도끼",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "석고 한손도끼",
+      "price": 16000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "기운찬 비펜니스",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막여우 근육의 한손도끼",
+      "price": 8700,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 클리브 워리어 액스",
+      "display_name": "신성한 정복자 다운버스트 페러시우스 클리브 워리어 액스",
+      "price": 66666666,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "프랑키스카",
+      "display_name": "라이온헌터 얼음파편 프랑키스카",
+      "price": 300000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 12000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 12000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 12000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막여우 위크니스 한손도끼",
+      "price": 6900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 19000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 19000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 19000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "등껍질 한손도끼",
+      "price": 700000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 블러드 한손도끼",
+      "price": 6500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 헬스 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막여우 위크니스 한손도끼",
+      "price": 6980,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "석고 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "기운찬 비펜니스",
+      "price": 4798,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "녹색 흉터 한손도끼",
+      "price": 3800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막여우 근육의 한손도끼",
+      "price": 8700,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막거미 블러드 한손도끼",
+      "price": 9876,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1040000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막여우 근육의 한손도끼",
+      "price": 8898,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막거미 근육의 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막여우 근육의 한손도끼",
+      "price": 8898,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "녹색 흉터 한손도끼",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "나선의 헤비레인 켈틱 로열 배틀 액스",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "기운찬 비펜니스",
+      "price": 4800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "요정의 한손도끼",
+      "price": 2650000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 180000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 180000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "녹색 흉터 한손도끼",
+      "price": 20000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "서리 대낫",
+      "display_name": "축복받은 서리 대낫",
+      "price": 40000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막거미 헬스 한손도끼",
+      "price": 4444,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "윈드밀 한손도끼",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "방어의 한손도끼",
+      "price": 4990,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "리니에의 도끼 레플리카",
+      "display_name": "리니에의 도끼 레플리카",
+      "price": 42000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 9950000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 9950000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "스파이크 비펜니스",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 검은안개 켈틱 로열 배틀 액스",
+      "price": 390000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "신성한 정복자 파괴의 켈틱 로열 워리어 액스",
+      "price": 46000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "스파이크 비펜니스",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 7500000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "정장석 한손도끼",
+      "price": 8000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "나이트 비펜니스",
+      "price": 18000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "방어의 한손도끼",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 11000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 11000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 근육의 한손도끼",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈타르크의 도끼 레플리카",
+      "display_name": "슈타르크의 도끼 레플리카",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 근육의 한손도끼",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "석고 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1899900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 워리어 액스",
+      "price": 640000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "윈드밀 한손도끼",
+      "price": 12000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 데미 리치 기르가쉬 켈틱 로열 워리어 액스",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "리니에의 도끼 레플리카",
+      "display_name": "리니에의 도끼 레플리카",
+      "price": 35000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈타르크의 도끼 레플리카",
+      "display_name": "슈타르크의 도끼 레플리카",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "요정의 한손도끼",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 279000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "녹색 흉터 한손도끼",
+      "price": 4999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "녹색 흉터 한손도끼",
+      "price": 4999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "자연 한손도끼",
+      "price": 4800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 279000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워리어 액스",
+      "display_name": "워리어 액스",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 1150000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "서리 대낫",
+      "display_name": "서리 대낫",
+      "price": 44500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1040000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "석고 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "열정의 한손도끼",
+      "price": 850000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 1200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "자연 한손도끼",
+      "price": 12000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1050000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈타르크의 도끼 레플리카",
+      "display_name": "슈타르크의 도끼 레플리카",
+      "price": 42000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "석고 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 279000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "방어의 한손도끼",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "나이트 비펜니스",
+      "price": 19000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 175000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "녹색 흉터 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "자연 한손도끼",
+      "price": 12000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "기운찬 비펜니스",
+      "price": 4800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "형석 한손도끼",
+      "price": 6888,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 블러드 한손도끼",
+      "price": 6900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막여우 근육의 한손도끼",
+      "price": 9000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "석고 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "축복받은 켈틱 로열 배틀 액스",
+      "price": 413000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1150000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "방어의 한손도끼",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1100000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막여우 위크니스 한손도끼",
+      "price": 6980,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "석고 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 1200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 1200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 1200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 280000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 280000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 280000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 280000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 280000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 1200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 280000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브로드 액스",
+      "display_name": "리치 크로코다일 브로드 액스",
+      "price": 4000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈타르크의 도끼 레플리카",
+      "display_name": "슈타르크의 도끼 레플리카",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 켈틱 로열 워리어 액스",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "브로드 액스",
+      "display_name": "리치 크로코다일 브로드 액스",
+      "price": 4000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 클리브 워리어 액스",
+      "display_name": "신성한 충돌의 다운버스트 페러시우스 클리브 워리어 액스",
+      "price": 450000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 블러드 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막거미 블러드 한손도끼",
+      "price": 28000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "형석 한손도끼",
+      "price": 6999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막거미 근육의 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 워리어 액스",
+      "price": 1300000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "석고 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "나선의 헤비레인 켈틱 로열 배틀 액스",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "석고 한손도끼",
+      "price": 8000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "나이트 비펜니스",
+      "price": 26000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "석고 한손도끼",
+      "price": 8400,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "서리 대낫",
+      "display_name": "서리 대낫",
+      "price": 41000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브로드 액스",
+      "display_name": "리치 크로코다일 브로드 액스",
+      "price": 5900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 위크니스 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "운명의 헤비레인 켈틱 로열 배틀 액스",
+      "price": 150000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "녹색 흉터 한손도끼",
+      "price": 12000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 워리어 액스",
+      "price": 1700000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "프랑키스카",
+      "display_name": "라이온헌터 레이븐 프랑키스카",
+      "price": 90000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "축복받은 나선의 헤비레인 켈틱 로열 배틀 액스",
+      "price": 140000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 388888888,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 12000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 12000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 175000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 175000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 위크니스 한손도끼",
+      "price": 9000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 버서커",
+      "display_name": "신성한 데미 리치 기르가쉬 나이트브링어 버서커",
+      "price": 1000000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "신성한 악몽의 헤비레인 켈틱 로열 배틀 액스",
+      "price": 29000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 9989,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "나선의 헤비레인 켈틱 로열 배틀 액스",
+      "price": 130000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "프랑키스카 S",
+      "display_name": "축복받은 악몽의 칼리번 프랑키스카 S",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "축복받은 광란의 헤비레인 켈틱 로열 배틀 액스",
+      "price": 410000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 300000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈타르크의 도끼 레플리카",
+      "display_name": "슈타르크의 도끼 레플리카",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 클리브 워리어 액스",
+      "display_name": "축복받은 데미 리치 다운버스트 페러시우스 클리브 워리어 액스",
+      "price": 140000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "등껍질 한손도끼",
+      "price": 700000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브로드 액스",
+      "display_name": "브로드 액스",
+      "price": 19400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 데미 리치 기르가쉬 켈틱 로열 워리어 액스",
+      "price": 65000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "신성한 악몽의 검은안개 켈틱 로열 배틀 액스",
+      "price": 390000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막여우 근육의 한손도끼",
+      "price": 8900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "풍선 한손도끼",
+      "price": 750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 1230000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "녹색 흉터 한손도끼",
+      "price": 12000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "녹색 흉터 한손도끼",
+      "price": 12000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "축복받은 여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 1250000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈타르크의 도끼 레플리카",
+      "display_name": "슈타르크의 도끼 레플리카",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막거미 블러드 한손도끼",
+      "price": 50000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 데미 리치 악어 켈틱 로열 워리어 액스",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "브로드 액스",
+      "display_name": "브로드 액스",
+      "price": 19400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 1200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "풍선 한손도끼",
+      "price": 2000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "리니에의 도끼 레플리카",
+      "display_name": "리니에의 도끼 레플리카",
+      "price": 79990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 워리어 액스",
+      "price": 800000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 1100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 1100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 175000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "나이트 비펜니스",
+      "price": 30000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "나이트 비펜니스",
+      "price": 25000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "리니에의 도끼 레플리카",
+      "display_name": "리니에의 도끼 레플리카",
+      "price": 33700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워리어 액스",
+      "display_name": "열정의 워리어 액스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "거대 한손도끼",
+      "price": 6800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "프랑키스카",
+      "display_name": "프랑키스카",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "나선의 헤비레인 켈틱 로열 배틀 액스",
+      "price": 450000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 워리어 액스",
+      "price": 1180000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈타르크의 도끼 레플리카",
+      "display_name": "슈타르크의 도끼 레플리카",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "나이트 비펜니스",
+      "price": 14400,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 22500,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "기운찬 비펜니스",
+      "price": 6000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "나이트 비펜니스",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 33000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막여우 근육의 한손도끼",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "프랑키스카",
+      "display_name": "라이온헌터 얼음파편 프랑키스카",
+      "price": 250000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "나이트 비펜니스",
+      "price": 18000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "기운찬 비펜니스",
+      "price": 9900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 300000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "신성한 여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 180000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "정장석 한손도끼",
+      "price": 18000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "축복받은 광란의 수퍼노바 켈틱 로열 배틀 액스",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "요정의 켈틱 로열 배틀 액스",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 헬스 한손도끼",
+      "price": 25000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "나이트 비펜니스",
+      "price": 14400,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 175000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 위크니스 한손도끼",
+      "price": 9000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 3500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "카운터 한손도끼",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "신성한 데미 리치 기르가쉬 켈틱 로열 워리어 액스",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 175000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "등껍질 한손도끼",
+      "price": 990000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "형석 한손도끼",
+      "price": 6999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 데미 리치 기르가쉬 켈틱 로열 워리어 액스",
+      "price": 20000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "풍선 한손도끼",
+      "price": 800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "등껍질 한손도끼",
+      "price": 800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈타르크의 도끼 레플리카",
+      "display_name": "슈타르크의 도끼 레플리카",
+      "price": 75000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "스파이크 비펜니스",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "신성한 데미 리치 기르가쉬 켈틱 로열 워리어 액스",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "나이트 비펜니스",
+      "price": 19000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브로드 액스",
+      "display_name": "브로드 액스",
+      "price": 25000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 300000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "켈틱 로열 워리어 액스",
+      "price": 1800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 1200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 1250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 1250000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "리니에의 도끼 레플리카",
+      "display_name": "리니에의 도끼 레플리카",
+      "price": 34000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "요정의 켈틱 로열 배틀 액스",
+      "price": 8000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "스파이크 비펜니스",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워리어 액스",
+      "display_name": "워리어 액스",
+      "price": 189000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 2800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "신성한 광란의 헤비레인 켈틱 로열 배틀 액스",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브로드 액스",
+      "display_name": "리치 크로코다일 브로드 액스",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브로드 액스",
+      "display_name": "리치 크로코다일 브로드 액스",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1300000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 190000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "브로드 액스",
+      "display_name": "브로드 액스",
+      "price": 19400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "일격필살 켈틱 로열 배틀 액스",
+      "price": 13750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "일격필살 켈틱 로열 배틀 액스",
+      "price": 13750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 190000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막거미 헬스 한손도끼",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "기억상실 한손도끼",
+      "price": 700000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 349999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 349999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 349999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 349999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 349999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "풍선 한손도끼",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "중고의 한손도끼",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 워리어 액스",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 9999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 2800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "축복받은 여명 얼음파편 켈틱 배틀 액스",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "풍선 한손도끼",
+      "price": 900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "프랑키스카",
+      "display_name": "울프헌터 레이븐 프랑키스카",
+      "price": 30000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "나이트 비펜니스",
+      "price": 14400,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "나이트 비펜니스",
+      "price": 26900,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 워리어 액스",
+      "price": 900000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 350000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "축복받은 광란의 헤비레인 켈틱 배틀 액스",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 2900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "기운찬 비펜니스",
+      "price": 8000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "프랑키스카",
+      "display_name": "축복받은 라이온헌터 검은안개 프랑키스카",
+      "price": 200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "서리 대낫",
+      "display_name": "축복받은 서리 대낫",
+      "price": 45000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "리니에의 도끼 레플리카",
+      "display_name": "리니에의 도끼 레플리카",
+      "price": 50000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "카운터 한손도끼",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "나이트 비펜니스",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "열정의 한손도끼",
+      "price": 798999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 23000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 9989,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "서리 대낫",
+      "display_name": "서리 대낫",
+      "price": 45000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "켈틱 로열 워리어 액스",
+      "price": 1650000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 데미 리치 기르가쉬 켈틱 로열 워리어 액스",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 데미 리치 기르가쉬 켈틱 로열 워리어 액스",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "열정의 한손도끼",
+      "price": 799000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "축복받은 여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "카운터 한손도끼",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 워리어 액스",
+      "price": 1190000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "나선의 헤비레인 켈틱 로열 배틀 액스",
+      "price": 415000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막여우 위크니스 한손도끼",
+      "price": 6990,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 350000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 350000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "축복받은 악몽의 검은안개 켈틱 로열 배틀 액스",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 3900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 3900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 버서커",
+      "display_name": "신성한 정복자 미티어로이드 나이트브링어 버서커",
+      "price": 800000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막거미 블러드 한손도끼",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "신성한 운명의 헤비레인 켈틱 로열 배틀 액스",
+      "price": 450000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "신성한 정복자 다운버스트 켈틱 로열 워리어 액스",
+      "price": 28000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "프랑키스카",
+      "display_name": "흑요석 프랑키스카",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "서리 대낫",
+      "display_name": "축복받은 서리 대낫",
+      "price": 41000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 2900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 2900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "프랑키스카",
+      "display_name": "라이온헌터 얼음파편 프랑키스카",
+      "price": 250000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브로드 액스",
+      "display_name": "브로드 액스",
+      "price": 19498,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "열정의 한손도끼",
+      "price": 800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "프랑키스카",
+      "display_name": "프랑키스카",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "축복받은 악몽의 헤비레인 켈틱 로열 배틀 액스",
+      "price": 240000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "축복받은 야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 8000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "기운찬 비펜니스",
+      "price": 9900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1750000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 2900000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "켈틱 로열 워리어 액스",
+      "price": 45000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 19000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "기억상실 한손도끼",
+      "price": 800000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "나이트 비펜니스",
+      "price": 14500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브로드 액스",
+      "display_name": "브로드 액스",
+      "price": 19498,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈타르크의 도끼 레플리카",
+      "display_name": "슈타르크의 도끼 레플리카",
+      "price": 35000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "프랑키스카",
+      "display_name": "울프헌터 레이븐 프랑키스카",
+      "price": 30000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "브로드 액스",
+      "display_name": "브로드 액스",
+      "price": 20000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "서리 대낫",
+      "display_name": "축복받은 서리 대낫",
+      "price": 45000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 1400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 1400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 1400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 1400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 1400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 1400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "켈틱 로열 배틀 액스",
+      "price": 1400000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 배틀 액스",
+      "display_name": "여명 얼음파편 켈틱 배틀 액스",
+      "price": 370000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막여우 위크니스 한손도끼",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 클리브 워리어 액스",
+      "display_name": "신성한 정복자 다운버스트 페러시우스 클리브 워리어 액스",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 워리어 액스",
+      "display_name": "야생의 파괴의 켈틱 로열 워리어 액스",
+      "price": 1790000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "매정한 한손도끼",
+      "price": 50000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "한손도끼",
+      "price": 12000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 블러드 한손도끼",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "비펜니스",
+      "display_name": "비펜니스",
+      "price": 23000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "리니에의 도끼 레플리카",
+      "display_name": "리니에의 도끼 레플리카",
+      "price": 34000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "신성한 여명 얼음파편 켈틱 로열 배틀 액스",
+      "price": 440000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "사막여우 헬스 한손도끼",
+      "price": 9000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 블러드 한손도끼",
+      "price": 50000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "매정한 한손도끼",
+      "price": 55000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "매정한 한손도끼",
+      "price": 50000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 로열 배틀 액스",
+      "display_name": "신성한 광란의 헤비레인 켈틱 로열 배틀 액스",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "한손도끼",
+      "display_name": "몽구스 블러드 한손도끼",
+      "price": 20000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈타르크의 도끼 레플리카",
+      "display_name": "슈타르크의 도끼 레플리카",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈타르크의 도끼 레플리카",
+      "display_name": "슈타르크의 도끼 레플리카",
+      "price": 20640000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "슈타르크의 도끼 레플리카",
+      "display_name": "슈타르크의 도끼 레플리카",
+      "price": 75000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    }
+  ]
+}

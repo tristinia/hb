@@ -1,0 +1,4470 @@
+{
+  "updated": "2025-03-08T17:03:12.670Z",
+  "count": 558,
+  "items": [
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 5300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 3000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 5100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 17000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "허리케인 실린더",
+      "display_name": "허리케인 실린더",
+      "price": 59989,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어스퀘이크 실린더",
+      "display_name": "어스퀘이크 실린더",
+      "price": 79999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "허리케인 실린더",
+      "display_name": "허리케인 실린더",
+      "price": 59990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "물방울 워터 실린더",
+      "price": 5500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 55000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "축복받은 증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 75000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 75000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "축복받은 증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 75000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 75000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "볼케이노 실린더 R",
+      "display_name": "축복받은 시너지 마그마 볼케이노 실린더 R",
+      "price": 9000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 증발된 재난 레버넌트 인사이트 실린더",
+      "price": 300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 75000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "파이어 실린더",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "공들인 레비스 가드실린더",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어스퀘이크 실린더",
+      "display_name": "어스퀘이크 실린더",
+      "price": 80000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "레비스 가드실린더",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "레버넌트 인사이트 가드실린더",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타이달웨이브 실린더",
+      "display_name": "타이달웨이브 실린더",
+      "price": 119999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "레버넌트 인사이트 가드실린더",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "레버넌트 인사이트 가드실린더",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 마그마 레버넌트 인사이트 실린더",
+      "price": 14500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "검붉은 곰 실린더",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 170000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "우아한 실린더",
+      "price": 3700,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "레버넌트 인사이트 가드실린더",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "레버넌트 인사이트 가드실린더",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "촉촉한 워터 실린더",
+      "price": 19000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "칼라 실린더",
+      "price": 3999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "데모닉 헬파이어 실린더",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "방어의 실린더",
+      "price": 3500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "등껍질 실린더",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "냉혹한 실린더",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 증발된 여우비 레버넌트 인사이트 실린더",
+      "price": 190000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "데모닉 헬파이어 실린더",
+      "price": 850000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 어비스 실린더",
+      "display_name": "데모닉 어비스 실린더",
+      "price": 650000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 5500,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "볼케이노 실린더",
+      "display_name": "볼케이노 실린더",
+      "price": 550000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가드실린더",
+      "display_name": "가드실린더",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "거센 파이어 실린더",
+      "price": 4470,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 3400,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 촉촉한 재난 레버넌트 인사이트 실린더",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 레버넌트 인사이트 실린더",
+      "price": 3300000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "레비스 가드실린더",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "방어의 실린더",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "축복받은 증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 29000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 8400,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "암흑 실린더",
+      "price": 3900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "냉혹한 실린더",
+      "price": 200000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "촉촉한 등껍질 워터 실린더",
+      "price": 5600000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 170000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 3000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 3000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "복수자 실린더",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "축복받은 증발된 여우비 레버넌트 인사이트 가드실린더",
+      "price": 28000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "데모닉 헬파이어 실린더",
+      "price": 590000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가드실린더",
+      "display_name": "가드실린더",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 165000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 3500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 2540000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "가드실린더",
+      "display_name": "가드실린더",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "시너지 데모닉 헬파이어 실린더",
+      "price": 640000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "우아한 실린더",
+      "price": 3997,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "스트리트 그래피티 실린더",
+      "display_name": "스트리트 그래피티 실린더",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어스 실린더",
+      "display_name": "어스 실린더",
+      "price": 2998,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가드실린더",
+      "display_name": "가드실린더",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "시너지 데모닉 헬파이어 실린더",
+      "price": 640000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "칼라 실린더",
+      "price": 3699,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 3000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "데모닉 헬파이어 실린더",
+      "price": 590000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 5499000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "데모닉 헬파이어 실린더",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가드실린더",
+      "display_name": "가드실린더",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 3000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "칼라 실린더",
+      "price": 3699,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "거센 파이어 실린더",
+      "price": 4480,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "냉혹한 실린더",
+      "price": 3000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "윈드 실린더",
+      "display_name": "윈드 실린더",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "시너지 데모닉 헬파이어 실린더",
+      "price": 650000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가드실린더",
+      "display_name": "가드실린더",
+      "price": 60000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "시너지 데모닉 헬파이어 실린더",
+      "price": 680000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "암흑 실린더",
+      "price": 3900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "방어의 실린더",
+      "price": 3500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 6900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 2550000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더(미완성)",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "방어의 실린더",
+      "price": 3500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 실린더",
+      "display_name": "축복받은 세이프가드 칼리번 페러시우스 티라누스 실린더",
+      "price": 250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타이달웨이브 실린더",
+      "display_name": "모이스트 웨이브 타이달웨이브 실린더",
+      "price": 275555,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "복수자 실린더",
+      "price": 3800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "마나 실린더",
+      "price": 200000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "암흑 실린더",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 5000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "복수자 실린더",
+      "price": 4444,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "레버넌트 인사이트 실린더",
+      "price": 140000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 6900,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "마나 실린더",
+      "price": 200000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "파이어 실린더",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "데모닉 헬파이어 실린더",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 5150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 5390000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 5500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "거센 파이어 실린더",
+      "price": 4480,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "검붉은 곰 실린더",
+      "price": 34000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "암흑 실린더",
+      "price": 3988,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "볼케이노 실린더",
+      "display_name": "시너지 마그마 볼케이노 실린더",
+      "price": 200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가드실린더",
+      "display_name": "축복받은 촉촉한 마그마 가드실린더",
+      "price": 130000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "레비스 가드실린더",
+      "price": 600000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 실린더",
+      "display_name": "축복받은 마그마 페러시우스 티라누스 실린더",
+      "price": 300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 시너지 재난 레버넌트 인사이트 실린더",
+      "price": 90000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 증발된 재난 레버넌트 인사이트 실린더",
+      "price": 160000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "허리케인 실린더",
+      "display_name": "허리케인 실린더",
+      "price": 178000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "마나 실린더",
+      "price": 100000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2900,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "검붉은 곰 실린더",
+      "price": 19999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "세인츠 가디언 가드실린더",
+      "display_name": "세인츠 가디언 가드실린더",
+      "price": 1800000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "요정의 실린더",
+      "price": 990000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "암흑 실린더",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 마그마 레버넌트 인사이트 실린더",
+      "price": 180000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "마나 실린더",
+      "price": 7700,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "칼라 실린더",
+      "price": 8000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "리치 실린더",
+      "price": 3400,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "리치 실린더",
+      "price": 6000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "거센 물방울 워터 실린더",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 가드실린더",
+      "display_name": "축복받은 증발된 여우비 페러시우스 티라누스 가드실린더",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "볼케이노 실린더",
+      "display_name": "축복받은 볼케이노 실린더",
+      "price": 550000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "검붉은 곰 실린더",
+      "price": 147000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "파이어 실린더",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 2600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어스 실린더",
+      "display_name": "어스 실린더",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 40000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 2990,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "증발된 여우비 레버넌트 인사이트 가드실린더",
+      "price": 120000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "거센 파이어 실린더",
+      "price": 4480,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 6996,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "마나 실린더",
+      "price": 220000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "냉혹한 실린더",
+      "price": 7800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "시너지 데모닉 헬파이어 실린더",
+      "price": 680000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 2769000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "촉촉한 워터 실린더",
+      "price": 18000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 8500,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 2770000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "검붉은 곰 실린더",
+      "price": 50000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 촉촉한 레버넌트 인사이트 실린더",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 증발된 여우비 레버넌트 인사이트 실린더",
+      "price": 250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "촉촉한 실린더",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 증발된 재난 레버넌트 인사이트 실린더",
+      "price": 160000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "물방울 워터 실린더",
+      "price": 5500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "축복받은 증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 28000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "냉혹한 실린더",
+      "price": 7800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 8500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "볼케이노 실린더",
+      "display_name": "축복받은 시너지 마그마 볼케이노 실린더",
+      "price": 700000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "리치 실린더",
+      "price": 3800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "칼라 실린더",
+      "price": 3800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "풍선 실린더",
+      "price": 990000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 11000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 11000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "검붉은 곰 실린더",
+      "price": 38000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "축복받은 중고의 실린더",
+      "price": 550000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 40000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "어스 실린더",
+      "display_name": "폭스헌터 풍선 어스 실린더",
+      "price": 1890000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "레비스 가드실린더",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "검붉은 곰 실린더",
+      "price": 60000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 2770000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 어비스 실린더",
+      "display_name": "촉촉한 데모닉 어비스 실린더",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "증류된 여우비 레버넌트 인사이트 실린더",
+      "price": 400000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "암흑 실린더",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가드실린더",
+      "display_name": "마력의 물방울 가드실린더",
+      "price": 50000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타이달웨이브 실린더",
+      "display_name": "모이스트 리플 타이달웨이브 실린더",
+      "price": 200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 2770000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 실린더",
+      "display_name": "축복받은 증발된 여우비 페러시우스 티라누스 실린더",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 8500,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "물방울 워터 실린더",
+      "price": 6900,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 재난 레버넌트 인사이트 실린더",
+      "price": 700000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 시너지 재난 레버넌트 인사이트 실린더",
+      "price": 65000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 9000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "크로스 엠파이어 게일 실린더",
+      "display_name": "축복받은 세이프가드 산들바람 크로스 엠파이어 게일 실린더",
+      "price": 8000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 2777776,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롤케익 실린더",
+      "display_name": "축복받은 롤케익 실린더",
+      "price": 25000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "레비스 가드실린더",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "암흑 실린더",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 30000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "축복받은 마나 실린더",
+      "price": 3000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 7000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "리치 실린더",
+      "price": 3400,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 9000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "물방울 워터 실린더",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 실린더",
+      "display_name": "축복받은 마그마 페러시우스 티라누스 실린더",
+      "price": 85000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 5150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 증류된 재난 레버넌트 인사이트 실린더",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "물방울 워터 실린더",
+      "price": 5500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "증발된 재난 레버넌트 인사이트 실린더",
+      "price": 650000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "열정의 실린더",
+      "price": 999999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "축복받은 레비스 가드실린더",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 레버넌트 인사이트 실린더",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "촉촉한 실린더",
+      "price": 6788,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 실린더",
+      "display_name": "축복받은 페러시우스 티라누스 실린더",
+      "price": 68000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "거센 물방울 워터 실린더",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "거센 파이어 실린더",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "동결된 파이어 실린더",
+      "price": 49000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 12000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 7500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "축복받은 탄탄한 레비스 가드실린더",
+      "price": 600000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 가드실린더",
+      "display_name": "축복받은 증발된 여우비 페러시우스 티라누스 가드실린더",
+      "price": 80000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "레버넌트 인사이트 실린더",
+      "price": 2098888,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "거센 물방울 워터 실린더",
+      "price": 100000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가드실린더",
+      "display_name": "가드실린더",
+      "price": 88750,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "윈드 실린더",
+      "display_name": "윈드 실린더",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 11500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 11500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 9990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 실린더",
+      "display_name": "축복받은 증발된 여우비 페러시우스 티라누스 실린더",
+      "price": 250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "어스퀘이크 실린더",
+      "display_name": "어스퀘이크 실린더",
+      "price": 179998,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "파이어 실린더",
+      "price": 179998,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "거센 물방울 워터 실린더",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어스 실린더",
+      "display_name": "어스 실린더",
+      "price": 50000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "레버넌트 인사이트 실린더",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타이달웨이브 실린더",
+      "display_name": "축복받은 모이스트 리플 타이달웨이브 실린더",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 2780000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "거센 물방울 워터 실린더",
+      "price": 9000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 어비스 실린더",
+      "display_name": "축복받은 촉촉한 웨이브 데모닉 어비스 실린더",
+      "price": 30000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "촉촉한 실린더",
+      "price": 20000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "레비스 가드실린더",
+      "price": 750000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "파워풀 실린더",
+      "price": 8888,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 테크니션",
+      "display_name": "축복받은 증발된 여우비 나이트브링어 테크니션",
+      "price": 620000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "검붉은 곰 실린더",
+      "price": 100000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 11000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 가드실린더",
+      "display_name": "축복받은 증발된 여우비 페러시우스 티라누스 가드실린더",
+      "price": 130000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 레버넌트 인사이트 실린더",
+      "price": 50000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "롤케익 실린더",
+      "display_name": "롤케익 실린더",
+      "price": 30000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "허리케인 실린더",
+      "display_name": "허리케인 실린더",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 990000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 6999,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "윈드 실린더",
+      "display_name": "윈드 실린더",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 어비스 실린더",
+      "display_name": "촉촉한 데모닉 어비스 실린더",
+      "price": 600000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "볼케이노 실린더 R",
+      "display_name": "축복받은 시너지 마그마 볼케이노 실린더 R",
+      "price": 2500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 6997,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 재난 레버넌트 인사이트 실린더",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "레버넌트 인사이트 실린더",
+      "price": 2740000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 2800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 6000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타이달웨이브 실린더 S",
+      "display_name": "축복받은 모이스트 리플 타이달웨이브 실린더 S",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "레버넌트 인사이트 실린더",
+      "price": 2100000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 어비스 실린더",
+      "display_name": "촉촉한 데모닉 어비스 실린더",
+      "price": 600000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 어비스 실린더",
+      "display_name": "촉촉한 데모닉 어비스 실린더",
+      "price": 600000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "축복받은 마나 실린더",
+      "price": 25000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "윈드 실린더",
+      "display_name": "윈드 실린더",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "윈드 실린더",
+      "display_name": "윈드 실린더",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 5999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 5999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "암흑 실린더",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 4500,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롤케익 실린더",
+      "display_name": "롤케익 실린더",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "물방울 워터 실린더",
+      "price": 6500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타이달웨이브 실린더",
+      "display_name": "축복받은 모이스트 리플 타이달웨이브 실린더",
+      "price": 200000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "윈드 실린더",
+      "display_name": "윈드 실린더",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "파이어 실린더",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 테크니션",
+      "display_name": "축복받은 증발된 여우비 나이트브링어 테크니션",
+      "price": 550000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "윈드 실린더",
+      "display_name": "윈드 실린더",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 실린더",
+      "display_name": "페러시우스 티라누스 실린더",
+      "price": 48000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 실린더",
+      "display_name": "초보자 실린더",
+      "price": 15999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "윈드 실린더",
+      "display_name": "윈드 실린더",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 어비스 실린더",
+      "display_name": "촉촉한 데모닉 어비스 실린더",
+      "price": 1000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 레버넌트 인사이트 실린더",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "축복받은 레버넌트 인사이트 가드실린더",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "파이어 실린더",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "물방울 워터 실린더",
+      "price": 8000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 4800,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "증발된 재난 레버넌트 인사이트 실린더",
+      "price": 449999999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "레비스 가드실린더",
+      "price": 500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 9800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "거센 파이어 실린더",
+      "price": 4500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "동결된 실린더",
+      "price": 1449998,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "증류된 여우비 레버넌트 인사이트 실린더",
+      "price": 300000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "방어의 실린더",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 6000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "레버넌트 인사이트 실린더",
+      "price": 200000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "레버넌트 인사이트 실린더",
+      "price": 160000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "축복받은 레비스 가드실린더",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "레버넌트 인사이트 실린더",
+      "price": 15600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "구원자의 실린더",
+      "price": 3600,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "방어의 실린더",
+      "price": 9500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "레버넌트 인사이트 실린더",
+      "price": 2200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가드실린더",
+      "display_name": "축복받은 가드실린더",
+      "price": 90000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "물방울 워터 실린더",
+      "price": 5500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 증발된 여우비 레버넌트 인사이트 실린더",
+      "price": 250000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "우아한 실린더",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "촉촉한 워터 실린더",
+      "price": 18000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "구원자의 실린더",
+      "price": 3500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "축복받은 리플 레버넌트 인사이트 가드실린더",
+      "price": 2666666,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "구원자의 실린더",
+      "price": 3500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "재난 실린더",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 테크니션",
+      "display_name": "축복받은 증발된 여우비 나이트브링어 테크니션",
+      "price": 510000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "마그마 실린더",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 13000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "레비스 가드실린더",
+      "price": 600000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "파이어 실린더",
+      "price": 179998,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "축복받은 레비스 가드실린더",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 9000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "허리케인 실린더",
+      "display_name": "허리케인 실린더",
+      "price": 190000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "실린더",
+      "price": 3000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "거센 파이어 실린더",
+      "price": 4500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "촉촉한 워터 실린더",
+      "price": 25000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "레버넌트 인사이트 실린더",
+      "price": 2200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 어비스 실린더",
+      "display_name": "데모닉 어비스 실린더",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "축복받은 증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 45000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 7500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "레버넌트 인사이트 실린더",
+      "price": 2200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "허리케인 실린더",
+      "display_name": "축복받은 허리케인 실린더",
+      "price": 20000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 증발된 여우비 레버넌트 인사이트 실린더",
+      "price": 100000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 9000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "파이어 실린더",
+      "display_name": "파이어 실린더",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 레버넌트 인사이트 실린더",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 실린더",
+      "display_name": "초보자 실린더",
+      "price": 15999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 실린더",
+      "display_name": "축복받은 증발된 여우비 페러시우스 티라누스 실린더",
+      "price": 205000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "촉촉한 물방울 워터 실린더",
+      "price": 9000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "물방울 워터 실린더",
+      "price": 5500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "레비스 가드실린더",
+      "price": 14000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "거센 물방울 워터 실린더",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "축복받은 세이프가드 물방울 레비스 가드실린더",
+      "price": 3000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "리치 실린더",
+      "price": 3498,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가드실린더",
+      "display_name": "축복받은 마력의 물방울 가드실린더",
+      "price": 50000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "우아한 실린더",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "축복받은 중고의 실린더",
+      "price": 930000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "가드실린더",
+      "display_name": "축복받은 심해의 가드실린더",
+      "price": 890000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "세인츠 가디언 가드실린더",
+      "display_name": "축복받은 세인츠 가디언 가드실린더",
+      "price": 5000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "리치 실린더",
+      "price": 3500,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "엔지니어의 동백나무 레버넌트 인사이트 실린더",
+      "price": 190000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "허리케인 실린더",
+      "display_name": "허리케인 실린더",
+      "price": 190000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "우아한 실린더",
+      "price": 3700,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "세인츠 가디언 가드실린더",
+      "display_name": "세인츠 가디언 가드실린더",
+      "price": 3500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "축복받은 증발된 마그마 레버넌트 인사이트 가드실린더",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "암흑 실린더",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "복음의 실린더",
+      "display_name": "복음의 실린더",
+      "price": 880000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 실린더",
+      "display_name": "축복받은 시너지 재난 페러시우스 티라누스 실린더",
+      "price": 85000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 12000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "우아한 실린더",
+      "price": 3700,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 44850000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "칼라 실린더",
+      "price": 3800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "레버넌트 인사이트 가드실린더",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "열정의 실린더",
+      "price": 990000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 7000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "우아한 실린더",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 테크니션",
+      "display_name": "축복받은 증발된 여우비 나이트브링어 테크니션",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "마나 실린더",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "검붉은 곰 실린더",
+      "price": 29999,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "복수자 실린더",
+      "price": 8888,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "데모닉 헬파이어 실린더",
+      "price": 590000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "우아한 실린더",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "검붉은 곰 실린더",
+      "price": 29999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 테크니션",
+      "display_name": "증발된 여우비 나이트브링어 테크니션",
+      "price": 590000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 6997,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 6997,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 어비스 실린더",
+      "display_name": "데모닉 어비스 실린더",
+      "price": 970000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "검붉은 곰 실린더",
+      "price": 84888,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "축복받은 시너지 마그마 레비스 가드실린더",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "축복받은 시너지 마그마 데모닉 헬파이어 실린더",
+      "price": 5000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "촉촉한 레버넌트 인사이트 가드실린더",
+      "price": 4200000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 실린더",
+      "display_name": "증발된 여우비 페러시우스 티라누스 실린더",
+      "price": 240000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "축복받은 레버넌트 인사이트 가드실린더",
+      "price": 9000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "레비스 가드실린더",
+      "price": 1900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "촉촉한 워터 실린더",
+      "price": 25000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 6998,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "우아한 실린더",
+      "price": 180000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "시너지 데모닉 헬파이어 실린더",
+      "price": 680000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롤케익 실린더",
+      "display_name": "롤케익 실린더",
+      "price": 2000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "촉촉한 실린더",
+      "price": 3210,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "중고의 실린더",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "레버넌트 인사이트 실린더",
+      "price": 2200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 5200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "어스 실린더",
+      "display_name": "어스 실린더",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 시너지 재난 레버넌트 인사이트 실린더",
+      "price": 12000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 7000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 레버넌트 인사이트 실린더",
+      "price": 11000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타이달웨이브 실린더",
+      "display_name": "모이스트 리플 타이달웨이브 실린더",
+      "price": 700000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "축복받은 레비스 가드실린더",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "촉촉한 워터 실린더",
+      "price": 18000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "복음의 실린더",
+      "display_name": "복음의 실린더",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 재난 레버넌트 인사이트 실린더",
+      "price": 40000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 23000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 현자의 돌 재난 레버넌트 인사이트 실린더",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "동결된 실린더",
+      "price": 1500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "증발된 재난 레버넌트 인사이트 실린더",
+      "price": 500000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 10000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 7000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "암흑 실린더",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "워터 실린더",
+      "price": 170000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "축복받은 레버넌트 인사이트 가드실린더",
+      "price": 12500000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 증발된 여우비 레버넌트 인사이트 실린더",
+      "price": 140000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "복수자 실린더",
+      "price": 14800000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "촉촉한 물방울 워터 실린더",
+      "price": 9999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "물방울 워터 실린더",
+      "price": 8000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "방어의 실린더",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "복음의 실린더",
+      "display_name": "복음의 실린더",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "축복받은 레비스 가드실린더",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "허리케인 실린더",
+      "display_name": "축복받은 세이프가드 산들바람 허리케인 실린더",
+      "price": 90000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "허리케인 실린더",
+      "display_name": "축복받은 세이프가드 산들바람 허리케인 실린더",
+      "price": 19500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "마나 실린더",
+      "price": 5400,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "칼라 실린더",
+      "price": 3800,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "초보자 실린더",
+      "display_name": "초보자 실린더",
+      "price": 15999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "우아한 실린더",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 테크니션",
+      "display_name": "축복받은 증발된 여우비 나이트브링어 테크니션",
+      "price": 560000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "증발된 재난 레버넌트 인사이트 실린더",
+      "price": 290000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 5500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 현자의 돌 여우비 레버넌트 인사이트 실린더",
+      "price": 99990000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 레버넌트 인사이트 실린더",
+      "price": 10000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "레버넌트 인사이트 가드실린더",
+      "price": 3300000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "방어의 실린더",
+      "price": 30000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "축복받은 레비스 가드실린더",
+      "price": 9999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "레비스 가드실린더",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "축복받은 레비스 가드실린더",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 테크니션",
+      "display_name": "증류된 여우비 나이트브링어 테크니션",
+      "price": 1200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 가드실린더",
+      "display_name": "축복받은 증발된 여우비 페러시우스 티라누스 가드실린더",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 가드실린더",
+      "display_name": "축복받은 증발된 여우비 페러시우스 티라누스 가드실린더",
+      "price": 70000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "레버넌트 인사이트 가드실린더",
+      "price": 3500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 가드실린더",
+      "display_name": "축복받은 증발된 여우비 페러시우스 티라누스 가드실린더",
+      "price": 125000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "물방울 워터 실린더",
+      "price": 170000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 실린더",
+      "display_name": "축복받은 마그마 페러시우스 티라누스 실린더",
+      "price": 215000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타이달웨이브 실린더",
+      "display_name": "타이달웨이브 실린더",
+      "price": 150000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 어비스 실린더",
+      "display_name": "데모닉 어비스 실린더",
+      "price": 700000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "물방울 워터 실린더",
+      "price": 10000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 11000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 11000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "촉촉한 실린더",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "촉촉한 워터 실린더",
+      "price": 18000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "페러시우스 티라누스 가드실린더",
+      "display_name": "증발된 여우비 페러시우스 티라누스 가드실린더",
+      "price": 55000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 증발된 재난 레버넌트 인사이트 실린더",
+      "price": 190000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "볼케이노 실린더",
+      "display_name": "시너지 마그마 볼케이노 실린더",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "축복받은 레버넌트 인사이트 가드실린더",
+      "price": 4000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "세인츠 가디언 가드실린더",
+      "display_name": "축복받은 세인츠 가디언 가드실린더",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롤케익 실린더",
+      "display_name": "롤케익 실린더",
+      "price": 18000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 증류된 여우비 레버넌트 인사이트 실린더",
+      "price": 145000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 테크니션",
+      "display_name": "증발된 여우비 나이트브링어 테크니션",
+      "price": 600000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 9999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "데모닉 헬파이어 실린더",
+      "price": 590000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 6500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "방어의 실린더",
+      "price": 200000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "타이달웨이브 실린더",
+      "display_name": "축복받은 모이스트 타이달웨이브 실린더",
+      "price": 4500000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 9500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 8000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "구원자의 실린더",
+      "price": 3776,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 어비스 실린더",
+      "display_name": "촉촉한 데모닉 어비스 실린더",
+      "price": 10000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 5500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "촉촉한 실린더",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "시너지 데모닉 헬파이어 실린더",
+      "price": 690000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 시너지 재난 레버넌트 인사이트 실린더",
+      "price": 60000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "축복받은 레비스 가드실린더",
+      "price": 4999999,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타이달웨이브 실린더",
+      "display_name": "타이달웨이브 실린더",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타이달웨이브 실린더",
+      "display_name": "타이달웨이브 실린더",
+      "price": 200000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "레버넌트 인사이트 실린더",
+      "price": 2500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 9000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 증류된 여우비 레버넌트 인사이트 실린더",
+      "price": 145000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "축복받은 동결된 워터 실린더",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "동결된 실린더",
+      "price": 1449999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 레버넌트 인사이트 실린더",
+      "price": 3000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "레버넌트 인사이트 가드실린더",
+      "price": 3750000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 레버넌트 인사이트 실린더",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "레버넌트 인사이트 실린더",
+      "price": 14800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "우아한 실린더",
+      "price": 7000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 촉촉한 재난 레버넌트 인사이트 실린더",
+      "price": 200000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "켈틱 테트라 실린더",
+      "price": 8000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "검붉은 곰 실린더",
+      "price": 20000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 증발된 재난 레버넌트 인사이트 실린더",
+      "price": 170000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "축복받은 레비스 가드실린더",
+      "price": 1000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "냉혹한 실린더",
+      "price": 7890,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "방어의 실린더",
+      "price": 7890,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 레버넌트 인사이트 실린더",
+      "price": 15000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "복음의 실린더",
+      "display_name": "복음의 실린더",
+      "price": 800000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "구원자의 실린더",
+      "price": 3777,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "켈틱 테트라 실린더",
+      "display_name": "축복받은 켈틱 테트라 실린더",
+      "price": 9990000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "시너지 데모닉 헬파이어 실린더",
+      "price": 690000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "도둑 실린더",
+      "price": 15000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "거센 파워풀 실린더",
+      "price": 50000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "촉촉한 실린더",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "축복받은 재난 레버넌트 인사이트 실린더",
+      "price": 50000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 가드실린더",
+      "display_name": "축복받은 증발된 재난 레버넌트 인사이트 가드실린더",
+      "price": 35000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "중고의 실린더",
+      "price": 500000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "워터 실린더",
+      "display_name": "촉촉한 워터 실린더",
+      "price": 20000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "데모닉 헬파이어 실린더",
+      "price": 600000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "검붉은 곰 실린더",
+      "price": 39999,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "동결된 실린더",
+      "price": 1480000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "레비스 가드실린더",
+      "display_name": "레비스 가드실린더",
+      "price": 1200000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "시너지 데모닉 헬파이어 실린더",
+      "price": 690000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "방어의 실린더",
+      "price": 4000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 어비스 실린더",
+      "display_name": "축복받은 데모닉 어비스 실린더",
+      "price": 19000000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "나이트브링어 테크니션",
+      "display_name": "축복받은 증발된 여우비 나이트브링어 테크니션",
+      "price": 550000000,
+      "has_enchant": true,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "실린더",
+      "display_name": "새도우 헌터 실린더",
+      "price": 5000,
+      "has_enchant": true,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "타워 실린더",
+      "display_name": "타워 실린더",
+      "price": 80000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "레버넌트 인사이트 실린더",
+      "display_name": "레버넌트 인사이트 실린더",
+      "price": 150000000,
+      "has_enchant": false,
+      "has_reforge": true,
+      "has_ecostone": false
+    },
+    {
+      "name": "데모닉 헬파이어 실린더",
+      "display_name": "데모닉 헬파이어 실린더",
+      "price": 1500000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    },
+    {
+      "name": "롤케익 실린더",
+      "display_name": "롤케익 실린더",
+      "price": 1900000,
+      "has_enchant": false,
+      "has_reforge": false,
+      "has_ecostone": false
+    }
+  ]
+}
