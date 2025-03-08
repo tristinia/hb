@@ -1,17 +1,15 @@
 /**
- * 마비노기 정령 형상변환 리큐르 & 부가 효과 뷰어 스타일
+ * 마비노기 경매장 & 의장 리스트
  */
 
 /* 디자인 토큰 */
 :root {
     /* 색상 */
     --color-white: #ffffff;
+    --color-off-white: #F8F9FA;
+    --color-gray: #333333;
+    --color-dark-gray: #111111;
     --color-black: #000000;
-    --color-gray-100: #f4f5f7;
-    --color-gray-500: #767676;
-    --color-gray-600: #4f4f4f;
-    --color-gray-700: #444444;
-    --color-gray-900: #242424;
     --color-yellow: #ffe395;
     --color-red: #ff5252;
     
@@ -95,13 +93,13 @@ body {
 /* 내비게이션 */
 .nav-container {
     display: flex;
+    justify-content: center;
     background-color: var(--color-black);
     padding: var(--space-sm) 0;
 }
 
 .nav-buttons {
     display: flex;
-    justify-content: center;
     gap: var(--space-sm);
 }
 
@@ -110,7 +108,7 @@ body {
     background-color: transparent;
     padding: var(--space-sm) var(--space-md);
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-xs);
     color: var(--color-yellow);
     font-size: 14px;
     font-weight: 500;
@@ -158,9 +156,9 @@ body {
 /* 헤더 */
 header {
     position: relative;
-    background-color: var(--color-white);
+    background-color: var(--color-gr);
     padding: var(--space-md);
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-xl);
     border-radius: 0 0 var(--radius-md) var(--radius-md);
     box-shadow: var(--shadow-md);
     transition: background-color var(--time-normal), color var(--time-normal);
@@ -188,11 +186,10 @@ h3 {
     display: block;
     width: 100%;
     padding: var(--space-sm);
-    border: none;
+    border: 1px solid transparent;
+    background-color: #F8F9FA;
     border-radius: var(--radius-xl);
-    outline-style: solid;
-    outline-width: 2px;
-    background-color: var(--color-white);
+
     color: var(--color-black);
     font-size: 16px;
     text-align: center;
@@ -201,12 +198,13 @@ h3 {
 }
 
 #search::placeholder {
-    color: var(--color-gray-500);
+    color: var(--color-black-50);
 }
 
 #search:focus {
     outline: none;
-    background-color: rgba(255, 255, 255, 0.5);
+    border-color: var(--color-off-white);
+    background-color: var(--color-white);
     box-shadow: var(--shadow-md);
 }
 
@@ -280,10 +278,11 @@ h3 {
     width: 100%;
     max-width: 200px;
     padding: var(--space-sm);
+    outline: none;
     border: none;
     border-radius: var(--radius-md);
     background-color: var(--color-white);
-    color: var(--color-gray-700);
+    color: var(--color-black-70);
     font-size: 14px;
     text-align: center;
     text-align-last: center;
@@ -297,7 +296,7 @@ h3 {
 
 #setFilter option {
     background-color: var(--color-white);
-    color: var(--color-gray-700);
+    color: var(--color-black-70);
 }
 
 #setFilter.selected {
@@ -312,10 +311,11 @@ h3 {
     width: 100%;
     max-width: 200px;
     padding: var(--space-sm);
+    outline: none;
     border: none;
     border-radius: var(--radius-md);
     background-color: var(--color-white);
-    color: var(--color-gray-700);
+    color: var(--color-black-70);
     font-size: 14px;
     box-shadow: var(--shadow-sm);
     cursor: pointer;
@@ -331,7 +331,7 @@ h3 {
 /* 통계 정보 */
 .stats {
     margin: 15px 0;
-    color: var(--color-gray-500);
+    color: var(--color-black-50);
     font-size: 14px;
     text-align: center;
 }
@@ -375,7 +375,6 @@ main {
 
 .error-message {
     padding: 40px;
-    background-color: var(--color-red-10);
     color: var(--color-red);
 }
 
@@ -429,7 +428,7 @@ main {
 .card.visible:hover {
     transform: translateY(-6px);
     border-color: rgba(0, 0, 0, 0.08);
-    background-color: var(--color-gray-100);
+    background-color: var(--color-black);
     box-shadow: var(--shadow-lg);
 }
 
@@ -460,23 +459,6 @@ main {
     object-fit: contain;
 }
 
-/* 로딩 인디케이터 */
-.card-video-container.loading::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    border-radius: var(--radius-sm);
-    background-color: var(--color-black-50);
-    transition: opacity var(--time-normal) ease;
-}
-
 /* 비디오 없는 경우 대체 표시 */
 .no-video, .no-media {
     position: absolute;
@@ -488,7 +470,6 @@ main {
     width: 100%;
     height: 100%;
     border-radius: var(--radius-sm);
-    background-color: var(--color-black-70);
     color: var(--color-white);
 }
 
@@ -511,12 +492,12 @@ main {
     margin-top: -20px;
     padding: 30px 15px 15px;
     border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-    background-color: var(--color-gray-600);
+    background-color: var(--color-gray);
     text-align: center;
 }
 
 .card.visible:hover .card-info {
-    background-color: var(--color-gray-900);
+    background-color: var(--color-dark-gray);
 }
 
 .card-colors {
@@ -561,7 +542,7 @@ main {
     position: relative;
     width: 90%;
     max-width: 700px;
-    margin: 20vh auto;
+    margin: 10vh auto;
     padding: var(--space-sm);
     overflow: hidden;
     opacity: 0;
@@ -593,29 +574,13 @@ main {
     border-radius: var(--radius-sm);
 }
 
-/* 모달 로딩 인디케이터 */
-.modal-loading {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    border-radius: var(--radius-sm);
-    background-color: var(--color-black-50);
-    color: var(--color-white);
-    font-size: 16px;
-}
-
 /* 모달 정보 영역 */
 .modal-info {
     z-index: 1;
     margin-top: var(--space-sm);
     padding: var(--space-lg);
     border-radius: var(--radius-sm);
-    background-color: #111111;
+    background-color: var(--color-dark-gray);
 }
 
 .modal-info h2 {
@@ -648,7 +613,7 @@ main {
 .attribute-tag {
     padding: var(--space-sm) var(--space-md);
     border-radius: var(--radius-sm);
-    background-color: var(--color-gray-700);
+    background-color: var(--color-gray);
     color: var(--color-white);
 }
 
@@ -656,8 +621,9 @@ main {
     position: absolute;
     right: var(--space-md);
     bottom: var(--space-md);
-    color: var(--color-gray-500);
-    font-size: 11px;
+    color: var(--color-white-20);
+    font-size: 10px;
+    font-weight: 300;
     text-align: right;
 }
 
@@ -667,7 +633,7 @@ main {
     flex-direction: column-reverse;
     gap: 5px;
     padding: 80px 0 100px;
-    color: var(--color-gray-500);
+    color: var(--color-black-50);
     font-size: 14px;
     text-align: center;
 }
