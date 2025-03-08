@@ -107,8 +107,8 @@ module.exports = {
     { id: '알반 훈련석', name: '알반 훈련석', mainCategory: '소모품' },
     { id: '개조석', name: '개조석', mainCategory: '소모품' },
     { id: '보석', name: '보석', mainCategory: '소모품' },
-    { id: '변신메달', name: '변신메달', mainCategory: '소모품' },
-    { id: '염색앰플', name: '염색앰플', mainCategory: '소모품' },
+    { id: '변신 메달', name: '변신 메달', mainCategory: '소모품' },
+    { id: '염색 앰플', name: '염색 앰플', mainCategory: '소모품' },
     { id: '스케치', name: '스케치', mainCategory: '소모품' },
     { id: '핀즈비즈', name: '핀즈비즈', mainCategory: '소모품' },
     { id: '기타 소모품', name: '기타 소모품', mainCategory: '소모품' },
@@ -120,8 +120,8 @@ module.exports = {
     { id: '주머니', name: '주머니', mainCategory: '생활 재료' },
     { id: '천옷/방직', name: '천옷/방직', mainCategory: '생활 재료' },
     { id: '제련/블랙스미스', name: '제련/블랙스미스', mainCategory: '생활 재료' },
-    { id: '힐웬공학', name: '힐웬공학', mainCategory: '생활 재료' },
-    { id: '매직크래프트', name: '매직크래프트', mainCategory: '생활 재료' },
+    { id: '힐웬 공학', name: '힐웬 공학', mainCategory: '생활 재료' },
+    { id: '매직 크래프트', name: '매직 크래프트', mainCategory: '생활 재료' },
     
     // 기타
     { id: '제스처', name: '제스처', mainCategory: '기타' },
