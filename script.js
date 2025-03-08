@@ -504,16 +504,10 @@ function openModal(effect) {
                 <video class="modal-video" src="${effect.videoLink}" controls autoplay loop></video>
             `;
             
-            // 로딩 상태 표시
-            const modalVideo = modalMediaContainer.querySelector('.modal-video');
-            const loadingIndicator = document.createElement('div');
-            loadingIndicator.className = 'modal-loading';
-            loadingIndicator.innerHTML = '<div class="spinner"></div>';
-            modalMediaContainer.appendChild(loadingIndicator);
-            
-            // 비디오 로드 완료 시
-            modalVideo.addEventListener('loadeddata', () => {
-                modalMediaContainer.querySelector('.modal-loading')?.remove();
+            modalVideo.addEventListener('error', () => {
+            modalMediaContainer.innerHTML = `
+            <div class="no-media">비디오 로드 실패</div>
+                `;
             });
             
             // 비디오 로드 에러 시
