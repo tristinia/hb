@@ -68,7 +68,7 @@ module.exports = {
     
     // 특수 장비
     { id: '악기', name: '악기', mainCategory: '특수 장비' },
-    { id: '생활도구', name: '생활도구', mainCategory: '특수 장비' },
+    { id: '생활 도구', name: '생활 도구', mainCategory: '특수 장비' },
     { id: '마리오네트', name: '마리오네트', mainCategory: '특수 장비' },
     { id: '에코스톤', name: '에코스톤', mainCategory: '특수 장비' },
     { id: '에이도스', name: '에이도스', mainCategory: '특수 장비' },
@@ -126,7 +126,7 @@ module.exports = {
     // 기타
     { id: '제스처', name: '제스처', mainCategory: '기타' },
     { id: '말풍선 스티커', name: '말풍선 스티커', mainCategory: '기타' },
-    { id: '피니펫', name: '피니펫', mainCategory: '기타' },
+    { id: '피니 펫', name: '피니 펫', mainCategory: '기타' },
     { id: '불타래', name: '불타래', mainCategory: '기타' },
     { id: '퍼퓸', name: '퍼퓸', mainCategory: '기타' },
     { id: '분양 메달', name: '분양 메달', mainCategory: '기타' },
