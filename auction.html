@@ -51,6 +51,9 @@
             <!-- 중앙 검색 결과 영역 -->
             <div class="results-panel">
                 <h3>검색 결과</h3>
+                <div class="result-stats-container">
+                    <span id="result-stats" class="result-stats"></span>
+                </div>
                 <table class="results-table">
                     <thead>
                         <tr>
@@ -66,7 +69,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <!-- 더 보기 버튼은 JavaScript에서 동적으로 추가됨 -->
+                
+                <!-- 페이지네이션 영역 -->
+                <div id="pagination" class="pagination"></div>
             </div>
             
             <!-- 우측 세부 옵션 필터 영역 -->
