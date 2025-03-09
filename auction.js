@@ -288,19 +288,30 @@ function handleSubCategoryClick(subCategory) {
 
 // 카테고리 검색
 function searchByCategory(mainCategory, subCategory = null) {
-    if (!mainCategory) return;
+    // 소분류가 없으면 검색할 수 없음
+    if (!subCategory) {
+        // 대분류만 선택한 경우 UI만 업데이트하고 검색은 하지 않음
+        if (mainCategory) {
+            console.log("대분류만 선택됨:", mainCategory);
+            // 소분류를 선택하라는 메시지 표시
+            elements.resultsBody.innerHTML = '<tr class="empty-result"><td colspan="4">소분류를 선택하세요.</td></tr>';
+            // 페이지네이션 숨기기
+            elements.pagination.innerHTML = '';
+        }
+        return;
+    }
     
     // 로딩 시작
     setLoading(true);
-    
-    // 검색어 유지 (검색어가 있으면 함께 사용)
     
     // 검색 상태 초기화
     state.searchResults = [];
     state.currentPage = 1;
     
-    console.log(`카테고리 검색: ${mainCategory} ${subCategory ? '> ' + subCategory : ''}`);
-    searchWithCategoryAndItem(mainCategory, subCategory);
+    console.log(`카테고리 검색: ${mainCategory} > ${subCategory}`);
+    
+    // 중요: API에는 소분류(subCategory)를 카테고리로 전달
+    searchWithCategoryAndItem(mainCategory, subCategory, state.searchTerm);
 }
 
 // 한글 분해 함수
@@ -481,22 +492,22 @@ function renderSuggestions() {
 
 // 자동완성 선택 처리 - 카테고리 자동 선택 추가
 function handleSelectSuggestion(item, index) {
-    elements.searchInput.value = item.name;
-    state.searchTerm = item.name;
-    state.selectedItem = item;
-    state.activeSuggestion = index;
+    // ... 기존 코드 ...
     
     // 카테고리 정보가 있으면, 해당 카테고리 자동 선택
     if (item.mainCategory || item.category) {
-        // 메인 카테고리 설정
+        // 메인 카테고리 설정 (UI 그룹화용)
         const mainCategory = item.mainCategory || findMainCategoryForSubCategory(item.category);
+        
+        // 서브 카테고리 설정 (실제 API 검색용)
+        const subCategory = item.subCategory || item.category;
+        
         if (mainCategory) {
             state.selectedMainCategory = mainCategory;
             state.expandedMainCategory = mainCategory;
             
-            // 서브 카테고리 설정
-            if (item.subCategory || item.category) {
-                const subCategory = item.subCategory || item.category;
+            // 서브 카테고리 설정 - 실제 API 검색에 중요
+            if (subCategory) {
                 const subCategoryObj = state.categories.subCategories.find(cat => 
                     cat.id === subCategory || cat.name === subCategory);
                 
@@ -645,10 +656,21 @@ function setLoading(isLoading) {
 
 // 검색 실행
 function handleSearch() {
-    // 검색어가 없고 카테고리도 선택되지 않은 경우 중단
-    if (!state.searchTerm && !state.selectedMainCategory && !state.selectedSubCategory) {
-        alert('검색어를 입력하거나 카테고리를 선택해주세요.');
-        return;
+    // ... 기존 코드 ...
+    
+    // 소분류가 선택된 경우만 카테고리 검색 사용
+    if (state.selectedSubCategory) {
+        const mainCat = state.selectedMainCategory;
+        const subCat = state.selectedSubCategory;
+        console.log(`카테고리 + 검색어로 검색: ${mainCat ? mainCat + ' > ' : ''}${subCat}, ${state.searchTerm || '전체'}`);
+        searchWithCategoryAndItem(mainCat, subCat, state.searchTerm);
+    }
+    // 대분류만 선택된 경우 검색 불가
+    else if (state.selectedMainCategory) {
+        console.log(`대분류만 선택됨: ${state.selectedMainCategory}`);
+        elements.resultsBody.innerHTML = '<tr class="empty-result"><td colspan="4">소분류를 선택하세요.</td></tr>';
+        elements.pagination.innerHTML = '';
+        setLoading(false);
     }
     
     // 로딩 시작
@@ -856,13 +878,20 @@ function showCategoryPath(item) {
 }
 
 // 카테고리 + 아이템으로 검색 (Firebase Function 호출)
-async function searchWithCategoryAndItem(category, subCategory = null, itemName = null) {
+async function searchWithCategoryAndItem(mainCategory, subCategory, itemName = null) {
     try {
-        let url = `${FIREBASE_FUNCTIONS.SEARCH_CATEGORY}?category=${encodeURIComponent(category)}`;
+        // 소분류가 없으면 검색할 수 없음
+        if (!subCategory) {
+            setLoading(false);
+            return;
+        }
         
-        // 서브 카테고리가 있는 경우 추가
-        if (subCategory) {
-            url += `&subCategory=${encodeURIComponent(subCategory)}`;
+        // URL 구성 - 소분류가 실제 API 카테고리
+        let url = `${FIREBASE_FUNCTIONS.SEARCH_CATEGORY}?subCategory=${encodeURIComponent(subCategory)}`;
+        
+        // 대분류도 함께 전달 (UI 표시용)
+        if (mainCategory) {
+            url += `&category=${encodeURIComponent(mainCategory)}`;
         }
         
         // 아이템 이름이 있는 경우 추가
