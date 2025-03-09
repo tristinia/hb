@@ -4,156 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마비노기 경매장</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="auction.css">
-    <style>
-        /* 추가 CSS 스타일 */
-        .loading-spinner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #333;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .loading-spinner p {
-            color: white;
-            margin-top: 10px;
-        }
-        
-        .load-more-button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            background-color: var(--color-black);
-            color: var(--color-yellow);
-            border: none;
-            border-radius: 4px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .load-more-button:hover {
-            background-color: #222;
-        }
-        
-        .item-row {
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        
-        .item-row:hover {
-            background-color: #f0f0f0;
-        }
-        
-        /* 모달 스타일 */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1010;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-        
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border-radius: 8px;
-            width: 80%;
-            max-width: 800px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .modal-close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
-        .modal-close:hover,
-        .modal-close:focus {
-            color: black;
-            text-decoration: none;
-        }
-        
-        .modal-header {
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .modal-body {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        
-        .modal-item-image {
-            width: 120px;
-            height: 120px;
-            background-color: #eee;
-            border-radius: 4px;
-            margin-right: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-item-details {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .modal-item-options {
-            width: 100%;
-            margin-top: 20px;
-        }
-        
-        .option-group {
-            margin-bottom: 5px;
-            padding: 5px 0;
-            border-bottom: 1px solid #f0f0f0;
-            display: flex;
-        }
-        
-        .option-name {
-            flex: 0 0 150px;
-            font-weight: 500;
-            color: #555;
-        }
-        
-        .option-value {
-            flex: 1;
-        }
-    </style>
 </head>
 <body>
     <!-- 네비게이션 바 -->
@@ -167,7 +18,7 @@
     </nav>
     
     <main class="container">
-        <!-- 검색 바 (가운데 배치) -->
+        <!-- 검색 바 -->
         <div class="search-container">
             <div class="search-wrapper">
                 <input type="text" id="search-input" placeholder="아이템 이름을 입력하세요...">
@@ -175,6 +26,12 @@
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <button id="reset-button" class="reset-button">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                 </button>
             </div>
@@ -187,11 +44,13 @@
         <div class="auction-layout">
             <!-- 좌측 카테고리 패널 -->
             <div class="category-panel">
+                <h3>카테고리</h3>
                 <ul id="main-categories" class="category-list"></ul>
             </div>
             
             <!-- 중앙 검색 결과 영역 -->
             <div class="results-panel">
+                <h3>검색 결과</h3>
                 <table class="results-table">
                     <thead>
                         <tr>
@@ -203,7 +62,7 @@
                     </thead>
                     <tbody id="results-body">
                         <tr class="empty-result">
-                            <td colspan="4">검색 결과가 없습니다. 아이템을 검색해보세요.</td>
+                            <td colspan="4">검색어를 입력하거나 카테고리를 선택해주세요.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -219,83 +78,32 @@
                 
                 <!-- 세부 옵션 필터 패널 -->
                 <div id="detail-options" class="detail-options">
-                    <!-- 동적으로 추가될 옵션 필터 -->
+                    <ul id="detail-options-list" class="detail-options-list">
+                        <li class="no-options">카테고리를 선택하면 세부 옵션이 표시됩니다.</li>
+                    </ul>
                 </div>
                 
-                <!-- 기본 필터 -->
-                <div class="basic-filters">
-                    <div class="filter-group">
-                        <label>레벨 범위</label>
-                        <div class="range-input">
-                            <input type="number" id="min-level" placeholder="최소" min="0">
-                            <span>~</span>
-                            <input type="number" id="max-level" placeholder="최대" min="0">
-                        </div>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label>아이템 유형</label>
-                        <select id="item-type">
-                            <option value="all">모든 유형</option>
-                            <option value="무기">무기</option>
-                            <option value="방어구">방어구</option>
-                            <option value="장신구">장신구</option>
-                            <option value="소비품">소비품</option>
-                        </select>
-                    </div>
-                    
-                    <button id="apply-filters" class="apply-button">필터 적용</button>
+                <!-- 선택된 필터 목록 -->
+                <div class="selected-filters-container">
+                    <h3>선택된 필터</h3>
+                    <ul id="selected-filters" class="selected-filters-list">
+                        <li class="no-filters">선택된 필터가 없습니다.</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </main>
     
-    <!-- 아이템 상세 정보 모달 -->
-    <div id="item-detail-modal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <div class="modal-header">
-                <h2 id="modal-item-name"></h2>
-            </div>
-            <div class="modal-body">
-                <div class="modal-item-image" id="modal-item-image">
-                    이미지
-                </div>
-                <div class="modal-item-details">
-                    <div class="option-group">
-                        <div class="option-name">카테고리</div>
-                        <div class="option-value" id="modal-item-category"></div>
-                    </div>
-                    <div class="option-group">
-                        <div class="option-name">가격</div>
-                        <div class="option-value" id="modal-item-price"></div>
-                    </div>
-                    <div class="option-group">
-                        <div class="option-name">판매자</div>
-                        <div class="option-value" id="modal-item-seller"></div>
-                    </div>
-                    <div class="option-group">
-                        <div class="option-name">남은 시간</div>
-                        <div class="option-value" id="modal-item-time"></div>
-                    </div>
-                </div>
-                <div class="modal-item-options" id="modal-item-options">
-                    <!-- 동적으로 추가될 아이템 옵션들 -->
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 로딩 스피너 (JavaScript에서 동적으로 조작) -->
-    <div id="loading-spinner" class="loading-spinner" style="display:none;">
-        <div class="spinner"></div>
-        <p>데이터를 불러오는 중...</p>
-    </div>
-    
     <!-- 푸터 -->
     <footer>
         <p>&copy; 2025 마비노기 경매장. 넥슨코리아 API 사용.</p>
     </footer>
+    
+    <!-- 로딩 스피너 -->
+    <div id="loading-spinner" class="loading-spinner" style="display:none;">
+        <div class="spinner"></div>
+        <p>데이터를 불러오는 중...</p>
+    </div>
     
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
