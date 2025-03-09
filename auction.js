@@ -1,4 +1,4 @@
-
+// auction.js 파일 수정
 // Firebase Functions URL 설정
 const FIREBASE_FUNCTIONS = {
   SEARCH_KEYWORD: 'https://us-central1-mabinogi-auction-api.cloudfunctions.net/searchByKeyword',
@@ -27,7 +27,9 @@ const state = {
     currentPage: 1,
     itemsPerPage: 10,
     totalItems: 0,
-    totalPages: 1
+    totalPages: 1,
+    // 검색 결과 캐싱 (로컬 필터링용)
+    lastSearchResults: []
 };
 
 // 한글 초성 검색을 위한 유틸리티
@@ -92,7 +94,7 @@ async function loadCategories() {
                 state.categories.subCategories.length + '개 소분류');
         } else {
             // 카테고리 데이터를 로드할 수 없는 경우
-            console.error('카테고리 데이터를 로드할 수 없습니다.');
+            console.error('카테고리 데이터를 로드할 수 없습니다. 응답 상태:', response.status);
             
             // 카테고리 로드 실패 메시지 표시
             const categoryPanel = document.querySelector('.category-panel');
@@ -375,7 +377,7 @@ function handleSearchInput() {
     }
 }
 
-// 자동완성 추천 생성 - 정확도 향상
+// 자동완성 추천 생성 - 정확도 향상 (수정됨)
 function getSuggestions(searchTerm) {
     if (!searchTerm) return [];
     
@@ -406,7 +408,16 @@ function getSuggestions(searchTerm) {
         return [];
     }
     
-    // 검색 정확도 점수 계산 함수
+    // 현재 선택된 카테고리가 있으면 해당 카테고리 아이템만 필터링
+    if (state.selectedMainCategory) {
+        autocompleteItems = autocompleteItems.filter(item => {
+            // 메인 카테고리 필터링
+            const mainCat = item.mainCategory || findMainCategoryForSubCategory(item.category);
+            return mainCat === state.selectedMainCategory;
+        });
+    }
+    
+    // 검색 정확도 점수 계산 함수 (수정됨)
     function calculateScore(item) {
         if (!item || !item.name) return 0;
         
@@ -424,14 +435,19 @@ function getSuggestions(searchTerm) {
         // 단어 중간에 포함되면 중간 점수
         else if (itemName.includes(normalizedTerm)) {
             score += 60;
+            
+            // 정확한 매칭에 더 높은 가중치 부여 (추가)
+            if (normalizedTerm.length > 2) {
+                score += 30; // 정확한 부분 문자열 매칭에 보너스 점수
+            }
         }
-        // 초성이 일치하면 낮은 점수
+        // 초성이 일치하면 낮은 점수 (점수 낮춤)
         else if (getChosung(itemName).includes(chosungTerm)) {
-            score += 40;
+            score += 20; // 40에서 20으로 감소
         }
         // 영한 변환 결과가 포함되면 매우 낮은 점수
         else if (koreanFromEng && itemName.includes(koreanFromEng)) {
-            score += 20;
+            score += 15; // 20에서 15로 감소
         }
         else {
             // 일치하는 부분이 없으면 후보에서 제외
@@ -492,7 +508,10 @@ function renderSuggestions() {
 
 // 자동완성 선택 처리 - 카테고리 자동 선택 추가
 function handleSelectSuggestion(item, index) {
-    // ... 기존 코드 ...
+    // 선택된 아이템을 검색창에 설정
+    elements.searchInput.value = item.name;
+    state.searchTerm = item.name;
+    state.selectedItem = item;
     
     // 카테고리 정보가 있으면, 해당 카테고리 자동 선택
     if (item.mainCategory || item.category) {
@@ -572,6 +591,9 @@ function resetSearch() {
     
     // 자동완성 닫기
     clearSuggestions();
+    
+    // 캐시된 검색 결과 지우기
+    state.lastSearchResults = [];
 }
 
 // 자동완성 목록 비우기
@@ -656,21 +678,10 @@ function setLoading(isLoading) {
 
 // 검색 실행
 function handleSearch() {
-    // ... 기존 코드 ...
-    
-    // 소분류가 선택된 경우만 카테고리 검색 사용
-    if (state.selectedSubCategory) {
-        const mainCat = state.selectedMainCategory;
-        const subCat = state.selectedSubCategory;
-        console.log(`카테고리 + 검색어로 검색: ${mainCat ? mainCat + ' > ' : ''}${subCat}, ${state.searchTerm || '전체'}`);
-        searchWithCategoryAndItem(mainCat, subCat, state.searchTerm);
-    }
-    // 대분류만 선택된 경우 검색 불가
-    else if (state.selectedMainCategory) {
-        console.log(`대분류만 선택됨: ${state.selectedMainCategory}`);
-        elements.resultsBody.innerHTML = '<tr class="empty-result"><td colspan="4">소분류를 선택하세요.</td></tr>';
-        elements.pagination.innerHTML = '';
-        setLoading(false);
+    // 검색어가 없는 경우 처리
+    if (!state.searchTerm && !state.selectedSubCategory) {
+        alert('검색어를 입력하거나 카테고리를 선택해주세요.');
+        return;
     }
     
     // 로딩 시작
@@ -683,44 +694,50 @@ function handleSearch() {
     // 데이터베이스에서 검색어 존재 여부 확인
     const isInDatabase = checkSearchTermInDatabase(state.searchTerm);
     
-    // 카테고리가 선택되어 있는 경우 (카테고리 + 아이템 이름 검색)
-    if (state.selectedMainCategory || state.selectedSubCategory) {
+    // 소분류가 선택된 경우 카테고리 검색 사용 (우선순위 1)
+    if (state.selectedSubCategory) {
         const mainCat = state.selectedMainCategory;
         const subCat = state.selectedSubCategory;
-        console.log(`카테고리 + 검색어로 검색: ${mainCat}${subCat ? ' > ' + subCat : ''}, ${state.searchTerm || '전체'}`);
+        console.log(`카테고리 + 검색어로 검색: ${mainCat ? mainCat + ' > ' : ''}${subCat}, ${state.searchTerm || '전체'}`);
         searchWithCategoryAndItem(mainCat, subCat, state.searchTerm);
     }
-    // 카테고리 없이 검색어만 있는 경우
-    else if (state.searchTerm) {
-        // 데이터베이스에 있으면 일반 검색, 없으면 키워드 검색
-        if (isInDatabase && state.selectedItem) {
-            console.log(`데이터베이스 히트: ${state.searchTerm}`);
-            // 아이템이 데이터베이스에 있음 - 카테고리 자동 선택 및 보여주기
-            const mainCategory = getMainCategoryFromItem(state.selectedItem);
-            const subCategory = getSubCategoryFromItem(state.selectedItem);
+    // 대분류만 선택된 경우 알림 (우선순위 2)
+    else if (state.selectedMainCategory) {
+        console.log(`대분류만 선택됨: ${state.selectedMainCategory}`);
+        elements.resultsBody.innerHTML = '<tr class="empty-result"><td colspan="4">소분류를 선택하세요.</td></tr>';
+        elements.pagination.innerHTML = '';
+        setLoading(false);
+    }
+    // 데이터베이스에 있는 아이템인 경우 카테고리 자동 선택 및 검색 (우선순위 3)
+    else if (isInDatabase && state.selectedItem) {
+        console.log(`데이터베이스 히트: ${state.searchTerm}`);
+        // 아이템이 데이터베이스에 있음 - 카테고리 자동 선택 및 보여주기
+        const mainCategory = getMainCategoryFromItem(state.selectedItem);
+        const subCategory = getSubCategoryFromItem(state.selectedItem);
+        
+        if (mainCategory && subCategory) {
+            state.selectedMainCategory = mainCategory;
+            state.expandedMainCategory = mainCategory;
+            state.selectedSubCategory = subCategory;
             
-            if (mainCategory) {
-                state.selectedMainCategory = mainCategory;
-                state.expandedMainCategory = mainCategory;
-                
-                if (subCategory) {
-                    state.selectedSubCategory = subCategory;
-                }
-                
-                // 카테고리 UI 업데이트
-                renderMainCategories();
-                
-                searchWithCategoryAndItem(mainCategory, subCategory, state.searchTerm);
-            } else {
-                // 카테고리 정보가 없는 경우 키워드 검색
-                console.log(`키워드로 검색: ${state.searchTerm}`);
-                searchWithKeyword(state.searchTerm);
-            }
+            // 카테고리 UI 업데이트
+            renderMainCategories();
+            
+            // 세부 옵션 로드
+            loadOptionStructure(subCategory);
+            
+            // 카테고리 + 아이템 이름으로 검색
+            searchWithCategoryAndItem(mainCategory, subCategory, state.searchTerm);
         } else {
-            // 데이터베이스에 없음 - 키워드 검색
+            // 카테고리 정보가 없는 경우 키워드 검색
             console.log(`키워드로 검색: ${state.searchTerm}`);
             searchWithKeyword(state.searchTerm);
         }
+    }
+    // 그 외 모든 경우는 키워드 검색 (우선순위 4)
+    else {
+        console.log(`키워드로 검색: ${state.searchTerm}`);
+        searchWithKeyword(state.searchTerm);
     }
     
     // 자동완성 닫기
@@ -738,10 +755,17 @@ function checkSearchTermInDatabase(searchTerm) {
         const items = JSON.parse(cachedData);
         const normalizedTerm = searchTerm.toLowerCase();
         
-        return items.some(item => 
+        const matchingItem = items.find(item => 
             typeof item.name === 'string' && 
             item.name.toLowerCase() === normalizedTerm
         );
+        
+        if (matchingItem) {
+            state.selectedItem = matchingItem;
+            return true;
+        }
+        
+        return false;
     } catch (error) {
         console.error('데이터베이스 검색 오류:', error);
         return false;
@@ -807,10 +831,14 @@ async function searchWithKeyword(keyword) {
     
     try {
         const url = `${FIREBASE_FUNCTIONS.SEARCH_KEYWORD}?keyword=${encodeURIComponent(keyword)}`;
+        console.log("API 호출 URL:", url); // 디버깅용
+        
         const response = await fetch(url);
         
         if (!response.ok) {
-            throw new Error('API 호출 실패: ' + response.status);
+            const errorText = await response.text();
+            console.error('API 오류:', response.status, errorText);
+            throw new Error(`API 호출 실패: ${response.status}`);
         }
         
         const data = await response.json();
@@ -819,6 +847,9 @@ async function searchWithKeyword(keyword) {
         state.searchResults = data.items || [];
         state.totalItems = state.searchResults.length;
         state.totalPages = Math.ceil(state.totalItems / state.itemsPerPage);
+        
+        // 마지막 검색 결과 캐싱 (로컬 필터링용)
+        state.lastSearchResults = [...state.searchResults];
         
         // 검색 결과가 있고 카테고리 정보가 없는 경우, 첫 번째 아이템의 카테고리 정보 활용
         if (state.searchResults.length > 0 && !state.selectedMainCategory && !state.selectedSubCategory) {
@@ -908,10 +939,14 @@ async function searchWithCategoryAndItem(mainCategory, subCategory, itemName = n
             url += `&${filterParams.toString()}`;
         }
         
+        console.log("API 호출 URL:", url); // 디버깅용
+        
         const response = await fetch(url);
         
         if (!response.ok) {
-            throw new Error('API 호출 실패: ' + response.status);
+            const errorText = await response.text();
+            console.error('API 오류:', response.status, errorText);
+            throw new Error(`API 호출 실패: ${response.status}`);
         }
         
         const data = await response.json();
@@ -920,6 +955,9 @@ async function searchWithCategoryAndItem(mainCategory, subCategory, itemName = n
         state.searchResults = data.items || [];
         state.totalItems = state.searchResults.length;
         state.totalPages = Math.ceil(state.totalItems / state.itemsPerPage);
+        
+        // 마지막 검색 결과 캐싱 (로컬 필터링용)
+        state.lastSearchResults = [...state.searchResults];
         
         // 페이지네이션 및 결과 렌더링
         renderCurrentPage();
@@ -930,6 +968,75 @@ async function searchWithCategoryAndItem(mainCategory, subCategory, itemName = n
     } finally {
         setLoading(false);
     }
+}
+
+// 로컬 필터링 함수 (새로 추가)
+function applyLocalFiltering() {
+    if (state.lastSearchResults.length === 0) {
+        return;
+    }
+    
+    setLoading(true);
+    
+    // 필터링 로직 구현
+    state.searchResults = state.lastSearchResults.filter(item => {
+        // 필터 조건 확인
+        let passFilter = true;
+        
+        // 각 필터 타입별 처리
+        for (const [filterKey, filterValue] of Object.entries(state.advancedFilters)) {
+            // 필터 키가 min_ 또는 max_로 시작하는 경우 (범위 필터)
+            if (filterKey.startsWith('min_')) {
+                const optionName = filterKey.replace('min_', '');
+                const optionValue = getItemOptionValue(item, optionName);
+                
+                if (optionValue !== null && parseFloat(optionValue) < parseFloat(filterValue)) {
+                    passFilter = false;
+                    break;
+                }
+            }
+            else if (filterKey.startsWith('max_')) {
+                const optionName = filterKey.replace('max_', '');
+                const optionValue = getItemOptionValue(item, optionName);
+                
+                if (optionValue !== null && parseFloat(optionValue) > parseFloat(filterValue)) {
+                    passFilter = false;
+                    break;
+                }
+            }
+            // 일반 필터
+            else {
+                const optionValue = getItemOptionValue(item, filterKey);
+                if (optionValue === null || !optionValue.includes(filterValue)) {
+                    passFilter = false;
+                    break;
+                }
+            }
+        }
+        
+        return passFilter;
+    });
+    
+    // 필터링 결과 업데이트
+    state.totalItems = state.searchResults.length;
+    state.totalPages = Math.ceil(state.totalItems / state.itemsPerPage);
+    state.currentPage = 1;
+    
+    // 페이지네이션 및 결과 렌더링
+    renderCurrentPage();
+    renderPagination();
+    
+    setLoading(false);
+}
+
+// 아이템에서 옵션 값 가져오기 (로컬 필터링용)
+function getItemOptionValue(item, optionName) {
+    if (!item.item_option || !Array.isArray(item.item_option)) {
+        return null;
+    }
+    
+    const option = item.item_option.find(opt => opt.option_type === optionName);
+    return option ? option.option_value : null;
 }
 
 // 오류 메시지 표시
@@ -1246,16 +1353,29 @@ function updateSelectedFilters() {
         removeButton.addEventListener('click', () => {
             // 필터 제거
             delete state.selectedFilters[key];
-            delete state.advancedFilters[key];
+            
+            // 관련된 모든 필터 제거
+            if (key.startsWith('min_') || key.startsWith('max_')) {
+                const baseKey = key.replace(/^(min_|max_)/, '');
+                delete state.advancedFilters[`min_${baseKey}`];
+                delete state.advancedFilters[`max_${baseKey}`];
+            } else {
+                delete state.advancedFilters[key];
+            }
             
             // UI 업데이트
             updateSelectedFilters();
             
-            // 검색 다시 실행
-            if (state.selectedMainCategory) {
-                searchByCategory(state.selectedMainCategory, state.selectedSubCategory);
-            } else if (state.searchTerm) {
-                handleSearch();
+            // 이미 검색 결과가 있는 경우 로컬 필터링 적용
+            if (state.lastSearchResults.length > 0) {
+                applyLocalFiltering();
+            } else {
+                // 검색 다시 실행
+                if (state.selectedMainCategory) {
+                    searchByCategory(state.selectedMainCategory, state.selectedSubCategory);
+                } else if (state.searchTerm) {
+                    handleSearch();
+                }
             }
         });
         
@@ -1398,11 +1518,16 @@ function showOptionInputModal(optionName, optionInfo) {
         // 모달 닫기
         document.body.removeChild(modalContainer);
         
-        // 검색 다시 실행
-        if (state.selectedMainCategory) {
-            searchByCategory(state.selectedMainCategory, state.selectedSubCategory);
-        } else if (state.searchTerm) {
-            handleSearch();
+        // 이미 검색 결과가 있는 경우 로컬 필터링 적용
+        if (state.lastSearchResults.length > 0) {
+            applyLocalFiltering();
+        } else {
+            // 검색 다시 실행
+            if (state.selectedMainCategory) {
+                searchByCategory(state.selectedMainCategory, state.selectedSubCategory);
+            } else if (state.searchTerm) {
+                handleSearch();
+            }
         }
     });
     
