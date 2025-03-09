@@ -1,12 +1,11 @@
 /**
- * 마비노기 경매장 JavaScript
+ * 마비노기 경매장 JavaScript - 개선 버전
  */
 
 // Firebase Functions URL 설정
 const FIREBASE_FUNCTIONS = {
   SEARCH_KEYWORD: 'https://us-central1-mabinogi-auction-api.cloudfunctions.net/searchByKeyword',
-  SEARCH_CATEGORY: 'https://us-central1-mabinogi-auction-api.cloudfunctions.net/searchByCategory',
-  ITEM_DETAIL: 'https://us-central1-mabinogi-auction-api.cloudfunctions.net/getItemDetail'
+  SEARCH_CATEGORY: 'https://us-central1-mabinogi-auction-api.cloudfunctions.net/searchByCategory'
 };
 
 // 기본 설정 및 상태 변수
@@ -19,14 +18,18 @@ const state = {
     selectedSubCategory: null,
     expandedMainCategory: null,
     searchResults: [],
-    optionStructure: {},
     advancedFilters: {},
+    selectedFilters: {}, // 선택된 필터를 저장
     showDetailOptions: false,
     isLoading: false,
     loadingPage: false,
     hasMoreResults: false,
     nextCursor: null,
-    searchType: null // 'keyword' 또는 'category'
+    searchType: null, // 'keyword' 또는 'category'
+    categories: {
+        mainCategories: [],
+        subCategories: []
+    }
 };
 
 // 한글 초성 검색을 위한 유틸리티
@@ -48,6 +51,281 @@ const engToKorMap = {
 
 // DOM 참조 요소
 const elements = {};
+
+// 초기화 함수
+async function init() {
+    // DOM 요소 참조
+    elements.searchInput = document.getElementById('search-input');
+    elements.searchButton = document.querySelector('.search-button');
+    elements.resetButton = document.getElementById('reset-button');
+    elements.suggestionsList = document.getElementById('suggestions');
+    elements.mainCategoriesList = document.getElementById('main-categories');
+    elements.resultsBody = document.getElementById('results-body');
+    elements.toggleOptionsButton = document.getElementById('toggle-options');
+    elements.detailOptionsList = document.getElementById('detail-options-list');
+    elements.selectedFiltersList = document.getElementById('selected-filters');
+    elements.loadMoreButton = document.createElement('button');
+    elements.loadMoreButton.id = 'load-more-button';
+    elements.loadMoreButton.className = 'load-more-button';
+    elements.loadMoreButton.textContent = '더 보기';
+    elements.loadMoreButton.style.display = 'none';
+    
+    // 결과 패널에 더 보기 버튼 추가
+    const resultsPanel = document.querySelector('.results-panel');
+    if (resultsPanel) {
+        resultsPanel.appendChild(elements.loadMoreButton);
+    }
+    
+    // 로딩 스피너 요소
+    elements.loadingSpinner = document.getElementById('loading-spinner');
+    
+    // 카테고리 데이터 가져오기
+    await loadCategories();
+    
+    // 이벤트 리스너 등록
+    setupEventListeners();
+    
+    // 데이터베이스에서 자동완성 데이터 로드
+    loadAutocompleteData();
+}
+
+// 카테고리 데이터 로드
+async function loadCategories() {
+    try {
+        // 메인 카테고리 로드
+        const mainResponse = await fetch('data/web/categories-main.json');
+        if (mainResponse.ok) {
+            const mainData = await mainResponse.json();
+            state.categories.mainCategories = mainData.categories || [];
+        } else {
+            // 기본 카테고리 (src/category-manager.js 기반)
+            state.categories.mainCategories = [
+                { id: '근거리 장비', name: '근거리 장비' },
+                { id: '원거리 장비', name: '원거리 장비' },
+                { id: '마법 장비', name: '마법 장비' },
+                { id: '갑옷', name: '갑옷' },
+                { id: '방어 장비', name: '방어 장비' },
+                { id: '액세서리', name: '액세서리' },
+                { id: '특수 장비', name: '특수 장비' },
+                { id: '설치물', name: '설치물' },
+                { id: '인챈트 용품', name: '인챈트 용품' },
+                { id: '스크롤', name: '스크롤' },
+                { id: '마기그래피 용품', name: '마기그래피 용품' },
+                { id: '서적', name: '서적' },
+                { id: '소모품', name: '소모품' },
+                { id: '토템', name: '토템' },
+                { id: '생활 재료', name: '생활 재료' },
+                { id: '기타', name: '기타' }
+            ];
+        }
+        
+        // 서브 카테고리 로드
+        const subResponse = await fetch('data/web/categories-sub.json');
+        if (subResponse.ok) {
+            const subData = await subResponse.json();
+            state.categories.subCategories = subData.categories || [];
+        } else {
+            // data/web/categories-sub.json이 없는 경우 기본 서브카테고리 로드
+            // src/category-manager.js의 categories 배열 참조
+            const response = await fetch('data/web/default-categories.json');
+            if (response.ok) {
+                const data = await response.json();
+                state.categories.subCategories = data.categories || [];
+            } else {
+                console.error('기본 카테고리를 로드할 수 없습니다.');
+                // 최소한의 기본 카테고리 제공
+                state.categories.subCategories = [
+                    { id: '검', name: '검', mainCategory: '근거리 장비' },
+                    { id: '활', name: '활', mainCategory: '원거리 장비' },
+                    { id: '스태프', name: '스태프', mainCategory: '마법 장비' }
+                ];
+            }
+        }
+        
+        // 카테고리 초기화
+        renderMainCategories();
+    } catch (error) {
+        console.error('카테고리 로드 중 오류 발생:', error);
+    }
+}
+
+// 특정 메인 카테고리에 속하는 서브카테고리 가져오기
+function getSubCategoriesByMainCategory(mainCategory) {
+    return state.categories.subCategories.filter(cat => cat.mainCategory === mainCategory);
+}
+
+// 이벤트 리스너 설정
+function setupEventListeners() {
+    // 검색어 입력 이벤트
+    elements.searchInput.addEventListener('input', debounce(handleSearchInput, 300));
+    
+    // 키보드 이벤트 (화살표, Enter 등)
+    elements.searchInput.addEventListener('keydown', handleKeyDown);
+    
+    // 검색 버튼 클릭
+    elements.searchButton.addEventListener('click', handleSearch);
+    
+    // 초기화 버튼 클릭
+    elements.resetButton.addEventListener('click', resetSearch);
+    
+    // 세부 옵션 토글
+    elements.toggleOptionsButton.addEventListener('click', toggleDetailOptions);
+    
+    // 더 보기 버튼 이벤트
+    elements.loadMoreButton.addEventListener('click', loadMoreResults);
+    
+    // 클릭 이벤트 처리 (바깥 영역 클릭 시 자동완성 닫기)
+    document.addEventListener('click', handleDocumentClick);
+}
+
+// 자동완성 데이터 로드 (데이터베이스에서)
+function loadAutocompleteData() {
+    console.log('데이터베이스에서 자동완성 데이터 로드 중...');
+    fetch('data/database/items.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('데이터베이스 로드 실패');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data && Array.isArray(data.items) && data.items.length > 0) {
+                // 로컬 스토리지에 저장
+                localStorage.setItem('auctionAutocompleteData', JSON.stringify(data.items));
+                console.log('자동완성 데이터 로드 완료: ', data.items.length + '개 항목');
+            } else {
+                throw new Error('유효한 데이터가 없습니다');
+            }
+        })
+        .catch(error => {
+            console.error('자동완성 데이터 로드 오류:', error);
+            // 실패 시 기존 캐시 데이터 사용
+            const cachedData = localStorage.getItem('auctionAutocompleteData');
+            if (!cachedData) {
+                console.warn('캐시된 자동완성 데이터가 없습니다. 기능이 제한될 수 있습니다.');
+            }
+        });
+}
+
+// 메인 카테고리 렌더링
+function renderMainCategories() {
+    elements.mainCategoriesList.innerHTML = '';
+    
+    state.categories.mainCategories.forEach(category => {
+        const li = document.createElement('li');
+        li.className = 'category-item';
+        
+        const button = document.createElement('button');
+        button.className = `category-button ${state.selectedMainCategory === category.id ? 'active' : ''}`;
+        button.textContent = category.name;
+        button.setAttribute('data-category-id', category.id);
+        button.addEventListener('click', () => handleMainCategoryClick(category));
+        
+        li.appendChild(button);
+        
+        // 확장된 카테고리인 경우 소분류 목록 추가
+        if (state.expandedMainCategory === category.id) {
+            const subList = document.createElement('ul');
+            subList.className = 'subcategory-list expanded';
+            
+            const subCategories = getSubCategoriesByMainCategory(category.id);
+            subCategories.forEach(subCategory => {
+                const subLi = document.createElement('li');
+                subLi.className = 'subcategory-item';
+                
+                const subButton = document.createElement('button');
+                subButton.className = `subcategory-button ${state.selectedSubCategory === subCategory.id ? 'active' : ''}`;
+                subButton.textContent = subCategory.name;
+                subButton.setAttribute('data-category-id', subCategory.id);
+                subButton.addEventListener('click', () => handleSubCategoryClick(subCategory));
+                
+                subLi.appendChild(subButton);
+                subList.appendChild(subLi);
+            });
+            
+            li.appendChild(subList);
+        }
+        
+        elements.mainCategoriesList.appendChild(li);
+    });
+}
+
+// 메인 카테고리 클릭 처리
+function handleMainCategoryClick(category) {
+    // 이미 선택된 카테고리인 경우 토글
+    if (state.expandedMainCategory === category.id) {
+        state.expandedMainCategory = null;
+        state.selectedMainCategory = null;
+    } else {
+        state.expandedMainCategory = category.id;
+        state.selectedMainCategory = category.id;
+    }
+    
+    // 하위 카테고리 선택 초기화
+    state.selectedSubCategory = null;
+    
+    // 세부 옵션 초기화
+    clearDetailOptions();
+    
+    // 카테고리 UI 업데이트
+    renderMainCategories();
+    
+    // 선택된 메인 카테고리가 있는 경우 해당 카테고리 검색
+    if (state.selectedMainCategory) {
+        searchByCategory(state.selectedMainCategory);
+    }
+}
+
+// 소분류 클릭 처리
+function handleSubCategoryClick(subCategory) {
+    // 이미 선택된 서브 카테고리인 경우 토글
+    if (state.selectedSubCategory === subCategory.id) {
+        state.selectedSubCategory = null;
+    } else {
+        state.selectedSubCategory = subCategory.id;
+    }
+    
+    // 카테고리 UI 업데이트
+    renderMainCategories();
+    
+    // 소분류에 맞는 세부 옵션 로드
+    if (state.selectedSubCategory) {
+        loadOptionStructure(subCategory.id);
+        // 선택된 소분류로 검색
+        searchByCategory(state.selectedMainCategory, state.selectedSubCategory);
+    } else if (state.selectedMainCategory) {
+        // 소분류 선택 해제 시 메인 카테고리만으로 검색
+        searchByCategory(state.selectedMainCategory);
+    }
+}
+
+// 카테고리 검색
+function searchByCategory(mainCategory, subCategory = null) {
+    if (!mainCategory) return;
+    
+    // 로딩 시작
+    setLoading(true);
+    
+    // 검색어 유지 (검색어가 있으면 함께 사용)
+    
+    // 검색 상태 초기화
+    state.searchResults = [];
+    state.nextCursor = null;
+    state.hasMoreResults = false;
+    elements.loadMoreButton.style.display = 'none';
+    
+    // Firebase Function 호출 준비
+    state.searchType = 'category';
+    
+    // 서브 카테고리가 있는 경우 더 구체적인 검색
+    if (subCategory) {
+        console.log(`카테고리 검색: ${mainCategory} > ${subCategory}`);
+        searchWithCategoryAndItem(mainCategory, subCategory);
+    } else {
+        console.log(`메인 카테고리 검색: ${mainCategory}`);
+        searchWithCategoryAndItem(mainCategory);
+    }
+}
 
 // 한글 분해 함수
 function decomposeHangul(str) {
@@ -78,11 +356,6 @@ function getChosung(str) {
     }).join('');
 }
 
-// 카테고리별 소분류 가져오기
-function getCategoriesByMainCategory(mainCategory) {
-    return categories.filter(cat => cat.mainCategory === mainCategory);
-}
-
 // 디바운스 함수 (연속 호출 방지)
 function debounce(func, wait) {
     let timeout;
@@ -95,110 +368,6 @@ function debounce(func, wait) {
     };
 }
 
-// 초기화 함수
-function init() {
-    // DOM 요소 참조
-    elements.searchInput = document.getElementById('search-input');
-    elements.searchButton = document.querySelector('.search-button');
-    elements.suggestionsList = document.getElementById('suggestions');
-    elements.mainCategoriesList = document.getElementById('main-categories');
-    elements.resultsBody = document.getElementById('results-body');
-    elements.toggleOptionsButton = document.getElementById('toggle-options');
-    elements.detailOptions = document.getElementById('detail-options');
-    elements.applyFiltersButton = document.getElementById('apply-filters');
-    elements.minLevelInput = document.getElementById('min-level');
-    elements.maxLevelInput = document.getElementById('max-level');
-    elements.itemTypeSelect = document.getElementById('item-type');
-    elements.loadMoreButton = document.createElement('button');
-    elements.loadMoreButton.id = 'load-more-button';
-    elements.loadMoreButton.className = 'load-more-button';
-    elements.loadMoreButton.textContent = '더 보기';
-    elements.loadMoreButton.style.display = 'none';
-    elements.loadMoreButton.addEventListener('click', loadMoreResults);
-    
-    // 결과 패널에 더 보기 버튼 추가
-    const resultsPanel = document.querySelector('.results-panel');
-    resultsPanel.appendChild(elements.loadMoreButton);
-    
-    // 로딩 스피너 요소 생성
-    elements.loadingSpinner = document.createElement('div');
-    elements.loadingSpinner.className = 'loading-spinner';
-    elements.loadingSpinner.innerHTML = '<div class="spinner"></div><p>데이터를 불러오는 중...</p>';
-    elements.loadingSpinner.style.display = 'none';
-    document.body.appendChild(elements.loadingSpinner);
-    
-    // 카테고리 초기화
-    renderMainCategories();
-    
-    // 이벤트 리스너 등록
-    setupEventListeners();
-    
-    // 로컬 스토리지에서 자동완성 데이터 로드
-    loadAutocompleteSuggestions();
-}
-
-// 이벤트 리스너 설정
-function setupEventListeners() {
-    // 검색어 입력 이벤트
-    elements.searchInput.addEventListener('input', debounce(handleSearchInput, 300));
-    
-    // 키보드 이벤트 (화살표, Enter 등)
-    elements.searchInput.addEventListener('keydown', handleKeyDown);
-    
-    // 검색 버튼 클릭
-    elements.searchButton.addEventListener('click', handleSearch);
-    
-    // 세부 옵션 토글
-    elements.toggleOptionsButton.addEventListener('click', toggleDetailOptions);
-    
-    // 필터 적용 버튼
-    elements.applyFiltersButton.addEventListener('click', applyFilters);
-    
-    // 클릭 이벤트 처리 (바깥 영역 클릭 시 자동완성 닫기)
-    document.addEventListener('click', handleDocumentClick);
-}
-
-// 자동완성 데이터 로드 (로컬 스토리지에서)
-function loadAutocompleteSuggestions() {
-    // 로컬 스토리지에서 자동완성 데이터 로드
-    const cachedSuggestions = localStorage.getItem('auctionAutocompleteData');
-    if (cachedSuggestions) {
-        try {
-            const parsedData = JSON.parse(cachedSuggestions);
-            if (parsedData && Array.isArray(parsedData) && parsedData.length > 0) {
-                console.log('로컬 스토리지에서 자동완성 데이터 로드: ', parsedData.length + '개 항목');
-                return;
-            }
-        } catch (error) {
-            console.error('자동완성 데이터 파싱 오류:', error);
-        }
-    }
-    
-    // 로컬 데이터가 없거나 유효하지 않은 경우, 서버에서 로드
-    console.log('서버에서 자동완성 데이터 로드 중...');
-    fetchAutocompleteSuggestions();
-}
-
-// 서버에서 자동완성 데이터 가져오기
-async function fetchAutocompleteSuggestions() {
-    try {
-        // data/web 디렉토리에서 자동완성 데이터 가져오기
-        const response = await fetch('data/web/autocomplete.json');
-        if (!response.ok) {
-            throw new Error('자동완성 데이터를 가져오는데 실패했습니다');
-        }
-        
-        const data = await response.json();
-        if (data && Array.isArray(data.items) && data.items.length > 0) {
-            // 로컬 스토리지에 저장
-            localStorage.setItem('auctionAutocompleteData', JSON.stringify(data.items));
-            console.log('자동완성 데이터 로드 완료: ', data.items.length + '개 항목');
-        }
-    } catch (error) {
-        console.error('자동완성 데이터 로드 오류:', error);
-    }
-}
-
 // 검색어 입력 처리
 function handleSearchInput() {
     state.searchTerm = elements.searchInput.value.trim();
@@ -209,7 +378,7 @@ function handleSearchInput() {
     }
     
     // 자동완성 추천 생성
-    const suggestions = getSuggestions();
+    const suggestions = getSuggestions(state.searchTerm);
     
     if (suggestions.length > 0) {
         state.suggestions = suggestions;
@@ -220,8 +389,10 @@ function handleSearchInput() {
 }
 
 // 자동완성 추천 생성
-function getSuggestions() {
-    const normalizedTerm = state.searchTerm.toLowerCase();
+function getSuggestions(searchTerm) {
+    if (!searchTerm) return [];
+    
+    const normalizedTerm = searchTerm.toLowerCase();
     const chosungTerm = getChosung(normalizedTerm);
     
     // 영->한 오타 수정 시도
@@ -248,8 +419,12 @@ function getSuggestions() {
         return [];
     }
     
+    // 검색어와 일치하는 항목 필터링
     return autocompleteItems.filter(item => {
-        const itemName = item.name.toLowerCase();
+        // item.name이 문자열인지 확인
+        const itemName = (typeof item.name === 'string') ? item.name.toLowerCase() : '';
+        
+        if (!itemName) return false;
         
         // 일반 검색
         if (itemName.includes(normalizedTerm)) {
@@ -286,7 +461,6 @@ function renderSuggestions() {
         li.className = `suggestion-item ${index === state.activeSuggestion ? 'active' : ''}`;
         li.innerHTML = `
             <div class="suggestion-name">${item.name}</div>
-            <div class="suggestion-category">${item.category} > ${item.subcategory}</div>
         `;
         
         li.addEventListener('click', () => handleSelectSuggestion(item, index));
@@ -305,15 +479,37 @@ function handleSelectSuggestion(item, index) {
     state.selectedItem = item;
     state.activeSuggestion = index;
     
-    // 카테고리 및 서브카테고리 자동 설정
-    state.selectedMainCategory = item.category;
-    state.selectedSubCategory = item.subcategory;
+    // 자동완성 닫기
+    clearSuggestions();
     
-    // 카테고리 UI 업데이트
-    updateCategoryUI();
+    // 선택된 아이템으로 검색 실행
+    handleSearch();
+}
+
+// 검색 초기화
+function resetSearch() {
+    // 검색어 초기화
+    elements.searchInput.value = '';
+    state.searchTerm = '';
+    state.selectedItem = null;
     
-    // 아이템에 해당하는 옵션 구조 로드
-    loadOptionStructure(item.subcategory);
+    // 카테고리 선택 초기화
+    state.selectedMainCategory = null;
+    state.selectedSubCategory = null;
+    state.expandedMainCategory = null;
+    
+    // 필터 초기화
+    state.advancedFilters = {};
+    state.selectedFilters = {};
+    
+    // UI 업데이트
+    renderMainCategories();
+    updateSelectedFilters();
+    clearDetailOptions();
+    
+    // 결과 초기화
+    elements.resultsBody.innerHTML = '<tr class="empty-result"><td colspan="4">검색어를 입력하거나 카테고리를 선택해주세요.</td></tr>';
+    elements.loadMoreButton.style.display = 'none';
     
     // 자동완성 닫기
     clearSuggestions();
@@ -339,7 +535,7 @@ function handleKeyDown(e) {
             e.preventDefault();
             state.activeSuggestion = (state.activeSuggestion < totalSuggestions - 1) 
                 ? state.activeSuggestion + 1 
-                : state.activeSuggestion;
+                : totalSuggestions - 1;
             updateActiveSuggestion();
             break;
             
@@ -380,12 +576,12 @@ function setLoading(isLoading) {
     state.isLoading = isLoading;
     elements.loadingSpinner.style.display = isLoading ? 'flex' : 'none';
     elements.searchButton.disabled = isLoading;
-    elements.applyFiltersButton.disabled = isLoading;
+    elements.resetButton.disabled = isLoading;
 }
 
 // 검색 실행
 function handleSearch() {
-    // 검색어가 없으면 중단
+    // 검색어가 없고 카테고리도 선택되지 않은 경우 중단
     if (!state.searchTerm && !state.selectedMainCategory) {
         alert('검색어를 입력하거나 카테고리를 선택해주세요.');
         return;
@@ -400,27 +596,90 @@ function handleSearch() {
     state.hasMoreResults = false;
     elements.loadMoreButton.style.display = 'none';
     
-    // 자동완성을 통해 선택한 아이템이 있는 경우 (카테고리 + 아이템 이름 검색)
-    if (state.selectedItem && state.selectedMainCategory) {
-        console.log('카테고리 + 아이템으로 검색:', state.selectedMainCategory, state.selectedItem.name);
+    // 데이터베이스에서 검색어 존재 여부 확인
+    const isInDatabase = checkSearchTermInDatabase(state.searchTerm);
+    
+    // 카테고리가 선택되어 있는 경우 (카테고리 + 아이템 이름 검색)
+    if (state.selectedMainCategory) {
+        console.log(`카테고리 + 검색어로 검색: ${state.selectedMainCategory}, ${state.searchTerm || '전체'}`);
         state.searchType = 'category';
-        searchWithCategoryAndItem(state.selectedMainCategory, state.selectedItem.name);
+        searchWithCategoryAndItem(state.selectedMainCategory, state.selectedSubCategory, state.searchTerm);
     }
-    // 카테고리만 선택된 경우
-    else if (state.selectedMainCategory) {
-        console.log('카테고리로 검색:', state.selectedMainCategory);
-        state.searchType = 'category';
-        searchWithCategoryAndItem(state.selectedMainCategory);
-    }
-    // 키워드 검색
-    else {
-        console.log('키워드로 검색:', state.searchTerm);
-        state.searchType = 'keyword';
-        searchWithKeyword(state.searchTerm);
+    // 카테고리 없이 검색어만 있는 경우
+    else if (state.searchTerm) {
+        // 데이터베이스에 있으면 일반 검색, 없으면 키워드 검색
+        if (isInDatabase && state.selectedItem) {
+            console.log(`데이터베이스 히트: ${state.searchTerm}`);
+            // 아이템이 데이터베이스에 있음 - 카테고리 자동 선택
+            if (state.selectedItem.category) {
+                state.selectedMainCategory = getMainCategoryFromItem(state.selectedItem);
+                state.searchType = 'category';
+                searchWithCategoryAndItem(state.selectedMainCategory, null, state.searchTerm);
+            } else {
+                // 카테고리 정보가 없는 경우 키워드 검색
+                console.log(`키워드로 검색: ${state.searchTerm}`);
+                state.searchType = 'keyword';
+                searchWithKeyword(state.searchTerm);
+            }
+        } else {
+            // 데이터베이스에 없음 - 키워드 검색
+            console.log(`키워드로 검색: ${state.searchTerm}`);
+            state.searchType = 'keyword';
+            searchWithKeyword(state.searchTerm);
+        }
     }
     
     // 자동완성 닫기
     clearSuggestions();
+}
+
+// 데이터베이스에서 검색어 확인
+function checkSearchTermInDatabase(searchTerm) {
+    if (!searchTerm) return false;
+    
+    const cachedData = localStorage.getItem('auctionAutocompleteData');
+    if (!cachedData) return false;
+    
+    try {
+        const items = JSON.parse(cachedData);
+        const normalizedTerm = searchTerm.toLowerCase();
+        
+        return items.some(item => 
+            typeof item.name === 'string' && 
+            item.name.toLowerCase() === normalizedTerm
+        );
+    } catch (error) {
+        console.error('데이터베이스 검색 오류:', error);
+        return false;
+    }
+}
+
+// 아이템에서 메인 카테고리 추출
+function getMainCategoryFromItem(item) {
+    // 아이템에 카테고리 정보가 있는 경우
+    if (item.category) {
+        // 해당 카테고리가 메인 카테고리인지 확인
+        const isMainCategory = state.categories.mainCategories.some(
+            cat => cat.id === item.category || cat.name === item.category
+        );
+        
+        if (isMainCategory) {
+            return item.category;
+        }
+        
+        // 서브 카테고리에서 메인 카테고리 찾기
+        const subCategory = state.categories.subCategories.find(
+            cat => cat.id === item.category || cat.name === item.category
+        );
+        
+        if (subCategory && subCategory.mainCategory) {
+            return subCategory.mainCategory;
+        }
+    }
+    
+    // 기본값: 첫 번째 메인 카테고리
+    return state.categories.mainCategories.length > 0 ? 
+        state.categories.mainCategories[0].id : '검';
 }
 
 // 키워드로 검색 (Firebase Function 호출)
@@ -459,11 +718,27 @@ async function searchWithKeyword(keyword) {
 }
 
 // 카테고리 + 아이템으로 검색 (Firebase Function 호출)
-async function searchWithCategoryAndItem(category, itemName = null) {
+async function searchWithCategoryAndItem(category, subCategory = null, itemName = null) {
     try {
         let url = `${FIREBASE_FUNCTIONS.SEARCH_CATEGORY}?category=${encodeURIComponent(category)}`;
+        
+        // 서브 카테고리가 있는 경우 추가
+        if (subCategory) {
+            url += `&subCategory=${encodeURIComponent(subCategory)}`;
+        }
+        
+        // 아이템 이름이 있는 경우 추가
         if (itemName) {
             url += `&itemName=${encodeURIComponent(itemName)}`;
+        }
+        
+        // 필터 추가
+        if (Object.keys(state.advancedFilters).length > 0) {
+            const filterParams = new URLSearchParams();
+            for (const [key, value] of Object.entries(state.advancedFilters)) {
+                filterParams.append(`filter_${key}`, value);
+            }
+            url += `&${filterParams.toString()}`;
         }
         
         const response = await fetch(url);
@@ -498,6 +773,7 @@ async function loadMoreResults() {
     
     state.loadingPage = true;
     elements.loadMoreButton.textContent = '로딩 중...';
+    elements.loadMoreButton.disabled = true;
     
     try {
         let url;
@@ -507,11 +783,24 @@ async function loadMoreResults() {
         } else {
             url = `${FIREBASE_FUNCTIONS.SEARCH_CATEGORY}?category=${encodeURIComponent(state.selectedMainCategory)}`;
             
-            if (state.selectedItem && state.selectedItem.name) {
-                url += `&itemName=${encodeURIComponent(state.selectedItem.name)}`;
+            if (state.selectedSubCategory) {
+                url += `&subCategory=${encodeURIComponent(state.selectedSubCategory)}`;
+            }
+            
+            if (state.searchTerm) {
+                url += `&itemName=${encodeURIComponent(state.searchTerm)}`;
             }
             
             url += `&cursor=${state.nextCursor}`;
+            
+            // 필터 추가
+            if (Object.keys(state.advancedFilters).length > 0) {
+                const filterParams = new URLSearchParams();
+                for (const [key, value] of Object.entries(state.advancedFilters)) {
+                    filterParams.append(`filter_${key}`, value);
+                }
+                url += `&${filterParams.toString()}`;
+            }
         }
         
         const response = await fetch(url);
@@ -541,6 +830,7 @@ async function loadMoreResults() {
     } finally {
         state.loadingPage = false;
         elements.loadMoreButton.textContent = '더 보기';
+        elements.loadMoreButton.disabled = false;
     }
 }
 
@@ -600,9 +890,6 @@ function renderSearchResults(append = false) {
         tr.innerHTML = `
             <td>
                 <div class="item-cell">
-                    <div class="item-image">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="${item.item_name}">
-                    </div>
                     <div class="item-name">${item.item_name}</div>
                 </div>
             </td>
@@ -613,328 +900,66 @@ function renderSearchResults(append = false) {
         
         // 아이템 클릭 이벤트 - 상세 정보 조회
         tr.addEventListener('click', () => {
-            fetchItemDetail(item.auction_item_no);
+            showItemDetails(item);
         });
         
         elements.resultsBody.appendChild(tr);
     });
 }
 
-// 아이템 상세 정보 조회
-async function fetchItemDetail(auctionItemNo) {
-    setLoading(true);
+// 아이템 상세 정보 표시 (모달 방식)
+function showItemDetails(item) {
+    // 간단한 상세 정보 모달 구현
+    let optionsHtml = '';
     
-    try {
-        const url = `${FIREBASE_FUNCTIONS.ITEM_DETAIL}?auctionItemNo=${auctionItemNo}`;
-        const response = await fetch(url);
-        
-        if (!response.ok) {
-            throw new Error('API 호출 실패: ' + response.status);
-        }
-        
-        const data = await response.json();
-        
-        // 상세 정보 모달 표시
-        showItemDetailModal(data);
-    } catch (error) {
-        console.error('아이템 상세 정보 조회 오류:', error);
-        showError('아이템 상세 정보를 불러오는 중 오류가 발생했습니다.');
-    } finally {
-        setLoading(false);
-    }
-}
-
-// 아이템 상세 정보 모달 표시
-function showItemDetailModal(itemData) {
-    // 모달 구현 (간단한 예시)
-    alert(`아이템 상세 정보: ${itemData.item_name || '알 수 없음'}\n이 기능은 아직 구현 중입니다.`);
-    console.log('아이템 상세 정보:', itemData);
-    
-    // TODO: 실제 모달 구현
-}
-
-// 메인 카테고리 렌더링
-function renderMainCategories() {
-    elements.mainCategoriesList.innerHTML = '';
-    
-    mainCategories.forEach(category => {
-        const li = document.createElement('li');
-        li.className = 'category-item';
-        
-        const button = document.createElement('button');
-        button.className = `category-button ${state.selectedMainCategory === category.id ? 'active' : ''}`;
-        button.textContent = category.name;
-        button.addEventListener('click', () => handleMainCategoryClick(category));
-        
-        li.appendChild(button);
-        
-        // 확장된 카테고리인 경우 소분류 목록 추가
-        if (state.expandedMainCategory === category.id) {
-            const subList = document.createElement('ul');
-            subList.className = 'subcategory-list expanded';
-            
-            const subCategories = getCategoriesByMainCategory(category.id);
-            subCategories.forEach(subCategory => {
-                const subLi = document.createElement('li');
-                subLi.className = 'subcategory-item';
-                
-                const subButton = document.createElement('button');
-                subButton.className = `subcategory-button ${state.selectedSubCategory === subCategory.id ? 'active' : ''}`;
-                subButton.textContent = subCategory.name;
-                subButton.addEventListener('click', () => handleSubCategoryClick(subCategory));
-                
-                subLi.appendChild(subButton);
-                subList.appendChild(subLi);
-            });
-            
-            li.appendChild(subList);
-        }
-        
-        elements.mainCategoriesList.appendChild(li);
-    });
-}
-
-// 메인 카테고리 클릭 처리
-function handleMainCategoryClick(category) {
-    // 이미 선택된 카테고리인 경우 토글
-    if (state.expandedMainCategory === category.id) {
-        state.expandedMainCategory = null;
-    } else {
-        state.expandedMainCategory = category.id;
-        state.selectedMainCategory = category.id;
-        state.selectedSubCategory = null;
-        
-        // 하위 카테고리가 선택되지 않았으므로 옵션 구조 초기화
-        state.optionStructure = {};
-        renderDetailOptions();
-    }
-    
-    // 카테고리 UI 업데이트
-    renderMainCategories();
-}
-
-// 소분류 클릭 처리
-function handleSubCategoryClick(subCategory) {
-    state.selectedSubCategory = subCategory.id;
-    
-    // 카테고리 UI 업데이트
-    renderMainCategories();
-    
-    // 아이템 검색 (해당 카테고리의 아이템 불러오기)
-    searchByCategory(state.selectedMainCategory, state.selectedSubCategory);
-    
-    // 아이템에 해당하는 옵션 구조 로드
-    loadOptionStructure(subCategory.id);
-}
-
-// 카테고리 검색
-function searchByCategory(mainCategory, subCategory) {
-    if (!mainCategory) return;
-    
-    // 검색어 초기화
-    state.searchTerm = '';
-    elements.searchInput.value = '';
-    state.selectedItem = null;
-    
-    // Firebase Function 호출
-    state.searchType = 'category';
-    searchWithCategoryAndItem(mainCategory);
-}
-
-// 카테고리 UI 업데이트
-function updateCategoryUI() {
-    // 카테고리 확장
-    state.expandedMainCategory = state.selectedMainCategory;
-    
-    // 카테고리 UI 업데이트
-    renderMainCategories();
-}
-
-// 옵션 구조 로드
-function loadOptionStructure(subCategory) {
-    if (!subCategory) {
-        state.optionStructure = {};
-        renderDetailOptions();
-        return;
-    }
-    
-    // 옵션 구조 데이터 로드
-    fetch(`data/option_structure/${subCategory}.json`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('옵션 구조 파일을 찾을 수 없습니다.');
+    if (item.item_option && item.item_option.length > 0) {
+        item.item_option.forEach(option => {
+            if (option.option_type && option.option_value) {
+                optionsHtml += `
+                    <div class="item-option">
+                        <strong>${option.option_type}:</strong> ${option.option_value}
+                    </div>
+                `;
             }
-            return response.json();
-        })
-        .then(data => {
-            state.optionStructure = data.option_structure || {};
-            renderDetailOptions();
-        })
-        .catch(error => {
-            console.error('옵션 구조 로드 실패:', error);
-            
-            // 오류 발생 시 기본 옵션 구조 사용
-            state.optionStructure = {
-                "기본 옵션": {
-                    "value": "text"
-                }
-            };
-            
-            renderDetailOptions();
         });
-}
-
-// 세부 옵션 렌더링
-function renderDetailOptions() {
-    elements.detailOptions.innerHTML = '';
-    
-    if (Object.keys(state.optionStructure).length === 0) {
-        elements.detailOptions.innerHTML = `
-            <div class="empty-options">
-                카테고리를 선택하면 세부 옵션이 표시됩니다.
-            </div>
-        `;
-        return;
     }
     
-    // 옵션 구조에 따른 동적 필터 생성
-    Object.entries(state.optionStructure).forEach(([optionName, optionInfo]) => {
-        const div = document.createElement('div');
-        div.className = 'filter-group';
-        
-        // 라벨
-        const label = document.createElement('label');
-        label.textContent = optionName;
-        div.appendChild(label);
-        
-        // 옵션 타입에 따른 입력 UI 생성
-        if (optionInfo.value === "number") {
-            if (optionInfo.value2) {
-                // 범위 입력 (min-max)
-                const rangeDiv = document.createElement('div');
-                rangeDiv.className = 'range-input';
-                
-                const minInput = document.createElement('input');
-                minInput.type = 'number';
-                minInput.name = `min_${optionName}`;
-                minInput.placeholder = '최소';
-                minInput.value = state.advancedFilters[`min_${optionName}`] || '';
-                minInput.addEventListener('change', e => {
-                    state.advancedFilters[`min_${optionName}`] = e.target.value;
-                });
-                
-                const separator = document.createElement('span');
-                separator.textContent = '~';
-                
-                const maxInput = document.createElement('input');
-                maxInput.type = 'number';
-                maxInput.name = `max_${optionName}`;
-                maxInput.placeholder = '최대';
-                maxInput.value = state.advancedFilters[`max_${optionName}`] || '';
-                maxInput.addEventListener('change', e => {
-                    state.advancedFilters[`max_${optionName}`] = e.target.value;
-                });
-                
-                rangeDiv.appendChild(minInput);
-                rangeDiv.appendChild(separator);
-                rangeDiv.appendChild(maxInput);
-                div.appendChild(rangeDiv);
-            } else {
-                // 단일 숫자 입력
-                const input = document.createElement('input');
-                input.type = 'number';
-                input.name = optionName;
-                input.value = state.advancedFilters[optionName] || '';
-                input.addEventListener('change', e => {
-                    state.advancedFilters[optionName] = e.target.value;
-                });
-                div.appendChild(input);
-            }
-        } 
-        else if (optionInfo.value === "rgb") {
-            // 색상 선택
-            const colorDiv = document.createElement('div');
-            colorDiv.className = 'color-option';
-            
-            const colorInput = document.createElement('input');
-            colorInput.type = 'color';
-            colorInput.name = optionName;
-            colorInput.value = state.advancedFilters[optionName] || '#ffffff';
-            colorInput.addEventListener('change', e => {
-                state.advancedFilters[optionName] = e.target.value;
-            });
-            
-            const colorText = document.createElement('span');
-            colorText.textContent = '색상 선택';
-            colorText.className = 'color-label';
-            
-            colorDiv.appendChild(colorInput);
-            colorDiv.appendChild(colorText);
-            div.appendChild(colorDiv);
-        } 
-        else if (optionInfo.value === "percentage") {
-            // 백분율
-            const percentDiv = document.createElement('div');
-            percentDiv.className = 'percent-input';
-            
-            const input = document.createElement('input');
-            input.type = 'number';
-            input.name = optionName;
-            input.min = '0';
-            input.max = '100';
-            input.value = state.advancedFilters[optionName] || '';
-            input.addEventListener('change', e => {
-                state.advancedFilters[optionName] = e.target.value;
-            });
-            
-            const percentSign = document.createElement('span');
-            percentSign.textContent = '%';
-            
-            percentDiv.appendChild(input);
-            percentDiv.appendChild(percentSign);
-            div.appendChild(percentDiv);
-        } 
-        else if (optionInfo.value === "text" || optionInfo.value === "rank") {
-            // 텍스트 또는 랭크 선택
-            if (optionInfo.sub_type === "text") {
-                // 일반 텍스트 입력
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.name = optionName;
-                input.value = state.advancedFilters[optionName] || '';
-                input.addEventListener('change', e => {
-                    state.advancedFilters[optionName] = e.target.value;
-                });
-                div.appendChild(input);
-            } else {
-                // 선택 옵션
-                const select = document.createElement('select');
-                select.name = optionName;
-                select.value = state.advancedFilters[optionName] || '';
-                select.addEventListener('change', e => {
-                    state.advancedFilters[optionName] = e.target.value;
-                });
-                
-                // 기본 옵션
-                const defaultOption = document.createElement('option');
-                defaultOption.value = '';
-                defaultOption.textContent = '선택하세요';
-                select.appendChild(defaultOption);
-                
-                // 옵션 추가 (실제 구현에서는 API에서 가져온 목록 사용)
-                const options = ['option1', 'option2', 'option3'];
-                options.forEach(opt => {
-                    const option = document.createElement('option');
-                    option.value = opt;
-                    option.textContent = opt;
-                    select.appendChild(option);
-                });
-                
-                div.appendChild(select);
-            }
+    const modalHtml = `
+        <div class="item-detail-modal">
+            <div class="modal-header">
+                <h3>${item.item_name}</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="item-basic-info">
+                    <p><strong>카테고리:</strong> ${item.auction_item_category || '정보 없음'}</p>
+                    <p><strong>가격:</strong> ${item.auction_price_per_unit.toLocaleString()}G</p>
+                    <p><strong>판매 수량:</strong> ${item.auction_count || 1}개</p>
+                </div>
+                <div class="item-options">
+                    <h4>아이템 옵션</h4>
+                    ${optionsHtml || '<p>옵션 정보가 없습니다.</p>'}
+                </div>
+            </div>
+        </div>
+    `;
+    
+    const modalContainer = document.createElement('div');
+    modalContainer.className = 'modal-container';
+    modalContainer.innerHTML = modalHtml;
+    document.body.appendChild(modalContainer);
+    
+    // 모달 닫기 버튼 이벤트
+    const closeButton = modalContainer.querySelector('.close-modal');
+    closeButton.addEventListener('click', () => {
+        document.body.removeChild(modalContainer);
+    });
+    
+    // 모달 바깥 클릭 시 닫기
+    modalContainer.addEventListener('click', (e) => {
+        if (e.target === modalContainer) {
+            document.body.removeChild(modalContainer);
         }
-        
-        elements.detailOptions.appendChild(div);
     });
 }
 
@@ -942,147 +967,272 @@ function renderDetailOptions() {
 function toggleDetailOptions() {
     state.showDetailOptions = !state.showDetailOptions;
     
-    elements.detailOptions.classList.toggle('show', state.showDetailOptions);
+    const detailOptionsContainer = document.getElementById('detail-options');
+    detailOptionsContainer.classList.toggle('show', state.showDetailOptions);
     elements.toggleOptionsButton.textContent = state.showDetailOptions ? '접기' : '펼치기';
 }
 
-// 필터 적용
-function applyFilters() {
-    console.log('필터 적용:', state.advancedFilters);
-    
-    // 필터 적용 시 원래 결과에서 필터링 (서버에 재요청하지 않음)
-    let filteredResults = [...state.searchResults];
-    
-    // 기본 필터 적용
-    const minLevel = elements.minLevelInput.value;
-    const maxLevel = elements.maxLevelInput.value;
-    const itemType = elements.itemTypeSelect.value;
-    
-    // 로딩 중 상태로 변경
-    setLoading(true);
-    
-    // 클라이언트 측 필터링 적용
-    try {
-        if (minLevel) {
-            filteredResults = filteredResults.filter(item => {
-                // 아이템 레벨 찾기
-                if (item.item_option && item.item_option.length > 0) {
-                    const levelOption = item.item_option.find(opt => 
-                        opt.option_type === '레벨' || 
-                        opt.option_type === '요구 레벨' || 
-                        opt.option_type === '아이템 레벨'
-                    );
-                    if (levelOption && levelOption.option_value) {
-                        return parseInt(levelOption.option_value) >= parseInt(minLevel);
-                    }
-                }
-                // 레벨 정보가 없으면 false 반환
-                return false;
-            });
-        }
-        
-        if (maxLevel) {
-            filteredResults = filteredResults.filter(item => {
-                // 아이템 레벨 찾기
-                if (item.item_option && item.item_option.length > 0) {
-                    const levelOption = item.item_option.find(opt => 
-                        opt.option_type === '레벨' || 
-                        opt.option_type === '요구 레벨' || 
-                        opt.option_type === '아이템 레벨'
-                    );
-                    if (levelOption && levelOption.option_value) {
-                        return parseInt(levelOption.option_value) <= parseInt(maxLevel);
-                    }
-                }
-                // 레벨 정보가 없으면 false 반환
-                return false;
-            });
-        }
-        
-        if (itemType && itemType !== 'all') {
-            filteredResults = filteredResults.filter(item => {
-                if (item.item_option && item.item_option.length > 0) {
-                    const typeOption = item.item_option.find(opt => 
-                        opt.option_type === '분류' || 
-                        opt.option_type === '아이템 유형'
-                    );
-                    if (typeOption && typeOption.option_value) {
-                        return typeOption.option_value.includes(itemType);
-                    }
-                }
-                return false;
-            });
-        }
-        
-        // 고급 필터 적용
-        // 실제 구현에서는 각 필터 타입에 맞게 처리
-        for (const [key, value] of Object.entries(state.advancedFilters)) {
-            if (!value) continue;
-            
-            if (key.startsWith('min_')) {
-                const optionName = key.substring(4);
-                filteredResults = filteredResults.filter(item => {
-                    if (item.item_option && item.item_option.length > 0) {
-                        const option = item.item_option.find(opt => opt.option_type === optionName);
-                        if (option && option.option_value) {
-                            return parseInt(option.option_value) >= parseInt(value);
-                        }
-                    }
-                    return false;
-                });
-            } 
-            else if (key.startsWith('max_')) {
-                const optionName = key.substring(4);
-                filteredResults = filteredResults.filter(item => {
-                    if (item.item_option && item.item_option.length > 0) {
-                        const option = item.item_option.find(opt => opt.option_type === optionName);
-                        if (option && option.option_value) {
-                            return parseInt(option.option_value) <= parseInt(value);
-                        }
-                    }
-                    return false;
-                });
-            } 
-            else {
-                // 일반 옵션 필터
-                filteredResults = filteredResults.filter(item => {
-                    if (item.item_option && item.item_option.length > 0) {
-                        const option = item.item_option.find(opt => opt.option_type === key);
-                        if (option) {
-                            if (typeof value === 'string' && value.startsWith('#')) {
-                                // 색상 필터 (RGB 비교)
-                                // 색상 구현은 복잡하므로 여기서는 간단히 처리
-                                return true;
-                            } else {
-                                return option.option_value == value || 
-                                       option.option_value.includes(value);
-                            }
-                        }
-                    }
-                    return false;
-                });
-            }
-        }
-        
-        // 임시 저장 (원래 결과는 유지)
-        const originalResults = state.searchResults;
-        state.searchResults = filteredResults;
-        
-        // 결과 표시
-        renderSearchResults();
-        
-        // 더 보기 버튼 숨기기 (필터링 결과에서는 더 보기 사용하지 않음)
-        elements.loadMoreButton.style.display = 'none';
-        
-        // 필터 결과 개수 표시
-        console.log(`필터링 결과: ${filteredResults.length}개 아이템 (원래: ${originalResults.length}개)`);
-        
-    } catch (error) {
-        console.error('필터 적용 중 오류:', error);
-        showError('필터를 적용하는 중 오류가 발생했습니다.');
-    } finally {
-        setLoading(false);
+// 세부 옵션 구조 로드
+function loadOptionStructure(subCategoryId) {
+    if (!subCategoryId) {
+        clearDetailOptions();
+        return;
     }
+    
+    // 옵션 구조 데이터 로드 (data/option_structure 경로에서)
+    fetch(`data/option_structure/${subCategoryId}.json`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('옵션 구조 파일을 찾을 수 없습니다.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // 옵션 구조 업데이트
+            renderDetailOptions(data.option_structure || {});
+        })
+        .catch(error => {
+            console.error('옵션 구조 로드 실패:', error);
+            // 오류 발생 시 기본 옵션 구조 사용
+            renderDetailOptions({});
+        });
+}
+
+// 세부 옵션 렌더링
+function renderDetailOptions(optionStructure) {
+    // 세부 옵션 목록 초기화
+    elements.detailOptionsList.innerHTML = '';
+    
+    if (Object.keys(optionStructure).length === 0) {
+        elements.detailOptionsList.innerHTML = `
+            <li class="no-options">이 카테고리에는 사용 가능한 세부 옵션이 없습니다.</li>
+        `;
+        return;
+    }
+    
+    // 옵션 구조에 따른 드롭다운 옵션 생성
+    Object.entries(optionStructure).forEach(([optionName, optionInfo]) => {
+        const li = document.createElement('li');
+        li.className = 'option-item';
+        
+        const optionButton = document.createElement('button');
+        optionButton.className = 'option-button';
+        optionButton.textContent = optionName;
+        
+        // 옵션 클릭 이벤트
+        optionButton.addEventListener('click', () => {
+            // 옵션 타입에 따른 입력 UI 생성 및 모달 표시
+            showOptionInputModal(optionName, optionInfo);
+        });
+        
+        li.appendChild(optionButton);
+        elements.detailOptionsList.appendChild(li);
+    });
+}
+
+// 선택된 필터 목록 업데이트
+function updateSelectedFilters() {
+    elements.selectedFiltersList.innerHTML = '';
+    
+    if (Object.keys(state.selectedFilters).length === 0) {
+        elements.selectedFiltersList.innerHTML = '<li class="no-filters">선택된 필터가 없습니다.</li>';
+        return;
+    }
+    
+    Object.entries(state.selectedFilters).forEach(([key, value]) => {
+        const li = document.createElement('li');
+        li.className = 'selected-filter';
+        
+        li.innerHTML = `
+            <span class="filter-name">${key}:</span>
+            <span class="filter-value">${value}</span>
+            <button class="remove-filter" data-filter-key="${key}">&times;</button>
+        `;
+        
+        // 필터 제거 버튼 이벤트
+        const removeButton = li.querySelector('.remove-filter');
+        removeButton.addEventListener('click', () => {
+            // 필터 제거
+            delete state.selectedFilters[key];
+            delete state.advancedFilters[key];
+            
+            // UI 업데이트
+            updateSelectedFilters();
+            
+            // 검색 다시 실행
+            if (state.selectedMainCategory) {
+                searchByCategory(state.selectedMainCategory, state.selectedSubCategory);
+            } else if (state.searchTerm) {
+                handleSearch();
+            }
+        });
+        
+        elements.selectedFiltersList.appendChild(li);
+    });
+}
+
+// 옵션 입력 모달 표시
+function showOptionInputModal(optionName, optionInfo) {
+    // 모달 생성
+    const modalContainer = document.createElement('div');
+    modalContainer.className = 'option-modal-container';
+    
+    let inputHtml = '';
+    
+    // 옵션 타입에 따른 입력 UI 생성
+    if (optionInfo.value === "number") {
+        if (optionInfo.value2) {
+            // 범위 입력 (min-max)
+            inputHtml = `
+                <div class="range-input">
+                    <input type="number" id="option-min" placeholder="최소값" min="0">
+                    <span>~</span>
+                    <input type="number" id="option-max" placeholder="최대값" min="0">
+                </div>
+            `;
+        } else {
+            // 단일 숫자 입력
+            inputHtml = `
+                <input type="number" id="option-value" placeholder="값 입력" min="0">
+            `;
+        }
+    } 
+    else if (optionInfo.value === "rgb") {
+        // 색상 선택
+        inputHtml = `
+            <div class="color-input">
+                <input type="color" id="option-value" value="#ffffff">
+                <span>색상 선택</span>
+            </div>
+        `;
+    } 
+    else if (optionInfo.value === "percentage") {
+        // 백분율
+        inputHtml = `
+            <div class="percent-input">
+                <input type="number" id="option-value" min="0" max="100" placeholder="백분율">
+                <span>%</span>
+            </div>
+        `;
+    } 
+    else {
+        // 텍스트 입력
+        inputHtml = `
+            <input type="text" id="option-value" placeholder="값 입력">
+        `;
+    }
+    
+    modalContainer.innerHTML = `
+        <div class="option-modal">
+            <div class="modal-header">
+                <h3>${optionName} 필터 설정</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                ${inputHtml}
+                <div class="modal-buttons">
+                    <button class="cancel-button">취소</button>
+                    <button class="apply-button">적용</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modalContainer);
+    
+    // 모달 닫기 버튼 이벤트
+    const closeButton = modalContainer.querySelector('.close-modal');
+    closeButton.addEventListener('click', () => {
+        document.body.removeChild(modalContainer);
+    });
+    
+    // 취소 버튼 이벤트
+    const cancelButton = modalContainer.querySelector('.cancel-button');
+    cancelButton.addEventListener('click', () => {
+        document.body.removeChild(modalContainer);
+    });
+    
+    // 적용 버튼 이벤트
+    const applyButton = modalContainer.querySelector('.apply-button');
+    applyButton.addEventListener('click', () => {
+        // 입력 값 가져오기
+        let filterValue;
+        
+        if (optionInfo.value === "number" && optionInfo.value2) {
+            // 범위 입력
+            const minValue = modalContainer.querySelector('#option-min').value;
+            const maxValue = modalContainer.querySelector('#option-max').value;
+            
+            if (!minValue && !maxValue) {
+                alert('최소값 또는 최대값을 입력해주세요.');
+                return;
+            }
+            
+            // 최소값만 있는 경우
+            if (minValue && !maxValue) {
+                filterValue = `>=${minValue}`;
+                state.advancedFilters[`min_${optionName}`] = minValue;
+                state.selectedFilters[optionName] = `${minValue} 이상`;
+            }
+            // 최대값만 있는 경우
+            else if (!minValue && maxValue) {
+                filterValue = `<=${maxValue}`;
+                state.advancedFilters[`max_${optionName}`] = maxValue;
+                state.selectedFilters[optionName] = `${maxValue} 이하`;
+            }
+            // 둘 다 있는 경우
+            else {
+                filterValue = `${minValue}~${maxValue}`;
+                state.advancedFilters[`min_${optionName}`] = minValue;
+                state.advancedFilters[`max_${optionName}`] = maxValue;
+                state.selectedFilters[optionName] = `${minValue}~${maxValue}`;
+            }
+        } else {
+            // 단일 값 입력
+            filterValue = modalContainer.querySelector('#option-value').value;
+            
+            if (!filterValue) {
+                alert('값을 입력해주세요.');
+                return;
+            }
+            
+            state.advancedFilters[optionName] = filterValue;
+            state.selectedFilters[optionName] = filterValue;
+        }
+        
+        // 선택된 필터 UI 업데이트
+        updateSelectedFilters();
+        
+        // 모달 닫기
+        document.body.removeChild(modalContainer);
+        
+        // 검색 다시 실행
+        if (state.selectedMainCategory) {
+            searchByCategory(state.selectedMainCategory, state.selectedSubCategory);
+        } else if (state.searchTerm) {
+            handleSearch();
+        }
+    });
+    
+    // 모달 바깥 클릭 시 닫기
+    modalContainer.addEventListener('click', (e) => {
+        if (e.target === modalContainer) {
+            document.body.removeChild(modalContainer);
+        }
+    });
+}
+
+// 세부 옵션 초기화
+function clearDetailOptions() {
+    elements.detailOptionsList.innerHTML = '';
+    elements.detailOptionsList.innerHTML = `
+        <li class="no-options">카테고리를 선택하면 세부 옵션이 표시됩니다.</li>
+    `;
+    
+    // 선택된 필터 초기화
+    state.advancedFilters = {};
+    state.selectedFilters = {};
+    updateSelectedFilters();
 }
 
 // 문서 클릭 이벤트 처리 (외부 클릭 시 패널 닫기)
@@ -1098,68 +1248,3 @@ function handleDocumentClick(event) {
 
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', init);
-
-// 스타일 추가: 로딩 스피너와 더 보기 버튼
-const style = document.createElement('style');
-style.textContent = `
-    .loading-spinner {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-    }
-    
-    .spinner {
-        width: 50px;
-        height: 50px;
-        border: 5px solid #f3f3f3;
-        border-top: 5px solid #333;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    
-    .loading-spinner p {
-        color: white;
-        margin-top: 10px;
-    }
-    
-    .load-more-button {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        margin-top: 10px;
-        background-color: var(--color-black);
-        color: var(--color-yellow);
-        border: none;
-        border-radius: 4px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-    
-    .load-more-button:hover {
-        background-color: #222;
-    }
-    
-    .item-row {
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-    }
-    
-    .item-row:hover {
-        background-color: #f0f0f0;
-    }
-`;
-document.head.appendChild(style);
