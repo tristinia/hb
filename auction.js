@@ -4,9 +4,9 @@
 
 // Firebase Functions URL 설정
 const FIREBASE_FUNCTIONS = {
-  SEARCH_KEYWORD: 'https://us-central1-YOUR_PROJECT_ID.cloudfunctions.net/searchByKeyword',
-  SEARCH_CATEGORY: 'https://us-central1-YOUR_PROJECT_ID.cloudfunctions.net/searchByCategory',
-  ITEM_DETAIL: 'https://us-central1-YOUR_PROJECT_ID.cloudfunctions.net/getItemDetail'
+  SEARCH_KEYWORD: 'https://us-central1-mabinogi-auction-api.cloudfunctions.net/searchByKeyword',
+  SEARCH_CATEGORY: 'https://us-central1-mabinogi-auction-api.cloudfunctions.net/searchByCategory',
+  ITEM_DETAIL: 'https://us-central1-mabinogi-auction-api.cloudfunctions.net/getItemDetail'
 };
 
 // 기본 설정 및 상태 변수
