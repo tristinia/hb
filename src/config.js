@@ -1,4 +1,4 @@
-// config.js - 시스템 설정 
+// src/config.js - 시스템 설정 
 module.exports = {
   // API 설정
   API_KEY: process.env.API_KEY,

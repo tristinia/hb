@@ -1,7 +1,6 @@
 /**
  * 마비노기 정령 형상변환 리큐르 & 부가 효과 뷰어
  * 작성자: WF신의컨트롤
- * 최종 수정: 2025-03-07
  */
 
 // 데이터 및 상태 변수
@@ -46,19 +45,19 @@ const pageConfig = {
     'liqueur': {
         buttonText: '정령 형변',
         title: '정령 형상변환 리큐르',
-        dataPath: 'data/spiritLiqueur.json',
+        dataPath: 'data/web/spiritLiqueur.json',
         imagePath: 'image/spiritLiqueur'   // 이미지 경로 추가
     },
     'effectCard': {
         buttonText: '이펙트 변경 카드',
         title: '이펙트 변경 카드',
-        dataPath: 'data/effectCard.json',
+        dataPath: 'data/web/effectCard.json',
         imagePath: 'image/effectCard'      // 이미지 경로 추가
     },
     'titleEffect': {
         buttonText: '2차 타이틀',
         title: '2차 타이틀 이펙트',
-        dataPath: 'data/titleEffect.json',
+        dataPath: 'data/web/titleEffect.json',
         imagePath: 'image/titleEffect'     // 이미지 경로 추가
     }
 };
@@ -500,26 +499,13 @@ function openModal(effect) {
                 <img class="modal-image" src="${effect.videoLink}" alt="${effect.name}">
             `;
         } else {
-            // 모달에서는 항상 원본 고화질 비디오 사용
             modalMediaContainer.innerHTML = `
                 <video class="modal-video" src="${effect.videoLink}" controls autoplay loop></video>
             `;
             
-            // 로딩 상태 표시
-            const modalVideo = modalMediaContainer.querySelector('.modal-video');
-            const loadingIndicator = document.createElement('div');
-            loadingIndicator.className = 'modal-loading';
-            loadingIndicator.innerHTML = '<div class="spinner"></div>';
-            modalMediaContainer.appendChild(loadingIndicator);
-            
-            // 비디오 로드 완료 시
-            modalVideo.addEventListener('loadeddata', () => {
-                modalMediaContainer.querySelector('.modal-loading')?.remove();
-            });
-            
             // 비디오 로드 에러 시
+            const modalVideo = modalMediaContainer.querySelector('.modal-video');
             modalVideo.addEventListener('error', () => {
-                modalMediaContainer.querySelector('.modal-loading')?.remove();
                 modalMediaContainer.innerHTML = `
                     <div class="no-media">비디오 로드 실패</div>
                 `;

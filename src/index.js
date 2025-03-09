@@ -1,4 +1,4 @@
-// index.js - 메인 스크립트
+// index.js - 메인 스크립트 (간소화 버전)
 const apiClient = require('./api-client');
 const dataProcessor = require('./data-processor');
 const storageManager = require('./storage-manager');
@@ -15,24 +15,49 @@ async function main() {
     // 디렉토리 초기화
     storageManager.initDirectories();
     
-    // API 테스트
-    const apiTestResult = await apiClient.testApi();
-    if (!apiTestResult) {
-      console.error('API 테스트 실패. 수집을 중단합니다.');
+    // API 테스트 대신 기본 카테고리로 첫번째 API 호출 시도
+    console.log('API 연결 테스트 중...');
+    try {
+      // 테스트용 카테고리 (기본 카테고리 중 하나 선택)
+      const testCategory = categoryManager.categories[0];
+      console.log(`카테고리 '${testCategory.name}'으로 API 테스트 중...`);
+      
+      // 첫 번째 호출로 API 테스트
+      const testItems = await apiClient.collectCategoryItems(testCategory);
+      console.log(`API 테스트 성공: ${testItems.length}개 아이템 수신`);
+      
+      // 첫 테스트 결과도 처리 (낭비하지 않도록)
+      if (testItems.length > 0) {
+        const processedItems = dataProcessor.processItems(testItems, testCategory.id);
+        // 첫 카테고리 결과 저장
+        storageManager.saveItemsData(testCategory.id, processedItems);
+        
+        // 모든 아이템 누적 배열에 추가
+        var allItems = [...processedItems];
+      } else {
+        var allItems = [];
+      }
+    } catch (error) {
+      console.error('API 테스트 실패. 수집을 중단합니다:', error.message);
       process.exit(1);
     }
     
-    // 카테고리별 처리
-    for (const category of categoryManager.categories) {
+    // 나머지 카테고리 처리 (첫 번째 카테고리는 이미 처리했으므로 건너뜀)
+    for (let i = 1; i < categoryManager.categories.length; i++) {
+      const category = categoryManager.categories[i];
       try {
         // 아이템 수집
         const items = await apiClient.collectCategoryItems(category);
         
-        // 데이터 처리
+        // 데이터 처리 (간소화된 버전)
         const processedItems = dataProcessor.processItems(items, category.id);
         
-        // 아이템 데이터 저장
+        // 처리된 아이템 누적
+        allItems = [...allItems, ...processedItems];
+        
+        // 카테고리별 아이템 데이터 저장
         storageManager.saveItemsData(category.id, processedItems);
+        
       } catch (error) {
         // 치명적 오류인 경우 전체 프로세스 중단
         if (error.message.startsWith('치명적 오류:')) {
@@ -45,21 +70,8 @@ async function main() {
       }
     }
     
-    // 메타데이터 저장
-    console.log('\n메타데이터 저장 중...');
-    
-    // 처리 데이터 가져오기
-    const processedData = dataProcessor.getData();
-    
-    // 인챈트 데이터 저장
-    storageManager.saveEnchantData('prefix', processedData.enchants.prefix);
-    storageManager.saveEnchantData('suffix', processedData.enchants.suffix);
-    
-    // 세공 데이터 저장
-    storageManager.saveReforgeData(processedData.reforges);
-    
-    // 에코스톤 데이터 저장
-    storageManager.saveEcostoneData(processedData.ecostones);
+    // 전체 아이템 데이터베이스 업데이트
+    storageManager.updateItemDatabase(allItems);
     
     // 실행 통계
     const stats = apiClient.getStats();

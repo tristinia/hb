@@ -1,4 +1,4 @@
-// api-client.js - API 호출 담당
+// src/api-client.js - API 호출 담당
 const axios = require('axios');
 const fs = require('fs-extra');
 const path = require('path');
@@ -25,7 +25,7 @@ async function callApi(categoryId, cursor = null, retryCount = 0) {
   try {
     // API 키 확인
     if (!config.API_KEY) {
-      throw new Error('API 키가 설정되지 않았습니다.');
+      throw new Error('API 키가 설정되지 않았습니다. GitHub Secrets에 API_KEY를 설정하세요.');
     }
     
     // API 딜레이 적용
@@ -36,7 +36,7 @@ async function callApi(categoryId, cursor = null, retryCount = 0) {
       auction_item_category: categoryId
     });
     
-    // 커서가 있으면 추가
+    // 커서가 있으면 추가 (주의: 파라미터 이름이 next_cursor가 아니라 cursor입니다)
     if (cursor) {
       params.append('cursor', cursor);
     }
@@ -77,32 +77,32 @@ async function callApi(categoryId, cursor = null, retryCount = 0) {
     if (state.consecutiveErrors >= config.CONSECUTIVE_ERROR_THRESHOLD) {
       // 1. 유효하지 않은 파라미터 오류인 경우 (카테고리 ID 문제일 가능성 높음)
       if (errorCode === 'OPENAPI00004') {
-        throw new Error(`오류: 카테고리 '${categoryId}'가 유효하지 않음.`);
+        throw new Error(`치명적 오류: 카테고리 ID '${categoryId}'가 유효하지 않습니다. 마비노기 API 설명서를 확인하세요.`);
       }
       
       // 2. API 키 오류인 경우
       if (errorCode === 'OPENAPI00005') {
-        throw new Error('오류: API 키가 유효하지 않음.');
+        throw new Error('치명적 오류: API 키가 유효하지 않습니다. API 키를 확인하세요.');
       }
       
       // 3. API 점검 중인 경우
       if (errorCode === 'OPENAPI00011') {
-        throw new Error('오류: API 점검 중.');
+        throw new Error('API 점검 중입니다. 나중에 다시 시도하세요.');
       }
       
       // 4. 게임 점검 중인 경우
       if (errorCode === 'OPENAPI00010') {
-        throw new Error('오류: 게임 점검 중.');
+        throw new Error('게임 점검 중입니다. 나중에 다시 시도하세요.');
       }
       
       // 5. API 호출량 초과한 경우
       if (errorCode === 'OPENAPI00007' || status === 429) {
-        throw new Error('오류: API 호출량 제한에 도달.');
+        throw new Error('API 호출량 제한에 도달했습니다. 내일 다시 시도하세요.');
       }
       
       // 6. 서버 오류가 연속으로 발생하는 경우
       if (status >= 500) {
-        throw new Error('서버 오류가 연속으로 발생하여 중단.');
+        throw new Error('서버 오류가 연속으로 발생하여 수집을 중단합니다.');
       }
     }
     
@@ -137,15 +137,16 @@ async function callApi(categoryId, cursor = null, retryCount = 0) {
 }
 
 /**
- * API 테스트 함수
+ * API 유효성 검증 함수 (기존 testApi 대체)
+ * 더 간단하게 API가 작동하는지만 확인
  */
-async function testApi() {
+async function validateApi() {
   try {
-    console.log('API 테스트 중...');
+    console.log('API 유효성 검증 중...');
     
     // API 키 확인
     if (!config.API_KEY) {
-      console.error('API 키가 설정되지 않음.');
+      console.error('API 키가 설정되지 않았습니다.');
       return false;
     }
     
@@ -156,14 +157,14 @@ async function testApi() {
     const result = await callApi(testCategory);
     
     if (result.items && result.items.length > 0) {
-      console.log(`API 테스트 성공: ${result.items.length}개 아이템 수신됨.`);
+      console.log(`API 유효성 검증 성공: ${result.items.length}개 아이템 수신됨`);
       return true;
     } else {
-      console.error('API 테스트 실패: 아이템이 없음.');
+      console.error('API 유효성 검증 실패: 아이템이 없습니다.');
       return false;
     }
   } catch (error) {
-    console.error('API 테스트 실패:', error.message);
+    console.error('API 유효성 검증 실패:', error.message);
     return false;
   }
 }
@@ -209,11 +210,11 @@ async function collectCategoryItems(category) {
         nextCursor = result.next_cursor;
         pageCount++;
         
-        console.log(`  페이지 ${pageCount} 처리 완료, ${allItems.length}개 아이템 확인.'}`);
+        console.log(`  페이지 ${pageCount} 처리 완료: ${result.items?.length || 0}개 아이템, 현재 총 ${allItems.length}개`);
         
         // 최대 페이지 수 체크
         if (pageCount >= MAX_PAGES) {
-          console.warn(`  최대 페이지 수(${MAX_PAGES})에 도달하여 수집 중단.`);
+          console.warn(`  최대 페이지 수(${MAX_PAGES})에 도달했습니다. 수집을 중단합니다.`);
           break;
         }
         
@@ -236,7 +237,7 @@ async function collectCategoryItems(category) {
     if (useExistingData) {
       console.log(`  기존 데이터 사용: ${allItems.length}개 아이템`);
     } else {
-      console.log(`  카테고리 ${category.id} 수집 완료: 총 ${allItems.length}개 아이템`);
+      console.log(`  카테고리 ${category.id} 수집 완료: 총 ${allItems.length}개 아이템, api ${state.apiCalls}번 호출`);
     }
     
     // 결과 반환
@@ -254,7 +255,7 @@ async function collectCategoryItems(category) {
 
 module.exports = {
   callApi,
-  testApi,
+  validateApi,
   collectCategoryItems,
   getStats: () => ({ 
     apiCalls: state.apiCalls, 

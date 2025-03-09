@@ -1,366 +1,56 @@
 {
-  "updated": "2025-03-08T11:48:16.165Z",
-  "count": 45,
+  "updated": "2025-03-08T18:00:50.321Z",
+  "count": 10,
   "items": [
     {
-      "name": "중급 피에로 미니어처",
-      "display_name": "중급 피에로 미니어처",
-      "price": 2000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
+      "name": "거장의 피에로 미니어처",
+      "price": 2990000,
+      "date": "2025-03-08"
     },
     {
-      "name": "상급 콜로서스 미니어처",
-      "display_name": "상급 콜로서스 미니어처",
+      "name": "길라크 마리오네트 미니어처(거래 가능)",
+      "price": 1000000,
+      "date": "2025-03-08"
+    },
+    {
+      "name": "몰락자의 피에로 미니어처",
+      "price": 2990000,
+      "date": "2025-03-08"
+    },
+    {
+      "name": "밤의 서약 마리오네트 미니어처",
       "price": 5000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
+      "date": "2025-03-08"
+    },
+    {
+      "name": "중급 피에로 미니어처",
+      "price": 1900000,
+      "date": "2025-03-08"
     },
     {
       "name": "상급 콜로서스 미니어처",
-      "display_name": "상급 콜로서스 미니어처",
       "price": 4900000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
+      "date": "2025-03-08"
     },
     {
       "name": "하급 콜로서스 미니어처",
-      "display_name": "하급 콜로서스 미니어처",
       "price": 3000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
+      "date": "2025-03-08"
     },
     {
       "name": "중급 콜로서스 미니어처",
-      "display_name": "중급 콜로서스 미니어처",
       "price": 2000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "중급 피에로 미니어처",
-      "display_name": "축복받은 중급 피에로 미니어처",
-      "price": 1900000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "길라크 마리오네트 미니어처(거래 가능)",
-      "display_name": "길라크 마리오네트 미니어처(거래 가능)",
-      "price": 1000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "중급 피에로 미니어처",
-      "display_name": "중급 피에로 미니어처",
-      "price": 2000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "길라크 마리오네트 미니어처(거래 가능)",
-      "display_name": "길라크 마리오네트 미니어처(거래 가능)",
-      "price": 1000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "몰락자의 피에로 미니어처",
-      "display_name": "몰락자의 피에로 미니어처",
-      "price": 3750000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "몰락자의 피에로 미니어처",
-      "display_name": "몰락자의 피에로 미니어처",
-      "price": 3797777,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "몰락자의 피에로 미니어처",
-      "display_name": "몰락자의 피에로 미니어처",
-      "price": 5000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "몰락자의 피에로 미니어처",
-      "display_name": "몰락자의 피에로 미니어처",
-      "price": 3800000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "길라크 마리오네트 미니어처(거래 가능)",
-      "display_name": "길라크 마리오네트 미니어처(거래 가능)",
-      "price": 1200000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "밤의 서약 마리오네트 미니어처",
-      "display_name": "밤의 서약 마리오네트 미니어처",
-      "price": 19999999999,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "몰락자의 피에로 미니어처",
-      "display_name": "몰락자의 피에로 미니어처",
-      "price": 4000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "몰락자의 피에로 미니어처",
-      "display_name": "축복받은 몰락자의 피에로 미니어처",
-      "price": 4500000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
+      "date": "2025-03-08"
     },
     {
       "name": "거장의 콜로서스 미니어처",
-      "display_name": "축복받은 거장의 콜로서스 미니어처",
       "price": 1800000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "몰락자의 피에로 미니어처",
-      "display_name": "몰락자의 피에로 미니어처",
-      "price": 4800000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "몰락자의 피에로 미니어처",
-      "display_name": "축복받은 몰락자의 피에로 미니어처",
-      "price": 4590000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "몰락자의 피에로 미니어처",
-      "display_name": "몰락자의 피에로 미니어처",
-      "price": 4600000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "길라크 마리오네트 미니어처(거래 가능)",
-      "display_name": "길라크 마리오네트 미니어처(거래 가능)",
-      "price": 3000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "몰락자의 피에로 미니어처",
-      "display_name": "축복받은 몰락자의 피에로 미니어처",
-      "price": 5000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "밤의 서약 마리오네트 미니어처",
-      "display_name": "밤의 서약 마리오네트 미니어처",
-      "price": 5000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "길라크 마리오네트 미니어처(거래 가능)",
-      "display_name": "길라크 마리오네트 미니어처(거래 가능)",
-      "price": 1000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "몰락자의 피에로 미니어처",
-      "display_name": "몰락자의 피에로 미니어처",
-      "price": 5000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "몰락자의 피에로 미니어처",
-      "display_name": "몰락자의 피에로 미니어처",
-      "price": 5000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "몰락자의 피에로 미니어처",
-      "display_name": "몰락자의 피에로 미니어처",
-      "price": 5000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
+      "date": "2025-03-08"
     },
     {
       "name": "학생 피에로 미니어처(거래 가능)",
-      "display_name": "학생 피에로 미니어처(거래 가능)",
       "price": 3800000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "길라크 마리오네트 미니어처(거래 가능)",
-      "display_name": "길라크 마리오네트 미니어처(거래 가능)",
-      "price": 6500000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "중급 피에로 미니어처",
-      "display_name": "중급 피에로 미니어처",
-      "price": 1900000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "길라크 마리오네트 미니어처(거래 가능)",
-      "display_name": "길라크 마리오네트 미니어처(거래 가능)",
-      "price": 3000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "밤의 서약 마리오네트 미니어처",
-      "display_name": "밤의 서약 마리오네트 미니어처",
-      "price": 6000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "상급 콜로서스 미니어처",
-      "display_name": "상급 콜로서스 미니어처",
-      "price": 4900000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "밤의 서약 마리오네트 미니어처",
-      "display_name": "밤의 서약 마리오네트 미니어처",
-      "price": 18000000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "길라크 마리오네트 미니어처(거래 가능)",
-      "display_name": "길라크 마리오네트 미니어처(거래 가능)",
-      "price": 3300000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "학생 피에로 미니어처(거래 가능)",
-      "display_name": "학생 피에로 미니어처(거래 가능)",
-      "price": 3800000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "길라크 마리오네트 미니어처(거래 가능)",
-      "display_name": "길라크 마리오네트 미니어처(거래 가능)",
-      "price": 4000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "길라크 마리오네트 미니어처(거래 가능)",
-      "display_name": "길라크 마리오네트 미니어처(거래 가능)",
-      "price": 5000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "학생 피에로 미니어처(거래 가능)",
-      "display_name": "학생 피에로 미니어처(거래 가능)",
-      "price": 5000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "밤의 서약 마리오네트 미니어처",
-      "display_name": "밤의 서약 마리오네트 미니어처",
-      "price": 18000000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "밤의 서약 마리오네트 미니어처",
-      "display_name": "밤의 서약 마리오네트 미니어처",
-      "price": 23000000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "거장의 피에로 미니어처",
-      "display_name": "거장의 피에로 미니어처",
-      "price": 3000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "밤의 서약 마리오네트 미니어처",
-      "display_name": "밤의 서약 마리오네트 미니어처",
-      "price": 6000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "길라크 마리오네트 미니어처(거래 가능)",
-      "display_name": "길라크 마리오네트 미니어처(거래 가능)",
-      "price": 5000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
+      "date": "2025-03-08"
     }
   ]
 }

@@ -1,70 +1,11 @@
 {
-  "updated": "2025-03-08T11:48:46.997Z",
-  "count": 8,
+  "updated": "2025-03-08T18:01:24.109Z",
+  "count": 1,
   "items": [
     {
       "name": "마비노벨",
-      "display_name": "마비노벨",
       "price": 150000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "마비노벨",
-      "display_name": "마비노벨",
-      "price": 300000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "마비노벨",
-      "display_name": "마비노벨",
-      "price": 150000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "마비노벨",
-      "display_name": "마비노벨",
-      "price": 1000000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "마비노벨",
-      "display_name": "마비노벨",
-      "price": 6974892,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "마비노벨",
-      "display_name": "마비노벨",
-      "price": 400000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "마비노벨",
-      "display_name": "마비노벨",
-      "price": 450000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
-    },
-    {
-      "name": "마비노벨",
-      "display_name": "마비노벨",
-      "price": 500000,
-      "has_enchant": false,
-      "has_reforge": false,
-      "has_ecostone": false
+      "date": "2025-03-08"
     }
   ]
 }
