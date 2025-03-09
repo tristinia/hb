@@ -1,0 +1,84 @@
+{
+  "updated": "2025-03-09T11:27:31.568Z",
+  "category": "검",
+  "option_structure": {
+    "공격": {
+      "value": "number",
+      "value2": "number"
+    },
+    "크리티컬": {
+      "value": "percentage"
+    },
+    "숙련": {
+      "value": "number"
+    },
+    "내구력": {
+      "value": "number",
+      "value2": "number"
+    },
+    "아이템 색상": {
+      "sub_type": "text",
+      "value": "rgb",
+      "desc": "text"
+    },
+    "아이템 보호": {
+      "value": "text"
+    },
+    "부상률": {
+      "value": "percentage",
+      "value2": "percentage"
+    },
+    "밸런스": {
+      "value": "percentage"
+    },
+    "인챈트": {
+      "sub_type": "text",
+      "value": "rank",
+      "desc": "compound"
+    },
+    "일반 개조": {
+      "value": "number",
+      "value2": "number"
+    },
+    "보석 개조": {
+      "value": "number"
+    },
+    "특별 개조": {
+      "sub_type": "text",
+      "value": "number"
+    },
+    "세공 랭크": {
+      "value": "number"
+    },
+    "세공 옵션": {
+      "sub_type": "number",
+      "value": "compound"
+    },
+    "에르그": {
+      "sub_type": "text",
+      "value": "number",
+      "value2": "number"
+    },
+    "세트 효과": {
+      "sub_type": "number",
+      "value": "text",
+      "value2": "number"
+    },
+    "피어싱 레벨": {
+      "value": "number",
+      "value2": "number"
+    },
+    "남은 전용 해제 가능 횟수": {
+      "value": "number"
+    },
+    "장인 개조": {
+      "value": "compound"
+    },
+    "전용 해제 거래 보증서 사용 불가": {
+      "value": "text"
+    },
+    "인챈트 불가능": {
+      "value": "text"
+    }
+  }
+}

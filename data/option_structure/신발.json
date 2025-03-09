@@ -1,0 +1,56 @@
+{
+  "updated": "2025-03-09T11:28:24.229Z",
+  "category": "신발",
+  "option_structure": {
+    "방어력": {
+      "value": "number"
+    },
+    "내구력": {
+      "value": "number",
+      "value2": "number"
+    },
+    "아이템 색상": {
+      "sub_type": "text",
+      "value": "rgb",
+      "desc": "text"
+    },
+    "세공 랭크": {
+      "value": "number"
+    },
+    "세공 옵션": {
+      "sub_type": "number",
+      "value": "compound"
+    },
+    "인챈트": {
+      "sub_type": "text",
+      "value": "rank",
+      "desc": "compound"
+    },
+    "보호": {
+      "value": "number"
+    },
+    "남은 전용 해제 가능 횟수": {
+      "value": "number"
+    },
+    "세트 효과": {
+      "sub_type": "number",
+      "value": "compound",
+      "value2": "number"
+    },
+    "마법 방어력": {
+      "value": "number"
+    },
+    "마법 보호": {
+      "value": "number"
+    },
+    "아이템 보호": {
+      "value": "text"
+    },
+    "전용 해제 거래 보증서 사용 불가": {
+      "value": "text"
+    },
+    "인챈트 불가능": {
+      "value": "text"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "updated": "2025-03-09T11:27:25.426Z",
+  "category": "한손 장비",
+  "option_structure": {
+    "공격": {
+      "value": "number",
+      "value2": "number"
+    },
+    "크리티컬": {
+      "value": "percentage"
+    },
+    "밸런스": {
+      "value": "percentage"
+    },
+    "내구력": {
+      "value": "number",
+      "value2": "number"
+    },
+    "아이템 색상": {
+      "sub_type": "text",
+      "value": "rgb",
+      "desc": "text"
+    },
+    "숙련": {
+      "value": "number"
+    },
+    "세공 랭크": {
+      "value": "number"
+    },
+    "세공 옵션": {
+      "sub_type": "number",
+      "value": "compound"
+    },
+    "인챈트 불가능": {
+      "value": "text"
+    },
+    "인챈트": {
+      "sub_type": "text",
+      "value": "rank",
+      "desc": "compound"
+    }
+  }
+}

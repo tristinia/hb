@@ -1,0 +1,10 @@
+{
+  "updated": "2025-03-09T11:29:34.621Z",
+  "category": "마비노벨",
+  "option_structure": {
+    "아이템 색상": {
+      "sub_type": "text",
+      "value": "rgb"
+    }
+  }
+}

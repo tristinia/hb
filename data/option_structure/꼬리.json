@@ -1,0 +1,21 @@
+{
+  "updated": "2025-03-09T11:28:52.865Z",
+  "category": "꼬리",
+  "option_structure": {
+    "방어력": {
+      "value": "number"
+    },
+    "보호": {
+      "value": "number"
+    },
+    "내구력": {
+      "value": "number",
+      "value2": "number"
+    },
+    "아이템 색상": {
+      "sub_type": "text",
+      "value": "rgb",
+      "desc": "text"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "updated": "2025-03-09T11:30:54.665Z",
+  "category": "분양 메달",
+  "option_structure": {
+    "펫 정보": {
+      "sub_type": "text",
+      "value": "number"
+    },
+    "남은 거래 횟수": {
+      "value": "number"
+    }
+  }
+}

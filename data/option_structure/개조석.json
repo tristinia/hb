@@ -1,0 +1,9 @@
+{
+  "updated": "2025-03-09T11:29:58.812Z",
+  "category": "개조석",
+  "option_structure": {
+    "남은 거래 횟수": {
+      "value": "number"
+    }
+  }
+}

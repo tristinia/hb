@@ -1,0 +1,27 @@
+{
+  "updated": "2025-03-09T11:28:57.896Z",
+  "category": "마리오네트",
+  "option_structure": {
+    "방어력": {
+      "value": "number"
+    },
+    "보호": {
+      "value": "number"
+    },
+    "마법 방어력": {
+      "value": "number"
+    },
+    "마법 보호": {
+      "value": "number"
+    },
+    "아이템 색상": {
+      "sub_type": "text",
+      "value": "rgb"
+    },
+    "세트 효과": {
+      "sub_type": "number",
+      "value": "text",
+      "value2": "number"
+    }
+  }
+}

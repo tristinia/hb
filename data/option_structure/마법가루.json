@@ -1,0 +1,9 @@
+{
+  "updated": "2025-03-09T11:29:24.768Z",
+  "category": "마법가루",
+  "option_structure": {
+    "남은 거래 횟수": {
+      "value": "number"
+    }
+  }
+}

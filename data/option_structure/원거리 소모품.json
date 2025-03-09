@@ -1,0 +1,11 @@
+{
+  "updated": "2025-03-09T11:27:45.388Z",
+  "category": "원거리 소모품",
+  "option_structure": {
+    "아이템 색상": {
+      "sub_type": "text",
+      "value": "rgb",
+      "desc": "text"
+    }
+  }
+}

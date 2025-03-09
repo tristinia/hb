@@ -1,0 +1,22 @@
+{
+  "updated": "2025-03-09T11:29:00.569Z",
+  "category": "에코스톤",
+  "option_structure": {
+    "에코스톤 등급": {
+      "value": "number"
+    },
+    "에코스톤 고유 능력": {
+      "sub_type": "text",
+      "value": "number"
+    },
+    "에코스톤 각성 능력": {
+      "value": "compound"
+    },
+    "남은 전용 해제 가능 횟수": {
+      "value": "number"
+    },
+    "전용 해제 거래 보증서 사용 불가": {
+      "value": "text"
+    }
+  }
+}

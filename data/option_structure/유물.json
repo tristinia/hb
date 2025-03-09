@@ -1,0 +1,12 @@
+{
+  "updated": "2025-03-09T11:29:02.077Z",
+  "category": "유물",
+  "option_structure": {
+    "전용 해제 거래 보증서 사용 불가": {
+      "value": "text"
+    },
+    "남은 전용 해제 가능 횟수": {
+      "value": "number"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "updated": "2025-03-09T11:30:39.290Z",
+  "category": "토템",
+  "option_structure": {
+    "토템 효과": {
+      "sub_type": "text",
+      "value": "number"
+    },
+    "토템 추가 옵션": {
+      "sub_type": "text",
+      "value": "number"
+    },
+    "토템 강화 제한": {
+      "sub_type": "text",
+      "value": "number"
+    },
+    "남은 거래 횟수": {
+      "value": "number"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "updated": "2025-03-09T11:30:18.643Z",
+  "category": "염색 앰플",
+  "option_structure": {
+    "색상": {
+      "value": "rgb"
+    },
+    "남은 거래 횟수": {
+      "value": "number"
+    }
+  }
+}
