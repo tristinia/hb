@@ -6,6 +6,154 @@
     <title>마비노기 경매장</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="auction.css">
+    <style>
+        /* 추가 CSS 스타일 */
+        .loading-spinner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #333;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-spinner p {
+            color: white;
+            margin-top: 10px;
+        }
+        
+        .load-more-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: var(--color-black);
+            color: var(--color-yellow);
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .load-more-button:hover {
+            background-color: #222;
+        }
+        
+        .item-row {
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .item-row:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1010;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .modal-close:hover,
+        .modal-close:focus {
+            color: black;
+            text-decoration: none;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .modal-body {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .modal-item-image {
+            width: 120px;
+            height: 120px;
+            background-color: #eee;
+            border-radius: 4px;
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-item-details {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .modal-item-options {
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .option-group {
+            margin-bottom: 5px;
+            padding: 5px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+        }
+        
+        .option-name {
+            flex: 0 0 150px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .option-value {
+            flex: 1;
+        }
+    </style>
 </head>
 <body>
     <!-- 네비게이션 바 -->
@@ -59,6 +207,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <!-- 더 보기 버튼은 JavaScript에서 동적으로 추가됨 -->
             </div>
             
             <!-- 우측 세부 옵션 필터 영역 -->
@@ -101,11 +250,73 @@
         </div>
     </main>
     
+    <!-- 아이템 상세 정보 모달 -->
+    <div id="item-detail-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-header">
+                <h2 id="modal-item-name"></h2>
+            </div>
+            <div class="modal-body">
+                <div class="modal-item-image" id="modal-item-image">
+                    이미지
+                </div>
+                <div class="modal-item-details">
+                    <div class="option-group">
+                        <div class="option-name">카테고리</div>
+                        <div class="option-value" id="modal-item-category"></div>
+                    </div>
+                    <div class="option-group">
+                        <div class="option-name">가격</div>
+                        <div class="option-value" id="modal-item-price"></div>
+                    </div>
+                    <div class="option-group">
+                        <div class="option-name">판매자</div>
+                        <div class="option-value" id="modal-item-seller"></div>
+                    </div>
+                    <div class="option-group">
+                        <div class="option-name">남은 시간</div>
+                        <div class="option-value" id="modal-item-time"></div>
+                    </div>
+                </div>
+                <div class="modal-item-options" id="modal-item-options">
+                    <!-- 동적으로 추가될 아이템 옵션들 -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 로딩 스피너 (JavaScript에서 동적으로 조작) -->
+    <div id="loading-spinner" class="loading-spinner" style="display:none;">
+        <div class="spinner"></div>
+        <p>데이터를 불러오는 중...</p>
+    </div>
+    
     <!-- 푸터 -->
     <footer>
         <p>&copy; 2025 마비노기 경매장. 넥슨코리아 API 사용.</p>
     </footer>
     
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-functions-compat.js"></script>
+    
+    <script>
+      // Firebase 초기화 (YOUR_PROJECT_ID 부분을 실제 프로젝트 ID로 변경)
+      const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_PROJECT_ID.appspot.com",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID"
+      };
+      
+      // Firebase 초기화
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    
+    <!-- 마비노기 경매장 스크립트 -->
     <script src="auction.js"></script>
 </body>
 </html>
