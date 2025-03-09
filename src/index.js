@@ -34,6 +34,10 @@ async function main() {
         
         // 모든 아이템 누적 배열에 추가
         var allItems = [...processedItems];
+        
+        // 추가: 옵션 구조 분석 및 저장
+        const optionStructure = dataProcessor.analyzeOptionStructure(testItems);
+        storageManager.saveOptionStructure(testCategory.id, optionStructure);
       } else {
         var allItems = [];
       }
@@ -57,6 +61,12 @@ async function main() {
         
         // 카테고리별 아이템 데이터 저장
         storageManager.saveItemsData(category.id, processedItems);
+        
+        // 추가: 옵션 구조 분석 및 저장
+        if (items.length > 0) {
+          const optionStructure = dataProcessor.analyzeOptionStructure(items);
+          storageManager.saveOptionStructure(category.id, optionStructure);
+        }
         
       } catch (error) {
         // 치명적 오류인 경우 전체 프로세스 중단
