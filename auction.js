@@ -2,6 +2,13 @@
  * 마비노기 경매장 JavaScript
  */
 
+// Firebase Functions URL 설정
+const FIREBASE_FUNCTIONS = {
+  SEARCH_KEYWORD: 'https://us-central1-YOUR_PROJECT_ID.cloudfunctions.net/searchByKeyword',
+  SEARCH_CATEGORY: 'https://us-central1-YOUR_PROJECT_ID.cloudfunctions.net/searchByCategory',
+  ITEM_DETAIL: 'https://us-central1-YOUR_PROJECT_ID.cloudfunctions.net/getItemDetail'
+};
+
 // 기본 설정 및 상태 변수
 const state = {
     searchTerm: '',
@@ -14,7 +21,12 @@ const state = {
     searchResults: [],
     optionStructure: {},
     advancedFilters: {},
-    showDetailOptions: false
+    showDetailOptions: false,
+    isLoading: false,
+    loadingPage: false,
+    hasMoreResults: false,
+    nextCursor: null,
+    searchType: null // 'keyword' 또는 'category'
 };
 
 // 한글 초성 검색을 위한 유틸리티
@@ -36,154 +48,6 @@ const engToKorMap = {
 
 // DOM 참조 요소
 const elements = {};
-
-// 마비노기 API 카테고리 목록 (src/category-manager.js 데이터)
-const mainCategories = [
-    { id: '근거리 장비', name: '근거리 장비' },
-    { id: '원거리 장비', name: '원거리 장비' },
-    { id: '마법 장비', name: '마법 장비' },
-    { id: '갑옷', name: '갑옷' },
-    { id: '방어 장비', name: '방어 장비' },
-    { id: '액세서리', name: '액세서리' },
-    { id: '특수 장비', name: '특수 장비' },
-    { id: '설치물', name: '설치물' },
-    { id: '인챈트 용품', name: '인챈트 용품' },
-    { id: '스크롤', name: '스크롤' },
-    { id: '마기그래피 용품', name: '마기그래피 용품' },
-    { id: '서적', name: '서적' },
-    { id: '소모품', name: '소모품' },
-    { id: '토템', name: '토템' },
-    { id: '생활 재료', name: '생활 재료' },
-    { id: '기타', name: '기타' }
-];
-
-// 카테고리 데이터 (소분류)
-const categories = [
-    // 근거리 장비
-    { id: '한손 장비', name: '한손 장비', mainCategory: '근거리 장비' },
-    { id: '양손 장비', name: '양손 장비', mainCategory: '근거리 장비' },
-    { id: '검', name: '검', mainCategory: '근거리 장비' },
-    { id: '도끼', name: '도끼', mainCategory: '근거리 장비' },
-    { id: '둔기', name: '둔기', mainCategory: '근거리 장비' },
-    { id: '랜스', name: '랜스', mainCategory: '근거리 장비' },
-    { id: '핸들', name: '핸들', mainCategory: '근거리 장비' },
-    { id: '너클', name: '너클', mainCategory: '근거리 장비' },
-    { id: '체인 블레이드', name: '체인 블레이드', mainCategory: '근거리 장비' },
-    
-    // 원거리 장비
-    { id: '활', name: '활', mainCategory: '원거리 장비' },
-    { id: '석궁', name: '석궁', mainCategory: '원거리 장비' },
-    { id: '듀얼건', name: '듀얼건', mainCategory: '원거리 장비' },
-    { id: '수리검', name: '수리검', mainCategory: '원거리 장비' },
-    { id: '아틀라틀', name: '아틀라틀', mainCategory: '원거리 장비' },
-    { id: '원거리 소모품', name: '원거리 소모품', mainCategory: '원거리 장비' },
-    
-    // 마법 장비
-    { id: '실린더', name: '실린더', mainCategory: '마법 장비' },
-    { id: '스태프', name: '스태프', mainCategory: '마법 장비' },
-    { id: '원드', name: '원드', mainCategory: '마법 장비' },
-    { id: '마도서', name: '마도서', mainCategory: '마법 장비' },
-    { id: '오브', name: '오브', mainCategory: '마법 장비' },
-    
-    // 갑옷
-    { id: '중갑옷', name: '중갑옷', mainCategory: '갑옷' },
-    { id: '경갑옷', name: '경갑옷', mainCategory: '갑옷' },
-    { id: '천옷', name: '천옷', mainCategory: '갑옷' },
-    
-    // 방어 장비
-    { id: '장갑', name: '장갑', mainCategory: '방어 장비' },
-    { id: '신발', name: '신발', mainCategory: '방어 장비' },
-    { id: '모자/가발', name: '모자/가발', mainCategory: '방어 장비' },
-    { id: '방패', name: '방패', mainCategory: '방어 장비' },
-    { id: '로브', name: '로브', mainCategory: '방어 장비' },
-    
-    // 액세서리
-    { id: '얼굴 장식', name: '얼굴 장식', mainCategory: '액세서리' },
-    { id: '액세서리', name: '액세서리', mainCategory: '액세서리' },
-    { id: '날개', name: '날개', mainCategory: '액세서리' },
-    { id: '꼬리', name: '꼬리', mainCategory: '액세서리' },
-    
-    // 특수 장비
-    { id: '악기', name: '악기', mainCategory: '특수 장비' },
-    { id: '생활 도구', name: '생활 도구', mainCategory: '특수 장비' },
-    { id: '마리오네트', name: '마리오네트', mainCategory: '특수 장비' },
-    { id: '에코스톤', name: '에코스톤', mainCategory: '특수 장비' },
-    { id: '에이도스', name: '에이도스', mainCategory: '특수 장비' },
-    { id: '유물', name: '유물', mainCategory: '특수 장비' },
-    { id: '기타 장비', name: '기타 장비', mainCategory: '특수 장비' },
-    
-    // 설치물
-    { id: '의자/사물', name: '의자/사물', mainCategory: '설치물' },
-    { id: '낭만농장/달빛섬', name: '낭만농장/달빛섬', mainCategory: '설치물' },
-    
-    // 인챈트 용품
-    { id: '인챈트 스크롤', name: '인챈트 스크롤', mainCategory: '인챈트 용품' },
-    { id: '마법가루', name: '마법가루', mainCategory: '인챈트 용품' },
-    
-    // 스크롤
-    { id: '도면', name: '도면', mainCategory: '스크롤' },
-    { id: '옷본', name: '옷본', mainCategory: '스크롤' },
-    { id: '마족 스크롤', name: '마족 스크롤', mainCategory: '스크롤' },
-    { id: '기타 스크롤', name: '기타 스크롤', mainCategory: '스크롤' },
-    
-    // 마기그래피 용품
-    { id: '마기그래프', name: '마기그래프', mainCategory: '마기그래피 용품' },
-    { id: '마기그래프 도안', name: '마기그래프 도안', mainCategory: '마기그래피 용품' },
-    { id: '기타 재료', name: '기타 재료', mainCategory: '마기그래피 용품' },
-    
-    // 서적
-    { id: '책', name: '책', mainCategory: '서적' },
-    { id: '마비노벨', name: '마비노벨', mainCategory: '서적' },
-    { id: '페이지', name: '페이지', mainCategory: '서적' },
-    
-    // 소모품
-    { id: '포션', name: '포션', mainCategory: '소모품' },
-    { id: '음식', name: '음식', mainCategory: '소모품' },
-    { id: '허브', name: '허브', mainCategory: '소모품' },
-    { id: '던전 통행증', name: '던전 통행증', mainCategory: '소모품' },
-    { id: '알반 훈련석', name: '알반 훈련석', mainCategory: '소모품' },
-    { id: '개조석', name: '개조석', mainCategory: '소모품' },
-    { id: '보석', name: '보석', mainCategory: '소모품' },
-    { id: '변신 메달', name: '변신 메달', mainCategory: '소모품' },
-    { id: '염색 앰플', name: '염색 앰플', mainCategory: '소모품' },
-    { id: '스케치', name: '스케치', mainCategory: '소모품' },
-    { id: '핀즈비즈', name: '핀즈비즈', mainCategory: '소모품' },
-    { id: '기타 소모품', name: '기타 소모품', mainCategory: '소모품' },
-    
-    // 토템
-    { id: '토템', name: '토템', mainCategory: '토템' },
-    
-    // 생활 재료
-    { id: '주머니', name: '주머니', mainCategory: '생활 재료' },
-    { id: '천옷/방직', name: '천옷/방직', mainCategory: '생활 재료' },
-    { id: '제련/블랙스미스', name: '제련/블랙스미스', mainCategory: '생활 재료' },
-    { id: '힐웬 공학', name: '힐웬 공학', mainCategory: '생활 재료' },
-    { id: '매직 크래프트', name: '매직 크래프트', mainCategory: '생활 재료' },
-    
-    // 기타
-    { id: '제스처', name: '제스처', mainCategory: '기타' },
-    { id: '말풍선 스티커', name: '말풍선 스티커', mainCategory: '기타' },
-    { id: '피니 펫', name: '피니 펫', mainCategory: '기타' },
-    { id: '불타래', name: '불타래', mainCategory: '기타' },
-    { id: '퍼퓸', name: '퍼퓸', mainCategory: '기타' },
-    { id: '분양 메달', name: '분양 메달', mainCategory: '기타' },
-    { id: '뷰티 쿠폰', name: '뷰티 쿠폰', mainCategory: '기타' },
-    { id: '기타', name: '기타', mainCategory: '기타' }
-];
-
-// 더미 아이템 데이터 (실제 구현 시 API에서 받아옴)
-const dummyItems = [
-    { id: 1, name: '워로드의 갑옷', category: '갑옷', subcategory: '중갑옷', meta: { level: 50, type: '방어구' } },
-    { id: 2, name: '워로드의 투구', category: '방어 장비', subcategory: '모자/가발', meta: { level: 45, type: '방어구' } },
-    { id: 3, name: '워로드의 검', category: '근거리 장비', subcategory: '검', meta: { level: 48, type: '무기' } },
-    { id: 4, name: '워로드의 망토', category: '방어 장비', subcategory: '로브', meta: { level: 40, type: '방어구' } },
-    { id: 5, name: '대형 힐링 포션', category: '소모품', subcategory: '포션', meta: { type: '소비품' } },
-    { id: 6, name: '중형 마나 포션', category: '소모품', subcategory: '포션', meta: { type: '소비품' } },
-    { id: 7, name: '골드 링', category: '액세서리', subcategory: '액세서리', meta: { level: 35, type: '장신구' } },
-    { id: 8, name: '실버 이어링', category: '액세서리', subcategory: '액세서리', meta: { level: 30, type: '장신구' } },
-    { id: 9, name: '마법사의 지팡이', category: '마법 장비', subcategory: '스태프', meta: { level: 55, type: '무기' } },
-    { id: 10, name: '레인저의 활', category: '원거리 장비', subcategory: '활', meta: { level: 52, type: '무기' } },
-];
 
 // 한글 분해 함수
 function decomposeHangul(str) {
@@ -245,12 +109,32 @@ function init() {
     elements.minLevelInput = document.getElementById('min-level');
     elements.maxLevelInput = document.getElementById('max-level');
     elements.itemTypeSelect = document.getElementById('item-type');
+    elements.loadMoreButton = document.createElement('button');
+    elements.loadMoreButton.id = 'load-more-button';
+    elements.loadMoreButton.className = 'load-more-button';
+    elements.loadMoreButton.textContent = '더 보기';
+    elements.loadMoreButton.style.display = 'none';
+    elements.loadMoreButton.addEventListener('click', loadMoreResults);
+    
+    // 결과 패널에 더 보기 버튼 추가
+    const resultsPanel = document.querySelector('.results-panel');
+    resultsPanel.appendChild(elements.loadMoreButton);
+    
+    // 로딩 스피너 요소 생성
+    elements.loadingSpinner = document.createElement('div');
+    elements.loadingSpinner.className = 'loading-spinner';
+    elements.loadingSpinner.innerHTML = '<div class="spinner"></div><p>데이터를 불러오는 중...</p>';
+    elements.loadingSpinner.style.display = 'none';
+    document.body.appendChild(elements.loadingSpinner);
     
     // 카테고리 초기화
     renderMainCategories();
     
     // 이벤트 리스너 등록
     setupEventListeners();
+    
+    // 로컬 스토리지에서 자동완성 데이터 로드
+    loadAutocompleteSuggestions();
 }
 
 // 이벤트 리스너 설정
@@ -272,6 +156,47 @@ function setupEventListeners() {
     
     // 클릭 이벤트 처리 (바깥 영역 클릭 시 자동완성 닫기)
     document.addEventListener('click', handleDocumentClick);
+}
+
+// 자동완성 데이터 로드 (로컬 스토리지에서)
+function loadAutocompleteSuggestions() {
+    // 로컬 스토리지에서 자동완성 데이터 로드
+    const cachedSuggestions = localStorage.getItem('auctionAutocompleteData');
+    if (cachedSuggestions) {
+        try {
+            const parsedData = JSON.parse(cachedSuggestions);
+            if (parsedData && Array.isArray(parsedData) && parsedData.length > 0) {
+                console.log('로컬 스토리지에서 자동완성 데이터 로드: ', parsedData.length + '개 항목');
+                return;
+            }
+        } catch (error) {
+            console.error('자동완성 데이터 파싱 오류:', error);
+        }
+    }
+    
+    // 로컬 데이터가 없거나 유효하지 않은 경우, 서버에서 로드
+    console.log('서버에서 자동완성 데이터 로드 중...');
+    fetchAutocompleteSuggestions();
+}
+
+// 서버에서 자동완성 데이터 가져오기
+async function fetchAutocompleteSuggestions() {
+    try {
+        // data/web 디렉토리에서 자동완성 데이터 가져오기
+        const response = await fetch('data/web/autocomplete.json');
+        if (!response.ok) {
+            throw new Error('자동완성 데이터를 가져오는데 실패했습니다');
+        }
+        
+        const data = await response.json();
+        if (data && Array.isArray(data.items) && data.items.length > 0) {
+            // 로컬 스토리지에 저장
+            localStorage.setItem('auctionAutocompleteData', JSON.stringify(data.items));
+            console.log('자동완성 데이터 로드 완료: ', data.items.length + '개 항목');
+        }
+    } catch (error) {
+        console.error('자동완성 데이터 로드 오류:', error);
+    }
 }
 
 // 검색어 입력 처리
@@ -306,24 +231,43 @@ function getSuggestions() {
         koreanFromEng += engToKorMap[char] || char;
     }
     
-    return dummyItems.filter(item => {
+    // 로컬 스토리지에서 자동완성 데이터 가져오기
+    let autocompleteItems = [];
+    const cachedSuggestions = localStorage.getItem('auctionAutocompleteData');
+    
+    if (cachedSuggestions) {
+        try {
+            autocompleteItems = JSON.parse(cachedSuggestions);
+        } catch (error) {
+            console.error('자동완성 데이터 파싱 오류:', error);
+        }
+    }
+    
+    // 데이터가 없으면 빈 배열 반환
+    if (!Array.isArray(autocompleteItems) || autocompleteItems.length === 0) {
+        return [];
+    }
+    
+    return autocompleteItems.filter(item => {
+        const itemName = item.name.toLowerCase();
+        
         // 일반 검색
-        if (item.name.toLowerCase().includes(normalizedTerm)) {
+        if (itemName.includes(normalizedTerm)) {
             return true;
         }
         
         // 초성 검색
-        if (getChosung(item.name.toLowerCase()).includes(chosungTerm)) {
+        if (getChosung(itemName).includes(chosungTerm)) {
             return true;
         }
         
         // 분해된 한글 검색
-        if (decomposeHangul(item.name.toLowerCase()).includes(normalizedTerm)) {
+        if (decomposeHangul(itemName).includes(normalizedTerm)) {
             return true;
         }
         
         // 영->한 오타 수정 검색
-        if (koreanFromEng && item.name.toLowerCase().includes(koreanFromEng)) {
+        if (koreanFromEng && itemName.includes(koreanFromEng)) {
             return true;
         }
         
@@ -431,16 +375,47 @@ function updateActiveSuggestion() {
     });
 }
 
+// 로딩 표시 설정
+function setLoading(isLoading) {
+    state.isLoading = isLoading;
+    elements.loadingSpinner.style.display = isLoading ? 'flex' : 'none';
+    elements.searchButton.disabled = isLoading;
+    elements.applyFiltersButton.disabled = isLoading;
+}
+
 // 검색 실행
 function handleSearch() {
-    // 자동완성을 통해 선택한 아이템이 있는 경우
-    if (state.selectedItem) {
-        console.log('자동완성 아이템으로 검색:', state.selectedItem);
-        searchWithItem(state.selectedItem);
+    // 검색어가 없으면 중단
+    if (!state.searchTerm && !state.selectedMainCategory) {
+        alert('검색어를 입력하거나 카테고리를 선택해주세요.');
+        return;
+    }
+    
+    // 로딩 시작
+    setLoading(true);
+    
+    // 초기화
+    state.searchResults = [];
+    state.nextCursor = null;
+    state.hasMoreResults = false;
+    elements.loadMoreButton.style.display = 'none';
+    
+    // 자동완성을 통해 선택한 아이템이 있는 경우 (카테고리 + 아이템 이름 검색)
+    if (state.selectedItem && state.selectedMainCategory) {
+        console.log('카테고리 + 아이템으로 검색:', state.selectedMainCategory, state.selectedItem.name);
+        state.searchType = 'category';
+        searchWithCategoryAndItem(state.selectedMainCategory, state.selectedItem.name);
+    }
+    // 카테고리만 선택된 경우
+    else if (state.selectedMainCategory) {
+        console.log('카테고리로 검색:', state.selectedMainCategory);
+        state.searchType = 'category';
+        searchWithCategoryAndItem(state.selectedMainCategory);
     }
     // 키워드 검색
     else {
         console.log('키워드로 검색:', state.searchTerm);
+        state.searchType = 'keyword';
         searchWithKeyword(state.searchTerm);
     }
     
@@ -448,30 +423,138 @@ function handleSearch() {
     clearSuggestions();
 }
 
-// 아이템으로 검색
-function searchWithItem(item) {
-    // 실제 구현에서는 해당 아이템의 상세 정보 API 호출
-    state.searchResults = [item];
-    renderSearchResults();
+// 키워드로 검색 (Firebase Function 호출)
+async function searchWithKeyword(keyword) {
+    if (!keyword) {
+        setLoading(false);
+        return;
+    }
+    
+    try {
+        const url = `${FIREBASE_FUNCTIONS.SEARCH_KEYWORD}?keyword=${encodeURIComponent(keyword)}`;
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error('API 호출 실패: ' + response.status);
+        }
+        
+        const data = await response.json();
+        
+        // 검색 결과 및 추가 정보 저장
+        state.searchResults = data.items || [];
+        state.hasMoreResults = data.hasMore;
+        state.nextCursor = data.nextCursor;
+        
+        // 더 보기 버튼 표시 설정
+        elements.loadMoreButton.style.display = state.hasMoreResults ? 'block' : 'none';
+        
+        // 결과 렌더링
+        renderSearchResults();
+    } catch (error) {
+        console.error('검색 오류:', error);
+        showError('검색 중 오류가 발생했습니다: ' + error.message);
+    } finally {
+        setLoading(false);
+    }
 }
 
-// 키워드로 검색
-function searchWithKeyword(keyword) {
-    if (!keyword) return;
+// 카테고리 + 아이템으로 검색 (Firebase Function 호출)
+async function searchWithCategoryAndItem(category, itemName = null) {
+    try {
+        let url = `${FIREBASE_FUNCTIONS.SEARCH_CATEGORY}?category=${encodeURIComponent(category)}`;
+        if (itemName) {
+            url += `&itemName=${encodeURIComponent(itemName)}`;
+        }
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error('API 호출 실패: ' + response.status);
+        }
+        
+        const data = await response.json();
+        
+        // 검색 결과 및 추가 정보 저장
+        state.searchResults = data.items || [];
+        state.hasMoreResults = data.hasMore;
+        state.nextCursor = data.nextCursor;
+        
+        // 더 보기 버튼 표시 설정
+        elements.loadMoreButton.style.display = state.hasMoreResults ? 'block' : 'none';
+        
+        // 결과 렌더링
+        renderSearchResults();
+    } catch (error) {
+        console.error('검색 오류:', error);
+        showError('검색 중 오류가 발생했습니다: ' + error.message);
+    } finally {
+        setLoading(false);
+    }
+}
+
+// 더 많은 결과 로드
+async function loadMoreResults() {
+    if (!state.hasMoreResults || state.loadingPage) return;
     
-    // 실제 구현에서는 API 호출
-    // 더미 데이터로 대체
-    const results = dummyItems.filter(item => 
-        item.name.toLowerCase().includes(keyword.toLowerCase())
-    );
+    state.loadingPage = true;
+    elements.loadMoreButton.textContent = '로딩 중...';
     
-    state.searchResults = results;
-    renderSearchResults();
+    try {
+        let url;
+        
+        if (state.searchType === 'keyword') {
+            url = `${FIREBASE_FUNCTIONS.SEARCH_KEYWORD}?keyword=${encodeURIComponent(state.searchTerm)}&cursor=${state.nextCursor}`;
+        } else {
+            url = `${FIREBASE_FUNCTIONS.SEARCH_CATEGORY}?category=${encodeURIComponent(state.selectedMainCategory)}`;
+            
+            if (state.selectedItem && state.selectedItem.name) {
+                url += `&itemName=${encodeURIComponent(state.selectedItem.name)}`;
+            }
+            
+            url += `&cursor=${state.nextCursor}`;
+        }
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error('API 호출 실패: ' + response.status);
+        }
+        
+        const data = await response.json();
+        
+        // 새 결과 추가
+        const newItems = data.items || [];
+        state.searchResults = [...state.searchResults, ...newItems];
+        
+        // 다음 페이지 정보 업데이트
+        state.hasMoreResults = data.hasMore;
+        state.nextCursor = data.nextCursor;
+        
+        // 결과 렌더링 (추가 모드)
+        renderSearchResults(true);
+        
+        // 더 보기 버튼 표시 업데이트
+        elements.loadMoreButton.style.display = state.hasMoreResults ? 'block' : 'none';
+    } catch (error) {
+        console.error('추가 데이터 로드 오류:', error);
+        showError('추가 데이터 로드 중 오류가 발생했습니다.');
+    } finally {
+        state.loadingPage = false;
+        elements.loadMoreButton.textContent = '더 보기';
+    }
+}
+
+// 오류 메시지 표시
+function showError(message) {
+    // 간단한 오류 메시지 표시
+    alert(message);
 }
 
 // 검색 결과 렌더링
-function renderSearchResults() {
-    elements.resultsBody.innerHTML = '';
+function renderSearchResults(append = false) {
+    if (!append) {
+        elements.resultsBody.innerHTML = '';
+    }
     
     if (state.searchResults.length === 0) {
         const tr = document.createElement('tr');
@@ -482,25 +565,92 @@ function renderSearchResults() {
     }
     
     state.searchResults.forEach(item => {
-        const tr = document.createElement('tr');
+        // 이미 표시된 아이템은 건너뛰기 (append 모드에서)
+        if (append && document.querySelector(`.item-row[data-item-id="${item.auction_item_no}"]`)) {
+            return;
+        }
         
-        // 랜덤 가격 생성 (실제 구현에서는 API에서 가져옴)
-        const price = Math.floor(Math.random() * 100000);
+        const tr = document.createElement('tr');
+        tr.className = 'item-row';
+        tr.setAttribute('data-item-id', item.auction_item_no);
+        
+        // 카테고리 정보 추출
+        let category = item.auction_item_category || '기타';
+        let subCategory = '';
+        if (item.item_option && item.item_option.length > 0) {
+            const categoryOption = item.item_option.find(opt => opt.option_type === '분류');
+            if (categoryOption) {
+                subCategory = categoryOption.option_value || '';
+            }
+        }
+        
+        // 레벨 정보 추출
+        let level = '-';
+        if (item.item_option && item.item_option.length > 0) {
+            const levelOption = item.item_option.find(opt => 
+                opt.option_type === '레벨' || 
+                opt.option_type === '요구 레벨' || 
+                opt.option_type === '아이템 레벨'
+            );
+            if (levelOption) {
+                level = levelOption.option_value || '-';
+            }
+        }
         
         tr.innerHTML = `
             <td>
                 <div class="item-cell">
-                    <div class="item-image">이미지</div>
-                    <div class="item-name">${item.name}</div>
+                    <div class="item-image">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="${item.item_name}">
+                    </div>
+                    <div class="item-name">${item.item_name}</div>
                 </div>
             </td>
-            <td>${item.category} > ${item.subcategory}</td>
-            <td>${item.meta.level || '-'}</td>
-            <td class="item-price">${price.toLocaleString()}G</td>
+            <td>${category}${subCategory ? ' > ' + subCategory : ''}</td>
+            <td>${level}</td>
+            <td class="item-price">${item.auction_price_per_unit.toLocaleString()}G</td>
         `;
+        
+        // 아이템 클릭 이벤트 - 상세 정보 조회
+        tr.addEventListener('click', () => {
+            fetchItemDetail(item.auction_item_no);
+        });
         
         elements.resultsBody.appendChild(tr);
     });
+}
+
+// 아이템 상세 정보 조회
+async function fetchItemDetail(auctionItemNo) {
+    setLoading(true);
+    
+    try {
+        const url = `${FIREBASE_FUNCTIONS.ITEM_DETAIL}?auctionItemNo=${auctionItemNo}`;
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error('API 호출 실패: ' + response.status);
+        }
+        
+        const data = await response.json();
+        
+        // 상세 정보 모달 표시
+        showItemDetailModal(data);
+    } catch (error) {
+        console.error('아이템 상세 정보 조회 오류:', error);
+        showError('아이템 상세 정보를 불러오는 중 오류가 발생했습니다.');
+    } finally {
+        setLoading(false);
+    }
+}
+
+// 아이템 상세 정보 모달 표시
+function showItemDetailModal(itemData) {
+    // 모달 구현 (간단한 예시)
+    alert(`아이템 상세 정보: ${itemData.item_name || '알 수 없음'}\n이 기능은 아직 구현 중입니다.`);
+    console.log('아이템 상세 정보:', itemData);
+    
+    // TODO: 실제 모달 구현
 }
 
 // 메인 카테고리 렌더링
@@ -577,6 +727,20 @@ function handleSubCategoryClick(subCategory) {
     loadOptionStructure(subCategory.id);
 }
 
+// 카테고리 검색
+function searchByCategory(mainCategory, subCategory) {
+    if (!mainCategory) return;
+    
+    // 검색어 초기화
+    state.searchTerm = '';
+    elements.searchInput.value = '';
+    state.selectedItem = null;
+    
+    // Firebase Function 호출
+    state.searchType = 'category';
+    searchWithCategoryAndItem(mainCategory);
+}
+
 // 카테고리 UI 업데이트
 function updateCategoryUI() {
     // 카테고리 확장
@@ -584,19 +748,6 @@ function updateCategoryUI() {
     
     // 카테고리 UI 업데이트
     renderMainCategories();
-}
-
-// 카테고리로 검색
-function searchByCategory(mainCategory, subCategory) {
-    // 실제 구현에서는 API 호출
-    // 더미 데이터로 대체
-    const results = dummyItems.filter(item => 
-        (!mainCategory || item.category === mainCategory) && 
-        (!subCategory || item.subcategory === subCategory)
-    );
-    
-    state.searchResults = results;
-    renderSearchResults();
 }
 
 // 옵션 구조 로드
@@ -607,8 +758,7 @@ function loadOptionStructure(subCategory) {
         return;
     }
     
-    // 실제 구현에서는 fetch API로 JSON 파일 로드
-    // 더미 데이터로 대체
+    // 옵션 구조 데이터 로드
     fetch(`data/option_structure/${subCategory}.json`)
         .then(response => {
             if (!response.ok) {
@@ -623,44 +773,12 @@ function loadOptionStructure(subCategory) {
         .catch(error => {
             console.error('옵션 구조 로드 실패:', error);
             
-            // 오류 발생 시 기본 옵션 구조 사용 (예시)
-            if (subCategory === '검') {
-                state.optionStructure = {
-                    "공격": {
-                        "value": "number",
-                        "value2": "number"
-                    },
-                    "크리티컬": {
-                        "value": "percentage"
-                    },
-                    "숙련": {
-                        "value": "number"
-                    },
-                    "내구력": {
-                        "value": "number",
-                        "value2": "number"
-                    },
-                    "아이템 색상": {
-                        "sub_type": "text",
-                        "value": "rgb",
-                        "desc": "text"
-                    }
-                };
-            } else if (subCategory === '포션') {
-                state.optionStructure = {
-                    "남은 거래 횟수": {
-                        "value": "number"
-                    },
-                    "품질": {
-                        "value": "number"
-                    },
-                    "색상": {
-                        "value": "rgb"
-                    }
-                };
-            } else {
-                state.optionStructure = {};
-            }
+            // 오류 발생 시 기본 옵션 구조 사용
+            state.optionStructure = {
+                "기본 옵션": {
+                    "value": "text"
+                }
+            };
             
             renderDetailOptions();
         });
@@ -832,48 +950,139 @@ function toggleDetailOptions() {
 function applyFilters() {
     console.log('필터 적용:', state.advancedFilters);
     
-    // 이전 검색 결과나 카테고리별 아이템 리스트에 필터 적용
-    let filteredResults = [...dummyItems];
-    
-    // 카테고리 필터
-    if (state.selectedMainCategory) {
-        filteredResults = filteredResults.filter(item => item.category === state.selectedMainCategory);
-    }
-    
-    // 서브카테고리 필터
-    if (state.selectedSubCategory) {
-        filteredResults = filteredResults.filter(item => item.subcategory === state.selectedSubCategory);
-    }
+    // 필터 적용 시 원래 결과에서 필터링 (서버에 재요청하지 않음)
+    let filteredResults = [...state.searchResults];
     
     // 기본 필터 적용
     const minLevel = elements.minLevelInput.value;
     const maxLevel = elements.maxLevelInput.value;
     const itemType = elements.itemTypeSelect.value;
     
-    if (minLevel) {
-        filteredResults = filteredResults.filter(item => 
-            item.meta && item.meta.level && item.meta.level >= parseInt(minLevel)
-        );
+    // 로딩 중 상태로 변경
+    setLoading(true);
+    
+    // 클라이언트 측 필터링 적용
+    try {
+        if (minLevel) {
+            filteredResults = filteredResults.filter(item => {
+                // 아이템 레벨 찾기
+                if (item.item_option && item.item_option.length > 0) {
+                    const levelOption = item.item_option.find(opt => 
+                        opt.option_type === '레벨' || 
+                        opt.option_type === '요구 레벨' || 
+                        opt.option_type === '아이템 레벨'
+                    );
+                    if (levelOption && levelOption.option_value) {
+                        return parseInt(levelOption.option_value) >= parseInt(minLevel);
+                    }
+                }
+                // 레벨 정보가 없으면 false 반환
+                return false;
+            });
+        }
+        
+        if (maxLevel) {
+            filteredResults = filteredResults.filter(item => {
+                // 아이템 레벨 찾기
+                if (item.item_option && item.item_option.length > 0) {
+                    const levelOption = item.item_option.find(opt => 
+                        opt.option_type === '레벨' || 
+                        opt.option_type === '요구 레벨' || 
+                        opt.option_type === '아이템 레벨'
+                    );
+                    if (levelOption && levelOption.option_value) {
+                        return parseInt(levelOption.option_value) <= parseInt(maxLevel);
+                    }
+                }
+                // 레벨 정보가 없으면 false 반환
+                return false;
+            });
+        }
+        
+        if (itemType && itemType !== 'all') {
+            filteredResults = filteredResults.filter(item => {
+                if (item.item_option && item.item_option.length > 0) {
+                    const typeOption = item.item_option.find(opt => 
+                        opt.option_type === '분류' || 
+                        opt.option_type === '아이템 유형'
+                    );
+                    if (typeOption && typeOption.option_value) {
+                        return typeOption.option_value.includes(itemType);
+                    }
+                }
+                return false;
+            });
+        }
+        
+        // 고급 필터 적용
+        // 실제 구현에서는 각 필터 타입에 맞게 처리
+        for (const [key, value] of Object.entries(state.advancedFilters)) {
+            if (!value) continue;
+            
+            if (key.startsWith('min_')) {
+                const optionName = key.substring(4);
+                filteredResults = filteredResults.filter(item => {
+                    if (item.item_option && item.item_option.length > 0) {
+                        const option = item.item_option.find(opt => opt.option_type === optionName);
+                        if (option && option.option_value) {
+                            return parseInt(option.option_value) >= parseInt(value);
+                        }
+                    }
+                    return false;
+                });
+            } 
+            else if (key.startsWith('max_')) {
+                const optionName = key.substring(4);
+                filteredResults = filteredResults.filter(item => {
+                    if (item.item_option && item.item_option.length > 0) {
+                        const option = item.item_option.find(opt => opt.option_type === optionName);
+                        if (option && option.option_value) {
+                            return parseInt(option.option_value) <= parseInt(value);
+                        }
+                    }
+                    return false;
+                });
+            } 
+            else {
+                // 일반 옵션 필터
+                filteredResults = filteredResults.filter(item => {
+                    if (item.item_option && item.item_option.length > 0) {
+                        const option = item.item_option.find(opt => opt.option_type === key);
+                        if (option) {
+                            if (typeof value === 'string' && value.startsWith('#')) {
+                                // 색상 필터 (RGB 비교)
+                                // 색상 구현은 복잡하므로 여기서는 간단히 처리
+                                return true;
+                            } else {
+                                return option.option_value == value || 
+                                       option.option_value.includes(value);
+                            }
+                        }
+                    }
+                    return false;
+                });
+            }
+        }
+        
+        // 임시 저장 (원래 결과는 유지)
+        const originalResults = state.searchResults;
+        state.searchResults = filteredResults;
+        
+        // 결과 표시
+        renderSearchResults();
+        
+        // 더 보기 버튼 숨기기 (필터링 결과에서는 더 보기 사용하지 않음)
+        elements.loadMoreButton.style.display = 'none';
+        
+        // 필터 결과 개수 표시
+        console.log(`필터링 결과: ${filteredResults.length}개 아이템 (원래: ${originalResults.length}개)`);
+        
+    } catch (error) {
+        console.error('필터 적용 중 오류:', error);
+        showError('필터를 적용하는 중 오류가 발생했습니다.');
+    } finally {
+        setLoading(false);
     }
-    
-    if (maxLevel) {
-        filteredResults = filteredResults.filter(item => 
-            item.meta && item.meta.level && item.meta.level <= parseInt(maxLevel)
-        );
-    }
-    
-    if (itemType && itemType !== 'all') {
-        filteredResults = filteredResults.filter(item => 
-            item.meta && item.meta.type === itemType
-        );
-    }
-    
-    // 고급 필터 적용
-    // 실제 구현에서는 각 필터 타입에 맞게 처리
-    
-    // 결과 업데이트
-    state.searchResults = filteredResults;
-    renderSearchResults();
 }
 
 // 문서 클릭 이벤트 처리 (외부 클릭 시 패널 닫기)
@@ -889,3 +1098,68 @@ function handleDocumentClick(event) {
 
 // 페이지 로드 시 초기화
 document.addEventListener('DOMContentLoaded', init);
+
+// 스타일 추가: 로딩 스피너와 더 보기 버튼
+const style = document.createElement('style');
+style.textContent = `
+    .loading-spinner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #333;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    .loading-spinner p {
+        color: white;
+        margin-top: 10px;
+    }
+    
+    .load-more-button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        background-color: var(--color-black);
+        color: var(--color-yellow);
+        border: none;
+        border-radius: 4px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .load-more-button:hover {
+        background-color: #222;
+    }
+    
+    .item-row {
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+    
+    .item-row:hover {
+        background-color: #f0f0f0;
+    }
+`;
+document.head.appendChild(style);
