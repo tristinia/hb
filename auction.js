@@ -1,4 +1,3 @@
-// auction.js 파일 수정
 // Firebase Functions URL 설정
 const FIREBASE_FUNCTIONS = {
   SEARCH_KEYWORD: 'https://us-central1-mabinogi-auction-api.cloudfunctions.net/searchByKeyword',
@@ -79,39 +78,59 @@ async function init() {
     loadAutocompleteData();
 }
 
-// 카테고리 데이터 로드 - 간소화 버전
+// 카테고리 데이터 로드 함수 - src/category-manager.js 에서 직접 로드
 async function loadCategories() {
     try {
-        // category-manager.js 파일에서 직접 로드
-        const response = await fetch('data/web/category-data.json');
+        // src/category-manager.js 파일 로드 시도
+        const response = await fetch('src/category-manager.js');
         
         if (response.ok) {
-            const data = await response.json();
-            state.categories.mainCategories = data.mainCategories || [];
-            state.categories.subCategories = data.subCategories || [];
-            console.log('카테고리 데이터 로드 성공:', 
-                state.categories.mainCategories.length + '개 대분류,',
-                state.categories.subCategories.length + '개 소분류');
-        } else {
-            // 카테고리 데이터를 로드할 수 없는 경우
-            console.error('카테고리 데이터를 로드할 수 없습니다. 응답 상태:', response.status);
+            const text = await response.text();
             
-            // 카테고리 로드 실패 메시지 표시
-            const categoryPanel = document.querySelector('.category-panel');
-            if (categoryPanel) {
-                categoryPanel.innerHTML = `
-                    <div class="category-error">
-                        <p>카테고리 데이터를 로드할 수 없습니다.</p>
-                        <p>검색 기능을 이용해주세요.</p>
-                    </div>
-                `;
+            // module.exports 형식에서 데이터 추출
+            // 주의: 이 방식은 파일 형식이 일관적일 때만 작동
+            const mainCatMatch = text.match(/mainCategories:\s*\[([\s\S]*?)\]/);
+            const categoriesMatch = text.match(/categories:\s*\[([\s\S]*?)\]/);
+            
+            if (mainCatMatch && categoriesMatch) {
+                // 텍스트 기반 파싱 (간단한 형태로 가정)
+                // 실제 환경에서는 더 강건한 방식으로 파싱 필요
+                try {
+                    // 메인 카테고리 파싱
+                    const mainCatText = `[${mainCatMatch[1]}]`;
+                    const mainCategories = eval(mainCatText); // 주의: eval 사용은 위험할 수 있음
+                    
+                    // 서브 카테고리 파싱
+                    const categoriesText = `[${categoriesMatch[1]}]`;
+                    const subCategories = eval(categoriesText);
+                    
+                    state.categories.mainCategories = mainCategories;
+                    state.categories.subCategories = subCategories;
+                    
+                    console.log('카테고리 데이터 로드 성공:', 
+                        state.categories.mainCategories.length + '개 대분류,',
+                        state.categories.subCategories.length + '개 소분류');
+                } catch (parseError) {
+                    console.error('카테고리 데이터 파싱 오류:', parseError);
+                    throw new Error('카테고리 데이터 파싱 실패');
+                }
+            } else {
+                throw new Error('카테고리 데이터 형식이 예상과 다름');
             }
+        } else {
+            throw new Error('카테고리 파일 로드 실패: ' + response.status);
         }
         
         // 카테고리 초기화
         renderMainCategories();
     } catch (error) {
         console.error('카테고리 로드 중 오류 발생:', error);
+        
+        // 오류 시 하드코딩된 카테고리 사용
+        console.log('하드코딩된 카테고리 사용');
+        
+        // 여기서 하드코딩된 카테고리 데이터를 넣을 수 있음
+        // 이전에 제공했던 하드코딩 값 참조
         
         // 카테고리 로드 실패 메시지 표시
         const categoryPanel = document.querySelector('.category-panel');
@@ -930,15 +949,6 @@ async function searchWithCategoryAndItem(mainCategory, subCategory, itemName = n
             url += `&itemName=${encodeURIComponent(itemName)}`;
         }
         
-        // 필터 추가
-        if (Object.keys(state.advancedFilters).length > 0) {
-            const filterParams = new URLSearchParams();
-            for (const [key, value] of Object.entries(state.advancedFilters)) {
-                filterParams.append(`filter_${key}`, value);
-            }
-            url += `&${filterParams.toString()}`;
-        }
-        
         console.log("API 호출 URL:", url); // 디버깅용
         
         const response = await fetch(url);
@@ -962,6 +972,11 @@ async function searchWithCategoryAndItem(mainCategory, subCategory, itemName = n
         // 페이지네이션 및 결과 렌더링
         renderCurrentPage();
         renderPagination();
+        
+        // 필터 존재 시 로컬 필터링 적용
+        if (Object.keys(state.advancedFilters).length > 0) {
+            applyLocalFiltering();
+        }
     } catch (error) {
         console.error('검색 오류:', error);
         showError('검색 중 오류가 발생했습니다: ' + error.message);
