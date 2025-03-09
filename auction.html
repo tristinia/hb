@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마비노기 경매장</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auction.css">
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    <nav class="nav-container">
+        <div class="container">
+            <div class="nav-buttons">
+                <a href="#" class="nav-button active">마비노기 경매장</a>
+                <a href="index.html" class="nav-button">정령 형상변환</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <!-- 검색 바 (가운데 배치) -->
+        <div class="search-container">
+            <div class="search-wrapper">
+                <input type="text" id="search-input" placeholder="아이템 이름을 입력하세요...">
+                <button class="search-button">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- 자동완성 제안 -->
+            <ul id="suggestions" class="suggestions-list"></ul>
+        </div>
+        
+        <!-- 3열 레이아웃: 좌측 카테고리, 중앙 결과, 우측 필터 -->
+        <div class="auction-layout">
+            <!-- 좌측 카테고리 패널 -->
+            <div class="category-panel">
+                <ul id="main-categories" class="category-list"></ul>
+            </div>
+            
+            <!-- 중앙 검색 결과 영역 -->
+            <div class="results-panel">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>아이템</th>
+                            <th>카테고리</th>
+                            <th>레벨</th>
+                            <th>현재가</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-body">
+                        <tr class="empty-result">
+                            <td colspan="4">검색 결과가 없습니다. 아이템을 검색해보세요.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 우측 세부 옵션 필터 영역 -->
+            <div class="options-panel">
+                <div class="options-header">
+                    <h3>세부 옵션 검색</h3>
+                    <button id="toggle-options" class="options-toggle">펼치기</button>
+                </div>
+                
+                <!-- 세부 옵션 필터 패널 -->
+                <div id="detail-options" class="detail-options">
+                    <!-- 동적으로 추가될 옵션 필터 -->
+                </div>
+                
+                <!-- 기본 필터 -->
+                <div class="basic-filters">
+                    <div class="filter-group">
+                        <label>레벨 범위</label>
+                        <div class="range-input">
+                            <input type="number" id="min-level" placeholder="최소" min="0">
+                            <span>~</span>
+                            <input type="number" id="max-level" placeholder="최대" min="0">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>아이템 유형</label>
+                        <select id="item-type">
+                            <option value="all">모든 유형</option>
+                            <option value="무기">무기</option>
+                            <option value="방어구">방어구</option>
+                            <option value="장신구">장신구</option>
+                            <option value="소비품">소비품</option>
+                        </select>
+                    </div>
+                    
+                    <button id="apply-filters" class="apply-button">필터 적용</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 푸터 -->
+    <footer>
+        <p>&copy; 2025 마비노기 경매장. 넥슨코리아 API 사용.</p>
+    </footer>
+    
+    <script src="auction.js"></script>
+</body>
+</html>
