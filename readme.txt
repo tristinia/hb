@@ -9,6 +9,9 @@
 ├── index.html             # 웹사이트 메인 페이지
 ├── styles.css             # 스타일시트
 ├── script.js              # 프론트엔드 JS
+├── auction.html           # 경매장 웹사이트 Html
+├── auction.js             # 경매장 구현 JS
+├── auction.css            # 경매장 스타일시트
 ├── src/                   # 소스 코드
 │   ├── api-client.js      # API 관련 코드
 │   ├── category-manager.js # 카테고리 관리
@@ -18,17 +21,14 @@
 │   └── index.js           # 메인 스크립트
 │
 ├── data/                  # 데이터 파일
+│   ├── database/          # 수집한 전체 아이템 데이터
 │   ├── items/             # 카테고리별 아이템 데이터
 │   ├── meta/              # 메타데이터
 │   └── web/               # 웹 표시용 데이터
-│       ├── effectCard.json # 이펙트 카드 데이터
 │       ├── spiritLiqueur.json # 정령 형상변환 리큐르 데이터
-│       └── titleEffect.json # 타이틀 이펙트 데이터
 │
 ├── image/                 # 이미지 리소스 (옵션)
 │   ├── spiritLiqueur/     # 정령 형상변환 리큐르 이미지
-│   ├── effectCard/        # 이펙트 카드 이미지
-│   └── titleEffect/       # 타이틀 이펙트 이미지
 │
 ├── .github/               # GitHub 관련 설정
 │   └── workflows/         # GitHub Actions 워크플로우
