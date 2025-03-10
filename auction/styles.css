@@ -852,6 +852,22 @@ main {
     font-size: 14px;
 }
 
+/* 카테고리 패널 접기/펼치기 스타일 */
+.category-panel {
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    max-height: calc(100vh - 200px);
+    overflow: hidden;
+}
+
+.category-panel.collapsed {
+    max-height: 40px; /* 헤더만 보이게 */
+    overflow: hidden;
+}
+
+.category-panel.collapsed .category-list {
+    display: none;
+}
+
 /* 푸터 */
 footer {
     text-align: center;
