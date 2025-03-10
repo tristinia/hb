@@ -10,8 +10,8 @@ function initDirectories() {
   fs.ensureDirSync(config.DATA_DIR);
   fs.ensureDirSync(path.join(config.DATA_DIR, 'items'));
   
-  // 통합 아이템 데이터베이스를 위한 디렉토리
-  fs.ensureDirSync(path.join(config.DATA_DIR, 'database'));
+  // database/items.json 생성 제거
+  // fs.ensureDirSync(path.join(config.DATA_DIR, 'database')); <-- 이 줄 제거 또는 주석 처리
   
   // 옵션 구조를 위한 디렉토리 추가
   fs.ensureDirSync(path.join(config.DATA_DIR, 'option_structure'));
@@ -44,13 +44,12 @@ function saveItemsData(categoryId, items) {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
   console.log(`아이템 데이터 저장 완료: ${categoryId} (${items.length}개)`);
   
-  // 아이템 데이터베이스 업데이트
-  updateItemDatabase(items);
+  // database/items.json 업데이트 코드 제거
+  // updateItemDatabase(items); <-- 이 줄 제거 또는 주석 처리
 }
 
-/**
- * 통합 아이템 데이터베이스 업데이트
- */
+// 이 함수 전체 제거 또는 주석 처리
+/*
 function updateItemDatabase(newItems) {
   const dbFilePath = path.join(config.DATA_DIR, 'database', 'items.json');
   
@@ -80,6 +79,7 @@ function updateItemDatabase(newItems) {
     console.error('아이템 데이터베이스 업데이트 중 오류:', error.message);
   }
 }
+*/
 
 /**
  * 옵션 구조 데이터 저장 (카테고리별)
@@ -133,6 +133,5 @@ module.exports = {
   initDirectories,
   saveItemsData,
   sanitizeFileName,
-  updateItemDatabase,
   saveOptionStructure
 };
