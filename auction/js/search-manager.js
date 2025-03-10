@@ -383,9 +383,6 @@ const SearchManager = (() => {
             }
         });
         document.dispatchEvent(event);
-        
-        // 자동으로 검색 실행
-        handleSearch();
     }
     
     /**
