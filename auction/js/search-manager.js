@@ -10,8 +10,12 @@ const SearchManager = (() => {
         suggestions: [],
         activeSuggestion: -1,
         selectedItem: null,
-        isSuggestionVisible: false
+        isSuggestionVisible: false,
+        loadedCategories: new Set()  // 이미 로드한 카테고리 추적
     };
+    
+    // 자동완성 데이터
+    const autocompleteData = [];
     
     // DOM 요소 참조
     let elements = {
@@ -65,67 +69,166 @@ const SearchManager = (() => {
     }
     
     /**
-     * 자동완성 데이터 로드
+     * 여러 카테고리에서 자동완성 데이터 로드
      */
-    function loadAutocompleteData() {
-        console.log('데이터베이스에서 자동완성 데이터 로드 중...');
+    async function loadAutocompleteData() {
+        console.log('카테고리별 자동완성 데이터 로드 중...');
         
-        // 여러 경로 시도 (경로 변경 대응)
-        const paths = [
-            '../data/database/items.json',
-            '/data/database/items.json',
-            'data/database/items.json'
-        ];
-        
-        // 첫 번째 경로 시도
-        tryLoadPath(0);
-        
-        // 경로 순차적으로 시도하는 함수
-        function tryLoadPath(index) {
-            if (index >= paths.length) {
-                console.error('모든 경로에서 자동완성 데이터 로드 실패');
-                checkLocalStorage();
+        try {
+            // 로컬 스토리지에서 캐시된 데이터 확인
+            const cachedData = localStorage.getItem('autocompleteDataWithCategories');
+            const cachedTimestamp = localStorage.getItem('autocompleteDataTimestamp');
+            
+            // 캐시가 24시간 이내에 생성된 경우 사용
+            const now = new Date().getTime();
+            if (cachedData && cachedTimestamp && (now - parseInt(cachedTimestamp) < 24 * 60 * 60 * 1000)) {
+                const parsedData = JSON.parse(cachedData);
+                autocompleteData.push(...parsedData);
+                console.log(`캐시에서 자동완성 데이터 로드 완료: ${autocompleteData.length}개 항목`);
                 return;
             }
             
-            fetch(paths[index])
-                .then(response => {
-                    if (!response.ok) {
-                        // 첫 번째 경로 시도 실패 시 다른 경로 시도
-                        return fetch(`/data/database/items.json`);
-                    }
-                    return response;
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('옵션 구조 파일을 찾을 수 없습니다.');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data && Array.isArray(data.items) && data.items.length > 0) {
-                        // 로컬 스토리지에 저장
-                        localStorage.setItem('auctionAutocompleteData', JSON.stringify(data.items));
-                        console.log('자동완성 데이터 로드 완료: ', data.items.length + '개 항목');
-                    } else {
-                        throw new Error('유효한 데이터가 없습니다');
-                    }
-                })
-                .catch(error => {
-                    console.error(`경로 ${paths[index]} 시도 중 오류:`, error);
-                    // 다음 경로 시도
-                    tryLoadPath(index + 1);
-                });
-        }
-        
-        // 로컬 스토리지 확인
-        function checkLocalStorage() {
-            const cachedData = localStorage.getItem('auctionAutocompleteData');
-            if (!cachedData) {
-                console.warn('캐시된 자동완성 데이터가 없습니다. 기능이 제한될 수 있습니다.');
-            } else {
-                console.log('캐시된 자동완성 데이터를 사용합니다.');
+            // 1. 카테고리 정보 가져오기
+            await waitForCategoryManager();
+            const { subCategories } = CategoryManager.getSelectedCategories();
+            
+            if (!subCategories || subCategories.length === 0) {
+                console.warn('카테고리 정보가 아직 로드되지 않았습니다.');
+                // 백그라운드에서 나중에 다시 시도
+                setTimeout(loadAutocompleteData, 1000);
+                return;
             }
+            
+            // 2. 우선순위 카테고리 목록 (가장 많이 사용하는 카테고리 먼저)
+            const priorityCategories = [
+                '검', '한손 장비', '양손 장비', '갑옷', '경갑옷', '천옷', 
+                '액세서리', '악기', '모자/가발', '장갑', '신발'
+            ];
+            
+            // 우선순위가 높은 카테고리를 먼저 정렬
+            const sortedCategories = [...subCategories].sort((a, b) => {
+                const aIndex = priorityCategories.indexOf(a.id);
+                const bIndex = priorityCategories.indexOf(b.id);
+                
+                if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
+                if (aIndex !== -1) return -1;
+                if (bIndex !== -1) return 1;
+                return 0;
+            });
+            
+            // 3. 카테고리 파일 순차적 로드 (부하 분산을 위해)
+            for (const category of sortedCategories) {
+                await loadCategoryItems(category);
+                
+                // 처음 5개 카테고리를 로드한 후 사용자가 검색을 시작할 수 있게 약간의 지연
+                if (autocompleteData.length > 0 && state.loadedCategories.size === 5) {
+                    // 나머지 카테고리는 백그라운드에서 계속 로드
+                    setTimeout(() => {
+                        continueCategoryLoading(sortedCategories.slice(5));
+                    }, 100);
+                    break;
+                }
+            }
+            
+            // 4. 캐시 저장
+            if (autocompleteData.length > 0) {
+                try {
+                    localStorage.setItem('autocompleteDataWithCategories', JSON.stringify(autocompleteData));
+                    localStorage.setItem('autocompleteDataTimestamp', now.toString());
+                } catch (error) {
+                    console.warn('자동완성 데이터 캐싱 실패:', error);
+                }
+            }
+            
+            console.log(`자동완성 데이터 로드 완료: ${autocompleteData.length}개 항목`);
+        } catch (error) {
+            console.error('자동완성 데이터 로드 중 오류:', error);
+        }
+    }
+    
+    /**
+     * CategoryManager가 초기화될 때까지 대기
+     */
+    function waitForCategoryManager() {
+        return new Promise((resolve) => {
+            const check = () => {
+                const { subCategories } = CategoryManager.getSelectedCategories();
+                if (subCategories && subCategories.length > 0) {
+                    resolve();
+                } else {
+                    setTimeout(check, 100);
+                }
+            };
+            check();
+        });
+    }
+    
+    /**
+     * 나머지 카테고리 백그라운드 로드
+     */
+    async function continueCategoryLoading(remainingCategories) {
+        for (const category of remainingCategories) {
+            await loadCategoryItems(category);
+        }
+    }
+    
+    /**
+     * 단일 카테고리 아이템 로드
+     */
+    async function loadCategoryItems(category) {
+        if (state.loadedCategories.has(category.id)) return;
+        
+        try {
+            // 카테고리 파일 경로 (여러 가능성 시도)
+            const paths = [
+                `../data/items/${category.id}.json`,
+                `/data/items/${category.id}.json`,
+                `data/items/${category.id}.json`
+            ];
+            
+            let response = null;
+            let validPath = null;
+            
+            // 유효한 경로 찾기
+            for (const path of paths) {
+                try {
+                    const resp = await fetch(path);
+                    if (resp.ok) {
+                        response = resp;
+                        validPath = path;
+                        break;
+                    }
+                } catch (e) {
+                    continue;
+                }
+            }
+            
+            if (!response || !validPath) {
+                console.warn(`카테고리 ${category.id} 파일을 찾을 수 없습니다.`);
+                return;
+            }
+            
+            const data = await response.json();
+            const items = data.items || [];
+            
+            // 각 아이템에 카테고리 정보 추가
+            items.forEach(item => {
+                if (item.name) {
+                    autocompleteData.push({
+                        name: item.name,
+                        price: item.price,
+                        date: item.date,
+                        mainCategory: category.mainCategory,
+                        subCategory: category.id
+                    });
+                }
+            });
+            
+            // 로드 완료 표시
+            state.loadedCategories.add(category.id);
+            console.log(`카테고리 ${category.id} 로드 완료: ${items.length}개 아이템`);
+        } catch (error) {
+            console.warn(`카테고리 ${category.id} 로드 중 오류:`, error);
         }
     }
     
@@ -168,25 +271,13 @@ const SearchManager = (() => {
         // 영->한 오타 수정 시도 (최소 길이 조건 추가)
         const koreanFromEng = normalizedTerm.length >= 2 ? Utils.engToKor(normalizedTerm) : '';
         
-        // 로컬 스토리지에서 자동완성 데이터 가져오기
-        let autocompleteItems = [];
-        const cachedSuggestions = localStorage.getItem('auctionAutocompleteData');
-        
-        if (cachedSuggestions) {
-            try {
-                autocompleteItems = JSON.parse(cachedSuggestions);
-            } catch (error) {
-                console.error('자동완성 데이터 파싱 오류:', error);
-            }
-        }
-        
         // 데이터가 없으면 빈 배열 반환
-        if (!Array.isArray(autocompleteItems) || autocompleteItems.length === 0) {
+        if (!Array.isArray(autocompleteData) || autocompleteData.length === 0) {
             return [];
         }
         
         // 점수 계산 및 필터링
-        const scoredItems = autocompleteItems
+        const scoredItems = autocompleteData
             .map(item => ({
                 item,
                 score: calculateScore(item, normalizedTerm, chosungTerm, koreanFromEng, isChosungOnly)
@@ -307,21 +398,18 @@ const SearchManager = (() => {
             
             // 아이템 카테고리 정보 표시
             let categoryInfo = '';
-            if (item.category || item.mainCategory) {
-                const mainCategory = item.mainCategory || CategoryManager.findMainCategoryForSubCategory(item.category) || '';
-                
+            if (item.mainCategory || item.subCategory) {
                 // 메인 카테고리 이름 찾기
-                let mainCategoryName = mainCategory;
+                let mainCategoryName = item.mainCategory;
                 const categories = CategoryManager.getSelectedCategories();
-                const mainCategoryObj = categories.mainCategories?.find(cat => cat.id === mainCategory);
+                const mainCategoryObj = categories.mainCategories?.find(cat => cat.id === item.mainCategory);
                 if (mainCategoryObj) {
                     mainCategoryName = mainCategoryObj.name;
                 }
                 
                 // 서브 카테고리 이름 찾기
-                const subCategory = item.subCategory || item.category || '';
-                let subCategoryName = subCategory;
-                const subCategoryObj = categories.subCategories?.find(cat => cat.id === subCategory);
+                let subCategoryName = item.subCategory;
+                const subCategoryObj = categories.subCategories?.find(cat => cat.id === item.subCategory);
                 if (subCategoryObj) {
                     subCategoryName = subCategoryObj.name;
                 }
@@ -345,54 +433,43 @@ const SearchManager = (() => {
     }
     
     /**
- * 자동완성 선택 처리
- * @param {Object} item - 선택한 아이템
- * @param {number} index - 선택한 인덱스
- */
-async function handleSelectSuggestion(item, index) {
-    // 선택된 아이템을 검색창에 설정
-    elements.searchInput.value = item.name;
-    state.searchTerm = item.name;
-    state.selectedItem = item;
-    
-    // API 로딩 표시
-    ApiClient.setLoading(true);
-    
-    try {
-        // 카테고리 정보 찾기
-        const categoryInfo = await findCategoryByItemName(item.name);
+     * 자동완성 선택 처리
+     * @param {Object} item - 선택한 아이템
+     * @param {number} index - 선택한 인덱스
+     */
+    function handleSelectSuggestion(item, index) {
+        // 선택된 아이템을 검색창에 설정
+        elements.searchInput.value = item.name;
+        state.searchTerm = item.name;
+        state.selectedItem = item;
         
-        if (categoryInfo) {
-            console.log("아이템 카테고리 찾음:", categoryInfo);
-            
-            // 카테고리 선택 이벤트 발생
+        // 카테고리 자동 선택 (이제 아이템에 카테고리 정보가 있음)
+        if (item.mainCategory && item.subCategory) {
+            // 카테고리 UI 자동 선택을 위한 이벤트 발생
             const categoryEvent = new CustomEvent('categoryChanged', {
                 detail: {
-                    mainCategory: categoryInfo.mainCategory,
-                    subCategory: categoryInfo.subCategory,
+                    mainCategory: item.mainCategory,
+                    subCategory: item.subCategory,
                     autoSelected: true
                 }
             });
             document.dispatchEvent(categoryEvent);
         }
-    } catch (error) {
-        console.error("카테고리 자동 선택 실패:", error);
-    } finally {
-        // 로딩 표시 종료
-        ApiClient.setLoading(false);
+        
+        // 자동완성 닫기
+        clearSuggestions();
+        
+        // 선택된 아이템 정보를 이벤트로 알림
+        const event = new CustomEvent('itemSelected', {
+            detail: {
+                item: state.selectedItem
+            }
+        });
+        document.dispatchEvent(event);
+        
+        // 자동 검색 실행 제거 (사용자가 직접 검색 버튼 클릭)
+        // handleSearch();
     }
-    
-    // 자동완성 닫기
-    clearSuggestions();
-    
-    // 선택된 아이템 정보를 이벤트로 알림
-    const event = new CustomEvent('itemSelected', {
-        detail: {
-            item: state.selectedItem
-        }
-    });
-    document.dispatchEvent(event);
-}
     
     /**
      * 키보드 탐색 처리
@@ -520,49 +597,6 @@ async function handleSelectSuggestion(item, index) {
         // 자동완성 닫기
         clearSuggestions();
     }
-
-    /**
- * 아이템 이름으로 카테고리 찾기
- * @param {string} itemName - 찾을 아이템 이름
- * @returns {Promise<{mainCategory: string, subCategory: string}|null>}
- */
-async function findCategoryByItemName(itemName) {
-    if (!itemName) return null;
-    
-    // 1. 카테고리 정보 가져오기
-    const categoryInfo = CategoryManager.getSelectedCategories();
-    const { subCategories } = categoryInfo;
-    
-    // 2. 모든 서브카테고리에 대해 검색
-    for (const subCategory of subCategories) {
-        try {
-            // 해당 카테고리의 아이템 목록 로드
-            const response = await fetch(`../data/items/${subCategory.id}.json`);
-            if (!response.ok) continue;
-            
-            const data = await response.json();
-            const items = data.items || [];
-            
-            // 아이템 이름 비교
-            const found = items.some(item => 
-                item.name && item.name.toLowerCase() === itemName.toLowerCase()
-            );
-            
-            if (found) {
-                // 아이템을 포함하는 카테고리 발견
-                return {
-                    mainCategory: subCategory.mainCategory,
-                    subCategory: subCategory.id
-                };
-            }
-        } catch (error) {
-            console.warn(`카테고리 ${subCategory.id} 검색 중 오류:`, error);
-            continue; // 오류가 발생해도 다음 카테고리 계속 검색
-        }
-    }
-    
-    return null; // 일치하는 카테고리를 찾지 못함
-}
     
     /**
      * 문서 클릭 이벤트 처리
