@@ -204,68 +204,64 @@ function toggleAllCategories() {
     }
     
     /**
-     * 메인 카테고리 렌더링
-     */
-    function renderMainCategories() {
-        // 카테고리가 없으면 표시하지 않음
-        if (state.mainCategories.length === 0 || !elements.mainCategoriesList) {
-            return;
-        }
-        
-        elements.mainCategoriesList.innerHTML = '';
-        
-        state.mainCategories.forEach(category => {
-            const li = document.createElement('li');
-            li.className = 'category-item';
-            
-            // 토글 아이콘 SVG
-            const toggleIcon = `
-                <svg class="toggle-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-            `;
-            
-            const button = document.createElement('button');
-            button.className = `category-button ${state.selectedMainCategory === category.id ? 'active' : ''}`;
-            button.innerHTML = `${category.name} ${toggleIcon}`;
-            button.setAttribute('data-category-id', category.id);
-            
-            // 수정된 부분: 확장 로직 개선
-            // 모든 카테고리가 펼쳐진 상태인 경우 OR 이 특정 카테고리가 펼쳐진 경우
-            const isExpanded = state.allExpanded || state.expandedMainCategory === category.id;
-            button.classList.toggle('expanded', isExpanded);
-            
-            // 버튼 클릭 이벤트
-            button.addEventListener('click', () => handleMainCategoryClick(category));
-            
-            li.appendChild(button);
-            
-            // 확장된 카테고리인 경우 소분류 목록 추가
-            if (isExpanded) {
-                const subList = document.createElement('ul');
-                subList.className = 'subcategory-list expanded';
-                
-                const subCategories = getSubCategoriesByMainCategory(category.id);
-                subCategories.forEach(subCategory => {
-                    const subLi = document.createElement('li');
-                    subLi.className = 'subcategory-item';
-                    
-                    const subButton = document.createElement('button');
-                    subButton.className = `subcategory-button ${state.selectedSubCategory === subCategory.id ? 'active' : ''}`;
-                    subButton.textContent = subCategory.name;
-                    subButton.setAttribute('data-category-id', subCategory.id);
-                    subButton.addEventListener('click', () => handleSubCategoryClick(subCategory));
-                    
-                    subLi.appendChild(subButton);
-                    subList.appendChild(subLi);
-                });
-                
-                li.appendChild(subList);
-            }
-            
-            elements.mainCategoriesList.appendChild(li);
-        });
+ * 메인 카테고리 렌더링
+ */
+function renderMainCategories() {
+    // 카테고리가 없으면 표시하지 않음
+    if (state.mainCategories.length === 0 || !elements.mainCategoriesList) {
+        return;
     }
+    
+    elements.mainCategoriesList.innerHTML = '';
+    
+    state.mainCategories.forEach(category => {
+        const li = document.createElement('li');
+        li.className = 'category-item';
+        
+        // 토글 아이콘 SVG
+        const toggleIcon = `
+            <svg class="toggle-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        `;
+        
+        const button = document.createElement('button');
+        button.className = `category-button ${state.selectedMainCategory === category.id ? 'active' : ''}`;
+        button.innerHTML = `${category.name} ${toggleIcon}`;
+        button.setAttribute('data-category-id', category.id);
+        
+        // 이 카테고리가 펼쳐진 상태인 경우에만 expanded 클래스 추가
+        const isExpanded = state.expandedMainCategory === category.id;
+        button.classList.toggle('expanded', isExpanded);
+        
+        // 버튼 클릭 이벤트
+        button.addEventListener('click', () => handleMainCategoryClick(category));
+        
+        li.appendChild(button);
+        
+        // 소분류 목록 항상 추가하되, 펼쳐진 상태일 때만 expanded 클래스 부여
+        const subList = document.createElement('ul');
+        subList.className = `subcategory-list ${isExpanded ? 'expanded' : ''}`;
+        
+        const subCategories = getSubCategoriesByMainCategory(category.id);
+        subCategories.forEach(subCategory => {
+            const subLi = document.createElement('li');
+            subLi.className = 'subcategory-item';
+            
+            const subButton = document.createElement('button');
+            subButton.className = `subcategory-button ${state.selectedSubCategory === subCategory.id ? 'active' : ''}`;
+            subButton.textContent = subCategory.name;
+            subButton.setAttribute('data-category-id', subCategory.id);
+            subButton.addEventListener('click', () => handleSubCategoryClick(subCategory));
+            
+            subLi.appendChild(subButton);
+            subList.appendChild(subLi);
+        });
+        
+        li.appendChild(subList);
+        elements.mainCategoriesList.appendChild(li);
+    });
+}
     
     /**
      * 특정 메인 카테고리에 속하는 서브카테고리 가져오기
