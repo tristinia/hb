@@ -25,7 +25,31 @@ jobs:
       - name: 데이터 수집 실행
         env:
           API_KEY: ${{ secrets.API_KEY }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
         run: node src/index.js
+      
+      # 이전에 생성된 카테고리 JSON 파일 보존
+      - name: 데이터 디렉토리 확인
+        run: |
+          mkdir -p data
+          mkdir -p data/database
+          
+          # 카테고리 데이터가 없으면 생성
+          if [ ! -f data/categories.json ]; then
+            cp src/category-manager.js /tmp/category-manager.js
+            node -e "
+              const fs = require('fs');
+              const catManager = require('/tmp/category-manager.js');
+              
+              const data = {
+                mainCategories: catManager.mainCategories,
+                categories: catManager.categories
+              };
+              
+              fs.writeFileSync('data/categories.json', JSON.stringify(data, null, 2));
+              console.log('카테고리 데이터 생성 완료');
+            "
+          fi
       
       - name: 변경사항 커밋 및 푸시
         run: |
