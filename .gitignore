@@ -130,5 +130,4 @@ dist
 .pnp.*
 
 # Firebase
-/config/firebase.config.js
-/auction/js/config.js
+/auction/js/firebase.config.js
