@@ -345,45 +345,54 @@ const SearchManager = (() => {
     }
     
     /**
-     * 자동완성 선택 처리
-     * @param {Object} item - 선택한 아이템
-     * @param {number} index - 선택한 인덱스
-     */
-    function handleSelectSuggestion(item, index) {
-        // 선택된 아이템을 검색창에 설정
-        elements.searchInput.value = item.name;
-        state.searchTerm = item.name;
-        state.selectedItem = item;
+ * 자동완성 선택 처리
+ * @param {Object} item - 선택한 아이템
+ * @param {number} index - 선택한 인덱스
+ */
+async function handleSelectSuggestion(item, index) {
+    // 선택된 아이템을 검색창에 설정
+    elements.searchInput.value = item.name;
+    state.searchTerm = item.name;
+    state.selectedItem = item;
+    
+    // API 로딩 표시
+    ApiClient.setLoading(true);
+    
+    try {
+        // 카테고리 정보 찾기
+        const categoryInfo = await findCategoryByItemName(item.name);
         
-        // 카테고리 자동 선택 기능 추가
-        if (item.category || item.mainCategory) {
-            const mainCategory = item.mainCategory || CategoryManager.findMainCategoryForSubCategory(item.category);
-            const subCategory = item.subCategory || item.category;
+        if (categoryInfo) {
+            console.log("아이템 카테고리 찾음:", categoryInfo);
             
-            if (mainCategory && subCategory) {
-                // 카테고리 UI 자동 선택을 위한 이벤트 발생
-                const categoryEvent = new CustomEvent('categoryChanged', {
-                    detail: {
-                        mainCategory: mainCategory,
-                        subCategory: subCategory,
-                        autoSelected: true // 자동 선택임을 표시
-                    }
-                });
-                document.dispatchEvent(categoryEvent);
-            }
+            // 카테고리 선택 이벤트 발생
+            const categoryEvent = new CustomEvent('categoryChanged', {
+                detail: {
+                    mainCategory: categoryInfo.mainCategory,
+                    subCategory: categoryInfo.subCategory,
+                    autoSelected: true
+                }
+            });
+            document.dispatchEvent(categoryEvent);
         }
-        
-        // 자동완성 닫기
-        clearSuggestions();
-        
-        // 선택된 아이템 정보를 이벤트로 알림
-        const event = new CustomEvent('itemSelected', {
-            detail: {
-                item: state.selectedItem
-            }
-        });
-        document.dispatchEvent(event);
+    } catch (error) {
+        console.error("카테고리 자동 선택 실패:", error);
+    } finally {
+        // 로딩 표시 종료
+        ApiClient.setLoading(false);
     }
+    
+    // 자동완성 닫기
+    clearSuggestions();
+    
+    // 선택된 아이템 정보를 이벤트로 알림
+    const event = new CustomEvent('itemSelected', {
+        detail: {
+            item: state.selectedItem
+        }
+    });
+    document.dispatchEvent(event);
+}
     
     /**
      * 키보드 탐색 처리
@@ -511,6 +520,49 @@ const SearchManager = (() => {
         // 자동완성 닫기
         clearSuggestions();
     }
+
+    /**
+ * 아이템 이름으로 카테고리 찾기
+ * @param {string} itemName - 찾을 아이템 이름
+ * @returns {Promise<{mainCategory: string, subCategory: string}|null>}
+ */
+async function findCategoryByItemName(itemName) {
+    if (!itemName) return null;
+    
+    // 1. 카테고리 정보 가져오기
+    const categoryInfo = CategoryManager.getSelectedCategories();
+    const { subCategories } = categoryInfo;
+    
+    // 2. 모든 서브카테고리에 대해 검색
+    for (const subCategory of subCategories) {
+        try {
+            // 해당 카테고리의 아이템 목록 로드
+            const response = await fetch(`../data/items/${subCategory.id}.json`);
+            if (!response.ok) continue;
+            
+            const data = await response.json();
+            const items = data.items || [];
+            
+            // 아이템 이름 비교
+            const found = items.some(item => 
+                item.name && item.name.toLowerCase() === itemName.toLowerCase()
+            );
+            
+            if (found) {
+                // 아이템을 포함하는 카테고리 발견
+                return {
+                    mainCategory: subCategory.mainCategory,
+                    subCategory: subCategory.id
+                };
+            }
+        } catch (error) {
+            console.warn(`카테고리 ${subCategory.id} 검색 중 오류:`, error);
+            continue; // 오류가 발생해도 다음 카테고리 계속 검색
+        }
+    }
+    
+    return null; // 일치하는 카테고리를 찾지 못함
+}
     
     /**
      * 문서 클릭 이벤트 처리
