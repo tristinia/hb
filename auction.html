@@ -51,6 +51,10 @@
             <!-- 중앙 검색 결과 영역 -->
             <div class="results-panel">
                 <h3>검색 결과</h3>
+                
+                <!-- 카테고리 경로 정보 -->
+                <div id="category-path" class="category-path-panel" style="display: none;"></div>
+                
                 <div class="result-stats-container">
                     <span id="result-stats" class="result-stats"></span>
                 </div>
@@ -58,14 +62,13 @@
                     <thead>
                         <tr>
                             <th>아이템</th>
-                            <th>카테고리</th>
-                            <th>레벨</th>
+                            <th>판매수량</th>
                             <th>현재가</th>
                         </tr>
                     </thead>
                     <tbody id="results-body">
                         <tr class="empty-result">
-                            <td colspan="4">검색어를 입력하거나 카테고리를 선택해주세요.</td>
+                            <td colspan="3">검색어를 입력하거나 카테고리를 선택한 후 검색 버튼을 클릭하세요.</td>
                         </tr>
                     </tbody>
                 </table>
