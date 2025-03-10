@@ -72,29 +72,47 @@ const CategoryManager = (() => {
     }
     
     /**
-     * 모든 카테고리 접기/펼치기 토글
-     */
-    function toggleAllCategories() {
-        state.allExpanded = !state.allExpanded;
-        
-        // 카테고리 패널 요소 가져오기
-        const categoryPanel = document.querySelector('.category-panel');
-        
-        if (state.allExpanded) {
-            // 펼침: 모든 대분류 카테고리를 리스트로 표시
-            if (categoryPanel) {
-                categoryPanel.classList.remove('collapsed');
-            }
-        } else {
-            // 접음: 모든 대분류 카테고리를 숨김
-            if (categoryPanel) {
-                categoryPanel.classList.add('collapsed');
-            }
+ * 모든 카테고리 접기/펼치기 토글
+ */
+function toggleAllCategories() {
+    state.allExpanded = !state.allExpanded;
+    
+    // 카테고리 패널 요소 가져오기
+    const categoryPanel = document.querySelector('.category-panel');
+    
+    if (state.allExpanded) {
+        // 펼침: 패널 표시하고 대분류만 펼치기
+        if (categoryPanel) {
+            categoryPanel.classList.remove('collapsed');
         }
         
-        // UI 업데이트
-        updateToggleAllButton();
+        // 모든 소분류 숨기기 (대분류만 표시)
+        const subLists = document.querySelectorAll('.subcategory-list');
+        subLists.forEach(list => {
+            list.classList.remove('expanded');
+        });
+        
+        // 모든 메인 카테고리 버튼의 확장 표시 초기화
+        const mainButtons = document.querySelectorAll('.category-button');
+        mainButtons.forEach(btn => {
+            btn.classList.remove('expanded');
+        });
+        
+        // 단, 현재 선택된 카테고리는 계속 펼쳐진 상태로 유지
+        if (state.selectedMainCategory) {
+            state.expandedMainCategory = state.selectedMainCategory;
+            renderMainCategories(); // 선택된 카테고리만 펼치기 위해 다시 렌더링
+        }
+    } else {
+        // 접음: 패널 숨기기 (선택 상태는 그대로 유지)
+        if (categoryPanel) {
+            categoryPanel.classList.add('collapsed');
+        }
     }
+    
+    // UI 업데이트
+    updateToggleAllButton();
+}
     
     /**
      * 토글 버튼 상태 업데이트
