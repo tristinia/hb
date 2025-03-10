@@ -173,64 +173,77 @@ const SearchManager = (() => {
     }
     
     /**
-     * 단일 카테고리 아이템 로드
-     */
-    async function loadCategoryItems(category) {
-        if (state.loadedCategories.has(category.id)) return;
+ * 단일 카테고리 아이템 로드
+ */
+async function loadCategoryItems(category) {
+    if (state.loadedCategories.has(category.id)) return;
+    
+    try {
+        // 카테고리 ID 안전하게 변환 (여기에 추가)
+        const safeCategoryId = sanitizeFileName(category.id);
         
-        try {
-            // 카테고리 파일 경로 (여러 가능성 시도)
-            const paths = [
-                `../data/items/${category.id}.json`,
-                `/data/items/${category.id}.json`,
-                `data/items/${category.id}.json`
-            ];
-            
-            let response = null;
-            let validPath = null;
-            
-            // 유효한 경로 찾기
-            for (const path of paths) {
-                try {
-                    const resp = await fetch(path);
-                    if (resp.ok) {
-                        response = resp;
-                        validPath = path;
-                        break;
-                    }
-                } catch (e) {
-                    continue;
+        // 카테고리 파일 경로 (여러 가능성 시도)
+        const paths = [
+            `../data/items/${safeCategoryId}.json`,
+            `/data/items/${safeCategoryId}.json`,
+            `data/items/${safeCategoryId}.json`
+        ];
+        
+        let response = null;
+        let validPath = null;
+        
+        // 유효한 경로 찾기
+        for (const path of paths) {
+            try {
+                const resp = await fetch(path);
+                if (resp.ok) {
+                    response = resp;
+                    validPath = path;
+                    break;
                 }
+            } catch (e) {
+                continue;
             }
-            
-            if (!response || !validPath) {
-                console.warn(`카테고리 ${category.id} 파일을 찾을 수 없습니다.`);
-                return;
-            }
-            
-            const data = await response.json();
-            const items = data.items || [];
-            
-            // 각 아이템에 카테고리 정보 추가
-            items.forEach(item => {
-                if (item.name) {
-                    autocompleteData.push({
-                        name: item.name,
-                        price: item.price,
-                        date: item.date,
-                        mainCategory: category.mainCategory,
-                        subCategory: category.id
-                    });
-                }
-            });
-            
-            // 로드 완료 표시
-            state.loadedCategories.add(category.id);
-            console.log(`카테고리 ${category.id} 로드 완료: ${items.length}개 아이템`);
-        } catch (error) {
-            console.warn(`카테고리 ${category.id} 로드 중 오류:`, error);
         }
+        
+        if (!response || !validPath) {
+            console.warn(`카테고리 ${category.id} 파일을 찾을 수 없습니다.`);
+            return;
+        }
+        
+        const data = await response.json();
+        const items = data.items || [];
+        
+        // 각 아이템에 카테고리 정보 추가
+        items.forEach(item => {
+            if (item.name) {
+                autocompleteData.push({
+                    name: item.name,
+                    price: item.price,
+                    date: item.date,
+                    mainCategory: category.mainCategory,
+                    subCategory: category.id
+                });
+            }
+        });
+        
+        // 로드 완료 표시
+        state.loadedCategories.add(category.id);
+        console.log(`카테고리 ${category.id} 로드 완료: ${items.length}개 아이템`);
+    } catch (error) {
+        console.warn(`카테고리 ${category.id} 로드 중 오류:`, error);
     }
+}
+
+/**
+ * 파일명으로 사용할 수 없는 특수문자 처리
+ * @param {string} id 원본 ID
+ * @return {string} 파일명으로 사용 가능한 ID
+ */
+function sanitizeFileName(id) {
+    // 파일 시스템에서 문제가 될 수 있는 특수 문자들을 대체
+    return id.replace(/[\/\\:*?"<>|]/g, '_');
+}
     
     /**
      * 검색어 입력 처리
