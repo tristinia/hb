@@ -64,7 +64,7 @@ const SearchManager = (() => {
         document.addEventListener('click', handleDocumentClick);
     }
     
-      /**
+    /**
      * 자동완성 데이터 로드
      */
     function loadAutocompleteData() {
@@ -153,10 +153,12 @@ const SearchManager = (() => {
         if (!searchTerm) return [];
         
         const normalizedTerm = searchTerm.toLowerCase();
-        const chosungTerm = Utils.getChosung(normalizedTerm);
         
-        // 영->한 오타 수정 시도
-        const koreanFromEng = Utils.engToKor(normalizedTerm);
+        // 검색어가 너무 짧으면 초성 검색 비활성화
+        const chosungTerm = normalizedTerm.length >= 2 ? Utils.getChosung(normalizedTerm) : '';
+        
+        // 영->한 오타 수정 시도 (마찬가지로 최소 길이 조건 추가)
+        const koreanFromEng = normalizedTerm.length >= 2 ? Utils.engToKor(normalizedTerm) : '';
         
         // 로컬 스토리지에서 자동완성 데이터 가져오기
         let autocompleteItems = [];
@@ -175,78 +177,90 @@ const SearchManager = (() => {
             return [];
         }
         
-        // 검색 정확도 점수 계산 함수 - 개선된 버전
-        function calculateScore(item) {
-            if (!item || !item.name) return 0;
-            
-            const itemName = item.name.toLowerCase();
-            let score = 0;
-            
-            // 정확히 일치하면 최고 점수
-            if (itemName === normalizedTerm) {
-                score += 100;
-            }
-            // 시작 부분이 일치하면 높은 점수
-            else if (itemName.startsWith(normalizedTerm)) {
-                score += 80;
-                
-                // 길이가 비슷할수록 더 관련성이 높음
-                const lengthDiff = Math.abs(itemName.length - normalizedTerm.length);
-                if (lengthDiff <= 3) {
-                    score += 15;
-                }
-            }
-            // 정확한 단어 포함 (공백으로 구분)
-            else if (itemName.includes(` ${normalizedTerm} `) || 
-                    itemName.startsWith(`${normalizedTerm} `) || 
-                    itemName.endsWith(` ${normalizedTerm}`)) {
-                score += 70;
-            }
-            // 단어 중간에 포함되면 중간 점수
-            else if (itemName.includes(normalizedTerm)) {
-                score += 60;
-                
-                // 정확한 매칭에 더 높은 가중치 부여
-                if (normalizedTerm.length > 2) {
-                    score += 10; // 정확한 부분 문자열 매칭에 보너스 점수
-                }
-            }
-            // 초성이 일치하면 낮은 점수
-            else if (Utils.getChosung(itemName).includes(chosungTerm)) {
-                // 2글자 이상 초성 매칭 시 더 높은 점수
-                score += (chosungTerm.length >= 2) ? 30 : 20;
-            }
-            // 영한 변환 결과가 포함되면 매우 낮은 점수
-            else if (koreanFromEng && itemName.includes(koreanFromEng)) {
-                score += 15;
-            }
-            else {
-                // 일치하는 부분이 없으면 후보에서 제외
-                return 0;
-            }
-            
-            // 아이템 이름이 짧을수록 더 관련성이 높을 가능성이 있음
-            score += Math.max(0, 20 - itemName.length);
-            
-            // 유사도 보너스 점수 (레벤슈타인 거리 기반)
-            const similarity = Utils.similarityScore(normalizedTerm, itemName);
-            score += similarity * 30;
-            
-            return score;
-        }
-        
-        // 정확도 기반 필터링 및 정렬
+        // 점수 계산 및 필터링
         const scoredItems = autocompleteItems
             .map(item => ({
                 item,
-                score: calculateScore(item)
+                score: calculateScore(item, normalizedTerm, chosungTerm, koreanFromEng)
             }))
-            .filter(entry => entry.score > 0)
-            .sort((a, b) => b.score - a.score)
+            .filter(entry => entry.score > 0) // 점수가 0 이상인 항목만 포함
+            .sort((a, b) => b.score - a.score) // 높은 점수순으로 정렬
             .slice(0, 10) // 최대 10개만 표시
             .map(entry => entry.item);
         
         return scoredItems;
+    }
+    
+    /**
+     * 검색 정확도 점수 계산 함수 - 개선된 버전
+     */
+    function calculateScore(item, normalizedTerm, chosungTerm, koreanFromEng) {
+        if (!item || !item.name) return 0;
+        
+        const itemName = item.name.toLowerCase();
+        let score = 0;
+        
+        // 정확히 일치하면 최고 점수
+        if (itemName === normalizedTerm) {
+            score += 100;
+            return score; // 정확히 일치하면 바로 최고 점수 반환
+        }
+        
+        // 시작 부분이 일치하면 높은 점수 (prefix matching)
+        if (itemName.startsWith(normalizedTerm)) {
+            score += 80;
+            
+            // 길이가 비슷할수록 더 관련성이 높음
+            const lengthDiff = Math.abs(itemName.length - normalizedTerm.length);
+            if (lengthDiff <= 3) {
+                score += 15;
+            }
+        }
+        // 정확한 단어 포함 (공백으로 구분된 단어)
+        else if (itemName.includes(` ${normalizedTerm} `) || 
+                itemName.startsWith(`${normalizedTerm} `) || 
+                itemName.endsWith(` ${normalizedTerm}`)) {
+            score += 70;
+        }
+        // 단어 중간에 포함되면 중간 점수 (substring matching)
+        else if (itemName.includes(normalizedTerm)) {
+            score += 60;
+            
+            // 정확한 매칭에 더 높은 가중치 부여
+            if (normalizedTerm.length > 2) {
+                score += 10; // 정확한 부분 문자열 매칭에 보너스 점수
+            }
+        }
+        
+        // 아래 초성 및 영한 변환 매칭은 최소 검색어 길이 조건 추가 (1글자 검색은 제외)
+        if (normalizedTerm.length >= 2) {
+            // 초성이 일치하면 낮은 점수 (점수 하향 조정)
+            const chosungMatch = Utils.getChosung(itemName).includes(chosungTerm);
+            if (chosungMatch) {
+                // 초성 매칭 점수 대폭 하향 조정 
+                // (최소 10, 최대 15 - 이전 최대 30에서 절반으로 줄임)
+                score += Math.min(10 + (chosungTerm.length * 2.5), 15);
+            }
+            
+            // 영한 변환 결과가 포함되면 매우 낮은 점수
+            if (koreanFromEng && itemName.includes(koreanFromEng)) {
+                score += 10; // 이전 15에서 10으로 감소
+            }
+        }
+        
+        // 검색 결과 관련성이 특정 임계값 이하면 제외 (최소 점수 기준 추가)
+        if (score < 20) {
+            return 0;  // 점수가 너무 낮으면 자동완성 제안에서 제외
+        }
+        
+        // 아이템 이름이 짧을수록 더 관련성이 높을 가능성이 있음
+        score += Math.max(0, 15 - itemName.length); // 20에서 15로 감소
+        
+        // 유사도 보너스 점수 (레벤슈타인 거리 기반) - 가중치 감소
+        const similarity = Utils.similarityScore(normalizedTerm, itemName);
+        score += similarity * 20; // 30에서 20으로 가중치 감소
+        
+        return score;
     }
     
     /**
@@ -268,7 +282,8 @@ const SearchManager = (() => {
                 
                 // 메인 카테고리 이름 찾기
                 let mainCategoryName = mainCategory;
-                const mainCategoryObj = CategoryManager.getSelectedCategories().mainCategories?.find(cat => cat.id === mainCategory);
+                const categories = CategoryManager.getSelectedCategories();
+                const mainCategoryObj = categories.mainCategories?.find(cat => cat.id === mainCategory);
                 if (mainCategoryObj) {
                     mainCategoryName = mainCategoryObj.name;
                 }
@@ -276,7 +291,7 @@ const SearchManager = (() => {
                 // 서브 카테고리 이름 찾기
                 const subCategory = item.subCategory || item.category || '';
                 let subCategoryName = subCategory;
-                const subCategoryObj = CategoryManager.getSelectedCategories().subCategories?.find(cat => cat.id === subCategory);
+                const subCategoryObj = categories.subCategories?.find(cat => cat.id === subCategory);
                 if (subCategoryObj) {
                     subCategoryName = subCategoryObj.name;
                 }
