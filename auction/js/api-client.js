@@ -8,7 +8,8 @@ const ApiClient = (() => {
     initFirebase();
     
     // Firebase Functions URL 기본값
-    const API_BASE = 'https://us-central1-PROJECT_ID.cloudfunctions.net';
+    const PROJECT_ID = 'mabinogi-auction-api';
+    const API_BASE = `https://us-central1-${PROJECT_ID}.cloudfunctions.net`;
     
     // Firebase Functions 엔드포인트
     const FIREBASE_FUNCTIONS = {
@@ -71,7 +72,7 @@ const ApiClient = (() => {
             setLoading(true);
             state.lastQuery = { type: 'keyword', keyword };
             
-            const url = `${FIREBASE_FUNCTIONS.SEARCH_KEYWORD.replace('PROJECT_ID', 'mabinogi-auction-api')}?keyword=${encodeURIComponent(keyword)}`;
+            const url = `${FIREBASE_FUNCTIONS.SEARCH_KEYWORD}?keyword=${encodeURIComponent(keyword)}`;
             console.log("API 호출 URL:", url);
             
             const response = await fetch(url);
