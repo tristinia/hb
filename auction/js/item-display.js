@@ -88,8 +88,15 @@ const ItemDisplay = (() => {
         // 결과 통계 업데이트
         updateResultStats(state.filteredResults.length);
         
+        // 가격순으로 정렬 (낮은 가격부터)
+        const sortedItems = [...state.filteredResults].sort((a, b) => {
+            const priceA = a.auction_price_per_unit || 0;
+            const priceB = b.auction_price_per_unit || 0;
+            return priceA - priceB;
+        });
+        
         // 아이템 행 생성
-        state.filteredResults.forEach(item => {
+        sortedItems.forEach(item => {
             const tr = document.createElement('tr');
             tr.className = 'item-row';
             tr.setAttribute('data-item-id', item.auction_item_no);
