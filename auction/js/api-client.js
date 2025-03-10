@@ -26,25 +26,29 @@ const ApiClient = (() => {
     };
     
     /**
-     * Firebase 초기화 함수 (프로젝트 ID 비노출)
-     */
-    function initFirebase() {
-        try {
-            // 이미 초기화되었는지 확인
-            if (firebase.apps && firebase.apps.length > 0) {
-                console.log('Firebase가 이미 초기화되었습니다.');
-                return;
-            }
-            
-            // 실제 프로젝트 ID는 GitHub Actions에서만 사용되고
-            // 브라우저에서는 Firebase SDK가 자동으로 처리
-            firebase.initializeApp({});
-            
-            console.log('Firebase 초기화 완료');
-        } catch (error) {
-            console.error('Firebase 초기화 오류:', error);
+ * Firebase 초기화 함수 (수정된 버전)
+ */
+function initFirebase() {
+    try {
+        // 이미 초기화되었는지 확인
+        if (firebase.apps && firebase.apps.length > 0) {
+            console.log('Firebase가 이미 초기화되었습니다.');
+            return;
         }
+        
+        // Firebase 구성 - 최소한의 구성 추가
+        // 실제 값은 환경에 맞게 설정 필요
+        firebase.initializeApp({
+            projectId: 'mabinogi-auction-api',
+            appId: '1:123456789012:web:abc123def456'
+            // 필요한 경우 추가 구성 값 
+        });
+        
+        console.log('Firebase 초기화 완료');
+    } catch (error) {
+        console.error('Firebase 초기화 오류:', error);
     }
+}
     
     /**
      * 로딩 상태 설정
