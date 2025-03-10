@@ -91,7 +91,14 @@ const SearchManager = (() => {
             fetch(paths[index])
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error(`경로 ${paths[index]} 로드 실패: ${response.status}`);
+                        // 첫 번째 경로 시도 실패 시 다른 경로 시도
+                        return fetch(`/data/database/items.json`);
+                    }
+                    return response;
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('옵션 구조 파일을 찾을 수 없습니다.');
                     }
                     return response.json();
                 })
@@ -154,10 +161,11 @@ const SearchManager = (() => {
         
         const normalizedTerm = searchTerm.toLowerCase();
         
-        // 검색어가 너무 짧으면 초성 검색 비활성화
-        const chosungTerm = normalizedTerm.length >= 2 ? Utils.getChosung(normalizedTerm) : '';
+        // 초성 검색 활성화 여부 확인 (입력값이 전부 초성인 경우에만)
+        const isChosungOnly = isAllChosung(normalizedTerm);
+        const chosungTerm = isChosungOnly ? normalizedTerm : '';
         
-        // 영->한 오타 수정 시도 (마찬가지로 최소 길이 조건 추가)
+        // 영->한 오타 수정 시도 (최소 길이 조건 추가)
         const koreanFromEng = normalizedTerm.length >= 2 ? Utils.engToKor(normalizedTerm) : '';
         
         // 로컬 스토리지에서 자동완성 데이터 가져오기
@@ -181,7 +189,7 @@ const SearchManager = (() => {
         const scoredItems = autocompleteItems
             .map(item => ({
                 item,
-                score: calculateScore(item, normalizedTerm, chosungTerm, koreanFromEng)
+                score: calculateScore(item, normalizedTerm, chosungTerm, koreanFromEng, isChosungOnly)
             }))
             .filter(entry => entry.score > 0) // 점수가 0 이상인 항목만 포함
             .sort((a, b) => b.score - a.score) // 높은 점수순으로 정렬
@@ -194,7 +202,7 @@ const SearchManager = (() => {
     /**
      * 검색 정확도 점수 계산 함수 - 개선된 버전
      */
-    function calculateScore(item, normalizedTerm, chosungTerm, koreanFromEng) {
+    function calculateScore(item, normalizedTerm, chosungTerm, koreanFromEng, isChosungOnly) {
         if (!item || !item.name) return 0;
         
         const itemName = item.name.toLowerCase();
@@ -232,20 +240,21 @@ const SearchManager = (() => {
             }
         }
         
-        // 아래 초성 및 영한 변환 매칭은 최소 검색어 길이 조건 추가 (1글자 검색은 제외)
-        if (normalizedTerm.length >= 2) {
-            // 초성이 일치하면 낮은 점수 (점수 하향 조정)
-            const chosungMatch = Utils.getChosung(itemName).includes(chosungTerm);
-            if (chosungMatch) {
-                // 초성 매칭 점수 대폭 하향 조정 
-                // (최소 10, 최대 15 - 이전 최대 30에서 절반으로 줄임)
-                score += Math.min(10 + (chosungTerm.length * 2.5), 15);
-            }
+        // 초성 검색은 입력값이 전부 초성인 경우에만 적용
+        if (isChosungOnly && chosungTerm.length >= 2) {
+            const itemChosung = Utils.getChosung(itemName);
             
-            // 영한 변환 결과가 포함되면 매우 낮은 점수
-            if (koreanFromEng && itemName.includes(koreanFromEng)) {
-                score += 10; // 이전 15에서 10으로 감소
+            // 초성이 일치하는 경우
+            if (itemChosung.includes(chosungTerm)) {
+                score += 60; // 초성 검색 점수 상향 (직접 검색한 경우니까)
+            } else if (itemChosung.startsWith(chosungTerm)) {
+                score += 50; // 시작 부분 초성 일치
             }
+        }
+        
+        // 영한 변환 결과가 포함되면 중간 점수
+        if (koreanFromEng && itemName.includes(koreanFromEng)) {
+            score += 40; // 영한 변환 점수 상향 (자주 발생하는 실수이므로)
         }
         
         // 검색 결과 관련성이 특정 임계값 이하면 제외 (최소 점수 기준 추가)
@@ -254,13 +263,34 @@ const SearchManager = (() => {
         }
         
         // 아이템 이름이 짧을수록 더 관련성이 높을 가능성이 있음
-        score += Math.max(0, 15 - itemName.length); // 20에서 15로 감소
+        score += Math.max(0, 15 - itemName.length);
         
-        // 유사도 보너스 점수 (레벤슈타인 거리 기반) - 가중치 감소
+        // 유사도 보너스 점수 (레벤슈타인 거리 기반)
         const similarity = Utils.similarityScore(normalizedTerm, itemName);
-        score += similarity * 20; // 30에서 20으로 가중치 감소
+        score += similarity * 20;
         
         return score;
+    }
+    
+    /**
+     * 문자열이 모두 한글 초성인지 확인
+     * @param {string} str - 확인할 문자열
+     * @returns {boolean} 모두 초성인지 여부
+     */
+    function isAllChosung(str) {
+        if (!str || str.length === 0) return false;
+        
+        // 한글 초성 목록
+        const chosungList = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
+        
+        // 모든 문자가 초성인지 확인
+        for (let i = 0; i < str.length; i++) {
+            if (!chosungList.includes(str[i])) {
+                return false;
+            }
+        }
+        
+        return true;
     }
     
     /**
@@ -325,6 +355,24 @@ const SearchManager = (() => {
         state.searchTerm = item.name;
         state.selectedItem = item;
         
+        // 카테고리 자동 선택 기능 추가
+        if (item.category || item.mainCategory) {
+            const mainCategory = item.mainCategory || CategoryManager.findMainCategoryForSubCategory(item.category);
+            const subCategory = item.subCategory || item.category;
+            
+            if (mainCategory && subCategory) {
+                // 카테고리 UI 자동 선택을 위한 이벤트 발생
+                const categoryEvent = new CustomEvent('categoryChanged', {
+                    detail: {
+                        mainCategory: mainCategory,
+                        subCategory: subCategory,
+                        autoSelected: true // 자동 선택임을 표시
+                    }
+                });
+                document.dispatchEvent(categoryEvent);
+            }
+        }
+        
         // 자동완성 닫기
         clearSuggestions();
         
@@ -335,6 +383,9 @@ const SearchManager = (() => {
             }
         });
         document.dispatchEvent(event);
+        
+        // 자동으로 검색 실행
+        handleSearch();
     }
     
     /**
