@@ -1,4 +1,4 @@
-// src/config.js - 시스템 설정 (GitHub Secrets 사용)
+// src/config.js - 시스템 설정
 module.exports = {
   // API 설정
   API_KEY: process.env.API_KEY,
@@ -8,9 +8,6 @@ module.exports = {
   
   // 데이터 설정
   DATA_DIR: './data',
-  
-  // Firebase 설정 (GitHub Secrets에서 가져옴)
-  FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID || 'mabinogi-auction-api',
   
   // 오류 설정
   CONSECUTIVE_ERROR_THRESHOLD: 3, // 연속 오류 임계값
