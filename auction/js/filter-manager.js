@@ -30,6 +30,12 @@ const FilterManager = (() => {
         elements.detailOptionsContainer = document.getElementById('detail-options');
         elements.selectedFiltersList = document.getElementById('selected-filters');
         
+        // 필터 컨테이너 초기 상태 설정 (추가)
+        const selectedFiltersContainer = document.querySelector('.selected-filters-container');
+        if (selectedFiltersContainer) {
+            selectedFiltersContainer.style.display = 'none';
+        }
+        
         // 세부 옵션 토글 이벤트 리스너
         if (elements.toggleOptionsButton) {
             elements.toggleOptionsButton.addEventListener('click', toggleDetailOptions);
@@ -314,12 +320,23 @@ const FilterManager = (() => {
     function updateSelectedFilters() {
         if (!elements.selectedFiltersList) return;
         
-        elements.selectedFiltersList.innerHTML = '';
+        const selectedFiltersContainer = document.querySelector('.selected-filters-container');
         
+        // 선택된 필터가 없을 때 컨테이너 숨기기
         if (Object.keys(state.selectedFilters).length === 0) {
+            if (selectedFiltersContainer) {
+                selectedFiltersContainer.style.display = 'none';
+            }
             elements.selectedFiltersList.innerHTML = '<li class="no-filters">선택된 필터가 없습니다.</li>';
             return;
         }
+        
+        // 선택된 필터가 있을 때 컨테이너 표시
+        if (selectedFiltersContainer) {
+            selectedFiltersContainer.style.display = 'block';
+        }
+        
+        elements.selectedFiltersList.innerHTML = '';
         
         Object.entries(state.selectedFilters).forEach(([key, value]) => {
             const li = document.createElement('li');
