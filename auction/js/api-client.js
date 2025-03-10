@@ -4,7 +4,7 @@
  */
 
 const ApiClient = (() => {
-    // Firebase 초기화 (시크릿 변수 노출 방지)
+    // Firebase 초기화
     initFirebase();
     
     // Firebase Functions URL 기본값
