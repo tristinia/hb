@@ -1,5 +1,5 @@
 /**
- * 마비노기 경매장 스타일 - 심플한 디자인 개선 버전
+ * 마비노기 경매장 스타일 - 개선된 버전
  */
 
 :root {
@@ -72,6 +72,18 @@ body {
     color: var(--color-yellow);
 }
 
+/* 헤더 섹션 */
+.header-section {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.header-section h1 {
+    color: var(--color-dark-gray);
+    font-size: 28px;
+    margin-bottom: var(--spacing-md);
+}
+
 /* 메인 컨텐츠 */
 main {
     padding: var(--spacing-md) 0 var(--spacing-xl);
@@ -79,8 +91,8 @@ main {
 
 /* 검색 컨테이너 */
 .search-container {
-    max-width: 800px;
-    margin: var(--spacing-xl) auto var(--spacing-xl);
+    max-width: 100%;
+    margin: 0 0 var(--spacing-md);
     position: relative;
 }
 
@@ -88,6 +100,11 @@ main {
     display: flex;
     align-items: center;
     position: relative;
+}
+
+.search-buttons-left {
+    display: flex;
+    margin-right: var(--spacing-xs);
 }
 
 #search-input {
@@ -115,15 +132,6 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-}
-
-.search-button {
-    right: var(--spacing-xs);
-}
-
-.reset-button {
-    right: calc(var(--spacing-xs) + 40px);
 }
 
 .search-button:hover,
@@ -182,7 +190,7 @@ main {
     margin-top: var(--spacing-xxs);
 }
 
-/* 레이아웃 */
+/* 3열 레이아웃 - 수정된 버전 */
 .auction-layout {
     display: grid;
     grid-template-columns: 220px 1fr 280px;
@@ -213,27 +221,53 @@ main {
     background-color: var(--color-white);
     border-radius: var(--border-radius);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px;
 }
 
 /* 패널 헤더 */
-.category-panel h3,
-.results-panel h3,
-.options-panel h3,
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: 1px solid var(--color-lightgray);
+}
+
+.panel-header h3,
 .options-header h3,
 .selected-filters-container h3 {
-    display: block;
-    padding: var(--spacing-sm) var(--spacing-md);
     font-size: 16px;
     font-weight: 500;
     color: var(--color-dark-gray);
     margin: 0;
-    border-bottom: 1px solid var(--color-lightgray);
+}
+
+.toggle-button {
+    background: none;
+    border: none;
+    color: var(--color-gray);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.toggle-button:hover {
+    color: var(--color-dark-gray);
+}
+
+.toggle-button.expanded svg {
+    transform: rotate(180deg);
 }
 
 /* 카테고리 패널 */
 .category-list {
     list-style: none;
     padding: 0;
+    overflow-y: auto;
+    max-height: calc(100vh - 200px);
 }
 
 .category-error {
@@ -264,15 +298,28 @@ main {
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.2s;
+    position: relative;
+}
+
+.category-button.active {
+    color: var(--color-blue);
+    font-weight: 500;
 }
 
 .category-button:hover {
     background-color: var(--color-off-white);
 }
 
-.category-button.active {
-    color: var(--color-blue);
-    font-weight: 500;
+.category-button .toggle-icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.2s;
+}
+
+.category-button.expanded .toggle-icon {
+    transform: translateY(-50%) rotate(180deg);
 }
 
 .subcategory-list {
@@ -315,6 +362,12 @@ main {
     font-weight: 500;
 }
 
+/* 메인 컨텐츠 영역 */
+.main-content {
+    display: flex;
+    flex-direction: column;
+}
+
 /* 카테고리 경로 표시 */
 .category-path-panel {
     padding: var(--spacing-sm) var(--spacing-md);
@@ -344,6 +397,8 @@ main {
 /* 결과 패널 */
 .results-panel {
     overflow: hidden;
+    position: relative;
+    top: 0;
 }
 
 .result-stats-container {
@@ -446,28 +501,6 @@ main {
 }
 
 /* 옵션 패널 */
-.options-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-bottom: 1px solid var(--color-lightgray);
-}
-
-.options-toggle {
-    background: none;
-    border: 1px solid var(--color-lightgray);
-    border-radius: var(--border-radius);
-    padding: var(--spacing-xxs) var(--spacing-xs);
-    font-size: 12px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.options-toggle:hover {
-    background-color: var(--color-off-white);
-}
-
 .detail-options {
     max-height: 0;
     overflow: hidden;
@@ -516,11 +549,18 @@ main {
 .selected-filters-container {
     margin-top: var(--spacing-md);
     border-top: 1px solid var(--color-lightgray);
+    padding: var(--spacing-sm);
+}
+
+.selected-filters-container h3 {
+    margin-bottom: var(--spacing-sm);
+    padding: 0;
+    border: none;
 }
 
 .selected-filters-list {
     list-style: none;
-    padding: var(--spacing-sm);
+    padding: 0;
 }
 
 .selected-filter {
