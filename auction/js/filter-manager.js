@@ -83,7 +83,7 @@ const FilterManager = (() => {
         }
     }
     
-    /**
+     /**
      * 카테고리에 맞는 세부 옵션 구조 로드
      * @param {string} subCategoryId - 서브 카테고리 ID
      */
@@ -93,8 +93,15 @@ const FilterManager = (() => {
             return;
         }
         
-        // 옵션 구조 데이터 로드
+        // 옵션 구조 데이터 로드 (경로 수정: data 폴더로)
         fetch(`../data/option_structure/${subCategoryId}.json`)
+            .then(response => {
+                if (!response.ok) {
+                    // 첫 번째 경로 시도 실패 시 다른 경로 시도
+                    return fetch(`/data/option_structure/${subCategoryId}.json`);
+                }
+                return response;
+            })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('옵션 구조 파일을 찾을 수 없습니다.');
