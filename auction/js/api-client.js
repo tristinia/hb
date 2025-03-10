@@ -7,9 +7,10 @@ const ApiClient = (() => {
     // Firebase 초기화
     initFirebase();
     
-    // Firebase Functions URL 기본값
-    const PROJECT_ID = 'mabinogi-auction-api';
-    const API_BASE = `https://us-central1-${PROJECT_ID}.cloudfunctions.net`;
+    // Firebase Functions URL 설정
+    // window.FIREBASE_CONFIG에서 프로젝트 ID 가져오기
+    const projectId = window.FIREBASE_CONFIG?.projectId || '';
+    const API_BASE = `https://us-central1-${projectId}.cloudfunctions.net`;
     
     // Firebase Functions 엔드포인트
     const FIREBASE_FUNCTIONS = {
@@ -26,29 +27,29 @@ const ApiClient = (() => {
     };
     
     /**
- * Firebase 초기화 함수 (수정된 버전)
- */
-function initFirebase() {
-    try {
-        // 이미 초기화되었는지 확인
-        if (firebase.apps && firebase.apps.length > 0) {
-            console.log('Firebase가 이미 초기화되었습니다.');
-            return;
+     * Firebase 초기화 함수
+     */
+    function initFirebase() {
+        try {
+            // 이미 초기화되었는지 확인
+            if (firebase.apps && firebase.apps.length > 0) {
+                console.log('Firebase가 이미 초기화되었습니다.');
+                return;
+            }
+            
+            // Firebase 앱 초기화
+            firebase.initializeApp({});
+            
+            // 설정 확인
+            if (!window.FIREBASE_CONFIG || !window.FIREBASE_CONFIG.projectId) {
+                console.warn('Firebase 설정이 없거나 불완전합니다. js/firebase.config.js 파일을 확인하세요.');
+            } else {
+                console.log('Firebase 초기화 완료');
+            }
+        } catch (error) {
+            console.error('Firebase 초기화 오류:', error);
         }
-        
-        // Firebase 구성 - 최소한의 구성 추가
-        // 실제 값은 환경에 맞게 설정 필요
-        firebase.initializeApp({
-            projectId: 'mabinogi-auction-api',
-            appId: '1:123456789012:web:abc123def456'
-            // 필요한 경우 추가 구성 값 
-        });
-        
-        console.log('Firebase 초기화 완료');
-    } catch (error) {
-        console.error('Firebase 초기화 오류:', error);
     }
-}
     
     /**
      * 로딩 상태 설정
@@ -72,12 +73,20 @@ function initFirebase() {
             return { items: [], error: '검색어가 필요합니다.' };
         }
         
+        // 프로젝트 ID 확인
+        if (!projectId) {
+            return { 
+                items: [], 
+                error: 'Firebase 설정이 올바르지 않습니다. js/firebase.config.js 파일을 확인하세요.' 
+            };
+        }
+        
         try {
             setLoading(true);
             state.lastQuery = { type: 'keyword', keyword };
             
             const url = `${FIREBASE_FUNCTIONS.SEARCH_KEYWORD}?keyword=${encodeURIComponent(keyword)}`;
-            console.log("API 호출 URL:", url);
+            console.log("API 호출 중...");
             
             const response = await fetch(url);
             
@@ -115,6 +124,14 @@ function initFirebase() {
             return { items: [], error: '카테고리 정보가 필요합니다.' };
         }
         
+        // 프로젝트 ID 확인
+        if (!projectId) {
+            return { 
+                items: [], 
+                error: 'Firebase 설정이 올바르지 않습니다. js/firebase.config.js 파일을 확인하세요.' 
+            };
+        }
+        
         try {
             setLoading(true);
             state.lastQuery = { 
@@ -125,7 +142,7 @@ function initFirebase() {
             };
             
             // URL 구성 - 소분류가 실제 API 카테고리
-            let url = `${FIREBASE_FUNCTIONS.SEARCH_CATEGORY.replace('PROJECT_ID', 'mabinogi-auction-api')}?subCategory=${encodeURIComponent(subCategory)}`;
+            let url = `${FIREBASE_FUNCTIONS.SEARCH_CATEGORY}?subCategory=${encodeURIComponent(subCategory)}`;
             
             // 대분류도 함께 전달 (UI 표시용)
             if (mainCategory) {
@@ -137,7 +154,7 @@ function initFirebase() {
                 url += `&itemName=${encodeURIComponent(itemName)}`;
             }
             
-            console.log("API 호출 URL:", url);
+            console.log("API 호출 중...");
             
             const response = await fetch(url);
             
