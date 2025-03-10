@@ -32,14 +32,9 @@ async function main() {
         // 첫 카테고리 결과 저장
         storageManager.saveItemsData(testCategory.id, processedItems);
         
-        // 모든 아이템 누적 배열에 추가
-        var allItems = [...processedItems];
-        
         // 추가: 옵션 구조 분석 및 저장
         const optionStructure = dataProcessor.analyzeOptionStructure(testItems);
         storageManager.saveOptionStructure(testCategory.id, optionStructure);
-      } else {
-        var allItems = [];
       }
     } catch (error) {
       console.error('API 테스트 실패. 수집을 중단합니다:', error.message);
@@ -55,9 +50,6 @@ async function main() {
         
         // 데이터 처리 (간소화된 버전)
         const processedItems = dataProcessor.processItems(items, category.id);
-        
-        // 처리된 아이템 누적
-        allItems = [...allItems, ...processedItems];
         
         // 카테고리별 아이템 데이터 저장
         storageManager.saveItemsData(category.id, processedItems);
@@ -79,9 +71,6 @@ async function main() {
         // 다음 카테고리로 계속
       }
     }
-    
-    // 전체 아이템 데이터베이스 업데이트
-    storageManager.updateItemDatabase(allItems);
     
     // 실행 통계
     const stats = apiClient.getStats();
