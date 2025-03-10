@@ -6,35 +6,48 @@
 
 ```
 /
-├── index.html             # 웹사이트 메인 페이지
-├── styles.css             # 스타일시트
-├── script.js              # 프론트엔드 JS
-├── auction.html           # 경매장 웹사이트 Html
-├── auction.js             # 경매장 구현 JS
-├── auction.css            # 경매장 스타일시트
-├── src/                   # 소스 코드
-│   ├── api-client.js      # API 관련 코드
-│   ├── category-manager.js # 카테고리 관리
-│   ├── config.js          # 설정 파일
-│   ├── data-processor.js  # 데이터 처리
-│   ├── storage-manager.js # 저장소 관리
-│   └── index.js           # 메인 스크립트
+├── index.html                       # 메인 페이지 (두 웹앱으로 연결되는 랜딩 페이지)
+├── auction/                         # 경매장 관련 파일
+│   ├── index.html                   # 경매장 메인 페이지
+│   ├── css/
+│   │   └── auction.css              # 경매장 스타일시트
+│   ├── js/
+│   │   ├── main.js                  # 메인 초기화 및 이벤트 핸들러
+│   │   ├── api-client.js            # API 호출 관련 기능
+│   │   ├── category-manager.js      # 카테고리 관리
+│   │   ├── search-manager.js        # 검색 기능
+│   │   ├── filter-manager.js        # 필터링 기능
+│   │   ├── item-display.js          # 아이템 표시 관련 기능
+│   │   ├── pagination.js            # 페이지네이션
+│   │   └── utils.js                 # 유틸리티 함수
+│   └── assets/                      # 이미지 등 정적 파일
 │
-├── data/                  # 데이터 파일
-│   ├── database/          # 수집한 전체 아이템 데이터
-│   ├── items/             # 카테고리별 아이템 데이터
-│   ├── meta/              # 메타데이터
-│   └── web/               # 웹 표시용 데이터
-│       ├── spiritLiqueur.json # 정령 형상변환 리큐르 데이터
+├── spirit/                          # 정령 형상변환 관련 파일
+│   ├── index.html                   # 정령 형상변환 메인 페이지
+│   ├── css/
+│   │   └── styles.css               # 스타일시트
+│   ├── js/
+│   │   └── script.js                # 자바스크립트 코드
+│   └── assets/                      # 이미지 등 정적 파일
 │
-├── image/                 # 이미지 리소스 (옵션)
-│   ├── spiritLiqueur/     # 정령 형상변환 리큐르 이미지
+├── shared/                          # 공유 리소스
+│   ├── css/
+│   │   └── common.css               # 공통 스타일
+│   └── js/
+│       └── firebase-config.js       # Firebase 설정
 │
-├── .github/               # GitHub 관련 설정
-│   └── workflows/         # GitHub Actions 워크플로우
-│       └── collect-data.yml # 데이터 수집 워크플로우
+├── src/                             # 백엔드 소스 코드
+│   ├── api-client.js
+│   ├── category-manager.js
+│   ├── config.js
+│   ├── data-processor.js
+│   ├── index.js
+│   └── storage-manager.js
 │
-└── package.json           # 의존성 및 스크립트 정의
+├── data/                            # 데이터 파일
+└── .github/                         # GitHub 관련 설정
+    └── workflows/
+        └── collect-data.yml
 ```
 
 ## 기능
