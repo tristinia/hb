@@ -37,8 +37,38 @@ const CategoryManager = (() => {
             updateToggleAllButton();
         }
         
+        // 카테고리 변경 이벤트 리스너 추가
+        document.addEventListener('categoryChanged', handleCategoryChangedEvent);
+        
         // 카테고리 데이터 로드
         loadCategories();
+    }
+    
+    /**
+     * 카테고리 변경 이벤트 처리 함수 추가
+     * @param {CustomEvent} event - 카테고리 변경 이벤트
+     */
+    function handleCategoryChangedEvent(event) {
+        const { mainCategory, subCategory, autoSelected } = event.detail;
+        
+        // 메인 카테고리 설정
+        if (mainCategory) {
+            state.selectedMainCategory = mainCategory;
+            
+            // 자동 선택인 경우 해당 카테고리 확장
+            if (autoSelected) {
+                state.expandedMainCategory = mainCategory;
+            }
+        }
+        
+        // 서브 카테고리 설정
+        if (subCategory) {
+            state.selectedSubCategory = subCategory;
+        }
+        
+        // UI 업데이트
+        renderMainCategories();
+        updateCategoryPath();
     }
     
     /**
@@ -47,18 +77,22 @@ const CategoryManager = (() => {
     function toggleAllCategories() {
         state.allExpanded = !state.allExpanded;
         
-        // 모든 카테고리 접기/펼치기
-        if (!state.allExpanded) {
-            // 접기: 펼쳐진 카테고리 상태 초기화
-            state.expandedMainCategory = null;
-        } 
-        // 펼치기: 선택된 메인 카테고리만 펼치기 (선택된 것이 있는 경우)
-        else if (state.selectedMainCategory) {
-            state.expandedMainCategory = state.selectedMainCategory;
+        // 카테고리 패널 요소 가져오기
+        const categoryPanel = document.querySelector('.category-panel');
+        
+        if (state.allExpanded) {
+            // 펼침: 모든 대분류 카테고리를 리스트로 표시
+            if (categoryPanel) {
+                categoryPanel.classList.remove('collapsed');
+            }
+        } else {
+            // 접음: 모든 대분류 카테고리를 숨김
+            if (categoryPanel) {
+                categoryPanel.classList.add('collapsed');
+            }
         }
         
         // UI 업데이트
-        renderMainCategories();
         updateToggleAllButton();
     }
     
@@ -74,6 +108,9 @@ const CategoryManager = (() => {
             if (icon) {
                 icon.style.transform = state.allExpanded ? 'rotate(180deg)' : '';
             }
+            
+            // 버튼 텍스트 업데이트
+            elements.toggleAllButton.title = state.allExpanded ? '카테고리 접기' : '카테고리 펼치기';
         }
     }
     
@@ -300,7 +337,7 @@ const CategoryManager = (() => {
         
         elements.categoryPath.style.display = 'block';
         
-        let pathHTML = '<span class="category-path-label">선택된 카테고리:</span>';
+        let pathHTML = '';
         
         if (state.selectedMainCategory) {
             const mainCategory = state.mainCategories.find(cat => cat.id === state.selectedMainCategory);
@@ -335,7 +372,7 @@ const CategoryManager = (() => {
         
         elements.categoryPath.style.display = 'block';
         
-        let pathHTML = '<span class="category-path-label">카테고리:</span>';
+        let pathHTML = '';
         
         // 메인 카테고리 찾기
         let mainCategoryId = '';
