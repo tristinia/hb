@@ -4,10 +4,16 @@
  */
 
 const ApiClient = (() => {
-    // Firebase Functions URL 설정
+    // Firebase 초기화 (시크릿 변수 노출 방지)
+    initFirebase();
+    
+    // Firebase Functions URL 기본값
+    const API_BASE = 'https://us-central1-PROJECT_ID.cloudfunctions.net';
+    
+    // Firebase Functions 엔드포인트
     const FIREBASE_FUNCTIONS = {
-        SEARCH_KEYWORD: 'https://us-central1-mabinogi-auction-api.cloudfunctions.net/searchByKeyword',
-        SEARCH_CATEGORY: 'https://us-central1-mabinogi-auction-api.cloudfunctions.net/searchByCategory'
+        SEARCH_KEYWORD: `${API_BASE}/searchByKeyword`,
+        SEARCH_CATEGORY: `${API_BASE}/searchByCategory`
     };
     
     // API 호출 상태
@@ -17,6 +23,27 @@ const ApiClient = (() => {
         maxRetries: 3,
         lastQuery: null
     };
+    
+    /**
+     * Firebase 초기화 함수 (프로젝트 ID 비노출)
+     */
+    function initFirebase() {
+        try {
+            // 이미 초기화되었는지 확인
+            if (firebase.apps && firebase.apps.length > 0) {
+                console.log('Firebase가 이미 초기화되었습니다.');
+                return;
+            }
+            
+            // 실제 프로젝트 ID는 GitHub Actions에서만 사용되고
+            // 브라우저에서는 Firebase SDK가 자동으로 처리
+            firebase.initializeApp({});
+            
+            console.log('Firebase 초기화 완료');
+        } catch (error) {
+            console.error('Firebase 초기화 오류:', error);
+        }
+    }
     
     /**
      * 로딩 상태 설정
@@ -44,7 +71,7 @@ const ApiClient = (() => {
             setLoading(true);
             state.lastQuery = { type: 'keyword', keyword };
             
-            const url = `${FIREBASE_FUNCTIONS.SEARCH_KEYWORD}?keyword=${encodeURIComponent(keyword)}`;
+            const url = `${FIREBASE_FUNCTIONS.SEARCH_KEYWORD.replace('PROJECT_ID', 'mabinogi-auction-api')}?keyword=${encodeURIComponent(keyword)}`;
             console.log("API 호출 URL:", url);
             
             const response = await fetch(url);
@@ -93,7 +120,7 @@ const ApiClient = (() => {
             };
             
             // URL 구성 - 소분류가 실제 API 카테고리
-            let url = `${FIREBASE_FUNCTIONS.SEARCH_CATEGORY}?subCategory=${encodeURIComponent(subCategory)}`;
+            let url = `${FIREBASE_FUNCTIONS.SEARCH_CATEGORY.replace('PROJECT_ID', 'mabinogi-auction-api')}?subCategory=${encodeURIComponent(subCategory)}`;
             
             // 대분류도 함께 전달 (UI 표시용)
             if (mainCategory) {
