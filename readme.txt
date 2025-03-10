@@ -9,8 +9,7 @@
 ├── index.html                       # 메인 페이지 (두 웹앱으로 연결되는 랜딩 페이지)
 ├── auction/                         # 경매장 관련 파일
 │   ├── index.html                   # 경매장 메인 페이지
-│   ├── css/
-│   │   └── auction.css              # 경매장 스타일시트
+│   ├── auction.css                  # 경매장 스타일시트
 │   ├── js/
 │   │   ├── main.js                  # 메인 초기화 및 이벤트 핸들러
 │   │   ├── api-client.js            # API 호출 관련 기능
