@@ -47,9 +47,14 @@ const CategoryManager = (() => {
     function toggleAllCategories() {
         state.allExpanded = !state.allExpanded;
         
-        // 모든 서브카테고리 접기/펼치기
+        // 모든 카테고리 접기/펼치기
         if (!state.allExpanded) {
+            // 접기: 펼쳐진 카테고리 상태 초기화
             state.expandedMainCategory = null;
+        } 
+        // 펼치기: 선택된 메인 카테고리만 펼치기 (선택된 것이 있는 경우)
+        else if (state.selectedMainCategory) {
+            state.expandedMainCategory = state.selectedMainCategory;
         }
         
         // UI 업데이트
@@ -169,7 +174,11 @@ const CategoryManager = (() => {
             button.className = `category-button ${state.selectedMainCategory === category.id ? 'active' : ''}`;
             button.innerHTML = `${category.name} ${toggleIcon}`;
             button.setAttribute('data-category-id', category.id);
-            button.classList.toggle('expanded', state.expandedMainCategory === category.id);
+            
+            // 수정된 부분: 확장 로직 개선
+            // 모든 카테고리가 펼쳐진 상태인 경우 OR 이 특정 카테고리가 펼쳐진 경우
+            const isExpanded = state.allExpanded || state.expandedMainCategory === category.id;
+            button.classList.toggle('expanded', isExpanded);
             
             // 버튼 클릭 이벤트
             button.addEventListener('click', () => handleMainCategoryClick(category));
@@ -177,7 +186,7 @@ const CategoryManager = (() => {
             li.appendChild(button);
             
             // 확장된 카테고리인 경우 소분류 목록 추가
-            if (state.allExpanded || state.expandedMainCategory === category.id) {
+            if (isExpanded) {
                 const subList = document.createElement('ul');
                 subList.className = 'subcategory-list expanded';
                 
@@ -226,6 +235,10 @@ const CategoryManager = (() => {
         
         // 항상 메인 카테고리는 선택 상태로 유지
         state.selectedMainCategory = category.id;
+        
+        // 중요: 메인 카테고리만 선택했을 때는 서브 카테고리 선택 초기화
+        // 이 부분이 없어서 이전 서브 카테고리가 유지되는 문제 발생
+        state.selectedSubCategory = null;
         
         // 카테고리 UI 업데이트
         renderMainCategories();
@@ -390,7 +403,9 @@ const CategoryManager = (() => {
     function getSelectedCategories() {
         return {
             mainCategory: state.selectedMainCategory,
-            subCategory: state.selectedSubCategory
+            subCategory: state.selectedSubCategory,
+            mainCategories: state.mainCategories,  // 이름 조회를 위해 추가
+            subCategories: state.subCategories     // 이름 조회를 위해 추가
         };
     }
     
