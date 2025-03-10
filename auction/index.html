@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마비노기 경매장</title>
+    <link rel="stylesheet" href="css/auction.css">
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    <nav class="nav-container">
+        <div class="container">
+            <div class="nav-buttons">
+                <a href="#" class="nav-button active">마비노기 경매장</a>
+                <a href="../spirit/index.html" class="nav-button">정령 형상변환</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <!-- 헤더 섹션 -->
+        <header class="header-section">
+            <h1>마비노기 경매장</h1>
+        </header>
+        
+        <!-- 새로운 3열 레이아웃: 카테고리, 검색/결과, 필터 -->
+        <div class="auction-layout">
+            <!-- 좌측 카테고리 패널 -->
+            <div class="category-panel">
+                <div class="panel-header">
+                    <h3>카테고리</h3>
+                    <button id="toggle-all-categories" class="toggle-button" title="모든 카테고리 접기/펼치기">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </div>
+                <ul id="main-categories" class="category-list"></ul>
+            </div>
+            
+            <!-- 중앙 검색 및 결과 영역 -->
+            <div class="main-content">
+                <!-- 검색 바 -->
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <div class="search-buttons-left">
+                            <button class="search-button" title="검색">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </button>
+                            <button id="reset-button" class="reset-button" title="초기화">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <input type="text" id="search-input" placeholder="아이템 이름을 입력하세요...">
+                    </div>
+                    
+                    <!-- 자동완성 제안 -->
+                    <ul id="suggestions" class="suggestions-list"></ul>
+                </div>
+                
+                <!-- 결과 패널 -->
+                <div class="results-panel">
+                    <!-- 카테고리 경로 정보 -->
+                    <div id="category-path" class="category-path-panel" style="display: none;"></div>
+                    
+                    <div class="result-stats-container">
+                        <span id="result-stats" class="result-stats"></span>
+                    </div>
+                    
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>아이템</th>
+                                <th>판매수량</th>
+                                <th>현재가</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-body">
+                            <tr class="empty-result">
+                                <td colspan="3">검색어를 입력하거나 카테고리를 선택한 후 검색 버튼을 클릭하세요.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- 페이지네이션 영역 -->
+                    <div id="pagination" class="pagination"></div>
+                </div>
+            </div>
+            
+            <!-- 우측 세부 옵션 필터 영역 -->
+            <div class="options-panel">
+                <div class="panel-header">
+                    <h3>세부 옵션 검색</h3>
+                    <button id="toggle-options" class="toggle-button" title="세부 옵션 접기/펼치기">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- 세부 옵션 필터 패널 -->
+                <div id="detail-options" class="detail-options">
+                    <ul id="detail-options-list" class="detail-options-list">
+                        <li class="no-options">카테고리를 선택하면 세부 옵션이 표시됩니다.</li>
+                    </ul>
+                </div>
+                
+                <!-- 선택된 필터 목록 -->
+                <div class="selected-filters-container">
+                    <h3>선택된 필터</h3>
+                    <ul id="selected-filters" class="selected-filters-list">
+                        <li class="no-filters">선택된 필터가 없습니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 푸터 -->
+    <footer>
+        <p>&copy; 2025 마비노기 경매장. 넥슨코리아 API 사용.</p>
+    </footer>
+    
+    <!-- 로딩 스피너 -->
+    <div id="loading-spinner" class="loading-spinner" style="display:none;">
+        <div class="spinner"></div>
+        <p>데이터를 불러오는 중...</p>
+    </div>
+    
+    <!-- 아이템 툴팁 (동적 생성) -->
+    <div id="item-tooltip" class="item-tooltip" style="display:none;"></div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-functions-compat.js"></script>
+    
+    <!-- Firebase 설정 -->
+    <script src="../shared/js/firebase-config.js"></script>
+    
+    <!-- 모듈화된 스크립트 -->
+    <script src="js/utils.js"></script>
+    <script src="js/api-client.js"></script>
+    <script src="js/category-manager.js"></script>
+    <script src="js/search-manager.js"></script>
+    <script src="js/filter-manager.js"></script>
+    <script src="js/item-display.js"></script>
+    <script src="js/pagination.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
