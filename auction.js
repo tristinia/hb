@@ -28,7 +28,9 @@ const state = {
     totalItems: 0,
     totalPages: 1,
     // 검색 결과 캐싱 (로컬 필터링용)
-    lastSearchResults: []
+    lastSearchResults: [],
+    // 툴팁 상태
+    tooltipActive: false
 };
 
 // 한글 초성 검색을 위한 유틸리티
@@ -64,9 +66,13 @@ async function init() {
     elements.detailOptionsList = document.getElementById('detail-options-list');
     elements.selectedFiltersList = document.getElementById('selected-filters');
     elements.pagination = document.getElementById('pagination');
+    elements.categoryPath = document.getElementById('category-path');
     
     // 로딩 스피너 요소
     elements.loadingSpinner = document.getElementById('loading-spinner');
+    
+    // 툴팁 요소 생성
+    createTooltipElement();
     
     // 카테고리 데이터 가져오기
     await loadCategories();
@@ -78,7 +84,18 @@ async function init() {
     loadAutocompleteData();
 }
 
-// 카테고리 데이터 로드 함수 - src/category-manager.js 에서 직접 로드
+// 툴팁 요소 생성
+function createTooltipElement() {
+    const tooltip = document.createElement('div');
+    tooltip.id = 'item-tooltip';
+    tooltip.className = 'item-tooltip';
+    tooltip.style.display = 'none';
+    document.body.appendChild(tooltip);
+    
+    elements.tooltip = tooltip;
+}
+
+// 카테고리 데이터 로드 함수
 async function loadCategories() {
     try {
         // src/category-manager.js 파일 로드 시도
@@ -88,17 +105,14 @@ async function loadCategories() {
             const text = await response.text();
             
             // module.exports 형식에서 데이터 추출
-            // 주의: 이 방식은 파일 형식이 일관적일 때만 작동
             const mainCatMatch = text.match(/mainCategories:\s*\[([\s\S]*?)\]/);
             const categoriesMatch = text.match(/categories:\s*\[([\s\S]*?)\]/);
             
             if (mainCatMatch && categoriesMatch) {
-                // 텍스트 기반 파싱 (간단한 형태로 가정)
-                // 실제 환경에서는 더 강건한 방식으로 파싱 필요
                 try {
                     // 메인 카테고리 파싱
                     const mainCatText = `[${mainCatMatch[1]}]`;
-                    const mainCategories = eval(mainCatText); // 주의: eval 사용은 위험할 수 있음
+                    const mainCategories = eval(mainCatText);
                     
                     // 서브 카테고리 파싱
                     const categoriesText = `[${categoriesMatch[1]}]`;
@@ -128,9 +142,6 @@ async function loadCategories() {
         
         // 오류 시 하드코딩된 카테고리 사용
         console.log('하드코딩된 카테고리 사용');
-        
-        // 여기서 하드코딩된 카테고리 데이터를 넣을 수 있음
-        // 이전에 제공했던 하드코딩 값 참조
         
         // 카테고리 로드 실패 메시지 표시
         const categoryPanel = document.querySelector('.category-panel');
@@ -169,6 +180,11 @@ function setupEventListeners() {
     
     // 클릭 이벤트 처리 (바깥 영역 클릭 시 자동완성 닫기)
     document.addEventListener('click', handleDocumentClick);
+    
+    // 테이블 마우스 이벤트 (툴팁)
+    elements.resultsBody.addEventListener('mouseover', handleTableMouseOver);
+    elements.resultsBody.addEventListener('mouseout', handleTableMouseOut);
+    elements.resultsBody.addEventListener('mousemove', handleTableMouseMove);
 }
 
 // 자동완성 데이터 로드 (데이터베이스에서)
@@ -248,7 +264,7 @@ function renderMainCategories() {
     });
 }
 
-// 메인 카테고리 클릭 처리 - API 호출 제거
+// 메인 카테고리 클릭 처리
 function handleMainCategoryClick(category) {
     // 이미 선택된 카테고리인 경우 토글
     if (state.expandedMainCategory === category.id) {
@@ -268,14 +284,11 @@ function handleMainCategoryClick(category) {
     // 카테고리 UI 업데이트
     renderMainCategories();
     
-    // 중요: 대분류 클릭 시에는 API 호출하지 않음
-    // 결과 패널 리셋
-    elements.resultsBody.innerHTML = '<tr class="empty-result"><td colspan="4">검색어를 입력하세요.</td></tr>';
-    // 페이지네이션 숨기기
-    elements.pagination.innerHTML = '';
+    // 카테고리 경로 초기화
+    updateCategoryPath();
 }
 
-// 소분류 클릭 처리
+// 소분류 클릭 처리 - 변경: 클릭 시 검색 즉시 실행하지 않음
 function handleSubCategoryClick(subCategory) {
     // 이미 선택된 서브 카테고리인 경우 토글
     if (state.selectedSubCategory === subCategory.id) {
@@ -284,10 +297,8 @@ function handleSubCategoryClick(subCategory) {
         // 카테고리 UI 업데이트
         renderMainCategories();
         
-        // 결과 패널 리셋
-        elements.resultsBody.innerHTML = '<tr class="empty-result"><td colspan="4">검색어를 입력하세요.</td></tr>';
-        // 페이지네이션 숨기기
-        elements.pagination.innerHTML = '';
+        // 카테고리 경로 초기화
+        updateCategoryPath();
         
         // 세부 옵션 초기화
         clearDetailOptions();
@@ -300,39 +311,105 @@ function handleSubCategoryClick(subCategory) {
     // 카테고리 UI 업데이트
     renderMainCategories();
     
+    // 카테고리 경로 업데이트
+    updateCategoryPath();
+    
     // 소분류에 맞는 세부 옵션 로드
     loadOptionStructure(subCategory.id);
-    
-    // 선택된 소분류로 검색
-    searchByCategory(state.selectedMainCategory, state.selectedSubCategory);
 }
 
-// 카테고리 검색
-function searchByCategory(mainCategory, subCategory = null) {
-    // 소분류가 없으면 검색할 수 없음
-    if (!subCategory) {
-        // 대분류만 선택한 경우 UI만 업데이트하고 검색은 하지 않음
-        if (mainCategory) {
-            console.log("대분류만 선택됨:", mainCategory);
-            // 소분류를 선택하라는 메시지 표시
-            elements.resultsBody.innerHTML = '<tr class="empty-result"><td colspan="4">소분류를 선택하세요.</td></tr>';
-            // 페이지네이션 숨기기
-            elements.pagination.innerHTML = '';
-        }
+// 카테고리 경로 업데이트
+function updateCategoryPath() {
+    if (!elements.categoryPath) return;
+    
+    if (!state.selectedMainCategory && !state.selectedSubCategory) {
+        elements.categoryPath.style.display = 'none';
         return;
     }
     
-    // 로딩 시작
-    setLoading(true);
+    elements.categoryPath.style.display = 'block';
     
-    // 검색 상태 초기화
-    state.searchResults = [];
-    state.currentPage = 1;
+    let pathHTML = '<span class="category-path-label">선택된 카테고리:</span>';
     
-    console.log(`카테고리 검색: ${mainCategory} > ${subCategory}`);
+    if (state.selectedMainCategory) {
+        const mainCategory = state.categories.mainCategories.find(cat => cat.id === state.selectedMainCategory);
+        if (mainCategory) {
+            pathHTML += `<span class="category-path-main">${mainCategory.name}</span>`;
+        }
+    }
     
-    // 중요: API에는 소분류(subCategory)를 카테고리로 전달
-    searchWithCategoryAndItem(mainCategory, subCategory, state.searchTerm);
+    if (state.selectedSubCategory) {
+        const subCategory = state.categories.subCategories.find(cat => cat.id === state.selectedSubCategory);
+        if (subCategory) {
+            pathHTML += `<span class="category-path-separator">></span>`;
+            pathHTML += `<span class="category-path-sub">${subCategory.name}</span>`;
+        }
+    }
+    
+    elements.categoryPath.innerHTML = pathHTML;
+}
+
+// 카테고리 경로 표시 (아이템 기반)
+function showCategoryPathFromItem(item) {
+    // 카테고리 패널이 없으면 생성
+    if (!elements.categoryPath) {
+        const categoryPathDiv = document.createElement('div');
+        categoryPathDiv.id = 'category-path';
+        categoryPathDiv.className = 'category-path-panel';
+        
+        // 결과 패널에 삽입
+        const resultsPanel = document.querySelector('.results-panel');
+        const resultStats = document.querySelector('.result-stats-container');
+        
+        if (resultsPanel && resultStats) {
+            resultsPanel.insertBefore(categoryPathDiv, resultStats);
+            elements.categoryPath = categoryPathDiv;
+        }
+    }
+    
+    // 아이템 정보 없으면 표시 안함
+    if (!item) {
+        elements.categoryPath.style.display = 'none';
+        return;
+    }
+    
+    elements.categoryPath.style.display = 'block';
+    
+    let pathHTML = '<span class="category-path-label">카테고리:</span>';
+    
+    // 메인 카테고리 찾기
+    let mainCategoryId = '';
+    let mainCategoryName = '';
+    
+    if (item.mainCategory) {
+        mainCategoryId = item.mainCategory;
+        const mainCat = state.categories.mainCategories.find(cat => cat.id === mainCategoryId);
+        if (mainCat) mainCategoryName = mainCat.name;
+    } else if (item.category) {
+        // 서브 카테고리로부터 메인 카테고리 찾기
+        const subCat = state.categories.subCategories.find(cat => cat.id === item.category);
+        if (subCat) {
+            mainCategoryId = subCat.mainCategory;
+            const mainCat = state.categories.mainCategories.find(cat => cat.id === mainCategoryId);
+            if (mainCat) mainCategoryName = mainCat.name;
+        }
+    }
+    
+    // 경로 HTML 구성
+    if (mainCategoryName) {
+        pathHTML += `<span class="category-path-main">${mainCategoryName}</span>`;
+    }
+    
+    if (item.category || item.subCategory) {
+        const subCategoryId = item.subCategory || item.category;
+        const subCat = state.categories.subCategories.find(cat => cat.id === subCategoryId);
+        if (subCat) {
+            pathHTML += `<span class="category-path-separator">></span>`;
+            pathHTML += `<span class="category-path-sub">${subCat.name}</span>`;
+        }
+    }
+    
+    elements.categoryPath.innerHTML = pathHTML;
 }
 
 // 한글 분해 함수
@@ -396,7 +473,7 @@ function handleSearchInput() {
     }
 }
 
-// 자동완성 추천 생성 - 정확도 향상 (수정됨)
+// 자동완성 추천 생성 - 카테고리 필터링 제거
 function getSuggestions(searchTerm) {
     if (!searchTerm) return [];
     
@@ -427,16 +504,7 @@ function getSuggestions(searchTerm) {
         return [];
     }
     
-    // 현재 선택된 카테고리가 있으면 해당 카테고리 아이템만 필터링
-    if (state.selectedMainCategory) {
-        autocompleteItems = autocompleteItems.filter(item => {
-            // 메인 카테고리 필터링
-            const mainCat = item.mainCategory || findMainCategoryForSubCategory(item.category);
-            return mainCat === state.selectedMainCategory;
-        });
-    }
-    
-    // 검색 정확도 점수 계산 함수 (수정됨)
+    // 검색 정확도 점수 계산 함수
     function calculateScore(item) {
         if (!item || !item.name) return 0;
         
@@ -455,18 +523,18 @@ function getSuggestions(searchTerm) {
         else if (itemName.includes(normalizedTerm)) {
             score += 60;
             
-            // 정확한 매칭에 더 높은 가중치 부여 (추가)
+            // 정확한 매칭에 더 높은 가중치 부여
             if (normalizedTerm.length > 2) {
                 score += 30; // 정확한 부분 문자열 매칭에 보너스 점수
             }
         }
-        // 초성이 일치하면 낮은 점수 (점수 낮춤)
+        // 초성이 일치하면 낮은 점수
         else if (getChosung(itemName).includes(chosungTerm)) {
-            score += 20; // 40에서 20으로 감소
+            score += 20;
         }
         // 영한 변환 결과가 포함되면 매우 낮은 점수
         else if (koreanFromEng && itemName.includes(koreanFromEng)) {
-            score += 15; // 20에서 15로 감소
+            score += 15;
         }
         else {
             // 일치하는 부분이 없으면 후보에서 제외
@@ -506,9 +574,15 @@ function renderSuggestions() {
         // 아이템 카테고리 정보 표시
         let categoryInfo = '';
         if (item.category || item.mainCategory) {
-            const mainCategory = item.mainCategory || item.category || '';
-            const subCategory = item.subCategory || '';
-            categoryInfo = `<div class="suggestion-category">${mainCategory}${subCategory ? ' > ' + subCategory : ''}</div>`;
+            const mainCategory = item.mainCategory || findMainCategoryForSubCategory(item.category) || '';
+            const mainCategoryObj = state.categories.mainCategories.find(cat => cat.id === mainCategory);
+            const mainCategoryName = mainCategoryObj ? mainCategoryObj.name : mainCategory;
+            
+            const subCategory = item.subCategory || item.category || '';
+            const subCategoryObj = state.categories.subCategories.find(cat => cat.id === subCategory);
+            const subCategoryName = subCategoryObj ? subCategoryObj.name : subCategory;
+            
+            categoryInfo = `<div class="suggestion-category">${mainCategoryName}${subCategoryName ? ' > ' + subCategoryName : ''}</div>`;
         }
         
         li.innerHTML = `
@@ -525,7 +599,7 @@ function renderSuggestions() {
     elements.suggestionsList.classList.add('show');
 }
 
-// 자동완성 선택 처리 - 카테고리 자동 선택 추가
+// 자동완성 선택 처리 - 카테고리 자동 선택 및 표시
 function handleSelectSuggestion(item, index) {
     // 선택된 아이템을 검색창에 설정
     elements.searchInput.value = item.name;
@@ -564,11 +638,11 @@ function handleSelectSuggestion(item, index) {
         }
     }
     
+    // 카테고리 경로 업데이트
+    updateCategoryPath();
+    
     // 자동완성 닫기
     clearSuggestions();
-    
-    // 선택된 아이템으로 검색 실행
-    handleSearch();
 }
 
 // 서브 카테고리에 해당하는 메인 카테고리 찾기
@@ -601,9 +675,10 @@ function resetSearch() {
     renderMainCategories();
     updateSelectedFilters();
     clearDetailOptions();
+    updateCategoryPath();
     
     // 결과 초기화
-    elements.resultsBody.innerHTML = '<tr class="empty-result"><td colspan="4">검색어를 입력하세요.</td></tr>';
+    elements.resultsBody.innerHTML = '<tr class="empty-result"><td colspan="3">검색어를 입력하세요.</td></tr>';
     
     // 페이지네이션 초기화
     elements.pagination.innerHTML = '';
@@ -713,24 +788,26 @@ function handleSearch() {
     // 데이터베이스에서 검색어 존재 여부 확인
     const isInDatabase = checkSearchTermInDatabase(state.searchTerm);
     
-    // 소분류가 선택된 경우 카테고리 검색 사용 (우선순위 1)
+    // 1. 소분류가 선택된 경우 카테고리 검색 사용 (우선순위 1)
     if (state.selectedSubCategory) {
         const mainCat = state.selectedMainCategory;
         const subCat = state.selectedSubCategory;
-        console.log(`카테고리 + 검색어로 검색: ${mainCat ? mainCat + ' > ' : ''}${subCat}, ${state.searchTerm || '전체'}`);
-        searchWithCategoryAndItem(mainCat, subCat, state.searchTerm);
+        
+        // 검색어가 있는 경우 카테고리 + 아이템 이름으로 검색
+        if (state.searchTerm) {
+            console.log(`카테고리 + 검색어로 검색: ${mainCat ? mainCat + ' > ' : ''}${subCat}, ${state.searchTerm}`);
+            searchWithCategoryAndItem(mainCat, subCat, state.searchTerm);
+        } 
+        // 검색어가 없는 경우 카테고리만으로 검색
+        else {
+            console.log(`카테고리로 검색: ${mainCat ? mainCat + ' > ' : ''}${subCat}`);
+            searchWithCategoryAndItem(mainCat, subCat);
+        }
     }
-    // 대분류만 선택된 경우 알림 (우선순위 2)
-    else if (state.selectedMainCategory) {
-        console.log(`대분류만 선택됨: ${state.selectedMainCategory}`);
-        elements.resultsBody.innerHTML = '<tr class="empty-result"><td colspan="4">소분류를 선택하세요.</td></tr>';
-        elements.pagination.innerHTML = '';
-        setLoading(false);
-    }
-    // 데이터베이스에 있는 아이템인 경우 카테고리 자동 선택 및 검색 (우선순위 3)
+    // 2. 데이터베이스에 있는 아이템인 경우 카테고리 자동 선택 및 검색
     else if (isInDatabase && state.selectedItem) {
         console.log(`데이터베이스 히트: ${state.searchTerm}`);
-        // 아이템이 데이터베이스에 있음 - 카테고리 자동 선택 및 보여주기
+        // 아이템이 데이터베이스에 있음 - 카테고리 정보가 있는지 확인
         const mainCategory = getMainCategoryFromItem(state.selectedItem);
         const subCategory = getSubCategoryFromItem(state.selectedItem);
         
@@ -741,6 +818,7 @@ function handleSearch() {
             
             // 카테고리 UI 업데이트
             renderMainCategories();
+            updateCategoryPath();
             
             // 세부 옵션 로드
             loadOptionStructure(subCategory);
@@ -748,12 +826,12 @@ function handleSearch() {
             // 카테고리 + 아이템 이름으로 검색
             searchWithCategoryAndItem(mainCategory, subCategory, state.searchTerm);
         } else {
-            // 카테고리 정보가 없는 경우 키워드 검색
-            console.log(`키워드로 검색: ${state.searchTerm}`);
+            // 카테고리 정보가 없는 경우 아이템 이름으로 검색
+            console.log(`아이템 이름으로 검색: ${state.searchTerm}`);
             searchWithKeyword(state.searchTerm);
         }
     }
-    // 그 외 모든 경우는 키워드 검색 (우선순위 4)
+    // 3. 그 외 모든 경우는 키워드 검색
     else {
         console.log(`키워드로 검색: ${state.searchTerm}`);
         searchWithKeyword(state.searchTerm);
@@ -864,66 +942,29 @@ async function searchWithKeyword(keyword) {
         
         // 검색 결과 저장
         state.searchResults = data.items || [];
+        
+        // 가격 기준 오름차순 정렬 (최저가 순)
+        state.searchResults.sort((a, b) => a.auction_price_per_unit - b.auction_price_per_unit);
+        
         state.totalItems = state.searchResults.length;
         state.totalPages = Math.ceil(state.totalItems / state.itemsPerPage);
         
         // 마지막 검색 결과 캐싱 (로컬 필터링용)
         state.lastSearchResults = [...state.searchResults];
         
-        // 검색 결과가 있고 카테고리 정보가 없는 경우, 첫 번째 아이템의 카테고리 정보 활용
-        if (state.searchResults.length > 0 && !state.selectedMainCategory && !state.selectedSubCategory) {
-            // 카테고리 정보 추출 및 표시
-            const firstItem = state.searchResults[0];
-            if (firstItem.auction_item_category) {
-                showCategoryPath(firstItem);
-            }
-        }
-        
         // 페이지네이션 및 결과 렌더링
         renderCurrentPage();
         renderPagination();
+        
+        // 검색 결과가 있는 경우 첫 번째 아이템의 카테고리 정보 표시
+        if (state.searchResults.length > 0) {
+            showCategoryPathFromItem(state.searchResults[0]);
+        }
     } catch (error) {
         console.error('검색 오류:', error);
         showError('검색 중 오류가 발생했습니다: ' + error.message);
     } finally {
         setLoading(false);
-    }
-}
-
-// 아이템의 카테고리 경로 표시
-function showCategoryPath(item) {
-    if (!item || !item.auction_item_category) return;
-    
-    // 메인 카테고리 찾기
-    const mainCategory = item.auction_item_category;
-    const mainCategoryObj = state.categories.mainCategories.find(cat => 
-        cat.id === mainCategory || cat.name === mainCategory);
-    
-    if (mainCategoryObj) {
-        // 메인 카테고리 UI만 업데이트 (API 호출 없이)
-        // 실제 state는 변경하지 않음 - 화면 표시용
-        
-        // 카테고리 경로 패널 표시
-        const categoryPathPanel = document.createElement('div');
-        categoryPathPanel.className = 'category-path-panel';
-        categoryPathPanel.innerHTML = `
-            <div class="category-path">
-                <span class="category-path-label">카테고리:</span>
-                <span class="category-path-main">${mainCategoryObj.name}</span>
-                ${item.item_option && item.item_option.some(opt => opt.option_type === '분류') ? 
-                    `<span class="category-path-separator">></span>
-                     <span class="category-path-sub">${item.item_option.find(opt => opt.option_type === '분류').option_value}</span>` 
-                    : ''}
-            </div>
-        `;
-        
-        // 결과 패널에 삽입
-        const resultsPanel = document.querySelector('.results-panel');
-        const resultStats = document.querySelector('.result-stats-container');
-        
-        if (resultsPanel && resultStats) {
-            resultsPanel.insertBefore(categoryPathPanel, resultStats.nextSibling);
-        }
     }
 }
 
@@ -963,6 +1004,10 @@ async function searchWithCategoryAndItem(mainCategory, subCategory, itemName = n
         
         // 검색 결과 저장
         state.searchResults = data.items || [];
+        
+        // 가격 기준 오름차순 정렬 (최저가 순)
+        state.searchResults.sort((a, b) => a.auction_price_per_unit - b.auction_price_per_unit);
+        
         state.totalItems = state.searchResults.length;
         state.totalPages = Math.ceil(state.totalItems / state.itemsPerPage);
         
@@ -985,7 +1030,7 @@ async function searchWithCategoryAndItem(mainCategory, subCategory, itemName = n
     }
 }
 
-// 로컬 필터링 함수 (새로 추가)
+// 로컬 필터링 함수
 function applyLocalFiltering() {
     if (state.lastSearchResults.length === 0) {
         return;
@@ -1074,7 +1119,7 @@ function renderCurrentPage() {
     if (currentPageItems.length === 0) {
         const tr = document.createElement('tr');
         tr.className = 'empty-result';
-        tr.innerHTML = `<td colspan="4">검색 결과가 없습니다. 다른 키워드로 검색해보세요.</td>`;
+        tr.innerHTML = `<td colspan="3">검색 결과가 없습니다. 다른 키워드로 검색해보세요.</td>`;
         elements.resultsBody.appendChild(tr);
         return;
     }
@@ -1084,29 +1129,7 @@ function renderCurrentPage() {
         const tr = document.createElement('tr');
         tr.className = 'item-row';
         tr.setAttribute('data-item-id', item.auction_item_no);
-        
-        // 카테고리 정보 추출
-        let category = item.auction_item_category || '기타';
-        let subCategory = '';
-        if (item.item_option && item.item_option.length > 0) {
-            const categoryOption = item.item_option.find(opt => opt.option_type === '분류');
-            if (categoryOption) {
-                subCategory = categoryOption.option_value || '';
-            }
-        }
-        
-        // 레벨 정보 추출
-        let level = '-';
-        if (item.item_option && item.item_option.length > 0) {
-            const levelOption = item.item_option.find(opt => 
-                opt.option_type === '레벨' || 
-                opt.option_type === '요구 레벨' || 
-                opt.option_type === '아이템 레벨'
-            );
-            if (levelOption) {
-                level = levelOption.option_value || '-';
-            }
-        }
+        tr.setAttribute('data-item', JSON.stringify(item));
         
         tr.innerHTML = `
             <td>
@@ -1114,12 +1137,11 @@ function renderCurrentPage() {
                     <div class="item-name">${item.item_name}</div>
                 </div>
             </td>
-            <td>${category}${subCategory ? ' > ' + subCategory : ''}</td>
-            <td>${level}</td>
+            <td>${item.auction_count || 1}개</td>
             <td class="item-price">${item.auction_price_per_unit.toLocaleString()}G</td>
         `;
         
-        // 아이템 클릭 이벤트 - 상세 정보 조회
+        // 아이템 클릭 이벤트 - 상세 정보 모달
         tr.addEventListener('click', () => {
             showItemDetails(item);
         });
@@ -1221,11 +1243,153 @@ function goToPage(pageNumber) {
     }
 }
 
+// 아이템 툴팁 처리 함수
+function handleTableMouseOver(event) {
+    const tr = event.target.closest('.item-row');
+    if (!tr) return;
+    
+    // 아이템 데이터 가져오기
+    try {
+        const itemData = JSON.parse(tr.getAttribute('data-item'));
+        showItemTooltip(itemData, event);
+    } catch (e) {
+        console.error('아이템 데이터 파싱 오류:', e);
+    }
+}
+
+// 마우스 이동에 따른 툴팁 위치 업데이트
+function handleTableMouseMove(event) {
+    if (!state.tooltipActive) return;
+    
+    // 툴팁 위치 업데이트
+    const tooltip = elements.tooltip;
+    if (tooltip) {
+        // 마우스 위치에 따라 툴팁 위치 조정
+        const x = event.clientX + 15;
+        const y = event.clientY + 15;
+        
+        // 뷰포트 경계 확인
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        const tooltipWidth = tooltip.offsetWidth;
+        const tooltipHeight = tooltip.offsetHeight;
+        
+        // 화면 오른쪽 경계를 넘어가는 경우
+        if (x + tooltipWidth > viewportWidth) {
+            tooltip.style.left = (viewportWidth - tooltipWidth - 10) + 'px';
+        } else {
+            tooltip.style.left = x + 'px';
+        }
+        
+        // 화면 아래 경계를 넘어가는 경우
+        if (y + tooltipHeight > viewportHeight) {
+            tooltip.style.top = (viewportHeight - tooltipHeight - 10) + 'px';
+        } else {
+            tooltip.style.top = y + 'px';
+        }
+    }
+}
+
+// 툴팁 숨기기
+function handleTableMouseOut(event) {
+    const tr = event.target.closest('.item-row');
+    if (!tr) return;
+    
+    const relatedTarget = event.relatedTarget;
+    if (relatedTarget && tr.contains(relatedTarget)) return;
+    
+    hideItemTooltip();
+}
+
+// 아이템 툴팁 표시
+function showItemTooltip(item, event) {
+    if (!elements.tooltip) return;
+    
+    state.tooltipActive = true;
+    
+    // 옵션 정보 추출
+    let optionsHtml = '';
+    if (item.item_option && item.item_option.length > 0) {
+        // 중요한 옵션 먼저 표시
+        const priorityOptions = ['분류', '레벨', '무게', '내구도', '색상', '두루마리', '속성'];
+        const priorityOptionsData = [];
+        const normalOptionsData = [];
+        
+        item.item_option.forEach(option => {
+            if (option.option_type && option.option_value) {
+                const optionHtml = `
+                    <div class="tooltip-option">
+                        <span class="option-type">${option.option_type}:</span>
+                        <span class="option-value">${option.option_value}</span>
+                    </div>
+                `;
+                
+                if (priorityOptions.includes(option.option_type)) {
+                    priorityOptionsData.push({
+                        type: option.option_type,
+                        html: optionHtml,
+                        index: priorityOptions.indexOf(option.option_type)
+                    });
+                } else {
+                    normalOptionsData.push(optionHtml);
+                }
+            }
+        });
+        
+        // 우선순위 옵션 정렬 및 추가
+        priorityOptionsData.sort((a, b) => a.index - b.index);
+        priorityOptionsData.forEach(option => {
+            optionsHtml += option.html;
+        });
+        
+        // 일반 옵션 추가
+        normalOptionsData.forEach(optionHtml => {
+            optionsHtml += optionHtml;
+        });
+    }
+    
+    // 툴팁 내용 생성
+    elements.tooltip.innerHTML = `
+        <div class="tooltip-header">
+            <h3>${item.item_name}</h3>
+        </div>
+        <div class="tooltip-content">
+            <div class="tooltip-price">
+                <span>가격: ${item.auction_price_per_unit.toLocaleString()}G</span>
+                <span>판매 수량: ${item.auction_count || 1}개</span>
+            </div>
+            <div class="tooltip-options">
+                ${optionsHtml || '<div class="no-options">옵션 정보가 없습니다.</div>'}
+            </div>
+        </div>
+    `;
+    
+    // 툴팁 위치 설정
+    const x = event.clientX + 15;
+    const y = event.clientY + 15;
+    elements.tooltip.style.left = x + 'px';
+    elements.tooltip.style.top = y + 'px';
+    
+    // 툴팁 표시
+    elements.tooltip.style.display = 'block';
+}
+
+// 툴팁 숨기기
+function hideItemTooltip() {
+    if (!elements.tooltip) return;
+    
+    state.tooltipActive = false;
+    elements.tooltip.style.display = 'none';
+}
+
 // 아이템 상세 정보 표시 (모달 방식)
 function showItemDetails(item) {
-    // 간단한 상세 정보 모달 구현
-    let optionsHtml = '';
+    // 모달 컨테이너 생성
+    const modalContainer = document.createElement('div');
+    modalContainer.className = 'modal-container';
     
+    // 옵션 정보 추출
+    let optionsHtml = '';
     if (item.item_option && item.item_option.length > 0) {
         item.item_option.forEach(option => {
             if (option.option_type && option.option_value) {
@@ -1238,6 +1402,7 @@ function showItemDetails(item) {
         });
     }
     
+    // 모달 HTML 생성
     const modalHtml = `
         <div class="item-detail-modal">
             <div class="modal-header">
@@ -1258,8 +1423,6 @@ function showItemDetails(item) {
         </div>
     `;
     
-    const modalContainer = document.createElement('div');
-    modalContainer.className = 'modal-container';
     modalContainer.innerHTML = modalHtml;
     document.body.appendChild(modalContainer);
     
