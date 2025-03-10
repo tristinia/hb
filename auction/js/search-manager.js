@@ -64,35 +64,62 @@ const SearchManager = (() => {
         document.addEventListener('click', handleDocumentClick);
     }
     
-    /**
+      /**
      * 자동완성 데이터 로드
      */
     function loadAutocompleteData() {
         console.log('데이터베이스에서 자동완성 데이터 로드 중...');
-        fetch('../data/database/items.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('데이터베이스 로드 실패');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data && Array.isArray(data.items) && data.items.length > 0) {
-                    // 로컬 스토리지에 저장
-                    localStorage.setItem('auctionAutocompleteData', JSON.stringify(data.items));
-                    console.log('자동완성 데이터 로드 완료: ', data.items.length + '개 항목');
-                } else {
-                    throw new Error('유효한 데이터가 없습니다');
-                }
-            })
-            .catch(error => {
-                console.error('자동완성 데이터 로드 오류:', error);
-                // 실패 시 기존 캐시 데이터 사용
-                const cachedData = localStorage.getItem('auctionAutocompleteData');
-                if (!cachedData) {
-                    console.warn('캐시된 자동완성 데이터가 없습니다. 기능이 제한될 수 있습니다.');
-                }
-            });
+        
+        // 여러 경로 시도 (경로 변경 대응)
+        const paths = [
+            '../data/database/items.json',
+            '/data/database/items.json',
+            'data/database/items.json'
+        ];
+        
+        // 첫 번째 경로 시도
+        tryLoadPath(0);
+        
+        // 경로 순차적으로 시도하는 함수
+        function tryLoadPath(index) {
+            if (index >= paths.length) {
+                console.error('모든 경로에서 자동완성 데이터 로드 실패');
+                checkLocalStorage();
+                return;
+            }
+            
+            fetch(paths[index])
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`경로 ${paths[index]} 로드 실패: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data && Array.isArray(data.items) && data.items.length > 0) {
+                        // 로컬 스토리지에 저장
+                        localStorage.setItem('auctionAutocompleteData', JSON.stringify(data.items));
+                        console.log('자동완성 데이터 로드 완료: ', data.items.length + '개 항목');
+                    } else {
+                        throw new Error('유효한 데이터가 없습니다');
+                    }
+                })
+                .catch(error => {
+                    console.error(`경로 ${paths[index]} 시도 중 오류:`, error);
+                    // 다음 경로 시도
+                    tryLoadPath(index + 1);
+                });
+        }
+        
+        // 로컬 스토리지 확인
+        function checkLocalStorage() {
+            const cachedData = localStorage.getItem('auctionAutocompleteData');
+            if (!cachedData) {
+                console.warn('캐시된 자동완성 데이터가 없습니다. 기능이 제한될 수 있습니다.');
+            } else {
+                console.log('캐시된 자동완성 데이터를 사용합니다.');
+            }
+        }
     }
     
     /**
