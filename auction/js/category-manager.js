@@ -73,57 +73,54 @@ const CategoryManager = (() => {
     }
     
     /**
-     * 카테고리 데이터 로드
+     * JSON 파일에서 카테고리 데이터 로드
      */
     async function loadCategories() {
         try {
-            // src/category-manager.js 파일 로드 시도
-            const response = await fetch('../src/category-manager.js');
+            // JSON 파일에서 카테고리 데이터 로드
+            const response = await fetch('../data/categories.json');
             
-            if (response.ok) {
-                const text = await response.text();
-                
-                // module.exports 형식에서 데이터 추출
-                const mainCatMatch = text.match(/mainCategories:\s*\[([\s\S]*?)\]/);
-                const categoriesMatch = text.match(/categories:\s*\[([\s\S]*?)\]/);
-                
-                if (mainCatMatch && categoriesMatch) {
-                    try {
-                        // 메인 카테고리 파싱
-                        const mainCatText = `[${mainCatMatch[1]}]`;
-                        const mainCategories = eval(mainCatText);
-                        
-                        // 서브 카테고리 파싱
-                        const categoriesText = `[${categoriesMatch[1]}]`;
-                        const subCategories = eval(categoriesText);
-                        
-                        state.mainCategories = mainCategories;
-                        state.subCategories = subCategories;
-                        state.isLoaded = true;
-                        
-                        console.log('카테고리 데이터 로드 성공:', 
-                            state.mainCategories.length + '개 대분류,',
-                            state.subCategories.length + '개 소분류');
-                    } catch (parseError) {
-                        console.error('카테고리 데이터 파싱 오류:', parseError);
-                        throw new Error('카테고리 데이터 파싱 실패');
-                    }
-                } else {
-                    throw new Error('카테고리 데이터 형식이 예상과 다름');
-                }
-            } else {
-                throw new Error('카테고리 파일 로드 실패: ' + response.status);
+            if (!response.ok) {
+                throw new Error(`카테고리 데이터 로드 실패: ${response.status}`);
             }
+            
+            // JSON 데이터 파싱
+            const data = await response.json();
+            
+            // 카테고리 데이터 설정
+            state.mainCategories = data.mainCategories || [];
+            state.subCategories = data.categories || [];
+            state.isLoaded = true;
+            
+            console.log('카테고리 데이터 로드 성공:', 
+                state.mainCategories.length + '개 대분류,',
+                state.subCategories.length + '개 소분류');
             
             // 카테고리 초기화
             renderMainCategories();
         } catch (error) {
             console.error('카테고리 로드 중 오류 발생:', error);
             
-            // 오류 시 하드코딩된 카테고리 사용
-            console.log('하드코딩된 카테고리 사용');
+            // 오류 시 대체 경로 시도
+            try {
+                console.log('대체 경로에서 카테고리 데이터 로드 시도...');
+                const altResponse = await fetch('/data/categories.json');
+                
+                if (altResponse.ok) {
+                    const data = await altResponse.json();
+                    state.mainCategories = data.mainCategories || [];
+                    state.subCategories = data.categories || [];
+                    state.isLoaded = true;
+                    
+                    console.log('대체 경로에서 카테고리 데이터 로드 성공');
+                    renderMainCategories();
+                    return;
+                }
+            } catch (altError) {
+                console.error('대체 경로 시도 실패:', altError);
+            }
             
-            // 카테고리 로드 실패 메시지 표시
+            // 모든 시도 실패 시 오류 메시지 표시
             showCategoryLoadError();
         }
     }
@@ -207,4 +204,205 @@ const CategoryManager = (() => {
     }
     
     /**
-     * 특정 메인
+     * 특정 메인 카테고리에 속하는 서브카테고리 가져오기
+     * @param {string} mainCategory - 메인 카테고리 ID
+     * @returns {Array} 서브카테고리 목록
+     */
+    function getSubCategoriesByMainCategory(mainCategory) {
+        return state.subCategories.filter(cat => cat.mainCategory === mainCategory);
+    }
+    
+    /**
+     * 메인 카테고리 클릭 처리
+     * @param {Object} category - 클릭한 카테고리 객체
+     */
+    function handleMainCategoryClick(category) {
+        // 이미 선택된 카테고리인 경우 토글 (펼치기/접기)
+        if (state.expandedMainCategory === category.id) {
+            state.expandedMainCategory = null;
+        } else {
+            state.expandedMainCategory = category.id;
+        }
+        
+        // 항상 메인 카테고리는 선택 상태로 유지
+        state.selectedMainCategory = category.id;
+        
+        // 카테고리 UI 업데이트
+        renderMainCategories();
+        
+        // 카테고리 경로 업데이트
+        updateCategoryPath();
+        
+        // 선택된 카테고리 정보를 이벤트로 알림
+        const event = new CustomEvent('categoryChanged', {
+            detail: {
+                mainCategory: state.selectedMainCategory,
+                subCategory: state.selectedSubCategory
+            }
+        });
+        document.dispatchEvent(event);
+    }
+    
+    /**
+     * 서브카테고리 클릭 처리
+     * @param {Object} subCategory - 클릭한 서브카테고리 객체
+     */
+    function handleSubCategoryClick(subCategory) {
+        // 이미 선택된 서브 카테고리인 경우 선택 해제하지 않고 유지
+        state.selectedSubCategory = subCategory.id;
+        
+        // 선택된 서브카테고리의 메인 카테고리도 선택
+        const mainCategory = subCategory.mainCategory;
+        if (mainCategory) {
+            state.selectedMainCategory = mainCategory;
+            state.expandedMainCategory = mainCategory;
+        }
+        
+        // 카테고리 UI 업데이트
+        renderMainCategories();
+        
+        // 카테고리 경로 업데이트
+        updateCategoryPath();
+        
+        // 선택된 카테고리 정보를 이벤트로 알림
+        const event = new CustomEvent('categoryChanged', {
+            detail: {
+                mainCategory: state.selectedMainCategory,
+                subCategory: state.selectedSubCategory
+            }
+        });
+        document.dispatchEvent(event);
+    }
+    
+    /**
+     * 카테고리 경로 업데이트
+     */
+    function updateCategoryPath() {
+        if (!elements.categoryPath) return;
+        
+        if (!state.selectedMainCategory && !state.selectedSubCategory) {
+            elements.categoryPath.style.display = 'none';
+            return;
+        }
+        
+        elements.categoryPath.style.display = 'block';
+        
+        let pathHTML = '<span class="category-path-label">선택된 카테고리:</span>';
+        
+        if (state.selectedMainCategory) {
+            const mainCategory = state.mainCategories.find(cat => cat.id === state.selectedMainCategory);
+            if (mainCategory) {
+                pathHTML += `<span class="category-path-main">${mainCategory.name}</span>`;
+            }
+        }
+        
+        if (state.selectedSubCategory) {
+            const subCategory = state.subCategories.find(cat => cat.id === state.selectedSubCategory);
+            if (subCategory) {
+                pathHTML += `<span class="category-path-separator">></span>`;
+                pathHTML += `<span class="category-path-sub">${subCategory.name}</span>`;
+            }
+        }
+        
+        elements.categoryPath.innerHTML = pathHTML;
+    }
+    
+    /**
+     * 아이템에서 카테고리 경로 표시
+     * @param {Object} item - 아이템 데이터
+     */
+    function showCategoryPathFromItem(item) {
+        if (!elements.categoryPath) return;
+        
+        // 아이템 정보 없으면 표시 안함
+        if (!item) {
+            elements.categoryPath.style.display = 'none';
+            return;
+        }
+        
+        elements.categoryPath.style.display = 'block';
+        
+        let pathHTML = '<span class="category-path-label">카테고리:</span>';
+        
+        // 메인 카테고리 찾기
+        let mainCategoryId = '';
+        let mainCategoryName = '';
+        
+        if (item.mainCategory) {
+            mainCategoryId = item.mainCategory;
+            const mainCat = state.mainCategories.find(cat => cat.id === mainCategoryId);
+            if (mainCat) mainCategoryName = mainCat.name;
+        } else if (item.category) {
+            // 서브 카테고리로부터 메인 카테고리 찾기
+            const subCat = state.subCategories.find(cat => cat.id === item.category);
+            if (subCat) {
+                mainCategoryId = subCat.mainCategory;
+                const mainCat = state.mainCategories.find(cat => cat.id === mainCategoryId);
+                if (mainCat) mainCategoryName = mainCat.name;
+            }
+        }
+        
+        // 경로 HTML 구성
+        if (mainCategoryName) {
+            pathHTML += `<span class="category-path-main">${mainCategoryName}</span>`;
+        }
+        
+        if (item.category || item.subCategory) {
+            const subCategoryId = item.subCategory || item.category;
+            const subCat = state.subCategories.find(cat => cat.id === subCategoryId);
+            if (subCat) {
+                pathHTML += `<span class="category-path-separator">></span>`;
+                pathHTML += `<span class="category-path-sub">${subCat.name}</span>`;
+            }
+        }
+        
+        elements.categoryPath.innerHTML = pathHTML;
+    }
+    
+    /**
+     * 서브 카테고리에 해당하는 메인 카테고리 찾기
+     * @param {string} subCategoryId - 서브 카테고리 ID
+     * @returns {string|null} 메인 카테고리 ID
+     */
+    function findMainCategoryForSubCategory(subCategoryId) {
+        if (!subCategoryId) return null;
+        
+        const subCategory = state.subCategories.find(cat => 
+            cat.id === subCategoryId || cat.name === subCategoryId);
+        
+        return subCategory ? subCategory.mainCategory : null;
+    }
+    
+    /**
+     * 선택된 카테고리 초기화
+     */
+    function resetSelectedCategories() {
+        state.selectedMainCategory = null;
+        state.selectedSubCategory = null;
+        renderMainCategories();
+        updateCategoryPath();
+    }
+    
+    /**
+     * 선택된 카테고리 가져오기
+     * @returns {Object} 선택된 카테고리 정보
+     */
+    function getSelectedCategories() {
+        return {
+            mainCategory: state.selectedMainCategory,
+            subCategory: state.selectedSubCategory
+        };
+    }
+    
+    // 공개 API
+    return {
+        init,
+        renderMainCategories,
+        updateCategoryPath,
+        showCategoryPathFromItem,
+        findMainCategoryForSubCategory,
+        resetSelectedCategories,
+        getSelectedCategories,
+        getSubCategoriesByMainCategory
+    };
+})();
