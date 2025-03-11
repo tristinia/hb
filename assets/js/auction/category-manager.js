@@ -215,7 +215,7 @@ const CategoryManager = (() => {
             
             // 대체 경로 시도
             try {
-                const altPath = '../../../data/categories.json';
+                const altPath = '../../data/categories.json';
                 const altResponse = await fetch(altPath);
                 
                 if (!altResponse.ok) {
