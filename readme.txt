@@ -15,39 +15,30 @@
 이미지 프리뷰: 형상변환 이미지 표시
 상세 정보: 출시 시기, 속성 정보 제공
 
-├── index.html                # 메인 페이지
-├── auction/                  # 경매장 관련 파일
-│   ├── js/                   # JS 모듈
-│   │   ├── main.js           # 메인 로직
-│   │   ├── api-client.js     # API 호출 관리
-│   │   ├── category-manager.js # 카테고리 관리
-│   │   ├── search-manager.js # 검색 기능
-│   │   ├── filter-manager.js # 필터링 기능
-│   │   ├── item-display.js   # 아이템 표시
-│   │   ├── pagination.js     # 페이지네이션
-│   │   └── utils.js          # 유틸리티 함수
-│   └── styles.css            # 스타일시트
-├── spirit/                   # 정령 형상변환 관련 파일
-│   ├── index.html            # 정령 변환 페이지
-│   ├── script.js             # 정령 변환 로직
-│   └── styles.css            # 스타일시트
-├── src/                      # 백엔드 (데이터 수집)
-│   ├── index.js              # 메인 스크립트
-│   ├── api-client.js         # API 호출 클라이언트
-│   ├── category-manager.js   # 카테고리 관리
-│   ├── data-processor.js     # 데이터 가공
-│   ├── storage-manager.js    # 데이터 저장
-│   └── config.js             # 설정 파일
-├── data/                     # 수집된 데이터 저장소 (용량 문제로 저장소에 미포함)
-│   ├── items/                # 카테고리별 아이템 데이터
-│   ├── meta/                 # 메타데이터
-│   ├── option_structure/     # 아이템 옵션 구조 정보
-│   ├── web/                  # 웹 표시용 가공 데이터
-│   └── categories.json       # 카테고리 정보
+/
+├── index.html                # 리디렉션용 메인 페이지
+├── pages/                    # 모든 페이지 컨테이너
+│   ├── auction/              # 경매장 페이지
+│   │   └── index.html
+│   ├── spirit/               # 정령 형상 페이지
+│   │   └── index.html
+│   └── [future-pages]/       # 추가 페이지들
+│       └── index.html
+├── assets/                   # 공통 정적 자산
+│   ├── css/                  # 스타일시트
+│   │   ├── common.css        # 공통 스타일
+│   │   ├── auction.css       # 페이지별 스타일
+│   │   └── spirit.css
+│   ├── js/                   # 자바스크립트
+│   │   ├── common/           # 공통 모듈
+│   │   │   ├── utils.js
+│   │   │   └── firebase-config.js
+│   │   ├── auction/          # 경매장 관련 모듈
+│   │   └── spirit/           # 정령 관련 모듈
+│   └── images/               # 이미지 자산
+├── src/                      # 데이터 수집 백엔드
+├── data/                     # 저장된 데이터
 └── .github/workflows/        # GitHub Actions
-    └── collect-data.yml      # 자동 데이터 수집 워크플로우
-데이터 디렉토리 구조
-저장소의 용량 제한으로 인해 data 디렉토리는 포함되어 있지 않습니다. 아래는 데이터 디렉토리의 구조와 역할입니다:
 
 data/items/: 카테고리별 원본 아이템 데이터가 저장됩니다. 각 파일은 카테고리 ID를 이름으로 가집니다.
 data/meta/: 전체 데이터 수집 상태 및 통계 정보가 저장됩니다.
