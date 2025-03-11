@@ -1,7 +1,7 @@
 /**
  * 마비노기 정령 형상변환 리큐르 & 부가 효과 뷰어
  * 작성자: WF신의컨트롤
- * 최적화 버전
+ * 최적화 및 수정 버전
  */
 
 // 데이터 및 상태 변수
@@ -38,30 +38,40 @@ let loopFilterActive = false;
 let activeColorFilters = [];
 let selectedSet = '';
 
+// 기본 URL 가져오기 (GitHub Pages 호환)
+function getBaseUrl() {
+    if (window.location.pathname.includes('/hb/')) {
+        return '/hb';  // '/hb/' 경로가 포함되어 있으면 '/hb'를 기본 URL로 사용
+    }
+    return '';  // 그 외의 경우는 빈 문자열 (루트 경로)
+}
+
 // 페이지 데이터 매핑 - 버튼 텍스트와 페이지 제목 분리
+const baseUrl = getBaseUrl();
 const pageConfig = {
     'liqueur': {
         buttonText: '정령 형변',
         title: '정령 형상변환 리큐르',
-        dataPath: '../data/web/spiritLiqueur.json',
-        imagePath: '../image/spiritLiqueur'   // 절대 경로로 수정
+        dataPath: `${baseUrl}/data/web/spiritLiqueur.json`,
+        imagePath: `${baseUrl}/image/spiritLiqueur`
     },
     'effectCard': {
         buttonText: '이펙트 변경 카드',
         title: '이펙트 변경 카드',
-        dataPath: '../data/web/effectCard.json',
-        imagePath: '../image/effectCard'      // 절대 경로로 수정
+        dataPath: `${baseUrl}/data/web/effectCard.json`,
+        imagePath: `${baseUrl}/image/effectCard`
     },
     'titleEffect': {
         buttonText: '2차 타이틀',
         title: '2차 타이틀 이펙트',
-        dataPath: '../data/web/titleEffect.json',
-        imagePath: '../image/titleEffect'     // 절대 경로로 수정
+        dataPath: `${baseUrl}/data/web/titleEffect.json`,
+        imagePath: `${baseUrl}/image/titleEffect`
     }
 };
 
 // 페이지 초기화 및 데이터 로드
 document.addEventListener('DOMContentLoaded', () => {
+    console.log(`기본 URL: ${baseUrl}`);
     setupNavigation();
     setupSticky();
     
@@ -891,7 +901,7 @@ function stopAllVideos() {
     currentlyPlayingVideos.clear();
 }
 
-// 개별 카드 생성 - 안전한 이미지 처리
+// 개별 카드 생성 - 수정된 이미지 로드 처리
 function createCard(effect) {
     if (!effect) return document.createElement('div'); // 유효하지 않은 효과 처리
     
@@ -907,13 +917,10 @@ function createCard(effect) {
     // 안전한 이름 가져오기 (null/undefined 방지)
     const safeName = effect.name || '이름 없음';
     
-    // 이미지 경로 생성 (webp 이미지 사용)
-    const imagePath = `${pageConfig[currentPage].imagePath}/${safeName}.webp`;
-    
     // 카드 HTML 생성 (기본적으로 '이미지 없음' 표시)
     card.innerHTML = `
         <div class="card-video-container">
-            <div class="no-video">이미지 없음</div>
+            <div class="no-video">이미지 로딩 중...</div>
         </div>
         <div class="card-info">
             <div class="card-colors">
@@ -923,7 +930,10 @@ function createCard(effect) {
         </div>
     `;
     
-    // 이미지 로드 테스트
+    // 이미지 로드 테스트 - 파일명 인코딩 추가
+    const encodedName = encodeURIComponent(safeName);
+    const imagePath = `${pageConfig[currentPage].imagePath}/${encodedName}.webp`;
+    
     const img = new Image();
     img.onload = () => {
         // 이미지 로드 성공하면 이미지로 교체
@@ -939,8 +949,13 @@ function createCard(effect) {
             if (videoContainer) {
                 videoContainer.innerHTML = `<img class="card-image" src="${effect.videoLink}" alt="${safeName}">`;
             }
+        } else {
+            // 이미지 실패 시 기본 텍스트로 변경
+            const videoContainer = card.querySelector('.card-video-container');
+            if (videoContainer) {
+                videoContainer.innerHTML = `<div class="no-video">이미지 없음</div>`;
+            }
         }
-        // 이미지도 실패하면 "이미지 없음" 유지 (이미 설정됨)
     };
     
     // 이미지 로드 시작
@@ -989,6 +1004,9 @@ function updateStats() {
     const totalCount = Array.isArray(effectsData) ? effectsData.length : 0;
     const filteredCount = Array.isArray(filteredData) ? filteredData.length : 0;
     
-    document.getElementById('totalCount').textContent = totalCount;
-    document.getElementById('filteredCount').textContent = filteredCount;
+    const totalCountElement = document.getElementById('totalCount');
+    const filteredCountElement = document.getElementById('filteredCount');
+    
+    if (totalCountElement) totalCountElement.textContent = totalCount;
+    if (filteredCountElement) filteredCountElement.textContent = filteredCount;
 }
