@@ -43,43 +43,6 @@ function saveItemsData(categoryId, items) {
   
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
   console.log(`아이템 데이터 저장 완료: ${categoryId} (${items.length}개)`);
-  
-  // database/items.json 업데이트 코드 제거
-  // updateItemDatabase(items); <-- 이 줄 제거 또는 주석 처리
-}
-
-// 이 함수 전체 제거 또는 주석 처리
-/*
-function updateItemDatabase(newItems) {
-  const dbFilePath = path.join(config.DATA_DIR, 'database', 'items.json');
-  
-  try {
-    // 기존 데이터베이스 파일 확인
-    let existingItems = [];
-    
-    if (fs.existsSync(dbFilePath)) {
-      const existingData = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
-      existingItems = existingData.items || [];
-    }
-    
-    // 새 아이템과 기존 아이템 병합
-    const mergedItems = dataProcessor.mergeWithExistingData(newItems, existingItems);
-    
-    // 데이터베이스 파일 저장
-    const dbData = {
-      updated: new Date().toISOString(),
-      count: mergedItems.length,
-      items: mergedItems
-    };
-    
-    fs.writeFileSync(dbFilePath, JSON.stringify(dbData, null, 2));
-    console.log(`통합 아이템 데이터베이스 업데이트 완료: 총 ${mergedItems.length}개 아이템`);
-    
-  } catch (error) {
-    console.error('아이템 데이터베이스 업데이트 중 오류:', error.message);
-  }
-}
-*/
 
 /**
  * 옵션 구조 데이터 저장 (카테고리별)
