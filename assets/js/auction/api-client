@@ -31,7 +31,7 @@ const ApiClient = (() => {
             
             // 설정 확인
             if (!window.FIREBASE_CONFIG || !window.FIREBASE_CONFIG.projectId) {
-                console.warn('Firebase 설정이 없습니다. firebase.config.js 파일을 확인하세요.');
+                console.warn('Firebase 설정이 없습니다.');
             } else {
                 console.log('Firebase 초기화 완료');
             }
@@ -67,7 +67,7 @@ const ApiClient = (() => {
         if (!projectId) {
             return { 
                 items: [], 
-                error: 'Firebase 설정이 올바르지 않습니다. firebase.config.js 파일을 확인하세요.' 
+                error: 'Firebase 설정이 올바르지 않습니다.' 
             };
         }
         
@@ -119,7 +119,7 @@ const ApiClient = (() => {
         if (!projectId) {
             return { 
                 items: [], 
-                error: 'Firebase 설정이 올바르지 않습니다. firebase.config.js 파일을 확인하세요.' 
+                error: 'Firebase 설정이 올바르지 않습니다.' 
             };
         }
         
