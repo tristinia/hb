@@ -188,7 +188,9 @@ const CategoryManager = (() => {
      */
     async function loadCategories() {
         try {
-            const response = await fetch('../../data/categories.json');
+            // 상대 경로로 카테고리 데이터 로드 시도
+            const categoriesPath = 'data/categories.json';
+            const response = await fetch(categoriesPath);
             
             if (!response.ok) {
                 throw new Error(`카테고리 데이터 로드 실패: ${response.status}`);
@@ -210,7 +212,32 @@ const CategoryManager = (() => {
             renderMainCategories();
         } catch (error) {
             console.error('카테고리 로드 중 오류 발생:', error);
-            showCategoryLoadError();
+            
+            // 대체 경로 시도
+            try {
+                const altPath = './data/categories.json';
+                const altResponse = await fetch(altPath);
+                
+                if (!altResponse.ok) {
+                    throw new Error(`대체 경로 카테고리 데이터 로드 실패: ${altResponse.status}`);
+                }
+                
+                // JSON 데이터 파싱
+                const data = await altResponse.json();
+                
+                // 카테고리 데이터 설정
+                state.mainCategories = data.mainCategories || [];
+                state.subCategories = data.categories || [];
+                state.isLoaded = true;
+                
+                console.log('대체 경로에서 카테고리 데이터 로드 성공');
+                
+                // 카테고리 초기화
+                renderMainCategories();
+            } catch (altError) {
+                console.error('모든 카테고리 로드 시도 실패:', altError);
+                showCategoryLoadError();
+            }
         }
     }
     
