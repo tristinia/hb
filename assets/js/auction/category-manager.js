@@ -189,7 +189,7 @@ const CategoryManager = (() => {
     async function loadCategories() {
         try {
             // 상대 경로로 카테고리 데이터 로드 시도
-            const categoriesPath = '../../../data/categories.json';
+            const categoriesPath = '../../data/categories.json';
             const response = await fetch(categoriesPath);
             
             if (!response.ok) {
