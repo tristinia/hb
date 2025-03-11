@@ -167,8 +167,8 @@ const FilterManager = (() => {
         const safeCategoryId = sanitizeFileName(subCategoryId);
         
         const paths = [
-            '../../../data/option_structure/' + safeCategoryId + '.json',
-            '../../../data/option_structure/' + safeCategoryId + '.json'
+            '../../data/option_structure/' + safeCategoryId + '.json',
+            '../../data/option_structure/' + safeCategoryId + '.json'
         ];
         
         // AbortController로 타임아웃 처리
