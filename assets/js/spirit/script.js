@@ -53,7 +53,7 @@ const pageConfig = {
         buttonText: '이펙트 변경 카드',
         title: '이펙트 변경 카드',
         dataPath: '../../data/web/effectCard.json',
-        imagePath: '../../image/effectCard''
+        imagePath: '../../image/effectCard'
     },
     'titleEffect': {
         buttonText: '2차 타이틀',
