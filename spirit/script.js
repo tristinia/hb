@@ -1,6 +1,7 @@
 /**
  * 마비노기 정령 형상변환 리큐르 & 부가 효과 뷰어
  * 작성자: WF신의컨트롤
+ * 최적화 버전
  */
 
 // 데이터 및 상태 변수
@@ -12,9 +13,6 @@ let currentOffset = 0; // 무한 스크롤 오프셋
 const ITEMS_PER_PAGE = 20; // 한 번에 로드할 항목 수
 let latestUpdateDate = ''; // 최신 업데이트 날짜
 let currentPage = 'liqueur'; // 현재 페이지 (기본값: liqueur)
-
-// 이미 로드된 비디오 URL을 저장하는 Set (캐싱)
-const loadedVideos = new Set();
 
 // 색상 정의 - 순서대로 정렬
 const colors = [
@@ -45,20 +43,20 @@ const pageConfig = {
     'liqueur': {
         buttonText: '정령 형변',
         title: '정령 형상변환 리큐르',
-        dataPath: 'data/web/spiritLiqueur.json',
-        imagePath: 'image/spiritLiqueur'   // 이미지 경로 추가
+        dataPath: '/data/web/spiritLiqueur.json',
+        imagePath: '/image/spiritLiqueur'   // 절대 경로로 수정
     },
     'effectCard': {
         buttonText: '이펙트 변경 카드',
         title: '이펙트 변경 카드',
-        dataPath: 'data/web/effectCard.json',
-        imagePath: 'image/effectCard'      // 이미지 경로 추가
+        dataPath: '/data/web/effectCard.json',
+        imagePath: '/image/effectCard'      // 절대 경로로 수정
     },
     'titleEffect': {
         buttonText: '2차 타이틀',
         title: '2차 타이틀 이펙트',
-        dataPath: 'data/web/titleEffect.json',
-        imagePath: 'image/titleEffect'     // 이미지 경로 추가
+        dataPath: '/data/web/titleEffect.json',
+        imagePath: '/image/titleEffect'     // 절대 경로로 수정
     }
 };
 
@@ -69,7 +67,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 초기 페이지 제목 설정
     document.querySelector('h1').textContent = pageConfig[currentPage].title;
-    document.querySelector('.sticky-title').textContent = pageConfig[currentPage].title;
+    const stickyTitle = document.querySelector('.sticky-title');
+    if (stickyTitle) {
+        stickyTitle.textContent = pageConfig[currentPage].title;
+    }
     
     loadData(currentPage);
     setupEventListeners();
@@ -113,8 +114,15 @@ function setupNavigation() {
                 loadData(currentPage);
                 
                 // 페이지 타이틀 업데이트 - 여기에서 title 속성 사용
-                document.querySelector('h1').textContent = pageConfig[pageKey].title;
-                document.querySelector('.sticky-title').textContent = pageConfig[pageKey].title;
+                const header = document.querySelector('h1');
+                if (header) {
+                    header.textContent = pageConfig[pageKey].title;
+                }
+                
+                const stickyTitle = document.querySelector('.sticky-title');
+                if (stickyTitle) {
+                    stickyTitle.textContent = pageConfig[pageKey].title;
+                }
             }
         });
         
@@ -125,7 +133,9 @@ function setupNavigation() {
     
     // 헤더 앞에 삽입
     const header = document.querySelector('header');
-    document.body.insertBefore(navContainer, header);
+    if (header) {
+        document.body.insertBefore(navContainer, header);
+    }
 }
 
 // 필터 초기화
@@ -161,6 +171,11 @@ function resetFilters() {
 
 // 스크롤 시 헤더 고정
 function setupSticky() {
+    // 이미 존재하는지 확인
+    if (document.querySelector('.sticky-header')) {
+        return;
+    }
+    
     // 스티키 헤더 생성
     const stickyHeader = document.createElement('div');
     stickyHeader.className = 'sticky-header';
@@ -172,6 +187,8 @@ function setupSticky() {
     // 스크롤 이벤트 리스너
     window.addEventListener('scroll', () => {
         const header = document.querySelector('header');
+        if (!header) return;
+        
         const headerBottom = header.getBoundingClientRect().bottom;
         
         if (headerBottom <= 0) {
@@ -201,6 +218,11 @@ function addFooter() {
 
 // JSON 파일 로드
 async function loadData(page) {
+    if (!pageConfig[page]) {
+        console.error(`유효하지 않은 페이지: ${page}`);
+        return;
+    }
+    
     try {
         showLoading(true);
         
@@ -209,7 +231,9 @@ async function loadData(page) {
         
         // 카드 컨테이너 비우기
         const container = document.getElementById('card-container');
-        container.innerHTML = '';
+        if (container) {
+            container.innerHTML = '';
+        }
         
         // 세트 필터 비우기
         const setFilter = document.getElementById('setFilter');
@@ -219,7 +243,13 @@ async function loadData(page) {
         
         // 데이터 로드
         const dataPath = pageConfig[page].dataPath;
+        console.log(`데이터 로드 중: ${dataPath}`);
+        
         const response = await fetch(dataPath);
+        if (!response.ok) {
+            throw new Error(`데이터 로드 실패: ${response.status} ${response.statusText}`);
+        }
+        
         effectsData = await response.json();
         
         // 최신 날짜 찾기
@@ -260,7 +290,9 @@ async function loadData(page) {
         
         // 오류 메시지 표시
         const container = document.getElementById('card-container');
-        container.innerHTML = `<div class="error-message">데이터를 불러오는 데 실패했습니다.</div>`;
+        if (container) {
+            container.innerHTML = `<div class="error-message">데이터를 불러오는 데 실패했습니다: ${error.message}</div>`;
+        }
         
         // 오류가 발생해도 푸터는 추가
         addFooter();
@@ -271,8 +303,14 @@ async function loadData(page) {
 function findLatestUpdateDate() {
     let latestDate = '';
     
+    if (!Array.isArray(effectsData)) {
+        console.warn('효과 데이터가 배열이 아닙니다');
+        latestUpdateDate = '날짜 정보 없음';
+        return;
+    }
+    
     effectsData.forEach(effect => {
-        if (effect.releaseDate && effect.releaseDate > latestDate) {
+        if (effect && effect.releaseDate && effect.releaseDate > latestDate) {
             latestDate = effect.releaseDate;
         }
     });
@@ -285,11 +323,31 @@ function findLatestUpdateDate() {
     }
 }
 
-// 로딩 상태 표시
-function showLoading(isLoading) {
+// 로딩 상태 표시 - 개선된 버전
+function showLoading(isLoadingState) {
+    isLoading = isLoadingState;
     const container = document.getElementById('card-container');
-    if (isLoading) {
+    if (!container) return;
+    
+    // 기존 로딩 인디케이터 제거
+    const existingIndicator = document.getElementById('loading-indicator');
+    if (existingIndicator) {
+        existingIndicator.remove();
+    }
+    
+    if (isLoadingState) {
+        // 로딩 상태 시각화 개선
         container.style.opacity = '0.7';
+        
+        // 로딩 인디케이터 추가
+        const loadingIndicator = document.createElement('div');
+        loadingIndicator.id = 'loading-indicator';
+        loadingIndicator.className = 'loading-indicator';
+        loadingIndicator.innerHTML = `
+            <div class="spinner"></div>
+            <p>데이터를 불러오는 중...</p>
+        `;
+        container.appendChild(loadingIndicator);
     } else {
         container.style.opacity = '1';
     }
@@ -300,6 +358,8 @@ function renderNextBatch() {
     if (isLoading || currentOffset >= filteredData.length) return;
     
     const container = document.getElementById('card-container');
+    if (!container) return;
+    
     const itemsToRender = Math.min(ITEMS_PER_PAGE, filteredData.length - currentOffset);
     
     if (itemsToRender <= 0) {
@@ -320,6 +380,7 @@ function renderNextBatch() {
     // 카드 생성
     for (let i = 0; i < itemsToRender; i++) {
         const effect = filteredData[currentOffset + i];
+        if (!effect) continue; // 유효하지 않은 효과 건너뛰기
         
         // 카드 생성
         const card = createCard(effect);
@@ -376,58 +437,69 @@ function scrollHandler() {
     }, 200); // 200ms 디바운스
 }
 
-// 이벤트 리스너 설정
+// 이벤트 리스너 설정 - 이벤트 위임 패턴 적용
 function setupEventListeners() {
     // 제목 클릭 시 상단으로 스크롤
-    document.querySelector('h1').addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
+    const pageTitle = document.querySelector('h1');
+    if (pageTitle) {
+        pageTitle.addEventListener('click', scrollToTop);
+    }
     
     // 스티키 헤더 제목 클릭 시 상단으로 스크롤
-    document.querySelector('.sticky-title').addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
+    const stickyTitle = document.querySelector('.sticky-title');
+    if (stickyTitle) {
+        stickyTitle.addEventListener('click', scrollToTop);
+    }
     
     // 검색창 이벤트
     const searchInput = document.getElementById('search');
-    searchInput.placeholder = "검색"; // 검색 텍스트로 변경
-    
-    searchInput.addEventListener('input', debounce(() => {
-        applyFilters();
-    }, 300));
+    if (searchInput) {
+        searchInput.placeholder = "검색"; // 검색 텍스트로 변경
+        searchInput.addEventListener('input', debounce(() => {
+            applyFilters();
+        }, 300));
+    }
     
     // 무한 지속 필터 이벤트
-    document.getElementById('loopFilter').addEventListener('click', () => {
-        loopFilterActive = !loopFilterActive;
-        document.getElementById('loopFilter').classList.toggle('active', loopFilterActive);
-        applyFilters();
-    });
+    const loopFilter = document.getElementById('loopFilter');
+    if (loopFilter) {
+        loopFilter.addEventListener('click', () => {
+            loopFilterActive = !loopFilterActive;
+            loopFilter.classList.toggle('active', loopFilterActive);
+            applyFilters();
+        });
+    }
     
     // 세트 필터 이벤트
     const setFilter = document.getElementById('setFilter');
-    setFilter.addEventListener('change', (e) => {
-        selectedSet = e.target.value;
-        
-        // 선택된 경우 클래스 추가
-        if (selectedSet) {
-            setFilter.classList.add('selected');
-        } else {
-            setFilter.classList.remove('selected');
-        }
-        
-        applyFilters();
-    });
+    if (setFilter) {
+        setFilter.addEventListener('change', (e) => {
+            selectedSet = e.target.value;
+            
+            // 선택된 경우 클래스 추가
+            if (selectedSet) {
+                setFilter.classList.add('selected');
+            } else {
+                setFilter.classList.remove('selected');
+            }
+            
+            applyFilters();
+        });
+    }
     
-    // iOS 모달창 외부 터치 문제 해결을 위한 이벤트 처리
+    // 모달 이벤트 설정 - 이벤트 위임으로 최적화
+    setupModalEvents();
+    
+    // 스크롤 이벤트 설정
+    setupScrollListener();
+}
+
+// 모달 이벤트 설정
+function setupModalEvents() {
     const modal = document.getElementById('modal');
+    if (!modal) return;
     
-    // 클릭 이벤트 (PC)
+    // 모달 전체에 클릭 이벤트 (외부 클릭 감지)
     modal.addEventListener('click', (event) => {
         if (event.target === modal) {
             closeModal();
@@ -451,9 +523,14 @@ function setupEventListeners() {
             closeModal();
         }
     });
-    
-    // 스크롤 이벤트 설정
-    setupScrollListener();
+}
+
+// 페이지 상단으로 스크롤
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 }
 
 // 디바운스 함수 (연속 호출 방지)
@@ -470,6 +547,8 @@ function debounce(func, wait) {
 
 // 모달 열기 함수
 function openModal(effect) {
+    if (!effect) return; // 유효하지 않은 효과 처리
+    
     const modal = document.getElementById('modal');
     const modalContent = modal.querySelector('.modal-content');
     const modalMediaContainer = document.getElementById('modalMediaContainer');
@@ -592,12 +671,15 @@ function openModal(effect) {
 // 모달 닫기 함수
 function closeModal() {
     const modal = document.getElementById('modal');
+    if (!modal) return;
+    
     const modalContent = modal.querySelector('.modal-content');
     const modalVideo = document.querySelector('.modal-video');
     
     // 비디오 정지
     if (modalVideo) {
         modalVideo.pause();
+        currentlyPlayingVideos.delete(modalVideo);
     }
     
     // 콘텐츠 먼저 페이드 아웃
@@ -618,9 +700,10 @@ function closeModal() {
     }, 200);
 }
 
-// 색상 필터 버튼 생성
+// 색상 필터 버튼 생성 - 이벤트 위임 적용
 function createColorFilters() {
     const colorFiltersContainer = document.getElementById('colorFilters');
+    if (!colorFiltersContainer) return;
     
     // 두 행으로 나누기
     const basicColorsDiv = document.createElement('div');
@@ -634,6 +717,7 @@ function createColorFilters() {
         const colorBtn = document.createElement('div');
         colorBtn.className = 'color-filter';
         colorBtn.style.backgroundColor = color.code;
+        colorBtn.dataset.index = index; // 인덱스를 데이터 속성으로 저장
         
         // 검은색과 하얀색에는 테두리 강화
         if (color.name === '하얀색') {
@@ -643,25 +727,6 @@ function createColorFilters() {
         }
         
         colorBtn.title = color.name;
-        
-        // 클릭 이벤트
-        colorBtn.addEventListener('click', () => {
-            colors[index].isActive = !colors[index].isActive;
-            
-            // 모든 버튼이 활성화되면 모두 비활성화
-            if (colors.every(c => c.isActive)) {
-                colors.forEach(c => c.isActive = false);
-            }
-            
-            // UI 업데이트
-            updateColorFilterUI();
-            
-            // 활성화된 색상 필터 업데이트
-            activeColorFilters = colors.filter(c => c.isActive).map(c => c.name);
-            
-            // 필터링 적용
-            applyFilters();
-        });
         
         // 그룹에 따라 추가
         if (color.group === 'basic') {
@@ -674,19 +739,49 @@ function createColorFilters() {
     // 컨테이너에 추가
     colorFiltersContainer.appendChild(basicColorsDiv);
     colorFiltersContainer.appendChild(otherColorsDiv);
+    
+    // 이벤트 위임으로 클릭 이벤트 처리
+    colorFiltersContainer.addEventListener('click', (e) => {
+        const colorBtn = e.target.closest('.color-filter');
+        if (!colorBtn) return;
+        
+        const index = parseInt(colorBtn.dataset.index);
+        if (isNaN(index) || index < 0 || index >= colors.length) return;
+        
+        // 색상 토글
+        colors[index].isActive = !colors[index].isActive;
+        
+        // 모든 버튼이 활성화되면 모두 비활성화
+        if (colors.every(c => c.isActive)) {
+            colors.forEach(c => c.isActive = false);
+        }
+        
+        // UI 업데이트
+        updateColorFilterUI();
+        
+        // 활성화된 색상 필터 업데이트
+        activeColorFilters = colors.filter(c => c.isActive).map(c => c.name);
+        
+        // 필터링 적용
+        applyFilters();
+    });
 }
 
 // 세트 필터 옵션 채우기
 function populateSetOptions() {
     const setFilter = document.getElementById('setFilter');
+    if (!setFilter) return;
+    
     const sets = new Set();
     
     // 세트 이름 수집
-    effectsData.forEach(effect => {
-        if (effect.set && effect.set.trim() !== '') {
-            sets.add(effect.set);
-        }
-    });
+    if (Array.isArray(effectsData)) {
+        effectsData.forEach(effect => {
+            if (effect && effect.set && effect.set.trim() !== '') {
+                sets.add(effect.set);
+            }
+        });
+    }
     
     // 세트 옵션 추가 (가나다순 정렬)
     Array.from(sets).sort((a, b) => a.localeCompare(b, 'ko')).forEach(set => {
@@ -701,8 +796,10 @@ function populateSetOptions() {
 function updateColorFilterUI() {
     const colorFilters = document.querySelectorAll('.color-filter');
     if (colorFilters.length > 0) {
-        colors.forEach((color, index) => {
-            colorFilters[index].classList.toggle('active', color.isActive);
+        colorFilters.forEach((filter, index) => {
+            if (index < colors.length) {
+                filter.classList.toggle('active', colors[index].isActive);
+            }
         });
     }
 }
@@ -713,9 +810,17 @@ function applyFilters() {
     stopAllVideos();
     
     // 필터링 실행
-    const searchText = document.getElementById('search').value.toLowerCase();
+    const searchText = document.getElementById('search')?.value?.toLowerCase() || '';
+    
+    // 원본 데이터가 유효한지 확인
+    if (!Array.isArray(effectsData)) {
+        console.error('유효하지 않은 데이터 형식:', effectsData);
+        return;
+    }
     
     const newFilteredData = effectsData.filter(effect => {
+        if (!effect) return false;
+        
         // 검색어 필터
         const nameMatch = effect.name && effect.name.toLowerCase().includes(searchText);
         
@@ -743,6 +848,8 @@ function applyFilters() {
     
     // 컨테이너 페이드 아웃
     const container = document.getElementById('card-container');
+    if (!container) return;
+    
     container.style.transition = 'opacity 0.2s ease';
     container.style.opacity = '0';
     
@@ -772,16 +879,22 @@ function applyFilters() {
 // 모든 재생 중인 비디오 정지
 function stopAllVideos() {
     currentlyPlayingVideos.forEach(videoEl => {
-        if (!videoEl.paused) {
-            videoEl.pause();
-            videoEl.currentTime = 0;
+        try {
+            if (videoEl && !videoEl.paused) {
+                videoEl.pause();
+                videoEl.currentTime = 0;
+            }
+        } catch (e) {
+            console.warn('비디오 정지 중 오류:', e);
         }
     });
     currentlyPlayingVideos.clear();
 }
 
-// 개별 카드 생성 - webp 이미지 사용하도록 수정
+// 개별 카드 생성 - 안전한 이미지 처리
 function createCard(effect) {
+    if (!effect) return document.createElement('div'); // 유효하지 않은 효과 처리
+    
     const card = document.createElement('div');
     card.className = 'card';
     
@@ -791,8 +904,11 @@ function createCard(effect) {
     if (effect.color2) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color2)}" title="${effect.color2}"></div>`);
     if (effect.color3) colorsHTML.push(`<div class="color-dot" style="background-color: ${getColorCode(effect.color3)}" title="${effect.color3}"></div>`);
     
+    // 안전한 이름 가져오기 (null/undefined 방지)
+    const safeName = effect.name || '이름 없음';
+    
     // 이미지 경로 생성 (webp 이미지 사용)
-    const imagePath = `${pageConfig[currentPage].imagePath}/${effect.name}.webp`;
+    const imagePath = `${pageConfig[currentPage].imagePath}/${safeName}.webp`;
     
     // 카드 HTML 생성 (기본적으로 '이미지 없음' 표시)
     card.innerHTML = `
@@ -803,7 +919,7 @@ function createCard(effect) {
             <div class="card-colors">
                 ${colorsHTML.join('')}
             </div>
-            <div class="card-title">${effect.name}</div>
+            <div class="card-title">${safeName}</div>
         </div>
     `;
     
@@ -813,7 +929,7 @@ function createCard(effect) {
         // 이미지 로드 성공하면 이미지로 교체
         const videoContainer = card.querySelector('.card-video-container');
         if (videoContainer) {
-            videoContainer.innerHTML = `<img class="card-image" src="${imagePath}" alt="${effect.name}">`;
+            videoContainer.innerHTML = `<img class="card-image" src="${imagePath}" alt="${safeName}">`;
         }
     };
     img.onerror = () => {
@@ -821,7 +937,7 @@ function createCard(effect) {
         if (effect.videoLink && effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
             const videoContainer = card.querySelector('.card-video-container');
             if (videoContainer) {
-                videoContainer.innerHTML = `<img class="card-image" src="${effect.videoLink}" alt="${effect.name}">`;
+                videoContainer.innerHTML = `<img class="card-image" src="${effect.videoLink}" alt="${safeName}">`;
             }
         }
         // 이미지도 실패하면 "이미지 없음" 유지 (이미 설정됨)
@@ -848,6 +964,8 @@ function formatDate(dateString) {
 
 // 색상 이름에 따른 컬러 코드 반환
 function getColorCode(colorName) {
+    if (!colorName) return '#cccccc';
+    
     const colorMap = {
         '하얀색': '#ffffff',
         '검은색': '#000000',
@@ -868,6 +986,9 @@ function getColorCode(colorName) {
 
 // 통계 업데이트
 function updateStats() {
-    document.getElementById('totalCount').textContent = effectsData.length;
-    document.getElementById('filteredCount').textContent = filteredData.length;
+    const totalCount = Array.isArray(effectsData) ? effectsData.length : 0;
+    const filteredCount = Array.isArray(filteredData) ? filteredData.length : 0;
+    
+    document.getElementById('totalCount').textContent = totalCount;
+    document.getElementById('filteredCount').textContent = filteredCount;
 }
