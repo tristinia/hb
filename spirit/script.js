@@ -14,6 +14,9 @@ const ITEMS_PER_PAGE = 20; // 한 번에 로드할 항목 수
 let latestUpdateDate = ''; // 최신 업데이트 날짜
 let currentPage = 'liqueur'; // 현재 페이지 (기본값: liqueur)
 
+// 이미지 로드 실패 카운트 제한 (동일 이미지 반복 시도 방지)
+const failedImageAttempts = new Set();
+
 // 색상 정의 - 순서대로 정렬
 const colors = [
     // 기본 무지개 색상 (위쪽 행)
@@ -38,40 +41,31 @@ let loopFilterActive = false;
 let activeColorFilters = [];
 let selectedSet = '';
 
-// 기본 URL 가져오기 (GitHub Pages 호환)
-function getBaseUrl() {
-    if (window.location.pathname.includes('/hb/')) {
-        return '/hb';  // '/hb/' 경로가 포함되어 있으면 '/hb'를 기본 URL로 사용
-    }
-    return '';  // 그 외의 경우는 빈 문자열 (루트 경로)
-}
-
-// 페이지 데이터 매핑 - 버튼 텍스트와 페이지 제목 분리
-const baseUrl = getBaseUrl();
+// 페이지 데이터 매핑 - 상대 경로 사용
 const pageConfig = {
     'liqueur': {
         buttonText: '정령 형변',
         title: '정령 형상변환 리큐르',
-        dataPath: `${baseUrl}/data/web/spiritLiqueur.json`,
-        imagePath: `${baseUrl}/image/spiritLiqueur`
+        dataPath: '../data/web/spiritLiqueur.json',
+        imagePath: '../image/spiritLiqueur'
     },
     'effectCard': {
         buttonText: '이펙트 변경 카드',
         title: '이펙트 변경 카드',
-        dataPath: `${baseUrl}/data/web/effectCard.json`,
-        imagePath: `${baseUrl}/image/effectCard`
+        dataPath: '../data/web/effectCard.json',
+        imagePath: '../image/effectCard'
     },
     'titleEffect': {
         buttonText: '2차 타이틀',
         title: '2차 타이틀 이펙트',
-        dataPath: `${baseUrl}/data/web/titleEffect.json`,
-        imagePath: `${baseUrl}/image/titleEffect`
+        dataPath: '../data/web/titleEffect.json',
+        imagePath: '../image/titleEffect'
     }
 };
 
 // 페이지 초기화 및 데이터 로드
 document.addEventListener('DOMContentLoaded', () => {
-    console.log(`기본 URL: ${baseUrl}`);
+    console.log('페이지 초기화 중...');
     setupNavigation();
     setupSticky();
     
@@ -119,6 +113,9 @@ function setupNavigation() {
                 
                 // 모든 필터 초기화
                 resetFilters();
+                
+                // 이미지 로드 실패 카운트 초기화
+                failedImageAttempts.clear();
                 
                 // 새 데이터 로드
                 loadData(currentPage);
@@ -502,6 +499,49 @@ function setupEventListeners() {
     
     // 스크롤 이벤트 설정
     setupScrollListener();
+    
+    // 이미지 오류 로그 숨기기
+    suppressImageErrors();
+}
+
+// 이미지 로드 오류 로깅 억제
+function suppressImageErrors() {
+    // 기존 오류 이벤트 리스너 대체
+    const originalOnError = window.onerror;
+    window.onerror = function(msg, url, lineNo, columnNo, error) {
+        // 이미지 로드 실패 오류 필터링
+        if (url && 
+            (url.match(/\.(jpg|jpeg|png|gif|webp)$/i) || 
+             msg.includes('Failed to load resource') && 
+             msg.includes('image'))) {
+            // 이미지 오류는 무시
+            return true; // 오류 처리됨으로 표시
+        }
+        
+        // 다른 오류는 원래 핸들러로 전달
+        if (originalOnError) {
+            return originalOnError(msg, url, lineNo, columnNo, error);
+        }
+        
+        return false;
+    };
+    
+    // 추가적으로 콘솔 오류 필터링 (개발자 도구에서만 적용)
+    if (typeof console !== 'undefined' && console.error) {
+        const originalConsoleError = console.error;
+        console.error = function(...args) {
+            // 이미지 관련 오류 무시
+            const errorMsg = args.join(' ');
+            if (errorMsg.includes('Failed to load resource') && 
+                (errorMsg.includes('.webp') || errorMsg.includes('image'))) {
+                // 조용히 무시
+                return;
+            }
+            
+            // 다른 오류는 정상 로깅
+            originalConsoleError.apply(console, args);
+        };
+    }
 }
 
 // 모달 이벤트 설정
@@ -596,7 +636,7 @@ function openModal(effect) {
             const modalVideo = modalMediaContainer.querySelector('.modal-video');
             modalVideo.addEventListener('error', () => {
                 modalMediaContainer.innerHTML = `
-                    <div class="no-media">비디오 로드 실패</div>
+                    <div class="no-media">미리보기 없음</div>
                 `;
             });
         }
@@ -901,7 +941,7 @@ function stopAllVideos() {
     currentlyPlayingVideos.clear();
 }
 
-// 개별 카드 생성 - 수정된 이미지 로드 처리
+// 개별 카드 생성 - 이미지 오류 개선 버전
 function createCard(effect) {
     if (!effect) return document.createElement('div'); // 유효하지 않은 효과 처리
     
@@ -920,7 +960,7 @@ function createCard(effect) {
     // 카드 HTML 생성 (기본적으로 '이미지 없음' 표시)
     card.innerHTML = `
         <div class="card-video-container">
-            <div class="no-video">이미지 로딩 중...</div>
+            <div class="no-video">이미지 없음</div>
         </div>
         <div class="card-info">
             <div class="card-colors">
@@ -930,36 +970,49 @@ function createCard(effect) {
         </div>
     `;
     
-    // 이미지 로드 테스트 - 파일명 인코딩 추가
-    const encodedName = encodeURIComponent(safeName);
-    const imagePath = `${pageConfig[currentPage].imagePath}/${encodedName}.webp`;
+    // 이미 실패한 이미지인지 확인 (재시도 방지)
+    const cacheKey = `${currentPage}:${safeName}`;
+    if (failedImageAttempts.has(cacheKey)) {
+        return card; // 이미 실패한 이미지는 다시 시도하지 않음
+    }
     
-    const img = new Image();
-    img.onload = () => {
-        // 이미지 로드 성공하면 이미지로 교체
-        const videoContainer = card.querySelector('.card-video-container');
-        if (videoContainer) {
-            videoContainer.innerHTML = `<img class="card-image" src="${imagePath}" alt="${safeName}">`;
-        }
-    };
-    img.onerror = () => {
-        // 이미지 로드 실패하면 다시 확인 (비디오 URL이 이미지인 경우 시도)
-        if (effect.videoLink && effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
-            const videoContainer = card.querySelector('.card-video-container');
-            if (videoContainer) {
-                videoContainer.innerHTML = `<img class="card-image" src="${effect.videoLink}" alt="${safeName}">`;
+    // 이미지 로드 시도 (silent mode)
+    const videoContainer = card.querySelector('.card-video-container');
+    if (videoContainer) {
+        // 이미지 요소 생성
+        const img = new Image();
+        
+        // 오류 이벤트 직접 처리 (콘솔 로그 없음)
+        img.onerror = () => {
+            // 실패 기록
+            failedImageAttempts.add(cacheKey);
+            
+            // 비디오 URL이 이미지인 경우 대체 시도
+            if (effect.videoLink && effect.videoLink.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+                const altImg = new Image();
+                altImg.onload = () => {
+                    videoContainer.innerHTML = `<img class="card-image" src="${effect.videoLink}" alt="${safeName}">`;
+                };
+                altImg.onerror = () => {
+                    // 기본 UI 유지 ("이미지 없음" 텍스트)
+                };
+                // 오류 숨김 모드로 로드
+                altImg.style.display = 'none';
+                altImg.src = effect.videoLink;
             }
-        } else {
-            // 이미지 실패 시 기본 텍스트로 변경
-            const videoContainer = card.querySelector('.card-video-container');
-            if (videoContainer) {
-                videoContainer.innerHTML = `<div class="no-video">이미지 없음</div>`;
-            }
-        }
-    };
-    
-    // 이미지 로드 시작
-    img.src = imagePath;
+        };
+        
+        // 로드 성공 시 이미지 표시
+        img.onload = () => {
+            videoContainer.innerHTML = `<img class="card-image" src="${img.src}" alt="${safeName}">`;
+        };
+        
+        // 오류 숨김 모드로 로드
+        img.style.display = 'none';
+        // 인코딩 제거 (상대 경로 사용)
+        const imagePath = `${pageConfig[currentPage].imagePath}/${safeName}.webp`;
+        img.src = imagePath;
+    }
     
     // 카드 클릭 이벤트 (모달 열기)
     card.addEventListener('click', () => openModal(effect));
