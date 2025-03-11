@@ -7,17 +7,6 @@ const ApiClient = (() => {
     // Firebase 초기화
     initFirebase();
     
-    // Firebase Functions URL 설정
-    // window.FIREBASE_CONFIG에서 프로젝트 ID 가져오기
-    const projectId = window.FIREBASE_CONFIG?.projectId || '';
-    const API_BASE = `https://us-central1-${projectId}.cloudfunctions.net`;
-    
-    // Firebase Functions 엔드포인트
-    const FIREBASE_FUNCTIONS = {
-        SEARCH_KEYWORD: `${API_BASE}/searchByKeyword`,
-        SEARCH_CATEGORY: `${API_BASE}/searchByCategory`
-    };
-    
     // API 호출 상태
     const state = {
         isLoading: false,
@@ -42,7 +31,7 @@ const ApiClient = (() => {
             
             // 설정 확인
             if (!window.FIREBASE_CONFIG || !window.FIREBASE_CONFIG.projectId) {
-                console.warn('Firebase 설정이 없거나 불완전합니다. js/firebase.config.js 파일을 확인하세요.');
+                console.warn('Firebase 설정이 없습니다. firebase.config.js 파일을 확인하세요.');
             } else {
                 console.log('Firebase 초기화 완료');
             }
@@ -74,10 +63,11 @@ const ApiClient = (() => {
         }
         
         // 프로젝트 ID 확인
+        const projectId = window.FIREBASE_CONFIG?.projectId;
         if (!projectId) {
             return { 
                 items: [], 
-                error: 'Firebase 설정이 올바르지 않습니다. js/firebase.config.js 파일을 확인하세요.' 
+                error: 'Firebase 설정이 올바르지 않습니다. firebase.config.js 파일을 확인하세요.' 
             };
         }
         
@@ -85,7 +75,7 @@ const ApiClient = (() => {
             setLoading(true);
             state.lastQuery = { type: 'keyword', keyword };
             
-            const url = `${FIREBASE_FUNCTIONS.SEARCH_KEYWORD}?keyword=${encodeURIComponent(keyword)}`;
+            const url = `https://us-central1-${projectId}.cloudfunctions.net/searchByKeyword?keyword=${encodeURIComponent(keyword)}`;
             console.log("API 호출 중...");
             
             const response = await fetch(url);
@@ -125,10 +115,11 @@ const ApiClient = (() => {
         }
         
         // 프로젝트 ID 확인
+        const projectId = window.FIREBASE_CONFIG?.projectId;
         if (!projectId) {
             return { 
                 items: [], 
-                error: 'Firebase 설정이 올바르지 않습니다. js/firebase.config.js 파일을 확인하세요.' 
+                error: 'Firebase 설정이 올바르지 않습니다. firebase.config.js 파일을 확인하세요.' 
             };
         }
         
@@ -142,7 +133,7 @@ const ApiClient = (() => {
             };
             
             // URL 구성 - 소분류가 실제 API 카테고리
-            let url = `${FIREBASE_FUNCTIONS.SEARCH_CATEGORY}?subCategory=${encodeURIComponent(subCategory)}`;
+            let url = `https://us-central1-${projectId}.cloudfunctions.net/searchByCategory?subCategory=${encodeURIComponent(subCategory)}`;
             
             // 대분류도 함께 전달 (UI 표시용)
             if (mainCategory) {
