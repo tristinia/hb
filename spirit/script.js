@@ -43,20 +43,20 @@ const pageConfig = {
     'liqueur': {
         buttonText: '정령 형변',
         title: '정령 형상변환 리큐르',
-        dataPath: '/data/web/spiritLiqueur.json',
-        imagePath: '/image/spiritLiqueur'   // 절대 경로로 수정
+        dataPath: '../data/web/spiritLiqueur.json',
+        imagePath: '../image/spiritLiqueur'   // 절대 경로로 수정
     },
     'effectCard': {
         buttonText: '이펙트 변경 카드',
         title: '이펙트 변경 카드',
-        dataPath: '/data/web/effectCard.json',
-        imagePath: '/image/effectCard'      // 절대 경로로 수정
+        dataPath: '../data/web/effectCard.json',
+        imagePath: '../image/effectCard'      // 절대 경로로 수정
     },
     'titleEffect': {
         buttonText: '2차 타이틀',
         title: '2차 타이틀 이펙트',
-        dataPath: '/data/web/titleEffect.json',
-        imagePath: '/image/titleEffect'     // 절대 경로로 수정
+        dataPath: '../data/web/titleEffect.json',
+        imagePath: '../image/titleEffect'     // 절대 경로로 수정
     }
 };
 
