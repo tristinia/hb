@@ -20,35 +20,30 @@ const App = {
         this.setupEventListeners();
         
         console.log('초기화 완료');
-        // 추가 최적화 기능 초기화
-    try {
-        // 다크 모드 초기화
-        if (typeof ThemeManager !== 'undefined') {
-            ThemeManager.init();
+        // 추가 최적화 기능 초기화 (간소화 버전)
+        try {
+            // 다크 모드 초기화
+            if (typeof ThemeManager !== 'undefined') {
+                ThemeManager.init();
+            }
+            
+            // URL 상태 관리자 초기화
+            if (typeof StateManager !== 'undefined') {
+                const state = StateManager.restoreFromUrl();
+                
+                // URL 파라미터가 있는 경우 관련 설정 적용
+                if (state.searchTerm) {
+                    SearchManager.setSearchTerm(state.searchTerm);
+                }
+                
+                // 여기에 더 많은 상태 복원 로직을 추가할 수 있음...
+            }
+            
+            console.log('추가 최적화 기능 초기화 완료');
+        } catch (error) {
+            console.warn('추가 기능 초기화 중 오류:', error);
+            // 오류가 발생해도 앱 작동에 영향 없음
         }
-        
-        // IndexedDB 캐싱 초기화
-        if (typeof DataCache !== 'undefined') {
-            DataCache.init().catch(err => console.warn('캐시 초기화 실패:', err));
-        }
-        
-        // 웹 워커 초기화
-        if (typeof WorkerManager !== 'undefined') {
-            WorkerManager.init();
-        }
-        
-        // 상태 관리자 초기화 (URL 파라미터 처리)
-        if (typeof StateManager !== 'undefined') {
-            const state = StateManager.restoreFromUrl();
-            // 상태 복원 로직은 여기에 구현 가능
-        }
-        
-        console.log('추가 최적화 기능 초기화 완료');
-    } catch (error) {
-        console.warn('추가 기능 초기화 중 오류:', error);
-        // 오류가 발생해도 앱 작동에 영향 없음
-    }
-}
     },
     
     // 글로벌 이벤트 리스너 설정
