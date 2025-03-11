@@ -357,12 +357,12 @@ const SearchManager = (() => {
             // 카테고리 ID 안전하게 변환
             const safeCategoryId = sanitizeFileName(category.id);
             
-            // 동적 로딩 경로 (절대 및 상대 경로 시도)
+            // 동적 로딩 경로
             const paths = [
-                `../../../data/items/${safeCategoryId}.json`,
-                `../../../data/items/${safeCategoryId}.json`,
-                `../../../data/items/${safeCategoryId}.json`,
-                `../../../data/items/${safeCategoryId}.json`
+                `../../data/items/${safeCategoryId}.json`,
+                `../../data/items/${safeCategoryId}.json`,
+                `../../data/items/${safeCategoryId}.json`,
+                `../../data/items/${safeCategoryId}.json`
             ];
             
             // AbortController로 타임아웃 처리
