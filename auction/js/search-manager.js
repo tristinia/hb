@@ -11,7 +11,8 @@ const SearchManager = (() => {
         activeSuggestion: -1,
         selectedItem: null,
         isSuggestionVisible: false,
-        loadedCategories: new Set()  // 이미 로드한 카테고리 추적
+        loadedCategories: new Set(),  // 이미 로드한 카테고리 추적
+        isInitialized: false // 초기화 상태 추적
     };
     
     // 자동완성 데이터
@@ -34,12 +35,71 @@ const SearchManager = (() => {
         elements.searchButton = document.querySelector('.search-button');
         elements.resetButton = document.getElementById('reset-button');
         elements.suggestionsList = document.getElementById('suggestions');
+
+        // 로딩 상태 표시
+        if (elements.searchInput) {
+            elements.searchInput.placeholder = "데이터 로딩 중...";
+        }
         
         // 이벤트 리스너 설정
         setupEventListeners();
         
-        // 자동완성 데이터 로드
-        loadAutocompleteData();
+        // 자동완성 데이터 로드 (초기화 완료 후)
+        waitForInitialization().then(() => {
+            loadAutocompleteData();
+        });
+    }
+    
+    /**
+     * CategoryManager 초기화 대기 (최적화)
+     */
+    function waitForInitialization() {
+        return new Promise((resolve) => {
+            // 이미 초기화되었는지 확인
+            if (typeof CategoryManager !== 'undefined' && 
+                CategoryManager.getSelectedCategories && 
+                typeof CategoryManager.getSelectedCategories === 'function') {
+                
+                // 카테고리 데이터가 있는지 확인
+                const { subCategories } = CategoryManager.getSelectedCategories();
+                if (subCategories && subCategories.length > 0) {
+                    resolve();
+                    return;
+                }
+            }
+            
+            console.log('CategoryManager 초기화 대기 중...');
+            
+            // 1초마다 최대 10초 동안 확인
+            let attempts = 0;
+            const maxAttempts = 10;
+            
+            const checkInterval = setInterval(() => {
+                attempts++;
+                
+                // CategoryManager 존재 확인
+                if (typeof CategoryManager !== 'undefined' && 
+                    CategoryManager.getSelectedCategories && 
+                    typeof CategoryManager.getSelectedCategories === 'function') {
+                    
+                    // 카테고리 데이터 확인
+                    const { subCategories } = CategoryManager.getSelectedCategories();
+                    if (subCategories && subCategories.length > 0) {
+                        clearInterval(checkInterval);
+                        console.log('CategoryManager 초기화 완료');
+                        resolve();
+                        return;
+                    }
+                }
+                
+                // 최대 시도 횟수 초과
+                if (attempts >= maxAttempts) {
+                    clearInterval(checkInterval);
+                    console.warn('CategoryManager 초기화 타임아웃. 기본 모드로 진행');
+                    resolve(); // 실패해도 진행
+                }
+            }, 1000);
+        });
     }
     
     /**
@@ -69,85 +129,209 @@ const SearchManager = (() => {
     }
     
     /**
-     * 여러 카테고리에서 자동완성 데이터 로드
+     * 여러 카테고리에서 자동완성 데이터 로드 (성능 개선)
      */
     async function loadAutocompleteData() {
-        console.log('카테고리별 자동완성 데이터 로드 중...');
+        console.log('자동완성 데이터 로드 시작...');
         
         try {
-            // 로컬 스토리지에서 캐시된 데이터 확인
-            const cachedData = localStorage.getItem('autocompleteDataWithCategories');
-            const cachedTimestamp = localStorage.getItem('autocompleteDataTimestamp');
-            
-            // 캐시가 24시간 이내에 생성된 경우 사용
-            const now = new Date().getTime();
-            if (cachedData && cachedTimestamp && (now - parseInt(cachedTimestamp) < 24 * 60 * 60 * 1000)) {
-                const parsedData = JSON.parse(cachedData);
-                autocompleteData.push(...parsedData);
-                console.log(`캐시에서 자동완성 데이터 로드 완료: ${autocompleteData.length}개 항목`);
+            // 이미 로드되었으면 스킵
+            if (autocompleteData.length > 0) {
+                console.log(`이미 자동완성 데이터가 로드됨: ${autocompleteData.length}개 항목`);
+                
+                // 검색 입력창 활성화
+                if (elements.searchInput) {
+                    elements.searchInput.placeholder = "아이템 이름을 입력하세요...";
+                }
+                
                 return;
             }
             
-            // 1. 카테고리 정보 가져오기
+            // 로컬 스토리지에서 캐시된 데이터 확인
+            try {
+                const cachedData = localStorage.getItem('autocompleteData');
+                const cachedTimestamp = localStorage.getItem('autocompleteDataTimestamp');
+                const cachedVersion = localStorage.getItem('autocompleteDataVersion') || '1.0';
+                
+                // 캐시가 24시간 이내에 생성된 경우 사용 (버전도 확인)
+                const now = new Date().getTime();
+                const CACHE_VERSION = '1.1'; // 데이터 형식이 변경될 때마다 버전 업데이트
+                
+                if (cachedData && cachedTimestamp && 
+                    (now - parseInt(cachedTimestamp) < 24 * 60 * 60 * 1000) &&
+                    cachedVersion === CACHE_VERSION) {
+                    console.log('캐시된 자동완성 데이터 로드 중...');
+                    
+                    // 비동기로 데이터 파싱 (대용량 JSON 파싱이 메인 스레드 블로킹 방지)
+                    setTimeout(() => {
+                        try {
+                            const parsedData = JSON.parse(cachedData);
+                            if (Array.isArray(parsedData) && parsedData.length > 0) {
+                                autocompleteData.push(...parsedData);
+                                console.log(`캐시에서 자동완성 데이터 로드 완료: ${autocompleteData.length}개 항목`);
+                                
+                                // 검색 입력창 활성화
+                                if (elements.searchInput) {
+                                    elements.searchInput.placeholder = "아이템 이름을 입력하세요...";
+                                }
+                            } else {
+                                // 캐시 데이터 이상 - 새로 로드
+                                localStorage.removeItem('autocompleteData');
+                                localStorage.removeItem('autocompleteDataTimestamp');
+                                localStorage.removeItem('autocompleteDataVersion');
+                                loadFromCategories();
+                            }
+                        } catch (parseError) {
+                            console.warn('캐시 데이터 파싱 실패:', parseError);
+                            localStorage.removeItem('autocompleteData');
+                            localStorage.removeItem('autocompleteDataTimestamp');
+                            localStorage.removeItem('autocompleteDataVersion');
+                            loadFromCategories();
+                        }
+                    }, 0);
+                    
+                    return;
+                } else {
+                    console.log('캐시 만료 또는 버전 불일치. 새로운 데이터 로드 중...');
+                }
+            } catch (cacheError) {
+                console.warn('캐시 로드 실패, 데이터를 새로 로드합니다:', cacheError);
+            }
+            
+            // 카테고리에서 데이터 로드 (캐시가 없거나 만료된 경우)
+            loadFromCategories();
+            
+        } catch (error) {
+            console.error('자동완성 데이터 로드 중 오류:', error);
+            
+            // 오류 시에도 검색 입력창 활성화
+            if (elements.searchInput) {
+                elements.searchInput.placeholder = "아이템 이름을 입력하세요...";
+            }
+        }
+    }
+
+    /**
+     * 카테고리에서 자동완성 데이터 로드 (최적화)
+     */
+    async function loadFromCategories() {
+        try {
+            // 카테고리 정보 가져오기 (초기화 대기)
             await waitForCategoryManager();
             const { subCategories } = CategoryManager.getSelectedCategories();
             
             if (!subCategories || subCategories.length === 0) {
-                console.warn('카테고리 정보가 아직 로드되지 않았습니다.');
-                // 백그라운드에서 나중에 다시 시도
-                setTimeout(loadAutocompleteData, 1000);
+                console.warn('카테고리 정보가 로드되지 않았습니다.');
+                
+                // 검색 입력창 활성화
+                if (elements.searchInput) {
+                    elements.searchInput.placeholder = "아이템 이름을 입력하세요...";
+                }
+                
                 return;
             }
             
-            // 2. 우선순위 카테고리 목록 (가장 많이 사용하는 카테고리 먼저)
-            const priorityCategories = [
-                '검', '한손 장비', '양손 장비', '갑옷', '경갑옷', '천옷', 
-                '액세서리', '악기', '모자/가발', '장갑', '신발'
-            ];
-            
-            // 우선순위가 높은 카테고리를 먼저 정렬
-            const sortedCategories = [...subCategories].sort((a, b) => {
-                const aIndex = priorityCategories.indexOf(a.id);
-                const bIndex = priorityCategories.indexOf(b.id);
-                
-                if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
-                if (aIndex !== -1) return -1;
-                if (bIndex !== -1) return 1;
-                return 0;
-            });
-            
-            // 3. 카테고리 파일 순차적 로드 (부하 분산을 위해)
-            for (const category of sortedCategories) {
-                await loadCategoryItems(category);
-                
-                // 처음 5개 카테고리를 로드한 후 사용자가 검색을 시작할 수 있게 약간의 지연
-                if (autocompleteData.length > 0 && state.loadedCategories.size === 5) {
-                    // 나머지 카테고리는 백그라운드에서 계속 로드
-                    setTimeout(() => {
-                        continueCategoryLoading(sortedCategories.slice(5));
-                    }, 100);
-                    break;
-                }
+            // 로딩 상태 표시
+            if (elements.searchInput) {
+                elements.searchInput.placeholder = "데이터 로드 중... (0%)";
             }
             
-            // 4. 캐시 저장
-            if (autocompleteData.length > 0) {
-                try {
-                    localStorage.setItem('autocompleteDataWithCategories', JSON.stringify(autocompleteData));
-                    localStorage.setItem('autocompleteDataTimestamp', now.toString());
-                } catch (error) {
-                    console.warn('자동완성 데이터 캐싱 실패:', error);
+            // 작업자 풀 설정 - 카테고리 병렬 로드
+            const CONCURRENT_REQUESTS = 5; // 동시에 처리할 요청 수
+            let completedCategories = 0;
+            const totalCategories = subCategories.length;
+            
+            // 데이터 로드 진행률 업데이트 함수
+            const updateProgress = () => {
+                completedCategories++;
+                const percent = Math.round((completedCategories / totalCategories) * 100);
+                
+                if (elements.searchInput) {
+                    elements.searchInput.placeholder = `데이터 로드 중... (${percent}%)`;
                 }
+                
+                // 25%, 50%, 75% 및 100%에서 중간 캐시 저장
+                if (percent === 25 || percent === 50 || percent === 75 || percent === 100) {
+                    saveCacheSnapshot(percent);
+                }
+            };
+            
+            // 중간 캐시 저장
+            const saveCacheSnapshot = (percent) => {
+                if (autocompleteData.length > 0) {
+                    try {
+                        const now = new Date().getTime();
+                        localStorage.setItem('autocompleteData', JSON.stringify(autocompleteData));
+                        localStorage.setItem('autocompleteDataTimestamp', now.toString());
+                        localStorage.setItem('autocompleteDataVersion', '1.1');
+                        console.log(`${percent}% 진행 시점 캐시 저장: ${autocompleteData.length}개 항목`);
+                    } catch (error) {
+                        console.warn(`${percent}% 진행 시점 캐시 저장 실패:`, error);
+                    }
+                }
+            };
+            
+            // 로드 프로세스 시작
+            console.log(`${totalCategories}개 카테고리 로드 시작`);
+            
+            // 작업자 풀 구현 (동시 요청 제한)
+            const processCategoryBatch = async (categories) => {
+                // 배치 내에서는 병렬 처리
+                await Promise.all(categories.map(category => 
+                    loadCategoryItems(category)
+                        .then(() => updateProgress())
+                        .catch(error => {
+                            console.error(`카테고리 ${category.id} 로드 실패:`, error);
+                            updateProgress(); // 실패해도 진행률 업데이트
+                        })
+                ));
+            };
+            
+            // 카테고리를 배치로 나누기
+            const batches = [];
+            for (let i = 0; i < totalCategories; i += CONCURRENT_REQUESTS) {
+                batches.push(subCategories.slice(i, i + CONCURRENT_REQUESTS));
             }
             
-            console.log(`자동완성 데이터 로드 완료: ${autocompleteData.length}개 항목`);
+            // 배치 순차 처리 (각 배치 내 병렬 처리)
+            for (const batch of batches) {
+                await processCategoryBatch(batch);
+                
+                // UI 렌더링을 위한 작은 지연
+                await new Promise(resolve => setTimeout(resolve, 10));
+            }
+            
+            // 모든 카테고리 로드 완료
+            console.log(`모든 카테고리 로드 완료: 총 ${autocompleteData.length}개 항목`);
+            
+            // 최종 캐시 업데이트
+            try {
+                const now = new Date().getTime();
+                localStorage.setItem('autocompleteData', JSON.stringify(autocompleteData));
+                localStorage.setItem('autocompleteDataTimestamp', now.toString());
+                localStorage.setItem('autocompleteDataVersion', '1.1');
+                console.log(`최종 자동완성 데이터 캐싱 완료: ${autocompleteData.length}개 항목`);
+            } catch (error) {
+                console.warn('최종 자동완성 데이터 캐싱 실패:', error);
+            }
+            
+            // 검색 입력창 활성화
+            if (elements.searchInput) {
+                elements.searchInput.placeholder = "아이템 이름을 입력하세요...";
+            }
+            
         } catch (error) {
-            console.error('자동완성 데이터 로드 중 오류:', error);
+            console.error('카테고리 로드 중 오류:', error);
+            
+            // 오류 시에도 검색 입력창 활성화
+            if (elements.searchInput) {
+                elements.searchInput.placeholder = "아이템 이름을 입력하세요...";
+            }
         }
     }
     
     /**
-     * CategoryManager가 초기화될 때까지 대기
+     * CategoryManager 초기화 대기
      */
     function waitForCategoryManager() {
         return new Promise((resolve) => {
@@ -164,86 +348,98 @@ const SearchManager = (() => {
     }
     
     /**
-     * 나머지 카테고리 백그라운드 로드
+     * 단일 카테고리 아이템 로드 (성능 개선)
      */
-    async function continueCategoryLoading(remainingCategories) {
-        for (const category of remainingCategories) {
-            await loadCategoryItems(category);
-        }
-    }
-    
-    /**
- * 단일 카테고리 아이템 로드
- */
-async function loadCategoryItems(category) {
-    if (state.loadedCategories.has(category.id)) return;
-    
-    try {
-        // 카테고리 ID 안전하게 변환 (여기에 추가)
-        const safeCategoryId = sanitizeFileName(category.id);
+    async function loadCategoryItems(category) {
+        if (state.loadedCategories.has(category.id)) return;
         
-        // 카테고리 파일 경로 (여러 가능성 시도)
-        const paths = [
-            `../data/items/${safeCategoryId}.json`,
-            `/data/items/${safeCategoryId}.json`,
-            `data/items/${safeCategoryId}.json`
-        ];
-        
-        let response = null;
-        let validPath = null;
-        
-        // 유효한 경로 찾기
-        for (const path of paths) {
-            try {
-                const resp = await fetch(path);
-                if (resp.ok) {
-                    response = resp;
-                    validPath = path;
-                    break;
+        try {
+            // 카테고리 ID 안전하게 변환
+            const safeCategoryId = sanitizeFileName(category.id);
+            
+            // 동적 로딩 경로 (절대 및 상대 경로 시도)
+            const paths = [
+                `/data/items/${safeCategoryId}.json`,          // 루트 기준 (웹서버)
+                `../data/items/${safeCategoryId}.json`,        // 상위 디렉토리
+                `data/items/${safeCategoryId}.json`,           // 현재 디렉토리
+                `./data/items/${safeCategoryId}.json`          // 명시적 현재 디렉토리
+            ];
+            
+            // AbortController로 타임아웃 처리
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000); // 5초 타임아웃
+            
+            // 모든 경로 병렬 시도 (Race)
+            const fetchPromises = paths.map(path => 
+                fetch(path, { signal: controller.signal })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`${path} 경로 실패: ${response.status}`);
+                        }
+                        return { response, path };
+                    })
+                    .catch(error => {
+                        if (error.name === 'AbortError') {
+                            throw new Error('요청 타임아웃');
+                        }
+                        return { error, path }; // 오류를 반환하되 중단하지 않음
+                    })
+            );
+            
+            // 첫 번째 성공한 응답 사용
+            const results = await Promise.all(fetchPromises);
+            clearTimeout(timeoutId);
+            
+            // 성공한 응답 찾기
+            const successResult = results.find(result => result.response && result.response.ok);
+            
+            if (!successResult) {
+                // 모든 경로 실패 - 오류 로그
+                console.warn(`카테고리 ${category.id}의 파일을 찾을 수 없습니다. 시도한 경로:`, 
+                    paths.join(', '));
+                state.loadedCategories.add(category.id); // 실패 기록
+                return;
+            }
+            
+            // 성공한 경로 로그
+            console.log(`카테고리 ${category.id} 로드 경로: ${successResult.path}`);
+            
+            // JSON 파싱
+            const data = await successResult.response.json();
+            const items = data.items || [];
+            
+            // 메모리 최적화: 필요한 필드만 추출
+            items.forEach(item => {
+                if (item.name) {
+                    autocompleteData.push({
+                        name: item.name,
+                        price: item.price || 0,
+                        date: item.date || '',
+                        mainCategory: category.mainCategory,
+                        subCategory: category.id
+                    });
                 }
-            } catch (e) {
-                continue;
-            }
+            });
+            
+            // 로드 완료 표시
+            state.loadedCategories.add(category.id);
+            console.log(`카테고리 ${category.id} 로드 완료: ${items.length}개 아이템`);
+            
+        } catch (error) {
+            console.warn(`카테고리 ${category.id} 로드 중 오류:`, error);
+            state.loadedCategories.add(category.id); // 오류 발생해도 다시 시도하지 않음
         }
-        
-        if (!response || !validPath) {
-            console.warn(`카테고리 ${category.id} 파일을 찾을 수 없습니다.`);
-            return;
-        }
-        
-        const data = await response.json();
-        const items = data.items || [];
-        
-        // 각 아이템에 카테고리 정보 추가
-        items.forEach(item => {
-            if (item.name) {
-                autocompleteData.push({
-                    name: item.name,
-                    price: item.price,
-                    date: item.date,
-                    mainCategory: category.mainCategory,
-                    subCategory: category.id
-                });
-            }
-        });
-        
-        // 로드 완료 표시
-        state.loadedCategories.add(category.id);
-        console.log(`카테고리 ${category.id} 로드 완료: ${items.length}개 아이템`);
-    } catch (error) {
-        console.warn(`카테고리 ${category.id} 로드 중 오류:`, error);
     }
-}
 
-/**
- * 파일명으로 사용할 수 없는 특수문자 처리
- * @param {string} id 원본 ID
- * @return {string} 파일명으로 사용 가능한 ID
- */
-function sanitizeFileName(id) {
-    // 파일 시스템에서 문제가 될 수 있는 특수 문자들을 대체
-    return id.replace(/[\/\\:*?"<>|]/g, '_');
-}
+    /**
+     * 파일명으로 사용할 수 없는 특수문자 처리
+     * @param {string} id 원본 ID
+     * @return {string} 파일명으로 사용 가능한 ID
+     */
+    function sanitizeFileName(id) {
+        // 파일 시스템에서 문제가 될 수 있는 특수 문자들을 대체
+        return id.replace(/[\/\\:*?"<>|]/g, '_');
+    }
     
     /**
      * 검색어 입력 처리
@@ -268,7 +464,7 @@ function sanitizeFileName(id) {
     }
     
     /**
-     * 검색어 기반 자동완성 추천 생성
+     * 검색어 기반 자동완성 추천 생성 (최적화)
      * @param {string} searchTerm - 검색어
      * @returns {Array} 추천 목록
      */
@@ -289,91 +485,73 @@ function sanitizeFileName(id) {
             return [];
         }
         
-        // 점수 계산 및 필터링
-        const scoredItems = autocompleteData
-            .map(item => ({
-                item,
-                score: calculateScore(item, normalizedTerm, chosungTerm, koreanFromEng, isChosungOnly)
-            }))
-            .filter(entry => entry.score > 0) // 점수가 0 이상인 항목만 포함
-            .sort((a, b) => b.score - a.score) // 높은 점수순으로 정렬
-            .slice(0, 10) // 최대 10개만 표시
-            .map(entry => entry.item);
+        // 2단계 검색 알고리즘: 1차 필터링 후 세부 점수 계산
+        // 1차 필터링: 기본 점수 계산 (빠른 검색)
+        const firstPassItems = [];
+        
+        for (const item of autocompleteData) {
+            if (!item.name) continue;
+            
+            const itemName = item.name.toLowerCase();
+            let score = 0;
+            
+            // 빠른 점수 계산 (정확한 일치, 접두사 일치, 포함 여부)
+            if (itemName === normalizedTerm) {
+                score = 100; // 정확히 일치
+            } else if (itemName.startsWith(normalizedTerm)) {
+                score = 80; // 시작 부분 일치
+            } else if (itemName.includes(` ${normalizedTerm} `) || 
+                       itemName.startsWith(`${normalizedTerm} `) || 
+                       itemName.endsWith(` ${normalizedTerm}`)) {
+                score = 70; // 정확한 단어 일치
+            } else if (itemName.includes(normalizedTerm)) {
+                score = 60; // 부분 문자열 포함
+            } else if (isChosungOnly && chosungTerm.length >= 2) {
+                // 초성 검색 (비용이 높은 연산이므로 나중에 실행)
+                const itemChosung = Utils.getChosung(itemName);
+                if (itemChosung.startsWith(chosungTerm)) {
+                    score = 50; // 초성이 일치하는 경우
+                } else if (itemChosung.includes(chosungTerm)) {
+                    score = 40; // 초성이 포함된 경우
+                }
+            } else if (koreanFromEng && itemName.includes(koreanFromEng)) {
+                score = 40; // 영한 변환 결과가 포함된 경우
+            }
+            
+            if (score > 0) {
+                firstPassItems.push({ item, score, itemName });
+            }
+        }
+        
+        // 기본 점수가 있는 항목만 정렬하여 상위 50개 선택
+        const candidates = firstPassItems
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 50);
+        
+        // 2차 필터링: 상세 점수 계산 (정밀 검색)
+        const scoredItems = candidates.map(entry => {
+            // 상위 점수 항목은 그대로 유지
+            if (entry.score >= 80) return entry;
+            
+            let finalScore = entry.score;
+            
+            // 이름 길이에 따른 보너스 (짧을수록 유리)
+            finalScore += Math.max(0, 15 - entry.itemName.length);
+            
+            // 비용이 높은 유사도 계산은 필요한 경우만
+            if (entry.score < 70) {
+                const similarity = Utils.similarityScore(normalizedTerm, entry.itemName);
+                finalScore += similarity * 20;
+            }
+            
+            return { ...entry, score: finalScore };
+        })
+        .filter(entry => entry.score >= 20) // 최소 점수 기준
+        .sort((a, b) => b.score - a.score) // 다시 정렬
+        .slice(0, 10) // 최대 10개만
+        .map(entry => entry.item);
         
         return scoredItems;
-    }
-    
-    /**
-     * 검색 정확도 점수 계산 함수 - 개선된 버전
-     */
-    function calculateScore(item, normalizedTerm, chosungTerm, koreanFromEng, isChosungOnly) {
-        if (!item || !item.name) return 0;
-        
-        const itemName = item.name.toLowerCase();
-        let score = 0;
-        
-        // 정확히 일치하면 최고 점수
-        if (itemName === normalizedTerm) {
-            score += 100;
-            return score; // 정확히 일치하면 바로 최고 점수 반환
-        }
-        
-        // 시작 부분이 일치하면 높은 점수 (prefix matching)
-        if (itemName.startsWith(normalizedTerm)) {
-            score += 80;
-            
-            // 길이가 비슷할수록 더 관련성이 높음
-            const lengthDiff = Math.abs(itemName.length - normalizedTerm.length);
-            if (lengthDiff <= 3) {
-                score += 15;
-            }
-        }
-        // 정확한 단어 포함 (공백으로 구분된 단어)
-        else if (itemName.includes(` ${normalizedTerm} `) || 
-                itemName.startsWith(`${normalizedTerm} `) || 
-                itemName.endsWith(` ${normalizedTerm}`)) {
-            score += 70;
-        }
-        // 단어 중간에 포함되면 중간 점수 (substring matching)
-        else if (itemName.includes(normalizedTerm)) {
-            score += 60;
-            
-            // 정확한 매칭에 더 높은 가중치 부여
-            if (normalizedTerm.length > 2) {
-                score += 10; // 정확한 부분 문자열 매칭에 보너스 점수
-            }
-        }
-        
-        // 초성 검색은 입력값이 전부 초성인 경우에만 적용
-        if (isChosungOnly && chosungTerm.length >= 2) {
-            const itemChosung = Utils.getChosung(itemName);
-            
-            // 초성이 일치하는 경우
-            if (itemChosung.includes(chosungTerm)) {
-                score += 60; // 초성 검색 점수 상향 (직접 검색한 경우니까)
-            } else if (itemChosung.startsWith(chosungTerm)) {
-                score += 50; // 시작 부분 초성 일치
-            }
-        }
-        
-        // 영한 변환 결과가 포함되면 중간 점수
-        if (koreanFromEng && itemName.includes(koreanFromEng)) {
-            score += 40; // 영한 변환 점수 상향 (자주 발생하는 실수이므로)
-        }
-        
-        // 검색 결과 관련성이 특정 임계값 이하면 제외 (최소 점수 기준 추가)
-        if (score < 20) {
-            return 0;  // 점수가 너무 낮으면 자동완성 제안에서 제외
-        }
-        
-        // 아이템 이름이 짧을수록 더 관련성이 높을 가능성이 있음
-        score += Math.max(0, 15 - itemName.length);
-        
-        // 유사도 보너스 점수 (레벤슈타인 거리 기반)
-        const similarity = Utils.similarityScore(normalizedTerm, itemName);
-        score += similarity * 20;
-        
-        return score;
     }
     
     /**
@@ -398,11 +576,21 @@ function sanitizeFileName(id) {
     }
     
     /**
-     * 자동완성 렌더링
+     * 자동완성 렌더링 (최적화)
      */
     function renderSuggestions() {
         // 기존 추천 초기화
         elements.suggestionsList.innerHTML = '';
+        
+        // 추천 목록이 없으면 숨김
+        if (state.suggestions.length === 0) {
+            elements.suggestionsList.classList.remove('show');
+            state.isSuggestionVisible = false;
+            return;
+        }
+        
+        // DocumentFragment 사용하여 DOM 조작 최소화
+        const fragment = document.createDocumentFragment();
         
         // 추천 목록 표시
         state.suggestions.forEach((item, index) => {
@@ -412,22 +600,31 @@ function sanitizeFileName(id) {
             // 아이템 카테고리 정보 표시
             let categoryInfo = '';
             if (item.mainCategory || item.subCategory) {
-                // 메인 카테고리 이름 찾기
-                let mainCategoryName = item.mainCategory;
-                const categories = CategoryManager.getSelectedCategories();
-                const mainCategoryObj = categories.mainCategories?.find(cat => cat.id === item.mainCategory);
-                if (mainCategoryObj) {
-                    mainCategoryName = mainCategoryObj.name;
+                // CategoryManager 안전 확인
+                if (typeof CategoryManager !== 'undefined' && 
+                    CategoryManager.getSelectedCategories && 
+                    typeof CategoryManager.getSelectedCategories === 'function') {
+                    
+                    // 메인 카테고리 이름 찾기
+                    let mainCategoryName = item.mainCategory;
+                    const categories = CategoryManager.getSelectedCategories();
+                    const mainCategoryObj = categories.mainCategories?.find(cat => cat.id === item.mainCategory);
+                    if (mainCategoryObj) {
+                        mainCategoryName = mainCategoryObj.name;
+                    }
+                    
+                    // 서브 카테고리 이름 찾기
+                    let subCategoryName = item.subCategory;
+                    const subCategoryObj = categories.subCategories?.find(cat => cat.id === item.subCategory);
+                    if (subCategoryObj) {
+                        subCategoryName = subCategoryObj.name;
+                    }
+                    
+                    categoryInfo = `<div class="suggestion-category">${mainCategoryName}${subCategoryName ? ' > ' + subCategoryName : ''}</div>`;
+                } else {
+                    // 기본 카테고리 정보
+                    categoryInfo = `<div class="suggestion-category">${item.mainCategory}${item.subCategory ? ' > ' + item.subCategory : ''}</div>`;
                 }
-                
-                // 서브 카테고리 이름 찾기
-                let subCategoryName = item.subCategory;
-                const subCategoryObj = categories.subCategories?.find(cat => cat.id === item.subCategory);
-                if (subCategoryObj) {
-                    subCategoryName = subCategoryObj.name;
-                }
-                
-                categoryInfo = `<div class="suggestion-category">${mainCategoryName}${subCategoryName ? ' > ' + subCategoryName : ''}</div>`;
             }
             
             li.innerHTML = `
@@ -437,8 +634,11 @@ function sanitizeFileName(id) {
             
             li.addEventListener('click', () => handleSelectSuggestion(item, index));
             
-            elements.suggestionsList.appendChild(li);
+            fragment.appendChild(li);
         });
+        
+        // 한 번에 DOM에 추가
+        elements.suggestionsList.appendChild(fragment);
         
         // 목록 표시
         elements.suggestionsList.classList.add('show');
@@ -479,9 +679,6 @@ function sanitizeFileName(id) {
             }
         });
         document.dispatchEvent(event);
-        
-        // 자동 검색 실행 제거 (사용자가 직접 검색 버튼 클릭)
-        // handleSearch();
     }
     
     /**
@@ -649,6 +846,22 @@ function sanitizeFileName(id) {
         }
     }
     
+    /**
+     * 자동완성 데이터 캐시 지우기
+     */
+    function clearCache() {
+        try {
+            localStorage.removeItem('autocompleteData');
+            localStorage.removeItem('autocompleteDataTimestamp');
+            localStorage.removeItem('autocompleteDataVersion');
+            console.log('자동완성 데이터 캐시가 지워졌습니다.');
+            return true;
+        } catch (error) {
+            console.error('캐시 삭제 실패:', error);
+            return false;
+        }
+    }
+    
     // 공개 API
     return {
         init,
@@ -656,6 +869,7 @@ function sanitizeFileName(id) {
         resetSearch,
         getSearchState,
         setSearchTerm,
-        clearSuggestions
+        clearSuggestions,
+        clearCache
     };
 })();
