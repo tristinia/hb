@@ -166,12 +166,10 @@ const FilterManager = (() => {
         // 파일명 안전하게 변환
         const safeCategoryId = sanitizeFileName(subCategoryId);
         
-        // 여러 경로 패턴
+        // 상대 경로만 사용 (절대 경로 제거)
         const paths = [
-            `/data/option_structure/${safeCategoryId}.json`,
-            `../data/option_structure/${safeCategoryId}.json`,
-            `data/option_structure/${safeCategoryId}.json`,
-            `./data/option_structure/${safeCategoryId}.json`
+            'data/option_structure/' + safeCategoryId + '.json',
+            './data/option_structure/' + safeCategoryId + '.json'
         ];
         
         // AbortController로 타임아웃 처리
