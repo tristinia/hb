@@ -359,10 +359,10 @@ const SearchManager = (() => {
             
             // 동적 로딩 경로 (절대 및 상대 경로 시도)
             const paths = [
-                `/data/items/${safeCategoryId}.json`,          // 루트 기준 (웹서버)
-                `../data/items/${safeCategoryId}.json`,        // 상위 디렉토리
-                `data/items/${safeCategoryId}.json`,           // 현재 디렉토리
-                `./data/items/${safeCategoryId}.json`          // 명시적 현재 디렉토리
+                `../../../data/items/${safeCategoryId}.json`,
+                `../../../data/items/${safeCategoryId}.json`,
+                `../../../data/items/${safeCategoryId}.json`,
+                `../../../data/items/${safeCategoryId}.json`
             ];
             
             // AbortController로 타임아웃 처리
