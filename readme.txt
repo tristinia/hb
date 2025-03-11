@@ -1,150 +1,143 @@
-# 마비노기 경매장 데이터 수집기
+마비노기 경매장 & 정령 데이터 프로젝트
+마비노기 경매장 API를 활용하여 아이템 데이터를 수집하고, 사용자 친화적인 웹 인터페이스로 제공하는 프로젝트입니다. 경매장 아이템 검색뿐만 아니라 정령 형상변환 리큐르, 이펙트 카드, 타이틀 이펙트도 시각화합니다.
+주요 기능
+경매장 데이터 수집 및 표시
 
-마비노기 경매장 API를 활용하여 아이템 데이터를 수집하고, 정령 형상변환 리큐르 등의 특수 아이템을 시각화하는 웹 애플리케이션입니다.
+자동 데이터 수집: GitHub Actions를 통한 정기적인 데이터 수집
+카테고리 기반 탐색: 대분류-소분류 구조로 아이템 탐색
+고급 검색: 자동완성, 한글 초성 검색, 오타 보정 기능
+세부 필터링: 아이템 옵션별 고급 필터링 지원
+가격 추적: 최저가 정보 표시 및 업데이트
 
-## 프로젝트 구조
+정령 형상변환 시각화
 
-```
-/
-├── index.html                       # 메인 페이지 (두 웹앱으로 연결되는 랜딩 페이지)
-├── auction/                         # 경매장 관련 파일
-│   ├── index.html                   # 경매장 메인 페이지
-│   ├── auction.css                  # 경매장 스타일시트
-│   ├── js/
-│   │   ├── main.js                  # 메인 초기화 및 이벤트 핸들러
-│   │   ├── api-client.js            # API 호출 관련 기능
-│   │   ├── category-manager.js      # 카테고리 관리
-│   │   ├── search-manager.js        # 검색 기능
-│   │   ├── filter-manager.js        # 필터링 기능
-│   │   ├── item-display.js          # 아이템 표시 관련 기능
-│   │   ├── pagination.js            # 페이지네이션
-│   │   └── utils.js                 # 유틸리티 함수
-│   └── assets/                      # 이미지 등 정적 파일
-│
-├── spirit/                          # 정령 형상변환 관련 파일
-│   ├── index.html                   # 정령 형상변환 메인 페이지
-│   ├── css/
-│   │   └── styles.css               # 스타일시트
-│   ├── js/
-│   │   └── script.js                # 자바스크립트 코드
-│   └── assets/                      # 이미지 등 정적 파일
-│
-├── shared/                          # 공유 리소스
-│   ├── css/
-│   │   └── common.css               # 공통 스타일
-│   └── js/
-│       └── firebase-config.js       # Firebase 설정
-│
-├── src/                             # 백엔드 소스 코드
-│   ├── api-client.js
-│   ├── category-manager.js
-│   ├── config.js
-│   ├── data-processor.js
-│   ├── index.js
-│   └── storage-manager.js
-│
-├── data/                            # 데이터 파일
-└── .github/                         # GitHub 관련 설정
-    └── workflows/
-        └── collect-data.yml
-```
-# 모듈화된 Auction 코드 구조
+다양한 필터링: 색상, 세트, 무한 지속 여부 등 필터링
+이미지 프리뷰: 형상변환 이미지 표시
+상세 정보: 출시 시기, 속성 정보 제공
 
-## 1. main.js
-- 애플리케이션 초기화 및 이벤트 리스너 설정
-- 전역 상태 관리
-- 모듈 간 통합 조정
+구조
+Copy/
+├── index.html                # 메인 페이지
+├── auction/                  # 경매장 관련 파일
+│   ├── js/                   # JS 모듈
+│   │   ├── main.js           # 메인 로직
+│   │   ├── api-client.js     # API 호출 관리
+│   │   ├── category-manager.js # 카테고리 관리
+│   │   ├── search-manager.js # 검색 기능
+│   │   ├── filter-manager.js # 필터링 기능
+│   │   ├── item-display.js   # 아이템 표시
+│   │   ├── pagination.js     # 페이지네이션
+│   │   └── utils.js          # 유틸리티 함수
+│   └── styles.css            # 스타일시트
+├── spirit/                   # 정령 형상변환 관련 파일
+│   ├── index.html            # 정령 변환 페이지
+│   ├── script.js             # 정령 변환 로직
+│   └── styles.css            # 스타일시트
+├── src/                      # 백엔드 (데이터 수집)
+│   ├── index.js              # 메인 스크립트
+│   ├── api-client.js         # API 호출 클라이언트
+│   ├── category-manager.js   # 카테고리 관리
+│   ├── data-processor.js     # 데이터 가공
+│   ├── storage-manager.js    # 데이터 저장
+│   └── config.js             # 설정 파일
+├── data/                     # 수집된 데이터 저장소 (용량 문제로 저장소에 미포함)
+│   ├── items/                # 카테고리별 아이템 데이터
+│   ├── meta/                 # 메타데이터
+│   ├── option_structure/     # 아이템 옵션 구조 정보
+│   ├── web/                  # 웹 표시용 가공 데이터
+│   └── categories.json       # 카테고리 정보
+└── .github/workflows/        # GitHub Actions
+    └── collect-data.yml      # 자동 데이터 수집 워크플로우
+데이터 디렉토리 구조
+저장소의 용량 제한으로 인해 data 디렉토리는 포함되어 있지 않습니다. 아래는 데이터 디렉토리의 구조와 역할입니다:
 
-## 2. api-client.js
-- Firebase Functions 호출
-- 데이터 요청 및 응답 처리
-- API 오류 처리
+data/items/: 카테고리별 원본 아이템 데이터가 저장됩니다. 각 파일은 카테고리 ID를 이름으로 가집니다.
+data/meta/: 전체 데이터 수집 상태 및 통계 정보가 저장됩니다.
+data/option_structure/: 각 카테고리별 아이템 옵션 구조 분석 결과가 저장됩니다 (필터링 기능에 사용).
+data/web/: 웹 클라이언트에서 사용할 수 있도록 가공된 데이터가 저장됩니다 (정령 형상변환 등).
+data/categories.json: 모든 카테고리의 계층 구조 정보를 포함합니다.
 
-## 3. category-manager.js
-- 카테고리 데이터 관리
-- 카테고리 UI 렌더링
-- 카테고리 이벤트 처리 (펼치기/접기, 선택 등)
+첫 실행 시 데이터 디렉토리와 필요한 하위 디렉토리가 자동으로 생성됩니다.
+기술 스택
 
-## 4. search-manager.js
-- 검색어 입력 처리
-- 자동완성 기능
-- 한글 초성 검색 문제 개선 (정확한 검색어 우선)
+프론트엔드: HTML, CSS, 순수 JavaScript (모듈 패턴)
+백엔드: Node.js
+데이터 저장: JSON 파일 (정적 호스팅 가능)
+API: 마비노기 공식 API
+CI/CD: GitHub Actions
+호스팅: GitHub Pages
 
-## 5. filter-manager.js
-- 세부 필터 UI 관리
-- 필터 적용 및 제거 기능
-- 로컬 필터링 처리
+설치 및 실행
+사전 요구사항
 
-## 6. item-display.js
-- 아이템 목록 렌더링
-- 아이템 상세 정보 표시 (모달, 툴팁)
-- 아이템 UI 이벤트 처리
+Node.js 14 이상
+마비노기 API 키 (Nexon Open API 페이지에서 발급)
 
-## 7. pagination.js
-- 페이지네이션 UI 생성
-- 페이지 이동 처리
+로컬 설정
 
-## 8. utils.js
-- 공통 유틸리티 함수 모음
-- 한글 초성 처리
-- 디바운스, 스로틀 함수
-- 날짜 포맷팅 등
+저장소 클론하기
 
-## 요약
-- 기능별로 모듈을 분리하여 코드 가독성 및 유지보수성 향상
-- ES6 모듈 시스템을 사용하여 명확한 의존성 관리
-- 문제점 개선을 위한 코드 리팩토링
+bashCopygit clone https://github.com/your-username/mabinogi-auction-data.git
+cd mabinogi-auction-data
 
-## 기능
+의존성 설치
 
-- 마비노기 경매장 API를 통한 아이템 데이터 수집
-- 인챈트, 세공, 에코스톤 정보 추출 및 가공
-- 정령 형상변환 리큐르, 이펙트 카드, 타이틀 이펙트 시각화
-- 색상, 세트, 무한 지속 여부 등 다양한 필터링 기능
-- 정기적인 데이터 자동 업데이트 (GitHub Actions)
+bashCopynpm install
 
-## 설치 및 실행
+환경 변수 설정
 
-```bash
-# 의존성 설치
-npm install
+bashCopy# .env 파일 생성
+echo "API_KEY=your_api_key_here" > .env
 
-# 데이터 수집 실행
-npm start
-```
+데이터 수집 실행
 
-## 환경 변수
+bashCopynpm start
 
-- `API_KEY`: 마비노기 API 키 설정 (필수)
+웹 서버 실행 (별도 서버 필요)
 
-## GitHub Pages 호스팅
+bashCopy# 예: http-server 패키지 사용
+npx http-server .
+GitHub Pages 설정
+이 프로젝트는 GitHub Pages에 쉽게 배포할 수 있도록 구성되어 있습니다:
 
-이 프로젝트는 GitHub Pages를 통해 쉽게 호스팅할 수 있도록 구성되어 있습니다:
+GitHub 저장소 설정에서 Pages 기능 활성화
+소스 위치를 main 브랜치의 / (루트) 디렉토리로 설정
+GitHub Actions 시크릿에 API_KEY 추가
 
-1. 웹 파일(HTML, CSS, JS)은 루트 디렉토리에 위치
-2. 데이터 파일은 `data/web/` 디렉토리에 저장
-3. GitHub Pages 설정에서 `/ (root)` 디렉토리를 소스로 지정
+GitHub Actions 자동화
+매일 마비노기 경매장 데이터를 자동으로 수집하여 저장소를 업데이트합니다:
 
-GitHub Pages 설정 방법:
-1. 저장소 메뉴에서 Settings > Pages로 이동
-2. Source 섹션에서 Branch를 main으로 설정, 폴더는 / (root)로 설정
-3. Save 버튼 클릭
+저장소 메뉴에서 Settings > Secrets and variables > Actions로 이동
+New repository secret 버튼 클릭
+Name에 API_KEY, Secret에 마비노기 API 키 입력
+Add secret 버튼 클릭
 
-## GitHub Actions
+개발자 가이드
+모듈 추가 방법
+모듈 패턴을 따라 새로운 기능을 추가할 수 있습니다:
 
-매일 자동으로 데이터를 수집하여 저장소를 업데이트합니다.
-GitHub Secrets에 `API_KEY`를 설정해야 합니다.
+auction/js/ 또는 spirit/ 디렉토리에 새 JS 파일 생성
+IIFE 패턴으로 모듈 작성
+index.html에 스크립트 포함
+필요한 경우 main.js에서 모듈 초기화
 
-설정 방법:
-1. 저장소 메뉴에서 Settings > Secrets and variables > Actions로 이동
-2. New repository secret 버튼 클릭
-3. Name에 `API_KEY`, Secret에 마비노기 API 키 입력
-4. Add secret 버튼 클릭
+데이터 구조 수정
+데이터 구조를 변경하려면:
 
-## 라이선스
+src/data-processor.js 파일의 처리 로직 수정
+src/storage-manager.js 파일의 저장 로직 수정
+필요한 경우 프론트엔드 코드도 함께 수정
 
-개인 및 비상업적 용도로 자유롭게 사용 가능합니다.
+카테고리 추가
+새로운 카테고리를 추가하려면:
 
-## 만든이
+src/category-manager.js 파일에 카테고리 정보 추가
+필요한 경우 auction/js/category-manager.js 파일도 수정
 
-WF신의컨트롤
+기여 방법
+
+이슈 생성 또는 기존 이슈 선택
+브랜치 생성 (git checkout -b feature/your-feature-name)
+변경사항 커밋 (git commit -m 'Add some feature')
+브랜치 푸시 (git push origin feature/your-feature-name)
+Pull Request 생성
