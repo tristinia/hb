@@ -1,4 +1,4 @@
-// index.js - 메인 스크립트 (간소화 버전)
+// src/index.js - 메인 스크립트
 const apiClient = require('./api-client');
 const dataProcessor = require('./data-processor');
 const storageManager = require('./storage-manager');
@@ -15,50 +15,42 @@ async function main() {
     // 디렉토리 초기화
     storageManager.initDirectories();
     
-    // API 테스트 대신 기본 카테고리로 첫번째 API 호출 시도
+    // 카테고리 데이터 확인
+    if (!storageManager.checkCategoriesExist()) {
+      throw new Error('data/categories.json이 존재하지 않습니다.');
+    }
+    
+    // API 연결 테스트
     console.log('API 연결 테스트 중...');
     try {
-      // 테스트용 카테고리 (기본 카테고리 중 하나 선택)
       const testCategory = categoryManager.categories[0];
       console.log(`카테고리 '${testCategory.name}'으로 API 테스트 중...`);
       
-      // 첫 번째 호출로 API 테스트
       const testItems = await apiClient.collectCategoryItems(testCategory);
       console.log(`API 테스트 성공: ${testItems.length}개 아이템 수신`);
       
-      // 첫 테스트 결과도 처리 (낭비하지 않도록)
+      // 첫 테스트 결과 처리
       if (testItems.length > 0) {
         const processedItems = dataProcessor.processItems(testItems, testCategory.id);
-        // 첫 카테고리 결과 저장
         storageManager.saveItemsData(testCategory.id, processedItems);
-        
-        // 추가: 옵션 구조 분석 및 저장
-        const optionStructure = dataProcessor.analyzeOptionStructure(testItems);
-        storageManager.saveOptionStructure(testCategory.id, optionStructure);
       }
     } catch (error) {
-      console.error('API 테스트 실패. 수집을 중단합니다:', error.message);
+      console.error('API 테스트 실패:', error.message);
       process.exit(1);
     }
     
-    // 나머지 카테고리 처리 (첫 번째 카테고리는 이미 처리했으므로 건너뜀)
+    // 나머지 카테고리 처리
     for (let i = 1; i < categoryManager.categories.length; i++) {
       const category = categoryManager.categories[i];
       try {
         // 아이템 수집
         const items = await apiClient.collectCategoryItems(category);
         
-        // 데이터 처리 (간소화된 버전)
+        // 데이터 처리
         const processedItems = dataProcessor.processItems(items, category.id);
         
         // 카테고리별 아이템 데이터 저장
         storageManager.saveItemsData(category.id, processedItems);
-        
-        // 추가: 옵션 구조 분석 및 저장
-        if (items.length > 0) {
-          const optionStructure = dataProcessor.analyzeOptionStructure(items);
-          storageManager.saveOptionStructure(category.id, optionStructure);
-        }
         
       } catch (error) {
         // 치명적 오류인 경우 전체 프로세스 중단
