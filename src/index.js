@@ -3,6 +3,7 @@ const apiClient = require('./api-client');
 const dataProcessor = require('./data-processor');
 const storageManager = require('./storage-manager');
 const categoryManager = require('./category-manager');
+const setBonusManager = require('./set-bonus-manager');
 
 /**
  * 메인 함수
@@ -14,6 +15,9 @@ async function main() {
   try {
     // 디렉토리 초기화
     storageManager.initDirectories();
+    
+    // 세트 효과 메타데이터 디렉토리 생성
+    storageManager.ensureDir('meta/set_bonus');
     
     // 카테고리 데이터 확인
     if (!storageManager.checkCategoriesExist()) {
@@ -33,11 +37,21 @@ async function main() {
       if (testItems.length > 0) {
         const processedItems = dataProcessor.processItems(testItems, testCategory.id);
         storageManager.saveItemsData(testCategory.id, processedItems);
+        
+        // 세트 효과 메타데이터 수집
+        await setBonusManager.collectSetEffects(testItems, testCategory.id);
       }
     } catch (error) {
       console.error('API 테스트 실패:', error.message);
       process.exit(1);
     }
+    
+    // 세트 효과 통계
+    const setEffectsStats = {
+      totalCategories: 0,
+      totalSets: 0,
+      newSets: 0
+    };
     
     // 나머지 카테고리 처리
     for (let i = 1; i < categoryManager.categories.length; i++) {
@@ -51,6 +65,17 @@ async function main() {
         
         // 카테고리별 아이템 데이터 저장
         storageManager.saveItemsData(category.id, processedItems);
+        
+        // 세트 효과 메타데이터 수집
+        if (items.length > 0) {
+          const setStats = await setBonusManager.collectSetEffects(items, category.id);
+          
+          if (setStats) {
+            setEffectsStats.totalCategories++;
+            setEffectsStats.totalSets += setStats.totalCount;
+            setEffectsStats.newSets += setStats.newCount;
+          }
+        }
         
       } catch (error) {
         // 치명적 오류인 경우 전체 프로세스 중단
@@ -69,7 +94,11 @@ async function main() {
     console.log('\n=== 실행 통계 ===');
     console.log(`API 호출 횟수: ${stats.apiCalls}`);
     console.log(`오류 횟수: ${stats.errors}`);
-    console.log(`종료 시간: ${new Date().toISOString()}`);
+    console.log(`\n=== 세트 효과 통계 ===`);
+    console.log(`처리된 카테고리: ${setEffectsStats.totalCategories}`);
+    console.log(`총 세트 효과 수: ${setEffectsStats.totalSets}`);
+    console.log(`새로 추가된 세트: ${setEffectsStats.newSets}`);
+    console.log(`\n종료 시간: ${new Date().toISOString()}`);
     console.log('데이터 수집 완료');
     
   } catch (error) {
