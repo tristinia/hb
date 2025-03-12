@@ -1,6 +1,7 @@
 /**
  * 아이템 표시 관리 모듈
  * 검색 결과 표시, 아이템 상세 정보, 툴팁 등 처리
+ * OptionRenderer와 연동하여 확장된 아이템 표시 기능 추가
  */
 
 const ItemDisplay = (() => {
@@ -9,7 +10,8 @@ const ItemDisplay = (() => {
         searchResults: [],
         filteredResults: [],
         lastSearchResults: [], // 필터링용 캐시
-        tooltipActive: false
+        tooltipActive: false,
+        currentCategory: null
     };
     
     // DOM 요소 참조
@@ -34,6 +36,12 @@ const ItemDisplay = (() => {
         // 필터 변경 이벤트 리스너
         document.addEventListener('filterChanged', (e) => {
             applyLocalFiltering();
+        });
+        
+        // 카테고리 변경 이벤트 리스너
+        document.addEventListener('categoryChanged', (e) => {
+            const { subCategory } = e.detail;
+            state.currentCategory = subCategory;
         });
     }
     
@@ -142,7 +150,10 @@ const ItemDisplay = (() => {
         setTimeout(() => {
             // 필터링 로직 적용
             state.filteredResults = state.lastSearchResults.filter(item => 
-                FilterManager.itemPassesFilters(item)
+                FilterManager.itemPassesFilters(item) && 
+                (typeof OptionFilterManager !== 'undefined' ? 
+                    OptionFilterManager.itemPassesFilters(item) : 
+                    true)
             );
             
             // 결과 테이블 업데이트
@@ -227,6 +238,57 @@ const ItemDisplay = (() => {
         
         state.tooltipActive = true;
         
+        // 툴팁 내용 초기화
+        elements.tooltip.innerHTML = '';
+        
+        // 확장된 옵션 렌더러 사용 (있는 경우)
+        if (typeof OptionRenderer !== 'undefined') {
+            const detailsElement = OptionRenderer.renderItemDetails(item);
+            
+            if (detailsElement) {
+                // 툴팁 기본 레이아웃 생성
+                const tooltipHeader = document.createElement('div');
+                tooltipHeader.className = 'tooltip-header';
+                tooltipHeader.innerHTML = `<h3>${item.item_name || '제목 없음'}</h3>`;
+                
+                // 가격 정보 추가
+                const priceInfo = document.createElement('div');
+                priceInfo.className = 'tooltip-price';
+                priceInfo.innerHTML = `
+                    <span>가격: ${Utils.formatNumber(item.auction_price_per_unit)}G</span>
+                    <span>판매 수량: ${item.auction_count || 1}개</span>
+                `;
+                
+                // 툴팁에 추가
+                elements.tooltip.appendChild(tooltipHeader);
+                
+                const tooltipContent = document.createElement('div');
+                tooltipContent.className = 'tooltip-content';
+                tooltipContent.appendChild(priceInfo);
+                tooltipContent.appendChild(detailsElement);
+                
+                elements.tooltip.appendChild(tooltipContent);
+            } else {
+                // 옵션 렌더러에서 생성 실패 시 기본 툴팁
+                renderBasicTooltip(item);
+            }
+        } else {
+            // 옵션 렌더러가 없는 경우 기본 툴팁
+            renderBasicTooltip(item);
+        }
+        
+        // 툴팁 위치 설정
+        updateTooltipPosition(event);
+        
+        // 툴팁 표시
+        elements.tooltip.style.display = 'block';
+    }
+    
+    /**
+     * 기본 툴팁 렌더링
+     * @param {Object} item - 아이템 데이터
+     */
+    function renderBasicTooltip(item) {
         // 옵션 정보 추출
         let optionsHtml = '';
         if (item.item_option && item.item_option.length > 0) {
@@ -283,12 +345,6 @@ const ItemDisplay = (() => {
                 </div>
             </div>
         `;
-        
-        // 툴팁 위치 설정
-        updateTooltipPosition(event);
-        
-        // 툴팁 표시
-        elements.tooltip.style.display = 'block';
     }
     
     /**
@@ -342,43 +398,66 @@ const ItemDisplay = (() => {
         const modalContainer = document.createElement('div');
         modalContainer.className = 'modal-container';
         
-        // 옵션 정보 추출
-        let optionsHtml = '';
-        if (item.item_option && item.item_option.length > 0) {
-            item.item_option.forEach(option => {
-                if (option.option_type && option.option_value) {
-                    optionsHtml += `
-                        <div class="item-option">
-                            <strong>${option.option_type}:</strong> ${option.option_value}
-                        </div>
-                    `;
-                }
-            });
+        // 확장된 옵션 렌더러 사용 (있는 경우)
+        let modalBody = '';
+        
+        if (typeof OptionRenderer !== 'undefined') {
+            // OptionRenderer 사용
+            modalBody = '<div id="item-details-container" class="item-details-container"></div>';
+        } else {
+            // 기본 렌더링 사용
+            // 옵션 정보 추출
+            let optionsHtml = '';
+            if (item.item_option && item.item_option.length > 0) {
+                item.item_option.forEach(option => {
+                    if (option.option_type && option.option_value) {
+                        optionsHtml += `
+                            <div class="item-option">
+                                <strong>${option.option_type}:</strong> ${option.option_value}
+                            </div>
+                        `;
+                    }
+                });
+            }
+            
+            modalBody = `
+                <div class="item-basic-info">
+                    <p><strong>카테고리:</strong> ${item.auction_item_category || '정보 없음'}</p>
+                    <p><strong>가격:</strong> ${Utils.formatNumber(item.auction_price_per_unit)}G</p>
+                    <p><strong>판매 수량:</strong> ${item.auction_count || 1}개</p>
+                </div>
+                <div class="item-options">
+                    <h4>아이템 옵션</h4>
+                    ${optionsHtml || '<p>옵션 정보가 없습니다.</p>'}
+                </div>
+            `;
         }
         
         // 모달 HTML 생성
-        const modalHtml = `
+        modalContainer.innerHTML = `
             <div class="item-detail-modal">
                 <div class="modal-header">
                     <h3>${item.item_name}</h3>
                     <button class="close-modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <div class="item-basic-info">
-                        <p><strong>카테고리:</strong> ${item.auction_item_category || '정보 없음'}</p>
-                        <p><strong>가격:</strong> ${Utils.formatNumber(item.auction_price_per_unit)}G</p>
-                        <p><strong>판매 수량:</strong> ${item.auction_count || 1}개</p>
-                    </div>
-                    <div class="item-options">
-                        <h4>아이템 옵션</h4>
-                        ${optionsHtml || '<p>옵션 정보가 없습니다.</p>'}
-                    </div>
+                    ${modalBody}
                 </div>
             </div>
         `;
         
-        modalContainer.innerHTML = modalHtml;
         document.body.appendChild(modalContainer);
+        
+        // 옵션 렌더러로 상세 정보 렌더링
+        if (typeof OptionRenderer !== 'undefined') {
+            const detailsContainer = modalContainer.querySelector('#item-details-container');
+            if (detailsContainer) {
+                const detailsElement = OptionRenderer.renderItemDetails(item);
+                if (detailsElement) {
+                    detailsContainer.appendChild(detailsElement);
+                }
+            }
+        }
         
         // 모달 닫기 버튼 이벤트
         const closeButton = modalContainer.querySelector('.close-modal');
@@ -411,12 +490,21 @@ const ItemDisplay = (() => {
         }
     }
     
+    /**
+     * 현재 카테고리 가져오기
+     * @returns {string} 현재 카테고리 ID
+     */
+    function getCurrentCategory() {
+        return state.currentCategory;
+    }
+    
     // 공개 API
     return {
         init,
         setSearchResults,
         applyLocalFiltering,
         clearResults,
-        renderItemsTable
+        renderItemsTable,
+        getCurrentCategory
     };
 })();
