@@ -1,6 +1,7 @@
 /**
  * 메인 스크립트
  * 애플리케이션 초기화 및 모듈 간 조정
+ * OptionRenderer, OptionFilterManager 통합
  */
 
 // 전역 상태
@@ -16,10 +17,20 @@ const App = {
         ItemDisplay.init();
         PaginationManager.init();
         
+        // 새 모듈 초기화 (있는 경우)
+        if (typeof OptionRenderer !== 'undefined') {
+            OptionRenderer.init();
+        }
+        
+        if (typeof OptionFilterManager !== 'undefined') {
+            OptionFilterManager.init();
+        }
+        
         // 이벤트 리스너 설정
         this.setupEventListeners();
         
         console.log('초기화 완료');
+        
         // 추가 최적화 기능 초기화 (간소화 버전)
         try {
             // 다크 모드 초기화
@@ -56,6 +67,9 @@ const App = {
         
         // 페이지 변경 이벤트
         document.addEventListener('pageChanged', this.handlePageChange.bind(this));
+        
+        // 카테고리 변경 이벤트
+        document.addEventListener('categoryChanged', this.handleCategoryChanged.bind(this));
         
         // ESC 키로 모달 닫기
         window.addEventListener('keydown', (event) => {
@@ -144,6 +158,11 @@ const App = {
         // 필터 초기화
         FilterManager.resetFilters();
         
+        // 새 필터 모듈 초기화 (있는 경우)
+        if (typeof OptionFilterManager !== 'undefined') {
+            OptionFilterManager.resetFilters();
+        }
+        
         // 결과 초기화
         ItemDisplay.clearResults();
         
@@ -171,6 +190,24 @@ const App = {
                 row.style.display = 'none';
             }
         });
+    },
+    
+    /**
+     * 카테고리 변경 처리
+     * @param {CustomEvent} event - 카테고리 변경 이벤트
+     */
+    handleCategoryChanged: function(event) {
+        const { mainCategory, subCategory } = event.detail;
+        
+        // 옵션 구조 로드 (있는 경우)
+        if (typeof OptionRenderer !== 'undefined' && subCategory) {
+            OptionRenderer.loadOptionStructure(subCategory).then(structure => {
+                // 옵션 필터 관리자에 구조 전달 (있는 경우)
+                if (typeof OptionFilterManager !== 'undefined') {
+                    OptionFilterManager.setOptionStructure(structure);
+                }
+            });
+        }
     },
     
     /**
