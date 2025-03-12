@@ -22,34 +22,24 @@ jobs:
       - name: 의존성 설치
         run: npm install
       
-      - name: 데이터 수집 실행
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
-          # Firebase 관련 환경 변수 제거
-        run: node src/index.js
+      - name: 카테고리 데이터 확인
+        id: check_categories
+        run: |
+          if [ ! -f data/categories.json ]; then
+            echo "::error::data/categories.json이 존재하지 않습니다."
+            exit 1
+          fi
       
-      # 카테고리 JSON 파일 생성 부분 유지
       - name: 데이터 디렉토리 확인
         run: |
           mkdir -p data
-          mkdir -p data/database
-          
-          # 카테고리 데이터가 없으면 생성
-          if [ ! -f data/categories.json ]; then
-            cp src/category-manager.js /tmp/category-manager.js
-            node -e "
-              const fs = require('fs');
-              const catManager = require('/tmp/category-manager.js');
-              
-              const data = {
-                mainCategories: catManager.mainCategories,
-                categories: catManager.categories
-              };
-              
-              fs.writeFileSync('data/categories.json', JSON.stringify(data, null, 2));
-              console.log('카테고리 데이터 생성 완료');
-            "
-          fi
+          mkdir -p data/items
+          mkdir -p data/meta
+      
+      - name: 데이터 수집 실행
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: node src/index.js
       
       - name: 변경사항 커밋 및 푸시
         run: |
