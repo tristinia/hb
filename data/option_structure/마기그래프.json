@@ -1,9 +1,0 @@
-{
-  "updated": "2025-03-10T13:11:59.205Z",
-  "category": "마기그래프",
-  "option_structure": {
-    "남은 거래 횟수": {
-      "value": "number"
-    }
-  }
-}
