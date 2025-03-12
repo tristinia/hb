@@ -11,6 +11,17 @@ function initDirectories() {
   fs.ensureDirSync(config.DATA_DIR);
   fs.ensureDirSync(path.join(config.DATA_DIR, 'items'));
   fs.ensureDirSync(path.join(config.DATA_DIR, 'meta'));
+  fs.ensureDirSync(path.join(config.DATA_DIR, 'meta', 'set_bonus'));
+}
+
+/**
+ * 특정 디렉토리 확인 및 생성
+ * @param {string} dirPath - 생성할 디렉토리 경로 (DATA_DIR 기준)
+ */
+function ensureDir(dirPath) {
+  const fullPath = path.join(config.DATA_DIR, dirPath);
+  fs.ensureDirSync(fullPath);
+  return fullPath;
 }
 
 /**
@@ -54,6 +65,7 @@ function saveItemsData(categoryId, items) {
 
 module.exports = {
   initDirectories,
+  ensureDir,
   checkCategoriesExist,
   saveItemsData,
   sanitizeFileName
