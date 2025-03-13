@@ -1,4 +1,5 @@
 // src/api-client.js - API 호출 담당
+
 const axios = require('axios');
 const fs = require('fs-extra');
 const path = require('path');
@@ -25,7 +26,7 @@ async function callApi(categoryId, cursor = null, retryCount = 0) {
   try {
     // API 키 확인
     if (!config.API_KEY) {
-      throw new Error('API 키가 설정되지 않았습니다. GitHub Secrets에 API_KEY를 설정하세요.');
+      throw new Error('API 키가 설정되지 않았습니다.');
     }
     
     // API 딜레이 적용
@@ -36,7 +37,7 @@ async function callApi(categoryId, cursor = null, retryCount = 0) {
       auction_item_category: categoryId
     });
     
-    // 커서가 있으면 추가 (주의: 파라미터 이름이 next_cursor가 아니라 cursor입니다)
+    // 커서가 있으면 추가
     if (cursor) {
       params.append('cursor', cursor);
     }
@@ -117,7 +118,7 @@ async function callApi(categoryId, cursor = null, retryCount = 0) {
     
     // 기존 데이터 로드 시도
     try {
-      const existingDataPath = path.join(config.DATA_DIR, 'items', `${categoryId}.json`);
+      const existingDataPath = path.join(config.DATA_DIR, 'items', `${sanitizeFileName(categoryId)}.json`);
       if (fs.existsSync(existingDataPath)) {
         console.log(`기존 데이터 사용: ${categoryId}`);
         const data = JSON.parse(fs.readFileSync(existingDataPath, 'utf8'));
@@ -137,10 +138,20 @@ async function callApi(categoryId, cursor = null, retryCount = 0) {
 }
 
 /**
+ * 파일명으로 사용할 수 없는 특수문자 처리
+ * @param {string} id 원본 ID
+ * @return {string} 파일명으로 사용 가능한 ID
+ */
+function sanitizeFileName(id) {
+  // 파일 시스템에서 문제가 될 수 있는 특수 문자들을 대체
+  return id.replace(/[\/\\:*?"<>|]/g, '_');
+}
+
+/**
  * 단일 카테고리 아이템 수집
  */
 async function collectCategoryItems(category) {
-  console.log(`\n카테고리 수집 시작: ${category.name} (${category.id})`);
+  console.log(`카테고리 수집 시작: ${category.name} (${category.id})`);
   
   try {
     let allItems = [];
@@ -169,7 +180,6 @@ async function collectCategoryItems(category) {
           allItems = allItems.concat(result.items);
         } else {
           // 아이템이 없는 경우 페이징 중지
-          console.log(`  페이지에 아이템이 없음. 페이징 중지.`);
           break;
         }
         
@@ -177,11 +187,10 @@ async function collectCategoryItems(category) {
         nextCursor = result.next_cursor;
         pageCount++;
         
-        console.log(`  페이지 ${pageCount} 처리 완료: ${result.items?.length || 0}개 아이템, 현재 총 ${allItems.length}개`);
+        console.log(` 페이지 ${pageCount} 처리 완료: 현재 총 ${allItems.length}개`);
         
         // 최대 페이지 수 체크
         if (pageCount >= MAX_PAGES) {
-          console.warn(`  최대 페이지 수(${MAX_PAGES})에 도달했습니다. 수집을 중단합니다.`);
           break;
         }
         
@@ -196,16 +205,11 @@ async function collectCategoryItems(category) {
           throw error;
         }
         
-        console.error(`  페이지 로드 중 오류:`, error.message);
         break;
       }
     } while (nextCursor && pageCount < MAX_PAGES);
     
-    if (useExistingData) {
-      console.log(`  기존 데이터 사용: ${allItems.length}개 아이템`);
-    } else {
-      console.log(`  카테고리 ${category.id} 수집 완료: 총 ${allItems.length}개 아이템, api ${state.apiCalls}번 호출`);
-    }
+    console.log(`카테고리 ${category.id} 수집 완료: 총 ${allItems.length}개 아이템, api ${state.apiCalls}번 호출`);
     
     // 결과 반환
     return allItems;
@@ -215,7 +219,7 @@ async function collectCategoryItems(category) {
       throw error;
     }
     
-    console.error(`  카테고리 ${category.id} 처리 중 오류:`, error.message);
+    console.error(`카테고리 ${category.id} 처리 중 오류:`, error.message);
     return [];
   }
 }
