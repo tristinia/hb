@@ -30,9 +30,12 @@ class OptionFilterManager {
   extractFilters(item) {
     const filters = [];
     
+    // 옵션 필드 표준화
+    const options = item.options || item.item_option || [];
+    
     // 기본 필터 수집
-    if (item.options && Array.isArray(item.options)) {
-      item.options.forEach(option => {
+    if (Array.isArray(options)) {
+      options.forEach(option => {
         const processedOption = optionRenderer.processOption(option);
         if (processedOption && processedOption.filter && processedOption.filter !== false) {
           filters.push(processedOption.filter);
@@ -55,6 +58,9 @@ class OptionFilterManager {
    * @param {Array} filters 필터 배열
    */
   addSpecialFilters(item, filters) {
+    // 옵션 필드 표준화
+    const options = item.options || item.item_option || [];
+    
     // 특별 개조 레벨 필터
     this.addSpecialModFilters(item, filters);
     
@@ -74,7 +80,8 @@ class OptionFilterManager {
    * @param {Array} filters 필터 배열
    */
   addSpecialModFilters(item, filters) {
-    const specialModOption = item.options.find(opt => 
+    const options = item.options || item.item_option || [];
+    const specialModOption = options.find(opt => 
       opt.option_type === '특별개조'
     );
     
@@ -96,7 +103,8 @@ class OptionFilterManager {
    * @param {Array} filters 필터 배열
    */
   addErgFilters(item, filters) {
-    const ergOption = item.options.find(opt => 
+    const options = item.options || item.item_option || [];
+    const ergOption = options.find(opt => 
       opt.option_type === '에르그'
     );
     
@@ -118,8 +126,10 @@ class OptionFilterManager {
    * @param {Array} filters 필터 배열
    */
   addReforgeFilters(item, filters) {
+    const options = item.options || item.item_option || [];
+    
     // 세공 옵션 찾기
-    const reforgeOptions = item.options.filter(opt => 
+    const reforgeOptions = options.filter(opt => 
       opt.option_type === '세공 옵션'
     );
     
@@ -148,7 +158,8 @@ class OptionFilterManager {
    * @param {Array} filters 필터 배열
    */
   addSetEffectFilters(item, filters) {
-    const setEffects = item.options.filter(opt => 
+    const options = item.options || item.item_option || [];
+    const setEffects = options.filter(opt => 
       opt.option_type === '세트 효과'
     );
     
@@ -281,13 +292,14 @@ class OptionFilterManager {
    * @returns {boolean} 필터 통과 여부
    */
   checkReforgeFilter(item, filter) {
-    if (!item.options) return false;
+    const options = item.options || item.item_option || [];
+    if (!Array.isArray(options)) return false;
     
     // 필터 이름에서 세공 이름 추출 ('세공: ' 제거)
     const reforgeName = filter.name.substring(4);
     
     // 세공 옵션 중 이름과 레벨이 조건에 맞는지 확인
-    const reforgeOptions = item.options.filter(opt => 
+    const reforgeOptions = options.filter(opt => 
       opt.option_type === '세공 옵션'
     );
     
@@ -318,13 +330,14 @@ class OptionFilterManager {
    * @returns {boolean} 필터 통과 여부
    */
   checkSetEffectFilter(item, filter) {
-    if (!item.options) return false;
+    const options = item.options || item.item_option || [];
+    if (!Array.isArray(options)) return false;
     
     // 필터 이름에서 세트 효과 이름 추출 ('세트: ' 제거)
     const setEffectName = filter.name.substring(4);
     
     // 세트 효과 중 이름과 값이 조건에 맞는지 확인
-    const setEffects = item.options.filter(opt => 
+    const setEffects = options.filter(opt => 
       opt.option_type === '세트 효과'
     );
     
@@ -351,9 +364,10 @@ class OptionFilterManager {
    * @returns {boolean} 필터 통과 여부
    */
   checkSpecialModTypeFilter(item, filter) {
-    if (!item.options) return false;
+    const options = item.options || item.item_option || [];
+    if (!Array.isArray(options)) return false;
     
-    const specialMod = item.options.find(opt => 
+    const specialMod = options.find(opt => 
       opt.option_type === '특별개조'
     );
     
@@ -369,9 +383,10 @@ class OptionFilterManager {
    * @returns {boolean} 필터 통과 여부
    */
   checkSpecialModLevelFilter(item, filter) {
-    if (!item.options) return false;
+    const options = item.options || item.item_option || [];
+    if (!Array.isArray(options)) return false;
     
-    const specialMod = item.options.find(opt => 
+    const specialMod = options.find(opt => 
       opt.option_type === '특별개조'
     );
     
@@ -393,9 +408,10 @@ class OptionFilterManager {
    * @returns {boolean} 필터 통과 여부
    */
   checkErgGradeFilter(item, filter) {
-    if (!item.options) return false;
+    const options = item.options || item.item_option || [];
+    if (!Array.isArray(options)) return false;
     
-    const ergOption = item.options.find(opt => 
+    const ergOption = options.find(opt => 
       opt.option_type === '에르그'
     );
     
@@ -406,14 +422,18 @@ class OptionFilterManager {
   
   /**
    * 에르그 레벨 필터 확인
+   * @param {Object} item
+  /**
+   * 에르그 레벨 필터 확인
    * @param {Object} item 아이템 데이터
    * @param {Object} filter 필터 정보
    * @returns {boolean} 필터 통과 여부
    */
   checkErgLevelFilter(item, filter) {
-    if (!item.options) return false;
+    const options = item.options || item.item_option || [];
+    if (!Array.isArray(options)) return false;
     
-    const ergOption = item.options.find(opt => 
+    const ergOption = options.find(opt => 
       opt.option_type === '에르그'
     );
     
