@@ -10,7 +10,7 @@ const { sanitizeFileName } = require('./storage-manager');
  * @returns {Object} 파싱된 효과 객체
  */
 function parseEnchantEffect(effectText) {
-  // 기존 구현 유지
+  // 숫자 추출 (백분율 포함)
   const numberPattern = /(\d+(?:\.\d+)?)/;
   const match = effectText.match(numberPattern);
   
@@ -25,6 +25,7 @@ function parseEnchantEffect(effectText) {
   const value = parseFloat(match[1]);
   const isPercent = effectText.includes('%');
   
+  // 효과 템플릿 생성 (실제 값을 {value}로 대체)
   const template = effectText.replace(numberPattern, '{value}' + (isPercent ? '%' : ''));
   
   return {
@@ -60,9 +61,9 @@ function parseEnchantNameAndRank(enchantStr) {
  * @param {string} enchantType - 인챈트 타입 ('prefix' 또는 'suffix')
  */
 async function collectEnchantMetadata(itemsData, enchantType) {
-  // 데이터 유효성 검사 강화
-  if (!Array.isArray(itemsData) || itemsData.length === 0) {
-    console.warn(`유효하지 않은 아이템 데이터: ${enchantType}`);
+  // 데이터 유효성 검사
+  if (!Array.isArray(itemsData)) {
+    console.error(`유효하지 않은 아이템 데이터: ${enchantType}`);
     return null;
   }
 
@@ -95,7 +96,7 @@ async function collectEnchantMetadata(itemsData, enchantType) {
   // 각 아이템 순회
   for (const item of itemsData) {
     // 아이템과 item_option 유효성 검사
-    if (!item || !item.item_option || !Array.isArray(item.item_option)) {
+    if (!item || !Array.isArray(item.item_option)) {
       console.warn('잘못된 아이템 데이터 형식:', item);
       continue;
     }
