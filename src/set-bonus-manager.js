@@ -65,7 +65,7 @@ async function collectSetEffects(itemsData, categoryId) {
   }
 
   // 배열로 변환하여 저장
-  const updatedSetEffects = Array.from(setEffectsSet).sort();
+  const updatedSetEffects = Array.from(setEffectsSet).sort((a, b) => a.localeCompare(b, 'ko'));
 
   // 메타데이터 저장
   const updatedData = {
