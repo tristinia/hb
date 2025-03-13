@@ -1,7 +1,16 @@
+// src/enchant-manager.js
+const fs = require('fs-extra');
+const path = require('path');
+const config = require('./config');
+const { sanitizeFileName } = require('./storage-manager');
+
 /**
  * 인챈트 효과 텍스트 파싱
+ * @param {string} effectText - 인챈트 효과 텍스트
+ * @returns {Object} 파싱된 효과 객체
  */
 function parseEnchantEffect(effectText) {
+  // 기본 반환 객체
   let result = {
     template: effectText,
     min: null,
@@ -9,36 +18,48 @@ function parseEnchantEffect(effectText) {
     variable: false
   };
   
-  // 조건문이 있으면 "때" 이후의 텍스트만 사용
+  // 효과 텍스트 처리
   let effectPart = effectText;
+  
+  // 조건문 확인 - "때"가 있으면 그 이후 텍스트만 효과로 처리
   const conditionMatch = effectText.match(/때\s+/);
   
   if (conditionMatch) {
-    effectPart = effectText.substring(conditionMatch.index + conditionMatch[0].length);
+    // "때" 이후의 텍스트만 효과 부분으로 사용
+    const conditionEndIndex = conditionMatch.index + conditionMatch[0].length;
+    effectPart = effectText.substring(conditionEndIndex);
   }
   
-  // 증가/감소 패턴 확인
+  // 효과 끝에 있는 "증가" 또는 "감소" 패턴 확인
   if (/(증가|감소)$/.test(effectPart)) {
+    // 숫자 + 증가/감소 패턴 찾기
     const valueMatch = effectPart.match(/(\d+(?:\.\d+)?%?)\s*(증가|감소)$/);
     
     if (valueMatch) {
+      // 숫자 값 추출
       const valueStr = valueMatch[1];
       const action = valueMatch[2];
       const value = parseFloat(valueStr.replace('%', ''));
       const isPercent = valueStr.includes('%');
       
+      // {value} 플레이스홀더 생성
       const valuePlaceholder = '{value}' + (isPercent ? '%' : '');
-      const escapedValueStr = valueStr.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
       
-      result.template = effectPart.replace(
+      // 템플릿 업데이트 (숫자를 {value}로 대체)
+      // 정규식 특수문자 이스케이프
+      const escapedValueStr = valueStr.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+      const template = effectPart.replace(
         new RegExp(`${escapedValueStr}\\s*${action}$`),
         `${valuePlaceholder} ${action}`
       );
       
+      // 결과 설정
+      result.template = template;
       result.min = value;
       result.max = value;
     }
   } else {
+    // 증가/감소 패턴이 없는 경우는 효과 부분 텍스트를 그대로 사용
     result.template = effectPart;
   }
   
@@ -47,6 +68,8 @@ function parseEnchantEffect(effectText) {
 
 /**
  * 인챈트 이름과 랭크 파싱
+ * @param {string} enchantStr - 인챈트 문자열
+ * @returns {Object} 이름과 랭크 정보
  */
 function parseEnchantNameAndRank(enchantStr) {
   const rankPattern = /\(랭크 (\d+)\)$/;
@@ -65,6 +88,8 @@ function parseEnchantNameAndRank(enchantStr) {
 
 /**
  * 인챈트 메타데이터 수집
+ * @param {Array} itemsData - 아이템 데이터 배열
+ * @param {string} enchantType - 인챈트 타입 ('prefix' 또는 'suffix')
  */
 async function collectEnchantMetadata(itemsData, enchantType) {
   // 데이터 유효성 검사
@@ -173,7 +198,7 @@ async function collectEnchantMetadata(itemsData, enchantType) {
     }
   }
 
-  // 인챈트 이름 기준으로 정렬된 객체로 변환 (한글 기준 가나다순)
+  // 인챈트 이름 기준으로 정렬된 객체로 변환
   const sortedEnchants = {};
   Object.keys(existingData.enchants)
     .sort((a, b) => a.localeCompare(b, 'ko'))
