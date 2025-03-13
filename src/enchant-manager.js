@@ -1,10 +1,7 @@
 /**
- * 인챈트 효과 텍스트 파싱 - 개선된 버전
- * @param {string} effectText - 인챈트 효과 텍스트
- * @returns {Object} 파싱된 효과 객체
+ * 인챈트 효과 텍스트 파싱
  */
 function parseEnchantEffect(effectText) {
-  // 기본 반환 객체
   let result = {
     template: effectText,
     min: null,
@@ -12,64 +9,44 @@ function parseEnchantEffect(effectText) {
     variable: false
   };
   
-  // 효과 텍스트 처리
+  // 조건문이 있으면 "때" 이후의 텍스트만 사용
   let effectPart = effectText;
-  
-  // 1. 조건문 확인 - "때"가 있으면 그 이후 텍스트만 효과로 처리
-  const conditionPattern = /때\s+/;
-  const conditionMatch = effectText.match(conditionPattern);
+  const conditionMatch = effectText.match(/때\s+/);
   
   if (conditionMatch) {
-    // "때" 이후의 텍스트만 효과 부분으로 사용
-    const conditionEndIndex = conditionMatch.index + conditionMatch[0].length;
-    effectPart = effectText.substring(conditionEndIndex);
+    effectPart = effectText.substring(conditionMatch.index + conditionMatch[0].length);
   }
   
-  // 2. 효과 끝에 있는 "증가" 또는 "감소" 패턴 확인
-  const increaseDecreasePattern = /(증가|감소)$/;
-  if (increaseDecreasePattern.test(effectPart)) {
-    // 숫자 + 증가/감소 패턴 찾기
-    const valuePattern = /(\d+(?:\.\d+)?%?)\s*(증가|감소)$/;
-    const valueMatch = effectPart.match(valuePattern);
+  // 증가/감소 패턴 확인
+  if (/(증가|감소)$/.test(effectPart)) {
+    const valueMatch = effectPart.match(/(\d+(?:\.\d+)?%?)\s*(증가|감소)$/);
     
     if (valueMatch) {
-      // 숫자 값 추출
       const valueStr = valueMatch[1];
       const action = valueMatch[2];
       const value = parseFloat(valueStr.replace('%', ''));
       const isPercent = valueStr.includes('%');
       
-      // {value} 플레이스홀더 생성
       const valuePlaceholder = '{value}' + (isPercent ? '%' : '');
-      
-      // 템플릿 업데이트 (숫자를 {value}로 대체)
-      // 정규식 특수문자 이스케이프
       const escapedValueStr = valueStr.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-      const template = effectPart.replace(
-        new RegExp(`${escapedValueStr}\\s*${action}),
+      
+      result.template = effectPart.replace(
+        new RegExp(`${escapedValueStr}\\s*${action}$`),
         `${valuePlaceholder} ${action}`
       );
       
-      // 처리된 템플릿을 결과에 저장
-      result.template = template;
-      
-      // min/max 설정
       result.min = value;
       result.max = value;
     }
   } else {
-    // 증가/감소 패턴이 없는 경우는 효과 부분 텍스트를 그대로 사용
     result.template = effectPart;
-    // 예: "약해 보임"과 같은 효과는 template은 효과 부분, min/max는 null로 유지
   }
   
   return result;
 }
 
 /**
- * 인챈트 이름과 랭크 파싱 (기존 함수 유지)
- * @param {string} enchantStr - 인챈트 문자열
- * @returns {Object} 이름과 랭크 정보
+ * 인챈트 이름과 랭크 파싱
  */
 function parseEnchantNameAndRank(enchantStr) {
   const rankPattern = /\(랭크 (\d+)\)$/;
@@ -87,9 +64,7 @@ function parseEnchantNameAndRank(enchantStr) {
 }
 
 /**
- * 인챈트 메타데이터 수집 (기존 함수 기반)
- * @param {Array} itemsData - 아이템 데이터 배열
- * @param {string} enchantType - 인챈트 타입 ('prefix' 또는 'suffix')
+ * 인챈트 메타데이터 수집
  */
 async function collectEnchantMetadata(itemsData, enchantType) {
   // 데이터 유효성 검사
