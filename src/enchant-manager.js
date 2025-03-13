@@ -83,7 +83,6 @@ async function collectEnchantMetadata(itemsData, enchantType) {
     if (fs.existsSync(filePath)) {
       const data = fs.readFileSync(filePath, 'utf8');
       existingData = JSON.parse(data);
-      console.log(`기존 인챈트 메타데이터 로드 완료: ${enchantType}`);
     }
   } catch (error) {
     console.warn(`기존 인챈트 메타데이터 로드 실패: ${enchantType}`, error.message);
@@ -95,9 +94,8 @@ async function collectEnchantMetadata(itemsData, enchantType) {
 
   // 각 아이템 순회
   for (const item of itemsData) {
-    // 아이템과 item_option 유효성 검사
-    if (!item || !Array.isArray(item.item_option)) {
-      console.warn('잘못된 아이템 데이터 형식:', item);
+    // 아이템 유효성 검사
+    if (!item || !item.item_option) {
       continue;
     }
 
@@ -178,18 +176,18 @@ async function collectEnchantMetadata(itemsData, enchantType) {
   existingData.updated = new Date().toISOString();
 
   // 메타데이터 저장
-  fs.writeFileSync(filePath, JSON.stringify(existingData, null, 2));
-  
-  console.log(`인챈트 메타데이터 저장 완료: ${enchantType}`);
-  console.log(`- 새로 추가된 인챈트: ${newCount}`);
-  console.log(`- 업데이트된 인챈트: ${updateCount}`);
-  console.log(`- 총 인챈트 수: ${Object.keys(existingData.enchants).length}`);
-  
-  return {
-    newCount,
-    updateCount,
-    totalCount: Object.keys(existingData.enchants).length
-  };
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(existingData, null, 2));
+    
+    return {
+      newCount,
+      updateCount,
+      totalCount: Object.keys(existingData.enchants).length
+    };
+  } catch (error) {
+    console.error(`인챈트 메타데이터 저장 실패: ${enchantType}`, error);
+    return null;
+  }
 }
 
 module.exports = {
