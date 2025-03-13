@@ -42,15 +42,13 @@ async function main() {
         const processedItems = dataProcessor.processItems(testItems, testCategory.id);
         storageManager.saveItemsData(testCategory.id, processedItems);
         
-        // 세트 효과 메타데이터 수집
+        // 세트 효과 및 인챈트 메타데이터 수집
         await setBonusManager.collectSetEffects(testItems, testCategory.id);
-        
-        // 인챈트 메타데이터 수집 (접두/접미)
         await enchantManager.collectEnchantMetadata(testItems, 'prefix');
         await enchantManager.collectEnchantMetadata(testItems, 'suffix');
       }
     } catch (error) {
-      console.error('API 테스트 실패:', error.message);
+      console.error('API 테스트 실패:', error);
       process.exit(1);
     }
     
