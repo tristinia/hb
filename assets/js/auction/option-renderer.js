@@ -22,17 +22,21 @@ class OptionRenderer {
   createDisplayBlocks(item) {
     const blocks = [];
     
+    // 이름 필드 정규화
+    const itemName = item.item_display_name || item.item_name || '이름 없음';
+    
+    // 옵션 필드 정규화
+    const options = item.options || item.item_option || [];
+    
     // 1블록: 아이템 이름 (가운데 정렬)
-    if (item.item_display_name) {
-      blocks.push({
-        id: 'name',
-        align: 'center',
-        content: [{ 
-          text: item.item_display_name,
-          filter: false
-        }]
-      });
-    }
+    blocks.push({
+      id: 'name',
+      align: 'center',
+      content: [{ 
+        text: itemName,
+        filter: false
+      }]
+    });
     
     // 2블록: 아이템 속성 (왼쪽 정렬)
     const attributeBlock = {
@@ -43,9 +47,9 @@ class OptionRenderer {
     };
     
     // 옵션 처리
-    if (item.options && Array.isArray(item.options)) {
+    if (Array.isArray(options)) {
       // 일반 옵션 처리
-      for (const option of item.options) {
+      for (const option of options) {
         const processedOption = this.processOption(option);
         if (processedOption) {
           attributeBlock.content.push(processedOption);
@@ -92,7 +96,7 @@ class OptionRenderer {
         
       case '부상률':
         // % 제거하여 표시
-        const injuryValue = option.option_value.replace('%', '');
+        const injuryValue = option.option_value.toString().replace('%', '');
         result = {
           text: `부상률 ${injuryValue}~${option.option_value2}`,
           filter: false
@@ -233,7 +237,8 @@ class OptionRenderer {
    * @param {Object} block 블록 데이터
    */
   processSpecialFeatures(item, block) {
-    if (!item.options || !Array.isArray(item.options)) return;
+    const options = item.options || item.item_option || [];
+    if (!Array.isArray(options)) return;
     
     // 일반 개조 및 장인 개조 처리
     this.processModifications(item, block);
@@ -257,8 +262,10 @@ class OptionRenderer {
    * @param {Object} block 블록 데이터
    */
   processModifications(item, block) {
+    const options = item.options || item.item_option || [];
+    
     // 일반 개조
-    const normalModOption = item.options.find(opt => 
+    const normalModOption = options.find(opt => 
       opt.option_type === '일반 개조'
     );
     
@@ -266,7 +273,7 @@ class OptionRenderer {
       let modText = `일반 개조 (${normalModOption.option_value}/${normalModOption.option_value2})`;
       
       // 보석 개조 확인
-      const gemModOption = item.options.find(opt => 
+      const gemModOption = options.find(opt => 
         opt.option_type === '보석 개조'
       );
       
@@ -281,7 +288,7 @@ class OptionRenderer {
     }
     
     // 장인 개조
-    const masterModOption = item.options.find(opt => 
+    const masterModOption = options.find(opt => 
       opt.option_type === '장인 개조'
     );
     
@@ -310,7 +317,8 @@ class OptionRenderer {
    * @param {Object} block 블록 데이터
    */
   processSpecialMods(item, block) {
-    const specialModOption = item.options.find(opt => 
+    const options = item.options || item.item_option || [];
+    const specialModOption = options.find(opt => 
       opt.option_type === '특별개조'
     );
     
@@ -339,8 +347,10 @@ class OptionRenderer {
    * @param {Object} block 블록 데이터
    */
   processReforges(item, block) {
+    const options = item.options || item.item_option || [];
+    
     // 세공 랭크 찾기
-    const reforgeRankOption = item.options.find(opt => 
+    const reforgeRankOption = options.find(opt => 
       opt.option_type === '세공 랭크'
     );
     
@@ -349,7 +359,7 @@ class OptionRenderer {
     const rank = reforgeRankOption.option_value;
     
     // 세공 옵션 찾기
-    const reforgeOptions = item.options.filter(opt => 
+    const reforgeOptions = options.filter(opt => 
       opt.option_type === '세공 옵션'
     ).sort((a, b) => 
       parseInt(a.option_sub_type) - parseInt(b.option_sub_type)
@@ -392,7 +402,8 @@ class OptionRenderer {
    * @param {Object} block 블록 데이터
    */
   processErg(item, block) {
-    const ergOption = item.options.find(opt => 
+    const options = item.options || item.item_option || [];
+    const ergOption = options.find(opt => 
       opt.option_type === '에르그'
     );
     
@@ -418,10 +429,11 @@ class OptionRenderer {
    * @param {Object} block 블록 데이터
    */
   processSetEffects(item, block) {
-    const setEffects = item.options.filter(opt => 
+    const options = item.options || item.item_option || [];
+    const setEffects = options.filter(opt => 
       opt.option_type === '세트 효과'
     ).sort((a, b) => 
-      parseInt(a.option_sub_type) - parseInt(b.option_sub_type)
+      parseInt(a.option_sub_type || '0') - parseInt(b.option_sub_type || '0')
     );
     
     if (setEffects.length === 0) return;
