@@ -33,6 +33,7 @@ class FilterManager {
    * @param {HTMLElement} itemsContainer 아이템 컨테이너 요소
    */
   init(items, metaData, filterContainer, itemsContainer) {
+    console.log('FilterManager 초기화 중...', items.length, '개 아이템');
     this.allItems = items;
     this.filterContainer = filterContainer;
     this.itemsContainer = itemsContainer;
@@ -51,6 +52,8 @@ class FilterManager {
     
     // 초기 아이템 목록 표시
     this.renderItems(items);
+    
+    console.log('FilterManager 초기화 완료');
   }
   
   /**
@@ -356,13 +359,8 @@ class FilterManager {
         border: 1px solid #ddd;
         padding: 15px;
         border-radius: 5px;
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        width: 250px;
         background: white;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        z-index: 100;
       }
       
       .filter-tabs {
@@ -459,15 +457,12 @@ class FilterManager {
         width: 100%;
       }
       
-      .items-container {
-        margin-right: 280px;
-      }
-      
       .item-card {
         border: 1px solid #ddd;
         padding: 15px;
         margin-bottom: 15px;
         border-radius: 5px;
+        background: white;
       }
       
       .item-block {
@@ -489,7 +484,7 @@ class FilterManager {
       .color-red { color: #e74c3c; }
       .color-blue { color: #3498db; }
       .color-yellow { color: #f1c40f; }
-      .color-white { color: #ffffff; }
+      .color-white { color: #333333; }
       .color-default { color: #333333; }
       
       .no-item-message {
@@ -497,19 +492,9 @@ class FilterManager {
         text-align: center;
         color: #666;
         font-style: italic;
-      }
-      
-      /* 반응형 레이아웃 */
-      @media (max-width: 768px) {
-        .filter-container {
-          position: static;
-          width: 100%;
-          margin-bottom: 20px;
-        }
-        
-        .items-container {
-          margin-right: 0;
-        }
+        background: white;
+        border-radius: 5px;
+        border: 1px solid #ddd;
       }
     `;
     
