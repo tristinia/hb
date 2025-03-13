@@ -1,42 +1,66 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>게임 아이템 필터 시스템</title>
-  <style>
-    body {
-      font-family: 'Malgun Gothic', sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: #f5f5f5;
-    }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      position: relative;
-      min-height: 600px;
-    }
-    
-    h1 {
-      margin-bottom: 30px;
-      color: #333;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마비노기 경매장</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .main-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        #filter-container {
+            width: 280px;
+            margin-right: 20px;
+        }
+        
+        #items-container {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            #filter-container {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>게임 아이템 필터 시스템</h1>
+    <h1>마비노기 경매장</h1>
     
-    <!-- 필터 컨테이너 -->
-    <div id="filter-container"></div>
+    <div class="container">
+        <div id="filter-container"></div>
+        <div id="items-container"></div>
+    </div>
     
-    <!-- 아이템 컨테이너 -->
-    <div id="items-container"></div>
-  </div>
-
-  <!-- JavaScript 모듈 -->
-  <script type="module" src="main.js"></script>
+    <!-- 주요 모듈형 스크립트 -->
+    <script type="module" src="../../assets/js/auction/main.js"></script>
 </body>
 </html>
