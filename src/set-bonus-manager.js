@@ -10,9 +10,10 @@ const config = require('./config');
  * @param {string} categoryId - 카테고리 ID
  */
 async function collectSetEffects(itemsData, categoryId) {
+  // 데이터 유효성 검사
   if (!Array.isArray(itemsData)) {
     console.error(`유효하지 않은 아이템 데이터: ${categoryId}`);
-    return;
+    return null;
   }
 
   // 세트 효과 메타데이터를 저장할 디렉토리 생성
@@ -33,27 +34,28 @@ async function collectSetEffects(itemsData, categoryId) {
     }
   } catch (error) {
     console.warn(`기존 세트 효과 메타데이터 로드 실패: ${categoryId}`, error.message);
-    existingSetEffects = [];
   }
 
   // 세트 효과 수집
   const setEffectsSet = new Set(existingSetEffects);
   let newCount = 0;
 
+  // 각 아이템 순회
   for (const item of itemsData) {
-    if (!item.item_option || !Array.isArray(item.item_option)) continue;
+    // 아이템과 item_option 유효성 검사
+    if (!item || !Array.isArray(item.item_option)) {
+      console.warn('잘못된 아이템 데이터 형식:', item);
+      continue;
+    }
 
     // 아이템의 세트 효과만 필터링
     const setEffectOptions = item.item_option.filter(
-      option => option.option_type === '세트 효과'
+      option => option.option_type === '세트 효과' && 
+                option.option_value // 값이 있는 세트 효과만
     );
-
-    if (setEffectOptions.length === 0) continue;
 
     // 각 세트 효과 처리
     for (const option of setEffectOptions) {
-      if (!option.option_value) continue;
-      
       const setName = option.option_value;
       
       // 세트 효과가 이미 존재하는지 확인
@@ -74,16 +76,22 @@ async function collectSetEffects(itemsData, categoryId) {
     "set_effects": updatedSetEffects
   };
   
-  fs.writeFileSync(filePath, JSON.stringify(updatedData, null, 2));
-  
-  console.log(`세트 효과 메타데이터 저장 완료: ${categoryId}`);
-  console.log(`- 새로 추가된 세트: ${newCount}`);
-  console.log(`- 총 세트 효과 수: ${updatedSetEffects.length}`);
-  
-  return {
-    newCount,
-    totalCount: updatedSetEffects.length
-  };
+  // 파일 저장
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(updatedData, null, 2));
+    
+    console.log(`세트 효과 메타데이터 저장 완료: ${categoryId}`);
+    console.log(`- 새로 추가된 세트: ${newCount}`);
+    console.log(`- 총 세트 효과 수: ${updatedSetEffects.length}`);
+    
+    return {
+      newCount,
+      totalCount: updatedSetEffects.length
+    };
+  } catch (error) {
+    console.error(`세트 효과 메타데이터 저장 실패: ${categoryId}`, error);
+    return null;
+  }
 }
 
 /**
@@ -110,7 +118,7 @@ async function getAllSetEffects() {
       const filePath = path.join(setEffectsDir, file);
       const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
       
-      if (data.category && Array.isArray(data.set_effects)) {
+      if (data.category && data.set_effects) {
         categorySetEffects[data.category] = data.set_effects;
       }
     }
