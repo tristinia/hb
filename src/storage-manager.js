@@ -1,4 +1,5 @@
 // storage-manager.js - 데이터 저장 담당
+
 const fs = require('fs-extra');
 const path = require('path');
 const config = require('./config');
@@ -60,7 +61,6 @@ function saveItemsData(categoryId, items) {
   };
   
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-  console.log(`아이템 데이터 저장 완료: ${categoryId} (${items.length}개)`);
 }
 
 module.exports = {
