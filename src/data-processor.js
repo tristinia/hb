@@ -1,4 +1,5 @@
 // data-processor.js - 데이터 가공 담당
+// 중복 제거 및 최저가만 저장하는 버전
 
 // 현재 날짜 객체
 const currentDate = new Date();
@@ -10,11 +11,10 @@ const today = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1)
  * 중복 제거 및 최저가 저장
  */
 function processItems(items, categoryId) {
-  // 옵션이 있는 아이템만 필터링
+  // 유효한 아이템만 필터링
   const validItems = items.filter(item => 
     item && 
-    Array.isArray(item.item_option) && 
-    item.item_option.length > 0
+    item.item_name // 아이템 이름만 있으면 충분
   );
 
   // 중복 제거를 위한 맵 생성
@@ -32,22 +32,20 @@ function processItems(items, categoryId) {
       date: today
     };
     
-    // 이미 있는 아이템인지 확인
+    // 최저가 처리 로직
     if (uniqueItems.has(itemName)) {
       const existingItem = uniqueItems.get(itemName);
       
-      // 최저가 업데이트
       if (price < existingItem.price) {
         existingItem.price = price;
         existingItem.date = today;
       }
     } else {
-      // 새 아이템 추가
       uniqueItems.set(itemName, processedItem);
     }
   });
   
-  // Map을 배열로 변환하여 반환
+  // 정렬해서 반환
   return Array.from(uniqueItems.values())
     .sort((a, b) => a.name.localeCompare(b.name, 'ko'));
 }
