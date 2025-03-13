@@ -1,5 +1,4 @@
 // data-processor.js - 데이터 가공 담당
-// 중복 제거 및 최저가만 저장하는 버전
 
 // 현재 날짜 객체
 const currentDate = new Date();
@@ -11,11 +10,18 @@ const today = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1)
  * 중복 제거 및 최저가 저장
  */
 function processItems(items, categoryId) {
+  // 옵션이 있는 아이템만 필터링
+  const validItems = items.filter(item => 
+    item && 
+    Array.isArray(item.item_option) && 
+    item.item_option.length > 0
+  );
+
   // 중복 제거를 위한 맵 생성
   const uniqueItems = new Map();
   
-  // 모든 아이템 처리
-  items.forEach(item => {
+  // 모든 유효한 아이템 처리
+  validItems.forEach(item => {
     const itemName = item.item_name;
     const price = item.auction_price_per_unit;
     
