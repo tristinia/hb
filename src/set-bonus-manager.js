@@ -29,7 +29,11 @@ async function collectSetEffects(itemsData, categoryId) {
   try {
     if (fs.existsSync(filePath)) {
       const data = fs.readFileSync(filePath, 'utf8');
-      existingSetEffects = JSON.parse(data);
+      const parsedData = JSON.parse(data);
+      
+      // 기존 데이터의 구조를 확인하고 set_effects 배열 추출
+      existingSetEffects = parsedData.set_effects || [];
+      
       console.log(`기존 세트 효과 메타데이터 로드 완료: ${categoryId}`);
     }
   } catch (error) {
