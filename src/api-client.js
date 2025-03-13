@@ -137,39 +137,6 @@ async function callApi(categoryId, cursor = null, retryCount = 0) {
 }
 
 /**
- * API 유효성 검증 함수 (기존 testApi 대체)
- * 더 간단하게 API가 작동하는지만 확인
- */
-async function validateApi() {
-  try {
-    console.log('API 유효성 검증 중...');
-    
-    // API 키 확인
-    if (!config.API_KEY) {
-      console.error('API 키가 설정되지 않았습니다.');
-      return false;
-    }
-    
-    // 테스트용 카테고리 (가장 기본적인 것)
-    const testCategory = '검';
-    
-    // API 호출 테스트
-    const result = await callApi(testCategory);
-    
-    if (result.items && result.items.length > 0) {
-      console.log(`API 유효성 검증 성공: ${result.items.length}개 아이템 수신됨`);
-      return true;
-    } else {
-      console.error('API 유효성 검증 실패: 아이템이 없습니다.');
-      return false;
-    }
-  } catch (error) {
-    console.error('API 유효성 검증 실패:', error.message);
-    return false;
-  }
-}
-
-/**
  * 단일 카테고리 아이템 수집
  */
 async function collectCategoryItems(category) {
@@ -255,7 +222,6 @@ async function collectCategoryItems(category) {
 
 module.exports = {
   callApi,
-  validateApi,
   collectCategoryItems,
   getStats: () => ({ 
     apiCalls: state.apiCalls, 
