@@ -4,6 +4,7 @@ const dataProcessor = require('./data-processor');
 const storageManager = require('./storage-manager');
 const categoryManager = require('./category-manager');
 const setBonusManager = require('./set-bonus-manager');
+const enchantManager = require('./enchant-manager');
 
 /**
  * 메인 함수
@@ -18,6 +19,9 @@ async function main() {
     
     // 세트 효과 메타데이터 디렉토리 생성
     storageManager.ensureDir('meta/set_bonus');
+    
+    // 인챈트 메타데이터 디렉토리 생성
+    storageManager.ensureDir('meta/enchants');
     
     // 카테고리 데이터 확인
     if (!storageManager.checkCategoriesExist()) {
@@ -40,6 +44,10 @@ async function main() {
         
         // 세트 효과 메타데이터 수집
         await setBonusManager.collectSetEffects(testItems, testCategory.id);
+        
+        // 인챈트 메타데이터 수집 (접두/접미)
+        await enchantManager.collectEnchantMetadata(testItems, 'prefix');
+        await enchantManager.collectEnchantMetadata(testItems, 'suffix');
       }
     } catch (error) {
       console.error('API 테스트 실패:', error.message);
@@ -51,6 +59,12 @@ async function main() {
       totalCategories: 0,
       totalSets: 0,
       newSets: 0
+    };
+    
+    // 인챈트 통계
+    const enchantStats = {
+      prefix: { totalCount: 0, newCount: 0, updateCount: 0 },
+      suffix: { totalCount: 0, newCount: 0, updateCount: 0 }
     };
     
     // 나머지 카테고리 처리
@@ -75,6 +89,22 @@ async function main() {
             setEffectsStats.totalSets += setStats.totalCount;
             setEffectsStats.newSets += setStats.newCount;
           }
+          
+          // 인챈트 메타데이터 수집 (접두)
+          const prefixStats = await enchantManager.collectEnchantMetadata(items, 'prefix');
+          if (prefixStats) {
+            enchantStats.prefix.totalCount = prefixStats.totalCount;
+            enchantStats.prefix.newCount += prefixStats.newCount;
+            enchantStats.prefix.updateCount += prefixStats.updateCount;
+          }
+          
+          // 인챈트 메타데이터 수집 (접미)
+          const suffixStats = await enchantManager.collectEnchantMetadata(items, 'suffix');
+          if (suffixStats) {
+            enchantStats.suffix.totalCount = suffixStats.totalCount;
+            enchantStats.suffix.newCount += suffixStats.newCount;
+            enchantStats.suffix.updateCount += suffixStats.updateCount;
+          }
         }
         
       } catch (error) {
@@ -98,6 +128,13 @@ async function main() {
     console.log(`처리된 카테고리: ${setEffectsStats.totalCategories}`);
     console.log(`총 세트 효과 수: ${setEffectsStats.totalSets}`);
     console.log(`새로 추가된 세트: ${setEffectsStats.newSets}`);
+    console.log(`\n=== 인챈트 통계 ===`);
+    console.log(`접두어 인챈트 총 수: ${enchantStats.prefix.totalCount}`);
+    console.log(`접두어 인챈트 신규: ${enchantStats.prefix.newCount}`);
+    console.log(`접두어 인챈트 업데이트: ${enchantStats.prefix.updateCount}`);
+    console.log(`접미어 인챈트 총 수: ${enchantStats.suffix.totalCount}`);
+    console.log(`접미어 인챈트 신규: ${enchantStats.suffix.newCount}`);
+    console.log(`접미어 인챈트 업데이트: ${enchantStats.suffix.updateCount}`);
     console.log(`\n종료 시간: ${new Date().toISOString()}`);
     console.log('데이터 수집 완료');
     
