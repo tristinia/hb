@@ -33,8 +33,6 @@ async function collectSetEffects(itemsData, categoryId) {
       
       // 기존 데이터의 구조를 확인하고 set_effects 배열 추출
       existingSetEffects = parsedData.set_effects || [];
-      
-      console.log(`기존 세트 효과 메타데이터 로드 완료: ${categoryId}`);
     }
   } catch (error) {
     console.warn(`기존 세트 효과 메타데이터 로드 실패: ${categoryId}`, error.message);
@@ -46,9 +44,8 @@ async function collectSetEffects(itemsData, categoryId) {
 
   // 각 아이템 순회
   for (const item of itemsData) {
-    // 아이템과 item_option 유효성 검사
-    if (!item || !Array.isArray(item.item_option)) {
-      console.warn('잘못된 아이템 데이터 형식:', item);
+    // 아이템 유효성 검사
+    if (!item || !item.item_option) {
       continue;
     }
 
@@ -83,10 +80,6 @@ async function collectSetEffects(itemsData, categoryId) {
   // 파일 저장
   try {
     fs.writeFileSync(filePath, JSON.stringify(updatedData, null, 2));
-    
-    console.log(`세트 효과 메타데이터 저장 완료: ${categoryId}`);
-    console.log(`- 새로 추가된 세트: ${newCount}`);
-    console.log(`- 총 세트 효과 수: ${updatedSetEffects.length}`);
     
     return {
       newCount,
