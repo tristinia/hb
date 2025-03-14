@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-13T17:46:03.633Z",
+  "updated": "2025-03-14T09:28:18.341Z",
   "enchants": {
     "8주년 기념 비범한": {
       "name": "8주년 기념 비범한",
@@ -483,6 +483,24 @@
           "template": "크리티컬 {value} 증가",
           "min": 10,
           "max": 10,
+          "variable": false
+        }
+      ]
+    },
+    "거친 (랭크 C)": {
+      "name": "거친 (랭크 C)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "솜씨 {value} 감소",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 5,
+          "max": 5,
           "variable": false
         }
       ]
@@ -2785,7 +2803,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 16,
+          "min": 15,
           "max": 17,
           "variable": true
         }
@@ -2863,6 +2881,48 @@
         }
       ]
     },
+    "로빈훗": {
+      "name": "로빈훗",
+      "rank": 1,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "방어 {value} 감소",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "솜씨 {value} 증가",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 13,
+          "max": 13,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 15,
+          "max": 15,
+          "variable": false
+        }
+      ]
+    },
     "로켓": {
       "name": "로켓",
       "rank": 6,
@@ -2876,7 +2936,7 @@
         {
           "template": "최대대미지 {value} 증가",
           "min": 17,
-          "max": 18,
+          "max": 19,
           "variable": true
         },
         {
@@ -3061,9 +3121,9 @@
         },
         {
           "template": "마나 소비 감소 {value}% 증가",
-          "min": 3,
+          "min": 2,
           "max": 3,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -3134,8 +3194,8 @@
         {
           "template": "마나 소비 감소 {value}% 증가",
           "min": 2,
-          "max": 2,
-          "variable": false
+          "max": 3,
+          "variable": true
         }
       ]
     },
@@ -4807,9 +4867,9 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 25,
+          "min": 24,
           "max": 25,
-          "variable": false
+          "variable": true
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -4820,8 +4880,8 @@
         {
           "template": "최소대미지 {value} 증가",
           "min": 14,
-          "max": 14,
-          "variable": false
+          "max": 15,
+          "variable": true
         }
       ]
     },
@@ -4899,6 +4959,24 @@
           "template": "최소대미지 {value} 증가",
           "min": 2,
           "max": 2,
+          "variable": false
+        }
+      ]
+    },
+    "수상한 (랭크 B)": {
+      "name": "수상한 (랭크 B)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "크리티컬 {value} 감소",
+          "min": 1,
+          "max": 1,
+          "variable": false
+        },
+        {
+          "template": "최대부상률 {value} 증가",
+          "min": 3,
+          "max": 3,
           "variable": false
         }
       ]
@@ -5079,6 +5157,30 @@
           "template": "크리티컬 {value} 증가",
           "min": 10,
           "max": 10,
+          "variable": false
+        }
+      ]
+    },
+    "스마트 (랭크 C)": {
+      "name": "스마트 (랭크 C)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "의지 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        },
+        {
+          "template": "지력 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        },
+        {
+          "template": "최대마나 {value} 증가",
+          "min": 5,
+          "max": 5,
           "variable": false
         }
       ]
@@ -5294,14 +5396,14 @@
         {
           "template": "크리티컬 {value} 증가",
           "min": 10,
-          "max": 10,
-          "variable": false
+          "max": 12,
+          "variable": true
         },
         {
           "template": "의지 {value} 증가",
-          "min": 47,
+          "min": 46,
           "max": 47,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -6547,6 +6649,54 @@
         }
       ]
     },
+    "와일드 닌자": {
+      "name": "와일드 닌자",
+      "rank": 1,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 19,
+          "max": 20,
+          "variable": true
+        },
+        {
+          "template": "의지 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최소대미지 {value} 증가",
+          "min": 11,
+          "max": 12,
+          "variable": true
+        }
+      ]
+    },
     "요정의 (랭크 F)": {
       "name": "요정의 (랭크 F)",
       "rank": null,
@@ -6607,9 +6757,9 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 8,
+          "min": 4,
           "max": 8,
-          "variable": false
+          "variable": true
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -6757,6 +6907,30 @@
         }
       ]
     },
+    "육지의": {
+      "name": "육지의",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "행운 {value} 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 4,
+          "max": 4,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 4,
+          "max": 4,
+          "variable": false
+        }
+      ]
+    },
     "은 여우": {
       "name": "은 여우",
       "rank": 9,
@@ -6788,8 +6962,8 @@
         {
           "template": "최대마나 {value} 증가",
           "min": 61,
-          "max": 61,
-          "variable": false
+          "max": 67,
+          "variable": true
         },
         {
           "template": "모든 속성 연금술 대미지 {value} 증가",
@@ -6811,9 +6985,9 @@
         },
         {
           "template": "크리티컬 {value} 증가",
-          "min": 4,
+          "min": 3,
           "max": 4,
-          "variable": false
+          "variable": true
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -7915,7 +8089,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 22,
+          "min": 18,
           "max": 32,
           "variable": true
         }
@@ -7978,6 +8152,48 @@
           "min": 8,
           "max": 15,
           "variable": true
+        }
+      ]
+    },
+    "칠흑의": {
+      "name": "칠흑의",
+      "rank": 1,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "솜씨 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "행운 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최소대미지 {value} 증가",
+          "min": 9,
+          "max": 9,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 18,
+          "max": 18,
+          "variable": false
         }
       ]
     },
@@ -8485,6 +8701,18 @@
         }
       ]
     },
+    "튼튼한 (랭크 A)": {
+      "name": "튼튼한 (랭크 A)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "대미지밸런스 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        }
+      ]
+    },
     "파멸의": {
       "name": "파멸의",
       "rank": 6,
@@ -8761,9 +8989,9 @@
         },
         {
           "template": "최대마나 {value} 증가",
-          "min": 19,
+          "min": 16,
           "max": 19,
-          "variable": false
+          "variable": true
         },
         {
           "template": "최대마나 {value} 증가",
@@ -8822,7 +9050,7 @@
         {
           "template": "최대대미지 {value} 감소",
           "min": 6,
-          "max": 7,
+          "max": 8,
           "variable": true
         }
       ]
@@ -8878,6 +9106,30 @@
           "min": 1,
           "max": 3,
           "variable": true
+        }
+      ]
+    },
+    "하드 (랭크 E)": {
+      "name": "하드 (랭크 E)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "솜씨 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "최대생명력 {value} 증가",
+          "min": 8,
+          "max": 8,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 1,
+          "max": 1,
+          "variable": false
         }
       ]
     },
@@ -9142,6 +9394,30 @@
           "min": 26,
           "max": 40,
           "variable": true
+        }
+      ]
+    },
+    "행운의": {
+      "name": "행운의",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "솜씨 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "행운 {value} 증가",
+          "min": 15,
+          "max": 15,
+          "variable": false
+        },
+        {
+          "template": "최대생명력 {value} 감소",
+          "min": 20,
+          "max": 20,
+          "variable": false
         }
       ]
     },
@@ -9567,6 +9843,18 @@
           "template": "교역 중 최대대미지 {value} 증가",
           "min": 5,
           "max": 5,
+          "variable": false
+        }
+      ]
+    },
+    "흥정하는 (랭크 F)": {
+      "name": "흥정하는 (랭크 F)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "상점 판매가 50만 증가",
+          "min": null,
+          "max": null,
           "variable": false
         }
       ]
