@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-14T09:28:18.341Z",
+  "updated": "2025-03-15T09:24:59.010Z",
   "enchants": {
     "8주년 기념 비범한": {
       "name": "8주년 기념 비범한",
@@ -153,6 +153,18 @@
           "template": "불 속성 연금술 대미지 {value} 증가",
           "min": 6,
           "max": 6,
+          "variable": false
+        }
+      ]
+    },
+    "가짜 (랭크 D)": {
+      "name": "가짜 (랭크 D)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "대미지밸런스 {value} 감소",
+          "min": 8,
+          "max": 8,
           "variable": false
         }
       ]
@@ -1099,6 +1111,24 @@
         }
       ]
     },
+    "극적인": {
+      "name": "극적인",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 8,
+          "max": 10,
+          "variable": true
+        },
+        {
+          "template": "마리오네트 최대 생명력 {value} 증가",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        }
+      ]
+    },
     "근사한 (랭크 A)": {
       "name": "근사한 (랭크 A)",
       "rank": null,
@@ -1501,7 +1531,7 @@
         },
         {
           "template": "크리티컬 {value} 증가",
-          "min": 12,
+          "min": 11,
           "max": 14,
           "variable": true
         }
@@ -1675,7 +1705,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 23,
+          "min": 18,
           "max": 39,
           "variable": true
         },
@@ -2876,8 +2906,8 @@
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
           "min": 12,
-          "max": 12,
-          "variable": false
+          "max": 13,
+          "variable": true
         }
       ]
     },
@@ -2936,14 +2966,14 @@
         {
           "template": "최대대미지 {value} 증가",
           "min": 17,
-          "max": 19,
+          "max": 20,
           "variable": true
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 10,
-          "max": 10,
-          "variable": false
+          "max": 18,
+          "variable": true
         }
       ]
     },
@@ -3194,7 +3224,7 @@
         {
           "template": "마나 소비 감소 {value}% 증가",
           "min": 2,
-          "max": 3,
+          "max": 4,
           "variable": true
         }
       ]
@@ -3250,6 +3280,30 @@
           "min": 3,
           "max": 8,
           "variable": true
+        }
+      ]
+    },
+    "마리오네트 (랭크 C)": {
+      "name": "마리오네트 (랭크 C)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "마리오네트 보호 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        },
+        {
+          "template": "마리오네트 방어 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        },
+        {
+          "template": "마리오네트 최대 생명력 {value} 증가",
+          "min": 20,
+          "max": 20,
+          "variable": false
         }
       ]
     },
@@ -4135,6 +4189,24 @@
         }
       ]
     },
+    "블랙 스카": {
+      "name": "블랙 스카",
+      "rank": 2,
+      "effects": [
+        {
+          "template": "수리비 {value}% 감소",
+          "min": 6,
+          "max": 6,
+          "variable": false
+        },
+        {
+          "template": "강해보임",
+          "min": null,
+          "max": null,
+          "variable": false
+        }
+      ]
+    },
     "블레싱 (랭크 A)": {
       "name": "블레싱 (랭크 A)",
       "rank": null,
@@ -4489,9 +4561,9 @@
       "effects": [
         {
           "template": "최대대미지 {value} 증가",
-          "min": 7,
+          "min": 6,
           "max": 7,
-          "variable": false
+          "variable": true
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -4958,8 +5030,8 @@
         {
           "template": "최소대미지 {value} 증가",
           "min": 2,
-          "max": 2,
-          "variable": false
+          "max": 3,
+          "variable": true
         }
       ]
     },
@@ -5641,6 +5713,48 @@
         }
       ]
     },
+    "신나는": {
+      "name": "신나는",
+      "rank": 9,
+      "effects": [
+        {
+          "template": "마나 소비 감소 {value}% 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "마나 소비 감소 {value}% 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "마나 소비 감소 {value}% 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "마나 소비 감소 {value}% 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "음악 버프 스킬 효과 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "음악 버프 스킬 지속시간 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        }
+      ]
+    },
     "신망있는 (랭크 B)": {
       "name": "신망있는 (랭크 B)",
       "rank": null,
@@ -6091,7 +6205,7 @@
         },
         {
           "template": "행운 {value} 증가",
-          "min": 11,
+          "min": 10,
           "max": 25,
           "variable": true
         },
@@ -6787,7 +6901,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 29,
+          "min": 26,
           "max": 32,
           "variable": true
         },
@@ -6829,7 +6943,7 @@
         },
         {
           "template": "마법 공격력 {value} 증가",
-          "min": 8,
+          "min": 6,
           "max": 9,
           "variable": true
         }
@@ -7299,6 +7413,18 @@
           "template": "최대대미지 {value} 증가",
           "min": 2,
           "max": 2,
+          "variable": false
+        }
+      ]
+    },
+    "장난감 (랭크 C)": {
+      "name": "장난감 (랭크 C)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "대미지밸런스 {value} 감소",
+          "min": 24,
+          "max": 24,
           "variable": false
         }
       ]
@@ -7825,7 +7951,7 @@
         },
         {
           "template": "최대마나 {value} 증가",
-          "min": 33,
+          "min": 32,
           "max": 50,
           "variable": true
         },
@@ -8708,8 +8834,8 @@
         {
           "template": "대미지밸런스 {value} 증가",
           "min": 3,
-          "max": 3,
-          "variable": false
+          "max": 4,
+          "variable": true
         }
       ]
     },
@@ -9157,9 +9283,9 @@
       "effects": [
         {
           "template": "최소대미지 {value} 감소",
-          "min": 2,
+          "min": 1,
           "max": 2,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -9349,7 +9475,7 @@
       "effects": [
         {
           "template": "최대대미지 {value} 감소",
-          "min": 3,
+          "min": 2,
           "max": 9,
           "variable": true
         },
@@ -9391,7 +9517,7 @@
       "effects": [
         {
           "template": "행운 {value} 증가",
-          "min": 26,
+          "min": 25,
           "max": 40,
           "variable": true
         }
@@ -9932,7 +10058,7 @@
         {
           "template": "최대스태미나 {value} 증가",
           "min": 2,
-          "max": 3,
+          "max": 4,
           "variable": true
         },
         {

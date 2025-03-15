@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-14T09:28:18.346Z",
+  "updated": "2025-03-15T09:24:59.014Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -151,7 +151,7 @@
         },
         {
           "template": "최대마나 {value} 증가",
-          "min": 28,
+          "min": 26,
           "max": 29,
           "variable": true
         },
@@ -475,13 +475,13 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 19,
+          "min": 12,
           "max": 21,
           "variable": true
         },
         {
           "template": "최소대미지 {value} 증가",
-          "min": 5,
+          "min": 3,
           "max": 8,
           "variable": true
         }
@@ -709,7 +709,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 17,
+          "min": 16,
           "max": 20,
           "variable": true
         },
@@ -868,6 +868,30 @@
           "min": 12,
           "max": 15,
           "variable": true
+        }
+      ]
+    },
+    "굴착": {
+      "name": "굴착",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "최대스태미나 {value} 증가",
+          "min": 50,
+          "max": 50,
+          "variable": false
+        },
+        {
+          "template": "행운 {value} 증가",
+          "min": 8,
+          "max": 8,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
         }
       ]
     },
@@ -1411,6 +1435,30 @@
         }
       ]
     },
+    "날렵한": {
+      "name": "날렵한",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 15,
+          "max": 15,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        },
+        {
+          "template": "의지 {value} 증가",
+          "min": 12,
+          "max": 16,
+          "variable": true
+        }
+      ]
+    },
     "남작": {
       "name": "남작",
       "rank": 6,
@@ -1657,6 +1705,18 @@
         }
       ]
     },
+    "다크니스 (랭크 C)": {
+      "name": "다크니스 (랭크 C)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "의지 {value} 감소",
+          "min": 12,
+          "max": 12,
+          "variable": false
+        }
+      ]
+    },
     "다크호스": {
       "name": "다크호스",
       "rank": 8,
@@ -1868,7 +1928,7 @@
         {
           "template": "최대생명력 {value} 감소",
           "min": 16,
-          "max": 19,
+          "max": 20,
           "variable": true
         }
       ]
@@ -2008,6 +2068,30 @@
           "min": 8,
           "max": 16,
           "variable": true
+        }
+      ]
+    },
+    "도전적인 (랭크 B)": {
+      "name": "도전적인 (랭크 B)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "최대마나 {value} 감소",
+          "min": 15,
+          "max": 15,
+          "variable": false
+        },
+        {
+          "template": "솜씨 {value} 증가",
+          "min": 6,
+          "max": 6,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 6,
+          "max": 6,
+          "variable": false
         }
       ]
     },
@@ -2599,9 +2683,9 @@
         },
         {
           "template": "마나 소비 감소 {value}% 증가",
-          "min": 2,
+          "min": 1,
           "max": 2,
-          "variable": false
+          "variable": true
         },
         {
           "template": "마나 소비 감소 {value}% 증가",
@@ -2719,9 +2803,9 @@
         },
         {
           "template": "최대생명력 {value} 증가",
-          "min": 12,
+          "min": 11,
           "max": 12,
-          "variable": false
+          "variable": true
         },
         {
           "template": "보호 {value} 증가",
@@ -3830,7 +3914,7 @@
         {
           "template": "체력 {value} 증가",
           "min": 2,
-          "max": 7,
+          "max": 8,
           "variable": true
         }
       ]
@@ -3841,7 +3925,7 @@
       "effects": [
         {
           "template": "최대대미지 {value} 증가",
-          "min": 10,
+          "min": 9,
           "max": 11,
           "variable": true
         }
@@ -4460,12 +4544,12 @@
         {
           "template": "행운 {value} 증가",
           "min": 13,
-          "max": 18,
+          "max": 20,
           "variable": true
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 22,
+          "min": 19,
           "max": 25,
           "variable": true
         }
@@ -5167,7 +5251,7 @@
       "effects": [
         {
           "template": "최소대미지 {value} 감소",
-          "min": 6,
+          "min": 5,
           "max": 8,
           "variable": true
         },
@@ -6391,7 +6475,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 14,
+          "min": 13,
           "max": 20,
           "variable": true
         }
@@ -6481,7 +6565,7 @@
       "effects": [
         {
           "template": "물 속성 연금술 대미지 {value} 증가",
-          "min": 18,
+          "min": 15,
           "max": 23,
           "variable": true
         },
@@ -7089,6 +7173,42 @@
           "template": "행운 {value} 증가",
           "min": 10,
           "max": 10,
+          "variable": false
+        }
+      ]
+    },
+    "장군": {
+      "name": "장군",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "지력 {value} 감소",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "최대생명력 {value} 증가",
+          "min": 16,
+          "max": 16,
+          "variable": false
+        },
+        {
+          "template": "보호 {value} 증가",
+          "min": 1,
+          "max": 1,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 4,
+          "max": 4,
           "variable": false
         }
       ]
@@ -8119,14 +8239,14 @@
         },
         {
           "template": "체력 {value} 증가",
-          "min": 23,
+          "min": 20,
           "max": 30,
           "variable": true
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 32,
-          "max": 39,
+          "max": 40,
           "variable": true
         },
         {
@@ -8365,13 +8485,13 @@
         },
         {
           "template": "지력 {value} 증가",
-          "min": 7,
+          "min": 6,
           "max": 8,
           "variable": true
         },
         {
           "template": "최대마나 {value} 증가",
-          "min": 9,
+          "min": 8,
           "max": 11,
           "variable": true
         },
@@ -8426,7 +8546,7 @@
         {
           "template": "방어 {value} 감소",
           "min": 4,
-          "max": 5,
+          "max": 6,
           "variable": true
         }
       ]
@@ -9230,8 +9350,8 @@
         {
           "template": "최대스태미나 {value} 감소",
           "min": 10,
-          "max": 10,
-          "variable": false
+          "max": 14,
+          "variable": true
         }
       ]
     },
@@ -9699,6 +9819,18 @@
           "template": "방어 {value} 증가",
           "min": 1,
           "max": 1,
+          "variable": false
+        }
+      ]
+    },
+    "황홀": {
+      "name": "황홀",
+      "rank": 9,
+      "effects": [
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 7,
+          "max": 7,
           "variable": false
         }
       ]
