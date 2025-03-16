@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-15T09:24:59.014Z",
+  "updated": "2025-03-16T09:25:22.956Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -115,6 +115,24 @@
         }
       ]
     },
+    "갈색곰 (랭크 E)": {
+      "name": "갈색곰 (랭크 E)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "체력 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        },
+        {
+          "template": "최대생명력 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        }
+      ]
+    },
     "갈색여우 (랭크 F)": {
       "name": "갈색여우 (랭크 F)",
       "rank": null,
@@ -158,7 +176,7 @@
         {
           "template": "최대스태미나 {value} 증가",
           "min": 25,
-          "max": 28,
+          "max": 30,
           "variable": true
         },
         {
@@ -1489,6 +1507,30 @@
         }
       ]
     },
+    "네뷸러": {
+      "name": "네뷸러",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "지력 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "마법 공격력 {value} 증가",
+          "min": 9,
+          "max": 9,
+          "variable": false
+        }
+      ]
+    },
     "네이쳐": {
       "name": "네이쳐",
       "rank": 8,
@@ -1701,6 +1743,30 @@
           "template": "최대스태미나 {value} 증가",
           "min": 5,
           "max": 5,
+          "variable": false
+        }
+      ]
+    },
+    "다크니스": {
+      "name": "다크니스",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "의지 {value} 감소",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "방어 {value} 감소",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 13,
+          "max": 13,
           "variable": false
         }
       ]
@@ -2338,6 +2404,18 @@
           "min": 12,
           "max": 16,
           "variable": true
+        }
+      ]
+    },
+    "랍스터 (랭크 F)": {
+      "name": "랍스터 (랭크 F)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "방어 {value} 감소",
+          "min": 4,
+          "max": 4,
+          "variable": false
         }
       ]
     },
@@ -3727,7 +3805,7 @@
         },
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
-          "min": 10,
+          "min": 9,
           "max": 12,
           "variable": true
         }
@@ -3961,9 +4039,9 @@
       "effects": [
         {
           "template": "솜씨 {value} 증가",
-          "min": 8,
+          "min": 5,
           "max": 8,
-          "variable": false
+          "variable": true
         },
         {
           "template": "공격 속도 증가 세트 효과 수치 {value} 증가",
@@ -4072,6 +4150,24 @@
           "min": 13,
           "max": 14,
           "variable": true
+        }
+      ]
+    },
+    "보물": {
+      "name": "보물",
+      "rank": 9,
+      "effects": [
+        {
+          "template": "마법 공격력 {value} 증가",
+          "min": 1,
+          "max": 1,
+          "variable": false
+        },
+        {
+          "template": "마법 공격력 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
         }
       ]
     },
@@ -4513,6 +4609,54 @@
         }
       ]
     },
+    "상쾌한": {
+      "name": "상쾌한",
+      "rank": 5,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 300,
+          "max": 300,
+          "variable": false
+        },
+        {
+          "template": "솜씨 {value} 감소",
+          "min": 30,
+          "max": 30,
+          "variable": false
+        },
+        {
+          "template": "불 속성 연금술 대미지 {value} 증가",
+          "min": 15,
+          "max": 15,
+          "variable": false
+        },
+        {
+          "template": "물 속성 연금술 대미지 {value} 증가",
+          "min": 33,
+          "max": 33,
+          "variable": false
+        },
+        {
+          "template": "물 속성 연금술 대미지 {value} 증가",
+          "min": 15,
+          "max": 15,
+          "variable": false
+        },
+        {
+          "template": "스태미나 소모량 {value}% 감소",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "스태미나 소모량 {value}% 감소",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        }
+      ]
+    },
     "새끼너구리": {
       "name": "새끼너구리",
       "rank": 3,
@@ -4723,7 +4867,7 @@
         },
         {
           "template": "모든 속성 연금술 대미지 {value} 증가",
-          "min": 12,
+          "min": 11,
           "max": 15,
           "variable": true
         }
@@ -5017,7 +5161,7 @@
         },
         {
           "template": "최소대미지 {value} 증가",
-          "min": 27,
+          "min": 14,
           "max": 28,
           "variable": true
         }
@@ -5959,6 +6103,24 @@
         }
       ]
     },
+    "약탈자 (랭크 A)": {
+      "name": "약탈자 (랭크 A)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "행운 {value} 증가",
+          "min": 25,
+          "max": 25,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 25,
+          "max": 25,
+          "variable": false
+        }
+      ]
+    },
     "양자리의": {
       "name": "양자리의",
       "rank": 8,
@@ -6475,9 +6637,39 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 13,
+          "min": 12,
           "max": 20,
           "variable": true
+        }
+      ]
+    },
+    "용감한 (랭크 A)": {
+      "name": "용감한 (랭크 A)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "솜씨 {value} 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "최대스태미나 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "최대생명력 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
         }
       ]
     },
@@ -6511,9 +6703,9 @@
       "effects": [
         {
           "template": "체력 {value} 증가",
-          "min": 8,
+          "min": 7,
           "max": 8,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -7351,7 +7543,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 12,
+          "min": 9,
           "max": 16,
           "variable": true
         }
@@ -9223,6 +9415,36 @@
         }
       ]
     },
+    "품위있는": {
+      "name": "품위있는",
+      "rank": 9,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "최대마나 {value} 감소",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "대미지밸런스 {value} 증가",
+          "min": 12,
+          "max": 12,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 6,
+          "max": 6,
+          "variable": false
+        }
+      ]
+    },
     "풍선 (랭크 F)": {
       "name": "풍선 (랭크 F)",
       "rank": null,
@@ -9265,7 +9487,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 40,
+          "min": 34,
           "max": 45,
           "variable": true
         }
@@ -9331,7 +9553,7 @@
       "effects": [
         {
           "template": "마나 소비 감소 {value}% 증가",
-          "min": 2,
+          "min": 1,
           "max": 4,
           "variable": true
         },
@@ -9619,6 +9841,18 @@
         }
       ]
     },
+    "협상가의 (랭크 F)": {
+      "name": "협상가의 (랭크 F)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "상점 판매가 100만 증가",
+          "min": null,
+          "max": null,
+          "variable": false
+        }
+      ]
+    },
     "호크 (랭크 A)": {
       "name": "호크 (랭크 A)",
       "rank": null,
@@ -9722,7 +9956,7 @@
         {
           "template": "최대마나 {value} 증가",
           "min": 10,
-          "max": 17,
+          "max": 19,
           "variable": true
         },
         {

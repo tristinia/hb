@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-15T09:24:59.010Z",
+  "updated": "2025-03-16T09:25:22.951Z",
   "enchants": {
     "8주년 기념 비범한": {
       "name": "8주년 기념 비범한",
@@ -583,6 +583,42 @@
         }
       ]
     },
+    "격투장인": {
+      "name": "격투장인",
+      "rank": 1,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "의지 {value} 감소",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 23,
+          "max": 23,
+          "variable": false
+        },
+        {
+          "template": "최소대미지 {value} 증가",
+          "min": 15,
+          "max": 15,
+          "variable": false
+        },
+        {
+          "template": "의지 {value} 증가",
+          "min": 25,
+          "max": 25,
+          "variable": false
+        }
+      ]
+    },
     "견고한 (랭크 A)": {
       "name": "견고한 (랭크 A)",
       "rank": null,
@@ -866,7 +902,7 @@
         {
           "template": "체력 {value} 증가",
           "min": 22,
-          "max": 28,
+          "max": 30,
           "variable": true
         },
         {
@@ -2131,14 +2167,14 @@
         },
         {
           "template": "지력 {value} 증가",
-          "min": 7,
+          "min": 6,
           "max": 7,
-          "variable": false
+          "variable": true
         },
         {
           "template": "최대마나 {value} 증가",
           "min": 8,
-          "max": 11,
+          "max": 12,
           "variable": true
         },
         {
@@ -2539,7 +2575,7 @@
         },
         {
           "template": "마법 공격력 {value} 증가",
-          "min": 16,
+          "min": 15,
           "max": 20,
           "variable": true
         },
@@ -2547,6 +2583,24 @@
           "template": "최대대미지 {value} 증가",
           "min": 15,
           "max": 15,
+          "variable": false
+        }
+      ]
+    },
+    "드라마틱": {
+      "name": "드라마틱",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 6,
+          "max": 6,
+          "variable": false
+        },
+        {
+          "template": "마리오네트 최대 생명력 {value} 증가",
+          "min": 20,
+          "max": 20,
           "variable": false
         }
       ]
@@ -2846,7 +2900,7 @@
         {
           "template": "최대부상률 {value} 증가",
           "min": 1,
-          "max": 2,
+          "max": 4,
           "variable": true
         },
         {
@@ -3637,9 +3691,21 @@
         },
         {
           "template": "지력 {value} 증가",
-          "min": 16,
+          "min": 15,
           "max": 30,
           "variable": true
+        }
+      ]
+    },
+    "무딘 (랭크 D)": {
+      "name": "무딘 (랭크 D)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "체력 {value} 증가",
+          "min": 33,
+          "max": 33,
+          "variable": false
         }
       ]
     },
@@ -5029,7 +5095,7 @@
         },
         {
           "template": "최소대미지 {value} 증가",
-          "min": 2,
+          "min": 1,
           "max": 3,
           "variable": true
         }
@@ -5666,8 +5732,8 @@
         {
           "template": "최대대미지 {value} 증가",
           "min": 11,
-          "max": 11,
-          "variable": false
+          "max": 12,
+          "variable": true
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -5779,7 +5845,7 @@
       "effects": [
         {
           "template": "최대대미지 {value} 증가",
-          "min": 6,
+          "min": 5,
           "max": 8,
           "variable": true
         },
@@ -6403,9 +6469,9 @@
       "effects": [
         {
           "template": "솜씨 {value} 증가",
-          "min": 9,
+          "min": 4,
           "max": 9,
-          "variable": false
+          "variable": true
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -7171,6 +7237,24 @@
         }
       ]
     },
+    "인텔리전트": {
+      "name": "인텔리전트",
+      "rank": 9,
+      "effects": [
+        {
+          "template": "행운 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최대마나 {value} 증가",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        }
+      ]
+    },
     "인형 (랭크 C)": {
       "name": "인형 (랭크 C)",
       "rank": null,
@@ -7423,9 +7507,9 @@
       "effects": [
         {
           "template": "대미지밸런스 {value} 감소",
-          "min": 24,
+          "min": 22,
           "max": 24,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -8383,9 +8467,9 @@
       "effects": [
         {
           "template": "대미지밸런스 {value} 감소",
-          "min": 5,
-          "max": 5,
-          "variable": false
+          "min": 3,
+          "max": 6,
+          "variable": true
         }
       ]
     },
@@ -8539,9 +8623,9 @@
         },
         {
           "template": "마법 공격력 {value} 증가",
-          "min": 7,
+          "min": 6,
           "max": 7,
-          "variable": false
+          "variable": true
         },
         {
           "template": "최대마나 {value} 증가",
@@ -9475,7 +9559,7 @@
       "effects": [
         {
           "template": "최대대미지 {value} 감소",
-          "min": 2,
+          "min": 1,
           "max": 9,
           "variable": true
         },
