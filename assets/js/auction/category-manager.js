@@ -1,18 +1,19 @@
 /**
  * 카테고리 관리 모듈
- * 반응형 카테고리 UI 및 상태 관리
+ * 카테고리 데이터 로드 및 UI 관리
  */
+
 const CategoryManager = (() => {
-    // 카테고리 상태 관리
+    // 카테고리 상태
     const state = {
-        mainCategories: [],      // 주 카테고리 목록
-        subCategories: [],       // 하위 카테고리 목록
-        selectedMainCategory: null,  // 현재 선택된 주 카테고리
-        selectedSubCategory: null,   // 현재 선택된 하위 카테고리
-        expandedMainCategory: null,  // 현재 펼쳐진 주 카테고리
-        allExpanded: false,      // 전체 카테고리 확장 상태
-        isLoaded: false,         // 데이터 로딩 완료 여부
-        isMobile: false          // 모바일 환경 여부
+        mainCategories: [],
+        subCategories: [],
+        selectedMainCategory: null,
+        selectedSubCategory: null,
+        expandedMainCategory: null,
+        allExpanded: false,
+        isLoaded: false,
+        isMobile: false
     };
     
     // DOM 요소 참조
@@ -26,17 +27,13 @@ const CategoryManager = (() => {
      * 모듈 초기화
      */
     function init() {
-        // DOM 요소 참조
+        // DOM 요소 참조 가져오기
         elements.mainCategoriesList = document.getElementById('main-categories');
         elements.categoryPath = document.getElementById('category-path');
         elements.toggleAllButton = document.getElementById('toggle-all-categories');
         
-        // 디바이스 환경 감지
+        // 모바일 여부 감지
         state.isMobile = window.matchMedia("(max-width: 768px)").matches;
-        
-        // 초기 확장 상태 설정
-        state.allExpanded = !state.isMobile;
-        state.expandedMainCategory = state.isMobile ? null : state.mainCategories[0]?.id;
         
         // 이벤트 리스너 설정
         setupEventListeners();
@@ -44,12 +41,16 @@ const CategoryManager = (() => {
         // 반응형 변경 감지
         window.matchMedia("(max-width: 768px)").addListener(handleResponsiveChange);
         
+        // 초기 확장 상태 설정
+        state.allExpanded = !state.isMobile;
+        state.expandedMainCategory = state.isMobile ? null : state.mainCategories[0]?.id;
+        
         // 카테고리 데이터 로드
         loadCategories();
     }
     
     /**
-     * 반응형 디자인 변경 처리
+     * 반응형 변경 핸들러
      * @param {MediaQueryListEvent} e - 미디어 쿼리 이벤트
      */
     function handleResponsiveChange(e) {
@@ -68,23 +69,23 @@ const CategoryManager = (() => {
      * 이벤트 리스너 설정
      */
     function setupEventListeners() {
-        // 카테고리 접기/펼치기 버튼 이벤트
+        // 카테고리 접기/펼치기 버튼 이벤트 리스너
         if (elements.toggleAllButton) {
             elements.toggleAllButton.addEventListener('click', toggleAllCategories);
             updateToggleButton();
         }
         
-        // 카테고리 변경 이벤트 리스너
+        // 카테고리 변경 이벤트 리스너 추가
         document.addEventListener('categoryChanged', handleCategoryChangedEvent);
 
-        // 메인 카테고리 목록 이벤트 위임
+        // 메인 카테고리 목록 이벤트 위임 설정
         if (elements.mainCategoriesList) {
             elements.mainCategoriesList.addEventListener('click', handleCategoryClick);
         }
     }
     
     /**
-     * 카테고리 클릭 이벤트 처리 (이벤트 위임)
+     * 카테고리 목록 클릭 이벤트 처리 (이벤트 위임)
      * @param {Event} event - 클릭 이벤트
      */
     function handleCategoryClick(event) {
@@ -118,7 +119,7 @@ const CategoryManager = (() => {
     }
     
     /**
-     * 카테고리 변경 이벤트 처리
+     * 카테고리 변경 이벤트 처리 함수
      * @param {CustomEvent} event - 카테고리 변경 이벤트
      */
     function handleCategoryChangedEvent(event) {
@@ -130,12 +131,12 @@ const CategoryManager = (() => {
     
     /**
      * 카테고리 선택 상태 업데이트
-     * @param {string} mainCategory - 선택된 주 카테고리 ID
-     * @param {string} subCategory - 선택된 하위 카테고리 ID
+     * @param {string} mainCategory - 메인 카테고리 ID
+     * @param {string} subCategory - 서브 카테고리 ID
      * @param {boolean} autoSelected - 자동 선택 여부
      */
     function updateCategorySelection(mainCategory, subCategory, autoSelected) {
-        // 주 카테고리 설정
+        // 메인 카테고리 설정
         if (mainCategory) {
             state.selectedMainCategory = mainCategory;
             
@@ -145,7 +146,7 @@ const CategoryManager = (() => {
             }
         }
         
-        // 하위 카테고리 설정
+        // 서브 카테고리 설정
         if (subCategory) {
             state.selectedSubCategory = subCategory;
         }
@@ -156,13 +157,14 @@ const CategoryManager = (() => {
     }
     
     /**
-     * 전체 카테고리 접기/펼치기 토글
+     * 모든 카테고리 접기/펼치기 토글
      */
     function toggleAllCategories() {
+        // 현재 상태의 반대로 토글
         state.allExpanded = !state.allExpanded;
         
         if (state.allExpanded) {
-            // 첫 번째 대분류 확장
+            // 모든 대분류 확장
             state.expandedMainCategory = state.mainCategories[0]?.id;
             state.selectedMainCategory = state.mainCategories[0]?.id;
         } else {
@@ -176,6 +178,32 @@ const CategoryManager = (() => {
         renderMainCategories();
         updateCategoryPath();
         updateToggleButton();
+        
+        // 카테고리 변경 이벤트 트리거
+        triggerCategoryChangedEvent();
+    }
+    
+    /**
+     * 메인 카테고리 클릭 처리
+     * @param {Object} category - 클릭된 카테고리 객체
+     */
+    function handleMainCategoryClick(category) {
+        // 현재 선택된 카테고리와 동일한 경우 토글
+        if (state.expandedMainCategory === category.id) {
+            // 접기
+            state.expandedMainCategory = null;
+            state.selectedMainCategory = null;
+            state.selectedSubCategory = null;
+        } else {
+            // 확장
+            state.expandedMainCategory = category.id;
+            state.selectedMainCategory = category.id;
+            state.selectedSubCategory = null;
+        }
+        
+        // UI 업데이트
+        renderMainCategories();
+        updateCategoryPath();
         
         // 카테고리 변경 이벤트 트리거
         triggerCategoryChangedEvent();
@@ -200,11 +228,11 @@ const CategoryManager = (() => {
     }
     
     /**
-     * 카테고리 데이터 로드
+     * JSON 파일에서 카테고리 데이터 로드
      */
     async function loadCategories() {
         try {
-            // 카테고리 데이터 로드
+            // 상대 경로로 카테고리 데이터 로드 시도
             const categoriesPath = '../../data/categories.json';
             const response = await fetch(categoriesPath);
             
@@ -230,8 +258,36 @@ const CategoryManager = (() => {
             // 카테고리 초기화
             renderMainCategories();
         } catch (error) {
-            console.error('카테고리 로드 중 오류:', error);
-            showCategoryLoadError();
+            console.error('카테고리 로드 중 오류 발생:', error);
+            
+            // 대체 경로 시도
+            try {
+                const altPath = '../../data/categories.json';
+                const altResponse = await fetch(altPath);
+                
+                if (!altResponse.ok) {
+                    throw new Error(`대체 경로 카테고리 데이터 로드 실패: ${altResponse.status}`);
+                }
+                
+                // JSON 데이터 파싱
+                const data = await altResponse.json();
+                
+                // 카테고리 데이터 설정
+                state.mainCategories = data.mainCategories || [];
+                state.subCategories = data.categories || [];
+                state.isLoaded = true;
+                
+                // 초기 확장 상태 설정
+                state.expandedMainCategory = state.isMobile ? null : state.mainCategories[0]?.id;
+                
+                console.log('대체 경로에서 카테고리 데이터 로드 성공');
+                
+                // 카테고리 초기화
+                renderMainCategories();
+            } catch (altError) {
+                console.error('모든 카테고리 로드 시도 실패:', altError);
+                showCategoryLoadError();
+            }
         }
     }
     
@@ -279,9 +335,11 @@ const CategoryManager = (() => {
             state.selectedMainCategory = null;
             state.selectedSubCategory = null;
             state.expandedMainCategory = null;
+            state.allExpanded = false;
             
             renderMainCategories();
             updateCategoryPath();
+            updateToggleButton();
             triggerCategoryChangedEvent();
         });
         
@@ -296,13 +354,15 @@ const CategoryManager = (() => {
             // 현재 카테고리가 확장된 상태인지 확인
             const isExpanded = state.expandedMainCategory === category.id;
             
-            // +/- 토글 아이콘 생성
+            // +/- 토글 아이콘 (왼쪽에 배치)
             const toggleIcon = document.createElement('span');
             toggleIcon.className = 'toggle-icon';
             toggleIcon.innerHTML = isExpanded ? '-' : '+';
+            
+            // 토글 애니메이션 효과 추가
             toggleIcon.style.transition = 'transform 0.3s ease';
             
-            // 카테고리 버튼 생성
+            // 카테고리 버튼
             const button = document.createElement('button');
             button.className = `category-button ${state.selectedMainCategory === category.id ? 'active' : ''} ${isExpanded ? 'expanded' : ''}`;
             button.setAttribute('data-category-id', category.id);
@@ -310,11 +370,12 @@ const CategoryManager = (() => {
             
             // 버튼 내용 (토글 아이콘 + 텍스트)
             button.appendChild(toggleIcon);
-            button.appendChild(document.createTextNode(category.name));
+            button.appendChild(document.createTextNode
+                               (category.name));
             
             // 클릭 이벤트 리스너 추가
             button.addEventListener('click', () => {
-                // 현재 선택된 카테고리와 동일하면 토글, 다르면 확장
+                // 현재 선택된 카테고리와 동일한 경우 토글
                 if (state.expandedMainCategory === category.id) {
                     // 접기
                     state.expandedMainCategory = null;
@@ -337,7 +398,7 @@ const CategoryManager = (() => {
             
             li.appendChild(button);
             
-            // 소분류 목록 생성
+            // 소분류 목록
             const subList = document.createElement('ul');
             subList.className = `subcategory-list ${isExpanded ? 'expanded' : ''}`;
             
@@ -389,41 +450,17 @@ const CategoryManager = (() => {
     }
     
     /**
-     * 특정 메인 카테고리의 하위 카테고리 조회
-     * @param {string} mainCategory - 주 카테고리 ID
-     * @returns {Array} 하위 카테고리 목록
+     * 특정 메인 카테고리에 속하는 서브카테고리 가져오기
+     * @param {string} mainCategory - 메인 카테고리 ID
+     * @returns {Array} 서브카테고리 목록
      */
     function getSubCategoriesByMainCategory(mainCategory) {
         return state.subCategories.filter(cat => cat.mainCategory === mainCategory);
     }
     
     /**
-     * 메인 카테고리 클릭 처리
-     * @param {Object} category - 클릭된 카테고리 객체
-     */
-    function handleMainCategoryClick(category) {
-        // 이미 선택된 카테고리인 경우 토글 (펼치기/접기)
-        if (state.expandedMainCategory === category.id) {
-            state.expandedMainCategory = null;
-            state.selectedMainCategory = null;
-            state.selectedSubCategory = null;
-        } else {
-            state.expandedMainCategory = category.id;
-            state.selectedMainCategory = category.id;
-            state.selectedSubCategory = null;
-        }
-        
-        // UI 업데이트
-        renderMainCategories();
-        updateCategoryPath();
-        
-        // 선택된 카테고리 정보를 이벤트로 알림
-        triggerCategoryChangedEvent();
-    }
-    
-    /**
      * 서브카테고리 클릭 처리
-     * @param {Object} subCategory - 클릭된 하위 카테고리 객체
+     * @param {Object} subCategory - 클릭한 서브카테고리 객체
      */
     function handleSubCategoryClick(subCategory) {
         // 서브 카테고리 선택
@@ -468,7 +505,7 @@ const CategoryManager = (() => {
         
         // 아무 카테고리도 선택하지 않았을 경우에는 기본 "전체" 표시만 유지
         if (!state.selectedMainCategory && !state.selectedSubCategory) {
-            elements.categoryPath.style.display = 'block';
+            elements.categoryPath.style.display = 'block'; // 항상 표시
             return;
         }
         
@@ -523,7 +560,7 @@ const CategoryManager = (() => {
     }
     
     /**
-     * 아이템 정보로부터 카테고리 경로 표시
+     * 아이템에서 카테고리 경로 표시
      * @param {Object} item - 아이템 데이터
      */
     function showCategoryPathFromItem(item) {
@@ -605,8 +642,8 @@ const CategoryManager = (() => {
     
     /**
      * 서브 카테고리에 해당하는 메인 카테고리 찾기
-     * @param {string} subCategoryId - 하위 카테고리 ID
-     * @returns {string|null} 주 카테고리 ID
+     * @param {string} subCategoryId - 서브 카테고리 ID
+     * @returns {string|null} 메인 카테고리 ID
      */
     function findMainCategoryForSubCategory(subCategoryId) {
         if (!subCategoryId) return null;
@@ -634,7 +671,7 @@ const CategoryManager = (() => {
     }
     
     /**
-     * 선택된 카테고리 정보 조회
+     * 선택된 카테고리 가져오기
      * @returns {Object} 선택된 카테고리 정보
      */
     function getSelectedCategories() {
