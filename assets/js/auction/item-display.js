@@ -1,7 +1,6 @@
 /**
  * 아이템 표시 관리 모듈
- * 검색 결과 표시, 아이템 상세 정보, 툴팁 등 처리
- * OptionRenderer와 연동하여 확장된 아이템 표시 기능 추가
+ * 검색 결과 표시, 아이템 정보, 툴팁 등 처리
  */
 
 const ItemDisplay = (() => {
@@ -54,9 +53,6 @@ const ItemDisplay = (() => {
             elements.resultsBody.addEventListener('mouseover', handleTableMouseOver);
             elements.resultsBody.addEventListener('mouseout', handleTableMouseOut);
             elements.resultsBody.addEventListener('mousemove', handleTableMouseMove);
-            
-            // 아이템 클릭 이벤트 (모달)
-            elements.resultsBody.addEventListener('click', handleItemClick);
         }
     }
     
@@ -212,23 +208,6 @@ const ItemDisplay = (() => {
     }
     
     /**
-     * 아이템 클릭 이벤트 핸들러 (상세 모달)
-     * @param {MouseEvent} event - 마우스 이벤트
-     */
-    function handleItemClick(event) {
-        const tr = event.target.closest('.item-row');
-        if (!tr) return;
-        
-        // 아이템 데이터 가져오기
-        try {
-            const itemData = JSON.parse(tr.getAttribute('data-item'));
-            showItemDetails(itemData);
-        } catch (e) {
-            console.error('아이템 데이터 파싱 오류:', e);
-        }
-    }
-    
-    /**
      * 아이템 툴팁 표시
      * @param {Object} item - 아이템 데이터
      * @param {MouseEvent} event - 마우스 이벤트
@@ -241,41 +220,9 @@ const ItemDisplay = (() => {
         // 툴팁 내용 초기화
         elements.tooltip.innerHTML = '';
         
-        // 확장된 옵션 렌더러 사용 (있는 경우)
-        if (typeof OptionRenderer !== 'undefined') {
-            const detailsElement = OptionRenderer.renderItemDetails(item);
-            
-            if (detailsElement) {
-                // 툴팁 기본 레이아웃 생성
-                const tooltipHeader = document.createElement('div');
-                tooltipHeader.className = 'tooltip-header';
-                tooltipHeader.innerHTML = `<h3>${item.item_name || '제목 없음'}</h3>`;
-                
-                // 가격 정보 추가
-                const priceInfo = document.createElement('div');
-                priceInfo.className = 'tooltip-price';
-                priceInfo.innerHTML = `
-                    <span>가격: ${Utils.formatNumber(item.auction_price_per_unit)}G</span>
-                    <span>판매 수량: ${item.auction_count || 1}개</span>
-                `;
-                
-                // 툴팁에 추가
-                elements.tooltip.appendChild(tooltipHeader);
-                
-                const tooltipContent = document.createElement('div');
-                tooltipContent.className = 'tooltip-content';
-                tooltipContent.appendChild(priceInfo);
-                tooltipContent.appendChild(detailsElement);
-                
-                elements.tooltip.appendChild(tooltipContent);
-            } else {
-                // 옵션 렌더러에서 생성 실패 시 기본 툴팁
-                renderBasicTooltip(item);
-            }
-        } else {
-            // 옵션 렌더러가 없는 경우 기본 툴팁
-            renderBasicTooltip(item);
-        }
+        // 마비노기 스타일의 툴팁 렌더링
+        const tooltipContent = renderMabinogiStyleTooltip(item);
+        elements.tooltip.appendChild(tooltipContent);
         
         // 툴팁 위치 설정
         updateTooltipPosition(event);
@@ -285,68 +232,220 @@ const ItemDisplay = (() => {
     }
     
     /**
-     * 기본 툴팁 렌더링
+     * 마비노기 스타일 아이템 툴팁 렌더링 함수
      * @param {Object} item - 아이템 데이터
+     * @returns {HTMLElement} 툴팁 내용 요소
      */
-    function renderBasicTooltip(item) {
-        // 옵션 정보 추출
-        let optionsHtml = '';
-        if (item.item_option && item.item_option.length > 0) {
-            // 중요한 옵션 먼저 표시
-            const priorityOptions = ['분류', '레벨', '무게', '내구도', '색상', '두루마리', '속성'];
-            const priorityOptionsData = [];
-            const normalOptionsData = [];
+    function renderMabinogiStyleTooltip(item) {
+        const tooltipElement = document.createElement('div');
+        
+        // 아이템 이름 헤더
+        const header = document.createElement('div');
+        header.className = 'tooltip-header';
+        header.innerHTML = `<h3>${item.item_name || item.item_display_name || '제목 없음'}</h3>`;
+        tooltipElement.appendChild(header);
+        
+        // 툴팁 내용 컨테이너
+        const content = document.createElement('div');
+        content.className = 'tooltip-content';
+        
+        // 아이템 속성 블록
+        const attributesBlock = document.createElement('div');
+        attributesBlock.className = 'tooltip-block';
+        attributesBlock.innerHTML = `<div class="tooltip-block-title">아이템 속성</div>`;
+        
+        // 옵션 필드 표준화
+        const options = item.options || item.item_option || [];
+        
+        // 주요 속성 정보
+        const coreAttributes = [
+            { type: '공격', format: (opt) => `<div class="tooltip-stat">공격 ${opt.option_value}~${opt.option_value2}</div>` },
+            { type: '부상률', format: (opt) => `<div class="tooltip-stat">부상률 ${opt.option_value}~${opt.option_value2}</div>` },
+            { type: '크리티컬', format: (opt) => `<div class="tooltip-stat">크리티컬 ${opt.option_value}</div>` },
+            { type: '밸런스', format: (opt) => `<div class="tooltip-stat">밸런스 ${opt.option_value}</div>` },
+            { type: '내구력', format: (opt) => `<div class="tooltip-stat tooltip-yellow">내구력 ${opt.option_value}/${opt.option_value2}</div>` },
+            { type: '숙련', format: (opt) => `<div class="tooltip-stat">숙련 ${opt.option_value}</div>` },
+            { type: '남은 전용 해제 가능 횟수', format: (opt) => `<div class="tooltip-stat tooltip-yellow">남은 전용 해제 가능 횟수 : ${opt.option_value}</div>` }
+        ];
+        
+        // 주요 속성 추가
+        coreAttributes.forEach(attr => {
+            const option = options.find(opt => opt.option_type === attr.type);
+            if (option) {
+                attributesBlock.innerHTML += attr.format(option);
+            }
+        });
+        
+        // 피어싱 레벨
+        const piercingOption = options.find(opt => opt.option_type === '피어싱 레벨');
+        if (piercingOption) {
+            const baseLevel = piercingOption.option_value || "0";
+            const bonusLevel = piercingOption.option_value2 ? piercingOption.option_value2 : "";
+            attributesBlock.innerHTML += `<div class="tooltip-special-stat">- 피어싱 레벨 ${baseLevel} ${bonusLevel}</div>`;
+        }
+        
+        content.appendChild(attributesBlock);
+        
+        // 인챈트 블록
+        const enchantOptions = options.filter(opt => opt.option_type === '인챈트');
+        if (enchantOptions.length > 0) {
+            const enchantBlock = document.createElement('div');
+            enchantBlock.className = 'tooltip-block';
+            enchantBlock.innerHTML = `<div class="tooltip-block-title">인챈트</div>`;
             
-            item.item_option.forEach(option => {
-                if (option.option_type && option.option_value) {
-                    const optionHtml = `
-                        <div class="tooltip-option">
-                            <span class="option-type">${option.option_type}:</span>
-                            <span class="option-value">${option.option_value}</span>
-                        </div>
+            enchantOptions.forEach(enchant => {
+                const type = enchant.option_sub_type;
+                const value = enchant.option_value;
+                const desc = enchant.option_desc;
+                
+                // 인챈트 이름과 랭크 (정규식으로 분리)
+                const match = value.match(/(.+?)\s*(\(랭크 \d+\))/);
+                if (match) {
+                    const enchantName = match[1];
+                    const rankText = match[2];
+                    
+                    enchantBlock.innerHTML += `
+                        <div class="tooltip-stat">[${type}] ${enchantName} <span class="tooltip-pink">${rankText}</span></div>
                     `;
                     
-                    if (priorityOptions.includes(option.option_type)) {
-                        priorityOptionsData.push({
-                            type: option.option_type,
-                            html: optionHtml,
-                            index: priorityOptions.indexOf(option.option_type)
+                    // 인챈트 효과 (쉼표로 구분)
+                    if (desc) {
+                        const effects = desc.split(',');
+                        effects.forEach(effect => {
+                            enchantBlock.innerHTML += `<div class="tooltip-special-stat">- ${effect.trim()}</div>`;
                         });
-                    } else {
-                        normalOptionsData.push(optionHtml);
                     }
+                } else {
+                    enchantBlock.innerHTML += `<div class="tooltip-stat">[${type}] ${value}</div>`;
                 }
             });
             
-            // 우선순위 옵션 정렬 및 추가
-            priorityOptionsData.sort((a, b) => a.index - b.index);
-            priorityOptionsData.forEach(option => {
-                optionsHtml += option.html;
-            });
-            
-            // 일반 옵션 추가
-            normalOptionsData.forEach(optionHtml => {
-                optionsHtml += optionHtml;
-            });
+            content.appendChild(enchantBlock);
         }
         
-        // 툴팁 내용 생성
-        elements.tooltip.innerHTML = `
-            <div class="tooltip-header">
-                <h3>${item.item_name}</h3>
-            </div>
-            <div class="tooltip-content">
-                <div class="tooltip-price">
-                    <span>가격: ${Utils.formatNumber(item.auction_price_per_unit)}G</span>
-                    <span>판매 수량: ${item.auction_count || 1}개</span>
-                </div>
-                <div class="tooltip-options">
-                    ${optionsHtml || '<div class="no-options">옵션 정보가 없습니다.</div>'}
-                </div>
-            </div>
-        `;
+        // 개조 블록
+        const modOptions = options.filter(opt => 
+            opt.option_type === '일반 개조' || 
+            opt.option_type === '장인 개조' || 
+            opt.option_type === '특별 개조'
+        );
+        
+        if (modOptions.length > 0) {
+            const modBlock = document.createElement('div');
+            modBlock.className = 'tooltip-block';
+            modBlock.innerHTML = `<div class="tooltip-block-title">개조</div>`;
+            
+            // 일반 개조
+            const normalMod = modOptions.find(opt => opt.option_type === '일반 개조');
+            if (normalMod) {
+                modBlock.innerHTML += `<div class="tooltip-stat">일반 개조 (${normalMod.option_value}/${normalMod.option_value2})</div>`;
+            }
+            
+            // 보석 개조
+            const gemMod = options.find(opt => opt.option_type === '보석 개조');
+            if (gemMod) {
+                modBlock.innerHTML += `<div class="tooltip-stat">, 보석 개조</div>`;
+            }
+            
+            // 장인 개조
+            const masterMod = modOptions.find(opt => opt.option_type === '장인 개조');
+            if (masterMod) {
+                modBlock.innerHTML += `<div class="tooltip-stat">장인개조</div>`;
+                
+                // 효과 추가 (쉼표로 구분)
+                const effects = masterMod.option_value.split(',');
+                effects.forEach(effect => {
+                    modBlock.innerHTML += `<div class="tooltip-special-stat">- ${effect.trim()}</div>`;
+                });
+            }
+            
+            // 특별 개조
+            const specialMod = modOptions.find(opt => opt.option_type === '특별 개조');
+            if (specialMod) {
+                const type = specialMod.option_sub_type; // "R" 또는 "S"
+                const level = specialMod.option_value;   // 숫자 값
+                
+                modBlock.innerHTML += `<div class="tooltip-stat">특별개조 <span class="tooltip-red">${type}</span> (${level}단계)</div>`;
+            }
+            
+            content.appendChild(modBlock);
+        }
+        
+        // 세공 블록
+        const reforgeRankOption = options.find(opt => opt.option_type === '세공 랭크');
+        const reforgeOptions = options.filter(opt => opt.option_type === '세공 옵션');
+        
+        if (reforgeRankOption || reforgeOptions.length > 0) {
+            const reforgeBlock = document.createElement('div');
+            reforgeBlock.className = 'tooltip-block';
+            reforgeBlock.innerHTML = `<div class="tooltip-block-title">세공</div>`;
+            
+            // 세공 랭크
+            if (reforgeRankOption) {
+                reforgeBlock.innerHTML += `<div class="tooltip-red">${reforgeRankOption.option_value}랭크</div>`;
+            }
+            
+            // 세공 옵션
+            reforgeOptions.forEach(opt => {
+                // "스매시 대미지(18레벨:180 % 증가)" 형식 파싱
+                const match = opt.option_value.match(/(.+?)\((\d+)레벨:(.*?)\)/);
+                if (match) {
+                    const [_, name, level, effect] = match;
+                    reforgeBlock.innerHTML += `
+                        <div class="tooltip-special-stat">- ${name} ${level}레벨 <span class="tooltip-stat">└ ${effect}</span></div>
+                    `;
+                } else {
+                    reforgeBlock.innerHTML += `<div class="tooltip-special-stat">- ${opt.option_value}</div>`;
+                }
+            });
+            
+            content.appendChild(reforgeBlock);
+        }
+        
+        // 에르그 블록
+        const ergOption = options.find(opt => opt.option_type === '에르그');
+        if (ergOption) {
+            const ergBlock = document.createElement('div');
+            ergBlock.className = 'tooltip-block';
+            ergBlock.innerHTML = `
+                <div class="tooltip-block-title">에르그</div>
+                <div class="tooltip-red">등급 ${ergOption.option_sub_type} (${ergOption.option_value}/${ergOption.option_value2}레벨)</div>
+            `;
+            
+            content.appendChild(ergBlock);
+        }
+        
+        // 세트 효과 블록
+        const setEffects = options.filter(opt => opt.option_type === '세트 효과');
+        if (setEffects.length > 0) {
+            const setBlock = document.createElement('div');
+            setBlock.className = 'tooltip-block';
+            setBlock.innerHTML = `<div class="tooltip-block-title">세트 효과</div>`;
+            
+            setEffects.forEach(effect => {
+                setBlock.innerHTML += `<div class="tooltip-special-stat">- ${effect.option_value} +${effect.option_value2}</div>`;
+            });
+            
+            content.appendChild(setBlock);
+        }
+        
+        // 가격 정보
+        if (item.auction_price_per_unit) {
+            const priceBlock = document.createElement('div');
+            priceBlock.className = 'tooltip-block';
+            priceBlock.innerHTML = `
+                <div class="tooltip-block-title">가격 정보</div>
+                <div class="tooltip-stat">가격: ${Utils.formatNumber(item.auction_price_per_unit)}G</div>
+                <div class="tooltip-stat">판매 수량: ${item.auction_count || 1}개</div>
+            `;
+            
+            content.appendChild(priceBlock);
+        }
+        
+        tooltipElement.appendChild(content);
+        return tooltipElement;
     }
-    
+
     /**
      * 툴팁 위치 업데이트
      * @param {MouseEvent} event - 마우스 이벤트
@@ -390,86 +489,46 @@ const ItemDisplay = (() => {
     }
     
     /**
-     * 아이템 상세 정보 모달 표시
-     * @param {Object} item - 아이템 데이터
+     * 현재 페이지의 아이템 렌더링
+     * @param {number} startIndex - 시작 인덱스
+     * @param {number} endIndex - 종료 인덱스
      */
-    function showItemDetails(item) {
-        // 모달 컨테이너 생성
-        const modalContainer = document.createElement('div');
-        modalContainer.className = 'modal-container';
+    function renderItemsForPage(startIndex, endIndex) {
+        if (!elements.resultsBody || state.filteredResults.length === 0) return;
         
-        // 확장된 옵션 렌더러 사용 (있는 경우)
-        let modalBody = '';
+        // 결과 테이블 초기화
+        elements.resultsBody.innerHTML = '';
         
-        if (typeof OptionRenderer !== 'undefined') {
-            // OptionRenderer 사용
-            modalBody = '<div id="item-details-container" class="item-details-container"></div>';
-        } else {
-            // 기본 렌더링 사용
-            // 옵션 정보 추출
-            let optionsHtml = '';
-            if (item.item_option && item.item_option.length > 0) {
-                item.item_option.forEach(option => {
-                    if (option.option_type && option.option_value) {
-                        optionsHtml += `
-                            <div class="item-option">
-                                <strong>${option.option_type}:</strong> ${option.option_value}
-                            </div>
-                        `;
-                    }
-                });
-            }
+        // 페이지에 해당하는 아이템 가져오기
+        const pageItems = state.filteredResults.slice(startIndex, endIndex);
+        
+        // 아이템이 없는 경우
+        if (pageItems.length === 0) {
+            const tr = document.createElement('tr');
+            tr.className = 'empty-result';
+            tr.innerHTML = `<td colspan="3">표시할 결과가 없습니다</td>`;
+            elements.resultsBody.appendChild(tr);
+            return;
+        }
+        
+        // 아이템 행 생성
+        pageItems.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.className = 'item-row';
+            tr.setAttribute('data-item-id', item.auction_item_no);
+            tr.setAttribute('data-item', JSON.stringify(item));
             
-            modalBody = `
-                <div class="item-basic-info">
-                    <p><strong>카테고리:</strong> ${item.auction_item_category || '정보 없음'}</p>
-                    <p><strong>가격:</strong> ${Utils.formatNumber(item.auction_price_per_unit)}G</p>
-                    <p><strong>판매 수량:</strong> ${item.auction_count || 1}개</p>
-                </div>
-                <div class="item-options">
-                    <h4>아이템 옵션</h4>
-                    ${optionsHtml || '<p>옵션 정보가 없습니다.</p>'}
-                </div>
+            tr.innerHTML = `
+                <td>
+                    <div class="item-cell">
+                        <div class="item-name">${item.item_name}</div>
+                    </div>
+                </td>
+                <td>${item.auction_count || 1}개</td>
+                <td class="item-price">${Utils.formatNumber(item.auction_price_per_unit)}G</td>
             `;
-        }
-        
-        // 모달 HTML 생성
-        modalContainer.innerHTML = `
-            <div class="item-detail-modal">
-                <div class="modal-header">
-                    <h3>${item.item_name}</h3>
-                    <button class="close-modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    ${modalBody}
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(modalContainer);
-        
-        // 옵션 렌더러로 상세 정보 렌더링
-        if (typeof OptionRenderer !== 'undefined') {
-            const detailsContainer = modalContainer.querySelector('#item-details-container');
-            if (detailsContainer) {
-                const detailsElement = OptionRenderer.renderItemDetails(item);
-                if (detailsElement) {
-                    detailsContainer.appendChild(detailsElement);
-                }
-            }
-        }
-        
-        // 모달 닫기 버튼 이벤트
-        const closeButton = modalContainer.querySelector('.close-modal');
-        closeButton.addEventListener('click', () => {
-            document.body.removeChild(modalContainer);
-        });
-        
-        // 모달 바깥 클릭 시 닫기
-        modalContainer.addEventListener('click', (e) => {
-            if (e.target === modalContainer) {
-                document.body.removeChild(modalContainer);
-            }
+            
+            elements.resultsBody.appendChild(tr);
         });
     }
     
@@ -503,6 +562,7 @@ const ItemDisplay = (() => {
         init,
         setSearchResults,
         applyLocalFiltering,
+        renderItemsForPage,
         clearResults,
         renderItemsTable,
         getCurrentCategory
