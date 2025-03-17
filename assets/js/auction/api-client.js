@@ -38,7 +38,7 @@ const ApiClient = (() => {
             setLoading(true);
             state.lastQuery = { type: 'keyword', keyword };
             
-            // 기존 코드 그대로 사용 (Firebase 설정 유지)
+            // 기존 Firebase 앱 인스턴스에서 직접 projectId 가져오기
             const url = `https://us-central1-${firebase.app().options.projectId}.cloudfunctions.net/searchByKeyword?keyword=${encodeURIComponent(keyword)}`;
             console.log("API 호출 중...");
             
@@ -87,7 +87,7 @@ const ApiClient = (() => {
                 itemName 
             };
             
-            // 기존 코드 그대로 사용 (Firebase 설정 유지)
+            // 기존 Firebase 앱 인스턴스에서 직접 projectId 가져오기
             let url = `https://us-central1-${firebase.app().options.projectId}.cloudfunctions.net/searchByCategory?subCategory=${encodeURIComponent(subCategory)}`;
             
             // 대분류도 함께 전달 (UI 표시용)
