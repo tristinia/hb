@@ -50,6 +50,14 @@ const FilterManager = (() => {
         console.log('FilterManager 초기화 완료');
         state.isInitialized = true;
     }
+
+    /**
+     * 필터 UI에 스타일 추가
+     */
+    function addStyles() {
+        // 필터 관련 스타일이 필요한 경우 여기에 추가
+        // 현재는 auction.css에서 관리
+    }
     
     /**
      * 현재 카테고리에 맞는 필터 옵션 업데이트
@@ -101,22 +109,25 @@ const FilterManager = (() => {
             { name: "공격력", type: "range", field: "option_value" },
             { name: "크리티컬", type: "range", field: "option_value" },
             { name: "밸런스", type: "range", field: "option_value" },
-            { name: "내구력", type: "range", field: "option_value" }
+            { name: "내구력", type: "range", field: "option_value" },
+            { name: "피어싱 레벨", type: "range", field: "option_value" }
         ];
         
         // 필터 드롭다운 초기화
-        elements.filterSelector.innerHTML = '<option value="">옵션 선택...</option>';
-        
-        // 가용 필터 설정
-        state.availableFilters = defaultFilters;
-        
-        // 필터 옵션 추가
-        defaultFilters.forEach(filter => {
-            const option = document.createElement('option');
-            option.value = filter.name;
-            option.textContent = filter.name;
-            elements.filterSelector.appendChild(option);
-        });
+        if (elements.filterSelector) {
+            elements.filterSelector.innerHTML = '<option value="">옵션 선택...</option>';
+            
+            // 가용 필터 설정
+            state.availableFilters = defaultFilters;
+            
+            // 필터 옵션 추가
+            defaultFilters.forEach(filter => {
+                const option = document.createElement('option');
+                option.value = filter.name;
+                option.textContent = filter.name;
+                elements.filterSelector.appendChild(option);
+            });
+        }
     }
     
     /**
@@ -127,28 +138,50 @@ const FilterManager = (() => {
     async function loadFiltersForCategory(category) {
         try {
             // 카테고리명 안전하게 변환
-            const safeCategory = encodeURIComponent(category);
+            const safeCategory = sanitizeFileName(category);
             
-            // data/option_structure/카테고리별.json 로드 (여기서는 사용 가능한 고정된 옵션 파일 사용)
-            const response = await fetch(`../../data/option_structure/default_options.json`);
+            // 카테고리별 옵션 구조 파일 로드 시도
+            const response = await fetch(`../../data/option_structure/${safeCategory}.json`);
             
             if (!response.ok) {
                 throw new Error(`필터 구조 로드 실패: ${response.status}`);
             }
             
             const data = await response.json();
-            return data.options || [];
+            
+            // 옵션 타입을 필터 객체로 변환
+            if (data.option_types && Array.isArray(data.option_types)) {
+                return data.option_types.map(type => ({
+                    name: type,
+                    type: "range",
+                    field: "option_value"
+                }));
+            } else {
+                throw new Error("옵션 구조 형식이 올바르지 않습니다.");
+            }
         } catch (error) {
             console.error(`${category} 필터 로드 오류:`, error);
             
-            // 대체 필터 설정
+            // 대체 필터 설정 (기본값)
+            // 실제 서비스에서는 이 부분이 API 호출 실패 시 보여질 수 있음
             return [
                 { name: "공격력", type: "range", field: "option_value" },
                 { name: "크리티컬", type: "range", field: "option_value" },
                 { name: "밸런스", type: "range", field: "option_value" },
-                { name: "내구력", type: "range", field: "option_value" }
+                { name: "내구력", type: "range", field: "option_value" },
+                { name: "피어싱 레벨", type: "range", field: "option_value" }
             ];
         }
+    }
+    
+    /**
+     * 파일명으로 사용할 수 없는 특수문자 처리
+     * @param {string} filename - 원본 파일명
+     * @returns {string} 안전한 파일명
+     */
+    function sanitizeFileName(filename) {
+        if (!filename) return '';
+        return filename.replace(/[\/\\:*?"<>|]/g, '_');
     }
     
     /**
@@ -183,6 +216,7 @@ const FilterManager = (() => {
         const removeBtn = document.createElement('button');
         removeBtn.className = 'filter-remove';
         removeBtn.innerHTML = '×';
+        removeBtn.setAttribute('aria-label', `${filterName} 필터 제거`);
         removeBtn.addEventListener('click', () => {
             filterItem.remove();
             removeActiveFilter(filterName);
@@ -205,6 +239,7 @@ const FilterManager = (() => {
             minInput.className = 'filter-input min-value';
             minInput.placeholder = '최소값';
             minInput.min = 0;
+            minInput.setAttribute('aria-label', `${filterName} 최소값`);
             
             const separator = document.createElement('span');
             separator.className = 'filter-separator';
@@ -215,6 +250,7 @@ const FilterManager = (() => {
             maxInput.className = 'filter-input max-value';
             maxInput.placeholder = '최대값';
             maxInput.min = 0;
+            maxInput.setAttribute('aria-label', `${filterName} 최대값`);
             
             // 입력 후 자동 적용
             minInput.addEventListener('change', () => autoApplyFilter(filterItem, filterInfo));
@@ -227,6 +263,7 @@ const FilterManager = (() => {
             // 선택형 입력 (드롭다운)
             const select = document.createElement('select');
             select.className = 'filter-input select-value';
+            select.setAttribute('aria-label', `${filterName} 선택`);
             
             const defaultOption = document.createElement('option');
             defaultOption.value = '';
@@ -250,6 +287,7 @@ const FilterManager = (() => {
             input.type = 'text';
             input.className = 'filter-input text-value';
             input.placeholder = '값 입력';
+            input.setAttribute('aria-label', `${filterName} 값`);
             
             // 입력 후 자동 적용
             input.addEventListener('change', () => autoApplyFilter(filterItem, filterInfo));
@@ -480,6 +518,7 @@ const FilterManager = (() => {
     // 공개 API
     return {
         init,
+        addStyles,
         updateFiltersForCategory,
         itemPassesFilters,
         resetFilters,
