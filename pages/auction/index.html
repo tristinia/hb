@@ -19,7 +19,7 @@
                 <div class="category-panel">
                     <div class="panel-header">
                         <h3>카테고리</h3>
-                        <button class="toggle-button" id="toggle-all-categories">
+                        <button class="toggle-button" id="toggle-all-categories" title="카테고리 펼치기">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                         </button>
                     </div>
@@ -32,16 +32,36 @@
                 </div>
             </div>
 
+            <!-- 필터 패널 (오른쪽) -->
+            <div class="right-panel">
+                <div class="options-panel">
+                    <div class="panel-header">
+                        <h3>세부 옵션 검색</h3>
+                        <button class="toggle-button" id="toggle-options" title="옵션 펼치기">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                    </div>
+                    <div class="filter-dropdown-container">
+                        <select id="filter-selector" class="filter-selector">
+                            <option value="">옵션 선택...</option>
+                        </select>
+                    </div>
+                    <div class="active-filters" id="active-filters">
+                        <!-- 필터 항목들이 여기에 추가됩니다 -->
+                    </div>
+                </div>
+            </div>
+
             <!-- 중앙 컨텐츠 (검색 + 결과) -->
             <div class="center-panel">
                 <!-- 검색 영역 -->
                 <div class="search-container">
                     <div class="search-wrapper">
                         <input type="text" id="search-input" placeholder="아이템 이름을 입력하세요..." autocomplete="off">
-                        <button class="search-button" id="search-button">
+                        <button class="search-button" id="search-button" title="검색">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                         </button>
-                        <button class="reset-button" id="reset-button">
+                        <button class="reset-button" id="reset-button" title="초기화">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
                         </button>
                     </div>
@@ -50,9 +70,8 @@
 
                 <!-- 카테고리 경로 바 -->
                 <div class="category-path-panel">
-                    <div class="category-path">
-                        <span class="category-path-label">카테고리:</span>
-                        <span id="category-path"></span>
+                    <div class="category-path" id="category-path">
+                        <span class="category-path-main category-button">전체</span>
                     </div>
                 </div>
 
@@ -76,33 +95,7 @@
                         </tbody>
                     </table>
                     <div id="pagination" class="pagination">
-                        <!-- 페이지네이션 동적 생성 (10개 고정) -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- 필터 패널 (오른쪽) -->
-            <div class="right-panel">
-                <div class="options-panel">
-                    <div class="panel-header">
-                        <h3>세부 옵션 검색</h3>
-                        <button class="toggle-button" id="toggle-options">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                        </button>
-                    </div>
-                    <div class="filter-dropdown-container">
-                        <select id="filter-selector" class="filter-selector">
-                            <option value="">옵션 선택...</option>
-                        </select>
-                    </div>
-                    <div class="active-filters" id="active-filters">
-                        <!-- 필터 항목들이 여기에 추가됩니다 -->
-                    </div>
-                    <div class="selected-filters-container">
-                        <h3>적용된 필터</h3>
-                        <ul class="selected-filters-list" id="selected-filters">
-                            <li class="no-filters">적용된 필터가 없습니다</li>
-                        </ul>
+                        <!-- 페이지네이션 동적 생성 -->
                     </div>
                 </div>
             </div>
@@ -117,6 +110,20 @@
         <div class="spinner"></div>
         <p>데이터를 불러오는 중...</p>
     </div>
+
+    <!-- 기본 옵션 구조 파일 -->
+    <script>
+        // 기본 필터 옵션 구조 (파일을 불러올 수 없을 때 사용)
+        window.defaultOptions = {
+            "options": [
+                { "name": "공격력", "type": "range", "field": "option_value" },
+                { "name": "크리티컬", "type": "range", "field": "option_value" },
+                { "name": "밸런스", "type": "range", "field": "option_value" },
+                { "name": "내구력", "type": "range", "field": "option_value" },
+                { "name": "피어싱 레벨", "type": "range", "field": "option_value" }
+            ]
+        };
+    </script>
 
     <!-- JavaScript 모듈 -->
     <script src="../../assets/js/auction/utils.js"></script>
