@@ -11,8 +11,9 @@ const CategoryManager = (() => {
         selectedMainCategory: null,
         selectedSubCategory: null,
         expandedMainCategory: null,
-        allExpanded: false, // 기본값을 접힌 상태로 변경
-        isLoaded: false
+        allExpanded: false,
+        isLoaded: false,
+        isMobile: false
     };
     
     // DOM 요소 참조
@@ -31,11 +32,37 @@ const CategoryManager = (() => {
         elements.categoryPath = document.getElementById('category-path');
         elements.toggleAllButton = document.getElementById('toggle-all-categories');
         
+        // 모바일 여부 감지
+        state.isMobile = window.matchMedia("(max-width: 768px)").matches;
+        
         // 이벤트 리스너 설정
         setupEventListeners();
         
+        // 반응형 변경 감지
+        window.matchMedia("(max-width: 768px)").addListener(handleResponsiveChange);
+        
+        // 초기 확장 상태 설정
+        state.allExpanded = !state.isMobile;
+        state.expandedMainCategory = state.isMobile ? null : state.mainCategories[0]?.id;
+        
         // 카테고리 데이터 로드
         loadCategories();
+    }
+    
+    /**
+     * 반응형 변경 핸들러
+     * @param {MediaQueryListEvent} e - 미디어 쿼리 이벤트
+     */
+    function handleResponsiveChange(e) {
+        // 모바일 상태 업데이트
+        state.isMobile = e.matches;
+        
+        // 확장 상태 재설정
+        state.allExpanded = !state.isMobile;
+        state.expandedMainCategory = state.isMobile ? null : state.mainCategories[0]?.id;
+        
+        // UI 다시 렌더링
+        renderMainCategories();
     }
     
     /**
@@ -135,47 +162,16 @@ const CategoryManager = (() => {
     function toggleAllCategories() {
         state.allExpanded = !state.allExpanded;
         
-        // 카테고리 패널 요소 가져오기
-        const categoryPanel = document.querySelector('.category-panel');
-        
         if (state.allExpanded) {
-            // 펼침: 패널 표시하고 대분류만 펼치기
-            if (categoryPanel) {
-                categoryPanel.classList.remove('collapsed');
-            }
-            
-            // 모든 소분류 표시 (대분류만 펼친 상태)
-            const subLists = document.querySelectorAll('.subcategory-list');
-            subLists.forEach(list => {
-                list.classList.add('expanded');
-            });
-            
-            // 모든 메인 카테고리 버튼의 확장 표시
-            const mainButtons = document.querySelectorAll('.category-button');
-            mainButtons.forEach(btn => {
-                btn.classList.add('expanded');
-            });
+            // 모든 대분류 확장
+            state.expandedMainCategory = state.mainCategories[0]?.id;
         } else {
-            // 접음: 모든 소분류 접기
-            const subLists = document.querySelectorAll('.subcategory-list');
-            subLists.forEach(list => {
-                list.classList.remove('expanded');
-            });
-            
-            // 모든 메인 카테고리 버튼의 확장 표시 제거
-            const mainButtons = document.querySelectorAll('.category-button');
-            mainButtons.forEach(btn => {
-                btn.classList.remove('expanded');
-            });
-            
-            // 단, 현재 선택된 카테고리는 계속 펼쳐진 상태로 유지
-            if (state.selectedMainCategory) {
-                state.expandedMainCategory = state.selectedMainCategory;
-                renderMainCategories(); // 선택된 카테고리만 펼치기 위해 다시 렌더링
-            }
+            // 모든 대분류 접기
+            state.expandedMainCategory = null;
         }
         
         // UI 업데이트
+        renderMainCategories();
         updateToggleButton();
     }
     
@@ -218,6 +214,9 @@ const CategoryManager = (() => {
             state.subCategories = data.categories || [];
             state.isLoaded = true;
             
+            // 초기 확장 상태 설정
+            state.expandedMainCategory = state.isMobile ? null : state.mainCategories[0]?.id;
+            
             console.log('카테고리 데이터 로드 성공:', 
                 state.mainCategories.length + '개 대분류,',
                 state.subCategories.length + '개 소분류');
@@ -243,6 +242,9 @@ const CategoryManager = (() => {
                 state.mainCategories = data.mainCategories || [];
                 state.subCategories = data.categories || [];
                 state.isLoaded = true;
+                
+                // 초기 확장 상태 설정
+                state.expandedMainCategory = state.isMobile ? null : state.mainCategories[0]?.id;
                 
                 console.log('대체 경로에서 카테고리 데이터 로드 성공');
                 
@@ -301,13 +303,16 @@ const CategoryManager = (() => {
             const li = document.createElement('li');
             li.className = 'category-item accordion-item';
             
-            // 카테고리가 확장된 상태인지 확인
+            // 현재 카테고리가 확장된 상태인지 확인
             const isExpanded = state.expandedMainCategory === category.id;
             
             // +/- 토글 아이콘 (왼쪽에 배치)
             const toggleIcon = document.createElement('span');
             toggleIcon.className = 'toggle-icon';
             toggleIcon.innerHTML = isExpanded ? '-' : '+';
+            
+            // 토글 애니메이션 효과 추가
+            toggleIcon.style.transition = 'transform 0.3s ease';
             
             // 카테고리 버튼
             const button = document.createElement('button');
@@ -319,35 +324,65 @@ const CategoryManager = (() => {
             button.appendChild(toggleIcon);
             button.appendChild(document.createTextNode(category.name));
             
+            // 클릭 이벤트 리스너 추가
+            button.addEventListener('click', () => {
+                const currentlyExpanded = state.expandedMainCategory === category.id;
+                
+                // 현재 선택된 카테고리의 확장 상태 토글
+                state.expandedMainCategory = currentlyExpanded ? null : category.id;
+                
+                // 선택된 메인 카테고리 업데이트
+                state.selectedMainCategory = category.id;
+                
+                // 서브 카테고리 선택 초기화
+                state.selectedSubCategory = null;
+                
+                // UI 업데이트
+                renderMainCategories();
+                updateCategoryPath();
+                
+                // 카테고리 변경 이벤트 트리거
+                triggerCategoryChangedEvent();
+            });
+            
             li.appendChild(button);
             
             // 소분류 목록
             const subList = document.createElement('ul');
             subList.className = `subcategory-list ${isExpanded ? 'expanded' : ''}`;
             
-            // 애니메이션 클래스 추가/제거
-            if (isExpanded) {
-                subList.classList.add('expanding');
-                setTimeout(() => {
-                    subList.classList.remove('expanding');
-                }, 300);
-            } else {
-                subList.classList.add('collapsing');
-                setTimeout(() => {
-                    subList.classList.remove('collapsing');
-                }, 300);
-            }
+            // 부드러운 애니메이션 추가
+            subList.style.transition = 'max-height 0.3s ease, opacity 0.3s ease';
+            subList.style.maxHeight = isExpanded ? '500px' : '0';
+            subList.style.opacity = isExpanded ? '1' : '0';
+            subList.style.overflow = 'hidden';
             
             // 서브 카테고리 항목 생성
             const subCategories = getSubCategoriesByMainCategory(category.id);
             subCategories.forEach(subCategory => {
                 const subLi = document.createElement('li');
                 subLi.className = 'subcategory-item';
-                
                 const subButton = document.createElement('button');
                 subButton.className = `subcategory-button ${state.selectedSubCategory === subCategory.id ? 'active' : ''}`;
                 subButton.textContent = subCategory.name;
                 subButton.setAttribute('data-category-id', subCategory.id);
+                
+                // 서브 카테고리 클릭 이벤트
+                subButton.addEventListener('click', () => {
+                    // 서브 카테고리 선택
+                    state.selectedSubCategory = subCategory.id;
+                    
+                    // 해당 메인 카테고리 확장
+                    state.expandedMainCategory = subCategory.mainCategory;
+                    state.selectedMainCategory = subCategory.mainCategory;
+                    
+                    // UI 업데이트
+                    renderMainCategories();
+                    updateCategoryPath();
+                    
+                    // 카테고리 변경 이벤트 트리거
+                    triggerCategoryChangedEvent();
+                });
                 
                 subLi.appendChild(subButton);
                 subList.appendChild(subLi);
