@@ -39,7 +39,7 @@ const ApiClient = (() => {
             state.lastQuery = { type: 'keyword', keyword };
             
             // API 서버 호출
-            const url = `https://api.example.com/search?keyword=${encodeURIComponent(keyword)}`;
+            const url = `https://us-central1-${window.FIREBASE_CONFIG.projectId}.cloudfunctions.net/searchByKeyword?keyword=${encodeURIComponent(keyword)}`;
             
             try {
                 const response = await fetch(url);
@@ -92,7 +92,7 @@ const ApiClient = (() => {
             };
             
             // API 서버 호출
-            let url = `https://api.example.com/items?category=${encodeURIComponent(subCategory)}`;
+            let url = `https://us-central1-${window.FIREBASE_CONFIG.projectId}.cloudfunctions.net/searchByCategory?category=${encodeURIComponent(subCategory)}`;
             
             if (itemName) {
                 url += `&name=${encodeURIComponent(itemName)}`;
