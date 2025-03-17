@@ -4,9 +4,6 @@
  */
 
 const ApiClient = (() => {
-    // Firebase 초기화
-    initFirebase();
-    
     // API 호출 상태
     const state = {
         isLoading: false,
@@ -14,31 +11,6 @@ const ApiClient = (() => {
         maxRetries: 3,
         lastQuery: null
     };
-    
-    /**
-     * Firebase 초기화 함수
-     */
-    function initFirebase() {
-        try {
-            // 이미 초기화되었는지 확인
-            if (firebase.apps && firebase.apps.length > 0) {
-                console.log('Firebase가 이미 초기화되었습니다.');
-                return;
-            }
-            
-            // Firebase 앱 초기화
-            firebase.initializeApp({});
-            
-            // 설정 확인
-            if (!window.FIREBASE_CONFIG || !window.FIREBASE_CONFIG.projectId) {
-                console.warn('Firebase 설정이 없습니다.');
-            } else {
-                console.log('Firebase 초기화 완료');
-            }
-        } catch (error) {
-            console.error('Firebase 초기화 오류:', error);
-        }
-    }
     
     /**
      * 로딩 상태 설정
@@ -62,20 +34,12 @@ const ApiClient = (() => {
             return { items: [], error: '검색어가 필요합니다.' };
         }
         
-        // 프로젝트 ID 확인
-        const projectId = window.FIREBASE_CONFIG?.projectId;
-        if (!projectId) {
-            return { 
-                items: [], 
-                error: 'Firebase 설정이 올바르지 않습니다.' 
-            };
-        }
-        
         try {
             setLoading(true);
             state.lastQuery = { type: 'keyword', keyword };
             
-            const url = `https://us-central1-${projectId}.cloudfunctions.net/searchByKeyword?keyword=${encodeURIComponent(keyword)}`;
+            // 기존 코드 그대로 사용 (Firebase 설정 유지)
+            const url = `https://us-central1-${firebase.app().options.projectId}.cloudfunctions.net/searchByKeyword?keyword=${encodeURIComponent(keyword)}`;
             console.log("API 호출 중...");
             
             const response = await fetch(url);
@@ -114,15 +78,6 @@ const ApiClient = (() => {
             return { items: [], error: '카테고리 정보가 필요합니다.' };
         }
         
-        // 프로젝트 ID 확인
-        const projectId = window.FIREBASE_CONFIG?.projectId;
-        if (!projectId) {
-            return { 
-                items: [], 
-                error: 'Firebase 설정이 올바르지 않습니다.' 
-            };
-        }
-        
         try {
             setLoading(true);
             state.lastQuery = { 
@@ -132,8 +87,8 @@ const ApiClient = (() => {
                 itemName 
             };
             
-            // URL 구성 - 소분류가 실제 API 카테고리
-            let url = `https://us-central1-${projectId}.cloudfunctions.net/searchByCategory?subCategory=${encodeURIComponent(subCategory)}`;
+            // 기존 코드 그대로 사용 (Firebase 설정 유지)
+            let url = `https://us-central1-${firebase.app().options.projectId}.cloudfunctions.net/searchByCategory?subCategory=${encodeURIComponent(subCategory)}`;
             
             // 대분류도 함께 전달 (UI 표시용)
             if (mainCategory) {
