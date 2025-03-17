@@ -165,6 +165,31 @@ const Utils = (() => {
         return params;
     }
     
+    /**
+     * 오류 발생 시 로그 기록 및 처리
+     * @param {Error} error - 발생한 오류
+     * @param {string} context - 오류 발생 컨텍스트
+     * @returns {string} 사용자에게 표시할 오류 메시지
+     */
+    function handleError(error, context) {
+        // 오류 로그 기록
+        console.error(`${context} 오류:`, error);
+        
+        // 사용자 표시용 메시지 생성
+        let userMessage = '처리 중 오류가 발생했습니다.';
+        
+        // 특정 오류 유형에 따른 메시지 커스터마이징
+        if (error.name === 'TypeError') {
+            userMessage = '데이터 형식이 올바르지 않습니다.';
+        } else if (error.name === 'SyntaxError') {
+            userMessage = '데이터 구문이 올바르지 않습니다.';
+        } else if (error.name === 'NetworkError' || error.message.includes('네트워크') || error.message.includes('network')) {
+            userMessage = '네트워크 연결을 확인해주세요.';
+        }
+        
+        return `${userMessage} 잠시 후 다시 시도해주세요.`;
+    }
+    
     // 공개 API
     return {
         formatNumber,
@@ -175,6 +200,7 @@ const Utils = (() => {
         engToKor,
         truncateText,
         isMobileDevice,
-        parseURLParams
+        parseURLParams,
+        handleError
     };
 })();
