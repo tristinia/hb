@@ -34,7 +34,7 @@ const PaginationManager = (() => {
             const paginationInfo = document.createElement('div');
             paginationInfo.id = 'pagination-info';
             paginationInfo.className = 'pagination-info';
-            if (elements.paginationContainer) {
+            if (elements.paginationContainer && elements.paginationContainer.parentNode) {
                 elements.paginationContainer.parentNode.insertBefore(paginationInfo, elements.paginationContainer);
             }
             elements.paginationInfo = paginationInfo;
@@ -107,7 +107,11 @@ const PaginationManager = (() => {
         }
         
         // URL 히스토리 변경 (pushState 대신 replaceState 사용)
-        window.history.replaceState(null, '', newHash);
+        try {
+            window.history.replaceState(null, '', newHash);
+        } catch (error) {
+            console.warn('URL 해시 업데이트 실패:', error);
+        }
     }
     
     /**
@@ -183,7 +187,7 @@ const PaginationManager = (() => {
         
         // 페이지 수 계산
         const oldTotalPages = state.totalPages;
-        state.totalPages = Math.ceil(totalItems / state.itemsPerPage);
+        state.totalPages = Math.max(1, Math.ceil(totalItems / state.itemsPerPage));
         
         // 현재 페이지가 전체 페이지 수를 초과하면 조정
         if (state.currentPage > state.totalPages) {
@@ -493,7 +497,12 @@ const PaginationManager = (() => {
      * @returns {Object} 페이지네이션 상태
      */
     function getState() {
-        return { ...state };
+        return { 
+            currentPage: state.currentPage,
+            itemsPerPage: state.itemsPerPage,
+            totalItems: state.totalItems,
+            totalPages: state.totalPages
+        };
     }
     
     // 공개 API
