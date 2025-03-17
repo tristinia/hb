@@ -45,6 +45,7 @@ const App = (() => {
                 result = await ApiClient.searchByKeyword(searchTerm);
             } else {
                 console.warn('검색어 또는 카테고리가 필요합니다.');
+                showErrorMessage('검색어를 입력하거나 카테고리를 선택해주세요.');
                 ApiClient.setLoading(false);
                 return;
             }
@@ -53,16 +54,18 @@ const App = (() => {
             if (result.error) {
                 console.error('검색 오류:', result.error);
                 showErrorMessage(result.error);
+            } else if (!result.items || result.items.length === 0) {
+                showErrorMessage('검색 결과가 없습니다. 다른 키워드나 카테고리로 검색해보세요.');
             } else {
                 // 결과 표시
-                ItemDisplay.setSearchResults(result.items || []);
+                ItemDisplay.setSearchResults(result.items);
                 
                 // 페이지네이션 설정
-                PaginationManager.resetPagination(result.items?.length || 0);
+                PaginationManager.resetPagination(result.items.length || 0);
             }
         } catch (error) {
             console.error('검색 처리 중 오류:', error);
-            showErrorMessage('검색 처리 중 오류가 발생했습니다.');
+            showErrorMessage('검색 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
         } finally {
             // 로딩 완료
             ApiClient.setLoading(false);
@@ -105,6 +108,7 @@ const App = (() => {
                 document.dispatchEvent(searchEvent);
             } catch (error) {
                 console.error('카테고리 변경 처리 오류:', error);
+                showErrorMessage('카테고리 정보를 불러오는 중 오류가 발생했습니다.');
             }
         }
     }
@@ -120,6 +124,11 @@ const App = (() => {
     // 아이템 선택 처리
     function handleItemSelected(event) {
         const { item } = event.detail;
+        
+        if (!item) {
+            console.warn('선택된 아이템 정보가 없습니다.');
+            return;
+        }
         
         // 카테고리 자동 선택
         if (item.category || item.subCategory) {
@@ -144,10 +153,10 @@ const App = (() => {
             document.dispatchEvent(categoryEvent);
         }
         
-        // 여기서 검색은 별도로 처리
+        // 검색 이벤트 발생
         const searchEvent = new CustomEvent('search', {
             detail: {
-                searchTerm: item.name,
+                searchTerm: item.item_name || item.name,
                 selectedItem: item
             }
         });
@@ -192,48 +201,97 @@ const App = (() => {
                 </tr>
             `;
         }
+        
+        // 페이지네이션 초기화
+        const paginationContainer = document.getElementById('pagination');
+        if (paginationContainer) {
+            paginationContainer.innerHTML = '';
+        }
+        
+        // 결과 통계 초기화
+        const resultStats = document.getElementById('result-stats');
+        if (resultStats) {
+            resultStats.textContent = '';
+        }
     }
     
     /**
      * 애플리케이션 초기화 함수
      */
     function init() {
-        // 기본 모듈 초기화
-        CategoryManager.init();
-        SearchManager.init();
-        ItemDisplay.init();
-        FilterManager.init();
-        PaginationManager.init();
-        
-        // 필터 스타일 적용
-        FilterManager.addStyles();
-        
-        // 이벤트 리스너 설정
-        setupEventListeners();
-        
-        // URL 파라미터 처리
-        const urlParams = new URLSearchParams(window.location.search);
-        const searchTerm = urlParams.get('search');
-        const category = urlParams.get('category');
-        
-        // 검색어나 카테고리가 URL에 있는 경우 자동 검색
-        if (searchTerm) {
-            SearchManager.setSearchTerm(searchTerm);
-            SearchManager.handleSearch();
-        } else if (category) {
-            // 카테고리 선택 처리
-            // 해당 카테고리 정보 찾기
-            const categoryInfo = findCategoryById(category);
-            if (categoryInfo) {
-                // 카테고리 자동 선택
-                const event = new CustomEvent('categoryChanged', {
-                    detail: {
-                        mainCategory: categoryInfo.mainCategory,
-                        subCategory: categoryInfo.id,
-                        autoSelected: true
-                    }
+        try {
+            // 기본 모듈 초기화
+            CategoryManager.init();
+            SearchManager.init();
+            ItemDisplay.init();
+            FilterManager.init();
+            PaginationManager.init();
+            
+            // 이벤트 리스너 설정
+            setupEventListeners();
+            
+            // URL 파라미터 처리
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchTerm = urlParams.get('search');
+            const category = urlParams.get('category');
+            
+            // 검색어나 카테고리가 URL에 있는 경우 자동 검색
+            if (searchTerm) {
+                SearchManager.setSearchTerm(searchTerm);
+                SearchManager.handleSearch();
+            } else if (category) {
+                // 카테고리 선택 처리
+                // 해당 카테고리 정보 찾기
+                const categoryInfo = findCategoryById(category);
+                if (categoryInfo) {
+                    // 카테고리 자동 선택
+                    const event = new CustomEvent('categoryChanged', {
+                        detail: {
+                            mainCategory: categoryInfo.mainCategory,
+                            subCategory: categoryInfo.id,
+                            autoSelected: true
+                        }
+                    });
+                    document.dispatchEvent(event);
+                }
+            }
+            
+            console.log('애플리케이션 초기화 완료');
+        } catch (error) {
+            console.error('애플리케이션 초기화 중 오류 발생:', error);
+            showInitError('애플리케이션 초기화 중 오류가 발생했습니다.');
+        }
+    }
+    
+    /**
+     * 초기화 오류 표시
+     * @param {string} message - 오류 메시지
+     */
+    function showInitError(message) {
+        // 헤더 아래에 오류 메시지 표시
+        const headerSection = document.querySelector('.header-section');
+        if (headerSection) {
+            const errorBox = document.createElement('div');
+            errorBox.className = 'init-error';
+            errorBox.innerHTML = `
+                <div class="error-message">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    ${message} <button class="reload-btn">새로고침</button>
+                </div>
+            `;
+            
+            headerSection.appendChild(errorBox);
+            
+            // 새로고침 버튼 이벤트
+            const reloadBtn = errorBox.querySelector('.reload-btn');
+            if (reloadBtn) {
+                reloadBtn.addEventListener('click', () => {
+                    window.location.reload();
                 });
-                document.dispatchEvent(event);
             }
         }
     }
