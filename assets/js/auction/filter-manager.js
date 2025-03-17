@@ -1,507 +1,634 @@
 /**
- * filter-manager.js
- * 필터 UI 관리 및 필터 적용 기능
+ * 필터 관리 모듈
+ * 필터 UI 및 필터 적용 로직 관리
  */
 
-import optionRenderer from './option-renderer.js';
-import optionFilterManager from './option-filter-manager.js';
-
-class FilterManager {
-  constructor() {
-    this.activeFilters = [];
-    this.allItems = [];
-    this.filterOptions = {
-      categories: {
-        '기본': [],
-        '세공': [],
-        '세트 효과': [],
-        '특수': []
-      },
-      advancedFilters: []
+const FilterManager = (() => {
+    // 필터 상태
+    const state = {
+        availableFilters: [],
+        activeFilters: [],
+        currentCategory: null,
+        isInitialized: false
     };
     
-    // UI 요소 참조
-    this.filterContainer = null;
-    this.itemsContainer = null;
-  }
-  
-  /**
-   * 초기화
-   * @param {Array} items 아이템 데이터 배열
-   * @param {Object} metaData 메타데이터
-   * @param {HTMLElement} filterContainer 필터 컨테이너 요소
-   * @param {HTMLElement} itemsContainer 아이템 컨테이너 요소
-   */
-  init(items, metaData, filterContainer, itemsContainer) {
-    console.log('FilterManager 초기화 중...', items.length, '개 아이템');
-    this.allItems = items;
-    this.filterContainer = filterContainer;
-    this.itemsContainer = itemsContainer;
+    // DOM 요소 참조
+    let elements = {
+        detailOptions: null,
+        selectedFilters: null
+    };
     
-    // 메타데이터 설정
-    optionFilterManager.setMetaData(metaData);
-    
-    // 모든 가능한 필터 수집
-    const allFilters = this.collectAllFilters(items);
-    
-    // 필터 분류
-    this.filterOptions = optionFilterManager.categorizeFilters(allFilters);
-    
-    // 필터 UI 렌더링
-    this.renderFilterUI();
-    
-    // 초기 아이템 목록 표시
-    this.renderItems(items);
-    
-    console.log('FilterManager 초기화 완료');
-  }
-  
-  /**
-   * 모든 가능한 필터 수집
-   * @param {Array} items 아이템 데이터 배열
-   * @returns {Array} 모든 가능한 필터 배열
-   */
-  collectAllFilters(items) {
-    const allFilters = [];
-    
-    items.forEach(item => {
-      const itemFilters = optionFilterManager.extractFilters(item);
-      
-      itemFilters.forEach(filter => {
-        // 중복 방지
-        if (!allFilters.some(f => f.name === filter.name)) {
-          allFilters.push(filter);
-        }
-      });
-    });
-    
-    return allFilters;
-  }
-  
-  /**
-   * 필터 UI 렌더링
-   */
-  renderFilterUI() {
-    if (!this.filterContainer) return;
-    
-    // 기존 내용 삭제
-    this.filterContainer.innerHTML = '';
-    
-    // 필터 카테고리 탭
-    const tabContainer = document.createElement('div');
-    tabContainer.className = 'filter-tabs';
-    
-    Object.keys(this.filterOptions.categories).forEach(category => {
-      const tab = document.createElement('button');
-      tab.textContent = category;
-      tab.className = 'filter-tab';
-      tab.onclick = () => this.switchFilterCategory(category);
-      tabContainer.appendChild(tab);
-    });
-    
-    this.filterContainer.appendChild(tabContainer);
-    
-    // 필터 영역
-    const filterArea = document.createElement('div');
-    filterArea.className = 'filter-area';
-    
-    // 필터 선택 드롭다운
-    const filterSelector = document.createElement('select');
-    filterSelector.className = 'filter-selector';
-    filterSelector.innerHTML = '<option value="">필터 선택...</option>';
-    
-    // 기본 카테고리의 필터들을 드롭다운에 추가
-    this.filterOptions.categories['기본'].forEach(filter => {
-      const option = document.createElement('option');
-      option.value = filter.name;
-      option.textContent = filter.name;
-      filterSelector.appendChild(option);
-    });
-    
-    filterSelector.onchange = () => this.addFilterInput(filterSelector.value);
-    
-    filterArea.appendChild(filterSelector);
-    
-    // 활성 필터 영역
-    const activeFilters = document.createElement('div');
-    activeFilters.className = 'active-filters';
-    filterArea.appendChild(activeFilters);
-    
-    this.filterContainer.appendChild(filterArea);
-    
-    // 필터 적용 버튼
-    const applyBtn = document.createElement('button');
-    applyBtn.className = 'apply-filter-btn';
-    applyBtn.textContent = '필터 적용';
-    applyBtn.onclick = () => this.applyFilters();
-    
-    this.filterContainer.appendChild(applyBtn);
-    
-    // 첫 번째 탭 활성화
-    const firstTab = this.filterContainer.querySelector('.filter-tab');
-    if (firstTab) {
-      firstTab.classList.add('active');
-    }
-  }
-  
-  /**
-   * 필터 카테고리 전환
-   * @param {string} category 카테고리 이름
-   */
-  switchFilterCategory(category) {
-    // 탭 활성화
-    const tabs = this.filterContainer.querySelectorAll('.filter-tab');
-    tabs.forEach(tab => {
-      if (tab.textContent === category) {
-        tab.classList.add('active');
-      } else {
-        tab.classList.remove('active');
-      }
-    });
-    
-    // 드롭다운 업데이트
-    const filterSelector = this.filterContainer.querySelector('.filter-selector');
-    filterSelector.innerHTML = '<option value="">필터 선택...</option>';
-    
-    // 선택한 카테고리의 필터들을 드롭다운에 추가
-    this.filterOptions.categories[category].forEach(filter => {
-      const option = document.createElement('option');
-      option.value = filter.name;
-      option.textContent = filter.name;
-      filterSelector.appendChild(option);
-    });
-  }
-  
-  /**
-   * 필터 입력 영역 추가
-   * @param {string} filterName 필터 이름
-   */
-  addFilterInput(filterName) {
-    if (!filterName) return;
-    
-    const activeFilters = this.filterContainer.querySelector('.active-filters');
-    
-    // 이미 존재하는지 확인
-    if (this.filterContainer.querySelector(`[data-filter-name="${filterName}"]`)) {
-      alert('이미 추가된 필터입니다.');
-      return;
+    /**
+     * 모듈 초기화
+     */
+    function init() {
+        // DOM 요소 참조 가져오기
+        elements.detailOptions = document.getElementById('detail-options');
+        elements.selectedFilters = document.getElementById('selected-filters');
+        
+        console.log('FilterManager 초기화 완료');
+        state.isInitialized = true;
     }
     
-    // 필터 정보 찾기
-    const allFilters = [].concat(...Object.values(this.filterOptions.categories));
-    const filterInfo = allFilters.find(f => f.name === filterName);
-    
-    if (!filterInfo) return;
-    
-    // 필터 입력 영역 생성
-    const filterBox = document.createElement('div');
-    filterBox.className = 'filter-box';
-    filterBox.dataset.filterName = filterName;
-    
-    // 필터 이름
-    const nameSpan = document.createElement('span');
-    nameSpan.className = 'filter-name';
-    nameSpan.textContent = filterName;
-    filterBox.appendChild(nameSpan);
-    
-    // 줄바꿈 추가
-    filterBox.appendChild(document.createElement('br'));
-    
-    // 필터 입력 UI
-    if (filterInfo.type === 'range') {
-      // 범위 입력
-      const minInput = document.createElement('input');
-      minInput.type = 'number';
-      minInput.placeholder = '최소값';
-      minInput.className = 'filter-min';
-      
-      const maxInput = document.createElement('input');
-      maxInput.type = 'number';
-      maxInput.placeholder = '최대값';
-      maxInput.className = 'filter-max';
-      
-      const rangeLabel = document.createElement('span');
-      rangeLabel.textContent = ' ~ ';
-      
-      filterBox.appendChild(minInput);
-      filterBox.appendChild(rangeLabel);
-      filterBox.appendChild(maxInput);
-    } else if (filterInfo.type === 'selection') {
-      // 선택형 입력
-      const select = document.createElement('select');
-      select.className = 'filter-select';
-      
-      filterInfo.options.forEach(opt => {
-        const option = document.createElement('option');
-        option.value = opt;
-        option.textContent = opt;
-        select.appendChild(option);
-      });
-      
-      filterBox.appendChild(select);
+    /**
+     * 현재 카테고리에 맞는 필터 옵션 업데이트
+     * @param {string} category - 카테고리 ID
+     */
+    async function updateFiltersForCategory(category) {
+        if (!elements.detailOptions || !elements.selectedFilters) return;
+        if (state.currentCategory === category) return;
+        
+        state.currentCategory = category;
+        
+        try {
+            // 카테고리에 맞는 옵션 구조 로드
+            let optionStructure;
+            
+            try {
+                const response = await fetch(`../../data/option_structure.json`);
+                if (!response.ok) {
+                    throw new Error(`옵션 구조 로드 실패: ${response.status}`);
+                }
+                optionStructure = await response.json();
+            } catch (error) {
+                console.error('옵션 구조 로드 오류:', error);
+                elements.detailOptions.innerHTML = '<div class="no-options">필터 옵션을 로드할 수 없습니다.</div>';
+                return;
+            }
+            
+            // 옵션 구조에서 해당 카테고리와 관련된 필터 추출
+            const categoryFilters = extractCategoryFilters(optionStructure, category);
+            
+            // 가용 필터 설정
+            state.availableFilters = categoryFilters;
+            
+            // 필터 UI 렌더링
+            renderFilterOptions();
+        } catch (error) {
+            console.error('필터 업데이트 중 오류:', error);
+            elements.detailOptions.innerHTML = '<div class="no-options">필터 옵션을 로드할 수 없습니다.</div>';
+        }
     }
     
-    // 제거 버튼
-    const removeBtn = document.createElement('button');
-    removeBtn.textContent = 'X';
-    removeBtn.className = 'filter-remove';
-    removeBtn.onclick = () => filterBox.remove();
-    
-    filterBox.appendChild(removeBtn);
-    
-    // 활성 필터 영역에 추가
-    activeFilters.appendChild(filterBox);
-    
-    // 드롭다운 초기화
-    this.filterContainer.querySelector('.filter-selector').value = '';
-  }
-  
-  /**
-   * 현재 활성화된 필터 수집
-   * @returns {Array} 활성화된 필터 배열
-   */
-  getActiveFilters() {
-    const result = [];
-    
-    this.filterContainer.querySelectorAll('.filter-box').forEach(box => {
-      const name = box.dataset.filterName;
-      
-      // 범위 필터
-      const minInput = box.querySelector('.filter-min');
-      const maxInput = box.querySelector('.filter-max');
-      
-      if (minInput && maxInput) {
-        const filter = {
-          name,
-          type: 'range'
-        };
+    /**
+     * 카테고리 필터 추출
+     * @param {Object} optionStructure - 옵션 구조 객체
+     * @param {string} category - 카테고리 ID
+     * @returns {Array} 필터 객체 배열
+     */
+    function extractCategoryFilters(optionStructure, category) {
+        const filters = [];
         
-        if (minInput.value) {
-          filter.min = parseFloat(minInput.value);
+        // 옵션 블록 순회
+        for (const blockKey in optionStructure.blocks) {
+            const block = optionStructure.blocks[blockKey];
+            
+            // 각 블록의 옵션 확인
+            for (const optionKey in optionStructure.options) {
+                const option = optionStructure.options[optionKey];
+                
+                // 해당 블록에 속한 옵션인지 확인
+                if (option.block === blockKey) {
+                    // 필터 설정이 있는 경우만 추가
+                    if (option.filter) {
+                        // 해당 카테고리에 적용 가능한 옵션인지 확인
+                        // 여기서는 모든 옵션이 모든 카테고리에 적용 가능하다고 가정
+                        // 실제로는 카테고리별 호환성 검사 필요
+                        filters.push({
+                            name: option.filter.name || optionKey,
+                            type: option.filter.type || 'range',
+                            field: option.filter.field,
+                            default: option.filter.default_value,
+                            options: option.filter.options,
+                            visible: option.filter.visible !== false,
+                            multi_select: option.filter.multi_select === true,
+                            max_selections: option.filter.max_selections || 1,
+                            block: block.title || blockKey
+                        });
+                    }
+                }
+            }
         }
         
-        if (maxInput.value) {
-          filter.max = parseFloat(maxInput.value);
+        return filters;
+    }
+    
+    /**
+     * 필터 옵션 UI 렌더링
+     */
+    function renderFilterOptions() {
+        if (!elements.detailOptions) return;
+        
+        // 옵션 컨테이너 초기화
+        elements.detailOptions.innerHTML = '';
+        
+        // 사용 가능한 필터가 없는 경우
+        if (state.availableFilters.length === 0) {
+            elements.detailOptions.innerHTML = '<div class="no-options">이 카테고리에 사용 가능한 필터가 없습니다.</div>';
+            return;
         }
         
-        result.push(filter);
-        return;
-      }
-      
-      // 선택형 필터
-      const select = box.querySelector('.filter-select');
-      
-      if (select) {
-        result.push({
-          name,
-          type: 'selection',
-          value: select.value
+        // 필터를 블록 별로 그룹화
+        const blockGroups = {};
+        
+        state.availableFilters.forEach(filter => {
+            if (filter.visible) {
+                if (!blockGroups[filter.block]) {
+                    blockGroups[filter.block] = [];
+                }
+                blockGroups[filter.block].push(filter);
+            }
         });
-      }
-    });
-    
-    return result;
-  }
-  
-  /**
-   * 필터 적용
-   */
-  applyFilters() {
-    // 활성 필터 수집
-    const activeFilters = this.getActiveFilters();
-    
-    // 필터 적용
-    const filteredItems = optionFilterManager.applyFilters(this.allItems, activeFilters);
-    
-    // 결과 렌더링
-    this.renderItems(filteredItems);
-  }
-  
-  /**
-   * 아이템 목록 렌더링
-   * @param {Array} items 아이템 데이터 배열
-   */
-  renderItems(items) {
-    if (!this.itemsContainer) return;
-    
-    // 기존 내용 삭제
-    this.itemsContainer.innerHTML = '';
-    
-    // 아이템이 없는 경우
-    if (items.length === 0) {
-      const noItemElement = document.createElement('div');
-      noItemElement.className = 'no-item-message';
-      noItemElement.textContent = '조건에 맞는 아이템이 없습니다.';
-      this.itemsContainer.appendChild(noItemElement);
-      return;
+        
+        // 각 블록 별로 필터 목록 생성
+        for (const blockName in blockGroups) {
+            if (blockGroups[blockName].length > 0) {
+                // 블록 헤더 추가
+                const blockHeader = document.createElement('div');
+                blockHeader.className = 'filter-block-header';
+                blockHeader.textContent = blockName;
+                elements.detailOptions.appendChild(blockHeader);
+                
+                // 필터 목록 추가
+                const filterList = document.createElement('ul');
+                filterList.className = 'detail-options-list';
+                
+                blockGroups[blockName].forEach(filter => {
+                    const filterItem = createFilterItem(filter);
+                    filterList.appendChild(filterItem);
+                });
+                
+                elements.detailOptions.appendChild(filterList);
+            }
+        }
     }
     
-    // 아이템 렌더링
-    items.forEach(item => {
-      // 블록 생성
-      const blocks = optionRenderer.createDisplayBlocks(item);
-      
-      // 블록 렌더링
-      const itemElement = optionRenderer.renderItemBlocks(blocks);
-      
-      // 컨테이너에 추가
-      this.itemsContainer.appendChild(itemElement);
-    });
-  }
-  
-  /**
-   * CSS 스타일 추가
-   */
-  addStyles() {
-    const style = document.createElement('style');
-    style.textContent = `
-      .filter-container {
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 5px;
-        background: white;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-      
-      .filter-tabs {
-        display: flex;
-        margin-bottom: 15px;
-        border-bottom: 1px solid #ddd;
-      }
-      
-      .filter-tab {
-        padding: 8px 0;
-        cursor: pointer;
-        background: #f5f5f5;
-        border: none;
-        margin-right: 0;
-        flex: 1;
-        font-size: 13px;
-        text-align: center;
-      }
-      
-      .filter-tab.active {
-        background: #007bff;
-        color: white;
-      }
-      
-      .filter-selector {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-      }
-      
-      .active-filters {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 15px;
-      }
-      
-      .filter-box {
-        border: 1px solid #ddd;
-        padding: 10px;
-        border-radius: 4px;
-        background: #f9f9f9;
-        margin-bottom: 8px;
-        position: relative;
-      }
-      
-      .filter-name {
-        font-weight: bold;
-        display: block;
-        margin-bottom: 5px;
-        padding-right: 20px;
-      }
-      
-      .filter-min, .filter-max {
-        width: 70px;
-        padding: 5px;
-        border: 1px solid #ddd;
-        border-radius: 3px;
-      }
-      
-      .filter-select {
-        width: calc(100% - 30px);
-        padding: 5px;
-        border: 1px solid #ddd;
-        border-radius: 3px;
-      }
-      
-      .filter-remove {
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        background: #ff6b6b;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 12px;
-      }
-      
-      .apply-filter-btn {
-        background: #28a745;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: bold;
-        width: 100%;
-      }
-      
-      .item-card {
-        border: 1px solid #ddd;
-        padding: 15px;
-        margin-bottom: 15px;
-        border-radius: 5px;
-        background: white;
-      }
-      
-      .item-block {
-        margin-bottom: 15px;
-      }
-      
-      .block-title {
-        font-size: 16px;
-        margin-bottom: 10px;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 5px;
-      }
-      
-      .item-content {
-        margin-bottom: 5px;
-        line-height: 1.5;
-      }
-      
-      .color-red { color: #e74c3c; }
-      .color-blue { color: #3498db; }
-      .color-yellow { color: #f1c40f; }
-      .color-white { color: #333333; }
-      .color-default { color: #333333; }
-      
-      .no-item-message {
-        padding: 20px;
-        text-align: center;
-        color: #666;
-        font-style: italic;
-        background: white;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-      }
-    `;
+    /**
+     * 필터 항목 생성
+     * @param {Object} filter - 필터 객체
+     * @returns {HTMLElement} 필터 항목 요소
+     */
+    function createFilterItem(filter) {
+        const item = document.createElement('li');
+        item.className = 'option-item';
+        
+        const button = document.createElement('button');
+        button.className = 'option-button';
+        button.textContent = filter.name;
+        button.onclick = () => showFilterModal(filter);
+        
+        item.appendChild(button);
+        return item;
+    }
     
-    document.head.appendChild(style);
-  }
-}
-
-// 싱글톤 인스턴스 생성 및 내보내기
-const filterManager = new FilterManager();
-export default filterManager;
+    /**
+     * 필터 모달 표시
+     * @param {Object} filter - 필터 객체
+     */
+    function showFilterModal(filter) {
+        // 기존 모달 제거
+        const existingModal = document.querySelector('.option-modal-container');
+        if (existingModal) {
+            document.body.removeChild(existingModal);
+        }
+        
+        // 모달 컨테이너 생성
+        const modalContainer = document.createElement('div');
+        modalContainer.className = 'option-modal-container';
+        
+        // 모달 내용
+        const modalContent = `
+            <div class="option-modal">
+                <div class="modal-header">
+                    <h3>${filter.name} 필터</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    ${createFilterInputs(filter)}
+                    <div class="modal-buttons">
+                        <button class="cancel-button">취소</button>
+                        <button class="apply-button">적용</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        modalContainer.innerHTML = modalContent;
+        document.body.appendChild(modalContainer);
+        
+        // 이벤트 리스너 설정
+        const closeBtn = modalContainer.querySelector('.close-modal');
+        const cancelBtn = modalContainer.querySelector('.cancel-button');
+        const applyBtn = modalContainer.querySelector('.apply-button');
+        
+        closeBtn.addEventListener('click', () => document.body.removeChild(modalContainer));
+        cancelBtn.addEventListener('click', () => document.body.removeChild(modalContainer));
+        
+        applyBtn.addEventListener('click', () => {
+            // 필터 값 수집
+            const filterValues = collectFilterValues(filter, modalContainer);
+            
+            // 활성 필터에 추가
+            addActiveFilter(filter, filterValues);
+            
+            // 모달 닫기
+            document.body.removeChild(modalContainer);
+            
+            // 필터 UI 업데이트
+            updateSelectedFiltersUI();
+            
+            // 필터 적용
+            applyFilters();
+        });
+        
+        // 모달 외부 클릭 시 닫기
+        modalContainer.addEventListener('click', (event) => {
+            if (event.target === modalContainer) {
+                document.body.removeChild(modalContainer);
+            }
+        });
+    }
+    
+    /**
+     * 필터 입력 요소 생성
+     * @param {Object} filter - 필터 객체
+     * @returns {string} 필터 입력 HTML
+     */
+    function createFilterInputs(filter) {
+        switch (filter.type) {
+            case 'range':
+                return `
+                    <div class="range-input">
+                        <input type="number" class="min-input" placeholder="최소값">
+                        <span>~</span>
+                        <input type="number" class="max-input" placeholder="최대값">
+                    </div>
+                `;
+                
+            case 'select':
+                if (!filter.options || filter.options.length === 0) {
+                    return '<p>선택 옵션이 없습니다.</p>';
+                }
+                
+                let optionsHtml = filter.options.map(option => 
+                    `<option value="${option}">${option}</option>`
+                ).join('');
+                
+                return `
+                    <div class="select-input">
+                        <select class="filter-select">
+                            <option value="">선택하세요</option>
+                            ${optionsHtml}
+                        </select>
+                    </div>
+                `;
+                
+            case 'reforge':
+                return `
+                    <div class="reforge-input">
+                        <input type="text" class="reforge-name" placeholder="세공 이름">
+                        <div class="range-input">
+                            <input type="number" class="min-level" placeholder="최소 레벨">
+                            <span>~</span>
+                            <input type="number" class="max-level" placeholder="최대 레벨">
+                        </div>
+                    </div>
+                `;
+                
+            default:
+                return `<p>지원하지 않는 필터 유형입니다.</p>`;
+        }
+    }
+    
+    /**
+     * 필터 값 수집
+     * @param {Object} filter - 필터 객체
+     * @param {HTMLElement} modalContainer - 모달 컨테이너
+     * @returns {Object} 수집된 필터 값
+     */
+    function collectFilterValues(filter, modalContainer) {
+        const values = {};
+        
+        switch (filter.type) {
+            case 'range':
+                const minInput = modalContainer.querySelector('.min-input');
+                const maxInput = modalContainer.querySelector('.max-input');
+                
+                if (minInput && minInput.value) {
+                    values.min = parseFloat(minInput.value);
+                }
+                
+                if (maxInput && maxInput.value) {
+                    values.max = parseFloat(maxInput.value);
+                }
+                break;
+                
+            case 'select':
+                const select = modalContainer.querySelector('.filter-select');
+                if (select && select.value) {
+                    values.value = select.value;
+                }
+                break;
+                
+            case 'reforge':
+                const nameInput = modalContainer.querySelector('.reforge-name');
+                const minLevel = modalContainer.querySelector('.min-level');
+                const maxLevel = modalContainer.querySelector('.max-level');
+                
+                if (nameInput && nameInput.value) {
+                    values.name = nameInput.value;
+                    
+                    if (minLevel && minLevel.value) {
+                        values.minLevel = parseFloat(minLevel.value);
+                    }
+                    
+                    if (maxLevel && maxLevel.value) {
+                        values.maxLevel = parseFloat(maxLevel.value);
+                    }
+                }
+                break;
+        }
+        
+        return values;
+    }
+    
+    /**
+     * 활성 필터 추가
+     * @param {Object} filter - 필터 객체
+     * @param {Object} values - 필터 값
+     */
+    function addActiveFilter(filter, values) {
+        // 유효한 값이 있는지 확인
+        const hasValidValues = Object.keys(values).length > 0;
+        if (!hasValidValues) return;
+        
+        // 같은 이름의 기존 필터 제거
+        state.activeFilters = state.activeFilters.filter(f => f.name !== filter.name);
+        
+        // 새 필터 추가
+        state.activeFilters.push({
+            name: filter.name,
+            type: filter.type,
+            field: filter.field,
+            ...values
+        });
+    }
+    
+    /**
+     * 선택된 필터 UI 업데이트
+     */
+    function updateSelectedFiltersUI() {
+        if (!elements.selectedFilters) return;
+        
+        // 선택된 필터 목록 초기화
+        elements.selectedFilters.innerHTML = '';
+        
+        // 선택된 필터가 없는 경우
+        if (state.activeFilters.length === 0) {
+            elements.selectedFilters.innerHTML = '<li class="no-filters">적용된 필터가 없습니다</li>';
+            return;
+        }
+        
+        // 선택된 필터 목록 표시
+        state.activeFilters.forEach(filter => {
+            const filterItem = document.createElement('li');
+            filterItem.className = 'selected-filter';
+            
+            // 필터 이름
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'filter-name';
+            nameSpan.textContent = filter.name;
+            
+            // 필터 값
+            const valueSpan = document.createElement('span');
+            valueSpan.className = 'filter-value';
+            valueSpan.textContent = formatFilterValue(filter);
+            
+            // 제거 버튼
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-filter';
+            removeBtn.innerHTML = '&times;';
+            removeBtn.onclick = () => removeFilter(filter.name);
+            
+            // 요소 조립
+            filterItem.appendChild(nameSpan);
+            filterItem.appendChild(valueSpan);
+            filterItem.appendChild(removeBtn);
+            
+            elements.selectedFilters.appendChild(filterItem);
+        });
+    }
+    
+    /**
+     * 필터 값 서식화
+     * @param {Object} filter - 필터 객체
+     * @returns {string} 서식화된 값
+     */
+    function formatFilterValue(filter) {
+        switch (filter.type) {
+            case 'range':
+                let valueText = '';
+                
+                if (filter.min !== undefined && filter.max !== undefined) {
+                    valueText = `${filter.min} ~ ${filter.max}`;
+                } else if (filter.min !== undefined) {
+                    valueText = `${filter.min} 이상`;
+                } else if (filter.max !== undefined) {
+                    valueText = `${filter.max} 이하`;
+                }
+                
+                return valueText;
+                
+            case 'select':
+                return filter.value || '';
+                
+            case 'reforge':
+                let reforgeText = filter.name || '';
+                
+                if (filter.minLevel !== undefined && filter.maxLevel !== undefined) {
+                    reforgeText += ` (${filter.minLevel}~${filter.maxLevel}레벨)`;
+                } else if (filter.minLevel !== undefined) {
+                    reforgeText += ` (${filter.minLevel}레벨 이상)`;
+                } else if (filter.maxLevel !== undefined) {
+                    reforgeText += ` (${filter.maxLevel}레벨 이하)`;
+                }
+                
+                return reforgeText;
+                
+            default:
+                return '';
+        }
+    }
+    
+    /**
+     * 필터 제거
+     * @param {string} filterName - 필터 이름
+     */
+    function removeFilter(filterName) {
+        // 필터 제거
+        state.activeFilters = state.activeFilters.filter(f => f.name !== filterName);
+        
+        // UI 업데이트
+        updateSelectedFiltersUI();
+        
+        // 필터 적용
+        applyFilters();
+    }
+    
+    /**
+     * 필터 적용
+     */
+    function applyFilters() {
+        // 필터 이벤트 발생
+        const event = new CustomEvent('filterChanged', {
+            detail: {
+                filters: state.activeFilters
+            }
+        });
+        
+        document.dispatchEvent(event);
+    }
+    
+    /**
+     * 아이템이 필터를 통과하는지 확인
+     * @param {Object} item - 아이템 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function itemPassesFilters(item) {
+        // 활성 필터가 없으면 모든 아이템 통과
+        if (state.activeFilters.length === 0) {
+            return true;
+        }
+        
+        // 모든 필터를 통과해야 함
+        return state.activeFilters.every(filter => {
+            // 아이템 옵션 필드 표준화
+            const options = item.options || item.item_option || [];
+            
+            // 필터 유형에 따른 검사
+            switch (filter.type) {
+                case 'range':
+                    return checkRangeFilter(options, filter);
+                    
+                case 'select':
+                    return checkSelectFilter(options, filter);
+                    
+                case 'reforge':
+                    return checkReforgeFilter(options, filter);
+                    
+                default:
+                    return true;
+            }
+        });
+    }
+    
+    /**
+     * 범위 필터 체크
+     * @param {Array} options - 아이템 옵션 배열
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkRangeFilter(options, filter) {
+        // 필터 필드 가져오기
+        const field = filter.field || 'option_value';
+        
+        // 옵션 찾기 (이름으로)
+        const option = options.find(opt => 
+            (opt.option_type === filter.name) || 
+            (opt.option_name === filter.name)
+        );
+        
+        if (!option) return false;
+        
+        // 값 확인
+        const value = parseFloat(option[field]);
+        
+        // 범위 검사
+        if (filter.min !== undefined && value < filter.min) return false;
+        if (filter.max !== undefined && value > filter.max) return false;
+        
+        return true;
+    }
+    
+    /**
+     * 선택 필터 체크
+     * @param {Array} options - 아이템 옵션 배열
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkSelectFilter(options, filter) {
+        // 옵션 찾기
+        const option = options.find(opt => 
+            (opt.option_type === filter.name) || 
+            (opt.option_name === filter.name)
+        );
+        
+        if (!option) return false;
+        
+        // 값 확인
+        return option.option_value === filter.value ||
+               option.option_sub_type === filter.value;
+    }
+    
+    /**
+     * 세공 필터 체크
+     * @param {Array} options - 아이템 옵션 배열
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkReforgeFilter(options, filter) {
+        // 세공 옵션 찾기
+        const reforgeOptions = options.filter(opt => 
+            opt.option_type === '세공 옵션'
+        );
+        
+        if (reforgeOptions.length === 0) return false;
+        
+        // 적어도 하나의 세공 옵션이 조건을 만족해야 함
+        return reforgeOptions.some(opt => {
+            // 이름 패턴 확인
+            const match = opt.option_value.match(/(.+?)\((\d+)레벨:(.+)\)/);
+            if (!match) return false;
+            
+            const [_, name, level] = match;
+            const reforgeLevel = parseInt(level);
+            
+            // 이름 확인
+            if (filter.name && !name.includes(filter.name)) return false;
+            
+            // 레벨 확인
+            if (filter.minLevel !== undefined && reforgeLevel < filter.minLevel) return false;
+            if (filter.maxLevel !== undefined && reforgeLevel > filter.maxLevel) return false;
+            
+            return true;
+        });
+    }
+    
+    /**
+     * 필터 초기화
+     */
+    function resetFilters() {
+        state.activeFilters = [];
+        updateSelectedFiltersUI();
+    }
+    
+    /**
+     * 현재 필터 상태 가져오기
+     * @returns {Object} 필터 상태
+     */
+    function getFilters() {
+        return {
+            availableFilters: state.availableFilters,
+            activeFilters: state.activeFilters
+        };
+    }
+    
+    // 공개 API
+    return {
+        init,
+        updateFiltersForCategory,
+        itemPassesFilters,
+        resetFilters,
+        getFilters
+    };
+})();
