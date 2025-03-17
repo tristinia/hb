@@ -7,7 +7,7 @@ const PaginationManager = (() => {
     // 페이지네이션 상태
     const state = {
         currentPage: 1,
-        itemsPerPage: 20, // 기본값 증가 (성능 최적화)
+        itemsPerPage: 10, // 항상 10개로 고정
         totalItems: 0,
         totalPages: 1,
         visiblePageCount: 5, // 한 번에 표시할 페이지 버튼 수
@@ -19,8 +19,7 @@ const PaginationManager = (() => {
     // DOM 요소 참조
     let elements = {
         paginationContainer: null,
-        paginationInfo: null,  // 페이지 정보 표시 요소
-        pageSizeSelector: null // 페이지 크기 선택 요소
+        paginationInfo: null  // 페이지 정보 표시 요소
     };
     
     /**
@@ -43,9 +42,6 @@ const PaginationManager = (() => {
             elements.paginationInfo = document.getElementById('pagination-info');
         }
         
-        // 페이지 크기 선택 드롭다운 생성 (없는 경우)
-        createPageSizeSelector();
-        
         // 스크롤 복원 이벤트 리스너
         document.addEventListener('pageChanged', (e) => {
             restoreScrollPosition();
@@ -61,96 +57,6 @@ const PaginationManager = (() => {
         handleHashChange();
         
         console.log('PaginationManager 초기화 완료');
-    }
-    
-    /**
-     * 페이지 크기 선택 드롭다운 생성
-     */
-    function createPageSizeSelector() {
-        if (!elements.paginationInfo) return;
-        
-        // 페이지 크기 선택기 컨테이너
-        const pageSizeContainer = document.createElement('div');
-        pageSizeContainer.className = 'page-size-container';
-        
-        // 레이블
-        const label = document.createElement('label');
-        label.textContent = '페이지당 표시:';
-        label.htmlFor = 'page-size-select';
-        
-        // 선택 드롭다운
-        const select = document.createElement('select');
-        select.id = 'page-size-select';
-        select.className = 'page-size-select';
-        
-        // 페이지 크기 옵션
-        [10, 20, 50, 100].forEach(size => {
-            const option = document.createElement('option');
-            option.value = size;
-            option.textContent = `${size}개`;
-            
-            // 현재 선택된 페이지 크기와 일치하면 선택
-            if (size === state.itemsPerPage) {
-                option.selected = true;
-            }
-            
-            select.appendChild(option);
-        });
-        
-        // 변경 이벤트 리스너
-        select.addEventListener('change', (e) => {
-            const newSize = parseInt(e.target.value, 10);
-            changePageSize(newSize);
-        });
-        
-        // 요소 조립
-        pageSizeContainer.appendChild(label);
-        pageSizeContainer.appendChild(select);
-        
-        // DOM에 추가
-        elements.paginationInfo.appendChild(pageSizeContainer);
-        elements.pageSizeSelector = select;
-    }
-    
-    /**
-     * 페이지 크기 변경
-     * @param {number} newSize - 새 페이지 크기
-     */
-    function changePageSize(newSize) {
-        if (isNaN(newSize) || newSize <= 0) return;
-        
-        // 현재 표시 중인 첫 아이템 인덱스 (다른 페이지 크기에서도 같은 아이템부터 표시)
-        const currentFirstItemIndex = (state.currentPage - 1) * state.itemsPerPage;
-        
-        // 페이지 크기 업데이트
-        state.itemsPerPage = newSize;
-        
-        // 전체 페이지 수 재계산
-        state.totalPages = Math.ceil(state.totalItems / state.itemsPerPage);
-        
-        // 현재 페이지 조정 (첫 아이템이 보이도록)
-        state.currentPage = Math.floor(currentFirstItemIndex / state.itemsPerPage) + 1;
-        
-        // 페이지가 범위를 벗어나면 조정
-        if (state.currentPage > state.totalPages) {
-            state.currentPage = Math.max(1, state.totalPages);
-        }
-        
-        // 페이지 상태 저장
-        savePageState();
-        
-        // UI 업데이트
-        renderPagination();
-        updatePageDisplay();
-        
-        // 페이지 크기 변경 이벤트 발생
-        const event = new CustomEvent('pageSizeChanged', {
-            detail: {
-                pageSize: state.itemsPerPage,
-                currentPage: state.currentPage
-            }
-        });
-        document.dispatchEvent(event);
     }
     
     /**
@@ -211,7 +117,6 @@ const PaginationManager = (() => {
         try {
             const pageState = {
                 currentPage: state.currentPage,
-                itemsPerPage: state.itemsPerPage,
                 scrollPosition: window.scrollY
             };
             sessionStorage.setItem(state.sessionKey, JSON.stringify(pageState));
@@ -229,17 +134,10 @@ const PaginationManager = (() => {
             if (savedState) {
                 const parsedState = JSON.parse(savedState);
                 
-                // 페이지 크기 우선 복원 (페이지 계산 전에)
-                if (parsedState.itemsPerPage) {
-                    state.itemsPerPage = parsedState.itemsPerPage;
-                }
-                
                 // 현재 페이지 복원 (유효한 경우에만)
                 if (parsedState.currentPage && parsedState.currentPage > 0) {
                     state.currentPage = parsedState.currentPage;
                 }
-                
-                // 스크롤 위치는 페이지 변경 후 복원
                 
                 console.log('페이지 상태 복원 완료');
             }
@@ -604,7 +502,6 @@ const PaginationManager = (() => {
         updatePagination,
         resetPagination,
         changePage,
-        getState,
-        changePageSize
+        getState
     };
 })();
