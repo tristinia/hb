@@ -87,8 +87,36 @@ const FilterManager = (() => {
             updateSelectedFiltersUI();
         } catch (error) {
             console.error('필터 업데이트 중 오류:', error);
-            elements.filterSelector.innerHTML = '<option value="">옵션을 로드할 수 없습니다</option>';
+            // 기본 필터 옵션 설정
+            setDefaultFilters();
         }
+    }
+    
+    /**
+     * 기본 필터 옵션 설정
+     */
+    function setDefaultFilters() {
+        // 기본 필터 옵션 정의
+        const defaultFilters = [
+            { name: "공격력", type: "range", field: "option_value" },
+            { name: "크리티컬", type: "range", field: "option_value" },
+            { name: "밸런스", type: "range", field: "option_value" },
+            { name: "내구력", type: "range", field: "option_value" }
+        ];
+        
+        // 필터 드롭다운 초기화
+        elements.filterSelector.innerHTML = '<option value="">옵션 선택...</option>';
+        
+        // 가용 필터 설정
+        state.availableFilters = defaultFilters;
+        
+        // 필터 옵션 추가
+        defaultFilters.forEach(filter => {
+            const option = document.createElement('option');
+            option.value = filter.name;
+            option.textContent = filter.name;
+            elements.filterSelector.appendChild(option);
+        });
     }
     
     /**
@@ -98,8 +126,11 @@ const FilterManager = (() => {
      */
     async function loadFiltersForCategory(category) {
         try {
-            // data/option_structure/카테고리별.json 로드
-            const response = await fetch(`../../data/option_structure/${category}.json`);
+            // 카테고리명 안전하게 변환
+            const safeCategory = encodeURIComponent(category);
+            
+            // data/option_structure/카테고리별.json 로드 (여기서는 사용 가능한 고정된 옵션 파일 사용)
+            const response = await fetch(`../../data/option_structure/default_options.json`);
             
             if (!response.ok) {
                 throw new Error(`필터 구조 로드 실패: ${response.status}`);
@@ -110,19 +141,13 @@ const FilterManager = (() => {
         } catch (error) {
             console.error(`${category} 필터 로드 오류:`, error);
             
-            // 대체 경로 시도
-            try {
-                const fallbackResponse = await fetch(`../../data/option_structure/default.json`);
-                if (!fallbackResponse.ok) {
-                    throw new Error('기본 필터 로드 실패');
-                }
-                
-                const fallbackData = await fallbackResponse.json();
-                return fallbackData.options || [];
-            } catch (fallbackError) {
-                console.error('기본 필터 로드 실패:', fallbackError);
-                return [];
-            }
+            // 대체 필터 설정
+            return [
+                { name: "공격력", type: "range", field: "option_value" },
+                { name: "크리티컬", type: "range", field: "option_value" },
+                { name: "밸런스", type: "range", field: "option_value" },
+                { name: "내구력", type: "range", field: "option_value" }
+            ];
         }
     }
     
@@ -161,6 +186,7 @@ const FilterManager = (() => {
         removeBtn.addEventListener('click', () => {
             filterItem.remove();
             removeActiveFilter(filterName);
+            applyFilters(); // 필터 즉시 적용
         });
         
         filterHeader.appendChild(filterNameSpan);
@@ -190,6 +216,10 @@ const FilterManager = (() => {
             maxInput.placeholder = '최대값';
             maxInput.min = 0;
             
+            // 입력 후 자동 적용
+            minInput.addEventListener('change', () => autoApplyFilter(filterItem, filterInfo));
+            maxInput.addEventListener('change', () => autoApplyFilter(filterItem, filterInfo));
+            
             filterContent.appendChild(minInput);
             filterContent.appendChild(separator);
             filterContent.appendChild(maxInput);
@@ -210,6 +240,9 @@ const FilterManager = (() => {
                 select.appendChild(optionEl);
             });
             
+            // 선택 후 자동 적용
+            select.addEventListener('change', () => autoApplyFilter(filterItem, filterInfo));
+            
             filterContent.appendChild(select);
         } else {
             // 기본 텍스트 입력
@@ -218,24 +251,29 @@ const FilterManager = (() => {
             input.className = 'filter-input text-value';
             input.placeholder = '값 입력';
             
+            // 입력 후 자동 적용
+            input.addEventListener('change', () => autoApplyFilter(filterItem, filterInfo));
+            
             filterContent.appendChild(input);
         }
         
         filterItem.appendChild(filterContent);
         
-        // 적용 버튼
-        const applyBtn = document.createElement('button');
-        applyBtn.className = 'apply-filters';
-        applyBtn.textContent = '필터 적용';
-        applyBtn.addEventListener('click', () => {
-            addActiveFilter(filterItem, filterInfo);
-            applyFilters();
-        });
-        
-        filterItem.appendChild(applyBtn);
-        
         // 필터 컨테이너에 추가
         elements.activeFilters.appendChild(filterItem);
+    }
+    
+    /**
+     * 자동 필터 적용 (입력/선택 완료 시)
+     * @param {HTMLElement} filterItem - 필터 항목 요소 
+     * @param {Object} filterInfo - 필터 정보
+     */
+    function autoApplyFilter(filterItem, filterInfo) {
+        // 활성 필터에 추가
+        addActiveFilter(filterItem, filterInfo);
+        
+        // 필터 적용
+        applyFilters();
     }
     
     /**
@@ -286,9 +324,6 @@ const FilterManager = (() => {
             field: filterInfo.field,
             ...filterValues
         });
-        
-        // 선택된 필터 UI 업데이트
-        updateSelectedFiltersUI();
     }
     
     /**
@@ -298,94 +333,13 @@ const FilterManager = (() => {
     function removeActiveFilter(filterName) {
         // 필터 제거
         state.activeFilters = state.activeFilters.filter(f => f.name !== filterName);
-        
-        // UI 업데이트
-        updateSelectedFiltersUI();
-        
-        // 필터 적용
-        applyFilters();
     }
     
     /**
      * 선택된 필터 UI 업데이트
      */
     function updateSelectedFiltersUI() {
-        if (!elements.selectedFilters) return;
-        
-        // 선택된 필터 목록 초기화
-        elements.selectedFilters.innerHTML = '';
-        
-        // 선택된 필터가 없는 경우
-        if (state.activeFilters.length === 0) {
-            elements.selectedFilters.innerHTML = '<li class="no-filters">적용된 필터가 없습니다</li>';
-            return;
-        }
-        
-        // 선택된 필터 목록 표시
-        state.activeFilters.forEach(filter => {
-            const filterItem = document.createElement('li');
-            filterItem.className = 'selected-filter';
-            
-            // 필터 이름
-            const nameSpan = document.createElement('span');
-            nameSpan.className = 'filter-name';
-            nameSpan.textContent = filter.name;
-            
-            // 필터 값
-            const valueSpan = document.createElement('span');
-            valueSpan.className = 'filter-value';
-            valueSpan.textContent = formatFilterValue(filter);
-            
-            // 제거 버튼
-            const removeBtn = document.createElement('button');
-            removeBtn.className = 'remove-filter';
-            removeBtn.innerHTML = '×';
-            removeBtn.addEventListener('click', () => {
-                // 활성 필터에서 제거
-                removeActiveFilter(filter.name);
-                
-                // 필터 항목도 DOM에서 제거
-                const filterItem = elements.activeFilters?.querySelector(`[data-filter="${filter.name}"]`);
-                if (filterItem) {
-                    filterItem.remove();
-                }
-            });
-            
-            // 요소 조립
-            filterItem.appendChild(nameSpan);
-            filterItem.appendChild(valueSpan);
-            filterItem.appendChild(removeBtn);
-            
-            elements.selectedFilters.appendChild(filterItem);
-        });
-    }
-    
-    /**
-     * 필터 값 서식화
-     * @param {Object} filter - 필터 객체
-     * @returns {string} 서식화된 값
-     */
-    function formatFilterValue(filter) {
-        switch (filter.type) {
-            case 'range':
-                let valueText = '';
-                
-                if (filter.min !== undefined && filter.max !== undefined) {
-                    valueText = `${filter.min} ~ ${filter.max}`;
-                } else if (filter.min !== undefined) {
-                    valueText = `${filter.min} 이상`;
-                } else if (filter.max !== undefined) {
-                    valueText = `${filter.max} 이하`;
-                }
-                
-                return valueText;
-                
-            case 'select':
-                return filter.value || '';
-                
-            default:
-                return filter.value || '';
-        }
+        // 선택된 필터 UI를 별도로 표시하지 않음 (요청에 따라 제거)
     }
     
     /**
@@ -510,8 +464,6 @@ const FilterManager = (() => {
         if (elements.activeFilters) {
             elements.activeFilters.innerHTML = '';
         }
-        
-        updateSelectedFiltersUI();
     }
     
     /**
