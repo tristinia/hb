@@ -91,8 +91,8 @@ const ApiClient = (() => {
                 itemName 
             };
             
-            // API 서버 호출
-            let url = `https://us-central1-${window.FIREBASE_CONFIG.projectId}.cloudfunctions.net/searchByCategory?category=${encodeURIComponent(subCategory)}`;
+            // API 서버 호출 (subCategory 파라미터로 변경)
+            let url = `https://us-central1-${window.FIREBASE_CONFIG.projectId}.cloudfunctions.net/searchByCategory?subCategory=${encodeURIComponent(subCategory)}`;
             
             if (itemName) {
                 url += `&name=${encodeURIComponent(itemName)}`;
