@@ -114,8 +114,28 @@ const App = (() => {
     function handleItemSelected(event) {
         const { item } = event.detail;
         
-        // 선택된 아이템에 대한 처리
-        console.log('선택된 아이템:', item);
+        // 카테고리 자동 선택
+        if (item.category || item.subCategory) {
+            // 해당 아이템의 카테고리 정보를 찾아 선택
+            const subCategory = item.category || item.subCategory;
+            let mainCategory = item.mainCategory;
+            
+            // 메인 카테고리가 없는 경우 찾기
+            if (!mainCategory && typeof CategoryManager !== 'undefined') {
+                mainCategory = CategoryManager.findMainCategoryForSubCategory(subCategory);
+            }
+            
+            // 카테고리 변경 이벤트 발생
+            const categoryEvent = new CustomEvent('categoryChanged', {
+                detail: {
+                    mainCategory,
+                    subCategory,
+                    autoSelected: true
+                }
+            });
+            
+            document.dispatchEvent(categoryEvent);
+        }
     }
     
     // 옵션 토글
@@ -151,34 +171,55 @@ const App = (() => {
         }
     }
     
-    // 모듈 초기화
+    /**
+     * 애플리케이션 초기화 함수
+     */
     function init() {
-        console.log('애플리케이션 초기화 중...');
-        
-        // 다크 모드 감지 및 적용
-        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (prefersDarkMode) {
-            document.body.classList.add('dark-mode');
-        }
+        // 기본 모듈 초기화
+        CategoryManager.init();
+        SearchManager.init();
+        ItemDisplay.init();
+        FilterManager.init();
+        PaginationManager.init();
         
         // 이벤트 리스너 설정
         setupEventListeners();
         
-        // 각 모듈 초기화
-        PaginationManager.init();
-        CategoryManager.init();
-        SearchManager.init();
-        FilterManager.init();
-        ItemDisplay.init();
+        // URL 파라미터 처리
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchTerm = urlParams.get('search');
+        const category = urlParams.get('category');
         
-        // URL 파라미터 처리 (페이지 새로고침 시 상태 유지)
-        const urlParams = Utils.parseURLParams();
-        if (urlParams.search) {
-            SearchManager.setSearchTerm(urlParams.search);
+        // 검색어나 카테고리가 URL에 있는 경우 자동 검색
+        if (searchTerm) {
+            SearchManager.setSearchTerm(searchTerm);
             SearchManager.handleSearch();
+        } else if (category) {
+            // 카테고리 선택 처리
+            // 해당 카테고리 정보 찾기
+            const categoryInfo = findCategoryById(category);
+            if (categoryInfo) {
+                // 카테고리 자동 선택
+                const event = new CustomEvent('categoryChanged', {
+                    detail: {
+                        mainCategory: categoryInfo.mainCategory,
+                        subCategory: categoryInfo.id,
+                        autoSelected: true
+                    }
+                });
+                document.dispatchEvent(event);
+            }
         }
-        
-        console.log('애플리케이션 초기화 완료');
+    }
+    
+    /**
+     * 카테고리 ID로 정보 찾기
+     * @param {string} id - 카테고리 ID
+     * @returns {Object|null} 카테고리 정보
+     */
+    function findCategoryById(id) {
+        const { subCategories } = CategoryManager.getSelectedCategories();
+        return subCategories.find(cat => cat.id === id) || null;
     }
     
     // 공개 API
