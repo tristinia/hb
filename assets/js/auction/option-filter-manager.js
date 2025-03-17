@@ -230,6 +230,31 @@ class OptionFilterManager {
   }
   
   /**
+   * 아이템이 필터를 통과하는지 확인
+   * @param {Object} item 아이템 데이터
+   * @param {Array} activeFilters 활성화된 필터 배열
+   * @returns {boolean} 필터 통과 여부
+   */
+  itemPassesFilters(item, activeFilters) {
+    // 필터가 없으면 항상 통과
+    if (!activeFilters || activeFilters.length === 0) {
+      return true;
+    }
+    
+    // 각 필터를 모두 통과해야 함
+    return activeFilters.every(filter => {
+      switch (filter.type) {
+        case 'range':
+          return this.checkRangeFilter(item, filter);
+        case 'selection':
+          return this.checkSelectionFilter(item, filter);
+        default:
+          return true;
+      }
+    });
+  }
+  
+  /**
    * 일반 필터 처리
    * @param {Object} item 아이템 데이터
    * @param {Object} filter 필터 정보
