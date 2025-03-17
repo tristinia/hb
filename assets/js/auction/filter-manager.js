@@ -95,38 +95,17 @@ const FilterManager = (() => {
             updateSelectedFiltersUI();
         } catch (error) {
             console.error('필터 업데이트 중 오류:', error);
-            // 기본 필터 옵션 설정
-            setDefaultFilters();
-        }
-    }
-    
-    /**
-     * 기본 필터 옵션 설정
-     */
-    function setDefaultFilters() {
-        // 기본 필터 옵션 정의
-        const defaultFilters = [
-            { name: "공격력", type: "range", field: "option_value" },
-            { name: "크리티컬", type: "range", field: "option_value" },
-            { name: "밸런스", type: "range", field: "option_value" },
-            { name: "내구력", type: "range", field: "option_value" },
-            { name: "피어싱 레벨", type: "range", field: "option_value" }
-        ];
-        
-        // 필터 드롭다운 초기화
-        if (elements.filterSelector) {
-            elements.filterSelector.innerHTML = '<option value="">옵션 선택...</option>';
             
-            // 가용 필터 설정
-            state.availableFilters = defaultFilters;
+            // 필터 오류 메시지 표시
+            elements.filterSelector.innerHTML = '<option value="">옵션을 로드할 수 없습니다</option>';
             
-            // 필터 옵션 추가
-            defaultFilters.forEach(filter => {
-                const option = document.createElement('option');
-                option.value = filter.name;
-                option.textContent = filter.name;
-                elements.filterSelector.appendChild(option);
-            });
+            // 필터 상태 초기화
+            state.availableFilters = [];
+            state.activeFilters = [];
+            
+            if (elements.activeFilters) {
+                elements.activeFilters.innerHTML = '<div class="filter-error">필터 옵션을 로드할 수 없습니다. 페이지를 새로고침해 주세요.</div>';
+            }
         }
     }
     
@@ -138,9 +117,9 @@ const FilterManager = (() => {
     async function loadFiltersForCategory(category) {
         try {
             // 카테고리명 안전하게 변환
-            const safeCategory = sanitizeFileName(category);
+            const safeCategory = encodeURIComponent(category);
             
-            // 카테고리별 옵션 구조 파일 로드 시도
+            // 실제 경로 시도
             const response = await fetch(`../../data/option_structure/${safeCategory}.json`);
             
             if (!response.ok) {
@@ -149,39 +128,20 @@ const FilterManager = (() => {
             
             const data = await response.json();
             
-            // 옵션 타입을 필터 객체로 변환
-            if (data.option_types && Array.isArray(data.option_types)) {
-                return data.option_types.map(type => ({
-                    name: type,
-                    type: "range",
-                    field: "option_value"
-                }));
-            } else {
-                throw new Error("옵션 구조 형식이 올바르지 않습니다.");
+            if (!data.option_types || !Array.isArray(data.option_types)) {
+                throw new Error('필터 구조 형식이 올바르지 않습니다');
             }
+            
+            // 옵션 타입을 필터 구조로 변환
+            return data.option_types.map(optionType => ({
+                name: optionType,
+                type: 'range',
+                field: 'option_value'
+            }));
         } catch (error) {
             console.error(`${category} 필터 로드 오류:`, error);
-            
-            // 대체 필터 설정 (기본값)
-            // 실제 서비스에서는 이 부분이 API 호출 실패 시 보여질 수 있음
-            return [
-                { name: "공격력", type: "range", field: "option_value" },
-                { name: "크리티컬", type: "range", field: "option_value" },
-                { name: "밸런스", type: "range", field: "option_value" },
-                { name: "내구력", type: "range", field: "option_value" },
-                { name: "피어싱 레벨", type: "range", field: "option_value" }
-            ];
+            throw error; // 오류 전파
         }
-    }
-    
-    /**
-     * 파일명으로 사용할 수 없는 특수문자 처리
-     * @param {string} filename - 원본 파일명
-     * @returns {string} 안전한 파일명
-     */
-    function sanitizeFileName(filename) {
-        if (!filename) return '';
-        return filename.replace(/[\/\\:*?"<>|]/g, '_');
     }
     
     /**
