@@ -83,22 +83,29 @@ const App = (() => {
     
     // 카테고리 변경 처리
     async function handleCategoryChanged(event) {
-        const { mainCategory, subCategory } = event.detail;
+        const { mainCategory, subCategory, autoSelected } = event.detail;
         
         // 카테고리가 선택되었고, 자동 검색이 활성화된 경우
         if (subCategory) {
-            // 필터 업데이트
-            FilterManager.updateFiltersForCategory(subCategory);
-            
-            // 자동 검색 수행
-            const searchEvent = new CustomEvent('search', {
-                detail: {
-                    searchTerm: '',
-                    mainCategory,
-                    subCategory
-                }
-            });
-            document.dispatchEvent(searchEvent);
+            try {
+                // 필터 업데이트
+                await FilterManager.updateFiltersForCategory(subCategory);
+                
+                // 자동 검색을 요청하지 않은 경우는 중단
+                if (autoSelected === false) return;
+                
+                // 검색 이벤트 생성 및 발생
+                const searchEvent = new CustomEvent('search', {
+                    detail: {
+                        searchTerm: '',
+                        mainCategory,
+                        subCategory
+                    }
+                });
+                document.dispatchEvent(searchEvent);
+            } catch (error) {
+                console.error('카테고리 변경 처리 오류:', error);
+            }
         }
     }
     
@@ -125,27 +132,43 @@ const App = (() => {
                 mainCategory = CategoryManager.findMainCategoryForSubCategory(subCategory);
             }
             
-            // 카테고리 변경 이벤트 발생
+            // 카테고리 변경 이벤트 발생 (자동 검색은 활성화하지 않음)
             const categoryEvent = new CustomEvent('categoryChanged', {
                 detail: {
                     mainCategory,
                     subCategory,
-                    autoSelected: true
+                    autoSelected: false
                 }
             });
             
             document.dispatchEvent(categoryEvent);
         }
+        
+        // 여기서 검색은 별도로 처리
+        const searchEvent = new CustomEvent('search', {
+            detail: {
+                searchTerm: item.name,
+                selectedItem: item
+            }
+        });
+        document.dispatchEvent(searchEvent);
     }
     
-    // 옵션 토글
+    // 옵션 패널 토글
     function toggleOptions() {
-        const optionsPanel = document.getElementById('detail-options');
+        const optionsPanel = document.querySelector('.options-panel');
         const toggleBtn = document.getElementById('toggle-options');
         
         if (optionsPanel && toggleBtn) {
-            const isExpanded = optionsPanel.classList.toggle('show');
+            const isExpanded = optionsPanel.classList.toggle('expanded');
             toggleBtn.classList.toggle('expanded', isExpanded);
+            toggleBtn.title = isExpanded ? '옵션 접기' : '옵션 펼치기';
+            
+            // 아이콘 회전 효과
+            const icon = toggleBtn.querySelector('svg');
+            if (icon) {
+                icon.style.transform = isExpanded ? 'rotate(180deg)' : '';
+            }
         }
     }
     
@@ -181,6 +204,9 @@ const App = (() => {
         ItemDisplay.init();
         FilterManager.init();
         PaginationManager.init();
+        
+        // 필터 스타일 적용
+        FilterManager.addStyles();
         
         // 이벤트 리스너 설정
         setupEventListeners();
