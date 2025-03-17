@@ -40,7 +40,9 @@ const ItemDisplay = (() => {
         // 카테고리 변경 이벤트 리스너
         document.addEventListener('categoryChanged', (e) => {
             const { subCategory } = e.detail;
-            state.currentCategory = subCategory;
+            if (subCategory) {
+                state.currentCategory = subCategory;
+            }
         });
     }
     
@@ -83,7 +85,7 @@ const ItemDisplay = (() => {
         if (state.filteredResults.length === 0) {
             const tr = document.createElement('tr');
             tr.className = 'empty-result';
-            tr.innerHTML = `<td colspan="3">검색 결과가 없습니다. 다른 키워드로 검색해보세요.</td>`;
+            tr.innerHTML = `<td colspan="3">검색 결과가 없습니다. 다른 키워드나 카테고리로 검색해보세요.</td>`;
             elements.resultsBody.appendChild(tr);
             updateResultStats(0);
             return;
@@ -103,17 +105,17 @@ const ItemDisplay = (() => {
         sortedItems.forEach(item => {
             const tr = document.createElement('tr');
             tr.className = 'item-row';
-            tr.setAttribute('data-item-id', item.auction_item_no);
+            tr.setAttribute('data-item-id', item.auction_item_no || '');
             tr.setAttribute('data-item', JSON.stringify(item));
             
             tr.innerHTML = `
                 <td>
                     <div class="item-cell">
-                        <div class="item-name">${item.item_name}</div>
+                        <div class="item-name">${item.item_name || item.item_display_name || '이름 없음'}</div>
                     </div>
                 </td>
                 <td>${item.auction_count || 1}개</td>
-                <td class="item-price">${Utils.formatNumber(item.auction_price_per_unit)}G</td>
+                <td class="item-price">${Utils.formatNumber(item.auction_price_per_unit || 0)}G</td>
             `;
             
             elements.resultsBody.appendChild(tr);
@@ -144,25 +146,60 @@ const ItemDisplay = (() => {
         
         // 필터링 지연 처리 (브라우저 렌더링 차단 방지)
         setTimeout(() => {
-            // 필터링 로직 적용
-            state.filteredResults = state.lastSearchResults.filter(item => 
-                FilterManager.itemPassesFilters(item) && 
-                (typeof OptionFilterManager !== 'undefined' ? 
-                    OptionFilterManager.itemPassesFilters(item) : 
-                    true)
-            );
-            
-            // 결과 테이블 업데이트
-            renderItemsTable();
-            
-            // 로딩 종료
-            ApiClient.setLoading(false);
-            
-            // 페이지네이션 업데이트 (모듈 의존성 해결 필요)
-            if (typeof PaginationManager !== 'undefined') {
-                PaginationManager.resetPagination(state.filteredResults.length);
+            try {
+                // 필터링 로직 적용
+                state.filteredResults = state.lastSearchResults.filter(item => 
+                    FilterManager.itemPassesFilters(item) && 
+                    (typeof OptionFilterManager !== 'undefined' ? 
+                        OptionFilterManager.itemPassesFilters(item) : 
+                        true)
+                );
+                
+                // 결과 테이블 업데이트
+                renderItemsTable();
+                
+                // 페이지네이션 업데이트 (모듈 의존성 해결 필요)
+                if (typeof PaginationManager !== 'undefined') {
+                    PaginationManager.resetPagination(state.filteredResults.length);
+                }
+            } catch (error) {
+                console.error('필터링 중 오류 발생:', error);
+                showFilterError('필터링 중 오류가 발생했습니다');
+            } finally {
+                // 로딩 종료
+                ApiClient.setLoading(false);
             }
         }, 10);
+    }
+    
+    /**
+     * 필터링 오류 표시
+     * @param {string} message - 오류 메시지
+     */
+    function showFilterError(message) {
+        if (!elements.resultsBody) return;
+        
+        const tr = document.createElement('tr');
+        tr.className = 'error-result';
+        tr.innerHTML = `
+            <td colspan="3">
+                <div class="error-message">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    ${message}
+                </div>
+            </td>
+        `;
+        
+        elements.resultsBody.innerHTML = '';
+        elements.resultsBody.appendChild(tr);
+        
+        if (elements.resultStats) {
+            elements.resultStats.textContent = '';
+        }
     }
     
     /**
@@ -213,7 +250,7 @@ const ItemDisplay = (() => {
      * @param {MouseEvent} event - 마우스 이벤트
      */
     function showItemTooltip(item, event) {
-        if (!elements.tooltip) return;
+        if (!elements.tooltip || !item) return;
         
         state.tooltipActive = true;
         
@@ -515,17 +552,17 @@ const ItemDisplay = (() => {
         pageItems.forEach(item => {
             const tr = document.createElement('tr');
             tr.className = 'item-row';
-            tr.setAttribute('data-item-id', item.auction_item_no);
+            tr.setAttribute('data-item-id', item.auction_item_no || '');
             tr.setAttribute('data-item', JSON.stringify(item));
             
             tr.innerHTML = `
                 <td>
                     <div class="item-cell">
-                        <div class="item-name">${item.item_name}</div>
+                        <div class="item-name">${item.item_name || item.item_display_name || '이름 없음'}</div>
                     </div>
                 </td>
                 <td>${item.auction_count || 1}개</td>
-                <td class="item-price">${Utils.formatNumber(item.auction_price_per_unit)}G</td>
+                <td class="item-price">${Utils.formatNumber(item.auction_price_per_unit || 0)}G</td>
             `;
             
             elements.resultsBody.appendChild(tr);
@@ -541,7 +578,7 @@ const ItemDisplay = (() => {
         state.lastSearchResults = [];
         
         if (elements.resultsBody) {
-            elements.resultsBody.innerHTML = '<tr class="empty-result"><td colspan="3">검색어를 입력하세요.</td></tr>';
+            elements.resultsBody.innerHTML = '<tr class="empty-result"><td colspan="3">검색어나 카테고리를 선택해 주세요.</td></tr>';
         }
         
         if (elements.resultStats) {
