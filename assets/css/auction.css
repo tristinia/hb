@@ -1,5 +1,5 @@
 /**
- * 마비노기 경매장 스타일 - 개선된 버전
+ * 마비노기 경매장 스타일
  */
 
 /* 기본 스타일 재설정 */
@@ -35,7 +35,7 @@ body {
     margin-bottom: 16px;
 }
 
-/* 3열 레이아웃 구성 */
+/* 3열 레이아웃 구성 (카테고리/아이템 리스트/필터) */
 .content-layout {
     display: grid;
     grid-template-columns: 220px 1fr 280px;
@@ -65,12 +65,12 @@ body {
 .results-panel,
 .options-panel {
     background-color: #ffffff;
-    border-radius: 12px; /* 더 둥글게 변경 */
+    border-radius: 12px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     height: 100%;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* 둥근 모서리 유지를 위해 */
+    overflow: hidden;
 }
 
 /* 패널 헤더 */
@@ -150,7 +150,7 @@ body {
     cursor: pointer;
     transition: background-color 0.2s;
     position: relative;
-    border-radius: 0; /* 카테고리 아이템은 각진 모서리 유지 */
+    border-radius: 0;
 }
 
 .all-category-button.active,
@@ -379,7 +379,7 @@ body {
 }
 
 .category-path-label {
-    display: none; /* 제목 숨기기 */
+    display: none;
 }
 
 .category-path-main,
@@ -431,6 +431,13 @@ body {
     overflow-y: auto;
 }
 
+.results-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #f8f9fa;
+}
+
 .results-table th {
     background-color: #f8f9fa;
     color: #333333;
@@ -438,9 +445,11 @@ body {
     text-align: left;
     font-weight: 500;
     font-size: 14px;
-    position: sticky;
-    top: 0;
-    z-index: 1;
+    border-bottom: 1px solid #e9e9e9;
+}
+
+.results-table tbody {
+    overflow-y: auto;
 }
 
 .results-table td {
@@ -473,7 +482,20 @@ body {
     color: #666666;
 }
 
-/* 페이지네이션 (10개 고정) */
+.error-result td {
+    text-align: center;
+    padding: 32px;
+    color: #e63946;
+}
+
+.error-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* 페이지네이션 */
 .pagination {
     display: flex;
     justify-content: center;
@@ -497,7 +519,7 @@ body {
     justify-content: center;
     width: 32px;
     height: 32px;
-    border-radius: 50%; /* 동그란 버튼으로 변경 */
+    border-radius: 50%;
     border: 1px solid #e9e9e9;
     background-color: #ffffff;
     color: #333333;
@@ -527,6 +549,13 @@ body {
 }
 
 /* 필터 패널 */
+.options-panel {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
 .filter-dropdown-container {
     padding: 16px;
 }
@@ -742,8 +771,8 @@ body {
         grid-template-rows: auto auto auto;
         grid-template-areas: 
             "category"
-            "options"
-            "content";
+            "content"
+            "options";
         gap: 16px;
         height: auto;
     }
@@ -752,12 +781,12 @@ body {
         grid-area: category;
     }
     
-    .right-panel {
-        grid-area: options;
-    }
-    
     .center-panel {
         grid-area: content;
+    }
+    
+    .right-panel {
+        grid-area: options;
     }
     
     .category-panel,
