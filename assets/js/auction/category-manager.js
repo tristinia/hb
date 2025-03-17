@@ -11,7 +11,7 @@ const CategoryManager = (() => {
         selectedMainCategory: null,
         selectedSubCategory: null,
         expandedMainCategory: null,
-        allExpanded: true,
+        allExpanded: false, // 기본값을 접힌 상태로 변경
         isLoaded: false
     };
     
@@ -62,6 +62,13 @@ const CategoryManager = (() => {
      * @param {Event} event - 클릭 이벤트
      */
     function handleCategoryClick(event) {
+        // 전체 카테고리 버튼 클릭
+        const allButton = event.target.closest('.all-category-button');
+        if (allButton) {
+            resetSelectedCategories();
+            return;
+        }
+        
         // 메인 카테고리 버튼 클릭
         const mainButton = event.target.closest('.category-button');
         if (mainButton) {
@@ -137,13 +144,25 @@ const CategoryManager = (() => {
                 categoryPanel.classList.remove('collapsed');
             }
             
-            // 모든 소분류 숨기기 (대분류만 표시)
+            // 모든 소분류 표시 (대분류만 펼친 상태)
+            const subLists = document.querySelectorAll('.subcategory-list');
+            subLists.forEach(list => {
+                list.classList.add('expanded');
+            });
+            
+            // 모든 메인 카테고리 버튼의 확장 표시
+            const mainButtons = document.querySelectorAll('.category-button');
+            mainButtons.forEach(btn => {
+                btn.classList.add('expanded');
+            });
+        } else {
+            // 접음: 모든 소분류 접기
             const subLists = document.querySelectorAll('.subcategory-list');
             subLists.forEach(list => {
                 list.classList.remove('expanded');
             });
             
-            // 모든 메인 카테고리 버튼의 확장 표시 초기화
+            // 모든 메인 카테고리 버튼의 확장 표시 제거
             const mainButtons = document.querySelectorAll('.category-button');
             mainButtons.forEach(btn => {
                 btn.classList.remove('expanded');
@@ -153,11 +172,6 @@ const CategoryManager = (() => {
             if (state.selectedMainCategory) {
                 state.expandedMainCategory = state.selectedMainCategory;
                 renderMainCategories(); // 선택된 카테고리만 펼치기 위해 다시 렌더링
-            }
-        } else {
-            // 접음: 패널 숨기기 (선택 상태는 그대로 유지)
-            if (categoryPanel) {
-                categoryPanel.classList.add('collapsed');
             }
         }
         
@@ -260,7 +274,7 @@ const CategoryManager = (() => {
     }
     
     /**
-     * 메인 카테고리 렌더링
+     * 메인 카테고리 렌더링 (아코디언 스타일)
      */
     function renderMainCategories() {
         // 카테고리가 없거나 목록 요소가 없으면 처리하지 않음
@@ -271,32 +285,60 @@ const CategoryManager = (() => {
         // DocumentFragment 사용하여 DOM 조작 최적화
         const fragment = document.createDocumentFragment();
         
+        // 전체 카테고리 항목 생성
+        const allCategoryLi = document.createElement('li');
+        allCategoryLi.className = 'category-item all-category';
+        
+        const allCategoryButton = document.createElement('button');
+        allCategoryButton.className = `all-category-button ${!state.selectedMainCategory ? 'active' : ''}`;
+        allCategoryButton.textContent = '전체';
+        
+        allCategoryLi.appendChild(allCategoryButton);
+        fragment.appendChild(allCategoryLi);
+        
+        // 메인 카테고리 항목 생성
         state.mainCategories.forEach(category => {
             const li = document.createElement('li');
-            li.className = 'category-item';
+            li.className = 'category-item accordion-item';
             
-            // 토글 아이콘 SVG
-            const toggleIcon = `
-                <svg class="toggle-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-            `;
-            
-            const button = document.createElement('button');
-            button.className = `category-button ${state.selectedMainCategory === category.id ? 'active' : ''}`;
-            button.innerHTML = `${category.name} ${toggleIcon}`;
-            button.setAttribute('data-category-id', category.id);
-            
-            // 이 카테고리가 펼쳐진 상태인 경우에만 expanded 클래스 추가
+            // 카테고리가 확장된 상태인지 확인
             const isExpanded = state.expandedMainCategory === category.id;
-            button.classList.toggle('expanded', isExpanded);
+            
+            // +/- 토글 아이콘 (왼쪽에 배치)
+            const toggleIcon = document.createElement('span');
+            toggleIcon.className = 'toggle-icon';
+            toggleIcon.innerHTML = isExpanded ? '-' : '+';
+            
+            // 카테고리 버튼
+            const button = document.createElement('button');
+            button.className = `category-button ${state.selectedMainCategory === category.id ? 'active' : ''} ${isExpanded ? 'expanded' : ''}`;
+            button.setAttribute('data-category-id', category.id);
+            button.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+            
+            // 버튼 내용 (토글 아이콘 + 텍스트)
+            button.appendChild(toggleIcon);
+            button.appendChild(document.createTextNode(category.name));
             
             li.appendChild(button);
             
-            // 소분류 목록 항상 추가하되, 펼쳐진 상태일 때만 expanded 클래스 부여
+            // 소분류 목록
             const subList = document.createElement('ul');
             subList.className = `subcategory-list ${isExpanded ? 'expanded' : ''}`;
             
+            // 애니메이션 클래스 추가/제거
+            if (isExpanded) {
+                subList.classList.add('expanding');
+                setTimeout(() => {
+                    subList.classList.remove('expanding');
+                }, 300);
+            } else {
+                subList.classList.add('collapsing');
+                setTimeout(() => {
+                    subList.classList.remove('collapsing');
+                }, 300);
+            }
+            
+            // 서브 카테고리 항목 생성
             const subCategories = getSubCategoriesByMainCategory(category.id);
             subCategories.forEach(subCategory => {
                 const subLi = document.createElement('li');
@@ -397,31 +439,63 @@ const CategoryManager = (() => {
     function updateCategoryPath() {
         if (!elements.categoryPath) return;
         
+        // 기본값으로 "전체" 표시
+        elements.categoryPath.innerHTML = '<span class="category-path-main category-button">전체</span>';
+        
+        // 아무 카테고리도 선택하지 않았을 경우에는 기본 "전체" 표시만 유지
         if (!state.selectedMainCategory && !state.selectedSubCategory) {
-            elements.categoryPath.style.display = 'none';
+            elements.categoryPath.style.display = 'block'; // 항상 표시
             return;
         }
         
         elements.categoryPath.style.display = 'block';
         
-        let pathHTML = '';
+        let pathHTML = '<span class="category-path-main category-button">전체</span>';
         
         if (state.selectedMainCategory) {
             const mainCategory = state.mainCategories.find(cat => cat.id === state.selectedMainCategory);
             if (mainCategory) {
-                pathHTML += `<span class="category-path-main">${mainCategory.name}</span>`;
+                pathHTML += `<span class="category-path-separator">></span>
+                           <span class="category-path-main category-button" data-category="${mainCategory.id}">${mainCategory.name}</span>`;
             }
         }
         
         if (state.selectedSubCategory) {
             const subCategory = state.subCategories.find(cat => cat.id === state.selectedSubCategory);
             if (subCategory) {
-                pathHTML += `<span class="category-path-separator">></span>`;
-                pathHTML += `<span class="category-path-sub">${subCategory.name}</span>`;
+                pathHTML += `<span class="category-path-separator">></span>
+                           <span class="category-path-sub category-button" data-category="${subCategory.id}">${subCategory.name}</span>`;
             }
         }
         
         elements.categoryPath.innerHTML = pathHTML;
+        
+        // 경로 버튼에 이벤트 리스너 추가
+        const pathButtons = elements.categoryPath.querySelectorAll('.category-button');
+        pathButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const categoryId = e.target.getAttribute('data-category');
+                
+                // "전체" 버튼 클릭 시
+                if (!categoryId) {
+                    resetSelectedCategories();
+                    return;
+                }
+                
+                // 메인 카테고리 버튼 클릭
+                const mainCategory = state.mainCategories.find(cat => cat.id === categoryId);
+                if (mainCategory) {
+                    handleMainCategoryClick(mainCategory);
+                    return;
+                }
+                
+                // 서브 카테고리 버튼 클릭
+                const subCategory = state.subCategories.find(cat => cat.id === categoryId);
+                if (subCategory) {
+                    handleSubCategoryClick(subCategory);
+                }
+            });
+        });
     }
     
     /**
@@ -431,15 +505,16 @@ const CategoryManager = (() => {
     function showCategoryPathFromItem(item) {
         if (!elements.categoryPath) return;
         
-        // 아이템 정보 없으면 표시 안함
+        // 아이템 정보 없으면 기본 "전체" 표시
         if (!item) {
-            elements.categoryPath.style.display = 'none';
+            elements.categoryPath.innerHTML = '<span class="category-path-main category-button">전체</span>';
+            elements.categoryPath.style.display = 'block';
             return;
         }
         
         elements.categoryPath.style.display = 'block';
         
-        let pathHTML = '';
+        let pathHTML = '<span class="category-path-main category-button">전체</span>';
         
         // 메인 카테고리 찾기
         let mainCategoryId = '';
@@ -461,19 +536,47 @@ const CategoryManager = (() => {
         
         // 경로 HTML 구성
         if (mainCategoryName) {
-            pathHTML += `<span class="category-path-main">${mainCategoryName}</span>`;
+            pathHTML += `<span class="category-path-separator">></span>
+                      <span class="category-path-main category-button" data-category="${mainCategoryId}">${mainCategoryName}</span>`;
         }
         
         if (item.category || item.subCategory) {
             const subCategoryId = item.subCategory || item.category;
             const subCat = state.subCategories.find(cat => cat.id === subCategoryId);
             if (subCat) {
-                pathHTML += `<span class="category-path-separator">></span>`;
-                pathHTML += `<span class="category-path-sub">${subCat.name}</span>`;
+                pathHTML += `<span class="category-path-separator">></span>
+                          <span class="category-path-sub category-button" data-category="${subCat.id}">${subCat.name}</span>`;
             }
         }
         
         elements.categoryPath.innerHTML = pathHTML;
+        
+        // 경로 버튼에 이벤트 리스너 추가
+        const pathButtons = elements.categoryPath.querySelectorAll('.category-button');
+        pathButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const categoryId = e.target.getAttribute('data-category');
+                
+                // "전체" 버튼 클릭 시
+                if (!categoryId) {
+                    resetSelectedCategories();
+                    return;
+                }
+                
+                // 메인 카테고리 버튼 클릭
+                const mainCategory = state.mainCategories.find(cat => cat.id === categoryId);
+                if (mainCategory) {
+                    handleMainCategoryClick(mainCategory);
+                    return;
+                }
+                
+                // 서브 카테고리 버튼 클릭
+                const subCategory = state.subCategories.find(cat => cat.id === categoryId);
+                if (subCategory) {
+                    handleSubCategoryClick(subCategory);
+                }
+            });
+        });
     }
     
     /**
@@ -496,8 +599,12 @@ const CategoryManager = (() => {
     function resetSelectedCategories() {
         state.selectedMainCategory = null;
         state.selectedSubCategory = null;
+        state.expandedMainCategory = null;
         renderMainCategories();
         updateCategoryPath();
+        
+        // 카테고리 변경 이벤트 트리거 (전체 선택 상태)
+        triggerCategoryChangedEvent();
     }
     
     /**
