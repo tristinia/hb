@@ -806,3 +806,65 @@ body {
         max-height: 500px;
     }
 }
+
+/* 오류 메시지 스타일 */
+.error-result td {
+    padding: 24px;
+}
+
+.error-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background-color: rgba(220, 53, 69, 0.1);
+    border: 1px solid rgba(220, 53, 69, 0.25);
+    border-radius: 8px;
+    color: #dc3545;
+    font-weight: 500;
+}
+
+.error-message svg {
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.category-error {
+    padding: 16px;
+    text-align: center;
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+    border-radius: 8px;
+    margin: 16px;
+}
+
+.filter-error {
+    padding: 12px;
+    text-align: center;
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.05);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 13px;
+}
+
+.init-error {
+    margin: 16px auto;
+    max-width: 600px;
+}
+
+.reload-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.reload-btn:hover {
+    background-color: #c82333;
+}
