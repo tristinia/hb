@@ -32,26 +32,6 @@
                 </div>
             </div>
 
-            <!-- 필터 패널 (오른쪽) -->
-            <div class="right-panel">
-                <div class="options-panel">
-                    <div class="panel-header">
-                        <h3>세부 옵션 검색</h3>
-                        <button class="toggle-button" id="toggle-options" title="옵션 펼치기">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                        </button>
-                    </div>
-                    <div class="filter-dropdown-container">
-                        <select id="filter-selector" class="filter-selector">
-                            <option value="">옵션 선택...</option>
-                        </select>
-                    </div>
-                    <div class="active-filters" id="active-filters">
-                        <!-- 필터 항목들이 여기에 추가됩니다 -->
-                    </div>
-                </div>
-            </div>
-
             <!-- 중앙 컨텐츠 (검색 + 결과) -->
             <div class="center-panel">
                 <!-- 검색 영역 -->
@@ -99,6 +79,26 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 필터 패널 (오른쪽) -->
+            <div class="right-panel">
+                <div class="options-panel">
+                    <div class="panel-header">
+                        <h3>세부 옵션 검색</h3>
+                        <button class="toggle-button" id="toggle-options" title="옵션 펼치기">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                    </div>
+                    <div class="filter-dropdown-container">
+                        <select id="filter-selector" class="filter-selector">
+                            <option value="">옵션 선택...</option>
+                        </select>
+                    </div>
+                    <div class="active-filters" id="active-filters">
+                        <!-- 필터 항목들이 여기에 추가됩니다 -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -110,20 +110,6 @@
         <div class="spinner"></div>
         <p>데이터를 불러오는 중...</p>
     </div>
-
-    <!-- 기본 옵션 구조 파일 -->
-    <script>
-        // 기본 필터 옵션 구조 (파일을 불러올 수 없을 때 사용)
-        window.defaultOptions = {
-            "options": [
-                { "name": "공격력", "type": "range", "field": "option_value" },
-                { "name": "크리티컬", "type": "range", "field": "option_value" },
-                { "name": "밸런스", "type": "range", "field": "option_value" },
-                { "name": "내구력", "type": "range", "field": "option_value" },
-                { "name": "피어싱 레벨", "type": "range", "field": "option_value" }
-            ]
-        };
-    </script>
 
     <!-- JavaScript 모듈 -->
     <script src="../../assets/js/auction/utils.js"></script>
