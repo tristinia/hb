@@ -1,6 +1,6 @@
 /**
  * API 클라이언트 모듈
- * Firebase Functions 호출 및 데이터 처리
+ * 데이터 처리 (Firebase 의존성 제거)
  */
 
 const ApiClient = (() => {
@@ -25,7 +25,7 @@ const ApiClient = (() => {
     }
     
     /**
-     * 키워드로 검색 API 호출
+     * 키워드로 검색 (로컬 데이터 처리)
      * @param {string} keyword - 검색 키워드
      * @returns {Promise<Object>} 검색 결과
      */
@@ -38,22 +38,19 @@ const ApiClient = (() => {
             setLoading(true);
             state.lastQuery = { type: 'keyword', keyword };
             
-            // 기존 Firebase 앱 인스턴스에서 직접 projectId 가져오기
-            const url = `https://us-central1-${firebase.app().options.projectId}.cloudfunctions.net/searchByKeyword?keyword=${encodeURIComponent(keyword)}`;
-            console.log("API 호출 중...");
+            // 로컬 데이터 처리 (임시 구현)
+            // JSON 파일에서 데이터를 가져오는 방식 (JSON 서버가 있을 경우)
+            const items = await fetchLocalData();
             
-            const response = await fetch(url);
+            // 키워드로 필터링
+            const filteredItems = items.filter(item => 
+                item.item_name?.toLowerCase().includes(keyword.toLowerCase()) ||
+                item.item_display_name?.toLowerCase().includes(keyword.toLowerCase())
+            );
             
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('API 오류:', response.status, errorText);
-                throw new Error(`API 호출 실패: ${response.status}`);
-            }
-            
-            const data = await response.json();
             return {
-                items: data.items || [],
-                totalCount: data.items?.length || 0
+                items: filteredItems || [],
+                totalCount: filteredItems?.length || 0
             };
         } catch (error) {
             console.error('검색 API 오류:', error);
@@ -67,7 +64,7 @@ const ApiClient = (() => {
     }
     
     /**
-     * 카테고리로 검색 API 호출
+     * 카테고리로 검색 (로컬 데이터 처리)
      * @param {string} mainCategory - 메인 카테고리 ID (옵션)
      * @param {string} subCategory - 서브 카테고리 ID (필수)
      * @param {string} itemName - 아이템 이름 (옵션)
@@ -87,33 +84,21 @@ const ApiClient = (() => {
                 itemName 
             };
             
-            // 기존 Firebase 앱 인스턴스에서 직접 projectId 가져오기
-            let url = `https://us-central1-${firebase.app().options.projectId}.cloudfunctions.net/searchByCategory?subCategory=${encodeURIComponent(subCategory)}`;
+            // 카테고리별 데이터 로드 (예: /data/items/검.json)
+            const items = await fetchCategoryData(subCategory);
             
-            // 대분류도 함께 전달 (UI 표시용)
-            if (mainCategory) {
-                url += `&category=${encodeURIComponent(mainCategory)}`;
-            }
-            
-            // 아이템 이름이 있는 경우 추가
+            // 아이템 이름이 있는 경우 추가 필터링
+            let filteredItems = items;
             if (itemName) {
-                url += `&itemName=${encodeURIComponent(itemName)}`;
+                filteredItems = items.filter(item => 
+                    item.item_name?.toLowerCase().includes(itemName.toLowerCase()) ||
+                    item.item_display_name?.toLowerCase().includes(itemName.toLowerCase())
+                );
             }
             
-            console.log("API 호출 중...");
-            
-            const response = await fetch(url);
-            
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('API 오류:', response.status, errorText);
-                throw new Error(`API 호출 실패: ${response.status}`);
-            }
-            
-            const data = await response.json();
             return {
-                items: data.items || [],
-                totalCount: data.items?.length || 0
+                items: filteredItems || [],
+                totalCount: filteredItems?.length || 0
             };
         } catch (error) {
             console.error('카테고리 검색 API 오류:', error);
@@ -123,6 +108,83 @@ const ApiClient = (() => {
             };
         } finally {
             setLoading(false);
+        }
+    }
+    
+    /**
+     * 로컬 데이터 가져오기 (임시 구현)
+     * @returns {Promise<Array>} 아이템 배열
+     */
+    async function fetchLocalData() {
+        try {
+            // 임시 데이터 (실제로는 JSON 파일이나 API에서 가져오는 것이 좋음)
+            return [
+                {
+                    "item_name": "나이트브링어 워로드",
+                    "item_display_name": "신성한 충돌의 미티어로이드 나이트브링어 워로드",
+                    "item_count": 1,
+                    "auction_price_per_unit": 2050000000,
+                    "date_auction_expire": "2025-03-15T16:39:00.000Z",
+                    "item_option": [
+                        {
+                            "option_type": "공격",
+                            "option_sub_type": null,
+                            "option_value": "107",
+                            "option_value2": "251",
+                            "option_desc": null
+                        },
+                        {
+                            "option_type": "부상률",
+                            "option_sub_type": null,
+                            "option_value": "35%",
+                            "option_value2": "60%",
+                            "option_desc": null
+                        },
+                        {
+                            "option_type": "크리티컬",
+                            "option_sub_type": null,
+                            "option_value": "76%",
+                            "option_value2": null,
+                            "option_desc": null
+                        }
+                    ]
+                },
+                {
+                    "item_name": "라이트닝 스태프",
+                    "item_display_name": "라이트닝 스태프",
+                    "item_count": 1,
+                    "auction_price_per_unit": 500000,
+                    "date_auction_expire": "2025-03-20T12:00:00.000Z",
+                    "item_option": [
+                        {
+                            "option_type": "마법 공격력",
+                            "option_sub_type": null,
+                            "option_value": "80",
+                            "option_value2": "120",
+                            "option_desc": null
+                        }
+                    ]
+                }
+            ];
+        } catch (error) {
+            console.error('로컬 데이터 로드 오류:', error);
+            return [];
+        }
+    }
+    
+    /**
+     * 카테고리별 데이터 가져오기
+     * @param {string} category - 카테고리 ID
+     * @returns {Promise<Array>} 아이템 배열
+     */
+    async function fetchCategoryData(category) {
+        try {
+            // 실제 구현에서는 해당 카테고리의 JSON 파일을 로드
+            // 현재는 임시 데이터 반환
+            return fetchLocalData();
+        } catch (error) {
+            console.error(`${category} 데이터 로드 오류:`, error);
+            return [];
         }
     }
     
