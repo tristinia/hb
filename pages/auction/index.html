@@ -3,55 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#151B30">
     <title>마비노기 경매장</title>
     <link rel="stylesheet" href="../../assets/css/auction.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
-    <link rel="icon" href="../../assets/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <div class="nav-container">
-        <div class="container">
-            <div class="nav-buttons">
-                <a href="#" class="nav-button active">경매장</a>
-                <a href="#" class="nav-button">거래소</a>
-                <a href="#" class="nav-button">교환소</a>
-                <a href="#" class="nav-button">가이드</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
+    <div class="main-container">
         <div class="header-section">
             <h1>마비노기 경매장</h1>
         </div>
 
-        <main>
-            <div class="search-container">
-                <div class="search-wrapper">
-                    <div class="search-buttons-left">
-                        <!-- 좌측 버튼 공간 -->
-                    </div>
-                    <input type="text" id="search-input" placeholder="아이템 이름을 입력하세요..." autocomplete="off">
-                    <button class="search-button" id="search-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    </button>
-                    <button class="reset-button" id="reset-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
-                    </button>
-                </div>
-                <div id="suggestions" class="suggestions-list"></div>
-            </div>
-
-            <div class="category-path-panel">
-                <div class="category-path">
-                    <span class="category-path-label">카테고리:</span>
-                    <span id="category-path"></span>
-                </div>
-            </div>
-
-            <div class="auction-layout">
-                <!-- 카테고리 패널 -->
+        <div class="content-layout">
+            <!-- 카테고리 패널 (왼쪽) -->
+            <div class="left-panel">
                 <div class="category-panel">
                     <div class="panel-header">
                         <h3>카테고리</h3>
@@ -66,8 +30,33 @@
                         </li>
                     </ul>
                 </div>
+            </div>
 
-                <!-- 결과 패널 -->
+            <!-- 중앙 컨텐츠 (검색 + 결과) -->
+            <div class="center-panel">
+                <!-- 검색 영역 -->
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <input type="text" id="search-input" placeholder="아이템 이름을 입력하세요..." autocomplete="off">
+                        <button class="search-button" id="search-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </button>
+                        <button class="reset-button" id="reset-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                        </button>
+                    </div>
+                    <div id="suggestions" class="suggestions-list"></div>
+                </div>
+
+                <!-- 카테고리 경로 바 -->
+                <div class="category-path-panel">
+                    <div class="category-path">
+                        <span class="category-path-label">카테고리:</span>
+                        <span id="category-path"></span>
+                    </div>
+                </div>
+
+                <!-- 검색 결과 -->
                 <div class="results-panel">
                     <div class="result-stats-container">
                         <div id="result-stats" class="result-stats">검색 결과가 여기에 표시됩니다</div>
@@ -87,20 +76,27 @@
                         </tbody>
                     </table>
                     <div id="pagination" class="pagination">
-                        <!-- 페이지네이션 동적 생성 -->
+                        <!-- 페이지네이션 동적 생성 (10개 고정) -->
                     </div>
                 </div>
+            </div>
 
-                <!-- 옵션 패널 -->
+            <!-- 필터 패널 (오른쪽) -->
+            <div class="right-panel">
                 <div class="options-panel">
                     <div class="panel-header">
-                        <h3>세부 옵션</h3>
+                        <h3>세부 옵션 검색</h3>
                         <button class="toggle-button" id="toggle-options">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                         </button>
                     </div>
-                    <div class="detail-options" id="detail-options">
-                        <div class="no-options">카테고리를 선택하면 옵션이 표시됩니다</div>
+                    <div class="filter-dropdown-container">
+                        <select id="filter-selector" class="filter-selector">
+                            <option value="">옵션 선택...</option>
+                        </select>
+                    </div>
+                    <div class="active-filters" id="active-filters">
+                        <!-- 필터 항목들이 여기에 추가됩니다 -->
                     </div>
                     <div class="selected-filters-container">
                         <h3>적용된 필터</h3>
@@ -110,14 +106,10 @@
                     </div>
                 </div>
             </div>
-        </main>
-
-        <footer>
-            <p>© 2025 마비노기 경매장. 모든 콘텐츠는 넥슨코리아의 자산입니다.</p>
-        </footer>
+        </div>
     </div>
 
-    <!-- 툴팁 컨테이너 -->
+    <!-- 툴팁 컨테이너 (마비노기식 정보 표시) -->
     <div id="item-tooltip" class="item-tooltip" style="display: none;"></div>
 
     <!-- 로딩 스피너 -->
