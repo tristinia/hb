@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-16T09:25:22.956Z",
+  "updated": "2025-03-17T09:30:34.944Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -32,8 +32,8 @@
         {
           "template": "최대대미지 {value} 증가",
           "min": 31,
-          "max": 31,
-          "variable": false
+          "max": 38,
+          "variable": true
         }
       ]
     },
@@ -169,7 +169,7 @@
         },
         {
           "template": "최대마나 {value} 증가",
-          "min": 26,
+          "min": 25,
           "max": 29,
           "variable": true
         },
@@ -241,7 +241,7 @@
         },
         {
           "template": "모든 속성 연금술 대미지 {value} 증가",
-          "min": 18,
+          "min": 17,
           "max": 20,
           "variable": true
         }
@@ -794,7 +794,7 @@
         {
           "template": "최대마나 {value} 증가",
           "min": 10,
-          "max": 49,
+          "max": 50,
           "variable": true
         },
         {
@@ -1094,7 +1094,7 @@
         {
           "template": "의지 {value} 증가",
           "min": 15,
-          "max": 24,
+          "max": 25,
           "variable": true
         }
       ]
@@ -1766,8 +1766,8 @@
         {
           "template": "최대대미지 {value} 증가",
           "min": 13,
-          "max": 13,
-          "variable": false
+          "max": 15,
+          "variable": true
         }
       ]
     },
@@ -3997,6 +3997,30 @@
         }
       ]
     },
+    "버스트 파이터": {
+      "name": "버스트 파이터",
+      "rank": 6,
+      "effects": [
+        {
+          "template": "폭발 저항 세트 효과 수치 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "최대마나 {value} 감소",
+          "min": 4,
+          "max": 4,
+          "variable": false
+        },
+        {
+          "template": "최대스태미나 {value} 증가",
+          "min": 6,
+          "max": 6,
+          "variable": false
+        }
+      ]
+    },
     "버터플라이 (랭크 A)": {
       "name": "버터플라이 (랭크 A)",
       "rank": null,
@@ -4160,8 +4184,8 @@
         {
           "template": "마법 공격력 {value} 증가",
           "min": 1,
-          "max": 1,
-          "variable": false
+          "max": 2,
+          "variable": true
         },
         {
           "template": "마법 공격력 {value} 증가",
@@ -4633,9 +4657,9 @@
         },
         {
           "template": "물 속성 연금술 대미지 {value} 증가",
-          "min": 33,
+          "min": 15,
           "max": 33,
-          "variable": false
+          "variable": true
         },
         {
           "template": "물 속성 연금술 대미지 {value} 증가",
@@ -7477,7 +7501,7 @@
         },
         {
           "template": "불 속성 연금술 대미지 {value} 증가",
-          "min": 17,
+          "min": 15,
           "max": 25,
           "variable": true
         }
@@ -7700,7 +7724,7 @@
         {
           "template": "체력 {value} 증가",
           "min": 13,
-          "max": 15,
+          "max": 17,
           "variable": true
         }
       ]
@@ -7719,6 +7743,18 @@
           "template": "체력 {value} 증가",
           "min": 10,
           "max": 10,
+          "variable": false
+        }
+      ]
+    },
+    "제비": {
+      "name": "제비",
+      "rank": 5,
+      "effects": [
+        {
+          "template": "공격 속도 증가 세트 효과 수치 {value} 증가",
+          "min": 3,
+          "max": 3,
           "variable": false
         }
       ]
@@ -9487,7 +9523,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 34,
+          "min": 32,
           "max": 45,
           "variable": true
         }
