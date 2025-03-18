@@ -107,7 +107,7 @@ const App = (() => {
                 console.error('검색 오류:', result.error);
                 showErrorMessage(result.error);
             } else if (!result.items || result.items.length === 0) {
-                showErrorMessage('검색 결과가 없습니다.');
+                showErrorMessage('검색 결과가 없습니다. 다른 키워드나 카테고리로 검색해보세요.');
             } else {
                 // 결과 표시
                 ItemDisplay.setSearchResults(result.items);
@@ -117,7 +117,7 @@ const App = (() => {
             }
         } catch (error) {
             console.error('검색 처리 중 오류:', error);
-            showErrorMessage('검색 처리 중 오류가 발생했습니다.');
+            showErrorMessage('검색 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
         } finally {
             // 로딩 완료
             ApiClient.setLoading(false);
