@@ -3,6 +3,8 @@
  * 검색 결과 표시, 아이템 정보, 툴팁 등 처리
  */
 
+import Utils from './utils.js';
+
 const ItemDisplay = (() => {
     // 아이템 표시 상태
     const state = {
