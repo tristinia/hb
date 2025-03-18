@@ -890,3 +890,5 @@ const SearchManager = (() => {
         clearCache
     };
 })();
+
+export default SearchManager;
