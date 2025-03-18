@@ -3,6 +3,9 @@
  * 데이터 처리 및 API 호출 관리
  */
 
+/**
+ * API 클라이언트 모듈 - 서버 통신 및 데이터 처리
+ */
 const ApiClient = (() => {
     // API 호출 상태
     const state = {
@@ -55,7 +58,6 @@ const ApiClient = (() => {
                     totalCount: data.totalCount || 0
                 };
             } catch (fetchError) {
-                // 실제 구현에서는 서버 오류가 발생할 것이므로 에러를 반환합니다
                 throw new Error(`검색 서버 연결에 실패했습니다: ${fetchError.message}`);
             }
             
@@ -72,9 +74,9 @@ const ApiClient = (() => {
     
     /**
      * 카테고리로 검색
-     * @param {string} mainCategory - 메인 카테고리 ID (옵션)
+     * @param {string} mainCategory - 메인 카테고리 ID
      * @param {string} subCategory - 서브 카테고리 ID (필수)
-     * @param {string} itemName - 아이템 이름 (옵션)
+     * @param {string} itemName - 아이템 이름
      * @returns {Promise<Object>} 검색 결과
      */
     async function searchByCategory(mainCategory, subCategory, itemName = null) {
@@ -112,7 +114,6 @@ const ApiClient = (() => {
                     totalCount: data.totalCount || 0
                 };
             } catch (fetchError) {
-                // 실제 구현에서는 서버 오류가 발생할 것이므로 에러를 반환합니다
                 throw new Error(`카테고리 검색 서버 연결에 실패했습니다: ${fetchError.message}`);
             }
             
@@ -158,3 +159,5 @@ const ApiClient = (() => {
         getIsLoading: () => state.isLoading
     };
 })();
+
+export default ApiClient;
