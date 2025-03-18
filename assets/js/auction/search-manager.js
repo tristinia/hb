@@ -431,7 +431,7 @@ const SearchManager = (() => {
         });
     }
     
-    /**
+/**
  * 파일에서 아이템 목록 로드
  * @param {Object} category - 카테고리 정보
  */
