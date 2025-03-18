@@ -255,6 +255,15 @@ const CategoryManager = (() => {
             
             // 카테고리 초기화
             renderMainCategories();
+            
+            // 카테고리 로드 완료 이벤트 발생
+            const event = new CustomEvent('categoriesLoaded', {
+                detail: {
+                    mainCategories: state.mainCategories,
+                    subCategories: state.subCategories
+                }
+            });
+            document.dispatchEvent(event);
         } catch (error) {
             console.error('카테고리 로드 중 오류 발생:', error);
             showCategoryLoadError();
@@ -607,7 +616,8 @@ const CategoryManager = (() => {
         findMainCategoryForSubCategory,
         resetSelectedCategories,
         getSelectedCategories,
-        getSubCategoriesByMainCategory
+        getSubCategoriesByMainCategory,
+        handleResponsiveChange
     };
 })();
 
