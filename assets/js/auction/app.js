@@ -83,43 +83,48 @@ const App = (() => {
      */
     async function handleSearch(event) {
         const { searchTerm, selectedItem, mainCategory, subCategory } = event.detail;
-        
-        // 로딩 중 표시
+    
         ApiClient.setLoading(true);
-        
+    
         try {
             let result;
-            
-            // 카테고리 기반 검색 또는 키워드 검색
-            if (subCategory) {
-                result = await ApiClient.searchByCategory(mainCategory, subCategory, searchTerm);
-            } else if (searchTerm) {
+        
+            // 자동완성으로 아이템 선택한 경우
+            if (selectedItem && selectedItem.subCategory) {
+                // 카테고리 + 아이템명으로 검색 실행
+                result = await ApiClient.searchByCategory(
+                    selectedItem.mainCategory, 
+                    selectedItem.subCategory, 
+                    selectedItem.name
+                );
+            }
+            // 카테고리만 선택한 경우
+            else if (subCategory) {
+                result = await ApiClient.searchByCategory(mainCategory, subCategory);
+            } 
+            // 키워드 검색
+            else if (searchTerm) {
                 result = await ApiClient.searchByKeyword(searchTerm);
-            } else {
-                console.warn('검색어 또는 카테고리가 필요합니다.');
-                showErrorMessage('검색어를 입력하거나 카테고리를 선택해주세요.');
+            } 
+            else {
                 ApiClient.setLoading(false);
                 return;
             }
-            
+        
             // 검색 결과 처리
             if (result.error) {
                 console.error('검색 오류:', result.error);
                 showErrorMessage(result.error);
             } else if (!result.items || result.items.length === 0) {
-                showErrorMessage('검색 결과가 없습니다. 다른 키워드나 카테고리로 검색해보세요.');
+                showErrorMessage('검색 결과가 없습니다.');
             } else {
-                // 결과 표시
                 ItemDisplay.setSearchResults(result.items);
-                
-                // 페이지네이션 설정
                 PaginationManager.resetPagination(result.items.length || 0);
             }
         } catch (error) {
             console.error('검색 처리 중 오류:', error);
             showErrorMessage('검색 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
         } finally {
-            // 로딩 완료
             ApiClient.setLoading(false);
         }
     }
