@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-17T09:30:34.940Z",
+  "updated": "2025-03-18T09:29:48.977Z",
   "enchants": {
     "56층의": {
       "name": "56층의",
@@ -997,7 +997,7 @@
         },
         {
           "template": "공격 속도 증가 세트 효과 수치 {value} 증가",
-          "min": 2,
+          "min": 1,
           "max": 3,
           "variable": true
         }
@@ -2593,9 +2593,9 @@
       "effects": [
         {
           "template": "최대대미지 {value} 감소",
-          "min": 6,
+          "min": 4,
           "max": 6,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -3799,7 +3799,7 @@
         },
         {
           "template": "마법 공격력 {value} 증가",
-          "min": 4,
+          "min": 3,
           "max": 5,
           "variable": true
         },
@@ -5318,8 +5318,8 @@
         {
           "template": "최대대미지 {value} 증가",
           "min": 5,
-          "max": 5,
-          "variable": false
+          "max": 12,
+          "variable": true
         },
         {
           "template": "최소대미지 {value} 증가",
@@ -6451,6 +6451,24 @@
         }
       ]
     },
+    "야생마 (랭크 F)": {
+      "name": "야생마 (랭크 F)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "최대마나 {value} 감소",
+          "min": 1,
+          "max": 1,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 1,
+          "max": 1,
+          "variable": false
+        }
+      ]
+    },
     "야생의 (랭크 A)": {
       "name": "야생의 (랭크 A)",
       "rank": null,
@@ -7120,6 +7138,48 @@
           "min": 4,
           "max": 6,
           "variable": true
+        }
+      ]
+    },
+    "원리의": {
+      "name": "원리의",
+      "rank": 5,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 12,
+          "max": 12,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 6,
+          "max": 6,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 16,
+          "max": 16,
+          "variable": false
+        },
+        {
+          "template": "솜씨 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "지력 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
         }
       ]
     },
@@ -7964,7 +8024,7 @@
         {
           "template": "의지 {value} 증가",
           "min": 18,
-          "max": 24,
+          "max": 27,
           "variable": true
         },
         {
@@ -8551,7 +8611,7 @@
         },
         {
           "template": "최대생명력 {value} 증가",
-          "min": 51,
+          "min": 50,
           "max": 80,
           "variable": true
         },
@@ -9649,7 +9709,7 @@
         },
         {
           "template": "마법 공격력 {value} 증가",
-          "min": 18,
+          "min": 16,
           "max": 20,
           "variable": true
         }
@@ -10280,8 +10340,8 @@
         {
           "template": "솜씨 {value} 증가",
           "min": 2,
-          "max": 2,
-          "variable": false
+          "max": 3,
+          "variable": true
         }
       ]
     }

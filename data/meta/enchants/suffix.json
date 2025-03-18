@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-17T09:30:34.944Z",
+  "updated": "2025-03-18T09:29:48.982Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -3337,6 +3337,36 @@
         }
       ]
     },
+    "무모한 (랭크 B)": {
+      "name": "무모한 (랭크 B)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "수리비 {value}% 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "지력 {value} 감소",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "대미지밸런스 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        }
+      ]
+    },
     "무역상": {
       "name": "무역상",
       "rank": 7,
@@ -4071,6 +4101,36 @@
           "template": "공격 속도 증가 세트 효과 수치 {value} 증가",
           "min": 3,
           "max": 3,
+          "variable": false
+        }
+      ]
+    },
+    "벚꽃 (랭크 A)": {
+      "name": "벚꽃 (랭크 A)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "최대생명력 {value} 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 7,
+          "max": 7,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 12,
+          "max": 12,
+          "variable": false
+        },
+        {
+          "template": "최소대미지 {value} 증가",
+          "min": 6,
+          "max": 6,
           "variable": false
         }
       ]
@@ -9321,6 +9381,30 @@
           "template": "독 면역 세트 효과 수치 {value} 증가",
           "min": 1,
           "max": 4,
+          "variable": true
+        }
+      ]
+    },
+    "포이즌 헌터 (랭크 A)": {
+      "name": "포이즌 헌터 (랭크 A)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "독 면역 세트 효과 수치 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "최대마나 {value} 감소",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "최대스태미나 {value} 증가",
+          "min": 7,
+          "max": 8,
           "variable": true
         }
       ]
