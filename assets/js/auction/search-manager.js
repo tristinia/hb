@@ -16,7 +16,8 @@ const SearchManager = (() => {
         loadedCategories: new Set(),  // 이미 로드한 카테고리 추적
         isInitialized: false, // 초기화 상태 추적
         isLoading: false, // 로딩 상태
-        hasError: false // 오류 상태
+        hasError: false, // 오류 상태
+        categoryManagerReady: false // CategoryManager 준비 상태
     };
     
     // 자동완성 데이터
@@ -52,21 +53,29 @@ const SearchManager = (() => {
             
             // 카테고리 초기화 완료 이벤트 리스너 추가
             document.addEventListener('categoriesLoaded', () => {
-                // 자동완성 데이터 로드
-                loadAutocompleteData().catch(error => {
-                    console.error('아이템 목록 로드 실패:', error);
-                    showSearchInputError('데이터를 불러올 수 없습니다');
-                });
+                console.log('categoriesLoaded 이벤트 수신: 카테고리 로딩 완료');
+                state.categoryManagerReady = true;
+                
+                // 약간의 지연 후 데이터 로드
+                setTimeout(() => {
+                    loadAutocompleteData().catch(error => {
+                        console.error('아이템 목록 로드 실패:', error);
+                        showSearchInputError('데이터를 불러올 수 없습니다. 페이지를 새로고침 해주세요.');
+                    });
+                }, 100);
             });
             
-            // 자동완성 데이터 로드 시도 - CategoryManager가 준비되지 않았다면 이벤트를 통해 나중에 로드됨
+            // CategoryManager가 이미 준비되었는지 확인
             checkCategoryManagerAndLoadData();
+            
+            state.isInitialized = true;
+            console.log('SearchManager 초기화 완료');
         } catch (error) {
             console.error('검색 관리자 초기화 오류:', error);
             state.hasError = true;
             
             if (elements.searchInput) {
-                showSearchInputError('검색 기능을 초기화할 수 없습니다');
+                showSearchInputError('검색 기능을 초기화할 수 없습니다. 페이지를 새로고침 해주세요.');
             }
         }
     }
@@ -75,20 +84,34 @@ const SearchManager = (() => {
      * CategoryManager 상태 확인 및 데이터 로드
      */
     function checkCategoryManagerAndLoadData() {
-        // CategoryManager가 이미 초기화 완료되었는지 확인
-        if (typeof CategoryManager !== 'undefined' && 
-            CategoryManager.getSelectedCategories && 
-            typeof CategoryManager.getSelectedCategories === 'function') {
-            
-            const categories = CategoryManager.getSelectedCategories();
-            if (categories.subCategories && categories.subCategories.length > 0) {
-                // 이미 카테고리가 로드되어 있음
-                console.log('CategoryManager가 이미 초기화되어 있음, 자동완성 데이터 로드 시작');
-                loadAutocompleteData().catch(error => {
-                    console.error('자동완성 데이터 로드 실패:', error);
-                    showSearchInputError('데이터를 불러올 수 없습니다');
-                });
+        // CategoryManager 존재 및 이미 초기화 완료 확인
+        if (typeof CategoryManager !== 'undefined') {
+            // getSelectedCategories 메서드가 있는지 확인
+            if (CategoryManager.getSelectedCategories && 
+                typeof CategoryManager.getSelectedCategories === 'function') {
+                
+                try {
+                    const categories = CategoryManager.getSelectedCategories();
+                    if (categories && categories.subCategories && categories.subCategories.length > 0) {
+                        console.log('CategoryManager 이미 초기화됨, 자동완성 데이터 로드 시작');
+                        state.categoryManagerReady = true;
+                        
+                        // 자동완성 데이터 로드
+                        loadAutocompleteData().catch(error => {
+                            console.error('자동완성 데이터 로드 실패:', error);
+                            showSearchInputError('데이터를 불러올 수 없습니다. 페이지를 새로고침 해주세요.');
+                        });
+                    } else {
+                        console.log('CategoryManager는 준비되었지만 카테고리 데이터가 없음');
+                    }
+                } catch (error) {
+                    console.log('CategoryManager.getSelectedCategories 호출 중 오류:', error);
+                }
+            } else {
+                console.log('CategoryManager는 존재하지만 아직 완전히 초기화되지 않음');
             }
+        } else {
+            console.log('CategoryManager가 아직 정의되지 않음, 이벤트 대기 중');
         }
     }
     
@@ -138,7 +161,7 @@ const SearchManager = (() => {
     }
     
     /**
-     * 여러 카테고리에서 자동완성 데이터 로드 (성능 개선)
+     * 여러 카테고리에서 자동완성 데이터 로드
      */
     async function loadAutocompleteData() {
         console.log('자동완성 데이터 로드 시작...');
@@ -203,13 +226,13 @@ const SearchManager = (() => {
             }
             
             // 카테고리에서 데이터 로드 (캐시가 없거나 만료된 경우)
-            loadFromCategories();
+            await loadFromCategories();
             
         } catch (error) {
             console.error('자동완성 데이터 로드 중 오류:', error);
             
-            // 오류 시에도 검색 입력창 활성화 (오류 표시)
-            showSearchInputError('데이터를 불러올 수 없습니다');
+            // 오류 시 검색 입력창 오류 표시
+            showSearchInputError('데이터를 불러올 수 없습니다. 페이지를 새로고침 해주세요.');
             throw error;
         }
     }
@@ -234,16 +257,52 @@ const SearchManager = (() => {
     }
 
     /**
-     * 카테고리에서 아이템 목록 로드 (최적화)
+     * 카테고리에서 아이템 목록 로드
      */
     async function loadFromCategories() {
         try {
+            // CategoryManager가 준비되지 않았으면 대기
+            if (!state.categoryManagerReady) {
+                // 5번 시도하고 실패하면 오류
+                let retryCount = 0;
+                const maxRetries = 5;
+                const retryInterval = 200; // ms
+                
+                while (!state.categoryManagerReady && retryCount < maxRetries) {
+                    console.log(`CategoryManager 준비 대기 중... (시도 ${retryCount + 1}/${maxRetries})`);
+                    await new Promise(resolve => setTimeout(resolve, retryInterval));
+                    retryCount++;
+                    
+                    // 다시 확인
+                    checkCategoryManagerAndLoadData();
+                    
+                    // 준비되었는지 확인
+                    if (typeof CategoryManager !== 'undefined' && 
+                        CategoryManager.getSelectedCategories && 
+                        typeof CategoryManager.getSelectedCategories === 'function') {
+                        try {
+                            const categories = CategoryManager.getSelectedCategories();
+                            if (categories && categories.subCategories && categories.subCategories.length > 0) {
+                                state.categoryManagerReady = true;
+                                break;
+                            }
+                        } catch (error) {
+                            console.log('CategoryManager 상태 확인 중 오류:', error);
+                        }
+                    }
+                }
+                
+                if (!state.categoryManagerReady) {
+                    throw new Error('카테고리 관리자가 준비되지 않았습니다. 로드를 계속할 수 없습니다.');
+                }
+            }
+            
             // 카테고리 정보 가져오기
             const categories = await getCategoryInfo();
             
             if (!categories.subCategories || categories.subCategories.length === 0) {
                 console.warn('카테고리 정보가 로드되지 않았습니다.');
-                showSearchInputError('카테고리 정보를 불러올 수 없습니다');
+                showSearchInputError('카테고리 정보를 불러올 수 없습니다. 페이지를 새로고침 해주세요.');
                 return;
             }
             
@@ -336,7 +395,7 @@ const SearchManager = (() => {
             
         } catch (error) {
             console.error('아이템 목록 로드 중 오류:', error);
-            showSearchInputError('아이템 목록을 불러올 수 없습니다');
+            showSearchInputError('아이템 목록을 불러올 수 없습니다. 페이지를 새로고침 해주세요.');
             throw error;
         }
     }
@@ -347,24 +406,44 @@ const SearchManager = (() => {
      */
     async function getCategoryInfo() {
         return new Promise((resolve, reject) => {
-            if (typeof CategoryManager === 'undefined' || 
-                !CategoryManager.getSelectedCategories || 
-                typeof CategoryManager.getSelectedCategories !== 'function') {
-                reject(new Error('CategoryManager가 초기화되지 않았습니다'));
-                return;
-            }
-            
-            const categories = CategoryManager.getSelectedCategories();
-            if (categories.subCategories && categories.subCategories.length > 0) {
+            try {
+                // CategoryManager 존재 여부 확인
+                if (typeof CategoryManager === 'undefined') {
+                    reject(new Error('CategoryManager가 정의되지 않았습니다'));
+                    return;
+                }
+                
+                // getSelectedCategories 메서드 존재 확인
+                if (!CategoryManager.getSelectedCategories || 
+                    typeof CategoryManager.getSelectedCategories !== 'function') {
+                    reject(new Error('CategoryManager.getSelectedCategories 메서드가 없습니다'));
+                    return;
+                }
+                
+                // 메서드 호출
+                const categories = CategoryManager.getSelectedCategories();
+                
+                // 카테고리 데이터 확인
+                if (!categories) {
+                    reject(new Error('CategoryManager.getSelectedCategories가 유효한 데이터를 반환하지 않았습니다'));
+                    return;
+                }
+                
+                if (!categories.subCategories || !Array.isArray(categories.subCategories) || categories.subCategories.length === 0) {
+                    reject(new Error('카테고리 정보가 비어 있거나 유효하지 않습니다'));
+                    return;
+                }
+                
+                // 유효한 카테고리 정보 반환
                 resolve(categories);
-            } else {
-                reject(new Error('카테고리 정보가 로드되지 않았습니다'));
+            } catch (error) {
+                reject(new Error(`카테고리 정보 가져오기 실패: ${error.message}`));
             }
         });
     }
     
     /**
-     * 단일 카테고리 아이템 로드 (성능 개선)
+     * 단일 카테고리 아이템 로드
      */
     async function loadCategoryItems(category) {
         if (state.loadedCategories.has(category.id)) return;
@@ -434,7 +513,7 @@ const SearchManager = (() => {
     }
     
     /**
-     * 검색어 기반 자동완성 추천 생성 (최적화)
+     * 검색어 기반 자동완성 추천 생성
      * @param {string} searchTerm - 검색어
      * @returns {Array} 추천 목록
      */
@@ -546,7 +625,7 @@ const SearchManager = (() => {
     }
     
     /**
-     * 자동완성 렌더링 (최적화)
+     * 자동완성 렌더링
      */
     function renderSuggestions() {
         // 기존 추천 초기화
@@ -575,25 +654,40 @@ const SearchManager = (() => {
                     CategoryManager.getSelectedCategories && 
                     typeof CategoryManager.getSelectedCategories === 'function') {
                     
-                    // 메인 카테고리 이름 찾기
-                    let mainCategoryName = item.mainCategory;
-                    const categories = CategoryManager.getSelectedCategories();
-                    const mainCategoryObj = categories.mainCategories?.find(cat => cat.id === item.mainCategory);
-                    if (mainCategoryObj) {
-                        mainCategoryName = mainCategoryObj.name;
+                    try {
+                        // 메인 카테고리 이름 찾기
+                        let mainCategoryName = item.mainCategory;
+                        const categories = CategoryManager.getSelectedCategories();
+                        if (!categories || !categories.mainCategories) {
+                            throw new Error('카테고리 정보를 가져올 수 없습니다');
+                        }
+                        
+                        const mainCategoryObj = categories.mainCategories.find(cat => cat.id === item.mainCategory);
+                        if (mainCategoryObj) {
+                            mainCategoryName = mainCategoryObj.name;
+                        }
+                        
+                        // 서브 카테고리 이름 찾기
+                        let subCategoryName = item.subCategory;
+                        const subCategoryObj = categories.subCategories.find(cat => cat.id === item.subCategory);
+                        if (subCategoryObj) {
+                            subCategoryName = subCategoryObj.name;
+                        }
+                        
+                        categoryInfo = `<div class="suggestion-category">${mainCategoryName}${subCategoryName ? ' > ' + subCategoryName : ''}</div>`;
+                    } catch (error) {
+                        // 카테고리 정보 가져오기 실패 시 자동완성 렌더링 못함
+                        console.error('카테고리 정보 렌더링 중 오류:', error);
+                        elements.suggestionsList.classList.remove('show');
+                        state.isSuggestionVisible = false;
+                        return;
                     }
-                    
-                    // 서브 카테고리 이름 찾기
-                    let subCategoryName = item.subCategory;
-                    const subCategoryObj = categories.subCategories?.find(cat => cat.id === item.subCategory);
-                    if (subCategoryObj) {
-                        subCategoryName = subCategoryObj.name;
-                    }
-                    
-                    categoryInfo = `<div class="suggestion-category">${mainCategoryName}${subCategoryName ? ' > ' + subCategoryName : ''}</div>`;
                 } else {
-                    // 기본 카테고리 정보
-                    categoryInfo = `<div class="suggestion-category">${item.mainCategory}${item.subCategory ? ' > ' + item.subCategory : ''}</div>`;
+                    // CategoryManager가 없으면 자동완성 렌더링 못함
+                    console.error('카테고리 관리자가 없어 자동완성을 표시할 수 없습니다');
+                    elements.suggestionsList.classList.remove('show');
+                    state.isSuggestionVisible = false;
+                    return;
                 }
             }
             
@@ -751,28 +845,43 @@ const SearchManager = (() => {
         // 로딩 또는 오류 상태면 무시
         if (state.isLoading || state.hasError) return;
         
-        // 검색어 또는 선택된 카테고리가 없는 경우 처리
-        const { mainCategory, subCategory } = CategoryManager.getSelectedCategories();
-        
-        if (!state.searchTerm && !subCategory) {
-            alert('검색어를 입력하거나 카테고리를 선택해주세요.');
+        // CategoryManager 접근 확인
+        if (typeof CategoryManager === 'undefined' || 
+            !CategoryManager.getSelectedCategories || 
+            typeof CategoryManager.getSelectedCategories !== 'function') {
+            console.error('검색 처리 중 오류: CategoryManager를 사용할 수 없습니다');
+            alert('카테고리 정보를 불러올 수 없습니다. 페이지를 새로고침 해주세요.');
             return;
         }
         
-        // 검색 이벤트 발생
-        const event = new CustomEvent('search', {
-            detail: {
-                searchTerm: state.searchTerm,
-                selectedItem: state.selectedItem,
-                mainCategory,
-                subCategory
+        try {
+            // 카테고리 정보 가져오기
+            const { mainCategory, subCategory } = CategoryManager.getSelectedCategories();
+            
+            // 검색어 또는 선택된 카테고리가 없는 경우 처리
+            if (!state.searchTerm && !subCategory) {
+                alert('검색어를 입력하거나 카테고리를 선택해주세요.');
+                return;
             }
-        });
-        
-        document.dispatchEvent(event);
-        
-        // 자동완성 닫기
-        clearSuggestions();
+            
+            // 검색 이벤트 발생
+            const event = new CustomEvent('search', {
+                detail: {
+                    searchTerm: state.searchTerm,
+                    selectedItem: state.selectedItem,
+                    mainCategory,
+                    subCategory
+                }
+            });
+            
+            document.dispatchEvent(event);
+            
+            // 자동완성 닫기
+            clearSuggestions();
+        } catch (error) {
+            console.error('검색 처리 중 오류:', error);
+            alert('검색을 처리할 수 없습니다. 페이지를 새로고침 해주세요.');
+        }
     }
     
     /**
