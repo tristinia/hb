@@ -299,12 +299,20 @@ const ItemDisplay = (() => {
         // 주요 속성 정보
         const coreAttributes = [
             { type: '공격', format: (opt) => `<div class="tooltip-stat">공격 ${opt.option_value}~${opt.option_value2}</div>` },
-            { type: '부상률', format: (opt) => `<div class="tooltip-stat">부상률 ${opt.option_value}~${opt.option_value2}</div>` },
+            { type: '부상률', format: (opt) => {
+                // % 기호 제거 후 표시, 마지막에 한 번만 % 추가
+                const minValue = opt.option_value.toString().replace('%', '');
+                const maxValue = opt.option_value2.toString().replace('%', '');
+                return `<div class="tooltip-stat">부상률 ${minValue}~${maxValue}%</div>`;
+            }},
             { type: '크리티컬', format: (opt) => `<div class="tooltip-stat">크리티컬 ${opt.option_value}</div>` },
             { type: '밸런스', format: (opt) => `<div class="tooltip-stat">밸런스 ${opt.option_value}</div>` },
             { type: '내구력', format: (opt) => `<div class="tooltip-stat tooltip-yellow">내구력 ${opt.option_value}/${opt.option_value2}</div>` },
             { type: '숙련', format: (opt) => `<div class="tooltip-stat">숙련 ${opt.option_value}</div>` },
-            { type: '남은 전용 해제 가능 횟수', format: (opt) => `<div class="tooltip-stat tooltip-yellow">남은 전용 해제 가능 횟수 : ${opt.option_value}</div>` }
+            { type: '남은 전용 해제 가능 횟수', format: (opt) => `
+                <div class="tooltip-stat tooltip-yellow"> 전용 아이템 (전용 일시 해제)</div>
+                <div class="tooltip-stat tooltip-yellow">남은 전용 해제 가능 횟수 : ${opt.option_value}</div>
+            ` }
         ];
         
         // 주요 속성 추가
