@@ -1,10 +1,37 @@
 /**
  * app.js
- * 애플리케이션 메인 진입점 - 모듈 통합 및 초기화
+ * 애플리케이션 메인 통합 모듈 - 모든 하위 모듈 관리 및 초기화
  */
 
+// 모듈 가져오기
+import CategoryManager from './category-manager.js';
+import SearchManager from './search-manager.js';
+import ItemDisplay from './item-display.js';
+import FilterManager from './filter-manager.js';
+import PaginationManager from './pagination.js';
+import ApiClient from './api-client.js';
+import Utils from './utils.js';
+
+/**
+ * 애플리케이션 모듈
+ * 전체 앱 라이프사이클 관리 및 모듈 통합
+ */
 const App = (() => {
-    // 이벤트 리스너 설정
+    // 앱 상태 관리
+    const state = {
+        initialized: false,
+        modules: {
+            category: false,
+            search: false,
+            filter: false,
+            pagination: false,
+            display: false
+        }
+    };
+
+    /**
+     * 이벤트 리스너 설정
+     */
     function setupEventListeners() {
         // 검색 이벤트
         document.addEventListener('search', handleSearch);
@@ -21,14 +48,39 @@ const App = (() => {
         // 아이템 선택 이벤트
         document.addEventListener('itemSelected', handleItemSelected);
         
+        // 필터 변경 이벤트
+        document.addEventListener('filterChanged', handleFilterChanged);
+        
         // 옵션 토글 버튼
         const toggleOptionsBtn = document.getElementById('toggle-options');
         if (toggleOptionsBtn) {
             toggleOptionsBtn.addEventListener('click', toggleOptions);
         }
+
+        // 윈도우 리사이즈 이벤트
+        window.addEventListener('resize', Utils.debounce(handleResize, 200));
+
+        console.log('앱 이벤트 리스너 설정 완료');
     }
     
-    // 검색 처리
+    /**
+     * 윈도우 리사이즈 처리
+     */
+    function handleResize() {
+        // 반응형 레이아웃 조정을 위한 플래그 설정
+        const isMobile = window.innerWidth < 768;
+        document.body.classList.toggle('mobile-view', isMobile);
+        
+        // 필요한 UI 업데이트 호출
+        if (CategoryManager && typeof CategoryManager.handleResponsiveChange === 'function') {
+            CategoryManager.handleResponsiveChange({ matches: isMobile });
+        }
+    }
+
+    /**
+     * 검색 처리
+     * @param {CustomEvent} event - 검색 이벤트
+     */
     async function handleSearch(event) {
         const { searchTerm, selectedItem, mainCategory, subCategory } = event.detail;
         
@@ -55,7 +107,7 @@ const App = (() => {
                 console.error('검색 오류:', result.error);
                 showErrorMessage(result.error);
             } else if (!result.items || result.items.length === 0) {
-                showErrorMessage('검색 결과가 없습니다. 다른 키워드나 카테고리로 검색해보세요.');
+                showErrorMessage('검색 결과가 없습니다.');
             } else {
                 // 결과 표시
                 ItemDisplay.setSearchResults(result.items);
@@ -65,14 +117,16 @@ const App = (() => {
             }
         } catch (error) {
             console.error('검색 처리 중 오류:', error);
-            showErrorMessage('검색 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+            showErrorMessage('검색 처리 중 오류가 발생했습니다.');
         } finally {
             // 로딩 완료
             ApiClient.setLoading(false);
         }
     }
     
-    // 검색 초기화 처리
+    /**
+     * 검색 초기화 처리
+     */
     function handleSearchReset() {
         // 검색 결과 초기화
         ItemDisplay.clearResults();
@@ -84,7 +138,10 @@ const App = (() => {
         FilterManager.resetFilters();
     }
     
-    // 카테고리 변경 처리
+    /**
+     * 카테고리 변경 처리
+     * @param {CustomEvent} event - 카테고리 변경 이벤트
+     */
     async function handleCategoryChanged(event) {
         const { mainCategory, subCategory, autoSelected } = event.detail;
         
@@ -113,7 +170,19 @@ const App = (() => {
         }
     }
     
-    // 페이지 변경 처리
+    /**
+     * 필터 변경 처리
+     * @param {CustomEvent} event - 필터 변경 이벤트
+     */
+    function handleFilterChanged(event) {
+        // 로컬 필터링 적용
+        ItemDisplay.applyLocalFiltering();
+    }
+    
+    /**
+     * 페이지 변경 처리
+     * @param {CustomEvent} event - 페이지 변경 이벤트
+     */
     function handlePageChanged(event) {
         const { startIndex, endIndex } = event.detail;
         
@@ -121,7 +190,10 @@ const App = (() => {
         ItemDisplay.renderItemsForPage(startIndex, endIndex);
     }
     
-    // 아이템 선택 처리
+    /**
+     * 아이템 선택 처리
+     * @param {CustomEvent} event - 아이템 선택 이벤트
+     */
     function handleItemSelected(event) {
         const { item } = event.detail;
         
@@ -163,7 +235,9 @@ const App = (() => {
         document.dispatchEvent(searchEvent);
     }
     
-    // 옵션 패널 토글
+    /**
+     * 옵션 패널 토글
+     */
     function toggleOptions() {
         const optionsPanel = document.querySelector('.options-panel');
         const toggleBtn = document.getElementById('toggle-options');
@@ -181,7 +255,10 @@ const App = (() => {
         }
     }
     
-    // 오류 메시지 표시
+    /**
+     * 오류 메시지 표시
+     * @param {string} message - 오류 메시지
+     */
     function showErrorMessage(message) {
         const resultsBody = document.getElementById('results-body');
         
@@ -216,50 +293,149 @@ const App = (() => {
     }
     
     /**
+     * 모듈 초기화 진행 표시
+     * @param {string} moduleName - 모듈 이름
+     */
+    function markModuleInitialized(moduleName) {
+        if (state.modules.hasOwnProperty(moduleName)) {
+            state.modules[moduleName] = true;
+            
+            // 모든 모듈이 초기화되었는지 확인
+            const allInitialized = Object.values(state.modules).every(value => value === true);
+            if (allInitialized && !state.initialized) {
+                state.initialized = true;
+                console.log('모든 모듈 초기화 완료');
+            }
+        }
+    }
+    
+    /**
      * 애플리케이션 초기화 함수
      */
-    function init() {
+    async function init() {
         try {
-            // 기본 모듈 초기화
-            CategoryManager.init();
-            SearchManager.init();
-            ItemDisplay.init();
-            FilterManager.init();
-            PaginationManager.init();
-            
             // 이벤트 리스너 설정
             setupEventListeners();
             
-            // URL 파라미터 처리
-            const urlParams = new URLSearchParams(window.location.search);
-            const searchTerm = urlParams.get('search');
-            const category = urlParams.get('category');
+            // 모듈 초기화 (병렬 처리)
+            await Promise.all([
+                initCategoryManager(),
+                initSearchManager(),
+                initFilterManager(),
+                initPaginationManager(),
+                initItemDisplay()
+            ]);
             
-            // 검색어나 카테고리가 URL에 있는 경우 자동 검색
-            if (searchTerm) {
-                SearchManager.setSearchTerm(searchTerm);
-                SearchManager.handleSearch();
-            } else if (category) {
-                // 카테고리 선택 처리
-                // 해당 카테고리 정보 찾기
-                const categoryInfo = findCategoryById(category);
-                if (categoryInfo) {
-                    // 카테고리 자동 선택
-                    const event = new CustomEvent('categoryChanged', {
-                        detail: {
-                            mainCategory: categoryInfo.mainCategory,
-                            subCategory: categoryInfo.id,
-                            autoSelected: true
-                        }
-                    });
-                    document.dispatchEvent(event);
-                }
-            }
+            // 반응형 레이아웃 초기 설정
+            handleResize();
+            
+            // URL 파라미터 처리
+            processUrlParameters();
             
             console.log('애플리케이션 초기화 완료');
         } catch (error) {
             console.error('애플리케이션 초기화 중 오류 발생:', error);
             showInitError('애플리케이션 초기화 중 오류가 발생했습니다.');
+        }
+    }
+    
+    /**
+     * 카테고리 매니저 초기화
+     */
+    async function initCategoryManager() {
+        try {
+            await CategoryManager.init();
+            markModuleInitialized('category');
+            return true;
+        } catch (error) {
+            console.error('카테고리 매니저 초기화 실패:', error);
+            return false;
+        }
+    }
+    
+    /**
+     * 검색 매니저 초기화
+     */
+    async function initSearchManager() {
+        try {
+            await SearchManager.init();
+            markModuleInitialized('search');
+            return true;
+        } catch (error) {
+            console.error('검색 매니저 초기화 실패:', error);
+            return false;
+        }
+    }
+    
+    /**
+     * 필터 매니저 초기화
+     */
+    async function initFilterManager() {
+        try {
+            await FilterManager.init();
+            markModuleInitialized('filter');
+            return true;
+        } catch (error) {
+            console.error('필터 매니저 초기화 실패:', error);
+            return false;
+        }
+    }
+    
+    /**
+     * 페이지네이션 매니저 초기화
+     */
+    async function initPaginationManager() {
+        try {
+            await PaginationManager.init();
+            markModuleInitialized('pagination');
+            return true;
+        } catch (error) {
+            console.error('페이지네이션 매니저 초기화 실패:', error);
+            return false;
+        }
+    }
+    
+    /**
+     * 아이템 디스플레이 초기화
+     */
+    async function initItemDisplay() {
+        try {
+            await ItemDisplay.init();
+            markModuleInitialized('display');
+            return true;
+        } catch (error) {
+            console.error('아이템 디스플레이 초기화 실패:', error);
+            return false;
+        }
+    }
+    
+    /**
+     * URL 파라미터 처리
+     */
+    function processUrlParameters() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchTerm = urlParams.get('search');
+        const category = urlParams.get('category');
+        
+        // 검색어나 카테고리가 URL에 있는 경우 자동 검색
+        if (searchTerm) {
+            SearchManager.setSearchTerm(searchTerm);
+            SearchManager.handleSearch();
+        } else if (category) {
+            // 카테고리 선택 처리
+            // 해당 카테고리 정보 찾기
+            const categoryInfo = findCategoryById(category);
+            if (categoryInfo) {
+                // 카테고리 자동 선택
+                const event = new CustomEvent('categoryChanged', {
+                    detail: {
+                        mainCategory: categoryInfo.mainCategory,
+                        subCategory: categoryInfo.id,
+                        autoSelected: true
+                    }
+                });
+                document.dispatchEvent(event);
+            }
         }
     }
     
@@ -302,15 +478,19 @@ const App = (() => {
      * @returns {Object|null} 카테고리 정보
      */
     function findCategoryById(id) {
+        if (!id || typeof CategoryManager === 'undefined' || !CategoryManager.getSelectedCategories) {
+            return null;
+        }
+        
         const { subCategories } = CategoryManager.getSelectedCategories();
         return subCategories.find(cat => cat.id === id) || null;
     }
     
     // 공개 API
     return {
-        init
+        init,
+        showErrorMessage
     };
 })();
 
-// DOM 로드 완료 시 애플리케이션 초기화
-document.addEventListener('DOMContentLoaded', App.init);
+export default App;
