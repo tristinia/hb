@@ -605,3 +605,5 @@ const ItemDisplay = (() => {
         getCurrentCategory
     };
 })();
+
+export default ItemDisplay;
