@@ -494,3 +494,9 @@ const App = (() => {
 })();
 
 export default App;
+
+// DOM 로드 완료 시 애플리케이션 초기화
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM 로드 완료, 애플리케이션 초기화 시작');
+    App.init();
+});
