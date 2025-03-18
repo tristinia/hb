@@ -14,7 +14,7 @@ const SearchManager = (() => {
         activeSuggestion: -1,
         selectedItem: null,
         isSuggestionVisible: false,
-        loadedCategories: new Set(),  // 이미 로드한 카테고리 추적
+        loadedItemFiles: new Set(),  // 이미 로드한 아이템 파일 추적
         isInitialized: false, // 초기화 상태 추적
         isLoading: false, // 로딩 상태
         hasError: false, // 오류 상태
@@ -202,14 +202,14 @@ const SearchManager = (() => {
                                 localStorage.removeItem('autocompleteData');
                                 localStorage.removeItem('autocompleteDataTimestamp');
                                 localStorage.removeItem('autocompleteDataVersion');
-                                loadFromCategories();
+                                loadItemListsByCategory();
                             }
                         } catch (parseError) {
                             console.warn('캐시 데이터 파싱 실패:', parseError);
                             localStorage.removeItem('autocompleteData');
                             localStorage.removeItem('autocompleteDataTimestamp');
                             localStorage.removeItem('autocompleteDataVersion');
-                            loadFromCategories();
+                            loadItemListsByCategory();
                         }
                     }, 0);
                     
@@ -222,7 +222,7 @@ const SearchManager = (() => {
             }
             
             // 카테고리에서 데이터 로드 (캐시가 없거나 만료된 경우)
-            await loadFromCategories();
+            await loadItemListsByCategory();
             
         } catch (error) {
             console.error('자동완성 데이터 로드 중 오류:', error);
@@ -253,9 +253,9 @@ const SearchManager = (() => {
     }
 
     /**
-     * 카테고리에서 아이템 목록 로드
+     * 카테고리별 아이템 목록 로드
      */
-    async function loadFromCategories() {
+    async function loadItemListsByCategory() {
         try {
             // CategoryManager가 준비되지 않았으면 대기
             if (!state.categoryManagerReady) {
@@ -348,10 +348,10 @@ const SearchManager = (() => {
             const processCategoryBatch = async (categoryBatch) => {
                 // 배치 내에서는 병렬 처리
                 await Promise.all(categoryBatch.map(category => 
-                    loadCategoryItems(category)
+                    loadItemListFromFile(category)
                         .then(() => updateProgress())
                         .catch(error => {
-                            console.error(`카테고리 ${category.id} 아이템 로드 실패:`, error);
+                            console.error(`카테고리 ${category.id} 아이템 목록 로드 실패:`, error);
                             updateProgress(); // 실패해도 진행률 업데이트
                         })
                 ));
@@ -432,17 +432,18 @@ const SearchManager = (() => {
     }
     
     /**
-     * 단일 카테고리 아이템 로드
+     * 파일에서 아이템 목록 로드
+     * @param {Object} category - 카테고리 정보
      */
-    async function loadCategoryItems(category) {
-        if (state.loadedCategories.has(category.id)) return;
+    async function loadItemListFromFile(category) {
+        if (state.loadedItemFiles.has(category.id)) return;
         
         try {
-            // 카테고리명 안전하게 변환
-            const safeCategoryId = encodeURIComponent(category.id);
+            // 파일명 안전하게 변환 - 이중 인코딩 사용으로 슬래시(/) 문제 해결
+            const safeFileName = encodeURIComponent(encodeURIComponent(category.id));
             
-            // 카테고리별 아이템 목록 파일 로드 시도
-            const response = await fetch(`../../data/items/${safeCategoryId}.json`);
+            // 아이템 목록 파일 로드 시도
+            const response = await fetch(`../../data/items/${safeFileName}.json`);
             
             if (!response.ok) {
                 throw new Error(`아이템 목록 로드 실패: ${response.status}`);
@@ -466,12 +467,12 @@ const SearchManager = (() => {
             });
             
             // 로드 완료 표시
-            state.loadedCategories.add(category.id);
-            console.log(`카테고리 ${category.id} 아이템 로드 완료: ${items.length}개 아이템`);
+            state.loadedItemFiles.add(category.id);
+            console.log(`카테고리 ${category.id} 아이템 목록 로드 완료: ${items.length}개 아이템`);
             
         } catch (error) {
-            console.warn(`카테고리 ${category.id} 아이템 로드 중 오류:`, error);
-            state.loadedCategories.add(category.id); // 오류 발생해도 다시 시도하지 않음
+            console.warn(`카테고리 ${category.id} 아이템 목록 로드 중 오류:`, error);
+            state.loadedItemFiles.add(category.id); // 오류 발생해도 다시 시도하지 않음
             throw error;
         }
     }
