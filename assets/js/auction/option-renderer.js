@@ -95,11 +95,12 @@ class OptionRenderer {
         break;
         
       case '부상률':
-        // % 제거하여 표시
-        const injuryValue = option.option_value.toString().replace('%', '');
+        // % 기호 제거 후 표시, 마지막에 한 번만 % 추가
+        const minInjury = option.option_value.toString().replace('%', '');
+        const maxInjury = option.option_value2.toString().replace('%', '');
         result = {
-          text: `부상률 ${injuryValue}~${option.option_value2}`,
-          filter: false
+            text: `부상률 ${minInjury}~${maxInjury}%`,
+            filter: false
         };
         break;
         
@@ -178,12 +179,12 @@ class OptionRenderer {
         
       case '남은 전용 해제 가능 횟수':
         result = {
-          text: `남은 전용 해제 가능 횟수 : ${option.option_value}`,
-          filter: {
+            text: ` 전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수 : ${option.option_value}`,
+            filter: {
             name: '남은 전용 해제 가능 횟수',
             value: option.option_value,
             type: 'range'
-          }
+            }
         };
         break;
         
