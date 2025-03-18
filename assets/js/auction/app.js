@@ -313,31 +313,36 @@ const App = (() => {
      * 애플리케이션 초기화 함수
      */
     async function init() {
-        try {
-            // 이벤트 리스너 설정
-            setupEventListeners();
-            
-            // 모듈 초기화 (병렬 처리)
-            await Promise.all([
-                initCategoryManager(),
-                initSearchManager(),
-                initFilterManager(),
-                initPaginationManager(),
-                initItemDisplay()
-            ]);
-            
-            // 반응형 레이아웃 초기 설정
-            handleResize();
-            
-            // URL 파라미터 처리
-            processUrlParameters();
-            
-            console.log('애플리케이션 초기화 완료');
-        } catch (error) {
-            console.error('애플리케이션 초기화 중 오류 발생:', error);
-            showInitError('애플리케이션 초기화 중 오류가 발생했습니다.');
-        }
+    try {
+        // 이벤트 리스너 설정
+        setupEventListeners();
+        
+        // 순차적 초기화 (의존성 있는 모듈)
+        console.log('CategoryManager 초기화 시작...');
+        await initCategoryManager();
+        
+        console.log('SearchManager 초기화 시작...');
+        await initSearchManager();
+        
+        // 병렬 초기화 (남은 모듈)
+        await Promise.all([
+            initFilterManager(),
+            initPaginationManager(),
+            initItemDisplay()
+        ]);
+        
+        // 반응형 레이아웃 초기 설정
+        handleResize();
+        
+        // URL 파라미터 처리
+        processUrlParameters();
+        
+        console.log('애플리케이션 초기화 완료');
+    } catch (error) {
+        console.error('애플리케이션 초기화 중 오류 발생:', error);
+        showInitError('애플리케이션 초기화 중 오류가 발생했습니다.');
     }
+}
     
     /**
      * 카테고리 매니저 초기화
