@@ -610,3 +610,5 @@ const CategoryManager = (() => {
         getSubCategoriesByMainCategory
     };
 })();
+
+export default CategoryManager;
