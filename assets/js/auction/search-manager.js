@@ -3,6 +3,8 @@
  * 검색 입력, 자동완성 관리
  */
 
+import Utils from './utils.js';
+
 const SearchManager = (() => {
     // 검색 상태
     const state = {
