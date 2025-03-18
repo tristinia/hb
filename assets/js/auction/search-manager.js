@@ -432,50 +432,52 @@ const SearchManager = (() => {
     }
     
     /**
-     * 파일에서 아이템 목록 로드
-     * @param {Object} category - 카테고리 정보
-     */
-    async function loadItemListFromFile(category) {
-        if (state.loadedItemFiles.has(category.id)) return;
+ * 파일에서 아이템 목록 로드
+ * @param {Object} category - 카테고리 정보
+ */
+async function loadItemListFromFile(category) {
+    if (state.loadedItemFiles.has(category.id)) return;
+    
+    try {
+        // 슬래시를 %2F로 직접 변경하고 나머지 부분은 인코딩
+        const safeFileName = category.id.replace(/\//g, '%2F');
+        const encodedFileName = encodeURIComponent(safeFileName);
         
-        try {
-            // 파일명 안전하게 변환 - 이중 인코딩 사용으로 슬래시(/) 문제 해결
-            const safeFileName = encodeURIComponent(encodeURIComponent(category.id));
-            
-            // 아이템 목록 파일 로드 시도
-            const response = await fetch(`../../data/items/${safeFileName}.json`);
-            
-            if (!response.ok) {
-                throw new Error(`아이템 목록 로드 실패: ${response.status}`);
-            }
-            
-            // JSON 파싱
-            const data = await response.json();
-            const items = data.items || [];
-            
-            // 메모리 최적화: 필요한 필드만 추출
-            items.forEach(item => {
-                if (item.name) {
-                    autocompleteData.push({
-                        name: item.name,
-                        price: item.price || 0,
-                        date: item.date || '',
-                        mainCategory: category.mainCategory,
-                        subCategory: category.id
-                    });
-                }
-            });
-            
-            // 로드 완료 표시
-            state.loadedItemFiles.add(category.id);
-            console.log(`카테고리 ${category.id} 아이템 목록 로드 완료: ${items.length}개 아이템`);
-            
-        } catch (error) {
-            console.warn(`카테고리 ${category.id} 아이템 목록 로드 중 오류:`, error);
-            state.loadedItemFiles.add(category.id); // 오류 발생해도 다시 시도하지 않음
-            throw error;
+        const url = `../../data/items/${encodedFileName}.json`;
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`아이템 목록 로드 실패: ${response.status}`);
         }
+        
+        // JSON 파싱
+        const data = await response.json();
+        const items = data.items || [];
+        
+        // 메모리 최적화: 필요한 필드만 추출
+        items.forEach(item => {
+            if (item.name) {
+                autocompleteData.push({
+                    name: item.name,
+                    price: item.price || 0,
+                    date: item.date || '',
+                    mainCategory: category.mainCategory,
+                    subCategory: category.id
+                });
+            }
+        });
+        
+        // 로드 완료 표시
+        state.loadedItemFiles.add(category.id);
+        console.log(`카테고리 ${category.id} 아이템 목록 로드 완료: ${items.length}개 아이템`);
+        
+    } catch (error) {
+        console.warn(`카테고리 ${category.id} 아이템 목록 로드 중 오류:`, error);
+        state.loadedItemFiles.add(category.id); // 오류 발생해도 다시 시도하지 않음
+        throw error;
     }
+}
     
     /**
      * 검색어 입력 처리
