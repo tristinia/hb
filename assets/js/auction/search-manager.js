@@ -439,11 +439,10 @@ async function loadItemListFromFile(category) {
     if (state.loadedItemFiles.has(category.id)) return;
     
     try {
-        // 슬래시를 %2F로 직접 변경하고 나머지 부분은 인코딩
-        const safeFileName = category.id.replace(/\//g, '%2F');
-        const encodedFileName = encodeURIComponent(safeFileName);
+        // 카테고리 ID의 슬래시를 언더스코어로 변환
+        const safeFileName = category.id.replace(/\//g, '_');
         
-        const url = `../../data/items/${encodedFileName}.json`;
+        const url = `../../data/items/${encodeURIComponent(safeFileName)}.json`;
         
         const response = await fetch(url);
         
