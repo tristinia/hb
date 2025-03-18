@@ -485,3 +485,5 @@ const FilterManager = (() => {
         getFilters
     };
 })();
+
+export default FilterManager;
