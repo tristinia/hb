@@ -50,19 +50,44 @@ const SearchManager = (() => {
             // 이벤트 리스너 설정
             setupEventListeners();
             
-            // 자동완성 데이터 로드 (초기화 완료 후)
-            waitForInitialization().then(() => {
+            // 카테고리 초기화 완료 이벤트 리스너 추가
+            document.addEventListener('categoriesLoaded', () => {
+                // 자동완성 데이터 로드
                 loadAutocompleteData().catch(error => {
-                    console.error('자동완성 데이터 로드 실패:', error);
+                    console.error('아이템 목록 로드 실패:', error);
                     showSearchInputError('데이터를 불러올 수 없습니다');
                 });
             });
+            
+            // 자동완성 데이터 로드 시도 - CategoryManager가 준비되지 않았다면 이벤트를 통해 나중에 로드됨
+            checkCategoryManagerAndLoadData();
         } catch (error) {
             console.error('검색 관리자 초기화 오류:', error);
             state.hasError = true;
             
             if (elements.searchInput) {
                 showSearchInputError('검색 기능을 초기화할 수 없습니다');
+            }
+        }
+    }
+    
+    /**
+     * CategoryManager 상태 확인 및 데이터 로드
+     */
+    function checkCategoryManagerAndLoadData() {
+        // CategoryManager가 이미 초기화 완료되었는지 확인
+        if (typeof CategoryManager !== 'undefined' && 
+            CategoryManager.getSelectedCategories && 
+            typeof CategoryManager.getSelectedCategories === 'function') {
+            
+            const categories = CategoryManager.getSelectedCategories();
+            if (categories.subCategories && categories.subCategories.length > 0) {
+                // 이미 카테고리가 로드되어 있음
+                console.log('CategoryManager가 이미 초기화되어 있음, 자동완성 데이터 로드 시작');
+                loadAutocompleteData().catch(error => {
+                    console.error('자동완성 데이터 로드 실패:', error);
+                    showSearchInputError('데이터를 불러올 수 없습니다');
+                });
             }
         }
     }
@@ -84,58 +109,6 @@ const SearchManager = (() => {
         
         state.isLoading = false;
         state.hasError = true;
-    }
-    
-    /**
-     * CategoryManager 초기화 대기 (최적화)
-     */
-    function waitForInitialization() {
-        return new Promise((resolve) => {
-            // 이미 초기화되었는지 확인
-            if (typeof CategoryManager !== 'undefined' && 
-                CategoryManager.getSelectedCategories && 
-                typeof CategoryManager.getSelectedCategories === 'function') {
-                
-                // 카테고리 데이터가 있는지 확인
-                const categories = CategoryManager.getSelectedCategories();
-                if (categories.subCategories && categories.subCategories.length > 0) {
-                    resolve();
-                    return;
-                }
-            }
-            
-            console.log('CategoryManager 초기화 대기 중...');
-            
-            // 1초마다 최대 10초 동안 확인
-            let attempts = 0;
-            const maxAttempts = 10;
-            
-            const checkInterval = setInterval(() => {
-                attempts++;
-                
-                // CategoryManager 존재 확인
-                if (typeof CategoryManager !== 'undefined' && 
-                    CategoryManager.getSelectedCategories && 
-                    typeof CategoryManager.getSelectedCategories === 'function') {
-                    
-                    // 카테고리 데이터 확인
-                    const categories = CategoryManager.getSelectedCategories();
-                    if (categories.subCategories && categories.subCategories.length > 0) {
-                        clearInterval(checkInterval);
-                        console.log('CategoryManager 초기화 완료');
-                        resolve();
-                        return;
-                    }
-                }
-                
-                // 최대 시도 횟수 초과
-                if (attempts >= maxAttempts) {
-                    clearInterval(checkInterval);
-                    console.warn('CategoryManager 초기화 타임아웃');
-                    resolve(); // 실패해도 진행
-                }
-            }, 1000);
-        });
     }
     
     /**
@@ -261,13 +234,12 @@ const SearchManager = (() => {
     }
 
     /**
-     * 카테고리에서 자동완성 데이터 로드 (최적화)
+     * 카테고리에서 아이템 목록 로드 (최적화)
      */
     async function loadFromCategories() {
         try {
-            // 카테고리 정보 가져오기 (초기화 대기)
-            await waitForCategoryManager();
-            const categories = CategoryManager.getSelectedCategories();
+            // 카테고리 정보 가져오기
+            const categories = await getCategoryInfo();
             
             if (!categories.subCategories || categories.subCategories.length === 0) {
                 console.warn('카테고리 정보가 로드되지 않았습니다.');
@@ -325,7 +297,7 @@ const SearchManager = (() => {
                     loadCategoryItems(category)
                         .then(() => updateProgress())
                         .catch(error => {
-                            console.error(`카테고리 ${category.id} 로드 실패:`, error);
+                            console.error(`카테고리 ${category.id} 아이템 로드 실패:`, error);
                             updateProgress(); // 실패해도 진행률 업데이트
                         })
                 ));
@@ -346,7 +318,7 @@ const SearchManager = (() => {
             }
             
             // 모든 카테고리 로드 완료
-            console.log(`모든 카테고리 로드 완료: 총 ${autocompleteData.length}개 항목`);
+            console.log(`모든 카테고리 아이템 로드 완료: 총 ${autocompleteData.length}개 항목`);
             
             // 최종 캐시 업데이트
             try {
@@ -363,33 +335,31 @@ const SearchManager = (() => {
             enableSearchInput();
             
         } catch (error) {
-            console.error('카테고리 로드 중 오류:', error);
-            showSearchInputError('카테고리 정보를 불러올 수 없습니다');
+            console.error('아이템 목록 로드 중 오류:', error);
+            showSearchInputError('아이템 목록을 불러올 수 없습니다');
             throw error;
         }
     }
     
     /**
-     * CategoryManager 초기화 대기
+     * 카테고리 정보 가져오기
+     * @returns {Promise<Object>} 카테고리 정보
      */
-    function waitForCategoryManager() {
-        return new Promise((resolve) => {
-            const check = () => {
-                if (typeof CategoryManager === 'undefined' || 
-                    !CategoryManager.getSelectedCategories || 
-                    typeof CategoryManager.getSelectedCategories !== 'function') {
-                    setTimeout(check, 100);
-                    return;
-                }
-                
-                const categories = CategoryManager.getSelectedCategories();
-                if (categories.subCategories && categories.subCategories.length > 0) {
-                    resolve();
-                } else {
-                    setTimeout(check, 100);
-                }
-            };
-            check();
+    async function getCategoryInfo() {
+        return new Promise((resolve, reject) => {
+            if (typeof CategoryManager === 'undefined' || 
+                !CategoryManager.getSelectedCategories || 
+                typeof CategoryManager.getSelectedCategories !== 'function') {
+                reject(new Error('CategoryManager가 초기화되지 않았습니다'));
+                return;
+            }
+            
+            const categories = CategoryManager.getSelectedCategories();
+            if (categories.subCategories && categories.subCategories.length > 0) {
+                resolve(categories);
+            } else {
+                reject(new Error('카테고리 정보가 로드되지 않았습니다'));
+            }
         });
     }
     
@@ -403,11 +373,11 @@ const SearchManager = (() => {
             // 카테고리명 안전하게 변환
             const safeCategoryId = encodeURIComponent(category.id);
             
-            // 카테고리별 옵션 구조 파일 로드 시도
+            // 카테고리별 아이템 목록 파일 로드 시도
             const response = await fetch(`../../data/items/${safeCategoryId}.json`);
             
             if (!response.ok) {
-                throw new Error(`카테고리 데이터 로드 실패: ${response.status}`);
+                throw new Error(`아이템 목록 로드 실패: ${response.status}`);
             }
             
             // JSON 파싱
@@ -429,10 +399,10 @@ const SearchManager = (() => {
             
             // 로드 완료 표시
             state.loadedCategories.add(category.id);
-            console.log(`카테고리 ${category.id} 로드 완료: ${items.length}개 아이템`);
+            console.log(`카테고리 ${category.id} 아이템 로드 완료: ${items.length}개 아이템`);
             
         } catch (error) {
-            console.warn(`카테고리 ${category.id} 로드 중 오류:`, error);
+            console.warn(`카테고리 ${category.id} 아이템 로드 중 오류:`, error);
             state.loadedCategories.add(category.id); // 오류 발생해도 다시 시도하지 않음
             throw error;
         }
