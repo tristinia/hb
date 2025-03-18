@@ -10,7 +10,6 @@ const PaginationManager = (() => {
         itemsPerPage: 10, // 항상 10개로 고정
         totalItems: 0,
         totalPages: 1,
-        visiblePageCount: 5, // 한 번에 표시할 페이지 버튼 수
         pageJumpSize: 10,    // 건너뛰기 크기
         isRendering: false,   // 렌더링 상태 플래그
         sessionKey: 'paginationState' // 세션 저장 키
@@ -244,7 +243,7 @@ const PaginationManager = (() => {
     }
     
     /**
-     * 페이지네이션 UI 렌더링 (최적화)
+     * 페이지네이션 UI 렌더링 (새로운 형식)
      */
     function renderPagination() {
         if (!elements.paginationContainer) return;
@@ -265,56 +264,58 @@ const PaginationManager = (() => {
         const ul = document.createElement('ul');
         ul.className = 'pagination-list';
         
-        // 처음 페이지 버튼 (현재 페이지가 2 이상인 경우만)
-        if (state.currentPage > 1) {
-            appendPageButton(ul, 1, '처음', '&laquo;');
+        // 첫 페이지 이동 버튼 (|<)
+        const firstPageButton = createPageButton('first-page', '첫 페이지', '|<', 1);
+        
+        // 10페이지 뒤로 이동 버튼 (<<)
+        const prevTenButton = createPageButton('prev-ten', '10페이지 뒤로', '<<', Math.max(1, state.currentPage - state.pageJumpSize));
+        
+        // 이전 페이지 버튼 (<)
+        const prevButton = createPageButton('prev-page', '이전 페이지', '<', state.currentPage - 1);
+        
+        // 현재 페이지 / 전체 페이지 ([ 1 / 15 ])
+        const currentPageItem = document.createElement('li');
+        currentPageItem.className = 'pagination-item pagination-current';
+        
+        const currentPageSpan = document.createElement('span');
+        currentPageSpan.className = 'pagination-current-page';
+        currentPageSpan.setAttribute('aria-label', `현재 페이지 ${state.currentPage} / 전체 ${state.totalPages}`);
+        currentPageSpan.textContent = `[ ${state.currentPage} / ${state.totalPages} ]`;
+        
+        currentPageItem.appendChild(currentPageSpan);
+        
+        // 다음 페이지 버튼 (>)
+        const nextButton = createPageButton('next-page', '다음 페이지', '>', state.currentPage + 1);
+        
+        // 10페이지 앞으로 이동 버튼 (>>)
+        const nextTenButton = createPageButton('next-ten', '10페이지 앞으로', '>>', Math.min(state.totalPages, state.currentPage + state.pageJumpSize));
+        
+        // 마지막 페이지 이동 버튼 (>|)
+        const lastPageButton = createPageButton('last-page', '마지막 페이지', '>|', state.totalPages);
+        
+        // 버튼 비활성화 처리
+        if (state.currentPage === 1) {
+            // 첫 페이지인 경우 이전 버튼들 비활성화
+            disableButton(firstPageButton);
+            disableButton(prevTenButton);
+            disableButton(prevButton);
         }
         
-        // 이전 페이지 버튼
-        if (state.currentPage > 1) {
-            appendPageButton(ul, state.currentPage - 1, '이전 페이지', '&lsaquo;');
+        if (state.currentPage === state.totalPages) {
+            // 마지막 페이지인 경우 다음 버튼들 비활성화
+            disableButton(nextButton);
+            disableButton(nextTenButton);
+            disableButton(lastPageButton);
         }
         
-        // 페이지 번호 버튼 - 현재 페이지 주변 표시
-        const halfVisibleCount = Math.floor(state.visiblePageCount / 2);
-        let startPage = Math.max(1, state.currentPage - halfVisibleCount);
-        let endPage = Math.min(state.totalPages, startPage + state.visiblePageCount - 1);
-        
-        // 표시 페이지 범위 조정 (끝 페이지가 적은 경우)
-        if (endPage - startPage + 1 < state.visiblePageCount) {
-            startPage = Math.max(1, endPage - state.visiblePageCount + 1);
-        }
-        
-        // 첫 페이지와 건너뛰기 표시 (필요한 경우)
-        if (startPage > 1) {
-            appendPageNumberButtons(ul, 1, Math.min(1, startPage - 1));
-            
-            if (startPage > 2) {
-                appendEllipsis(ul);
-            }
-        }
-        
-        // 현재 페이지 주변 번호 표시
-        appendPageNumberButtons(ul, startPage, endPage);
-        
-        // 마지막 페이지와 건너뛰기 표시 (필요한 경우)
-        if (endPage < state.totalPages) {
-            if (endPage < state.totalPages - 1) {
-                appendEllipsis(ul);
-            }
-            
-            appendPageNumberButtons(ul, Math.max(endPage + 1, state.totalPages), state.totalPages);
-        }
-        
-        // 다음 페이지 버튼
-        if (state.currentPage < state.totalPages) {
-            appendPageButton(ul, state.currentPage + 1, '다음 페이지', '&rsaquo;');
-        }
-        
-        // 마지막 페이지 버튼 (현재 페이지가 마지막 페이지가 아닌 경우만)
-        if (state.currentPage < state.totalPages) {
-            appendPageButton(ul, state.totalPages, '마지막', '&raquo;');
-        }
+        // 모든 버튼을 순서대로 추가
+        ul.appendChild(firstPageButton);  // |<
+        ul.appendChild(prevTenButton);    // <<
+        ul.appendChild(prevButton);       // <
+        ul.appendChild(currentPageItem);  // [ 1 / 15 ]
+        ul.appendChild(nextButton);       // >
+        ul.appendChild(nextTenButton);    // >>
+        ul.appendChild(lastPageButton);   // >|
         
         // 전체 결과를 DOM에 한 번에 추가
         fragment.appendChild(ul);
@@ -326,65 +327,45 @@ const PaginationManager = (() => {
     }
     
     /**
-     * 페이지 번호 버튼 추가 (특정 범위)
-     * @param {HTMLElement} container - 버튼 컨테이너
-     * @param {number} start - 시작 페이지
-     * @param {number} end - 종료 페이지
-     */
-    function appendPageNumberButtons(container, start, end) {
-        for (let i = start; i <= end; i++) {
-            const li = document.createElement('li');
-            li.className = 'pagination-item';
-            
-            const button = document.createElement('button');
-            button.className = `pagination-link ${i === state.currentPage ? 'active' : ''}`;
-            button.setAttribute('data-page', i);
-            button.setAttribute('aria-label', `${i} 페이지`);
-            button.textContent = i;
-            
-            // 클릭 이벤트 (이벤트 위임 사용)
-            if (i !== state.currentPage) {
-                button.addEventListener('click', () => handlePageClick(i));
-            }
-            
-            li.appendChild(button);
-            container.appendChild(li);
-        }
-    }
-    
-    /**
-     * 특수 페이지 버튼 추가 (처음, 이전, 다음, 마지막)
-     * @param {HTMLElement} container - 버튼 컨테이너
+     * 페이지 버튼 생성 헬퍼 함수
+     * @param {string} className - 버튼 클래스 이름
+     * @param {string} ariaLabel - 접근성 레이블
+     * @param {string} text - 버튼 텍스트
      * @param {number} page - 연결될 페이지 번호
-     * @param {string} label - 접근성 레이블
-     * @param {string} html - 버튼 내용 HTML
+     * @returns {HTMLElement} 생성된 버튼 요소
      */
-    function appendPageButton(container, page, label, html) {
+    function createPageButton(className, ariaLabel, text, page) {
         const li = document.createElement('li');
         li.className = 'pagination-item';
         
         const button = document.createElement('button');
-        button.className = 'pagination-link';
+        button.className = `pagination-link ${className}`;
         button.setAttribute('data-page', page);
-        button.setAttribute('aria-label', label);
-        button.innerHTML = html;
+        button.setAttribute('aria-label', ariaLabel);
+        button.textContent = text;
         
-        // 클릭 이벤트
-        button.addEventListener('click', () => handlePageClick(page));
+        // 현재 페이지와 같지 않은 경우에만 클릭 이벤트 추가
+        if (page !== state.currentPage) {
+            button.addEventListener('click', () => handlePageClick(page));
+        }
         
         li.appendChild(button);
-        container.appendChild(li);
+        return li;
     }
     
     /**
-     * 생략 표시 추가 (...)
-     * @param {HTMLElement} container - 버튼 컨테이너
+     * 버튼 비활성화 함수
+     * @param {HTMLElement} buttonItem - 버튼 요소
      */
-    function appendEllipsis(container) {
-        const li = document.createElement('li');
-        li.className = 'pagination-item pagination-ellipsis';
-        li.textContent = '...';
-        container.appendChild(li);
+    function disableButton(buttonItem) {
+        const button = buttonItem.querySelector('button');
+        if (button) {
+            button.disabled = true;
+            button.classList.add('disabled');
+            // 이벤트 리스너 제거
+            button.removeEventListener('click', handlePageClick);
+        }
+        buttonItem.classList.add('disabled');
     }
     
     /**
@@ -394,6 +375,9 @@ const PaginationManager = (() => {
     function handlePageClick(page) {
         // 현재 페이지와 같으면 무시
         if (page === state.currentPage) return;
+        
+        // 유효한 페이지 범위 확인
+        if (page < 1 || page > state.totalPages) return;
         
         // 스크롤 위치 저장
         saveScrollPosition();
@@ -514,3 +498,5 @@ const PaginationManager = (() => {
         getState
     };
 })();
+
+export default PaginationManager;
