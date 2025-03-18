@@ -61,20 +61,22 @@
                     <div class="result-stats-container">
                         <div id="result-stats" class="result-stats">검색 결과가 여기에 표시됩니다</div>
                     </div>
-                    <table class="results-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 60%">아이템</th>
-                                <th style="width: 15%">수량</th>
-                                <th style="width: 25%">가격</th>
-                            </tr>
-                        </thead>
-                        <tbody id="results-body">
-                            <tr class="empty-result">
-                                <td colspan="3">검색어를 입력하거나 카테고리를 선택하세요</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="items-virtual-container" id="items-container">
+                        <table class="results-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 60%">아이템</th>
+                                    <th style="width: 15%">수량</th>
+                                    <th style="width: 25%">가격</th>
+                                </tr>
+                            </thead>
+                            <tbody id="results-body">
+                                <tr class="empty-result">
+                                    <td colspan="3">검색어를 입력하거나 카테고리를 선택하세요</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div id="pagination" class="pagination">
                         <!-- 페이지네이션 동적 생성 -->
                     </div>
@@ -95,6 +97,16 @@
                             <option value="">옵션 선택...</option>
                         </select>
                     </div>
+                    <!-- 세공 필터 섹션 추가 -->
+                    <div class="reforge-filter-section">
+                        <h4 class="filter-section-title">세공 옵션 필터</h4>
+                        <select id="reforge-filter-selector" class="filter-selector">
+                            <option value="">세공 옵션 선택...</option>
+                        </select>
+                        <div id="reforge-active-filters" class="active-filters reforge-filters">
+                            <!-- 세공 필터 항목들이 여기에 추가됩니다 -->
+                        </div>
+                    </div>
                     <div class="active-filters" id="active-filters">
                         <!-- 필터 항목들이 여기에 추가됩니다 -->
                     </div>
@@ -113,15 +125,16 @@
     </div>
 
     <!-- JavaScript 모듈 -->
-    <script src="../../assets/js/auction/utils.js"></script>
-    <script src="../../assets/js/auction/option-renderer.js"></script>
-    <script src="../../assets/js/auction/option-filter-manager.js"></script>
-    <script src="../../assets/js/auction/pagination.js"></script>
-    <script src="../../assets/js/auction/category-manager.js"></script>
-    <script src="../../assets/js/auction/search-manager.js"></script>
-    <script src="../../assets/js/auction/api-client.js"></script>
-    <script src="../../assets/js/auction/filter-manager.js"></script>
-    <script src="../../assets/js/auction/item-display.js"></script>
-    <script src="../../assets/js/auction/app.js"></script>
+    <script src="../../assets/js/common/utils.js" type="module"></script>
+    <script src="../../assets/js/auction/enhancements.js" type="module"></script>
+    <script src="../../assets/js/auction/api-client.js" type="module"></script>
+    <script src="../../assets/js/auction/category-manager.js" type="module"></script>
+    <script src="../../assets/js/auction/search-manager.js" type="module"></script>
+    <script src="../../assets/js/auction/filter-manager.js" type="module"></script>
+    <script src="../../assets/js/auction/pagination.js" type="module"></script>
+    <script src="../../assets/js/auction/option-renderer.js" type="module"></script>
+    <script src="../../assets/js/auction/option-filter-manager.js" type="module"></script>
+    <script src="../../assets/js/auction/item-display.js" type="module"></script>
+    <script src="../../assets/js/auction/main.js" type="module"></script>
 </body>
 </html>
