@@ -97,7 +97,7 @@ const ApiClient = (() => {
             let url = `https://us-central1-${window.FIREBASE_CONFIG.projectId}.cloudfunctions.net/searchByCategory?subCategory=${encodeURIComponent(subCategory)}`;
             
             if (itemName) {
-                url += `&name=${encodeURIComponent(itemName)}`;
+                url += `&itemName=${encodeURIComponent(itemName)}`;
             }
             
             try {
