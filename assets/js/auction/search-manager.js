@@ -154,6 +154,17 @@ const SearchManager = (() => {
         
         // 문서 클릭 이벤트 (외부 클릭 시 자동완성 닫기)
         document.addEventListener('click', handleDocumentClick);
+
+        // 카테고리 변경
+        document.addEventListener('categoryChanged', (e) => {
+            const { maintainSearchTerm } = e.detail;
+            
+            // maintainSearchTerm 플래그가 true면 검색어 유지, 그렇지 않으면 자동완성 처리
+            if (maintainSearchTerm) {
+                // 검색어는 유지하고 선택된 아이템만 초기화
+                state.selectedItem = null;
+            }
+        });
     }
     
     /**
