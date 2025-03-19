@@ -374,8 +374,12 @@ body {
 }
 
 .category-path {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
     font-size: 14px;
     color: #333333;
+    gap: 8px;
 }
 
 .category-path-label {
@@ -392,6 +396,8 @@ body {
     padding: 2px 4px;
     border-radius: 4px;
     transition: background-color 0.2s;
+    white-space: nowrap;
+    text-align: left;
 }
 
 .category-path-main:hover,
@@ -401,8 +407,9 @@ body {
 }
 
 .category-path-separator {
-    margin: 0 8px;
     color: #999;
+    flex-shrink: 0;
+    font-size: 14px;
 }
 
 /* 검색 결과 패널 */
