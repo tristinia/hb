@@ -148,21 +148,21 @@ const App = (() => {
      * @param {CustomEvent} event - 카테고리 변경 이벤트
      */
     async function handleCategoryChanged(event) {
-        const { mainCategory, subCategory, autoSelected } = event.detail;
-        
-        // 카테고리가 선택되었고, 자동 검색이 활성화된 경우
+        const { mainCategory, subCategory, autoSelected, itemName } = event.detail;
+    
+        // 카테고리가 선택된 경우
         if (subCategory) {
             try {
                 // 필터 업데이트
                 await FilterManager.updateFiltersForCategory(subCategory);
-                
+            
                 // 자동 검색을 요청하지 않은 경우는 중단
                 if (autoSelected === false) return;
-                
+            
                 // 검색 이벤트 생성 및 발생
                 const searchEvent = new CustomEvent('search', {
                     detail: {
-                        searchTerm: '',
+                        searchTerm: itemName || '',
                         mainCategory,
                         subCategory
                     }
