@@ -83,15 +83,16 @@ const App = (() => {
      */
     async function handleSearch(event) {
         const { searchTerm, selectedItem, mainCategory, subCategory } = event.detail;
-    
+
         ApiClient.setLoading(true);
-    
+
         try {
             let result;
+            let searchType = "";
         
             // 자동완성으로 아이템 선택한 경우
             if (selectedItem && selectedItem.subCategory) {
-                // 카테고리 + 아이템명으로 검색 실행
+                searchType = `아이템: ${selectedItem.name}`;
                 result = await ApiClient.searchByCategory(
                     selectedItem.mainCategory, 
                     selectedItem.subCategory, 
@@ -100,10 +101,12 @@ const App = (() => {
             }
             // 카테고리만 선택한 경우
             else if (subCategory) {
+                searchType = `카테고리: ${subCategory}`;
                 result = await ApiClient.searchByCategory(mainCategory, subCategory);
             } 
             // 키워드 검색
             else if (searchTerm) {
+                searchType = `키워드: ${searchTerm}`;
                 result = await ApiClient.searchByKeyword(searchTerm);
             } 
             else {
@@ -116,8 +119,10 @@ const App = (() => {
                 console.error('검색 오류:', result.error);
                 showErrorMessage(result.error);
             } else if (!result.items || result.items.length === 0) {
+                console.log(`${searchType} 검색 - 결과 없음`);
                 showErrorMessage('검색 결과가 없습니다.');
             } else {
+                console.log(`${searchType} 검색 - ${result.items.length}개 항목 찾음`);
                 ItemDisplay.setSearchResults(result.items);
                 PaginationManager.resetPagination(result.items.length || 0);
             }
