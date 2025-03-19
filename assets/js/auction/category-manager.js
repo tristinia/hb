@@ -439,7 +439,15 @@ const CategoryManager = (() => {
                 mainButton.setAttribute('data-category', mainCategory.id);
                 mainButton.textContent = mainCategory.name;
                 mainButton.addEventListener('click', () => {
-                    handleMainCategoryClick(mainCategory);
+                    state.selectedMainCategory = mainCategory.id;
+                    state.selectedSubCategory = null;
+                    
+                    // UI 업데이트
+                    renderMainCategories();
+                    updateCategoryPath();
+                    
+                    // 카테고리 변경 이벤트 트리거
+                    triggerCategoryChangedEvent();
                 });
                 elements.categoryPath.appendChild(mainButton);
             }
