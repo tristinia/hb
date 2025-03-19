@@ -405,20 +405,20 @@ const CategoryManager = (() => {
     }
     
     /**
-     * 카테고리 경로 업데이트
-     */
+ * 카테고리 경로 업데이트
+ */
     function updateCategoryPath() {
         if (!elements.categoryPath) return;
-        
+    
         // 경로 바를 항상 표시
         elements.categoryPath.style.display = 'flex';
-        
+    
         // 기존 내용 초기화
         elements.categoryPath.innerHTML = '';
         
         // 전체 항목 추가 (항상 포함)
-        const allButton = document.createElement('span');
-        allButton.className = 'category-path-main category-button';
+        const allButton = document.createElement('button');
+        allButton.className = 'category-path-main';
         allButton.textContent = '전체';
         allButton.addEventListener('click', resetSelectedCategories);
         elements.categoryPath.appendChild(allButton);
@@ -430,12 +430,12 @@ const CategoryManager = (() => {
                 // 구분자 추가
                 const separator1 = document.createElement('span');
                 separator1.className = 'category-path-separator';
-                separator1.textContent = ' > ';
+                separator1.textContent = '>';
                 elements.categoryPath.appendChild(separator1);
                 
                 // 메인 카테고리 버튼
-                const mainButton = document.createElement('span');
-                mainButton.className = 'category-path-main category-button';
+                const mainButton = document.createElement('button');
+                mainButton.className = 'category-path-main';
                 mainButton.setAttribute('data-category', mainCategory.id);
                 mainButton.textContent = mainCategory.name;
                 mainButton.addEventListener('click', () => {
@@ -444,7 +444,7 @@ const CategoryManager = (() => {
                 elements.categoryPath.appendChild(mainButton);
             }
         }
-        
+    
         // 서브 카테고리 표시
         if (state.selectedSubCategory) {
             const subCategory = state.subCategories.find(cat => cat.id === state.selectedSubCategory);
@@ -452,12 +452,12 @@ const CategoryManager = (() => {
                 // 구분자 추가
                 const separator2 = document.createElement('span');
                 separator2.className = 'category-path-separator';
-                separator2.textContent = ' > ';
+                separator2.textContent = '>';
                 elements.categoryPath.appendChild(separator2);
                 
                 // 서브 카테고리 버튼
-                const subButton = document.createElement('span');
-                subButton.className = 'category-path-sub category-button';
+                const subButton = document.createElement('button');
+                subButton.className = 'category-path-sub';
                 subButton.setAttribute('data-category', subCategory.id);
                 subButton.textContent = subCategory.name;
                 subButton.addEventListener('click', () => {
