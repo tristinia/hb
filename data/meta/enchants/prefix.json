@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-18T09:29:48.977Z",
+  "updated": "2025-03-19T09:30:43.431Z",
   "enchants": {
     "56층의": {
       "name": "56층의",
@@ -662,8 +662,8 @@
         {
           "template": "최소대미지 {value} 증가",
           "min": 15,
-          "max": 15,
-          "variable": false
+          "max": 16,
+          "variable": true
         },
         {
           "template": "의지 {value} 증가",
@@ -867,6 +867,36 @@
           "template": "행운 {value} 증가",
           "min": 20,
           "max": 20,
+          "variable": false
+        }
+      ]
+    },
+    "고요의 (랭크 A)": {
+      "name": "고요의 (랭크 A)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "최대마나 {value} 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "대미지밸런스 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "최대부상률 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 15,
+          "max": 15,
           "variable": false
         }
       ]
@@ -1228,6 +1258,48 @@
           "min": 1,
           "max": 3,
           "variable": true
+        }
+      ]
+    },
+    "규칙의": {
+      "name": "규칙의",
+      "rank": 4,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 9,
+          "max": 9,
+          "variable": false
+        },
+        {
+          "template": "대미지밸런스 {value} 증가",
+          "min": 6,
+          "max": 6,
+          "variable": false
+        },
+        {
+          "template": "대미지밸런스 {value} 증가",
+          "min": 12,
+          "max": 12,
+          "variable": false
+        },
+        {
+          "template": "행운 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "의지 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최대스태미나 {value} 감소",
+          "min": 20,
+          "max": 20,
+          "variable": false
         }
       ]
     },
@@ -1735,7 +1807,7 @@
         },
         {
           "template": "최소대미지 {value} 증가",
-          "min": 13,
+          "min": 7,
           "max": 14,
           "variable": true
         },
@@ -1903,9 +1975,9 @@
         },
         {
           "template": "마법 공격력 {value} 증가",
-          "min": 8,
+          "min": 7,
           "max": 8,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -3133,14 +3205,14 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 17,
+          "min": 15,
           "max": 20,
           "variable": true
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 10,
-          "max": 18,
+          "max": 20,
           "variable": true
         }
       ]
@@ -6073,7 +6145,7 @@
         },
         {
           "template": "마법 공격력 {value} 증가",
-          "min": 21,
+          "min": 20,
           "max": 25,
           "variable": true
         }
@@ -7057,9 +7129,9 @@
         },
         {
           "template": "최대생명력 {value} 증가",
-          "min": 64,
+          "min": 63,
           "max": 64,
-          "variable": false
+          "variable": true
         },
         {
           "template": "의지 {value} 증가",
@@ -7069,9 +7141,9 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 22,
+          "min": 19,
           "max": 22,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -7366,6 +7438,24 @@
           "min": 3,
           "max": 3,
           "variable": false
+        }
+      ]
+    },
+    "이글 (랭크 B)": {
+      "name": "이글 (랭크 B)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "최대부상률 {value} 증가",
+          "min": 2,
+          "max": 5,
+          "variable": true
+        },
+        {
+          "template": "최소부상률 {value} 증가",
+          "min": 1,
+          "max": 3,
+          "variable": true
         }
       ]
     },
@@ -7699,7 +7789,7 @@
       "effects": [
         {
           "template": "대미지밸런스 {value} 감소",
-          "min": 22,
+          "min": 21,
           "max": 24,
           "variable": true
         }
@@ -8209,7 +8299,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 26,
+          "min": 25,
           "max": 40,
           "variable": true
         }
@@ -8587,15 +8677,15 @@
         },
         {
           "template": "최소대미지 {value} 증가",
-          "min": 9,
+          "min": 8,
           "max": 9,
-          "variable": false
+          "variable": true
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 18,
+          "min": 17,
           "max": 18,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -9637,7 +9727,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 11,
+          "min": 10,
           "max": 16,
           "variable": true
         }

@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-18T09:29:48.982Z",
+  "updated": "2025-03-19T09:30:43.436Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -919,7 +919,7 @@
       "effects": [
         {
           "template": "최소대미지 {value} 증가",
-          "min": 4,
+          "min": 2,
           "max": 5,
           "variable": true
         },
@@ -2523,6 +2523,18 @@
           "template": "최대대미지 {value} 증가",
           "min": 18,
           "max": 18,
+          "variable": false
+        }
+      ]
+    },
+    "루비 (랭크 B)": {
+      "name": "루비 (랭크 B)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "보호 {value} 증가",
+          "min": 1,
+          "max": 1,
           "variable": false
         }
       ]
@@ -7837,6 +7849,18 @@
         }
       ]
     },
+    "제이드 (랭크 E)": {
+      "name": "제이드 (랭크 E)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "보호 {value} 감소",
+          "min": 2,
+          "max": 3,
+          "variable": true
+        }
+      ]
+    },
     "조각 (랭크 B)": {
       "name": "조각 (랭크 B)",
       "rank": null,
@@ -8293,6 +8317,30 @@
         },
         {
           "template": "최대마나 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        }
+      ]
+    },
+    "천둥의": {
+      "name": "천둥의",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        },
+        {
+          "template": "최대스태미나 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "최대생명력 {value} 증가",
           "min": 10,
           "max": 10,
           "variable": false
@@ -9416,8 +9464,8 @@
         {
           "template": "행운 {value} 증가",
           "min": 1,
-          "max": 1,
-          "variable": false
+          "max": 2,
+          "variable": true
         }
       ]
     },
