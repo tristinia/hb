@@ -698,30 +698,23 @@ async function loadItemListFromFile(category) {
         elements.searchInput.value = item.name;
         state.searchTerm = item.name;
         state.selectedItem = item;
-        
-        // 카테고리 자동 선택 (이제 아이템에 카테고리 정보가 있음)
+    
+        // 카테고리 자동 선택
         if (item.mainCategory && item.subCategory) {
             // 카테고리 UI 자동 선택을 위한 이벤트 발생
             const categoryEvent = new CustomEvent('categoryChanged', {
                 detail: {
                     mainCategory: item.mainCategory,
                     subCategory: item.subCategory,
-                    autoSelected: true
+                    autoSelected: true,
+                    itemName: item.name
                 }
             });
             document.dispatchEvent(categoryEvent);
         }
-        
+    
         // 자동완성 닫기
         clearSuggestions();
-        
-        // 선택된 아이템 정보를 이벤트로 알림
-        const event = new CustomEvent('itemSelected', {
-            detail: {
-                item: state.selectedItem
-            }
-        });
-        document.dispatchEvent(event);
     }
     
     /**
