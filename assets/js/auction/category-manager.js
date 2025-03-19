@@ -55,11 +55,18 @@ const CategoryManager = (() => {
     function handleResponsiveChange(e) {
         // 모바일 상태 업데이트
         state.isMobile = e.matches;
-        
-        // 확장 상태 재설정
+    
+        // 화면 크기에 따른 메뉴 표시/숨김 설정
         state.allExpanded = !state.isMobile;
-        state.expandedMainCategory = state.isMobile ? null : state.mainCategories[0]?.id;
-        
+    
+        // 메뉴 표시/숨김 적용
+        if (elements.mainCategoriesList) {
+            elements.mainCategoriesList.style.display = state.allExpanded ? 'block' : 'none';
+        }
+    
+        // 버튼 상태 업데이트
+        updateToggleButton();
+    
         // UI 다시 렌더링
         renderMainCategories();
     }
@@ -162,24 +169,16 @@ const CategoryManager = (() => {
         // 현재 상태의 반대로 토글
         state.allExpanded = !state.allExpanded;
     
-        // 카테고리 패널의 내용 요소 가져오기
-        const categoryContent = document.getElementById('main-categories');
-    
-        if (state.allExpanded) {
-            // 펼침: 카테고리 표시
-            categoryContent.style.display = 'block';
-            // 첫 번째 카테고리 자동 펼침 (옵션)
-            state.expandedMainCategory = state.mainCategories[0]?.id;
-        } else {
-            // 접힘: 카테고리 숨김
-            categoryContent.style.display = 'none';
-            // 선택된 상태 초기화
-            state.expandedMainCategory = null;
+        // UI 업데이트 - 카테고리 메뉴 자체를 보이거나 숨김
+        if (elements.mainCategoriesList) {
+        elements.mainCategoriesList.style.display = state.allExpanded ? 'block' : 'none';
         }
     
-        // UI 업데이트
-        renderMainCategories();
+        // 버튼 상태 업데이트
         updateToggleButton();
+    
+        // 카테고리 경로 업데이트
+        updateCategoryPath();
     }
     
     /**
@@ -246,8 +245,8 @@ const CategoryManager = (() => {
             state.subCategories = data.categories || [];
             state.isLoaded = true;
             
-            // 초기 확장 상태 설정
-            state.expandedMainCategory = state.isMobile ? null : state.mainCategories[0]?.id;
+            // 초기 상태 설정
+            state.expandedMainCategory = null;
             
             console.log('카테고리 데이터 로드 성공:', 
                 state.mainCategories.length + '개 대분류,',
@@ -309,7 +308,7 @@ const CategoryManager = (() => {
             // 현재 카테고리가 확장된 상태인지 확인
             const isExpanded = state.expandedMainCategory === category.id;
             
-            // +/- 토글 아이콘 (왼쪽에 배치)
+            // +/- 토글 아이콘
             const toggleIcon = document.createElement('span');
             toggleIcon.className = 'toggle-icon';
             toggleIcon.innerHTML = isExpanded ? '-' : '+';
