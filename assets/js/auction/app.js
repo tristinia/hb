@@ -78,14 +78,38 @@ const App = (() => {
     }
 
     /**
+     * 검색어로 아이템 목록 필터링
+     * @param {Array} items - 아이템 목록
+     * @param {string} searchTerm - 검색어
+     * @returns {Array} 필터링된 아이템 목록
+     */
+    function filterItemsBySearchTerm(items, searchTerm) {
+        if (!searchTerm || !Array.isArray(items)) {
+            return items;
+        }
+        
+        const normalizedTerm = searchTerm.toLowerCase();
+        
+        return items.filter(item => {
+            // 아이템 이름 필드 확인
+            const itemName = (item.item_name || '').toLowerCase();
+            const displayName = (item.item_display_name || '').toLowerCase();
+            
+            // 검색어 포함 여부 확인
+            return itemName.includes(normalizedTerm) || 
+                   displayName.includes(normalizedTerm);
+        });
+    }
+    
+    /**
      * 검색 처리
      * @param {CustomEvent} event - 검색 이벤트
      */
     async function handleSearch(event) {
         const { searchTerm, selectedItem, mainCategory, subCategory } = event.detail;
-
+    
         ApiClient.setLoading(true);
-
+    
         try {
             let result;
             let searchType = "";
@@ -98,6 +122,19 @@ const App = (() => {
                     selectedItem.subCategory, 
                     selectedItem.name
                 );
+            }
+            // 카테고리와 검색어가 모두 있는 경우
+            else if (subCategory && searchTerm) {
+                searchType = `카테고리 + 필터: ${subCategory} + ${searchTerm}`;
+                result = await ApiClient.searchByCategory(mainCategory, subCategory);
+                
+                // 결과가 있고 검색어가 있으면 클라이언트 측 필터링 적용
+                if (result.items && result.items.length > 0) {
+                    const filteredItems = filterItemsBySearchTerm(result.items, searchTerm);
+                    // 필터링 결과 저장
+                    result.items = filteredItems;
+                    result.totalCount = filteredItems.length;
+                }
             }
             // 카테고리만 선택한 경우
             else if (subCategory) {
