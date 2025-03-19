@@ -161,25 +161,25 @@ const CategoryManager = (() => {
     function toggleAllCategories() {
         // 현재 상태의 반대로 토글
         state.allExpanded = !state.allExpanded;
-        
+    
+        // 카테고리 패널의 내용 요소 가져오기
+        const categoryContent = document.getElementById('main-categories');
+    
         if (state.allExpanded) {
-            // 모든 대분류 확장
+            // 펼침: 카테고리 표시
+            categoryContent.style.display = 'block';
+            // 첫 번째 카테고리 자동 펼침 (옵션)
             state.expandedMainCategory = state.mainCategories[0]?.id;
-            state.selectedMainCategory = state.mainCategories[0]?.id;
         } else {
-            // 모든 대분류 접기
+            // 접힘: 카테고리 숨김
+            categoryContent.style.display = 'none';
+            // 선택된 상태 초기화
             state.expandedMainCategory = null;
-            state.selectedMainCategory = null;
-            state.selectedSubCategory = null;
         }
-        
+    
         // UI 업데이트
         renderMainCategories();
-        updateCategoryPath();
         updateToggleButton();
-        
-        // 카테고리 변경 이벤트 트리거
-        triggerCategoryChangedEvent();
     }
     
     /**
