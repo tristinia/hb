@@ -398,7 +398,9 @@ const CategoryManager = (() => {
         const event = new CustomEvent('categoryChanged', {
             detail: {
                 mainCategory: state.selectedMainCategory,
-                subCategory: state.selectedSubCategory
+                subCategory: state.selectedSubCategory,
+                autoSelected: false,
+                maintainSearchTerm: true  // 검색어 유지
             }
         });
         document.dispatchEvent(event);
