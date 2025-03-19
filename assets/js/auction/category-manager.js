@@ -35,7 +35,7 @@ const CategoryManager = (() => {
         // 모바일 여부 감지
         state.isMobile = window.matchMedia("(max-width: 768px)").matches;
         
-        // 초기 확장 상태 설정 (PC: 펼침, 모바일: 접힘)
+        // 초기 확장 상태 설정
         state.allExpanded = !state.isMobile;
         
         // 이벤트 리스너 설정
@@ -58,6 +58,7 @@ const CategoryManager = (() => {
         
         // 확장 상태 재설정
         state.allExpanded = !state.isMobile;
+        state.expandedMainCategory = state.isMobile ? null : state.mainCategories[0]?.id;
         
         // UI 다시 렌더링
         renderMainCategories();
@@ -87,6 +88,13 @@ const CategoryManager = (() => {
      * @param {Event} event - 클릭 이벤트
      */
     function handleCategoryClick(event) {
+        // 전체 카테고리 버튼 클릭
+        const allButton = event.target.closest('.all-category-button');
+        if (allButton) {
+            resetSelectedCategories();
+            return;
+        }
+        
         // 메인 카테고리 버튼 클릭
         const mainButton = event.target.closest('.category-button');
         if (mainButton) {
@@ -155,15 +163,19 @@ const CategoryManager = (() => {
         state.allExpanded = !state.allExpanded;
         
         if (state.allExpanded) {
-            // 모든 대분류 펼치기
-            state.expandedMainCategory = state.mainCategories.map(cat => cat.id);
+            // 모든 대분류 확장
+            state.expandedMainCategory = state.mainCategories[0]?.id;
+            state.selectedMainCategory = state.mainCategories[0]?.id;
         } else {
             // 모든 대분류 접기
             state.expandedMainCategory = null;
+            state.selectedMainCategory = null;
+            state.selectedSubCategory = null;
         }
         
         // UI 업데이트
         renderMainCategories();
+        updateCategoryPath();
         updateToggleButton();
         
         // 카테고리 변경 이벤트 트리거
@@ -179,14 +191,14 @@ const CategoryManager = (() => {
         if (state.expandedMainCategory === category.id) {
             // 접기
             state.expandedMainCategory = null;
+            state.selectedMainCategory = null;
+            state.selectedSubCategory = null;
         } else {
             // 확장
             state.expandedMainCategory = category.id;
+            state.selectedMainCategory = category.id;
+            state.selectedSubCategory = null;
         }
-        
-        // 선택 상태 업데이트
-        state.selectedMainCategory = category.id;
-        state.selectedSubCategory = null;
         
         // UI 업데이트
         renderMainCategories();
@@ -201,8 +213,7 @@ const CategoryManager = (() => {
      */
     function updateToggleButton() {
         if (elements.toggleAllButton) {
-            // 토글 버튼 아이콘 업데이트 (^ 또는 v)
-            elements.toggleAllButton.innerHTML = state.allExpanded ? '&#x25B2;' : '&#x25BC;';
+            elements.toggleAllButton.classList.toggle('expanded', state.allExpanded);
             
             // 아이콘 회전 효과
             const icon = elements.toggleAllButton.querySelector('svg');
@@ -289,7 +300,8 @@ const CategoryManager = (() => {
         // DocumentFragment 사용하여 DOM 조작 최적화
         const fragment = document.createDocumentFragment();
         
-        // 메인 카테고리 항목 생성
+        // 메인 카테고리 항목 생성 (전체 항목 제거)
+        
         state.mainCategories.forEach(category => {
             const li = document.createElement('li');
             li.className = 'category-item accordion-item';
@@ -297,13 +309,10 @@ const CategoryManager = (() => {
             // 현재 카테고리가 확장된 상태인지 확인
             const isExpanded = state.expandedMainCategory === category.id;
             
-            // 토글 아이콘 (위/아래 화살표)
+            // +/- 토글 아이콘 (왼쪽에 배치)
             const toggleIcon = document.createElement('span');
             toggleIcon.className = 'toggle-icon';
-            toggleIcon.innerHTML = isExpanded ? '^' : 'v';
-            
-            // 토글 애니메이션 효과 추가
-            toggleIcon.style.transition = 'transform 0.3s ease';
+            toggleIcon.innerHTML = isExpanded ? '-' : '+';
             
             // 카테고리 버튼
             const button = document.createElement('button');
@@ -402,78 +411,62 @@ const CategoryManager = (() => {
     function updateCategoryPath() {
         if (!elements.categoryPath) return;
         
-        // 기존 경로 초기화
-        elements.categoryPath.innerHTML = '';
-        
-        // 아무 카테고리도 선택하지 않았을 경우에는 감춤
-        if (!state.selectedMainCategory && !state.selectedSubCategory) {
-            elements.categoryPath.style.display = 'none';
-            return;
-        }
-        
+        // 경로 바를 항상 표시
         elements.categoryPath.style.display = 'flex';
         
-        // 경로 항목 배열 생성
-        let pathItems = [];
+        // 기존 내용 초기화
+        elements.categoryPath.innerHTML = '';
         
+        // 전체 항목 추가 (항상 포함)
+        const allButton = document.createElement('span');
+        allButton.className = 'category-path-main category-button';
+        allButton.textContent = '전체';
+        allButton.addEventListener('click', resetSelectedCategories);
+        elements.categoryPath.appendChild(allButton);
+        
+        // 메인 카테고리 표시
         if (state.selectedMainCategory) {
             const mainCategory = state.mainCategories.find(cat => cat.id === state.selectedMainCategory);
             if (mainCategory) {
-                pathItems.push({
-                    type: 'main',
-                    id: mainCategory.id,
-                    name: mainCategory.name
+                // 구분자 추가
+                const separator1 = document.createElement('span');
+                separator1.className = 'category-path-separator';
+                separator1.textContent = ' > ';
+                elements.categoryPath.appendChild(separator1);
+                
+                // 메인 카테고리 버튼
+                const mainButton = document.createElement('span');
+                mainButton.className = 'category-path-main category-button';
+                mainButton.setAttribute('data-category', mainCategory.id);
+                mainButton.textContent = mainCategory.name;
+                mainButton.addEventListener('click', () => {
+                    handleMainCategoryClick(mainCategory);
                 });
+                elements.categoryPath.appendChild(mainButton);
             }
         }
         
+        // 서브 카테고리 표시
         if (state.selectedSubCategory) {
             const subCategory = state.subCategories.find(cat => cat.id === state.selectedSubCategory);
             if (subCategory) {
-                pathItems.push({
-                    type: 'sub',
-                    id: subCategory.id,
-                    name: subCategory.name
+                // 구분자 추가
+                const separator2 = document.createElement('span');
+                separator2.className = 'category-path-separator';
+                separator2.textContent = ' > ';
+                elements.categoryPath.appendChild(separator2);
+                
+                // 서브 카테고리 버튼
+                const subButton = document.createElement('span');
+                subButton.className = 'category-path-sub category-button';
+                subButton.setAttribute('data-category', subCategory.id);
+                subButton.textContent = subCategory.name;
+                subButton.addEventListener('click', () => {
+                    handleSubCategoryClick(subCategory);
                 });
+                elements.categoryPath.appendChild(subButton);
             }
         }
-        
-        // 경로 항목 렌더링
-        pathItems.forEach((item, index) => {
-            // 구분자 추가 (첫 번째 항목 제외)
-            if (index > 0) {
-                const separator = document.createElement('span');
-                separator.className = 'category-path-separator';
-                separator.textContent = ' > ';
-                elements.categoryPath.appendChild(separator);
-            }
-            
-            // 경로 항목
-            const pathButton = document.createElement('span');
-            pathButton.className = `category-path-${item.type} category-button`;
-            pathButton.setAttribute('data-category', item.id);
-            pathButton.textContent = item.name;
-            
-            // 클릭 이벤트 리스너 추가
-            pathButton.addEventListener('click', (e) => {
-                const categoryId = e.target.getAttribute('data-category');
-                
-                // 메인 카테고리 버튼 클릭
-                const mainCategory = state.mainCategories.find(cat => cat.id === categoryId);
-                if (mainCategory) {
-                    handleMainCategoryClick(mainCategory);
-                    return;
-                }
-                
-                // 서브 카테고리 버튼 클릭
-                const subCategory = state.subCategories.find(cat => cat.id === categoryId);
-                if (subCategory) {
-                    handleSubCategoryClick(subCategory);
-                }
-            });
-            
-            elements.categoryPath.appendChild(pathButton);
-        });
     }
     
     /**
@@ -483,97 +476,97 @@ const CategoryManager = (() => {
     function showCategoryPathFromItem(item) {
         if (!elements.categoryPath) return;
         
-        // 아이템 정보 없으면 감춤
+        // 아이템 정보 없으면 기본 "전체" 표시
         if (!item) {
             elements.categoryPath.innerHTML = '';
-            elements.categoryPath.style.display = 'none';
+            
+            // 전체 항목 추가
+            const allButton = document.createElement('span');
+            allButton.className = 'category-path-main category-button';
+            allButton.textContent = '전체';
+            allButton.addEventListener('click', resetSelectedCategories);
+            elements.categoryPath.appendChild(allButton);
+            
+            elements.categoryPath.style.display = 'flex';
             return;
         }
         
         elements.categoryPath.style.display = 'flex';
         elements.categoryPath.innerHTML = '';
         
-        // 경로 항목 배열 생성
-        let pathItems = [];
+        // 전체 항목 추가 (항상 포함)
+        const allButton = document.createElement('span');
+        allButton.className = 'category-path-main category-button';
+        allButton.textContent = '전체';
+        allButton.addEventListener('click', resetSelectedCategories);
+        elements.categoryPath.appendChild(allButton);
         
         // 메인 카테고리 찾기
         let mainCategoryId = '';
+        let mainCategoryName = '';
         
         if (item.mainCategory) {
             mainCategoryId = item.mainCategory;
             const mainCat = state.mainCategories.find(cat => cat.id === mainCategoryId);
-            if (mainCat) {
-                pathItems.push({
-                    type: 'main',
-                    id: mainCat.id,
-                    name: mainCat.name
-                });
-            }
+            if (mainCat) mainCategoryName = mainCat.name;
         } else if (item.category) {
             // 서브 카테고리로부터 메인 카테고리 찾기
             const subCat = state.subCategories.find(cat => cat.id === item.category);
             if (subCat) {
                 mainCategoryId = subCat.mainCategory;
                 const mainCat = state.mainCategories.find(cat => cat.id === mainCategoryId);
-                if (mainCat) {
-                    pathItems.push({
-                        type: 'main',
-                        id: mainCat.id,
-                        name: mainCat.name
-                    });
-                }
+                if (mainCat) mainCategoryName = mainCat.name;
             }
         }
         
-        // 서브 카테고리 추가
+        // 메인 카테고리 표시
+        if (mainCategoryId && mainCategoryName) {
+            // 구분자 추가
+            const separator1 = document.createElement('span');
+            separator1.className = 'category-path-separator';
+            separator1.textContent = ' > ';
+            elements.categoryPath.appendChild(separator1);
+            
+            // 메인 카테고리 버튼
+            const mainButton = document.createElement('span');
+            mainButton.className = 'category-path-main category-button';
+            mainButton.setAttribute('data-category', mainCategoryId);
+            mainButton.textContent = mainCategoryName;
+            
+            mainButton.addEventListener('click', () => {
+                const mainCategory = state.mainCategories.find(cat => cat.id === mainCategoryId);
+                if (mainCategory) {
+                    handleMainCategoryClick(mainCategory);
+                }
+            });
+            
+            elements.categoryPath.appendChild(mainButton);
+        }
+        
+        // 서브 카테고리 표시
         if (item.category || item.subCategory) {
             const subCategoryId = item.subCategory || item.category;
             const subCat = state.subCategories.find(cat => cat.id === subCategoryId);
             if (subCat) {
-                pathItems.push({
-                    type: 'sub',
-                    id: subCat.id,
-                    name: subCat.name
+                // 구분자 추가
+                const separator2 = document.createElement('span');
+                separator2.className = 'category-path-separator';
+                separator2.textContent = ' > ';
+                elements.categoryPath.appendChild(separator2);
+                
+                // 서브 카테고리 버튼
+                const subButton = document.createElement('span');
+                subButton.className = 'category-path-sub category-button';
+                subButton.setAttribute('data-category', subCat.id);
+                subButton.textContent = subCat.name;
+                
+                subButton.addEventListener('click', () => {
+                    handleSubCategoryClick(subCat);
                 });
+                
+                elements.categoryPath.appendChild(subButton);
             }
         }
-        
-        // 경로 항목 렌더링
-        pathItems.forEach((item, index) => {
-            // 구분자 추가 (첫 번째 항목 제외)
-            if (index > 0) {
-                const separator = document.createElement('span');
-                separator.className = 'category-path-separator';
-                separator.textContent = ' > ';
-                elements.categoryPath.appendChild(separator);
-            }
-            
-            // 경로 항목
-            const pathButton = document.createElement('span');
-            pathButton.className = `category-path-${item.type} category-button`;
-            pathButton.setAttribute('data-category', item.id);
-            pathButton.textContent = item.name;
-            
-            // 클릭 이벤트 리스너 추가
-            pathButton.addEventListener('click', (e) => {
-                const categoryId = e.target.getAttribute('data-category');
-                
-                // 메인 카테고리 버튼 클릭
-                const mainCategory = state.mainCategories.find(cat => cat.id === categoryId);
-                if (mainCategory) {
-                    handleMainCategoryClick(mainCategory);
-                    return;
-                }
-                
-                // 서브 카테고리 버튼 클릭
-                const subCategory = state.subCategories.find(cat => cat.id === categoryId);
-                if (subCategory) {
-                    handleSubCategoryClick(subCategory);
-                }
-            });
-            
-            elements.categoryPath.appendChild(pathButton);
-        });
     }
     
     /**
