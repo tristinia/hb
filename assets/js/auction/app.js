@@ -123,17 +123,35 @@ const App = (() => {
                     selectedItem.name
                 );
             }
-            // 카테고리와 검색어가 모두 있는 경우
-            else if (subCategory && searchTerm) {
-                searchType = `카테고리 + 필터: ${subCategory} + ${searchTerm}`;
-                result = await ApiClient.searchByCategory(mainCategory, subCategory);
+            // 검색어를 DB에서 검색, 일치하는 아이템 존재
+            else if (searchTerm && SearchManager.getExactItemMatch) {
+                const exactMatch = SearchManager.getExactItemMatch(searchTerm);
                 
-                // 결과가 있고 검색어가 있으면 클라이언트 측 필터링 적용
-                if (result.items && result.items.length > 0) {
-                    const filteredItems = filterItemsBySearchTerm(result.items, searchTerm);
-                    // 필터링 결과 저장
-                    result.items = filteredItems;
-                    result.totalCount = filteredItems.length;
+                if (exactMatch && exactMatch.mainCategory && exactMatch.subCategory) {
+                    // 정확히 일치하는 아이템 발견 시 해당 아이템으로 검색
+                    searchType = `정확한 아이템: ${exactMatch.name}`;
+                    result = await ApiClient.searchByCategory(
+                        exactMatch.mainCategory,
+                        exactMatch.subCategory,
+                        exactMatch.name
+                    );
+                }
+                // 검색어를 DB에서 검색, 일치하는 아이템 없음
+                else if (subCategory) {
+                    searchType = `카테고리 + 필터: ${subCategory} + ${searchTerm}`;
+                    result = await ApiClient.searchByCategory(mainCategory, subCategory);
+                    
+                    // 클라이언트 측 필터링 적용
+                    if (result.items && result.items.length > 0) {
+                        const filteredItems = filterItemsBySearchTerm(result.items, searchTerm);
+                        result.items = filteredItems;
+                        result.totalCount = filteredItems.length;
+                    }
+                }
+                // DB 일치가 없고 카테고리도 없는 경우
+                else {
+                    searchType = `키워드: ${searchTerm}`;
+                    result = await ApiClient.searchByKeyword(searchTerm);
                 }
             }
             // 카테고리만 선택한 경우
@@ -141,16 +159,11 @@ const App = (() => {
                 searchType = `카테고리: ${subCategory}`;
                 result = await ApiClient.searchByCategory(mainCategory, subCategory);
             } 
-            // 키워드 검색
-            else if (searchTerm) {
-                searchType = `키워드: ${searchTerm}`;
-                result = await ApiClient.searchByKeyword(searchTerm);
-            } 
             else {
                 ApiClient.setLoading(false);
                 return;
             }
-        
+            
             // 검색 결과 처리
             if (result.error) {
                 console.error('검색 오류:', result.error);
