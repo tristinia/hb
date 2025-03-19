@@ -821,9 +821,8 @@ async function loadItemListFromFile(category) {
             // 카테고리 정보 가져오기
             const { mainCategory, subCategory } = CategoryManager.getSelectedCategories();
             
-            // 검색어 또는 선택된 카테고리가 없는 경우 처리
+            // 검색어 또는 선택된 카테고리가 없는 경우
             if (!state.searchTerm && !subCategory) {
-                alert('검색어를 입력하거나 카테고리를 선택해주세요.');
                 return;
             }
             
