@@ -932,6 +932,23 @@ async function loadItemListFromFile(category) {
             return false;
         }
     }
+
+    /**
+     * 정확히 일치하는 아이템 검색
+     * @param {string} searchTerm - 검색어
+     * @returns {Object|null} 일치하는 아이템 또는 null
+     */
+    function getExactItemMatch(searchTerm) {
+        if (!searchTerm || !Array.isArray(autocompleteData)) {
+            return null;
+        }
+        
+        // 입력된 검색어와 정확히 일치하는 아이템 찾기
+        const normalizedTerm = searchTerm.toLowerCase();
+        return autocompleteData.find(item => 
+            item.name && item.name.toLowerCase() === normalizedTerm
+        );
+    }
     
     // 공개 API
     return {
@@ -941,7 +958,8 @@ async function loadItemListFromFile(category) {
         getSearchState,
         setSearchTerm,
         clearSuggestions,
-        clearCache
+        clearCache,
+        getExactItemMatch
     };
 })();
 
