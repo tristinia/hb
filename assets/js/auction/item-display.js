@@ -102,6 +102,8 @@ const ItemDisplay = (() => {
             const priceB = b.auction_price_per_unit || 0;
             return priceA - priceB;
         });
+
+        state.filteredResults = sortedItems;
         
         // 아이템 행 생성
         sortedItems.forEach(item => {
