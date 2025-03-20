@@ -105,7 +105,7 @@ const App = (() => {
      * 검색 처리
      * @param {CustomEvent} event - 검색 이벤트
      */
-        async function handleSearch(event) {
+    async function handleSearch(event) {
         const { searchTerm, selectedItem, mainCategory, subCategory } = event.detail;
     
         ApiClient.setLoading(true);
@@ -114,16 +114,31 @@ const App = (() => {
             let result;
             
             // 자동완성 검색 처리
-            if (selectedItem && selectedItem.subCategory) {
+            if (selectedItem && selectedItem.name) {
+                const category = selectedItem.subCategory || subCategory;
+                const mainCat = selectedItem.mainCategory || mainCategory;
+                
+                console.log('아이템 검색: ', {
+                    mainCategory: mainCat,
+                    subCategory: category,
+                    itemName: selectedItem.name
+                });
+                
                 result = await ApiClient.searchByCategory(
-                    selectedItem.mainCategory, 
-                    selectedItem.subCategory, 
+                    mainCat, 
+                    category, 
                     selectedItem.name
                 );
             }
-            // 카테고리가 검색 처리
+            // 카테고리 검색 처리
             else if (subCategory) {
-                // 카테고리 검색
+                // 카테고리 검색 먼저 수행
+                console.log('카테고리 검색: ', {
+                    mainCategory,
+                    subCategory,
+                    hasSearchTerm: !!searchTerm
+                });
+                
                 result = await ApiClient.searchByCategory(mainCategory, subCategory);
                 
                 // 검색어가 있으면 클라이언트 측 필터링
@@ -135,6 +150,7 @@ const App = (() => {
             }
             // 키워드 검색 처리
             else if (searchTerm) {
+                console.log('키워드 검색: ', { searchTerm });
                 result = await ApiClient.searchByKeyword(searchTerm);
             } 
             else {
