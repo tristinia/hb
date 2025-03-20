@@ -406,6 +406,25 @@ const App = (() => {
             // URL 파라미터 처리
             processUrlParameters();
             
+            // 화면 크기에 따른 초기 상태 설정
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
+            const optionsPanel = document.querySelector('.options-panel');
+            if (optionsPanel) {
+                optionsPanel.classList.toggle('expanded', !isMobile);
+                
+                // 토글 버튼 상태 동기화
+                const toggleBtn = document.getElementById('toggle-options');
+                if (toggleBtn) {
+                    toggleBtn.classList.toggle('expanded', !isMobile);
+                    toggleBtn.title = !isMobile ? '옵션 접기' : '옵션 펼치기';
+                    
+                    const icon = toggleBtn.querySelector('svg');
+                    if (icon) {
+                        icon.style.transform = !isMobile ? 'rotate(180deg)' : '';
+                    }
+                }
+            }
+            
             console.log('애플리케이션 초기화 완료');
         } catch (error) {
             console.error('애플리케이션 초기화 중 오류 발생:', error);
