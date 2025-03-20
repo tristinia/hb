@@ -950,7 +950,6 @@ async function loadItemListFromFile(category) {
         setSearchTerm,
         clearSuggestions,
         clearCache,
-        getExactItemMatch
     };
 })();
 
