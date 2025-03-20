@@ -117,6 +117,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    width: 100%;
 }
 
 /* 패널 헤더 */
@@ -640,6 +641,37 @@ body {
     flex-direction: column;
 }
 
+/* 옵션 패널 기본 상태 및 확장 상태 */
+.options-panel .filter-dropdown-container,
+.options-panel .active-filters {
+    transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s;
+}
+
+/* 옵션 패널 접힌 상태 */
+.options-panel:not(.expanded) .filter-dropdown-container,
+.options-panel:not(.expanded) .active-filters {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* 옵션 패널 펼쳐진 상태 */
+.options-panel.expanded .filter-dropdown-container {
+    max-height: 100px;
+    opacity: 1;
+    visibility: visible;
+    padding: 16px;
+}
+
+.options-panel.expanded .active-filters {
+    max-height: calc(100% - 100px);
+    opacity: 1;
+    visibility: visible;
+    padding: 0 16px 16px;
+}
+
 .filter-dropdown-container {
     padding: 16px;
 }
@@ -715,12 +747,19 @@ body {
 
 .filter-content {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 8px;
 }
 
+.filter-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
 .filter-input {
-    flex: 1;
+    width: 100%;
     padding: 8px 10px;
     border: 1px solid var(--color-light-gray);
     border-radius: 8px;
@@ -873,6 +912,16 @@ body {
             "pagination";
         gap: 16px;
         height: auto;
+    }
+    
+    .options-panel {
+        max-height: 60px;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+    
+    .options-panel.expanded {
+        max-height: 500px;
     }
     
     /* 중요: 모바일에서 center-panel이 직접 그리드 아이템으로 작동하지 않도록 함 */
