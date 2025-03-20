@@ -399,8 +399,8 @@ const CategoryManager = (() => {
             detail: {
                 mainCategory: state.selectedMainCategory,
                 subCategory: state.selectedSubCategory,
-                autoSelected: false,
-                maintainSearchTerm: true  // 검색어 유지
+                autoSelected: true,
+                maintainSearchTerm: true
             }
         });
         document.dispatchEvent(event);
