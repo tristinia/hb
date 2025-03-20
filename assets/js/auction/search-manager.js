@@ -824,11 +824,19 @@ async function loadItemListFromFile(category) {
     /**
      * 검색 실행
      */
-    function handleSearch() {
+        function handleSearch() {
         // 로딩 또는 오류 상태면 무시
         if (state.isLoading || state.hasError) return;
         
         try {
+            // 입력 필드에서 최신 검색어 가져오기
+            if (elements.searchInput) {
+                state.searchTerm = elements.searchInput.value.trim();
+            }
+            
+            // 이전에 선택한 아이템 초기화
+            state.selectedItem = null;
+            
             // 카테고리 정보 가져오기
             const { mainCategory, subCategory } = CategoryManager.getSelectedCategories();
             
