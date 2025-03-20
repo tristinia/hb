@@ -16,7 +16,7 @@
 
         <div class="content-layout">
             <!-- 카테고리 패널 -->
-            <div class="left-panel">
+            <div class="left-panel" style="grid-area: category;">
                 <div class="category-panel">
                     <div class="panel-header">
                         <h3>카테고리</h3>
@@ -36,7 +36,7 @@
             <!-- 중앙 컨텐츠 (검색 + 결과) -->
             <div class="center-panel">
                 <!-- 검색 영역 -->
-                <div class="search-container">
+                 <div class="search-container" style="grid-area: search;">
                     <div class="search-wrapper">
                         <input type="text" id="search-input" placeholder="아이템 이름을 입력하세요..." autocomplete="off">
                         <button class="search-button" id="search-button" title="검색">
@@ -50,12 +50,12 @@
                 </div>
 
                 <!-- 카테고리 경로 바 -->
-                <div class="category-path-panel">
+                <div class="category-path-panel" style="grid-area: category-path;">
                     <div class="category-path" id="category-path">
                         <span class="category-path-main category-button">전체</span>
                     </div>
                 </div>
-                    <div class="items-virtual-container" id="items-container">
+                    <div class="items-virtual-container" id="items-container" style="grid-area: results;">
                         <table class="results-table">
                             <thead>
                                 <tr>
@@ -71,14 +71,14 @@
                             </tbody>
                         </table>
                     </div>
-                    <div id="pagination" class="pagination">
+                    <div id="pagination" class="pagination" style="grid-area: pagination;">
                         <!-- 페이지네이션 동적 생성 -->
                     </div>
                 </div>
             </div>
 
             <!-- 필터 패널 -->
-            <div class="right-panel">
+            <div class="right-panel" style="grid-area: filter;">
                 <div class="options-panel">
                     <div class="panel-header">
                         <h3>세부 옵션 검색</h3>
