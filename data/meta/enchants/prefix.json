@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-19T09:30:43.431Z",
+  "updated": "2025-03-20T09:28:59.809Z",
   "enchants": {
     "56층의": {
       "name": "56층의",
@@ -656,8 +656,8 @@
         {
           "template": "최대대미지 {value} 증가",
           "min": 23,
-          "max": 23,
-          "variable": false
+          "max": 24,
+          "variable": true
         },
         {
           "template": "최소대미지 {value} 증가",
@@ -1274,8 +1274,8 @@
         {
           "template": "대미지밸런스 {value} 증가",
           "min": 6,
-          "max": 6,
-          "variable": false
+          "max": 12,
+          "variable": true
         },
         {
           "template": "대미지밸런스 {value} 증가",
@@ -1975,7 +1975,7 @@
         },
         {
           "template": "마법 공격력 {value} 증가",
-          "min": 7,
+          "min": 5,
           "max": 8,
           "variable": true
         }
@@ -2637,6 +2637,30 @@
           "template": "최소대미지 {value} 증가",
           "min": 10,
           "max": 10,
+          "variable": false
+        }
+      ]
+    },
+    "돌풍 (랭크 D)": {
+      "name": "돌풍 (랭크 D)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "최대스태미나 {value} 증가",
+          "min": 12,
+          "max": 12,
+          "variable": false
+        },
+        {
+          "template": "대미지밸런스 {value} 증가",
+          "min": 6,
+          "max": 6,
+          "variable": false
+        },
+        {
+          "template": "최대스태미나 {value} 증가",
+          "min": 16,
+          "max": 16,
           "variable": false
         }
       ]
@@ -7849,6 +7873,36 @@
         }
       ]
     },
+    "절대": {
+      "name": "절대",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "수리비 {value}% 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "스태미나 소모량 {value}% 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "불 속성 연금술 대미지 {value} 증가",
+          "min": 16,
+          "max": 16,
+          "variable": false
+        },
+        {
+          "template": "물 속성 연금술 대미지 {value} 증가",
+          "min": 14,
+          "max": 14,
+          "variable": false
+        }
+      ]
+    },
     "정교한 (랭크 F)": {
       "name": "정교한 (랭크 F)",
       "rank": null,
@@ -8204,7 +8258,7 @@
         {
           "template": "흙 속성 연금술 대미지 {value} 증가",
           "min": 25,
-          "max": 34,
+          "max": 35,
           "variable": true
         },
         {
@@ -9338,8 +9392,8 @@
         {
           "template": "최대부상률 {value} 감소",
           "min": 4,
-          "max": 4,
-          "variable": false
+          "max": 5,
+          "variable": true
         }
       ]
     },
