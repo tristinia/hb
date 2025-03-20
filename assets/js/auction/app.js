@@ -195,6 +195,11 @@ const App = (() => {
                         searchTerm: itemName || '',
                         mainCategory,
                         subCategory
+                        selectedItem: itemName ? {
+                            name: itemName,
+                            mainCategory,
+                            subCategory
+                        } : null
                     }
                 });
                 document.dispatchEvent(searchEvent);
