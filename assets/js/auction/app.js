@@ -194,7 +194,13 @@ const App = (() => {
                     detail: {
                         searchTerm: itemName || '',
                         mainCategory,
-                        subCategory
+                        subCategory,
+                        // 아이템 이름이 있는 경우 선택된 아이템으로 간주
+                        selectedItem: itemName ? {
+                            name: itemName,
+                            mainCategory,
+                            subCategory
+                        } : null
                     }
                 });
                 document.dispatchEvent(searchEvent);
