@@ -18,7 +18,6 @@ const ItemDisplay = (() => {
     // DOM 요소 참조
     let elements = {
         resultsBody: null,
-        resultStats: null,
         tooltip: null
     };
     
@@ -28,7 +27,6 @@ const ItemDisplay = (() => {
     function init() {
         // DOM 요소 참조 가져오기
         elements.resultsBody = document.getElementById('results-body');
-        elements.resultStats = document.getElementById('result-stats');
         elements.tooltip = document.getElementById('item-tooltip');
         
         // 테이블 이벤트 리스너 설정
@@ -87,16 +85,12 @@ const ItemDisplay = (() => {
         if (state.filteredResults.length === 0) {
             const tr = document.createElement('tr');
             tr.className = 'empty-result';
-            tr.innerHTML = `<td colspan="3">검색 결과가 없습니다. 다른 키워드나 카테고리로 검색해보세요.</td>`;
+            tr.innerHTML = `<td colspan="3">검색 결과가 없습니다.</td>`;
             elements.resultsBody.appendChild(tr);
-            updateResultStats(0);
             return;
         }
         
-        // 결과 통계 업데이트
-        updateResultStats(state.filteredResults.length);
-        
-        // 가격순으로 정렬 (낮은 가격부터)
+        // 가격순으로 정렬
         const sortedItems = [...state.filteredResults].sort((a, b) => {
             const priceA = a.auction_price_per_unit || 0;
             const priceB = b.auction_price_per_unit || 0;
@@ -124,16 +118,6 @@ const ItemDisplay = (() => {
             
             elements.resultsBody.appendChild(tr);
         });
-    }
-    
-    /**
-     * 결과 통계 업데이트
-     * @param {number} count - 결과 개수
-     */
-    function updateResultStats(count) {
-        if (!elements.resultStats) return;
-        
-        elements.resultStats.textContent = `총 ${count}개 결과`;
     }
     
     /**
