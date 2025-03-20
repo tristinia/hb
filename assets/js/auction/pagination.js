@@ -18,7 +18,6 @@ const PaginationManager = (() => {
     // DOM 요소 참조
     let elements = {
         paginationContainer: null,
-        paginationInfo: null  // 페이지 정보 표시 요소
     };
     
     /**
@@ -27,19 +26,6 @@ const PaginationManager = (() => {
     function init() {
         // DOM 요소 참조 가져오기
         elements.paginationContainer = document.getElementById('pagination');
-        
-        // 페이지 정보 컨테이너 생성 (없는 경우)
-        if (!document.getElementById('pagination-info')) {
-            const paginationInfo = document.createElement('div');
-            paginationInfo.id = 'pagination-info';
-            paginationInfo.className = 'pagination-info';
-            if (elements.paginationContainer && elements.paginationContainer.parentNode) {
-                elements.paginationContainer.parentNode.insertBefore(paginationInfo, elements.paginationContainer);
-            }
-            elements.paginationInfo = paginationInfo;
-        } else {
-            elements.paginationInfo = document.getElementById('pagination-info');
-        }
         
         // 스크롤 복원 이벤트 리스너
         document.addEventListener('pageChanged', (e) => {
@@ -216,34 +202,7 @@ const PaginationManager = (() => {
     }
     
     /**
-     * 페이지 정보 텍스트 업데이트
-     */
-    function updatePageInfo() {
-        if (!elements.paginationInfo) return;
-        
-        // 현재 아이템 범위 계산
-        const startItem = state.totalItems > 0 ? (state.currentPage - 1) * state.itemsPerPage + 1 : 0;
-        const endItem = Math.min(startItem + state.itemsPerPage - 1, state.totalItems);
-        
-        // 페이지 위치 정보 표시
-        const pageInfoText = state.totalItems > 0 
-            ? `${startItem}-${endItem} / 총 ${state.totalItems}개 항목`
-            : `0 / 총 0개 항목`;
-            
-        // 페이지 정보 컨테이너 내용 업데이트 (중복 생성 방지)
-        const pageInfoElement = elements.paginationInfo.querySelector('.page-info') 
-            || document.createElement('div');
-            
-        if (!pageInfoElement.classList.contains('page-info')) {
-            pageInfoElement.className = 'page-info';
-            elements.paginationInfo.insertBefore(pageInfoElement, elements.paginationInfo.firstChild);
-        }
-        
-        pageInfoElement.textContent = pageInfoText;
-    }
-    
-    /**
-     * 페이지네이션 UI 렌더링 (새로운 형식)
+     * 페이지네이션 UI 렌더링
      */
     function renderPagination() {
         if (!elements.paginationContainer) return;
