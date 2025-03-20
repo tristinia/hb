@@ -114,7 +114,7 @@ const App = (() => {
             let result;
             
             // 자동완성 검색 처리
-            if (selectedItem && selectedItem.subCategory) {
+            if (selectedItem && selectedItem.name && selectedItem.subCategory) {
                 result = await ApiClient.searchByCategory(
                     selectedItem.mainCategory, 
                     selectedItem.subCategory, 
