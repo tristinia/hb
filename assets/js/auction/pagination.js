@@ -179,9 +179,6 @@ const PaginationManager = (() => {
             state.currentPage = Math.max(1, state.totalPages);
         }
         
-        // 페이지 정보 업데이트
-        updatePageInfo();
-        
         // 페이지 변경 또는 총 페이지 수 변경 시에만 페이지네이션 렌더링
         if (oldTotalPages !== state.totalPages) {
             renderPagination();
@@ -388,7 +385,6 @@ const PaginationManager = (() => {
         // UI 업데이트
         renderPagination();
         updatePageDisplay();
-        updatePageInfo();
         
         // 페이지 상태 저장
         savePageState();
