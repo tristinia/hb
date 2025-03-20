@@ -105,80 +105,54 @@ const App = (() => {
      * 검색 처리
      * @param {CustomEvent} event - 검색 이벤트
      */
-    async function handleSearch(event) {
+        async function handleSearch(event) {
         const { searchTerm, selectedItem, mainCategory, subCategory } = event.detail;
     
         ApiClient.setLoading(true);
     
         try {
             let result;
-            let searchType = "";
-        
-            // 자동완성으로 아이템 선택한 경우
+            
+            // 자동완성 검색 처리
             if (selectedItem && selectedItem.subCategory) {
-                searchType = `아이템: ${selectedItem.name}`;
                 result = await ApiClient.searchByCategory(
                     selectedItem.mainCategory, 
                     selectedItem.subCategory, 
                     selectedItem.name
                 );
             }
-            // 검색어를 DB에서 검색, 일치하는 아이템 존재
-            else if (searchTerm && SearchManager.getExactItemMatch) {
-                const exactMatch = SearchManager.getExactItemMatch(searchTerm);
+            // 카테고리 검색 처리
+            else if (subCategory) {
+                result = await ApiClient.searchByCategory(mainCategory, subCategory);
                 
-                if (exactMatch && exactMatch.mainCategory && exactMatch.subCategory) {
-                    // 정확히 일치하는 아이템 발견 시 해당 아이템으로 검색
-                    searchType = `정확한 아이템: ${exactMatch.name}`;
-                    result = await ApiClient.searchByCategory(
-                        exactMatch.mainCategory,
-                        exactMatch.subCategory,
-                        exactMatch.name
-                    );
-                }
-                // 검색어를 DB에서 검색, 일치하는 아이템 없음
-                else if (subCategory) {
-                    searchType = `카테고리 + 필터: ${subCategory} + ${searchTerm}`;
-                    result = await ApiClient.searchByCategory(mainCategory, subCategory);
-                    
-                    // 클라이언트 측 필터링 적용
-                    if (result.items && result.items.length > 0) {
-                        const filteredItems = filterItemsBySearchTerm(result.items, searchTerm);
-                        result.items = filteredItems;
-                        result.totalCount = filteredItems.length;
-                    }
-                }
-                // DB 일치가 없고 카테고리도 없는 경우
-                else {
-                    searchType = `키워드: ${searchTerm}`;
-                    result = await ApiClient.searchByKeyword(searchTerm);
+                // 검색어가 있다면 클라이언트 측 필터링
+                if (searchTerm && result.items && result.items.length > 0) {
+                    const filteredItems = filterItemsBySearchTerm(result.items, searchTerm);
+                    result.items = filteredItems;
+                    result.totalCount = filteredItems.length;
                 }
             }
-            // 카테고리만 선택한 경우
-            else if (subCategory) {
-                searchType = `카테고리: ${subCategory}`;
-                result = await ApiClient.searchByCategory(mainCategory, subCategory);
+            // 키워드 검색 처리
+            else if (searchTerm) {
+                result = await ApiClient.searchByKeyword(searchTerm);
             } 
             else {
                 ApiClient.setLoading(false);
                 return;
             }
             
-            // 검색 결과 처리
+            // 결과 처리
             if (result.error) {
-                console.error('검색 오류:', result.error);
                 showErrorMessage(result.error);
             } else if (!result.items || result.items.length === 0) {
-                console.log(`${searchType} 검색 - 결과 없음`);
                 showErrorMessage('검색 결과가 없습니다.');
             } else {
-                console.log(`${searchType} 검색 - ${result.items.length}개 항목 찾음`);
                 ItemDisplay.setSearchResults(result.items);
                 PaginationManager.resetPagination(result.items.length || 0);
             }
         } catch (error) {
             console.error('검색 처리 중 오류:', error);
-            showErrorMessage('검색 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+            showErrorMessage('검색 처리 중 오류가 발생했습니다.');
         } finally {
             ApiClient.setLoading(false);
         }
