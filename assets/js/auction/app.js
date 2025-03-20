@@ -71,6 +71,12 @@ const App = (() => {
         const isMobile = window.innerWidth < 768;
         document.body.classList.toggle('mobile-view', isMobile);
         
+        // 옵션 패널 상태 설정 (모바일에서는 기본적으로 접힘)
+        const optionsPanel = document.querySelector('.options-panel');
+        if (optionsPanel) {
+            optionsPanel.classList.toggle('expanded', !isMobile);
+        }
+        
         // 필요한 UI 업데이트 호출
         if (CategoryManager && typeof CategoryManager.handleResponsiveChange === 'function') {
             CategoryManager.handleResponsiveChange({ matches: isMobile });
@@ -300,14 +306,20 @@ const App = (() => {
         const toggleBtn = document.getElementById('toggle-options');
         
         if (optionsPanel && toggleBtn) {
-            const isExpanded = optionsPanel.classList.toggle('expanded');
+            const isExpanded = !optionsPanel.classList.contains('expanded');
+            optionsPanel.classList.toggle('expanded', isExpanded);
             toggleBtn.classList.toggle('expanded', isExpanded);
-            toggleBtn.title = isExpanded ? '옵션 접기' : '옵션 펼치기';
+            toggleBtn.title = isExpanded ? '세부 옵션 접기' : '세부 옵션 펼치기';
             
             // 아이콘 회전 효과
             const icon = toggleBtn.querySelector('svg');
             if (icon) {
                 icon.style.transform = isExpanded ? 'rotate(180deg)' : '';
+            }
+            
+            // 접힌 상태에서 내용 스크롤 방지
+            if (!isExpanded) {
+                optionsPanel.scrollTop = 0;
             }
         }
     }
