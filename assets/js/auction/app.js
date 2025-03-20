@@ -114,18 +114,19 @@ const App = (() => {
             let result;
             
             // 자동완성 검색 처리
-            if (selectedItem && selectedItem.name && selectedItem.subCategory) {
+            if (selectedItem && selectedItem.subCategory) {
                 result = await ApiClient.searchByCategory(
                     selectedItem.mainCategory, 
                     selectedItem.subCategory, 
                     selectedItem.name
                 );
             }
-            // 카테고리 검색 처리
+            // 카테고리가 검색 처리
             else if (subCategory) {
+                // 카테고리 검색
                 result = await ApiClient.searchByCategory(mainCategory, subCategory);
                 
-                // 검색어 존재시 클라이언트 측 필터링
+                // 검색어가 있으면 클라이언트 측 필터링
                 if (searchTerm && result.items && result.items.length > 0) {
                     const filteredItems = filterItemsBySearchTerm(result.items, searchTerm);
                     result.items = filteredItems;
