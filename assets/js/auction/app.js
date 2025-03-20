@@ -125,7 +125,7 @@ const App = (() => {
             else if (subCategory) {
                 result = await ApiClient.searchByCategory(mainCategory, subCategory);
                 
-                // 검색어가 있다면 클라이언트 측 필터링
+                // 검색어 존재시 클라이언트 측 필터링
                 if (searchTerm && result.items && result.items.length > 0) {
                     const filteredItems = filterItemsBySearchTerm(result.items, searchTerm);
                     result.items = filteredItems;
