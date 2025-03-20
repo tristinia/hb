@@ -193,7 +193,11 @@ const FilterManager = (() => {
         
         // 필터 유형에 따른 입력 요소 생성
         if (filterInfo.type === 'range') {
-            // 범위 입력 (최소, 최대)
+            // 범위 입력 컨테이너
+            const inputRow = document.createElement('div');
+            inputRow.className = 'filter-input-row';
+            
+            // 최소값 입력
             const minInput = document.createElement('input');
             minInput.type = 'number';
             minInput.className = 'filter-input min-value';
@@ -216,9 +220,10 @@ const FilterManager = (() => {
             minInput.addEventListener('change', () => autoApplyFilter(filterItem, filterInfo));
             maxInput.addEventListener('change', () => autoApplyFilter(filterItem, filterInfo));
             
-            filterContent.appendChild(minInput);
-            filterContent.appendChild(separator);
-            filterContent.appendChild(maxInput);
+            inputRow.appendChild(minInput);
+            inputRow.appendChild(separator);
+            inputRow.appendChild(maxInput);
+            filterContent.appendChild(inputRow);
         } else if (filterInfo.type === 'select' && filterInfo.options && filterInfo.options.length > 0) {
             // 선택형 입력 (드롭다운)
             const select = document.createElement('select');
