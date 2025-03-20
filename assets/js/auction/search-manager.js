@@ -834,8 +834,11 @@ async function loadItemListFromFile(category) {
                 state.searchTerm = elements.searchInput.value.trim();
             }
             
-            // 이전에 선택한 아이템 초기화
-            state.selectedItem = null;
+            // 이전 자동완성 선택된 아이템 확인
+            // 검색어와 선택된 아이템 이름이 다른 경우에만 초기화
+            if (state.selectedItem && state.selectedItem.name !== state.searchTerm) {
+                state.selectedItem = null;
+            }
             
             // 카테고리 정보 가져오기
             const { mainCategory, subCategory } = CategoryManager.getSelectedCategories();
@@ -861,7 +864,7 @@ async function loadItemListFromFile(category) {
             clearSuggestions();
         } catch (error) {
             console.error('검색 처리 중 오류:', error);
-            alert('검색을 처리할 수 없습니다. 페이지를 새로고침 해주세요.');
+            alert('검색을 처리할 수 없습니다.');
         }
     }
     
