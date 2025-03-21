@@ -181,6 +181,17 @@ class OptionFilterManager {
    * @param {Object} item 아이템 데이터
    */
   addDefaultValues(filters, item) {
+    // 부상률 기본값 (없으면 0)
+    const hasInjury = filters.some(f => f.name === '최대부상률');
+    if (!hasInjury) {
+      filters.push({
+        name: '최대부상률',
+        value: 0,
+        type: 'range',
+        isPercent: true
+      });
+    }
+    
     // 피어싱 레벨 기본값 (없으면 0)
     const hasPiercing = filters.some(f => f.name === '피어싱 레벨');
     if (!hasPiercing) {
