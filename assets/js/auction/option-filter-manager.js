@@ -185,7 +185,7 @@ class OptionFilterManager {
     const hasInjury = filters.some(f => f.name === '최대부상률');
     if (!hasInjury) {
       filters.push({
-        name: '최대부상률',
+        name: '최대 부상률',
         value: 0,
         type: 'range',
         isPercent: true
