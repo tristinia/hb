@@ -577,7 +577,7 @@ const ItemDisplay = (() => {
         state.lastSearchResults = [];
         
         if (elements.resultsBody) {
-            elements.resultsBody.innerHTML = '<tr class="empty-result"><td colspan="3">검색어나 카테고리를 선택해 주세요.</td></tr>';
+            elements.resultsBody.innerHTML = '';
         }
         
         if (elements.resultStats) {
