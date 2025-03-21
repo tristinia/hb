@@ -769,6 +769,16 @@ body {
     color: var(--color-dark);
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
 .filter-input:focus {
     border-color: var(--color-accent);
     box-shadow: 0 0 0 2px var(--color-accent-20);
