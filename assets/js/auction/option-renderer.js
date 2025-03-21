@@ -84,30 +84,39 @@ class OptionRenderer {
     
     switch(option.option_type) {
       case '공격':
-        result = {
-          text: `공격 ${option.option_value}~${option.option_value2}`,
-          filter: {
-            name: '최대 공격력',
-            value: option.option_value2,
-            type: 'range'
-          }
-        };
-        break;
+      result = {
+        text: `공격 ${option.option_value}~${option.option_value2}`,
+        filter: {
+          name: '최대 공격력',
+          value: parseInt(option.option_value2),
+          type: 'range'
+        }
+      };
+      break;
         
       case '부상률':
-        // % 기호 제거 후 표시, 마지막에 한 번만 % 추가
         const minInjury = option.option_value.toString().replace('%', '');
         const maxInjury = option.option_value2.toString().replace('%', '');
         result = {
-            text: `부상률 ${minInjury}~${maxInjury}%`,
-            filter: false
+          text: `부상률 ${minInjury}~${maxInjury}%`,
+          filter: {
+            name: '최대부상률',
+            value: parseInt(maxInjury),
+            type: 'range',
+            isPercent: true
+          }
         };
         break;
         
       case '크리티컬':
         result = {
           text: `크리티컬 ${option.option_value}`,
-          filter: false
+          filter: {
+            name: '크리티컬',
+            value: parseInt(option.option_value.replace('%', '')),
+            type: 'range',
+            isPercent: true
+          }
         };
         break;
         
@@ -116,8 +125,9 @@ class OptionRenderer {
           text: `밸런스 ${option.option_value}`,
           filter: {
             name: '밸런스',
-            value: option.option_value,
-            type: 'range'
+            value: parseInt(option.option_value.replace('%', '')),
+            type: 'range',
+            isPercent: true
           }
         };
         break;
