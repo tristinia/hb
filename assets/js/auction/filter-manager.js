@@ -28,14 +28,6 @@ const FilterManager = (() => {
         elements.activeFilters = document.getElementById('active-filters');
         elements.selectedFilters = document.getElementById('selected-filters');
         
-        // 초기화 시 기본 필터 로드
-        loadFiltersForCategory(null).then(filters => {
-            state.availableFilters = filters;
-            updateFilterDropdown();
-        }).catch(error => {
-            // 오류 처리 (로그 제거)
-        });
-        
         // 카테고리 변경 이벤트 리스너
         document.addEventListener('categoryChanged', (e) => {
             const { subCategory } = e.detail;
@@ -144,16 +136,9 @@ const FilterManager = (() => {
      */
     async function loadFiltersForCategory(category) {
         try {
-            // 카테고리 없는 경우 기본 옵션 로드
+            // 카테고리 없는 경우 빈 배열 반환
             if (!category) {
-                const commonResponse = await fetch(`../../data/option_structure/common.json`);
-                
-                if (!commonResponse.ok) {
-                    return [];
-                }
-                
-                const commonData = await commonResponse.json();
-                return processOptionTypes(commonData);
+                return [];
             }
             
             // 카테고리명 안전하게 변환 (/ -> _)
@@ -162,20 +147,22 @@ const FilterManager = (() => {
             // 카테고리별 옵션 로드
             const response = await fetch(`../../data/option_structure/${encodeURIComponent(safeCategory)}.json`);
             
-            if (!response.ok) {
-                // 카테고리별 파일이 없으면 기본 옵션 파일 로드 시도
-                const commonResponse = await fetch(`../../data/option_structure/common.json`);
-                
-                if (!commonResponse.ok) {
-                    throw new Error(`옵션 구조 로드 실패: ${response.status}`);
-                }
-                
-                const commonData = await commonResponse.json();
-                return processOptionTypes(commonData);
+            // 카테고리별 파일이 없는 경우 빈 배열 반환
+            if (!response.ok) {  
+                return [];
             }
             
             const data = await response.json();
-            return processOptionTypes(data);
+            
+           // 옵션 타입을 필터 옵션 형식으로 변환
+            return data.option_types.map(optionType => {
+                // 기본 구조: 범위 타입 필터
+                return {
+                    name: optionType,
+                    type: 'range',
+                    visible: true
+                };
+            })
             
         } catch (error) {
             throw error; // 오류 전파
