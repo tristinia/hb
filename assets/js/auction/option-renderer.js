@@ -100,7 +100,7 @@ class OptionRenderer {
         result = {
           text: `부상률 ${minInjury}~${maxInjury}%`,
           filter: {
-            name: '최대부상률',
+            name: '최대 부상률',
             value: parseInt(maxInjury),
             type: 'range',
             isPercent: true
