@@ -28,10 +28,19 @@ const FilterManager = (() => {
         elements.activeFilters = document.getElementById('active-filters');
         elements.selectedFilters = document.getElementById('selected-filters');
         
+        // 초기화 시 기본 필터 로드
+        loadFiltersForCategory(null).then(filters => {
+            state.availableFilters = filters;
+            updateFilterDropdown();
+        }).catch(error => {
+            // 오류 처리 (로그 제거)
+        });
+        
         // 카테고리 변경 이벤트 리스너
         document.addEventListener('categoryChanged', (e) => {
             const { subCategory } = e.detail;
-            if (subCategory && subCategory !== state.currentCategory) {
+            if (subCategory !== state.currentCategory) {
+                state.currentCategory = subCategory;
                 updateFiltersForCategory(subCategory);
             }
         });
@@ -47,8 +56,27 @@ const FilterManager = (() => {
             });
         }
         
-        console.log('FilterManager 초기화 완료');
         state.isInitialized = true;
+    }
+    
+    /**
+     * 필터 드롭다운 업데이트
+     */
+    function updateFilterDropdown() {
+        if (!elements.filterSelector) return;
+        
+        // 필터 드롭다운 초기화
+        elements.filterSelector.innerHTML = '<option value="">옵션 선택...</option>';
+        
+        // 필터 옵션 추가
+        state.availableFilters.forEach(filter => {
+            if (filter.visible !== false) {
+                const option = document.createElement('option');
+                option.value = filter.name;
+                option.textContent = filter.name;
+                elements.filterSelector.appendChild(option);
+            }
+        });
     }
 
     /**
@@ -116,30 +144,40 @@ const FilterManager = (() => {
      */
     async function loadFiltersForCategory(category) {
         try {
-            // 카테고리명 안전하게 변환
-            const safeCategory = encodeURIComponent(category);
+            // 카테고리 없는 경우 기본 옵션 로드
+            if (!category) {
+                const commonResponse = await fetch(`../../data/option_structure/common.json`);
+                
+                if (!commonResponse.ok) {
+                    return [];
+                }
+                
+                const commonData = await commonResponse.json();
+                return processOptionTypes(commonData);
+            }
             
-            // 실제 경로 시도
-            const response = await fetch(`../../data/option_structure/${safeCategory}.json`);
+            // 카테고리명 안전하게 변환 (/ -> _)
+            const safeCategory = category.replace(/\//g, '_');
+            
+            // 카테고리별 옵션 로드
+            const response = await fetch(`../../data/option_structure/${encodeURIComponent(safeCategory)}.json`);
             
             if (!response.ok) {
-                throw new Error(`필터 구조 로드 실패: ${response.status}`);
+                // 카테고리별 파일이 없으면 기본 옵션 파일 로드 시도
+                const commonResponse = await fetch(`../../data/option_structure/common.json`);
+                
+                if (!commonResponse.ok) {
+                    throw new Error(`옵션 구조 로드 실패: ${response.status}`);
+                }
+                
+                const commonData = await commonResponse.json();
+                return processOptionTypes(commonData);
             }
             
             const data = await response.json();
+            return processOptionTypes(data);
             
-            if (!data.option_types || !Array.isArray(data.option_types)) {
-                throw new Error('필터 구조 형식이 올바르지 않습니다');
-            }
-            
-            // 옵션 타입을 필터 구조로 변환
-            return data.option_types.map(optionType => ({
-                name: optionType,
-                type: 'range',
-                field: 'option_value'
-            }));
         } catch (error) {
-            console.error(`${category} 필터 로드 오류:`, error);
             throw error; // 오류 전파
         }
     }
