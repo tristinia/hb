@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-21T09:28:38.355Z",
+  "updated": "2025-03-22T09:26:48.781Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -4963,6 +4963,36 @@
         }
       ]
     },
+    "선인장 (랭크 A)": {
+      "name": "선인장 (랭크 A)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "수리비 {value}% 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "보호 {value} 감소",
+          "min": 4,
+          "max": 4,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 6,
+          "max": 6,
+          "variable": false
+        },
+        {
+          "template": "최소대미지 {value} 증가",
+          "min": 4,
+          "max": 4,
+          "variable": false
+        }
+      ]
+    },
     "설원의": {
       "name": "설원의",
       "rank": 7,
@@ -5294,7 +5324,7 @@
         {
           "template": "최대대미지 {value} 증가",
           "min": 21,
-          "max": 38,
+          "max": 39,
           "variable": true
         },
         {
@@ -6145,7 +6175,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 6,
+          "min": 5,
           "max": 15,
           "variable": true
         }
@@ -7141,7 +7171,7 @@
       "effects": [
         {
           "template": "지력 {value} 증가",
-          "min": 48,
+          "min": 47,
           "max": 59,
           "variable": true
         },
@@ -7341,6 +7371,30 @@
           "template": "방어 {value} 증가",
           "min": 2,
           "max": 2,
+          "variable": false
+        }
+      ]
+    },
+    "자극적인 (랭크 A)": {
+      "name": "자극적인 (랭크 A)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "최대마나 {value} 감소",
+          "min": 15,
+          "max": 15,
+          "variable": false
+        },
+        {
+          "template": "최대스태미나 {value} 증가",
+          "min": 18,
+          "max": 18,
+          "variable": false
+        },
+        {
+          "template": "최대생명력 {value} 증가",
+          "min": 10,
+          "max": 10,
           "variable": false
         }
       ]
@@ -8527,6 +8581,30 @@
         }
       ]
     },
+    "침착한": {
+      "name": "침착한",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "최소대미지 {value} 감소",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "방어 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "최대부상률 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        }
+      ]
+    },
     "카덴차": {
       "name": "카덴차",
       "rank": 8,
@@ -8906,8 +8984,8 @@
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
           "min": 11,
-          "max": 11,
-          "variable": false
+          "max": 14,
+          "variable": true
         },
         {
           "template": "체력 {value} 증가",
@@ -9109,7 +9187,7 @@
         },
         {
           "template": "최대마나 {value} 증가",
-          "min": 24,
+          "min": 22,
           "max": 46,
           "variable": true
         },
@@ -9794,8 +9872,32 @@
         {
           "template": "최대스태미나 {value} 감소",
           "min": 10,
-          "max": 14,
+          "max": 15,
           "variable": true
+        }
+      ]
+    },
+    "피에로": {
+      "name": "피에로",
+      "rank": 6,
+      "effects": [
+        {
+          "template": "마리오네트 최대 생명력 {value} 감소",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 18,
+          "max": 18,
+          "variable": false
+        },
+        {
+          "template": "솜씨 {value} 증가",
+          "min": 20,
+          "max": 20,
+          "variable": false
         }
       ]
     },
