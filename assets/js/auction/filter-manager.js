@@ -189,6 +189,8 @@ const FilterManager = (() => {
         const filterItem = document.createElement('div');
         filterItem.className = 'filter-item';
         filterItem.setAttribute('data-filter', filterName);
+        // 실제 필터 이름도 저장 (필터링에 사용될 이름)
+        filterItem.setAttribute('data-filter-name', filterInfo.name);
         
         // 필터 헤더 (이름 + 삭제 버튼)
         const filterHeader = document.createElement('div');
