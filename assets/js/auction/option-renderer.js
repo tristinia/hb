@@ -40,8 +40,7 @@ class OptionRenderer {
         filter: {
           displayName: '최대 공격력',
           field: 'option_value2',
-          type: 'range',
-          description: '아이템의 최대 공격력으로 필터링합니다.'
+          type: 'range'
         }
       },
       '부상률': {
@@ -54,8 +53,7 @@ class OptionRenderer {
           displayName: '최대 부상률',
           field: 'option_value2',
           type: 'range',
-          isPercent: true,
-          description: '아이템의 최대 부상률로 필터링합니다.'
+          isPercent: true
         }
       },
       '크리티컬': {
@@ -64,8 +62,7 @@ class OptionRenderer {
           displayName: '크리티컬',
           field: 'option_value',
           type: 'range',
-          isPercent: true,
-          description: '아이템의 크리티컬 확률로 필터링합니다.'
+          isPercent: true
         }
       },
       '밸런스': {
@@ -74,8 +71,7 @@ class OptionRenderer {
           displayName: '밸런스',
           field: 'option_value',
           type: 'range',
-          isPercent: true,
-          description: '아이템의 밸런스로 필터링합니다.'
+          isPercent: true
         }
       },
       '방어력': {
@@ -83,8 +79,7 @@ class OptionRenderer {
         filter: {
           displayName: '방어력',
           field: 'option_value',
-          type: 'range',
-          description: '아이템의 방어력으로 필터링합니다.'
+          type: 'range'
         }
       },
       '보호': {
@@ -92,8 +87,7 @@ class OptionRenderer {
         filter: {
           displayName: '보호',
           field: 'option_value',
-          type: 'range',
-          description: '아이템의 보호 수치로 필터링합니다.'
+          type: 'range'
         }
       },
       '마법 방어력': {
@@ -101,8 +95,7 @@ class OptionRenderer {
         filter: {
           displayName: '마법 방어력',
           field: 'option_value',
-          type: 'range',
-          description: '아이템의 마법 방어력으로 필터링합니다.'
+          type: 'range'
         }
       },
       '마법 보호': {
@@ -110,8 +103,7 @@ class OptionRenderer {
         filter: {
           displayName: '마법 보호',
           field: 'option_value',
-          type: 'range',
-          description: '아이템의 마법 보호 수치로 필터링합니다.'
+          type: 'range'
         }
       },
       '내구력': {
@@ -120,8 +112,7 @@ class OptionRenderer {
           displayName: '내구도',
           field: 'option_value2',
           type: 'range',
-          visible: false,
-          description: '아이템의 최대 내구도로 필터링합니다.'
+          visible: false
         }
       },
       '숙련': {
@@ -133,8 +124,7 @@ class OptionRenderer {
         filter: {
           displayName: '남은 전용 해제 가능 횟수',
           field: 'option_value',
-          type: 'range',
-          description: '남은 전용 해제 가능 횟수로 필터링합니다.'
+          type: 'range'
         }
       },
       '피어싱 레벨': {
@@ -146,8 +136,7 @@ class OptionRenderer {
         filter: {
           displayName: '피어싱 레벨',
           field: 'option_value',
-          type: 'range',
-          description: '아이템의 피어싱 레벨로 필터링합니다.'
+          type: 'range'
         },
         color: 'blue'
       },
@@ -171,8 +160,7 @@ class OptionRenderer {
         filter: {
           displayName: '특별개조 단계',
           field: 'option_value',
-          type: 'range',
-          description: '특별개조 단계로 필터링합니다.'
+          type: 'range'
         },
         color: 'red'
       },
@@ -181,8 +169,7 @@ class OptionRenderer {
         filter: {
           displayName: '에르그 레벨',
           field: 'option_value',
-          type: 'range',
-          description: '에르그 레벨로 필터링합니다.'
+          type: 'range'
         },
         color: 'red'
       },
@@ -192,8 +179,7 @@ class OptionRenderer {
           displayName: '세트 효과',
           field: 'option_value2',
           type: 'range',
-          category: '세트 효과',
-          description: '세트 효과 수치로 필터링합니다.'
+          category: '세트 효과'
         },
         color: 'blue'
       },
@@ -300,8 +286,7 @@ class OptionRenderer {
           type: filterConfig.type || 'range',
           isPercent: filterConfig.isPercent || false,
           category: filterConfig.category || undefined,
-          visible: filterConfig.visible !== undefined ? filterConfig.visible : true,
-          description: filterConfig.description || undefined
+          visible: filterConfig.visible !== undefined ? filterConfig.visible : true
         };
       }
     }
