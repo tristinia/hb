@@ -7,6 +7,7 @@ import Utils from './utils.js';
 import ApiClient from './api-client.js';
 import FilterManager from './filter-manager.js';
 import PaginationManager from './pagination.js';
+import OptionFilterManager from './option-filter-manager.js';
 
 const ItemDisplay = (() => {
     // 아이템 표시 상태
@@ -127,40 +128,38 @@ const ItemDisplay = (() => {
      * 로컬 필터링 적용
      */
     function applyLocalFiltering() {
-        // 마지막 검색 결과가 없으면 처리하지 않음
-        if (state.lastSearchResults.length === 0) {
-            return;
+      // 마지막 검색 결과가 없으면 처리하지 않음
+      if (state.lastSearchResults.length === 0) {
+        return;
+      }
+      
+      // 로딩 시작 (API 호출이 아니므로 별도 처리)
+      ApiClient.setLoading(true);
+      
+      // 필터링 지연 처리 (브라우저 렌더링 차단 방지)
+      setTimeout(() => {
+        try {
+          // 필터링 로직 적용
+          state.filteredResults = state.lastSearchResults.filter(item => 
+            FilterManager.itemPassesFilters(item) && 
+            OptionFilterManager.itemPassesFilters(item, OptionFilterManager.extractFilters(item))
+          );
+          
+          // 결과 테이블 업데이트
+          renderItemsTable();
+          
+          // 페이지네이션 업데이트
+          if (typeof PaginationManager !== 'undefined') {
+            PaginationManager.resetPagination(state.filteredResults.length);
+          }
+        } catch (error) {
+          console.error('필터링 중 오류 발생:', error);
+          showFilterError('필터링 중 오류가 발생했습니다');
+        } finally {
+          // 로딩 종료
+          ApiClient.setLoading(false);
         }
-        
-        // 로딩 시작 (API 호출이 아니므로 별도 처리)
-        ApiClient.setLoading(true);
-        
-        // 필터링 지연 처리 (브라우저 렌더링 차단 방지)
-        setTimeout(() => {
-            try {
-                // 필터링 로직 적용
-                state.filteredResults = state.lastSearchResults.filter(item => 
-                    FilterManager.itemPassesFilters(item) && 
-                    (typeof OptionFilterManager !== 'undefined' ? 
-                        OptionFilterManager.itemPassesFilters(item) : 
-                        true)
-                );
-                
-                // 결과 테이블 업데이트
-                renderItemsTable();
-                
-                // 페이지네이션 업데이트 (모듈 의존성 해결 필요)
-                if (typeof PaginationManager !== 'undefined') {
-                    PaginationManager.resetPagination(state.filteredResults.length);
-                }
-            } catch (error) {
-                console.error('필터링 중 오류 발생:', error);
-                showFilterError('필터링 중 오류가 발생했습니다');
-            } finally {
-                // 로딩 종료
-                ApiClient.setLoading(false);
-            }
-        }, 10);
+      }, 10);
     }
     
     /**
