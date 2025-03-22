@@ -339,6 +339,7 @@ const FilterManager = (() => {
      */
     function addActiveFilter(filterItem, filterInfo) {
         const filterName = filterInfo.name;
+        console.log('필터 추가 시작:', filterName, filterInfo);
         
         // 값 수집
         let filterValues = {};
@@ -368,20 +369,25 @@ const FilterManager = (() => {
         
         // 유효한 값이 있는지 확인
         const hasValidValues = Object.keys(filterValues).length > 0;
-        if (!hasValidValues) return;
+        if (!hasValidValues) {
+            console.log('필터 값 없음, 추가 취소');
+            return;
+        }
         
         // 같은 이름의 기존 필터 제거
         state.activeFilters = state.activeFilters.filter(f => f.name !== filterName);
         
         // 새 필터 추가
-        state.activeFilters.push({
+        const newFilter = {
             name: filterName,
             type: filterInfo.type,
             field: filterInfo.field,
-            displayname: filterInfo.displayname,
-            isPercent: filterInfo.isPercent,
             ...filterValues
-        });
+        };
+        
+        state.activeFilters.push(newFilter);
+        console.log('필터 추가 완료:', newFilter);
+        console.log('현재 활성 필터:', state.activeFilters);
     }
     
     /**
@@ -451,29 +457,41 @@ const FilterManager = (() => {
      * @returns {boolean} 필터 통과 여부
      */
     function checkRangeFilter(options, filter) {
-        // 아이템 옵션 콘솔에 출력해서 확인
-        console.log('옵션:', options);
-        console.log('필터:', filter);
+        console.log('범위 필터 체크 시작:', filter);
         
         // 필터 필드 가져오기
         const field = filter.field || 'option_value';
+        console.log('사용할 필드:', field);
         
-        // 모든 옵션 순회하며 값 확인 (exact match 말고 좀 더 유연하게)
-        for (const opt of options) {
-            // 옵션 타입이 필터 이름과 일치하는지
-            if (opt.option_type === filter.name) {
-                // 값 확인
-                const value = parseFloat(opt[field]);
-                
-                // 범위 검사
-                if ((filter.min === undefined || value >= filter.min) && 
-                    (filter.max === undefined || value <= filter.max)) {
-                    return true;
-                }
-            }
+        // 옵션 찾기 (이름으로)
+        const option = options.find(opt => 
+            (opt.option_type === filter.name) || 
+            (opt.option_name === filter.name)
+        );
+        
+        console.log('찾은 옵션:', option);
+        
+        if (!option) {
+            console.log('일치하는 옵션 없음, 필터 실패');
+            return false;
         }
         
-        return false;
+        // 값 확인
+        const value = parseFloat(option[field]);
+        console.log('옵션 값:', value, '필드:', field, '원본 데이터:', option[field]);
+        
+        // 범위 검사
+        if (filter.min !== undefined && value < filter.min) {
+            console.log('최소값 조건 실패:', value, '<', filter.min);
+            return false;
+        }
+        if (filter.max !== undefined && value > filter.max) {
+            console.log('최대값 조건 실패:', value, '>', filter.max);
+            return false;
+        }
+        
+        console.log('필터 조건 만족');
+        return true;
     }
     
     /**
