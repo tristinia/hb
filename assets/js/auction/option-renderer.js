@@ -106,7 +106,7 @@ class OptionRenderer {
             displayname: '최대 부상률',
             value: parseInt(maxInjury),
             type: 'range',
-            field: 'option_value2'
+            field: 'option_value2',
             isPercent: true
           }
         };
