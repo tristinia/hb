@@ -140,18 +140,9 @@ const ItemDisplay = (() => {
         // 필터링 지연 처리 (브라우저 렌더링 차단 방지)
         setTimeout(() => {
             try {
-                console.log('로컬 필터링 시작');
-                console.log('활성 필터:', FilterManager.getFilters().activeFilters);
-                console.log('필터링 전 아이템 수:', state.lastSearchResults.length);
-                
                 // 필터링 로직 적용
                 state.filteredResults = state.lastSearchResults.filter(item => {
-                    console.log('\n아이템 체크:', item.item_name || item.item_display_name);
-                    console.log('아이템 옵션:', item.options || item.item_option || []);
-                    
                     const filterResult = FilterManager.itemPassesFilters(item);
-                    console.log('필터 통과 결과:', filterResult);
-                    
                     return filterResult && 
                         OptionFilterManager.itemPassesFilters(item, OptionFilterManager.extractFilters(item));
                 });
