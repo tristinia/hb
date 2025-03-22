@@ -84,6 +84,7 @@ class OptionRenderer {
     
     switch(option.option_type) {
       case '공격':
+      console.log('공격 옵션 처리:', option);
       result = {
         text: `공격 ${option.option_value}~${option.option_value2}`,
         filter: {
@@ -94,6 +95,7 @@ class OptionRenderer {
           type: 'range'
         }
       };
+      console.log('생성된 필터 정보:', result.filter);
       break;
         
       case '부상률':
