@@ -168,9 +168,6 @@ const FilterManager = (() => {
             
             // 옵션 타입을 필터 옵션 형식으로 변환
             const filters = data.option_types.map(optionType => {
-                // 옵션 렌더러에서 해당 타입에 대한 핸들러 가져오기
-                const handler = optionRenderer.optionHandlers[optionType];
-                
                 // 기본 필터 구조 생성
                 const filterBase = {
                     name: optionType,
@@ -179,13 +176,34 @@ const FilterManager = (() => {
                     visible: true
                 };
                 
-                // 핸들러가 있고 필터 정보가 있으면 결합
-                if (handler && handler.filter) {
-                    return {
-                        ...filterBase,
-                        ...handler.filter,
-                        name: optionType // 이름은 항상 원래 옵션 타입 유지
-                    };
+                try {
+                    // 안전하게 옵션 핸들러 접근
+                    if (optionRenderer.optionHandlers && 
+                        optionType in optionRenderer.optionHandlers) {
+                        
+                        const handler = optionRenderer.optionHandlers[optionType];
+                        
+                        // 핸들러가 있고 필터 정보가 있으면 결합
+                        if (handler && handler.filter) {
+                            // 필터가 객체인 경우 (대부분의 경우)
+                            if (typeof handler.filter === 'object') {
+                                return {
+                                    ...filterBase,
+                                    ...handler.filter,
+                                    name: optionType // 이름은 항상 원래 옵션 타입 유지
+                                };
+                            }
+                            // 필터가 false인 경우 (필터링 비활성화)
+                            else if (handler.filter === false) {
+                                return {
+                                    ...filterBase,
+                                    visible: false
+                                };
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.warn(`옵션 핸들러 로드 오류 (${optionType}):`, e);
                 }
                 
                 return filterBase;
