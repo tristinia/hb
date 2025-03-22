@@ -24,6 +24,71 @@ const ItemDisplay = (() => {
         resultsBody: null,
         tooltip: null
     };
+
+    /**
+     * 아이템 표시 이름 포맷팅 (색상 처리)
+     * @param {Object} item - 아이템 데이터
+     * @returns {string} HTML 포맷팅된 아이템 이름
+     */
+    function formatItemDisplayName(item) {
+        // 기본값 설정
+        const displayName = item.item_display_name || item.item_name || '이름 없음';
+        const baseName = item.item_name || '';
+        
+        // 기본 이름만 있는 경우
+        if (!item.item_display_name || item.item_display_name === baseName) {
+            return displayName;
+        }
+        
+        // 아이템 이름 분리 처리
+        let result = '';
+        let enchantPart = '';
+        let specialPrefix = '';
+        
+        // 접두사 확인
+        if (displayName.startsWith("신성한 ")) {
+            specialPrefix = "신성한 ";
+        } else if (displayName.startsWith("축복받은 ")) {
+            specialPrefix = "축복받은 ";
+        }
+        
+        // 기본 아이템 이름 부분 추출
+        const baseNameIndex = displayName.lastIndexOf(baseName);
+        
+        if (baseNameIndex > 0) {
+            // 접두사와 인챈트 부분 추출
+            const prefixPart = displayName.substring(0, baseNameIndex);
+            
+            // 접두사가 있는 경우 인챈트 부분 추출
+            if (specialPrefix) {
+                enchantPart = prefixPart.substring(specialPrefix.length);
+            } else {
+                enchantPart = prefixPart;
+            }
+            
+            // HTML 조합
+            if (specialPrefix) {
+                if (specialPrefix === "신성한 ") {
+                    // 신성한 = 노란색
+                    result += `<span class="item-special-prefix">${specialPrefix}</span>`;
+                } else {
+                    result += `<span class="item-normal">${specialPrefix}</span>`;
+                }
+            }
+            
+            if (enchantPart) {
+                // 인챈트 = 파란색
+                result += `<span class="item-enchant">${enchantPart}</span>`;
+            }
+            
+            result += `<span class="item-base-name">${baseName}</span>`;
+        } else {
+            // 분리 실패 시 원본 그대로 표시
+            result = displayName;
+        }
+        
+        return result;
+    }
     
     /**
      * 모듈 초기화
@@ -100,7 +165,7 @@ const ItemDisplay = (() => {
             const priceB = b.auction_price_per_unit || 0;
             return priceA - priceB;
         });
-
+    
         state.filteredResults = sortedItems;
         
         // 아이템 행 생성
@@ -113,7 +178,7 @@ const ItemDisplay = (() => {
             tr.innerHTML = `
                 <td>
                     <div class="item-cell">
-                        <div class="item-name">${item.item_name || item.item_display_name || '이름 없음'}</div>
+                        <div class="item-name">${formatItemDisplayName(item)}</div>
                     </div>
                 </td>
                 <td>${item.auction_count || 1}개</td>
@@ -273,7 +338,7 @@ const ItemDisplay = (() => {
         // 아이템 이름 헤더
         const header = document.createElement('div');
         header.className = 'tooltip-header';
-        header.innerHTML = `<h3>${item.item_name || item.item_display_name || '제목 없음'}</h3>`;
+        header.innerHTML = `<h3>${item.item_display_name || item.item_name || '이름 없음'}</h3>`;
         tooltipElement.appendChild(header);
         
         // 툴팁 내용 컨테이너
@@ -560,7 +625,7 @@ const ItemDisplay = (() => {
             tr.innerHTML = `
                 <td>
                     <div class="item-cell">
-                        <div class="item-name">${item.item_name || item.item_display_name || '이름 없음'}</div>
+                        <div class="item-name">${formatItemDisplayName(item)}</div>
                     </div>
                 </td>
                 <td>${item.auction_count || 1}개</td>
