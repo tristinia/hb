@@ -550,6 +550,27 @@ body {
     gap: 8px;
 }
 
+/* 아이템 이름 색상 스타일 */
+.item-special-prefix {
+    color: #FFD700; /* 노란색: 신성한 접두사 */
+    font-weight: 500;
+}
+
+.item-normal {
+    color: var(--color-dark); /* 기본색: 축복받은 등 일반 접두사 */
+    font-weight: 500;
+}
+
+.item-enchant {
+    color: #3498db; /* 파란색: 인챈트(접두/접미어) */
+    font-weight: 500;
+}
+
+.item-base-name {
+    color: var(--color-dark); /* 기본 색상: 아이템 기본 이름 */
+    font-weight: 500;
+}
+
 /* 페이지네이션 */
 .pagination {
     display: flex;
