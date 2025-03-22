@@ -1,6 +1,6 @@
 /**
  * option-renderer.js
- * 아이템 옵션 렌더링 관련 기능
+ * 아이템 옵션 렌더링 및 필터링을 위한 통합 처리 시스템
  */
 
 class OptionRenderer {
@@ -11,6 +11,197 @@ class OptionRenderer {
       yellow: 'color-yellow',
       white: 'color-white',
       default: 'color-default'
+    };
+    
+    // 디버그 모드 설정 (true로 설정하면 상세 로그 출력)
+    this.debug = false;
+  }
+
+  /**
+   * 디버그 로그 출력
+   * @param {...any} args 로그 인자들
+   */
+  logDebug(...args) {
+    if (this.debug) {
+      console.log(...args);
+    }
+  }
+  
+  /**
+   * 옵션 타입별 처리 핸들러 정의
+   * 각 옵션 타입마다:
+   * - display: 표시할 텍스트 생성 함수
+   * - filter: 필터링에 사용할 설정 (displayName, field, type 등)
+   */
+  get optionHandlers() {
+    return {
+      '공격': {
+        display: (option) => `공격 ${option.option_value}~${option.option_value2}`,
+        filter: {
+          displayName: '최대 공격력',
+          field: 'option_value2',
+          type: 'range',
+          description: '아이템의 최대 공격력으로 필터링합니다.'
+        }
+      },
+      '부상률': {
+        display: (option) => {
+          const minValue = option.option_value.toString().replace('%', '');
+          const maxValue = option.option_value2.toString().replace('%', '');
+          return `부상률 ${minValue}~${maxValue}%`;
+        },
+        filter: {
+          displayName: '최대 부상률',
+          field: 'option_value2',
+          type: 'range',
+          isPercent: true,
+          description: '아이템의 최대 부상률로 필터링합니다.'
+        }
+      },
+      '크리티컬': {
+        display: (option) => `크리티컬 ${option.option_value}`,
+        filter: {
+          displayName: '크리티컬',
+          field: 'option_value',
+          type: 'range',
+          isPercent: true,
+          description: '아이템의 크리티컬 확률로 필터링합니다.'
+        }
+      },
+      '밸런스': {
+        display: (option) => `밸런스 ${option.option_value}`,
+        filter: {
+          displayName: '밸런스',
+          field: 'option_value',
+          type: 'range',
+          isPercent: true,
+          description: '아이템의 밸런스로 필터링합니다.'
+        }
+      },
+      '방어력': {
+        display: (option) => `방어력 ${option.option_value}`,
+        filter: {
+          displayName: '방어력',
+          field: 'option_value',
+          type: 'range',
+          description: '아이템의 방어력으로 필터링합니다.'
+        }
+      },
+      '보호': {
+        display: (option) => `보호 ${option.option_value}`,
+        filter: {
+          displayName: '보호',
+          field: 'option_value',
+          type: 'range',
+          description: '아이템의 보호 수치로 필터링합니다.'
+        }
+      },
+      '마법 방어력': {
+        display: (option) => `마법 방어력 ${option.option_value}`,
+        filter: {
+          displayName: '마법 방어력',
+          field: 'option_value',
+          type: 'range',
+          description: '아이템의 마법 방어력으로 필터링합니다.'
+        }
+      },
+      '마법 보호': {
+        display: (option) => `마법 보호 ${option.option_value}`,
+        filter: {
+          displayName: '마법 보호',
+          field: 'option_value',
+          type: 'range',
+          description: '아이템의 마법 보호 수치로 필터링합니다.'
+        }
+      },
+      '내구력': {
+        display: (option) => `내구력 ${option.option_value}/${option.option_value2}`,
+        filter: {
+          displayName: '내구도',
+          field: 'option_value2',
+          type: 'range',
+          visible: false,
+          description: '아이템의 최대 내구도로 필터링합니다.'
+        }
+      },
+      '숙련': {
+        display: (option) => `숙련 ${option.option_value}`,
+        filter: false // 필터링 비활성화
+      },
+      '남은 전용 해제 가능 횟수': {
+        display: (option) => ` 전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수 : ${option.option_value}`,
+        filter: {
+          displayName: '남은 전용 해제 가능 횟수',
+          field: 'option_value',
+          type: 'range',
+          description: '남은 전용 해제 가능 횟수로 필터링합니다.'
+        }
+      },
+      '피어싱 레벨': {
+        display: (option) => {
+          const baseLevel = option.option_value || "0";
+          const bonusLevel = option.option_value2 ? option.option_value2 : "";
+          return `- 피어싱 레벨 ${baseLevel} ${bonusLevel}`;
+        },
+        filter: {
+          displayName: '피어싱 레벨',
+          field: 'option_value',
+          type: 'range',
+          description: '아이템의 피어싱 레벨로 필터링합니다.'
+        },
+        color: 'blue'
+      },
+      '인챈트 불가능': {
+        display: (option) => `#인챈트 부여 불가능`,
+        filter: false
+      },
+      '아이템 보호': {
+        display: (option) => {
+          if (option.option_value === '인챈트 실패') {
+            return `#인챈트 실패 시 아이템 보호`;
+          } else if (option.option_value === '수리 실패') {
+            return `#수리 실패 시 아이템 보호`;
+          }
+          return `#아이템 보호: ${option.option_value}`;
+        },
+        filter: false
+      },
+      '특별 개조': {
+        display: (option) => `특별개조 ${option.option_sub_type} (${option.option_value}단계)`,
+        filter: {
+          displayName: '특별개조 단계',
+          field: 'option_value',
+          type: 'range',
+          description: '특별개조 단계로 필터링합니다.'
+        },
+        color: 'red'
+      },
+      '에르그': {
+        display: (option) => `등급 ${option.option_sub_type} (${option.option_value}/${option.option_value2}레벨)`,
+        filter: {
+          displayName: '에르그 레벨',
+          field: 'option_value',
+          type: 'range',
+          description: '에르그 레벨로 필터링합니다.'
+        },
+        color: 'red'
+      },
+      '세트 효과': {
+        display: (option) => `- ${option.option_value} +${option.option_value2}`,
+        filter: {
+          displayName: `세트: ${option.option_value}`,
+          field: 'option_value2',
+          type: 'range',
+          category: '세트 효과',
+          description: '세트 효과 수치로 필터링합니다.'
+        },
+        color: 'blue'
+      },
+      '남은 거래 횟수': {
+        display: (option) => `남은 거래 가능 횟수 : ${option.option_value}`,
+        filter: false
+      }
+      // 추가 옵션 타입은 여기에 계속 추가...
     };
   }
 
@@ -80,167 +271,80 @@ class OptionRenderer {
    * @returns {Object|null} 처리된 옵션 정보
    */
   processOption(option) {
-    let result = null;
+    // 옵션 타입 핸들러 가져오기
+    const handler = this.optionHandlers[option.option_type];
     
-    switch(option.option_type) {
-      case '공격':
-      console.log('공격 옵션 처리:', option);
-      result = {
-        text: `공격 ${option.option_value}~${option.option_value2}`,
-        filter: {
-          name: option.option_type,
-          displayname: '최대 공격력',
-          value: parseInt(option.option_value2),
-          field: 'option_value2',
-          type: 'range'
-        }
-      };
-      console.log('생성된 필터 정보:', result.filter);
-      break;
-        
-      case '부상률':
-        const minInjury = option.option_value.toString().replace('%', '');
-        const maxInjury = option.option_value2.toString().replace('%', '');
-        result = {
-          text: `부상률 ${minInjury}~${maxInjury}%`,
-          filter: {
-            name: option.option_type,
-            displayname: '최대 부상률',
-            value: parseInt(maxInjury),
-            type: 'range',
-            field: 'option_value2',
-            isPercent: true
-          }
-        };
-        break;
-        
-      case '크리티컬':
-        result = {
-          text: `크리티컬 ${option.option_value}`,
-          filter: false
-        };
-        break;
-        
-      case '밸런스':
-        result = {
-          text: `밸런스 ${option.option_value}`,
-          filter: {
-            name: option.option_type,
-            value: parseInt(option.option_value.replace('%', '')),
-            type: 'range',
-            isPercent: true
-          }
-        };
-        break;
-        
-      case '방어력':
-        result = {
-          text: `방어력 ${option.option_value}`,
-          filter: false
-        };
-        break;
-        
-      case '보호':
-        result = {
-          text: `보호 ${option.option_value}`,
-          filter: {
-            name: option.option_type,
-            value: option.option_value,
-            type: 'range'
-          }
-        };
-        break;
-        
-      case '마법 방어력':
-        result = {
-          text: `마법 방어력 ${option.option_value}`,
-          filter: false
-        };
-        break;
-        
-      case '마법 보호':
-        result = {
-          text: `마법 보호 ${option.option_value}`,
-          filter: {
-            name: option.option_type,
-            value: option.option_value,
-            type: 'range'
-          }
-        };
-        break;
-        
-      case '내구력':
-        result = {
-          text: `내구력 ${option.option_value}/${option.option_value2}`,
-          filter: {
-            name: option.option_type,
-            value: option.option_value2,
-            type: 'range',
-            visible: false
-          }
-        };
-        break;
-        
-      case '숙련':
-        result = {
-          text: `숙련 ${option.option_value}`,
-          filter: false
-        };
-        break;
-        
-      case '남은 전용 해제 가능 횟수':
-        result = {
-            text: ` 전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수 : ${option.option_value}`,
-            filter: {
-            name: option.option_type,
-            value: option.option_value,
-            type: 'range'
-            }
-        };
-        break;
-        
-      case '피어싱 레벨':
-        result = {
-          text: `- 피어싱 레벨 ${option.option_value} ${option.option_value2 || ''}`,
-          color: 'blue',
-          filter: {
-            name: option.option_type,
-            value: parseInt(option.option_value) + (option.option_value2 ? parseInt(option.option_value2.replace('+', '')) : 0),
-            type: 'range'
-          }
-        };
-        break;
-        
-      case '인챈트 불가능':
-        result = {
-          text: `#인챈트 부여 불가능`,
-          filter: false
-        };
-        break;
-        
-      case '아이템 보호':
-        if (option.option_value === '인챈트 실패') {
-          result = {
-            text: `#인챈트 실패 시 아이템 보호`,
-            filter: false
-          };
-        } else if (option.option_value === '수리 실패') {
-          result = {
-            text: `#수리 실패 시 아이템 보호`,
-            filter: false
-          };
-        }
-        break;
-        
-      case '남은 거래 횟수':
-        result = {
-          text: `남은 거래 가능 횟수 : ${option.option_value}`,
-          filter: false
-        };
-        break;
+    // 핸들러가 없으면 null 반환
+    if (!handler) {
+      return null;
     }
     
-    return result;
+    // 표시 텍스트 생성
+    const text = handler.display(option);
+    
+    // 필터 정보 생성
+    let filter = false;
+    if (handler.filter) {
+      // handler.filter가 함수인 경우 호출
+      const filterConfig = typeof handler.filter === 'function' 
+        ? handler.filter(option) 
+        : handler.filter;
+      
+      // 필터 설정이 있는 경우 필터 객체 생성
+      if (filterConfig) {
+        filter = {
+          name: option.option_type,
+          displayName: filterConfig.displayName || option.option_type,
+          value: this.extractValue(option, filterConfig.field || 'option_value'),
+          field: filterConfig.field || 'option_value',
+          type: filterConfig.type || 'range',
+          isPercent: filterConfig.isPercent || false,
+          category: filterConfig.category || undefined,
+          visible: filterConfig.visible !== undefined ? filterConfig.visible : true,
+          description: filterConfig.description || undefined
+        };
+      }
+    }
+    
+    // 색상 처리
+    const color = handler.color || undefined;
+    
+    // 결과 반환
+    return {
+      text,
+      filter,
+      color
+    };
+  }
+  
+  /**
+   * 옵션에서 값 추출 및 파싱
+   * @param {Object} option 옵션 객체
+   * @param {string} field 필드명
+   * @returns {number|string} 추출된 값
+   */
+  extractValue(option, field) {
+    const rawValue = option[field];
+    
+    // 값이 없으면 0 반환
+    if (rawValue === undefined || rawValue === null) {
+      return 0;
+    }
+    
+    // 문자열이면 숫자 변환 시도
+    if (typeof rawValue === 'string') {
+      // % 기호 제거
+      const cleanValue = rawValue.replace('%', '');
+      
+      // 숫자로 변환 시도
+      const numValue = parseFloat(cleanValue);
+      
+      // 변환 결과가 유효하면 숫자 반환, 아니면 원래 문자열 반환
+      return isNaN(numValue) ? rawValue : numValue;
+    }
+    
+    // 이미 숫자면 그대로 반환
+    return rawValue;
   }
   
   /**
@@ -255,17 +359,10 @@ class OptionRenderer {
     // 일반 개조 및 장인 개조 처리
     this.processModifications(item, block);
     
-    // 특별 개조 처리
-    this.processSpecialMods(item, block);
-    
     // 세공 처리
     this.processReforges(item, block);
     
-    // 에르그 처리
-    this.processErg(item, block);
-    
-    // 세트 효과 처리
-    this.processSetEffects(item, block);
+    // 특별 개조와 에르그는 이미 processOption에서 처리됨
   }
   
   /**
@@ -324,36 +421,6 @@ class OptionRenderer {
   }
   
   /**
-   * 특별 개조 처리
-   * @param {Object} item 아이템 데이터
-   * @param {Object} block 블록 데이터
-   */
-  processSpecialMods(item, block) {
-    const options = item.options || item.item_option || [];
-    const specialModOption = options.find(opt => 
-      opt.option_type === '특별개조'
-    );
-    
-    if (specialModOption) {
-      const type = specialModOption.option_sub_type; // "R" 또는 "S"
-      const level = specialModOption.option_value;   // 숫자 값
-      
-      block.content.push({
-        text: `특별개조 ${type} (${level}단계)`,
-        color: 'red',
-        filter: {
-          name: '특별개조 타입',
-          value: type,
-          type: 'selection',
-          options: ['R', 'S']
-        }
-      });
-      
-      // 추가 필터 정보는 option-filter-manager.js에서 처리
-    }
-  }
-  
-  /**
    * 세공 처리
    * @param {Object} item 아이템 데이터
    * @param {Object} block 블록 데이터
@@ -403,61 +470,6 @@ class OptionRenderer {
         detail: 'white'       // 상세 정보는 흰색
       },
       filter: false
-    });
-    
-    // 필터 정보는 option-filter-manager.js에서 처리
-  }
-  
-  /**
-   * 에르그 처리
-   * @param {Object} item 아이템 데이터
-   * @param {Object} block 블록 데이터
-   */
-  processErg(item, block) {
-    const options = item.options || item.item_option || [];
-    const ergOption = options.find(opt => 
-      opt.option_type === '에르그'
-    );
-    
-    if (!ergOption) return;
-    
-    block.content.push({
-      text: `등급 ${ergOption.option_sub_type} (${ergOption.option_value}/${ergOption.option_value2}레벨)`,
-      color: 'red',
-      filter: {
-        name: '에르그 등급',
-        value: ergOption.option_sub_type,
-        type: 'selection',
-        options: ['B', 'A', 'S']
-      }
-    });
-    
-    // 추가 필터 정보는 option-filter-manager.js에서 처리
-  }
-  
-  /**
-   * 세트 효과 처리
-   * @param {Object} item 아이템 데이터
-   * @param {Object} block 블록 데이터
-   */
-  processSetEffects(item, block) {
-    const options = item.options || item.item_option || [];
-    const setEffects = options.filter(opt => 
-      opt.option_type === '세트 효과'
-    ).sort((a, b) => 
-      parseInt(a.option_sub_type || '0') - parseInt(b.option_sub_type || '0')
-    );
-    
-    if (setEffects.length === 0) return;
-    
-    setEffects.forEach(effect => {
-      block.content.push({
-        text: `- ${effect.option_value} +${effect.option_value2}`,
-        color: 'blue',
-        filter: false
-      });
-      
-      // 필터 정보는 option-filter-manager.js에서 처리
     });
   }
   
@@ -619,6 +631,30 @@ class OptionRenderer {
         }
       }
     }
+  }
+  
+  /**
+   * 아이템에서 옵션 필터 추출
+   * @param {Object} item 아이템 객체
+   * @returns {Array} 필터 객체 배열
+   */
+  extractFilters(item) {
+    const filters = [];
+    
+    // 옵션 필드 표준화
+    const options = item.options || item.item_option || [];
+    
+    // 각 옵션 처리
+    if (Array.isArray(options)) {
+      options.forEach(option => {
+        const processedOption = this.processOption(option);
+        if (processedOption && processedOption.filter && processedOption.filter !== false) {
+          filters.push(processedOption.filter);
+        }
+      });
+    }
+    
+    return filters;
   }
 }
 
