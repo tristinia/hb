@@ -128,38 +128,51 @@ const ItemDisplay = (() => {
      * 로컬 필터링 적용
      */
     function applyLocalFiltering() {
-      // 마지막 검색 결과가 없으면 처리하지 않음
-      if (state.lastSearchResults.length === 0) {
-        return;
-      }
-      
-      // 로딩 시작 (API 호출이 아니므로 별도 처리)
-      ApiClient.setLoading(true);
-      
-      // 필터링 지연 처리 (브라우저 렌더링 차단 방지)
-      setTimeout(() => {
-        try {
-          // 필터링 로직 적용
-          state.filteredResults = state.lastSearchResults.filter(item => 
-            FilterManager.itemPassesFilters(item) && 
-            OptionFilterManager.itemPassesFilters(item, OptionFilterManager.extractFilters(item))
-          );
-          
-          // 결과 테이블 업데이트
-          renderItemsTable();
-          
-          // 페이지네이션 업데이트
-          if (typeof PaginationManager !== 'undefined') {
-            PaginationManager.resetPagination(state.filteredResults.length);
-          }
-        } catch (error) {
-          console.error('필터링 중 오류 발생:', error);
-          showFilterError('필터링 중 오류가 발생했습니다');
-        } finally {
-          // 로딩 종료
-          ApiClient.setLoading(false);
+        // 마지막 검색 결과가 없으면 처리하지 않음
+        if (state.lastSearchResults.length === 0) {
+            console.log('필터링할 결과 없음');
+            return;
         }
-      }, 10);
+        
+        // 로딩 시작 (API 호출이 아니므로 별도 처리)
+        ApiClient.setLoading(true);
+        
+        // 필터링 지연 처리 (브라우저 렌더링 차단 방지)
+        setTimeout(() => {
+            try {
+                console.log('로컬 필터링 시작');
+                console.log('활성 필터:', FilterManager.getFilters().activeFilters);
+                console.log('필터링 전 아이템 수:', state.lastSearchResults.length);
+                
+                // 필터링 로직 적용
+                state.filteredResults = state.lastSearchResults.filter(item => {
+                    console.log('\n아이템 체크:', item.item_name || item.item_display_name);
+                    console.log('아이템 옵션:', item.options || item.item_option || []);
+                    
+                    const filterResult = FilterManager.itemPassesFilters(item);
+                    console.log('필터 통과 결과:', filterResult);
+                    
+                    return filterResult && 
+                        OptionFilterManager.itemPassesFilters(item, OptionFilterManager.extractFilters(item));
+                });
+                
+                console.log('필터링 후 아이템 수:', state.filteredResults.length);
+                
+                // 결과 테이블 업데이트
+                renderItemsTable();
+                
+                // 페이지네이션 업데이트
+                if (typeof PaginationManager !== 'undefined') {
+                    PaginationManager.resetPagination(state.filteredResults.length);
+                }
+            } catch (error) {
+                console.error('필터링 중 오류 발생:', error);
+                showFilterError('필터링 중 오류가 발생했습니다');
+            } finally {
+                // 로딩 종료
+                ApiClient.setLoading(false);
+            }
+        }, 10);
     }
     
     /**
