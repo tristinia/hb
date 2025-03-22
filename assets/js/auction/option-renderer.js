@@ -129,7 +129,7 @@ class OptionRenderer {
         filter: false // 필터링 비활성화
       },
       '남은 전용 해제 가능 횟수': {
-        display: (option) => ` 전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수 : ${option.option_value}`,
+        display: (option) => `전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수 : ${option.option_value}`,
         filter: {
           displayName: '남은 전용 해제 가능 횟수',
           field: 'option_value',
@@ -157,12 +157,12 @@ class OptionRenderer {
       },
       '아이템 보호': {
         display: (option) => {
-          if (option.option_value === '인챈트 실패') {
+          if (option && option.option_value === '인챈트 실패') {
             return `#인챈트 실패 시 아이템 보호`;
-          } else if (option.option_value === '수리 실패') {
+          } else if (option && option.option_value === '수리 실패') {
             return `#수리 실패 시 아이템 보호`;
           }
-          return `#아이템 보호: ${option.option_value}`;
+          return `#아이템 보호`;
         },
         filter: false
       },
@@ -189,7 +189,7 @@ class OptionRenderer {
       '세트 효과': {
         display: (option) => `- ${option.option_value} +${option.option_value2}`,
         filter: {
-          displayName: `세트: ${option.option_value}`,
+          displayName: '세트 효과',
           field: 'option_value2',
           type: 'range',
           category: '세트 효과',
