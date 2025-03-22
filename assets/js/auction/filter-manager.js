@@ -378,6 +378,8 @@ const FilterManager = (() => {
             name: filterName,
             type: filterInfo.type,
             field: filterInfo.field,
+            displayname: filterInfo.displayname,
+            isPercent: filterInfo.isPercent,
             ...filterValues
         });
     }
@@ -448,14 +450,18 @@ const FilterManager = (() => {
      * @param {Object} filter - 필터 객체
      * @returns {boolean} 필터 통과 여부
      */
-    function checkRangeFilter(options, filter) {
+        function checkRangeFilter(options, filter) {
         // 필터 필드 가져오기
         const field = filter.field || 'option_value';
         
-        // 옵션 찾기 (이름으로)
+        // 옵션 찾기
         const option = options.find(opt => 
             (opt.option_type === filter.name) || 
-            (opt.option_name === filter.name)
+            (opt.option_name === filter.name) ||
+            (filter.displayname && (
+                opt.option_type === filter.displayname || 
+                opt.option_name === filter.displayname
+            ))
         );
         
         if (!option) return false;
