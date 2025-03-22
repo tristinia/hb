@@ -87,7 +87,8 @@ class OptionRenderer {
       result = {
         text: `공격 ${option.option_value}~${option.option_value2}`,
         filter: {
-          name: '최대 공격력',
+          name: option.option_type,
+          displayname: '최대 공격력',
           value: parseInt(option.option_value2),
           field: 'option_value2',
           type: 'range'
@@ -101,7 +102,8 @@ class OptionRenderer {
         result = {
           text: `부상률 ${minInjury}~${maxInjury}%`,
           filter: {
-            name: '최대 부상률',
+            name: option.option_type,
+            displayname: '최대 부상률',
             value: parseInt(maxInjury),
             type: 'range',
             field: 'option_value2'
@@ -113,12 +115,7 @@ class OptionRenderer {
       case '크리티컬':
         result = {
           text: `크리티컬 ${option.option_value}`,
-          filter: {
-            name: '크리티컬',
-            value: parseInt(option.option_value.replace('%', '')),
-            type: 'range',
-            isPercent: true
-          }
+          filter: false
         };
         break;
         
@@ -126,7 +123,7 @@ class OptionRenderer {
         result = {
           text: `밸런스 ${option.option_value}`,
           filter: {
-            name: '밸런스',
+            name: option.option_type,
             value: parseInt(option.option_value.replace('%', '')),
             type: 'range',
             isPercent: true
@@ -145,7 +142,7 @@ class OptionRenderer {
         result = {
           text: `보호 ${option.option_value}`,
           filter: {
-            name: '보호',
+            name: option.option_type,
             value: option.option_value,
             type: 'range'
           }
@@ -163,7 +160,7 @@ class OptionRenderer {
         result = {
           text: `마법 보호 ${option.option_value}`,
           filter: {
-            name: '마법 보호',
+            name: option.option_type,
             value: option.option_value,
             type: 'range'
           }
@@ -174,7 +171,7 @@ class OptionRenderer {
         result = {
           text: `내구력 ${option.option_value}/${option.option_value2}`,
           filter: {
-            name: '내구력',
+            name: option.option_type,
             value: option.option_value2,
             type: 'range',
             visible: false
@@ -193,7 +190,7 @@ class OptionRenderer {
         result = {
             text: ` 전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수 : ${option.option_value}`,
             filter: {
-            name: '남은 전용 해제 가능 횟수',
+            name: option.option_type,
             value: option.option_value,
             type: 'range'
             }
@@ -205,7 +202,7 @@ class OptionRenderer {
           text: `- 피어싱 레벨 ${option.option_value} ${option.option_value2 || ''}`,
           color: 'blue',
           filter: {
-            name: '피어싱 레벨',
+            name: option.option_type,
             value: parseInt(option.option_value) + (option.option_value2 ? parseInt(option.option_value2.replace('+', '')) : 0),
             type: 'range'
           }
