@@ -81,11 +81,6 @@ const FilterManager = (() => {
                 option.value = filter.name;
                 option.textContent = filter.displayName || filter.name;
                 
-                // 설명이 있으면 title 속성에 추가
-                if (filter.description) {
-                    option.title = filter.description;
-                }
-                
                 elements.filterSelector.appendChild(option);
             }
         });
