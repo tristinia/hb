@@ -450,30 +450,30 @@ const FilterManager = (() => {
      * @param {Object} filter - 필터 객체
      * @returns {boolean} 필터 통과 여부
      */
-        function checkRangeFilter(options, filter) {
+    function checkRangeFilter(options, filter) {
+        // 아이템 옵션 콘솔에 출력해서 확인
+        console.log('옵션:', options);
+        console.log('필터:', filter);
+        
         // 필터 필드 가져오기
         const field = filter.field || 'option_value';
         
-        // 옵션 찾기
-        const option = options.find(opt => 
-            (opt.option_type === filter.name) || 
-            (opt.option_name === filter.name) ||
-            (filter.displayname && (
-                opt.option_type === filter.displayname || 
-                opt.option_name === filter.displayname
-            ))
-        );
+        // 모든 옵션 순회하며 값 확인 (exact match 말고 좀 더 유연하게)
+        for (const opt of options) {
+            // 옵션 타입이 필터 이름과 일치하는지
+            if (opt.option_type === filter.name) {
+                // 값 확인
+                const value = parseFloat(opt[field]);
+                
+                // 범위 검사
+                if ((filter.min === undefined || value >= filter.min) && 
+                    (filter.max === undefined || value <= filter.max)) {
+                    return true;
+                }
+            }
+        }
         
-        if (!option) return false;
-        
-        // 값 확인
-        const value = parseFloat(option[field]);
-        
-        // 범위 검사
-        if (filter.min !== undefined && value < filter.min) return false;
-        if (filter.max !== undefined && value > filter.max) return false;
-        
-        return true;
+        return false;
     }
     
     /**
