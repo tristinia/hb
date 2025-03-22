@@ -196,7 +196,7 @@ const FilterManager = (() => {
         
         const filterNameSpan = document.createElement('span');
         filterNameSpan.className = 'filter-name';
-        filterNameSpan.textContent = filterName;
+        filterNameSpan.textContent = filterInfo.displayName || filterName;
         
         const removeBtn = document.createElement('button');
         removeBtn.className = 'filter-remove';
