@@ -15,6 +15,13 @@ const FilterManager = (() => {
         debug: false // 디버그 모드 (true로 설정하면 상세 로그 출력)
     };
     
+    // 인챈트 메타데이터
+    const enchantData = {
+        prefix: null,
+        suffix: null,
+        isLoaded: false
+    };
+    
     // DOM 요소 참조
     let elements = {
         filterSelector: null,
@@ -61,8 +68,35 @@ const FilterManager = (() => {
             });
         }
         
+        // 인챈트 메타데이터 로드
+        loadEnchantMetadata();
+        
         state.isInitialized = true;
         logDebug('FilterManager 초기화 완료');
+    }
+    
+    /**
+     * 인챈트 메타데이터 로드
+     */
+    async function loadEnchantMetadata() {
+        try {
+            // 접두사 데이터 로드
+            const prefixResponse = await fetch('../../data/meta/enchants/prefix.json');
+            if (prefixResponse.ok) {
+                enchantData.prefix = await prefixResponse.json();
+            }
+            
+            // 접미사 데이터 로드
+            const suffixResponse = await fetch('../../data/meta/enchants/suffix.json');
+            if (suffixResponse.ok) {
+                enchantData.suffix = await suffixResponse.json();
+            }
+            
+            enchantData.isLoaded = true;
+            logDebug('인챈트 메타데이터 로드 완료');
+        } catch (error) {
+            console.error('인챈트 메타데이터 로드 실패:', error);
+        }
     }
     
     /**
@@ -228,7 +262,6 @@ const FilterManager = (() => {
         const filterItem = document.createElement('div');
         filterItem.className = 'filter-item';
         filterItem.setAttribute('data-filter', filterName);
-        // 실제 필터 이름도 저장 (필터링에 사용될 이름)
         filterItem.setAttribute('data-filter-name', filterInfo.name);
         
         // 필터 헤더 (이름 + 삭제 버튼)
@@ -258,7 +291,62 @@ const FilterManager = (() => {
         filterContent.className = 'filter-content';
         
         // 필터 유형에 따른 입력 요소 생성
-        if (filterInfo.type === 'range') {
+        if (filterInfo.type === 'enchant') {
+            // 인챈트 검색 UI (접두/접미 별도 필드)
+            const prefixContainer = document.createElement('div');
+            prefixContainer.className = 'enchant-search-container';
+            
+            const prefixLabel = document.createElement('label');
+            prefixLabel.className = 'enchant-label';
+            prefixLabel.textContent = '접두';
+            prefixLabel.setAttribute('for', `prefix-search-${Date.now()}`);
+            
+            const prefixInput = document.createElement('input');
+            prefixInput.id = `prefix-search-${Date.now()}`;
+            prefixInput.type = 'text';
+            prefixInput.className = 'filter-input enchant-input';
+            prefixInput.placeholder = '접두 인챈트...';
+            prefixInput.setAttribute('data-type', '접두');
+            
+            const prefixSuggestions = document.createElement('div');
+            prefixSuggestions.className = 'enchant-suggestions';
+            prefixSuggestions.style.display = 'none';
+            
+            prefixContainer.appendChild(prefixLabel);
+            prefixContainer.appendChild(prefixInput);
+            prefixContainer.appendChild(prefixSuggestions);
+            filterContent.appendChild(prefixContainer);
+            
+            // 접미사 입력 필드
+            const suffixContainer = document.createElement('div');
+            suffixContainer.className = 'enchant-search-container';
+            
+            const suffixLabel = document.createElement('label');
+            suffixLabel.className = 'enchant-label';
+            suffixLabel.textContent = '접미';
+            suffixLabel.setAttribute('for', `suffix-search-${Date.now()}`);
+            
+            const suffixInput = document.createElement('input');
+            suffixInput.id = `suffix-search-${Date.now()}`;
+            suffixInput.type = 'text';
+            suffixInput.className = 'filter-input enchant-input';
+            suffixInput.placeholder = '접미 인챈트...';
+            suffixInput.setAttribute('data-type', '접미');
+            
+            const suffixSuggestions = document.createElement('div');
+            suffixSuggestions.className = 'enchant-suggestions';
+            suffixSuggestions.style.display = 'none';
+            
+            suffixContainer.appendChild(suffixLabel);
+            suffixContainer.appendChild(suffixInput);
+            suffixContainer.appendChild(suffixSuggestions);
+            filterContent.appendChild(suffixContainer);
+            
+            // 자동완성 설정
+            setupEnchantAutocomplete(prefixInput, prefixSuggestions, filterItem, filterInfo);
+            setupEnchantAutocomplete(suffixInput, suffixSuggestions, filterItem, filterInfo);
+            
+        } else if (filterInfo.type === 'range') {
             // 범위 입력 컨테이너
             const inputRow = document.createElement('div');
             inputRow.className = 'filter-input-row';
@@ -356,6 +444,143 @@ const FilterManager = (() => {
         
         // 필터 컨테이너에 추가
         elements.activeFilters.appendChild(filterItem);
+    }
+    
+    /**
+     * 인챈트 자동완성 설정
+     * @param {HTMLElement} input - 입력 필드
+     * @param {HTMLElement} suggestions - 자동완성 컨테이너
+     * @param {HTMLElement} filterItem - 필터 항목 요소
+     * @param {Object} filterInfo - 필터 정보
+     */
+    function setupEnchantAutocomplete(input, suggestions, filterItem, filterInfo) {
+        // 입력 이벤트
+        input.addEventListener('input', function() {
+            const query = this.value.trim();
+            const type = this.getAttribute('data-type');
+            
+            // 입력이 없으면 자동완성 숨김
+            if (query.length < 1) {
+                suggestions.innerHTML = '';
+                suggestions.style.display = 'none';
+                return;
+            }
+            
+            // 메타데이터 체크
+            if (!enchantData.isLoaded) {
+                suggestions.innerHTML = '<div class="enchant-suggestion-loading">데이터 로딩 중...</div>';
+                suggestions.style.display = 'block';
+                return;
+            }
+            
+            // 인챈트 검색
+            const results = searchEnchants(type, query);
+            
+            // 결과 없음
+            if (results.length === 0) {
+                suggestions.innerHTML = '<div class="enchant-suggestion-empty">검색 결과 없음</div>';
+                suggestions.style.display = 'block';
+                return;
+            }
+            
+            // 결과 표시
+            suggestions.innerHTML = '';
+            
+            // 최대 5개만 표시
+            results.slice(0, 5).forEach(enchant => {
+                const item = document.createElement('div');
+                item.className = 'enchant-suggestion-item';
+                item.textContent = `${enchant.name} (랭크 ${enchant.rank})`;
+                
+                // 클릭 이벤트
+                item.addEventListener('click', () => {
+                    // 입력 필드에 선택한 인챈트 설정
+                    input.value = enchant.name;
+                    
+                    // 자동완성 숨김
+                    suggestions.style.display = 'none';
+                    
+                    // 필터 추가
+                    addEnchantFilter(filterItem, filterInfo, type, enchant.name, enchant.rank);
+                    
+                    // 필터 적용
+                    applyFilters();
+                });
+                
+                suggestions.appendChild(item);
+            });
+            
+            suggestions.style.display = 'block';
+        });
+        
+        // 포커스 이벤트 (입력창 클릭 시 자동완성 표시)
+        input.addEventListener('focus', function() {
+            if (this.value.trim().length > 0) {
+                const event = new Event('input');
+                this.dispatchEvent(event);
+            }
+        });
+        
+        // 외부 클릭 시 자동완성 숨김
+        document.addEventListener('click', function(e) {
+            if (!input.contains(e.target) && !suggestions.contains(e.target)) {
+                suggestions.style.display = 'none';
+            }
+        });
+    }
+    
+    /**
+     * 인챈트 검색
+     * @param {string} type - 인챈트 타입 (접두 or 접미)
+     * @param {string} query - 검색어
+     * @returns {Array} 검색 결과
+     */
+    function searchEnchants(type, query) {
+        if (!query || !enchantData.isLoaded) return [];
+        
+        const source = type === '접두' ? enchantData.prefix : enchantData.suffix;
+        if (!source) return [];
+        
+        const results = [];
+        const lowerQuery = query.toLowerCase();
+        
+        // 객체 순회
+        for (const name in source) {
+            if (name.toLowerCase().includes(lowerQuery)) {
+                const info = source[name];
+                results.push({
+                    name: name,
+                    rank: info.rank
+                });
+            }
+        }
+        
+        return results;
+    }
+    
+    /**
+     * 인챈트 필터 추가
+     * @param {HTMLElement} filterItem - 필터 항목 요소
+     * @param {Object} filterInfo - 필터 정보
+     * @param {string} type - 인챈트 타입 (접두 or 접미)
+     * @param {string} name - 인챈트 이름
+     * @param {number} rank - 인챈트 랭크
+     */
+    function addEnchantFilter(filterItem, filterInfo, type, name, rank) {
+        // 동일 타입의 인챈트 필터는 하나만 유지
+        state.activeFilters = state.activeFilters.filter(f => 
+            !(f.type === 'enchant' && f.enchantType === type)
+        );
+        
+        // 인챈트 필터 추가
+        state.activeFilters.push({
+            name: filterInfo.name,
+            displayName: `인챈트 [${type}]`,
+            type: 'enchant',
+            enchantType: type,
+            enchantName: name,
+            enchantRank: rank
+        });
     }
     
     /**
@@ -474,6 +699,11 @@ const FilterManager = (() => {
         
         // 모든 필터를 통과해야 함
         return state.activeFilters.every(filter => {
+            // 인챈트 필터 특별 처리
+            if (filter.type === 'enchant') {
+                return checkEnchantFilter(item, filter);
+            }
+            
             // 아이템 옵션 필드 표준화
             const options = item.options || item.item_option || [];
             
@@ -488,6 +718,41 @@ const FilterManager = (() => {
                 default:
                     return checkTextFilter(options, filter);
             }
+        });
+    }
+    
+    /**
+     * 인챈트 필터 체크
+     * @param {Object} item - 아이템 객체
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkEnchantFilter(item, filter) {
+        // 옵션 필드 표준화
+        const options = item.options || item.item_option || [];
+        
+        // 인챈트 옵션 찾기
+        const enchantOptions = options.filter(opt => 
+            opt.option_type === '인챈트' && 
+            opt.option_sub_type === filter.enchantType
+        );
+        
+        // 인챈트가 없으면 실패
+        if (enchantOptions.length === 0) {
+            return false;
+        }
+        
+        // 인챈트 이름 체크
+        return enchantOptions.some(option => {
+            // "충돌의 (랭크 4)" 형식 파싱
+            const nameMatch = option.option_value.match(/(.*?)\s*\(랭크 (\d+)\)/);
+            if (!nameMatch) return false;
+            
+            const enchantName = nameMatch[1].trim();
+            const enchantRank = parseInt(nameMatch[2]);
+            
+            // 이름 일치 확인
+            return enchantName === filter.enchantName;
         });
     }
     
