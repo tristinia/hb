@@ -602,7 +602,7 @@ const ItemDisplay = (() => {
                 if (match) {
                     const [_, name, level, effect] = match;
                     reforgeBlock.innerHTML += `
-                        <div class="tooltip-special-stat">- ${name} ${level}레벨 <span class="tooltip-stat">└ ${effect}</span></div>
+                        <div class="tooltip-special-stat tooltip-blue">- ${name} ${level}레벨</div>
                     `;
                 } else {
                     reforgeBlock.innerHTML += `<div class="tooltip-special-stat">- ${opt.option_value}</div>`;
