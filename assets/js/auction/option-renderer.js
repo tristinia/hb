@@ -51,7 +51,6 @@ class OptionRenderer {
           return `부상률 ${minValue}~${maxValue}%`;
         },
         filter: false
-        }
       },
       
       '크리티컬': {
