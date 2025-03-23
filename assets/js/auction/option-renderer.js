@@ -8,19 +8,36 @@ class OptionRenderer {
       red: 'item-red',
       blue: 'item-blue',
       yellow: 'item-yellow',
-      orange: 'item-orange'
-    };
+      orange: 'item-orange',
+      pink: 'item-pink',
+      navy: 'item-navy'
+    };    
+    this.debug = false;
+    
+    // 인챈트 메타데이터 저장 객체
     this.enchantData = {
       prefix: null,
       suffix: null,
       isLoaded: false
     };
+    
     // 초기화 시 인챈트 메타데이터 로드
     this.loadEnchantMetadata();
-    this.debug = false;
   }
-
-  // 인챈트 메타데이터 로드
+  
+  /**
+   * 디버그 로그 출력
+   * @param {...any} args 로그 인자들
+   */
+  logDebug(...args) {
+    if (this.debug) {
+      console.log(...args);
+    }
+  }
+  
+  /**
+   * 인챈트 메타데이터 로드
+   */
   async loadEnchantMetadata() {
     try {
       // 접두사 로드
@@ -43,13 +60,18 @@ class OptionRenderer {
   }
   
   /**
-   * 디버그 로그 출력
-   * @param {...any} args 로그 인자들
+   * 인챈트 메타데이터 검색
+   * @param {string} type - 인챈트 타입 ('접두' 또는 '접미')
+   * @param {string} name - 인챈트 이름
+   * @returns {Object|null} 인챈트 메타데이터
    */
-  logDebug(...args) {
-    if (this.debug) {
-      console.log(...args);
-    }
+  getEnchantMetadata(type, name) {
+    if (!this.enchantData.isLoaded) return null;
+    
+    const source = type === '접두' ? 'prefix' : 'suffix';
+    const data = this.enchantData[source];
+    
+    return data && data[name] ? data[name] : null;
   }
   
   /**
@@ -104,7 +126,7 @@ class OptionRenderer {
           field: 'option_value2',
           type: 'range'
         },
-        color: 'item-yellow'
+        color: 'yellow'
       },
       
       '숙련': {
@@ -119,7 +141,7 @@ class OptionRenderer {
           field: 'option_value',
           type: 'range'
         },
-        color: 'item-yellow'
+        color: 'yellow'
       },
       
       '피어싱 레벨': {
@@ -141,34 +163,78 @@ class OptionRenderer {
           const value = option.option_value; // "충돌의 (랭크 4)"
           const desc = option.option_desc || ''; // 인챈트 효과 설명
           
-          // 인챈트 이름과 랭크 분리
+          // 인챈트 이름과 랭크 추출
           const nameMatch = value.match(/(.*?)\s*\(랭크 (\d+)\)/);
           let enchantName = value;
           let rankText = '';
+          let rankNum = 0;
           
           if (nameMatch) {
-            enchantName = nameMatch[1];
+            enchantName = nameMatch[1].trim();
             rankText = `(랭크 ${nameMatch[2]})`;
+            rankNum = parseInt(nameMatch[2]);
           }
           
-          // 인챈트 메타데이터 찾기
+          // 메타데이터 조회
           const metadata = this.getEnchantMetadata(type, enchantName);
           
+          // 기본 HTML 구성
+          let result = `<span class="enchant-type">[${type}]</span> ${enchantName} <span class="${this.colorClass.pink}">${rankText}</span>`;
+          
           // 효과 처리
-          let effectsHtml = '';
           if (desc) {
             const effects = desc.split(',');
-            const formattedEffects = effects.map(effect => {
-              return this.formatEnchantEffect(effect.trim(), metadata);
+            const formattedEffects = [];
+            
+            effects.forEach(effect => {
+              // 조건부 정보 제거하고 순수 효과만 추출
+              const conditionMatch = effect.match(/(.*?) 랭크 \d+ 이상일 때 (.*)/);
+              const cleanEffect = conditionMatch ? conditionMatch[2].trim() : effect.trim();
+              
+              // 부정적 효과 확인 (수리비 증가, 또는 다른 감소 효과)
+              const isNegative = 
+                (cleanEffect.includes('수리비') && cleanEffect.includes('증가')) || 
+                (!cleanEffect.includes('수리비') && cleanEffect.includes('감소'));
+              
+              // 값 추출 (예: "체력 44 증가" -> 44)
+              const valueMatch = cleanEffect.match(/(.*?)(\d+)(.*)/);
+              
+              if (valueMatch && metadata && metadata.effects) {
+                const [_, prefix, value, suffix] = valueMatch;
+                const effectText = prefix + value + suffix;
+                
+                // 메타데이터에서 효과 찾기
+                for (const metaEffect of metadata.effects) {
+                  const template = metaEffect.template;
+                  // 정규식으로 템플릿 변환
+                  const pattern = template.replace(/\{value\}/g, '\\d+');
+                  
+                  if (new RegExp(pattern).test(cleanEffect)) {
+                    // 값 범위 정보 추가 (변동 가능 효과인 경우)
+                    const rangeText = metaEffect.variable ? 
+                      ` <span class="${this.colorClass.navy}">(${metaEffect.min}~${metaEffect.max})</span>` : '';
+                    
+                    formattedEffects.push(
+                      `<span class="${isNegative ? this.colorClass.red : this.colorClass.blue}">${effectText}</span>${rangeText}`
+                    );
+                    break;
+                  }
+                }
+              } else {
+                // 메타데이터 매칭 실패 시 일반 표시
+                formattedEffects.push(
+                  `<span class="${isNegative ? this.colorClass.red : this.colorClass.blue}">${cleanEffect}</span>`
+                );
+              }
             });
             
-            effectsHtml = ' - ' + formattedEffects.join(' - ');
+            if (formattedEffects.length > 0) {
+              result += ` - ${formattedEffects.join(' - ')}`;
+            }
           }
           
-          // 최종 HTML 반환
-          return `<span class="enchant-type">[${type}]</span> ${enchantName} <span class="enchant-rank">${rankText}</span>${effectsHtml}`;
+          return result;
         },
-        
         filter: {
           displayName: '인챈트',
           type: 'enchant',
@@ -183,7 +249,7 @@ class OptionRenderer {
           field: 'option_value',
           type: 'range'
         },
-        color: 'item-red'
+        color: 'red'
       },
       
       '에르그': {
@@ -193,7 +259,7 @@ class OptionRenderer {
           field: 'option_value',
           type: 'range'
         },
-        color: 'item-red'
+        color: 'red'
       },
       
       '세트 효과': {
@@ -204,7 +270,7 @@ class OptionRenderer {
           type: 'range',
           category: '세트 효과'
         },
-        color: 'item-blue'
+        color: 'blue'
       },
       
       '아이템 보호': {
@@ -399,53 +465,6 @@ class OptionRenderer {
     return rawValue;
   }
   
-  // 인챈트 메타데이터 검색 함수
-  getEnchantMetadata(type, name) {
-    if (!this.enchantData.isLoaded) return null;
-    
-    const source = type === '접두' ? 'prefix' : 'suffix';
-    const data = this.enchantData[source];
-    
-    return data && data[name] ? data[name] : null;
-  }
-  
-  // 인챈트 효과 포맷팅 함수
-  formatEnchantEffect(effectText, metadata) {
-    // 조건부 텍스트 제거 (예: "회피 랭크 6 이상일 때")
-    const conditionMatch = effectText.match(/(.*?) 랭크 \d+ 이상일 때 (.*)/);
-    const cleanEffect = conditionMatch ? conditionMatch[2] : effectText;
-    
-    // 실제 값 추출 (예: "체력 44 증가" -> 44)
-    const valueMatch = cleanEffect.match(/(.*?)(\d+)(.*)/);
-    
-    if (valueMatch && metadata && metadata.effects) {
-      const [_, prefix, value, suffix] = valueMatch;
-      const fullText = prefix + value + suffix;
-      
-      // 메타데이터에서 해당 효과 찾기
-      for (const effect of metadata.effects) {
-        const template = effect.template;
-        // 템플릿을 정규식 패턴으로 변환 (예: "체력 {value} 증가" -> "체력 \d+ 증가")
-        const pattern = template.replace('{value}', '\\d+');
-        
-        if (new RegExp(pattern).test(cleanEffect)) {
-          // 부정 효과 여부 확인
-          const isNegative = 
-            (template.includes('수리비') && template.includes('증가')) || 
-            (template.includes('감소') && !template.includes('수리비'));
-          
-          // 변동 가능 옵션이면 범위 추가
-          const rangeText = effect.variable ? 
-            ` <span class="range-info">(${effect.min}~${effect.max})</span>` : '';
-          
-          return `<span class="enchant-effect ${isNegative ? 'negative' : 'positive'}">${fullText}</span>${rangeText}`;
-        }
-      }
-    }
-    
-    // 메타데이터 매칭 실패시 기본 반환
-    return `<span class="enchant-effect">${cleanEffect}</span>`;
-  }
   /**
    * 특수 기능 처리 (세공, 세트 효과, 개조 등)
    * @param {Object} item 아이템 데이터
@@ -653,8 +672,12 @@ class OptionRenderer {
             this.applyComplexColors(contentElement, content.text, content.color);
           }
         } else {
-          // 기본 색상
-          contentElement.textContent = content.text;
+          // HTML 태그가 있는 경우 innerHTML 사용
+          if (content.text.includes('<')) {
+            contentElement.innerHTML = content.text;
+          } else {
+            contentElement.textContent = content.text;
+          }
         }
         
         blockElement.appendChild(contentElement);
@@ -683,7 +706,7 @@ class OptionRenderer {
       
       const titleSpan = document.createElement('span');
       titleSpan.textContent = titlePart;
-      titleSpan.className = this.colorClass[colorMap.title];
+      titleSpan.className = colorMap.title !== 'default' ? this.colorClass[colorMap.title] : '';
       
       const contentSpan = document.createElement('span');
       contentSpan.textContent = contentPart;
