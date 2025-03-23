@@ -57,7 +57,6 @@ class OptionRenderer {
       '크리티컬': {
         display: (option) => `크리티컬 ${option.option_value}`,
         filter: false
-        }
       },
   
       '밸런스': {
