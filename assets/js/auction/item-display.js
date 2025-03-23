@@ -8,6 +8,7 @@ import ApiClient from './api-client.js';
 import FilterManager from './filter-manager.js';
 import PaginationManager from './pagination.js';
 import OptionFilterManager from './option-filter-manager.js';
+import optionRenderer from './option-renderer.js';
 
 const ItemDisplay = (() => {
     // 아이템 표시 상태
