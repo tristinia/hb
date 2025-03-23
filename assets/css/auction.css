@@ -589,6 +589,7 @@ body {
 .item-cell {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .item-name {
