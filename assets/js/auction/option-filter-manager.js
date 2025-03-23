@@ -157,9 +157,8 @@ class OptionFilterManager {
    * @returns {Object} 분류된 필터 정보
    */
   categorizeFilters(filters) {
-    // 고급 필터 분리
-    const basicFilters = filters.filter(f => f.visible !== false);
-    const advancedFilters = filters.filter(f => f.visible === false);
+  const basicFilters = filters;
+  const advancedFilters = [];
     
     // 범주별 그룹화
     const categories = {
