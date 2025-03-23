@@ -2837,3 +2837,4 @@ const FilterManager = (() => {
         resetFilters,
         getFilters
     };
+})();
