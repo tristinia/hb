@@ -357,7 +357,7 @@ const ItemDisplay = (() => {
             
             let text = `${man}만`;
             if (remainder > 0) {
-                text += ` ${remainder.toLocaleString()}`;
+                text += `${remainder.toLocaleString()}`;
             }
             text += ' Gold';
             
@@ -375,10 +375,10 @@ const ItemDisplay = (() => {
             
             let text = `${eok}억`;
             if (manRemainder > 0) {
-                text += ` ${manRemainder}만`;
+                text += `${manRemainder}만`;
             }
             if (remainder > 0) {
-                text += ` ${remainder.toLocaleString()}`;
+                text += `${remainder.toLocaleString()}`;
             }
             text += ' Gold';
             
@@ -395,10 +395,10 @@ const ItemDisplay = (() => {
         
         let text = `${eok}억`;
         if (manRemainder > 0) {
-            text += ` ${manRemainder}만`;
+            text += `${manRemainder}만`;
         }
         if (remainder > 0) {
-            text += ` ${remainder.toLocaleString()}`;
+            text += `${remainder.toLocaleString()}`;
         }
         text += ' Gold';
         
