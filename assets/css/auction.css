@@ -78,17 +78,20 @@
 .results-table td.item-price.item-blue { 
     color: var(--color-item-blue); 
 }
-
 .item-red, 
 .results-table td.item-red, 
 .results-table td.item-price.item-red { 
     color: var(--color-item-red); 
 }
-
 .item-orange, 
 .results-table td.item-orange, 
 .results-table td.item-price.item-orange { 
     color: var(--color-item-orange); 
+}
+.item-yellow, 
+.results-table td.item-yellow, 
+.results-table td.item-price.item-yellow { 
+    color: var(--color-accent);
 }
 
 /* 기본 스타일 재설정 */
