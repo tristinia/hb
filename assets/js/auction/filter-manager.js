@@ -1554,32 +1554,6 @@ const state = {
         maxInput.min = 0;
         maxInput.setAttribute('aria-label', `${filterInfo.displayName || filterInfo.name} 최대값`);
         
-        // 퍼센트 필터에 대한 특별 처리
-        if (filterInfo.isPercent) {
-            // 최소값 포커스 이벤트
-            minInput.addEventListener('focus', function() {
-                this.value = this.value.replace('%', '');
-            });
-            
-            // 최소값 블러 이벤트
-            minInput.addEventListener('blur', function() {
-                if (this.value && !this.value.includes('%')) {
-                    this.value = this.value + '%';
-                }
-            });
-            
-            // 최대값 동일하게 처리
-            maxInput.addEventListener('focus', function() {
-                this.value = this.value.replace('%', '');
-            });
-            
-            maxInput.addEventListener('blur', function() {
-                if (this.value && !this.value.includes('%')) {
-                    this.value = this.value + '%';
-                }
-            });
-        }
-        
         // 입력 후 자동 적용
         minInput.addEventListener('change', () => autoApplyFilter(filterItem, filterInfo));
         maxInput.addEventListener('change', () => autoApplyFilter(filterItem, filterInfo));
