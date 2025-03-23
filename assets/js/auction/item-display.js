@@ -154,7 +154,7 @@ const ItemDisplay = (() => {
         if (state.filteredResults.length === 0) {
             const tr = document.createElement('tr');
             tr.className = 'empty-result';
-            tr.innerHTML = `<td colspan="3">검색 결과가 없습니다.</td>`;
+            tr.innerHTML = `<td colspan="4">검색 결과가 없습니다.</td>`;
             elements.resultsBody.appendChild(tr);
             return;
         }
@@ -175,14 +175,21 @@ const ItemDisplay = (() => {
             tr.setAttribute('data-item-id', item.auction_item_no || '');
             tr.setAttribute('data-item', JSON.stringify(item));
             
+            // 가격 포맷팅
+            const priceFormatted = formatItemPrice(item.auction_price_per_unit || 0);
+            
+            // 남은 시간 포맷팅
+            const remainingTime = formatRemainingTime(item.date_auction_expire);
+            
             tr.innerHTML = `
                 <td>
                     <div class="item-cell">
                         <div class="item-name">${formatItemDisplayName(item)}</div>
                     </div>
                 </td>
+                <td>${remainingTime}</td>
                 <td>${item.auction_count || 1}개</td>
-                <td class="item-price">${Utils.formatNumber(item.auction_price_per_unit || 0)}G</td>
+                <td class="item-price ${priceFormatted.class}">${priceFormatted.text}</td>
             `;
             
             elements.resultsBody.appendChild(tr);
@@ -325,6 +332,119 @@ const ItemDisplay = (() => {
         
         // 툴팁 표시
         elements.tooltip.style.display = 'block';
+    }
+
+    /**
+     * 가격 포맷팅 함수
+     * @param {number} price - 가격
+     * @returns {object} 포맷된 가격과 CSS 클래스
+     */
+    function formatItemPrice(price) {
+        if (!price) return { text: '0 Gold', class: '' };
+        
+        // 기본 가격 (1~9999)
+        if (price < 10000) {
+            return {
+                text: `${price.toLocaleString()} Gold`,
+                class: ''
+            };
+        }
+        
+        // 만 단위 가격 (10000~99999999)
+        if (price < 100000000) {
+            const man = Math.floor(price / 10000);
+            const remainder = price % 10000;
+            
+            let text = `${man}만`;
+            if (remainder > 0) {
+                text += ` ${remainder.toLocaleString()}`;
+            }
+            text += ' Gold';
+            
+            return {
+                text: text,
+                class: 'item-blue'
+            };
+        }
+        
+        // 억 단위 가격 (100000000~9999999999)
+        if (price < 10000000000) {
+            const eok = Math.floor(price / 100000000);
+            const manRemainder = Math.floor((price % 100000000) / 10000);
+            const remainder = price % 10000;
+            
+            let text = `${eok}억`;
+            if (manRemainder > 0) {
+                text += ` ${manRemainder}만`;
+            }
+            if (remainder > 0) {
+                text += ` ${remainder.toLocaleString()}`;
+            }
+            text += ' Gold';
+            
+            return {
+                text: text,
+                class: 'item-red'
+            };
+        }
+        
+        // 100억 이상 가격
+        const eok = Math.floor(price / 100000000);
+        const manRemainder = Math.floor((price % 100000000) / 10000);
+        const remainder = price % 10000;
+        
+        let text = `${eok}억`;
+        if (manRemainder > 0) {
+            text += ` ${manRemainder}만`;
+        }
+        if (remainder > 0) {
+            text += ` ${remainder.toLocaleString()}`;
+        }
+        text += ' Gold';
+        
+        return {
+            text: text,
+            class: 'item-orange'
+        };
+    }
+
+    /**
+     * 남은 시간 포맷팅 함수
+     * @param {string} expiryDate - ISO 형식 만료 시간
+     * @returns {string} 포맷된 남은 시간
+     */
+    function formatRemainingTime(expiryDate) {
+        if (!expiryDate) return '';
+        
+        try {
+            const expiry = new Date(expiryDate);
+            const now = new Date();
+            
+            // 이미 만료된 경우
+            if (expiry <= now) {
+                return '만료됨';
+            }
+            
+            const diffMs = expiry - now;
+            const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+            const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+            const diffSeconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+            
+            // 표시 형식 결정
+            if (diffHours > 0) {
+                // 1시간 이상일 때는 시간만 표시
+                return `${diffHours}시간`;
+            } else if (diffMinutes > 0) {
+                // 60분 미만일 때는 분으로만 표시
+                return `${diffMinutes}분`;
+            } else {
+                // 60초 미만일 때는 초로 표시
+                return `${diffSeconds}초`;
+            }
+        } catch (error) {
+            console.error('날짜 형식 오류:', error);
+            return '';
+        }
     }
     
     /**
@@ -535,12 +655,13 @@ const ItemDisplay = (() => {
         
         // 가격 정보
         if (item.auction_price_per_unit) {
+            const priceFormatted = formatItemPrice(item.auction_price_per_unit);
             const priceBlock = document.createElement('div');
             priceBlock.className = 'tooltip-block';
+            
             priceBlock.innerHTML = `
                 <div class="tooltip-block-title">가격 정보</div>
-                <div class="tooltip-stat">가격: ${Utils.formatNumber(item.auction_price_per_unit)}G</div>
-                <div class="tooltip-stat">판매 수량: ${item.auction_count || 1}개</div>
+                <div class="tooltip-stat">가격: <span class="${priceFormatted.class}">${priceFormatted.text}</span></div>
             `;
             
             content.appendChild(priceBlock);
@@ -610,7 +731,7 @@ const ItemDisplay = (() => {
         if (pageItems.length === 0) {
             const tr = document.createElement('tr');
             tr.className = 'empty-result';
-            tr.innerHTML = `<td colspan="3">표시할 결과가 없습니다</td>`;
+            tr.innerHTML = `<td colspan="4">표시할 결과가 없습니다</td>`;
             elements.resultsBody.appendChild(tr);
             return;
         }
@@ -622,14 +743,21 @@ const ItemDisplay = (() => {
             tr.setAttribute('data-item-id', item.auction_item_no || '');
             tr.setAttribute('data-item', JSON.stringify(item));
             
+            // 가격 포맷팅
+            const priceFormatted = formatItemPrice(item.auction_price_per_unit || 0);
+            
+            // 남은 시간 포맷팅
+            const remainingTime = formatRemainingTime(item.date_auction_expire);
+            
             tr.innerHTML = `
                 <td>
                     <div class="item-cell">
                         <div class="item-name">${formatItemDisplayName(item)}</div>
                     </div>
                 </td>
+                <td>${remainingTime}</td>
                 <td>${item.auction_count || 1}개</td>
-                <td class="item-price">${Utils.formatNumber(item.auction_price_per_unit || 0)}G</td>
+                <td class="item-price ${priceFormatted.class}">${priceFormatted.text}</td>
             `;
             
             elements.resultsBody.appendChild(tr);
