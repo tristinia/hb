@@ -10,6 +10,11 @@
     --color-light-gray: #EDEDED;   /* 중성 색상: 매우 밝은 그레이 */
     --color-accent: #FFE395;       /* 포인트 색상: 파스텔 노란색 */
     --color-dark: #4A4A4A;         /* 강조 색상: 진한 차콜 그레이 */
+
+    /* 아이템 특수 색상 */
+    --color-item-blue: #4682B4;     /* 만 단위 가격 (파란색) */
+    --color-item-red: #B33A3A;      /* 억 단위 가격 (빨간색) */
+    --color-item-orange: #FF8C00;   /* 100억 이상 가격 (주황색) */
     
     /* 기본 색상 투명도 변형 */
     --color-accent-80: rgba(255, 227, 149, 0.8);
@@ -66,6 +71,11 @@
     --duration-normal: 0.3s;
     --duration-slow: 0.5s;
 }
+
+/* 아이템 색상 클래스 */
+.item-blue { color: var(--color-item-blue); }
+.item-red { color: var(--color-item-red); }
+.item-orange { color: var(--color-item-orange); }
 
 /* 기본 스타일 재설정 */
 * {
@@ -551,6 +561,10 @@ body {
     border-top: 1px solid var(--color-light-gray);
     font-size: var(--font-size-sm);
     color: var(--color-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 0;
 }
 
 .results-table tr:hover td {
