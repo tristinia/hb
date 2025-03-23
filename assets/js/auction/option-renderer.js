@@ -2,19 +2,17 @@
  * option-renderer.js
  * 아이템 옵션 렌더링 및 필터링을 위한 통합 처리 시스템
  */
-
-  class OptionRenderer {
-    constructor() {
-      this.colorClass = {
-        red: 'item-red',
-        blue: 'item-blue',
-        yellow: 'item-yellow',
-        orange: 'item-orange'
-      };    
-      this.debug = false;
-    }
+class OptionRenderer {
+  constructor() {
+    this.colorClass = {
+      red: 'item-red',
+      blue: 'item-blue',
+      yellow: 'item-yellow',
+      orange: 'item-orange'
+    };    
+    this.debug = false;
   }
-
+  
   /**
    * 디버그 로그 출력
    * @param {...any} args 로그 인자들
