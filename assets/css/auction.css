@@ -932,6 +932,33 @@ input[type="number"] {
   font-style: italic;
 }
 
+/* 특별 개조 버튼 스타일 */
+.special-mod-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.special-mod-btn {
+  padding: 4px 12px;
+  background: var(--color-light-gray);
+  border: 1px solid var(--color-dark-20);
+  border-radius: var(--border-radius-xs);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition: all var(--duration-normal);
+}
+
+.special-mod-btn:hover {
+  background-color: var(--color-accent-20);
+}
+
+.special-mod-btn.active {
+  background-color: var(--color-accent);
+  color: var(--color-dark);
+  font-weight: var(--font-weight-medium);
+}
+
 /* 툴팁 스타일 (마비노기식 정보 표시) */
 .item-tooltip {
     position: fixed;
