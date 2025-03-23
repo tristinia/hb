@@ -154,7 +154,8 @@ class OptionRenderer {
           displayName: '피어싱 레벨',
           field: 'option_value',
           type: 'range'
-        }
+        },
+        color: 'blue'
       },
       
       '인챈트': {
@@ -243,23 +244,21 @@ class OptionRenderer {
       },
       
       '특별 개조': {
-        display: (option) => `특별개조 ${option.option_sub_type} (${option.option_value}단계)`,
+        display: (option) => `특별개조 <span class="${this.colorClass.pink}">${option.option_sub_type}</span> <span class="${this.colorClass.pink}">(${option.option_value}단계)</span>`,
         filter: {
           displayName: '특별개조 단계',
           field: 'option_value',
           type: 'range'
-        },
-        color: 'pink'
+        }
       },
       
       '에르그': {
-        display: (option) => `등급 ${option.option_sub_type} (${option.option_value}/${option.option_value2}레벨)`,
+        display: (option) => `등급 <span class="${this.colorClass.pink}">${option.option_sub_type}</span> <span class="${this.colorClass.pink}">(${option.option_value}/${option.option_value2}레벨)</span>`,
         filter: {
           displayName: '에르그 레벨',
           field: 'option_value',
           type: 'range'
-        },
-        color: 'red'
+        }
       },
       
       '세트 효과': {
@@ -285,40 +284,40 @@ class OptionRenderer {
           return `아이템 보호`;
         },
         filter: false,
+        color: 'yellow'
       },
 
-      '특별 개조': {
-        display: (option) => `특별개조 ${option.option_sub_type} (${option.option_value}단계)`,
+      '세공 랭크': {
+        display: (option) => `${option.option_value}랭크`,
         filter: {
-          displayName: '특별개조 단계',
-          field: 'option_value',
-          type: 'range'
+          displayName: '세공 상태',
+          type: 'reforge-status'
         },
-        color: 'red'
+        color: 'pink'
       },
       
-      '에르그': {
-        display: (option) => `등급 ${option.option_sub_type} (${option.option_value}/${option.option_value2}레벨)`,
-        filter: {
-          displayName: '에르그 레벨',
-          field: 'option_value',
-          type: 'range'
+      '세공 옵션': {
+        display: (option) => {
+          // "스매시 대미지(18레벨:180 % 증가)" 형식 파싱
+          const match = option.option_value.match(/(.*?)\((\d+)레벨:(.*)\)/);
+          if (!match) return option.option_value;
+          
+          const name = match[1].trim();
+          const level = match[2];
+          
+          return `${name} ${level}레벨`;
         },
-        color: 'red'
-      },
-      '세트 효과': {
-        display: (option) => `- ${option.option_value} +${option.option_value2}`,
         filter: {
-          displayName: '세트 효과',
-          field: 'option_value2',
-          type: 'range',
-          category: '세트 효과'
+          displayName: '세공 옵션',
+          type: 'reforge-option'
         },
         color: 'blue'
       },
+      
       '남은 거래 횟수': {
         display: (option) => `남은 거래 가능 횟수 : ${option.option_value}`,
-        filter: false
+        filter: false,
+        color: 'yellow'
       }
       // 추가 옵션 타입은 여기에 계속 추가...
     };
@@ -566,9 +565,14 @@ class OptionRenderer {
     
     if (reforgeOptions.length === 0) return;
     
-    // 세공 옵션 파싱 및 표시 텍스트 구성
-    let displayText = `${rank}랭크`;
+    // 세공 랭크 표시 (분홍색)
+    block.content.push({
+      text: `${rank}랭크`,
+      color: 'pink',
+      filter: false
+    });
     
+    // 세공 옵션 표시 (옵션별로 분리 및 파란색)
     reforgeOptions.forEach(opt => {
       // "스매시 대미지(18레벨:180 % 증가)" 형식 파싱
       const match = opt.option_value.match(/(.*?)\((\d+)레벨:(.*)\)/);
@@ -576,20 +580,13 @@ class OptionRenderer {
       
       const name = match[1].trim();
       const level = parseInt(match[2]);
-      const effect = match[3].trim();
       
-      displayText += ` - ${name} ${level}레벨 └ ${effect}`;
-    });
-    
-    // 블록에 추가
-    block.content.push({
-      text: displayText,
-      color: {
-        rank: 'red',          // 랭크 정보는 빨간색
-        option: 'blue',       // 세공 옵션은 파란색
-        detail: 'white'       // 상세 정보는 흰색
-      },
-      filter: false
+      // 수치 제외, 이름과 레벨만 표시
+      block.content.push({
+        text: `- ${name} ${level}레벨`,
+        color: 'blue',
+        filter: false
+      });
     });
   }
   
