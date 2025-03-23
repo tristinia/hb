@@ -1501,465 +1501,623 @@ const FilterManager = (() => {
             enchantRank: rank
         });
     }
-    
+
     /**
      * 세공 랭크 필터 적용
      * @param {HTMLElement} filterItem - 필터 항목 요소
      * @param {Object} filterInfo - 필터 정보
+     * @param {string} rank - 선택한 랭크 (1, 2, 3...)
      */
-    function applyReforgeRankFilter(filterItem, filterInfo) {
-        // 활성화된 랭크 버튼들 가져오기
-        const activeButtons = filterItem.querySelectorAll('.special-mod-btn[data-rank].active');
-        
-        // 활성화된 랭크가 없으면 필터 제거
-        if (activeButtons.length === 0) {
-            state.activeFilters = state.activeFilters.filter(f => 
-                f.type !== 'reforge-rank'
-            );
-        } else {
-            // 활성화된 랭크값 배열 생성
-            const ranks = Array.from(activeButtons).map(btn => 
-                parseInt(btn.getAttribute('data-rank'))
-            );
-            
-            // 기존 랭크 필터 제거
-            state.activeFilters = state.activeFilters.filter(f => 
-                f.type !== 'reforge-rank'
-            );
-            
-            // 새 랭크 필터 추가
-            state.activeFilters.push({
-                name: filterInfo.name,
-                displayName: '세공 랭크',
-                type: 'reforge-rank',
-                ranks: ranks
-            });
-        }
-        
-        // 필터 적용
-        applyFilters();
+    function applyReforgeRankFilter(filterItem, filterInfo, rank) {
+      // 같은 이름의 기존 필터 제거
+      state.activeFilters = state.activeFilters.filter(f => 
+        f.name !== filterInfo.name || f.filterType !== 'reforge-rank'
+      );
+      
+      // 새 필터 추가
+      const newFilter = {
+        name: filterInfo.name,
+        displayName: `세공 랭크 ${rank}`,
+        type: 'reforge-rank',
+        filterType: 'reforge-rank',
+        rank: rank
+      };
+      
+      state.activeFilters.push(newFilter);
+      applyFilters();
     }
     
     /**
      * 세공 발현 수 필터 적용
      * @param {HTMLElement} filterItem - 필터 항목 요소
      * @param {Object} filterInfo - 필터 정보
+     * @param {number} count - 발현 수 (1, 2, 3)
      */
-    function applyReforgeCountFilter(filterItem, filterInfo) {
-        // 활성화된 발현 수 버튼들 가져오기
-        const activeButtons = filterItem.querySelectorAll('.special-mod-btn[data-count].active');
-        
-        // 활성화된 발현 수가 없으면 필터 제거
-        if (activeButtons.length === 0) {
-            state.activeFilters = state.activeFilters.filter(f => 
-                f.type !== 'reforge-count'
-            );
-        } else {
-            // 활성화된 발현 수 배열 생성
-            const counts = Array.from(activeButtons).map(btn => 
-                parseInt(btn.getAttribute('data-count'))
-            );
+    function applyReforgeCountFilter(filterItem, filterInfo, count) {
+      // 같은 이름의 기존 필터 제거
+      state.activeFilters = state.activeFilters.filter(f => 
+        f.name !== filterInfo.name || f.filterType !== 'reforge-count'
+      );
+      
+      // 새 필터 추가
+      const newFilter = {
+        name: filterInfo.name,
+        displayName: `세공 발현 수 ${count}`,
+        type: 'reforge-count',
+        filterType: 'reforge-count',
+        count: count
+      };
+      
+      state.activeFilters.push(newFilter);
+      applyFilters();
+    }
+    
+    /**
+     * 세공 옵션 자동완성 설정
+     * @param {HTMLInputElement} input - 입력 필드
+     * @param {HTMLElement} suggestions - 자동완성 컨테이너
+     * @param {HTMLElement} filterItem - 필터 항목 요소
+     * @param {Object} filterInfo - 필터 정보
+     * @param {string} category - 현재 카테고리
+     * @param {number} optionIndex - 옵션 인덱스 (1, 2, 3)
+     */
+    function setupReforgeOptionAutocomplete(input, suggestions, filterItem, filterInfo, category, optionIndex) {
+      // 세공 메타데이터 로드
+      loadReforgeMetadata(category).then(metadata => {
+        // 입력 이벤트
+        input.addEventListener('input', function() {
+          const query = this.value.trim().toLowerCase();
+          
+          // 입력이 없으면 자동완성 숨김
+          if (query.length < 1) {
+            suggestions.innerHTML = '';
+            suggestions.style.display = 'none';
+            return;
+          }
+          
+          // 메타데이터 체크
+          if (!metadata || !metadata.reforges || !metadata.reforges[category]) {
+            suggestions.innerHTML = '<div class="enchant-suggestion-loading">데이터 로딩 중...</div>';
+            suggestions.style.display = 'block';
+            return;
+          }
+          
+          // 세공 옵션 검색
+          const results = metadata.reforges[category].filter(option => 
+            option.toLowerCase().includes(query)
+          );
+          
+          // 결과 없음
+          if (results.length === 0) {
+            suggestions.innerHTML = '<div class="enchant-suggestion-empty">검색 결과 없음</div>';
+            suggestions.style.display = 'block';
+            return;
+          }
+          
+          // 결과 표시
+          suggestions.innerHTML = '';
+          
+          // 최대 5개만 표시
+          results.slice(0, 5).forEach(option => {
+            const item = document.createElement('div');
+            item.className = 'enchant-suggestion-item';
+            item.textContent = option;
             
-            // 기존 발현 수 필터 제거
-            state.activeFilters = state.activeFilters.filter(f => 
-                f.type !== 'reforge-count'
-            );
-            
-            // 새 발현 수 필터 추가
-            state.activeFilters.push({
-                name: filterInfo.name,
-                displayName: '세공 발현 수',
-                type: 'reforge-count',
-                counts: counts
+            // 클릭 이벤트
+            item.addEventListener('click', () => {
+              // 입력 필드에 선택한 옵션 설정
+              input.value = option;
+              
+              // 자동완성 숨김
+              suggestions.style.display = 'none';
+              
+              // 범위 필터 표시
+              const rangeContainer = filterItem.querySelector(`.range-container-${optionIndex}`);
+              if (rangeContainer) {
+                rangeContainer.style.display = 'block';
+              }
+              
+              // 필터 추가
+              applyReforgeOptionFilter(filterItem, filterInfo, optionIndex, option);
             });
-        }
+            
+            suggestions.appendChild(item);
+          });
+          
+          suggestions.style.display = 'block';
+        });
         
-        // 필터 적용
-        applyFilters();
+        // 포커스 이벤트 (입력창 클릭 시 자동완성 표시)
+        input.addEventListener('focus', function() {
+          if (this.value.trim().length > 0) {
+            const event = new Event('input');
+            this.dispatchEvent(event);
+          }
+        });
+        
+        // 외부 클릭 시 자동완성 숨김
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !suggestions.contains(e.target)) {
+            suggestions.style.display = 'none';
+          }
+        });
+      });
     }
     
     /**
-     * 세공 옵션 필터 추가
+     * 세공 옵션 필터 적용
      * @param {HTMLElement} filterItem - 필터 항목 요소
      * @param {Object} filterInfo - 필터 정보
-     * @param {number} index - 세공 옵션 인덱스
-     * @param {string} option - 세공 옵션 이름
+     * @param {number} optionIndex - 옵션 인덱스 (1, 2, 3)
+     * @param {string} optionName - 옵션 이름
      */
-    function addReforgeOptionFilter(filterItem, filterInfo, index, option) {
-        // 같은 인덱스의 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => 
-            !(f.type === 'reforge-option' && f.index === index)
-        );
+    function applyReforgeOptionFilter(filterItem, filterInfo, optionIndex, optionName) {
+      // 같은 인덱스의 기존 필터 제거
+      state.activeFilters = state.activeFilters.filter(f => 
+        !(f.name === filterInfo.name && f.optionIndex === optionIndex)
+      );
+      
+      // 범위 필터 값 가져오기
+      const rangeContainer = filterItem.querySelector(`.range-container-${optionIndex}`);
+      let min, max;
+      
+      if (rangeContainer) {
+        const minInput = rangeContainer.querySelector('.min-value');
+        const maxInput = rangeContainer.querySelector('.max-value');
         
-        // 새 필터 추가
-        state.activeFilters.push({
-            name: filterInfo.name,
-            displayName: `세공 옵션 ${index}`,
-            type: 'reforge-option',
-            index: index,
-            option: option
-        });
-    }
-    
-    /**
-     * 세공 옵션 범위 필터 업데이트
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     * @param {number} index - 세공 옵션 인덱스
-     * @param {string} option - 세공 옵션 이름
-     * @param {number} min - 최소값
-     * @param {number} max - 최대값
-     */
-    function updateReforgeOptionFilter(filterItem, filterInfo, index, option, min, max) {
-        // 현재 인덱스의 필터 찾기
-        const existingFilter = state.activeFilters.find(f => 
-            f.type === 'reforge-option' && f.index === index
-        );
-        
-        // 필터가 없으면 새로 추가
-        if (!existingFilter) {
-            addReforgeOptionFilter(filterItem, filterInfo, index, option);
+        if (minInput && minInput.value) {
+          min = parseFloat(minInput.value);
         }
         
-        // 범위 필터 추가/업데이트
-        state.activeFilters = state.activeFilters.map(f => {
-            if (f.type === 'reforge-option' && f.index === index) {
-                return {
-                    ...f,
-                    min: min,
-                    max: max
-                };
-            }
-            return f;
-        });
+        if (maxInput && maxInput.value) {
+          max = parseFloat(maxInput.value);
+        }
+      }
+      
+      // 새 필터 추가
+      const newFilter = {
+        name: filterInfo.name,
+        displayName: `세공 옵션: ${optionName}`,
+        type: 'reforge-option',
+        optionIndex: optionIndex,
+        optionName: optionName,
+        min: min,
+        max: max
+      };
+      
+      state.activeFilters.push(newFilter);
+      applyFilters();
     }
     
     /**
      * 에르그 등급 필터 적용
      * @param {HTMLElement} filterItem - 필터 항목 요소
      * @param {Object} filterInfo - 필터 정보
-     * @param {string} grade - 에르그 등급 (S, A, B)
+     * @param {string} grade - 선택한 등급 (S, A, B)
      */
     function applyErgGradeFilter(filterItem, filterInfo, grade) {
-        // 기존 등급 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => 
-            f.type !== 'erg-grade'
-        );
-        
-        // 등급이 있으면 필터 추가
-        if (grade) {
-            state.activeFilters.push({
-                name: filterInfo.name,
-                displayName: `에르그 등급`,
-                type: 'erg-grade',
-                grade: grade
-            });
-        }
-        
-        // 필터 적용
-        applyFilters();
+      // 같은 이름의 기존 필터 제거
+      state.activeFilters = state.activeFilters.filter(f => 
+        f.name !== filterInfo.name || f.filterType !== 'erg-grade'
+      );
+      
+      // 새 필터 추가
+      const newFilter = {
+        name: filterInfo.name,
+        displayName: `에르그 등급 ${grade}`,
+        type: 'erg-grade',
+        filterType: 'erg-grade',
+        grade: grade
+      };
+      
+      state.activeFilters.push(newFilter);
+      applyFilters();
     }
     
     /**
      * 에르그 레벨 필터 적용
      * @param {HTMLElement} filterItem - 필터 항목 요소
      * @param {Object} filterInfo - 필터 정보
-     * @param {HTMLElement} minInput - 최소값 입력 필드
-     * @param {HTMLElement} maxInput - 최대값 입력 필드
      */
-    function applyErgLevelFilter(filterItem, filterInfo, minInput, maxInput) {
-        // 값 가져오기
-        const min = minInput.value ? parseInt(minInput.value) : undefined;
-        const max = maxInput.value ? parseInt(maxInput.value) : undefined;
-        
-        // 값이 모두 없으면 필터 제거
-        if (min === undefined && max === undefined) {
-            state.activeFilters = state.activeFilters.filter(f => 
-                f.type !== 'erg-level'
-            );
-        } else {
-            // 기존 레벨 필터 제거
-            state.activeFilters = state.activeFilters.filter(f => 
-                f.type !== 'erg-level'
-            );
-            
-            // 새 레벨 필터 추가
-            state.activeFilters.push({
-                name: filterInfo.name,
-                displayName: '에르그 레벨',
-                type: 'erg-level',
-                min: min,
-                max: max
-            });
-        }
-        
-        // 필터 적용
-        applyFilters();
+    function applyErgLevelFilter(filterItem, filterInfo) {
+      // 같은 이름의 기존 필터 제거
+      state.activeFilters = state.activeFilters.filter(f => 
+        f.name !== filterInfo.name || f.filterType !== 'erg-level'
+      );
+      
+      // 범위 값 가져오기
+      const minInput = filterItem.querySelector('.erg-level-min');
+      const maxInput = filterItem.querySelector('.erg-level-max');
+      
+      let min, max;
+      if (minInput && minInput.value) {
+        min = parseInt(minInput.value);
+      }
+      
+      if (maxInput && maxInput.value) {
+        max = parseInt(maxInput.value);
+      }
+      
+      // 유효한 값이 있는지 확인
+      if (!min && !max) return;
+      
+      // 새 필터 추가
+      const newFilter = {
+        name: filterInfo.name,
+        displayName: '에르그 레벨',
+        type: 'range',
+        filterType: 'erg-level',
+        field: 'option_value',
+        min: min,
+        max: max
+      };
+      
+      state.activeFilters.push(newFilter);
+      applyFilters();
     }
     
     /**
-     * 세트 효과 필터 추가
+     * 세트 효과 자동완성 설정
+     * @param {HTMLInputElement} input - 입력 필드
+     * @param {HTMLElement} suggestions - 자동완성 컨테이너
      * @param {HTMLElement} filterItem - 필터 항목 요소
      * @param {Object} filterInfo - 필터 정보
-     * @param {number} index - 세트 효과 인덱스
-     * @param {string} effect - 세트 효과 이름
+     * @param {string} category - 현재 카테고리
+     * @param {number} effectIndex - 효과 인덱스 (1, 2, 3)
      */
-    function addSetEffectFilter(filterItem, filterInfo, index, effect) {
-        // 같은 인덱스의 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => 
-            !(f.type === 'set-effect' && f.index === index)
-        );
-        
-        // 새 필터 추가
-        state.activeFilters.push({
-            name: filterInfo.name,
-            displayName: `세트 효과 ${index}`,
-            type: 'set-effect',
-            index: index,
-            effect: effect
-        });
-    }
-    
-    /**
-     * 세트 효과 범위 필터 업데이트
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     * @param {number} index - 세트 효과 인덱스
-     * @param {string} effect - 세트 효과 이름
-     * @param {number} min - 최소값
-     * @param {number} max - 최대값
-     */
-    function updateSetEffectFilter(filterItem, filterInfo, index, effect, min, max) {
-        // 현재 인덱스의 필터 찾기
-        const existingFilter = state.activeFilters.find(f => 
-            f.type === 'set-effect' && f.index === index
-        );
-        
-        // 필터가 없으면 새로 추가
-        if (!existingFilter) {
-            addSetEffectFilter(filterItem, filterInfo, index, effect);
-        }
-        
-        // 범위 필터 추가/업데이트
-        state.activeFilters = state.activeFilters.map(f => {
-            if (f.type === 'set-effect' && f.index === index) {
-                return {
-                    ...f,
-                    min: min,
-                    max: max
-                };
-            }
-            return f;
-        });
-    }
-    
-    /**
-     * 자동 필터 적용 (입력/선택 완료 시)
-     * @param {HTMLElement} filterItem - 필터 항목 요소 
-     * @param {Object} filterInfo - 필터 정보
-     */
-    function autoApplyFilter(filterItem, filterInfo) {
-        // 활성 필터에 추가
-        addActiveFilter(filterItem, filterInfo);
-        
-        // 필터 적용
-        applyFilters();
-    }
-    
-    /**
-     * 활성 필터 추가
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     */
-    function addActiveFilter(filterItem, filterInfo) {
-        const filterName = filterInfo.name;
-        logDebug('필터 추가 시작:', filterName);
-        
-        // 값 수집
-        let filterValues = {};
-        
-        if (filterInfo.type === 'range') {
-            const minInput = filterItem.querySelector('.min-value');
-            const maxInput = filterItem.querySelector('.max-value');
-            
-            if (minInput && minInput.value) {
-                filterValues.min = parseFloat(minInput.value);
-            }
-            
-            if (maxInput && maxInput.value) {
-                filterValues.max = parseFloat(maxInput.value);
-            }
-        } else if (filterInfo.type === 'select') {
-            const select = filterItem.querySelector('.select-value');
-            if (select && select.value) {
-                filterValues.value = select.value;
-            }
-        } else {
-            const input = filterItem.querySelector('.text-value');
-            if (input && input.value) {
-                filterValues.value = input.value;
-            }
-        }
-        
-        // 유효한 값이 있는지 확인
-        const hasValidValues = Object.keys(filterValues).length > 0;
-        if (!hasValidValues) {
-            logDebug('필터 값 없음, 추가 취소');
+    function setupSetEffectAutocomplete(input, suggestions, filterItem, filterInfo, category, effectIndex) {
+      // 세트 효과 메타데이터 로드
+      loadSetEffectMetadata(category).then(metadata => {
+        // 입력 이벤트
+        input.addEventListener('input', function() {
+          const query = this.value.trim().toLowerCase();
+          
+          // 입력이 없으면 자동완성 숨김
+          if (query.length < 1) {
+            suggestions.innerHTML = '';
+            suggestions.style.display = 'none';
             return;
-        }
+          }
+          
+          // 메타데이터 체크
+          if (!metadata || !metadata.set_effects) {
+            suggestions.innerHTML = '<div class="enchant-suggestion-loading">데이터 로딩 중...</div>';
+            suggestions.style.display = 'block';
+            return;
+          }
+          
+          // 세트 효과 검색
+          const results = metadata.set_effects.filter(effect => 
+            effect.toLowerCase().includes(query)
+          );
+          
+          // 결과 없음
+          if (results.length === 0) {
+            suggestions.innerHTML = '<div class="enchant-suggestion-empty">검색 결과 없음</div>';
+            suggestions.style.display = 'block';
+            return;
+          }
+          
+          // 결과 표시
+          suggestions.innerHTML = '';
+          
+          // 최대 5개만 표시
+          results.slice(0, 5).forEach(effect => {
+            const item = document.createElement('div');
+            item.className = 'enchant-suggestion-item';
+            item.textContent = effect;
+            
+            // 클릭 이벤트
+            item.addEventListener('click', () => {
+              // 입력 필드에 선택한 효과 설정
+              input.value = effect;
+              
+              // 자동완성 숨김
+              suggestions.style.display = 'none';
+              
+              // 범위 필터 표시
+              const rangeContainer = filterItem.querySelector(`.range-container-${effectIndex}`);
+              if (rangeContainer) {
+                rangeContainer.style.display = 'block';
+              }
+              
+              // 필터 추가
+              applySetEffectFilter(filterItem, filterInfo, effectIndex, effect);
+            });
+            
+            suggestions.appendChild(item);
+          });
+          
+          suggestions.style.display = 'block';
+        });
         
-        // 같은 이름의 기존 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => f.name !== filterName);
+        // 포커스 이벤트 (입력창 클릭 시 자동완성 표시)
+        input.addEventListener('focus', function() {
+          if (this.value.trim().length > 0) {
+            const event = new Event('input');
+            this.dispatchEvent(event);
+          }
+        });
         
-        // 새 필터 추가
-        const newFilter = {
-            name: filterName,
-            displayName: filterInfo.displayName || filterName,
-            type: filterInfo.type,
-            field: filterInfo.field,
-            ...filterValues
-        };
-        
-        state.activeFilters.push(newFilter);
-        logDebug('필터 추가 완료:', newFilter);
+        // 외부 클릭 시 자동완성 숨김
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !suggestions.contains(e.target)) {
+            suggestions.style.display = 'none';
+          }
+        });
+      });
     }
     
     /**
-     * 특별 개조 타입 필터 적용
+     * 세트 효과 필터 적용
      * @param {HTMLElement} filterItem - 필터 항목 요소
      * @param {Object} filterInfo - 필터 정보
-     * @param {string} type - 특별 개조 타입 (S 또는 R)
+     * @param {number} effectIndex - 효과 인덱스 (1, 2, 3)
+     * @param {string} effectName - 효과 이름
      */
-    function applySpecialModTypeFilter(filterItem, filterInfo, type) {
-        // 같은 이름의 기존 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => f.name !== filterInfo.name);
-        
-        // 새 필터 추가
-        const newFilter = {
-            name: filterInfo.name,
-            displayName: `특별개조 ${type}`,
-            type: 'special-mod-type',
-            modType: type
-        };
-        
-        state.activeFilters.push(newFilter);
-        applyFilters();
-    }
-    
-    /**
-     * 특별 개조 범위 필터 적용
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     * @param {HTMLElement} rangeContainer - 범위 필터 컨테이너
-     */
-    function applySpecialModFilter(filterItem, filterInfo, rangeContainer) {
-        // 현재 활성화된 타입 버튼 찾기
-        const activeBtn = filterItem.querySelector('.special-mod-btn.active');
-        if (!activeBtn) return;
-        
-        const type = activeBtn.getAttribute('data-type');
-        
-        // 값 수집
+    function applySetEffectFilter(filterItem, filterInfo, effectIndex, effectName) {
+      // 같은 인덱스의 기존 필터 제거
+      state.activeFilters = state.activeFilters.filter(f => 
+        !(f.name === filterInfo.name && f.effectIndex === effectIndex)
+      );
+      
+      // 범위 필터 값 가져오기
+      const rangeContainer = filterItem.querySelector(`.range-container-${effectIndex}`);
+      let min, max;
+      
+      if (rangeContainer) {
         const minInput = rangeContainer.querySelector('.min-value');
         const maxInput = rangeContainer.querySelector('.max-value');
         
-        let filterValues = {};
-        
         if (minInput && minInput.value) {
-            filterValues.min = parseFloat(minInput.value);
+          min = parseFloat(minInput.value);
         }
         
         if (maxInput && maxInput.value) {
-            filterValues.max = parseFloat(maxInput.value);
+          max = parseFloat(maxInput.value);
+        }
+      }
+      
+      // 새 필터 추가
+      const newFilter = {
+        name: filterInfo.name,
+        displayName: `세트 효과: ${effectName}`,
+        type: 'set-effect',
+        effectIndex: effectIndex,
+        effectName: effectName,
+        min: min,
+        max: max
+      };
+      
+      state.activeFilters.push(newFilter);
+      applyFilters();
+    }
+    
+    /**
+     * 세공 메타데이터 로드
+     * @param {string} category - 현재 카테고리
+     * @returns {Promise<Object>} 메타데이터
+     */
+    async function loadReforgeMetadata(category) {
+      if (!category) return null;
+      
+      try {
+        const response = await fetch('../../data/meta/reforges/reforges.json');
+        if (!response.ok) {
+          throw new Error(`세공 메타데이터 로드 실패: ${response.status}`);
         }
         
-        // 유효한 값이 없으면 타입만 유지
-        if (Object.keys(filterValues).length === 0) {
-            applySpecialModTypeFilter(filterItem, filterInfo, type);
-            return;
+        return await response.json();
+      } catch (error) {
+        console.error('세공 메타데이터 로드 오류:', error);
+        return null;
+      }
+    }
+    
+    /**
+     * 세트 효과 메타데이터 로드
+     * @param {string} category - 현재 카테고리
+     * @returns {Promise<Object>} 메타데이터
+     */
+    async function loadSetEffectMetadata(category) {
+      if (!category) return null;
+      
+      try {
+        // 카테고리명 안전하게 변환 (/ -> _)
+        const safeCategory = category.replace(/\//g, '_');
+        
+        const response = await fetch(`../../data/meta/set_bonus/${encodeURIComponent(safeCategory)}.json`);
+        if (!response.ok) {
+          throw new Error(`세트 효과 메타데이터 로드 실패: ${response.status}`);
         }
         
-        // 같은 이름의 기존 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => f.name !== filterInfo.name);
-        
-        // 새 필터 추가 (타입 + 범위)
-        const newFilter = {
-            name: filterInfo.name,
-            displayName: `특별개조 ${type}`,
-            type: 'special-mod-range',
-            modType: type,
-            field: 'option_value',
-            ...filterValues
-        };
-        
-        state.activeFilters.push(newFilter);
-        applyFilters();
+        return await response.json();
+      } catch (error) {
+        console.error('세트 효과 메타데이터 로드 오류:', error);
+        return null;
+      }
     }
     
     /**
-     * 특별 개조 없음 필터 적용
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
+     * 세공 랭크 필터 체크
+     * @param {Object} item - 아이템 객체
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
      */
-    function applySpecialModNoneFilter(filterItem, filterInfo) {
-        // 같은 이름의 기존 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => f.name !== filterInfo.name);
+    function checkReforgeRankFilter(item, filter) {
+      // 옵션 필드 표준화
+      const options = item.options || item.item_option || [];
+      
+      // 세공 랭크 옵션 찾기
+      const reforgeRankOption = options.find(opt => opt.option_type === '세공 랭크');
+      
+      // 세공 랭크가 없으면 실패
+      if (!reforgeRankOption) {
+        return false;
+      }
+      
+      // 랭크 일치 확인
+      return reforgeRankOption.option_value === filter.rank;
+    }
+    
+    /**
+     * 세공 발현 수 필터 체크
+     * @param {Object} item - 아이템 객체
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkReforgeCountFilter(item, filter) {
+      // 옵션 필드 표준화
+      const options = item.options || item.item_option || [];
+      
+      // 세공 옵션 찾기
+      const reforgeOptions = options.filter(opt => opt.option_type === '세공 옵션');
+      
+      // 발현 수 확인
+      return reforgeOptions.length >= filter.count;
+    }
+    
+    /**
+     * 세공 옵션 필터 체크
+     * @param {Object} item - 아이템 객체
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkReforgeOptionFilter(item, filter) {
+      // 옵션 필드 표준화
+      const options = item.options || item.item_option || [];
+      
+      // 세공 옵션 찾기
+      const reforgeOptions = options.filter(opt => opt.option_type === '세공 옵션');
+      
+      // 옵션 이름으로 필터링
+      const matchedOption = reforgeOptions.find(opt => {
+        // "스매시 대미지(18레벨:180 % 증가)" 형식 파싱
+        const match = opt.option_value.match(/(.*?)\((\d+)레벨:(.*)\)/);
+        if (!match) return false;
         
-        // 새 필터 추가
-        const newFilter = {
-            name: filterInfo.name,
-            displayName: '특별개조 없음',
-            type: 'special-mod-none'
-        };
+        const name = match[1].trim();
+        // 옵션 이름이 일치하는지 확인
+        return name === filter.optionName;
+      });
+      
+      // 일치하는 옵션이 없으면 실패
+      if (!matchedOption) {
+        return false;
+      }
+      
+      // 범위 필터가 설정된 경우
+      if (filter.min !== undefined || filter.max !== undefined) {
+        // "스매시 대미지(18레벨:180 % 증가)" 형식 파싱
+        const match = matchedOption.option_value.match(/(.*?)\((\d+)레벨:(.*)\)/);
+        if (!match) return false;
         
-        state.activeFilters.push(newFilter);
-        applyFilters();
-    }
-    
-    /**
-     * 특별 개조 타입 필터 제거
-     * @param {string} filterName - 필터 이름
-     */
-    function removeSpecialModTypeFilter(filterName) {
-        // 특별 개조 관련 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => 
-            f.name !== filterName || 
-            (f.type !== 'special-mod-type' && 
-             f.type !== 'special-mod-range' &&
-             f.type !== 'special-mod-none')
-        );
-    }
-    
-    /**
-     * 활성 필터 제거
-     * @param {string} filterName - 필터 이름
-     */
-    function removeActiveFilter(filterName) {
-        // 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => f.name !== filterName);
-        logDebug(`필터 제거: ${filterName}`);
-    }
-    
-    /**
-     * 선택된 필터 UI 업데이트
-     */
-    function updateSelectedFiltersUI() {
-        // 선택된 필터 UI를 별도로 표시하지 않음 (요청에 따라 제거)
-    }
-    
-    /**
-     * 필터 적용
-     */
-    function applyFilters() {
-        // 필터 이벤트 발생
-        const event = new CustomEvent('filterChanged', {
-            detail: {
-                filters: state.activeFilters
-            }
-        });
+        const level = parseInt(match[2]);
         
-        document.dispatchEvent(event);
-        logDebug('필터 변경 이벤트 발생:', state.activeFilters);
+        // 범위 검사
+        if (filter.min !== undefined && level < filter.min) {
+          return false;
+        }
+        if (filter.max !== undefined && level > filter.max) {
+          return false;
+        }
+      }
+      
+      return true;
+    }
+    
+    /**
+     * 에르그 등급 필터 체크
+     * @param {Object} item - 아이템 객체
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkErgGradeFilter(item, filter) {
+      // 옵션 필드 표준화
+      const options = item.options || item.item_option || [];
+      
+      // 에르그 옵션 찾기
+      const ergOption = options.find(opt => opt.option_type === '에르그');
+      
+      // 에르그가 없으면 실패
+      if (!ergOption) {
+        return false;
+      }
+      
+      // 등급 일치 확인
+      return ergOption.option_sub_type === filter.grade;
+    }
+    
+    /**
+     * 에르그 레벨 필터 체크
+     * @param {Object} item - 아이템 객체
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkErgLevelFilter(item, filter) {
+      // 옵션 필드 표준화
+      const options = item.options || item.item_option || [];
+      
+      // 에르그 옵션 찾기
+      const ergOption = options.find(opt => opt.option_type === '에르그');
+      
+      // 에르그가 없으면 실패
+      if (!ergOption) {
+        return false;
+      }
+      
+      // 레벨 확인
+      const level = parseInt(ergOption.option_value);
+      
+      // 범위 검사
+      if (filter.min !== undefined && level < filter.min) {
+        return false;
+      }
+      if (filter.max !== undefined && level > filter.max) {
+        return false;
+      }
+      
+      return true;
+    }
+    
+    /**
+     * 세트 효과 필터 체크
+     * @param {Object} item - 아이템 객체
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkSetEffectFilter(item, filter) {
+      // 옵션 필드 표준화
+      const options = item.options || item.item_option || [];
+      
+      // 세트 효과 옵션 찾기
+      const setEffectOptions = options.filter(opt => 
+        opt.option_type === '세트 효과' && 
+        opt.option_value === filter.effectName
+      );
+      
+      // 일치하는 세트 효과가 없으면 실패
+      if (setEffectOptions.length === 0) {
+        return false;
+      }
+      
+      // 첫 번째 일치하는 세트 효과
+      const setEffectOption = setEffectOptions[0];
+      
+      // 범위 필터가 설정된 경우
+      if (filter.min !== undefined || filter.max !== undefined) {
+        const value = parseInt(setEffectOption.option_value2);
+        
+        // 범위 검사
+        if (filter.min !== undefined && value < filter.min) {
+          return false;
+        }
+        if (filter.max !== undefined && value > filter.max) {
+          return false;
+        }
+      }
+      
+      return true;
     }
     
     /**
@@ -1975,29 +2133,8 @@ const FilterManager = (() => {
         
         // 모든 필터를 통과해야 함
         return state.activeFilters.every(filter => {
-            // 세공 관련 필터
-            if (filter.type === 'reforge-rank') {
-                return checkReforgeRankFilter(item, filter);
-            } else if (filter.type === 'reforge-count') {
-                return checkReforgeCountFilter(item, filter);
-            } else if (filter.type === 'reforge-option') {
-                return checkReforgeOptionFilter(item, filter);
-            }
-            
-            // 에르그 관련 필터
-            else if (filter.type === 'erg-grade') {
-                return checkErgGradeFilter(item, filter);
-            } else if (filter.type === 'erg-level') {
-                return checkErgLevelFilter(item, filter);
-            }
-            
-            // 세트 효과 필터
-            else if (filter.type === 'set-effect') {
-                return checkSetEffectFilter(item, filter);
-            }
-            
-            // 특별 개조 필터
-            else if (filter.type === 'special-mod-type') {
+            // 특별 개조 필터 특별 처리
+            if (filter.type === 'special-mod-type') {
                 return checkSpecialModTypeFilter(item, filter);
             } else if (filter.type === 'special-mod-range') {
                 return checkSpecialModRangeFilter(item, filter);
@@ -2005,502 +2142,12 @@ const FilterManager = (() => {
                 return checkSpecialModNoneFilter(item);
             }
             
-            // 인챈트 필터
-            else if (filter.type === 'enchant') {
+            // 인챈트 필터 특별 처리
+            if (filter.type === 'enchant') {
                 return checkEnchantFilter(item, filter);
             }
-            
-            // 아이템 옵션 필드 표준화
-            const options = item.options || item.item_option || [];
-            
-            // 필터 유형에 따른 검사
-            switch (filter.type) {
-                case 'range':
-                    return checkRangeFilter(options, filter);
-                    
-                case 'select':
-                    return checkSelectFilter(options, filter);
-                    
-                default:
-                    return checkTextFilter(options, filter);
-            }
-        });
-    }
     
-    /**
-     * 세공 랭크 필터 적용
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     */
-    function applyReforgeRankFilter(filterItem, filterInfo) {
-        // 활성화된 랭크 버튼들 가져오기
-        const activeButtons = filterItem.querySelectorAll('.special-mod-btn[data-rank].active');
-        
-        // 활성화된 랭크가 없으면 필터 제거
-        if (activeButtons.length === 0) {
-            state.activeFilters = state.activeFilters.filter(f => 
-                f.type !== 'reforge-rank'
-            );
-        } else {
-            // 활성화된 랭크값 배열 생성
-            const ranks = Array.from(activeButtons).map(btn => 
-                parseInt(btn.getAttribute('data-rank'))
-            );
-            
-            // 기존 랭크 필터 제거
-            state.activeFilters = state.activeFilters.filter(f => 
-                f.type !== 'reforge-rank'
-            );
-            
-            // 새 랭크 필터 추가
-            state.activeFilters.push({
-                name: filterInfo.name,
-                displayName: '세공 랭크',
-                type: 'reforge-rank',
-                ranks: ranks
-            });
-        }
-        
-        // 필터 적용
-        applyFilters();
-    }
-    
-    /**
-     * 세공 발현 수 필터 적용
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     */
-    function applyReforgeCountFilter(filterItem, filterInfo) {
-        // 활성화된 발현 수 버튼들 가져오기
-        const activeButtons = filterItem.querySelectorAll('.special-mod-btn[data-count].active');
-        
-        // 활성화된 발현 수가 없으면 필터 제거
-        if (activeButtons.length === 0) {
-            state.activeFilters = state.activeFilters.filter(f => 
-                f.type !== 'reforge-count'
-            );
-        } else {
-            // 활성화된 발현 수 배열 생성
-            const counts = Array.from(activeButtons).map(btn => 
-                parseInt(btn.getAttribute('data-count'))
-            );
-            
-            // 기존 발현 수 필터 제거
-            state.activeFilters = state.activeFilters.filter(f => 
-                f.type !== 'reforge-count'
-            );
-            
-            // 새 발현 수 필터 추가
-            state.activeFilters.push({
-                name: filterInfo.name,
-                displayName: '세공 발현 수',
-                type: 'reforge-count',
-                counts: counts
-            });
-        }
-        
-        // 필터 적용
-        applyFilters();
-    }
-    
-    /**
-     * 세공 옵션 필터 추가
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     * @param {number} index - 세공 옵션 인덱스
-     * @param {string} option - 세공 옵션 이름
-     */
-    function addReforgeOptionFilter(filterItem, filterInfo, index, option) {
-        // 같은 인덱스의 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => 
-            !(f.type === 'reforge-option' && f.index === index)
-        );
-        
-        // 새 필터 추가
-        state.activeFilters.push({
-            name: filterInfo.name,
-            displayName: `세공 옵션 ${index}`,
-            type: 'reforge-option',
-            index: index,
-            option: option
-        });
-    }
-    
-    /**
-     * 세공 옵션 범위 필터 업데이트
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     * @param {number} index - 세공 옵션 인덱스
-     * @param {string} option - 세공 옵션 이름
-     * @param {number} min - 최소값
-     * @param {number} max - 최대값
-     */
-    function updateReforgeOptionFilter(filterItem, filterInfo, index, option, min, max) {
-        // 현재 인덱스의 필터 찾기
-        const existingFilter = state.activeFilters.find(f => 
-            f.type === 'reforge-option' && f.index === index
-        );
-        
-        // 필터가 없으면 새로 추가
-        if (!existingFilter) {
-            addReforgeOptionFilter(filterItem, filterInfo, index, option);
-        }
-        
-        // 범위 필터 추가/업데이트
-        state.activeFilters = state.activeFilters.map(f => {
-            if (f.type === 'reforge-option' && f.index === index) {
-                return {
-                    ...f,
-                    min: min,
-                    max: max
-                };
-            }
-            return f;
-        });
-    }
-    
-    /**
-     * 에르그 등급 필터 적용
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     * @param {string} grade - 에르그 등급 (S, A, B)
-     */
-    function applyErgGradeFilter(filterItem, filterInfo, grade) {
-        // 기존 등급 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => 
-            f.type !== 'erg-grade'
-        );
-        
-        // 등급이 있으면 필터 추가
-        if (grade) {
-            state.activeFilters.push({
-                name: filterInfo.name,
-                displayName: `에르그 등급`,
-                type: 'erg-grade',
-                grade: grade
-            });
-        }
-        
-        // 필터 적용
-        applyFilters();
-    }
-    
-    /**
-     * 에르그 레벨 필터 적용
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     * @param {HTMLElement} minInput - 최소값 입력 필드
-     * @param {HTMLElement} maxInput - 최대값 입력 필드
-     */
-    function applyErgLevelFilter(filterItem, filterInfo, minInput, maxInput) {
-        // 값 가져오기
-        const min = minInput.value ? parseInt(minInput.value) : undefined;
-        const max = maxInput.value ? parseInt(maxInput.value) : undefined;
-        
-        // 값이 모두 없으면 필터 제거
-        if (min === undefined && max === undefined) {
-            state.activeFilters = state.activeFilters.filter(f => 
-                f.type !== 'erg-level'
-            );
-        } else {
-            // 기존 레벨 필터 제거
-            state.activeFilters = state.activeFilters.filter(f => 
-                f.type !== 'erg-level'
-            );
-            
-            // 새 레벨 필터 추가
-            state.activeFilters.push({
-                name: filterInfo.name,
-                displayName: '에르그 레벨',
-                type: 'erg-level',
-                min: min,
-                max: max
-            });
-        }
-        
-        // 필터 적용
-        applyFilters();
-    }
-    
-    /**
-     * 세트 효과 필터 추가
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     * @param {number} index - 세트 효과 인덱스
-     * @param {string} effect - 세트 효과 이름
-     */
-    function addSetEffectFilter(filterItem, filterInfo, index, effect) {
-        // 같은 인덱스의 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => 
-            !(f.type === 'set-effect' && f.index === index)
-        );
-        
-        // 새 필터 추가
-        state.activeFilters.push({
-            name: filterInfo.name,
-            displayName: `세트 효과 ${index}`,
-            type: 'set-effect',
-            index: index,
-            effect: effect
-        });
-    }
-    
-    /**
-     * 세트 효과 범위 필터 업데이트
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     * @param {number} index - 세트 효과 인덱스
-     * @param {string} effect - 세트 효과 이름
-     * @param {number} min - 최소값
-     * @param {number} max - 최대값
-     */
-    function updateSetEffectFilter(filterItem, filterInfo, index, effect, min, max) {
-        // 현재 인덱스의 필터 찾기
-        const existingFilter = state.activeFilters.find(f => 
-            f.type === 'set-effect' && f.index === index
-        );
-        
-        // 필터가 없으면 새로 추가
-        if (!existingFilter) {
-            addSetEffectFilter(filterItem, filterInfo, index, effect);
-        }
-        
-        // 범위 필터 추가/업데이트
-        state.activeFilters = state.activeFilters.map(f => {
-            if (f.type === 'set-effect' && f.index === index) {
-                return {
-                    ...f,
-                    min: min,
-                    max: max
-                };
-            }
-            return f;
-        });
-    }
-    
-    /**
-     * 자동 필터 적용 (입력/선택 완료 시)
-     * @param {HTMLElement} filterItem - 필터 항목 요소 
-     * @param {Object} filterInfo - 필터 정보
-     */
-    function autoApplyFilter(filterItem, filterInfo) {
-        // 활성 필터에 추가
-        addActiveFilter(filterItem, filterInfo);
-        
-        // 필터 적용
-        applyFilters();
-    }
-    
-    /**
-     * 활성 필터 추가
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     */
-    function addActiveFilter(filterItem, filterInfo) {
-        const filterName = filterInfo.name;
-        logDebug('필터 추가 시작:', filterName);
-        
-        // 값 수집
-        let filterValues = {};
-        
-        if (filterInfo.type === 'range') {
-            const minInput = filterItem.querySelector('.min-value');
-            const maxInput = filterItem.querySelector('.max-value');
-            
-            if (minInput && minInput.value) {
-                filterValues.min = parseFloat(minInput.value);
-            }
-            
-            if (maxInput && maxInput.value) {
-                filterValues.max = parseFloat(maxInput.value);
-            }
-        } else if (filterInfo.type === 'select') {
-            const select = filterItem.querySelector('.select-value');
-            if (select && select.value) {
-                filterValues.value = select.value;
-            }
-        } else {
-            const input = filterItem.querySelector('.text-value');
-            if (input && input.value) {
-                filterValues.value = input.value;
-            }
-        }
-        
-        // 유효한 값이 있는지 확인
-        const hasValidValues = Object.keys(filterValues).length > 0;
-        if (!hasValidValues) {
-            logDebug('필터 값 없음, 추가 취소');
-            return;
-        }
-        
-        // 같은 이름의 기존 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => f.name !== filterName);
-        
-        // 새 필터 추가
-        const newFilter = {
-            name: filterName,
-            displayName: filterInfo.displayName || filterName,
-            type: filterInfo.type,
-            field: filterInfo.field,
-            ...filterValues
-        };
-        
-        state.activeFilters.push(newFilter);
-        logDebug('필터 추가 완료:', newFilter);
-    }
-    
-    /**
-     * 특별 개조 타입 필터 적용
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     * @param {string} type - 특별 개조 타입 (S 또는 R)
-     */
-    function applySpecialModTypeFilter(filterItem, filterInfo, type) {
-        // 같은 이름의 기존 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => f.name !== filterInfo.name);
-        
-        // 새 필터 추가
-        const newFilter = {
-            name: filterInfo.name,
-            displayName: `특별개조 ${type}`,
-            type: 'special-mod-type',
-            modType: type
-        };
-        
-        state.activeFilters.push(newFilter);
-        applyFilters();
-    }
-    
-    /**
-     * 특별 개조 범위 필터 적용
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     * @param {HTMLElement} rangeContainer - 범위 필터 컨테이너
-     */
-    function applySpecialModFilter(filterItem, filterInfo, rangeContainer) {
-        // 현재 활성화된 타입 버튼 찾기
-        const activeBtn = filterItem.querySelector('.special-mod-btn.active');
-        if (!activeBtn) return;
-        
-        const type = activeBtn.getAttribute('data-type');
-        
-        // 값 수집
-        const minInput = rangeContainer.querySelector('.min-value');
-        const maxInput = rangeContainer.querySelector('.max-value');
-        
-        let filterValues = {};
-        
-        if (minInput && minInput.value) {
-            filterValues.min = parseFloat(minInput.value);
-        }
-        
-        if (maxInput && maxInput.value) {
-            filterValues.max = parseFloat(maxInput.value);
-        }
-        
-        // 유효한 값이 없으면 타입만 유지
-        if (Object.keys(filterValues).length === 0) {
-            applySpecialModTypeFilter(filterItem, filterInfo, type);
-            return;
-        }
-        
-        // 같은 이름의 기존 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => f.name !== filterInfo.name);
-        
-        // 새 필터 추가 (타입 + 범위)
-        const newFilter = {
-            name: filterInfo.name,
-            displayName: `특별개조 ${type}`,
-            type: 'special-mod-range',
-            modType: type,
-            field: 'option_value',
-            ...filterValues
-        };
-        
-        state.activeFilters.push(newFilter);
-        applyFilters();
-    }
-    
-    /**
-     * 특별 개조 없음 필터 적용
-     * @param {HTMLElement} filterItem - 필터 항목 요소
-     * @param {Object} filterInfo - 필터 정보
-     */
-    function applySpecialModNoneFilter(filterItem, filterInfo) {
-        // 같은 이름의 기존 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => f.name !== filterInfo.name);
-        
-        // 새 필터 추가
-        const newFilter = {
-            name: filterInfo.name,
-            displayName: '특별개조 없음',
-            type: 'special-mod-none'
-        };
-        
-        state.activeFilters.push(newFilter);
-        applyFilters();
-    }
-    
-    /**
-     * 특별 개조 타입 필터 제거
-     * @param {string} filterName - 필터 이름
-     */
-    function removeSpecialModTypeFilter(filterName) {
-        // 특별 개조 관련 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => 
-            f.name !== filterName || 
-            (f.type !== 'special-mod-type' && 
-             f.type !== 'special-mod-range' &&
-             f.type !== 'special-mod-none')
-        );
-    }
-    
-    /**
-     * 활성 필터 제거
-     * @param {string} filterName - 필터 이름
-     */
-    function removeActiveFilter(filterName) {
-        // 필터 제거
-        state.activeFilters = state.activeFilters.filter(f => f.name !== filterName);
-        logDebug(`필터 제거: ${filterName}`);
-    }
-    
-    /**
-     * 선택된 필터 UI 업데이트
-     */
-    function updateSelectedFiltersUI() {
-        // 선택된 필터 UI를 별도로 표시하지 않음 (요청에 따라 제거)
-    }
-    
-    /**
-     * 필터 적용
-     */
-    function applyFilters() {
-        // 필터 이벤트 발생
-        const event = new CustomEvent('filterChanged', {
-            detail: {
-                filters: state.activeFilters
-            }
-        });
-        
-        document.dispatchEvent(event);
-        logDebug('필터 변경 이벤트 발생:', state.activeFilters);
-    }
-    
-    /**
-     * 아이템이 필터를 통과하는지 확인
-     * @param {Object} item - 아이템 객체
-     * @returns {boolean} 필터 통과 여부
-     */
-    function itemPassesFilters(item) {
-        // 활성 필터가 없으면 모든 아이템 통과
-        if (state.activeFilters.length === 0) {
-            return true;
-        }
-        
-        // 모든 필터를 통과해야 함
-        return state.activeFilters.every(filter => {
-            // 세공 관련 필터
+            // 세공 관련 필터 처리
             if (filter.type === 'reforge-rank') {
                 return checkReforgeRankFilter(item, filter);
             } else if (filter.type === 'reforge-count') {
@@ -2508,31 +2155,17 @@ const FilterManager = (() => {
             } else if (filter.type === 'reforge-option') {
                 return checkReforgeOptionFilter(item, filter);
             }
-            
-            // 에르그 관련 필터
-            else if (filter.type === 'erg-grade') {
+    
+            // 에르그 관련 필터 처리
+            if (filter.type === 'erg-grade') {
                 return checkErgGradeFilter(item, filter);
             } else if (filter.type === 'erg-level') {
                 return checkErgLevelFilter(item, filter);
             }
-            
-            // 세트 효과 필터
-            else if (filter.type === 'set-effect') {
+    
+            // 세트 효과 필터 처리
+            if (filter.type === 'set-effect') {
                 return checkSetEffectFilter(item, filter);
-            }
-            
-            // 특별 개조 필터
-            else if (filter.type === 'special-mod-type') {
-                return checkSpecialModTypeFilter(item, filter);
-            } else if (filter.type === 'special-mod-range') {
-                return checkSpecialModRangeFilter(item, filter);
-            } else if (filter.type === 'special-mod-none') {
-                return checkSpecialModNoneFilter(item);
-            }
-            
-            // 인챈트 필터
-            else if (filter.type === 'enchant') {
-                return checkEnchantFilter(item, filter);
             }
             
             // 아이템 옵션 필드 표준화
@@ -2563,17 +2196,131 @@ const FilterManager = (() => {
         const options = item.options || item.item_option || [];
         
         // 세공 랭크 옵션 찾기
-        const
-        }
+        const reforgeRankOption = options.find(opt => opt.option_type === '세공 랭크');
         
-        // 값 확인
-        const value = parseInt(specialModOption.option_value);
-        
-        // 범위 검사
-        if (filter.min !== undefined && value < filter.min) {
+        // 세공 랭크가 없으면 실패
+        if (!reforgeRankOption) {
             return false;
         }
-        if (filter.max !== undefined && value > filter.max) {
+        
+        // 랭크 일치 확인
+        return reforgeRankOption.option_value === filter.rank;
+    }
+    
+    /**
+     * 세공 발현 수 필터 체크
+     * @param {Object} item - 아이템 객체
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkReforgeCountFilter(item, filter) {
+        // 옵션 필드 표준화
+        const options = item.options || item.item_option || [];
+        
+        // 세공 옵션 찾기
+        const reforgeOptions = options.filter(opt => opt.option_type === '세공 옵션');
+        
+        // 발현 수 확인
+        return reforgeOptions.length >= filter.count;
+    }
+    
+    /**
+     * 세공 옵션 필터 체크
+     * @param {Object} item - 아이템 객체
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkReforgeOptionFilter(item, filter) {
+        // 옵션 필드 표준화
+        const options = item.options || item.item_option || [];
+        
+        // 세공 옵션 찾기
+        const reforgeOptions = options.filter(opt => opt.option_type === '세공 옵션');
+        
+        // 옵션 이름으로 필터링
+        const matchedOption = reforgeOptions.find(opt => {
+            // "스매시 대미지(18레벨:180 % 증가)" 형식 파싱
+            const match = opt.option_value.match(/(.*?)\((\d+)레벨:(.*)\)/);
+            if (!match) return false;
+            
+            const name = match[1].trim();
+            // 옵션 이름이 일치하는지 확인
+            return name === filter.optionName;
+        });
+        
+        // 일치하는 옵션이 없으면 실패
+        if (!matchedOption) {
+            return false;
+        }
+        
+        // 범위 필터가 설정된 경우
+        if (filter.min !== undefined || filter.max !== undefined) {
+            // "스매시 대미지(18레벨:180 % 증가)" 형식 파싱
+            const match = matchedOption.option_value.match(/(.*?)\((\d+)레벨:(.*)\)/);
+            if (!match) return false;
+            
+            const level = parseInt(match[2]);
+            
+            // 범위 검사
+            if (filter.min !== undefined && level < filter.min) {
+                return false;
+            }
+            if (filter.max !== undefined && level > filter.max) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * 에르그 등급 필터 체크
+     * @param {Object} item - 아이템 객체
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkErgGradeFilter(item, filter) {
+        // 옵션 필드 표준화
+        const options = item.options || item.item_option || [];
+        
+        // 에르그 옵션 찾기
+        const ergOption = options.find(opt => opt.option_type === '에르그');
+        
+        // 에르그가 없으면 실패
+        if (!ergOption) {
+            return false;
+        }
+        
+        // 등급 일치 확인
+        return ergOption.option_sub_type === filter.grade;
+    }
+    
+    /**
+     * 에르그 레벨 필터 체크
+     * @param {Object} item - 아이템 객체
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkErgLevelFilter(item, filter) {
+        // 옵션 필드 표준화
+        const options = item.options || item.item_option || [];
+        
+        // 에르그 옵션 찾기
+        const ergOption = options.find(opt => opt.option_type === '에르그');
+        
+        // 에르그가 없으면 실패
+        if (!ergOption) {
+            return false;
+        }
+        
+        // 레벨 확인
+        const level = parseInt(ergOption.option_value);
+        
+        // 범위 검사
+        if (filter.min !== undefined && level < filter.min) {
+            return false;
+        }
+        if (filter.max !== undefined && level > filter.max) {
             return false;
         }
         
@@ -2581,139 +2328,479 @@ const FilterManager = (() => {
     }
     
     /**
-     * 특별 개조 없음 필터 체크
-     * @param {Object} item - 아이템 객체
-     * @returns {boolean} 필터 통과 여부
-     */
-    function checkSpecialModNoneFilter(item) {
-        // 옵션 필드 표준화
-        const options = item.options || item.item_option || [];
-        
-        // 특별 개조 옵션이 없어야 통과
-        return !options.some(opt => opt.option_type === '특별 개조');
-    }
-    
-    /**
-     * 인챈트 필터 체크
+     * 세트 효과 필터 체크
      * @param {Object} item - 아이템 객체
      * @param {Object} filter - 필터 객체
      * @returns {boolean} 필터 통과 여부
      */
-    function checkEnchantFilter(item, filter) {
+    function checkSetEffectFilter(item, filter) {
         // 옵션 필드 표준화
         const options = item.options || item.item_option || [];
         
-        // 인챈트 옵션 찾기
-        const enchantOptions = options.filter(opt => 
-            opt.option_type === '인챈트' && 
-            opt.option_sub_type === filter.enchantType
+        // 세트 효과 옵션 찾기
+        const setEffectOptions = options.filter(opt => 
+            opt.option_type === '세트 효과' && 
+            opt.option_value === filter.effectName
         );
         
-        // 인챈트가 없으면 실패
-        if (enchantOptions.length === 0) {
+        // 일치하는 세트 효과가 없으면 실패
+        if (setEffectOptions.length === 0) {
             return false;
         }
         
-        // 인챈트 이름 체크
-        return enchantOptions.some(option => {
-            // "충돌의 (랭크 4)" 형식 파싱
-            const nameMatch = option.option_value.match(/(.*?)\s*\(랭크 (\d+)\)/);
-            if (!nameMatch) return false;
+        // 첫 번째 일치하는 세트 효과
+        const setEffectOption = setEffectOptions[0];
+        
+        // 범위 필터가 설정된 경우
+        if (filter.min !== undefined || filter.max !== undefined) {
+            const value = parseInt(setEffectOption.option_value2);
             
-            const enchantName = nameMatch[1].trim();
-            const enchantRank = parseInt(nameMatch[2]);
+            // 범위 검사
+            if (filter.min !== undefined && value < filter.min) {
+                return false;
+            }
+            if (filter.max !== undefined && value > filter.max) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * 세공 랭크 필터 적용
+     * @param {HTMLElement} filterItem - 필터 항목 요소
+     * @param {Object} filterInfo - 필터 정보
+     * @param {string} rank - 선택한 랭크 (1, 2, 3...)
+     */
+    function applyReforgeRankFilter(filterItem, filterInfo, rank) {
+        // 같은 이름의 기존 필터 제거
+        state.activeFilters = state.activeFilters.filter(f => 
+            f.name !== filterInfo.name || f.filterType !== 'reforge-rank'
+        );
+        
+        // 새 필터 추가
+        const newFilter = {
+            name: filterInfo.name,
+            displayName: `세공 랭크 ${rank}`,
+            type: 'reforge-rank',
+            filterType: 'reforge-rank',
+            rank: rank
+        };
+        
+        state.activeFilters.push(newFilter);
+        applyFilters();
+    }
+    
+    /**
+     * 세공 발현 수 필터 적용
+     * @param {HTMLElement} filterItem - 필터 항목 요소
+     * @param {Object} filterInfo - 필터 정보
+     * @param {number} count - 발현 수 (1, 2, 3)
+     */
+    function applyReforgeCountFilter(filterItem, filterInfo, count) {
+        // 같은 이름의 기존 필터 제거
+        state.activeFilters = state.activeFilters.filter(f => 
+            f.name !== filterInfo.name || f.filterType !== 'reforge-count'
+        );
+        
+        // 새 필터 추가
+        const newFilter = {
+            name: filterInfo.name,
+            displayName: `세공 발현 수 ${count}`,
+            type: 'reforge-count',
+            filterType: 'reforge-count',
+            count: count
+        };
+        
+        state.activeFilters.push(newFilter);
+        applyFilters();
+    }
+    
+    /**
+     * 세공 옵션 필터 적용
+     * @param {HTMLElement} filterItem - 필터 항목 요소
+     * @param {Object} filterInfo - 필터 정보
+     * @param {number} optionIndex - 옵션 인덱스 (1, 2, 3)
+     * @param {string} optionName - 옵션 이름
+     */
+    function applyReforgeOptionFilter(filterItem, filterInfo, optionIndex, optionName) {
+        // 같은 인덱스의 기존 필터 제거
+        state.activeFilters = state.activeFilters.filter(f => 
+            !(f.name === filterInfo.name && f.optionIndex === optionIndex)
+        );
+        
+        // 범위 필터 값 가져오기
+        const rangeContainer = filterItem.querySelector(`.range-container-${optionIndex}`);
+        let min, max;
+        
+        if (rangeContainer) {
+            const minInput = rangeContainer.querySelector('.min-value');
+            const maxInput = rangeContainer.querySelector('.max-value');
             
-            // 이름 일치 확인
-            return enchantName === filter.enchantName;
+            if (minInput && minInput.value) {
+                min = parseFloat(minInput.value);
+            }
+            
+            if (maxInput && maxInput.value) {
+                max = parseFloat(maxInput.value);
+            }
+        }
+        
+        // 새 필터 추가
+        const newFilter = {
+            name: filterInfo.name,
+            displayName: `세공 옵션: ${optionName}`,
+            type: 'reforge-option',
+            optionIndex: optionIndex,
+            optionName: optionName,
+            min: min,
+            max: max
+        };
+        
+        state.activeFilters.push(newFilter);
+        applyFilters();
+    }
+    
+    /**
+     * 에르그 등급 필터 적용
+     * @param {HTMLElement} filterItem - 필터 항목 요소
+     * @param {Object} filterInfo - 필터 정보
+     * @param {string} grade - 선택한 등급 (S, A, B)
+     */
+    function applyErgGradeFilter(filterItem, filterInfo, grade) {
+        // 같은 이름의 기존 필터 제거
+        state.activeFilters = state.activeFilters.filter(f => 
+            f.name !== filterInfo.name || f.filterType !== 'erg-grade'
+        );
+        
+        // 새 필터 추가
+        const newFilter = {
+            name: filterInfo.name,
+            displayName: `에르그 등급 ${grade}`,
+            type: 'erg-grade',
+            filterType: 'erg-grade',
+            grade: grade
+        };
+        
+        state.activeFilters.push(newFilter);
+        applyFilters();
+    }
+    
+    /**
+     * 에르그 레벨 필터 적용
+     * @param {HTMLElement} filterItem - 필터 항목 요소
+     * @param {Object} filterInfo - 필터 정보
+     */
+    function applyErgLevelFilter(filterItem, filterInfo) {
+        // 같은 이름의 기존 필터 제거
+        state.activeFilters = state.activeFilters.filter(f => 
+            f.name !== filterInfo.name || f.filterType !== 'erg-level'
+        );
+        
+        // 범위 값 가져오기
+        const minInput = filterItem.querySelector('.erg-level-min');
+        const maxInput = filterItem.querySelector('.erg-level-max');
+        
+        let min, max;
+        if (minInput && minInput.value) {
+            min = parseInt(minInput.value);
+        }
+        
+        if (maxInput && maxInput.value) {
+            max = parseInt(maxInput.value);
+        }
+        
+        // 유효한 값이 있는지 확인
+        if (!min && !max) return;
+        
+        // 새 필터 추가
+        const newFilter = {
+            name: filterInfo.name,
+            displayName: '에르그 레벨',
+            type: 'range',
+            filterType: 'erg-level',
+            field: 'option_value',
+            min: min,
+            max: max
+        };
+        
+        state.activeFilters.push(newFilter);
+        applyFilters();
+    }
+    
+    /**
+     * 세트 효과 필터 적용
+     * @param {HTMLElement} filterItem - 필터 항목 요소
+     * @param {Object} filterInfo - 필터 정보
+     * @param {number} effectIndex - 효과 인덱스 (1, 2, 3)
+     * @param {string} effectName - 효과 이름
+     */
+    function applySetEffectFilter(filterItem, filterInfo, effectIndex, effectName) {
+        // 같은 인덱스의 기존 필터 제거
+        state.activeFilters = state.activeFilters.filter(f => 
+            !(f.name === filterInfo.name && f.effectIndex === effectIndex)
+        );
+        
+        // 범위 필터 값 가져오기
+        const rangeContainer = filterItem.querySelector(`.range-container-${effectIndex}`);
+        let min, max;
+        
+        if (rangeContainer) {
+            const minInput = rangeContainer.querySelector('.min-value');
+            const maxInput = rangeContainer.querySelector('.max-value');
+            
+            if (minInput && minInput.value) {
+                min = parseFloat(minInput.value);
+            }
+            
+            if (maxInput && maxInput.value) {
+                max = parseFloat(maxInput.value);
+            }
+        }
+        
+        // 새 필터 추가
+        const newFilter = {
+            name: filterInfo.name,
+            displayName: `세트 효과: ${effectName}`,
+            type: 'set-effect',
+            effectIndex: effectIndex,
+            effectName: effectName,
+            min: min,
+            max: max
+        };
+        
+        state.activeFilters.push(newFilter);
+        applyFilters();
+    }
+    
+    /**
+     * 세공 메타데이터 로드
+     * @param {string} category - 현재 카테고리
+     * @returns {Promise<Object>} 메타데이터
+     */
+    async function loadReforgeMetadata(category) {
+        if (!category) return null;
+        
+        try {
+            const response = await fetch('../../data/meta/reforges/reforges.json');
+            if (!response.ok) {
+                throw new Error(`세공 메타데이터 로드 실패: ${response.status}`);
+            }
+            
+            return await response.json();
+        } catch (error) {
+            console.error('세공 메타데이터 로드 오류:', error);
+            return null;
+        }
+    }
+    
+    /**
+     * 세트 효과 메타데이터 로드
+     * @param {string} category - 현재 카테고리
+     * @returns {Promise<Object>} 메타데이터
+     */
+    async function loadSetEffectMetadata(category) {
+        if (!category) return null;
+        
+        try {
+            // 카테고리명 안전하게 변환 (/ -> _)
+            const safeCategory = category.replace(/\//g, '_');
+            
+            const response = await fetch(`../../data/meta/set_bonus/${encodeURIComponent(safeCategory)}.json`);
+            if (!response.ok) {
+                throw new Error(`세트 효과 메타데이터 로드 실패: ${response.status}`);
+            }
+            
+            return await response.json();
+        } catch (error) {
+            console.error('세트 효과 메타데이터 로드 오류:', error);
+            return null;
+        }
+    }
+    
+    /**
+     * 세공 옵션 자동완성 설정
+     * @param {HTMLInputElement} input - 입력 필드
+     * @param {HTMLElement} suggestions - 자동완성 컨테이너
+     * @param {HTMLElement} filterItem - 필터 항목 요소
+     * @param {Object} filterInfo - 필터 정보
+     * @param {string} category - 현재 카테고리
+     * @param {number} optionIndex - 옵션 인덱스 (1, 2, 3)
+     */
+    function setupReforgeOptionAutocomplete(input, suggestions, filterItem, filterInfo, category, optionIndex) {
+        // 세공 메타데이터 로드
+        loadReforgeMetadata(category).then(metadata => {
+            // 입력 이벤트
+            input.addEventListener('input', function() {
+                const query = this.value.trim().toLowerCase();
+                
+                // 입력이 없으면 자동완성 숨김
+                if (query.length < 1) {
+                    suggestions.innerHTML = '';
+                    suggestions.style.display = 'none';
+                    return;
+                }
+                
+                // 메타데이터 체크
+                if (!metadata || !metadata.reforges || !metadata.reforges[category]) {
+                    suggestions.innerHTML = '<div class="enchant-suggestion-loading">데이터 로딩 중...</div>';
+                    suggestions.style.display = 'block';
+                    return;
+                }
+                
+                // 세공 옵션 검색
+                const results = metadata.reforges[category].filter(option => 
+                    option.toLowerCase().includes(query)
+                );
+                
+                // 결과 없음
+                if (results.length === 0) {
+                    suggestions.innerHTML = '<div class="enchant-suggestion-empty">검색 결과 없음</div>';
+                    suggestions.style.display = 'block';
+                    return;
+                }
+                
+                // 결과 표시
+                suggestions.innerHTML = '';
+                
+                // 최대 5개만 표시
+                results.slice(0, 5).forEach(option => {
+                    const item = document.createElement('div');
+                    item.className = 'enchant-suggestion-item';
+                    item.textContent = option;
+                    
+                    // 클릭 이벤트
+                    item.addEventListener('click', () => {
+                        // 입력 필드에 선택한 옵션 설정
+                        input.value = option;
+                        
+                        // 자동완성 숨김
+                        suggestions.style.display = 'none';
+                        
+                        // 범위 필터 표시
+                        const rangeContainer = filterItem.querySelector(`.range-container-${optionIndex}`);
+                        if (rangeContainer) {
+                            rangeContainer.style.display = 'block';
+                        }
+                        
+                        // 필터 추가
+                        applyReforgeOptionFilter(filterItem, filterInfo, optionIndex, option);
+                    });
+                    
+                    suggestions.appendChild(item);
+                });
+                
+                suggestions.style.display = 'block';
+            });
+            
+            // 포커스 이벤트 (입력창 클릭 시 자동완성 표시)
+            input.addEventListener('focus', function() {
+                if (this.value.trim().length > 0) {
+                    const event = new Event('input');
+                    this.dispatchEvent(event);
+                }
+            });
+            
+            // 외부 클릭 시 자동완성 숨김
+            document.addEventListener('click', function(e) {
+                if (!input.contains(e.target) && !suggestions.contains(e.target)) {
+                    suggestions.style.display = 'none';
+                }
+            });
         });
     }
     
     /**
-     * 범위 필터 체크
-     * @param {Array} options - 아이템 옵션 배열
-     * @param {Object} filter - 필터 객체
-     * @returns {boolean} 필터 통과 여부
+     * 세트 효과 자동완성 설정
+     * @param {HTMLInputElement} input - 입력 필드
+     * @param {HTMLElement} suggestions - 자동완성 컨테이너
+     * @param {HTMLElement} filterItem - 필터 항목 요소
+     * @param {Object} filterInfo - 필터 정보
+     * @param {string} category - 현재 카테고리
+     * @param {number} effectIndex - 효과 인덱스 (1, 2, 3)
      */
-    function checkRangeFilter(options, filter) {
-        // 필터 필드 가져오기
-        const field = filter.field || 'option_value';
-        
-        // 옵션 찾기 (이름으로)
-        const option = options.find(opt => 
-            (opt.option_type === filter.name) || 
-            (opt.option_name === filter.name)
-        );
-        
-        if (!option) {
-            return false;
-        }
-        
-        // 값 확인
-        let value;
-        if (field in option) {
-            // % 제거 처리
-            const rawValue = option[field];
-            value = typeof rawValue === 'string' 
-                ? parseFloat(rawValue.replace('%', '')) 
-                : parseFloat(rawValue);
-        } else {
-            return false;
-        }
-        
-        // 숫자 변환 실패 시
-        if (isNaN(value)) {
-            return false;
-        }
-        
-        // 범위 검사
-        if (filter.min !== undefined && value < filter.min) {
-            return false;
-        }
-        if (filter.max !== undefined && value > filter.max) {
-            return false;
-        }
-        
-        return true;
-    }
-    
-    /**
-     * 선택 필터 체크
-     * @param {Array} options - 아이템 옵션 배열
-     * @param {Object} filter - 필터 객체
-     * @returns {boolean} 필터 통과 여부
-     */
-    function checkSelectFilter(options, filter) {
-        // 옵션 찾기
-        const option = options.find(opt => 
-            (opt.option_type === filter.name) || 
-            (opt.option_name === filter.name)
-        );
-        
-        if (!option) return false;
-        
-        // 값 확인
-        return option.option_value === filter.value ||
-               option.option_sub_type === filter.value;
-    }
-    
-    /**
-     * 텍스트 필터 체크
-     * @param {Array} options - 아이템 옵션 배열
-     * @param {Object} filter - 필터 객체
-     * @returns {boolean} 필터 통과 여부
-     */
-    function checkTextFilter(options, filter) {
-        // 옵션 찾기
-        const option = options.find(opt => 
-            (opt.option_type === filter.name) || 
-            (opt.option_name === filter.name)
-        );
-        
-        if (!option) return false;
-        
-        // 값 확인 (부분 일치)
-        return option.option_value && 
-               option.option_value.toString().toLowerCase().includes(filter.value.toLowerCase());
+    function setupSetEffectAutocomplete(input, suggestions, filterItem, filterInfo, category, effectIndex) {
+        // 세트 효과 메타데이터 로드
+        loadSetEffectMetadata(category).then(metadata => {
+            // 입력 이벤트
+            input.addEventListener('input', function() {
+                const query = this.value.trim().toLowerCase();
+                
+                // 입력이 없으면 자동완성 숨김
+                if (query.length < 1) {
+                    suggestions.innerHTML = '';
+                    suggestions.style.display = 'none';
+                    return;
+                }
+                
+                // 메타데이터 체크
+                if (!metadata || !metadata.set_effects) {
+                    suggestions.innerHTML = '<div class="enchant-suggestion-loading">데이터 로딩 중...</div>';
+                    suggestions.style.display = 'block';
+                    return;
+                }
+                
+                // 세트 효과 검색
+                const results = metadata.set_effects.filter(effect => 
+                    effect.toLowerCase().includes(query)
+                );
+                
+                // 결과 없음
+                if (results.length === 0) {
+                    suggestions.innerHTML = '<div class="enchant-suggestion-empty">검색 결과 없음</div>';
+                    suggestions.style.display = 'block';
+                    return;
+                }
+                
+                // 결과 표시
+                suggestions.innerHTML = '';
+                
+                // 최대 5개만 표시
+                results.slice(0, 5).forEach(effect => {
+                    const item = document.createElement('div');
+                    item.className = 'enchant-suggestion-item';
+                    item.textContent = effect;
+                    
+                    // 클릭 이벤트
+                    item.addEventListener('click', () => {
+                        // 입력 필드에 선택한 효과 설정
+                        input.value = effect;
+                        
+                        // 자동완성 숨김
+                        suggestions.style.display = 'none';
+                        
+                        // 범위 필터 표시
+                        const rangeContainer = filterItem.querySelector(`.range-container-${effectIndex}`);
+                        if (rangeContainer) {
+                            rangeContainer.style.display = 'block';
+                        }
+                        
+                        // 필터 추가
+                        applySetEffectFilter(filterItem, filterInfo, effectIndex, effect);
+                    });
+                    
+                    suggestions.appendChild(item);
+                });
+                
+                suggestions.style.display = 'block';
+            });
+            
+            // 포커스 이벤트 (입력창 클릭 시 자동완성 표시)
+            input.addEventListener('focus', function() {
+                if (this.value.trim().length > 0) {
+                    const event = new Event('input');
+                    this.dispatchEvent(event);
+                }
+            });
+            
+            // 외부 클릭 시 자동완성 숨김
+            document.addEventListener('click', function(e) {
+                if (!input.contains(e.target) && !suggestions.contains(e.target)) {
+                    suggestions.style.display = 'none';
+                }
+            });
+        });
     }
     
     /**
@@ -2750,6 +2837,3 @@ const FilterManager = (() => {
         resetFilters,
         getFilters
     };
-})();
-
-export default FilterManager;
