@@ -453,99 +453,84 @@ const ItemDisplay = (() => {
      * @returns {HTMLElement} 툴팁 내용 요소
      */
     function renderMabinogiStyleTooltip(item) {
-        const tooltipElement = document.createElement('div');
-        
-        // 아이템 이름 헤더
-        const header = document.createElement('div');
-        header.className = 'tooltip-header';
-        header.innerHTML = `<h3>${item.item_display_name || item.item_name || '이름 없음'}</h3>`;
-        tooltipElement.appendChild(header);
-        
-        // 툴팁 내용 컨테이너
-        const content = document.createElement('div');
-        content.className = 'tooltip-content';
-        
-        // 아이템 속성 블록
-        const attributesBlock = document.createElement('div');
-        attributesBlock.className = 'tooltip-block';
-        attributesBlock.innerHTML = `<div class="tooltip-block-title">아이템 속성</div>`;
-        
-        // 옵션 필드 표준화
-        const options = item.options || item.item_option || [];
-        
-        // 주요 속성 정보
+      const tooltipElement = document.createElement('div');
+      
+      // 아이템 이름 헤더
+      const header = document.createElement('div');
+      header.className = 'tooltip-header';
+      header.innerHTML = `<h3>${item.item_display_name || item.item_name || '이름 없음'}</h3>`;
+      tooltipElement.appendChild(header);
+      
+      // 툴팁 내용 컨테이너
+      const content = document.createElement('div');
+      content.className = 'tooltip-content';
+      
+      // 아이템 속성 블록
+      const attributesBlock = document.createElement('div');
+      attributesBlock.className = 'tooltip-block';
+      attributesBlock.innerHTML = `<div class="tooltip-block-title">아이템 속성</div>`;
+      
+      // 옵션 필드 표준화
+      const options = item.options || item.item_option || [];
+      
+      // 주요 속성 정보 추가 (optionHandlers 활용)
+      if (Array.isArray(options)) {
+        // 기본 속성 먼저 처리 (공격, 부상률, 크리티컬, 밸런스, 내구력 등)
         const coreAttributes = [
-            { type: '공격', format: (opt) => `<div class="tooltip-stat">공격 ${opt.option_value}~${opt.option_value2}</div>` },
-            { type: '부상률', format: (opt) => {
-                // % 기호 제거 후 표시, 마지막에 한 번만 % 추가
-                const minValue = opt.option_value.toString().replace('%', '');
-                const maxValue = opt.option_value2.toString().replace('%', '');
-                return `<div class="tooltip-stat">부상률 ${minValue}~${maxValue}%</div>`;
-            }},
-            { type: '크리티컬', format: (opt) => `<div class="tooltip-stat">크리티컬 ${opt.option_value}</div>` },
-            { type: '밸런스', format: (opt) => `<div class="tooltip-stat">밸런스 ${opt.option_value}</div>` },
-            { type: '내구력', format: (opt) => `<div class="tooltip-stat tooltip-yellow">내구력 ${opt.option_value}/${opt.option_value2}</div>` },
-            { type: '숙련', format: (opt) => `<div class="tooltip-stat">숙련 ${opt.option_value}</div>` },
-            { type: '남은 전용 해제 가능 횟수', format: (opt) => `
-                <div class="tooltip-stat tooltip-yellow"> 전용 아이템 (전용 일시 해제)</div>
-                <div class="tooltip-stat tooltip-yellow">남은 전용 해제 가능 횟수 : ${opt.option_value}</div>
-            ` }
+          '공격', '부상률', '크리티컬', '밸런스', '내구력', '숙련',
+          '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가',
+          '피어싱 레벨', '아이템 보호'
         ];
         
-        // 주요 속성 추가
-        coreAttributes.forEach(attr => {
-            const option = options.find(opt => opt.option_type === attr.type);
-            if (option) {
-                attributesBlock.innerHTML += attr.format(option);
+        coreAttributes.forEach(attrType => {
+          const option = options.find(opt => opt.option_type === attrType);
+          if (option) {
+            const handler = optionRenderer.optionHandlers[attrType];
+            if (handler && handler.display) {
+              const displayText = handler.display(option);
+              const colorClass = handler.color || '';
+              
+              // 기본 HTML 템플릿 적용
+              attributesBlock.innerHTML += `<div class="tooltip-stat ${colorClass}">${displayText}</div>`;
             }
+          }
+        });
+      }
+      
+      content.appendChild(attributesBlock);
+      
+      // 인챈트 블록
+      const enchantOptions = options.filter(opt => opt.option_type === '인챈트');
+      if (enchantOptions.length > 0) {
+        const enchantBlock = document.createElement('div');
+        enchantBlock.className = 'tooltip-block';
+        enchantBlock.innerHTML = `<div class="tooltip-block-title">인챈트</div>`;
+        
+        enchantOptions.forEach(option => {
+          // 인챈트 이름과 랭크 (정규식으로 분리)
+          const match = option.option_value.match(/(.+?)\s*(\(랭크 \d+\))/);
+          if (match) {
+            const enchantName = match[1];
+            const rankText = match[2];
+            
+            enchantBlock.innerHTML += `
+              <div class="tooltip-stat">[${option.option_sub_type}] ${enchantName} <span class="tooltip-pink">${rankText}</span></div>
+            `;
+            
+            // 인챈트 효과 (쉼표로 구분)
+            if (option.option_desc) {
+              const effects = option.option_desc.split(',');
+              effects.forEach(effect => {
+                enchantBlock.innerHTML += `<div class="tooltip-special-stat">- ${effect.trim()}</div>`;
+              });
+            }
+          } else {
+            enchantBlock.innerHTML += `<div class="tooltip-stat">[${option.option_sub_type}] ${option.option_value}</div>`;
+          }
         });
         
-        // 피어싱 레벨
-        const piercingOption = options.find(opt => opt.option_type === '피어싱 레벨');
-        if (piercingOption) {
-            const baseLevel = piercingOption.option_value || "0";
-            const bonusLevel = piercingOption.option_value2 ? piercingOption.option_value2 : "";
-            attributesBlock.innerHTML += `<div class="tooltip-special-stat">- 피어싱 레벨 ${baseLevel} ${bonusLevel}</div>`;
-        }
-        
-        content.appendChild(attributesBlock);
-        
-        // 인챈트 블록
-        const enchantOptions = options.filter(opt => opt.option_type === '인챈트');
-        if (enchantOptions.length > 0) {
-            const enchantBlock = document.createElement('div');
-            enchantBlock.className = 'tooltip-block';
-            enchantBlock.innerHTML = `<div class="tooltip-block-title">인챈트</div>`;
-            
-            enchantOptions.forEach(enchant => {
-                const type = enchant.option_sub_type;
-                const value = enchant.option_value;
-                const desc = enchant.option_desc;
-                
-                // 인챈트 이름과 랭크 (정규식으로 분리)
-                const match = value.match(/(.+?)\s*(\(랭크 \d+\))/);
-                if (match) {
-                    const enchantName = match[1];
-                    const rankText = match[2];
-                    
-                    enchantBlock.innerHTML += `
-                        <div class="tooltip-stat">[${type}] ${enchantName} <span class="tooltip-pink">${rankText}</span></div>
-                    `;
-                    
-                    // 인챈트 효과 (쉼표로 구분)
-                    if (desc) {
-                        const effects = desc.split(',');
-                        effects.forEach(effect => {
-                            enchantBlock.innerHTML += `<div class="tooltip-special-stat">- ${effect.trim()}</div>`;
-                        });
-                    }
-                } else {
-                    enchantBlock.innerHTML += `<div class="tooltip-stat">[${type}] ${value}</div>`;
-                }
-            });
-            
-            content.appendChild(enchantBlock);
-        }
+        content.appendChild(enchantBlock);
+      }
         
         // 개조 블록
         const modOptions = options.filter(opt => 
