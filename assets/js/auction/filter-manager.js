@@ -2,20 +2,18 @@
  * 필터 관리 모듈
  * 필터 UI 및 필터 적용 로직 관리
  */
-
 import optionRenderer from './option-renderer.js';
 
-const FilterManager = (() => {
-    // 필터 상태
-    const state = {
-        availableFilters: [],
-        activeFilters: [],
-        currentCategory: null,
-        isInitialized: false,
-        debug: false, // 디버그 모드 (true로 설정하면 상세 로그 출력)
-        reforgeData: null, // 세공 메타데이터
-        setEffectData: null // 세트 효과 메타데이터
-    };
+// 필터 상태
+const state = {
+    availableFilters: [],
+    activeFilters: [],
+    currentCategory: null,
+    isInitialized: false,
+    debug: false, // 디버그 모드 (true로 설정하면 상세 로그 출력)
+    reforgeData: null, // 세공 메타데이터
+    setEffectData: null // 세트 효과 메타데이터
+};
     
     // 인챈트 메타데이터
     const enchantData = {
@@ -2829,7 +2827,7 @@ const FilterManager = (() => {
     }
     
     // 공개 API
-    return {
+    const FilterManager = {
         init,
         addStyles,
         updateFiltersForCategory,
@@ -2837,4 +2835,6 @@ const FilterManager = (() => {
         resetFilters,
         getFilters
     };
-})();
+    
+    export default FilterManager;
+    
