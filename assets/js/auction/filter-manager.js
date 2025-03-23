@@ -204,7 +204,6 @@ const state = {
             if (elements.activeFilters) {
                 elements.activeFilters.innerHTML = '';
             }
-            updateSelectedFiltersUI();
             
             // 세트 효과 메타데이터 로드
             loadSetEffectForCategory(category);
