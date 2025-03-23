@@ -83,7 +83,7 @@ body {
 
 /* 메인 컨테이너 */
 .main-container {
-    max-width: 1200px;
+    max-width: 1350px;
     margin: 0 auto;
     padding: var(--spacing-md);
 }
