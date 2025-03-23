@@ -3,19 +3,16 @@
  * 아이템 옵션 렌더링 및 필터링을 위한 통합 처리 시스템
  */
 
-class OptionRenderer {
-  constructor() {
-    this.colorClass = {
-      red: 'color-red',
-      blue: 'color-blue',
-      yellow: 'color-yellow',
-      white: 'color-white',
-      default: 'color-default'
-    };
-    
-    // 디버그 모드 설정 (true로 설정하면 상세 로그 출력)
-    this.debug = false;
-  }
+constructor() {
+  this.colorClass = {
+    red: 'item-red',
+    blue: 'item-blue',
+    yellow: 'item-yellow',
+    orange: 'item-orange'
+  };
+  
+  this.debug = false;
+}
 
   /**
    * 디버그 로그 출력
@@ -33,7 +30,7 @@ class OptionRenderer {
    * - display: 표시할 텍스트 생성 함수
    * - filter: 필터링에 사용할 설정 (displayName, field, type 등)
    */
-  get optionHandlers() {
+   get optionHandlers() {
     return {
       '공격': {
         display: (option) => `공격 ${option.option_value}~${option.option_value2}`,
@@ -57,7 +54,7 @@ class OptionRenderer {
         display: (option) => `크리티컬 ${option.option_value}`,
         filter: false
       },
-  
+      
       '밸런스': {
         display: (option) => `밸런스 ${option.option_value}`,
         filter: {
@@ -67,97 +64,41 @@ class OptionRenderer {
           isPercent: true
         }
       },
-  
-      '방어력': {
-        display: (option) => `방어력 ${option.option_value}`,
-        filter: false
-      },
-  
-      '보호': {
-        display: (option) => `보호 ${option.option_value}`,
-        filter: {
-          displayName: '보호',
-          field: 'option_value',
-          type: 'range'
-        }
-      },
-  
-      '마법 방어력': {
-        display: (option) => `마법 방어력 ${option.option_value}`,
-        filter: false
-      },
-  
-      '마법 보호': {
-        display: (option) => `마법 보호 ${option.option_value}`,
-        filter: false
-      },
-  
+      
       '내구력': {
         display: (option) => {
-          // 내구도 값 파싱
           const currentDurability = parseInt(option.option_value) || 0;
           const maxDurability = parseInt(option.option_value2) || 1;
-          
-          // 위험한 내구도 조건 확인 (20% 이하 && 5 이하)
-          const isDangerouslyLow = currentDurability <= 5 && currentDurability <= (maxDurability * 0.2);
-          
-          return {
-            text: `내구력 ${currentDurability}/${maxDurability}`,
-            color: isDangerouslyLow ? 'red' : 'yellow'
-          };
+          return `내구력 ${currentDurability}/${maxDurability}`;
         },
         filter: {
           displayName: '최대 내구력',
           field: 'option_value2',
           type: 'range'
-        }
+        },
+        color: 'item-yellow'
       },
-  
+      
       '숙련': {
         display: (option) => `숙련 ${option.option_value}`,
         filter: false
       },
-  
+      
       '남은 전용 해제 가능 횟수': {
-        display: (option) => ` 전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수 : ${option.option_value}`,
+        display: (option) => `남은 전용 해제 가능 횟수: ${option.option_value}`,
         filter: {
           displayName: '전용 해제 가능 횟수',
           field: 'option_value',
           type: 'range'
-        }
-      },
-      
-      '전용 해제 거래 보증서 사용 불가': {
-        display: (option) => {
-          if (option.option_value === 'true') {
-            return {
-              text: '전용 해제 거래 보증서 사용 불가',
-              color: 'red'
-            };
-          }
-          return null; // option_value가 true가 아니면 표시하지 않음
         },
-        filter: false
+        color: 'item-yellow'
       },
       
       '피어싱 레벨': {
         display: (option) => {
           const baseLevel = option.option_value || "0";
-          let bonusText = "";
-          
-          if (option.option_value2) {
-            // "+숫자" 형식 분리
-            const matches = option.option_value2.match(/(\+)(\d+)/);
-            if (matches && matches.length >= 3) {
-              bonusText = `${matches[1]} ${matches[2]}`;
-            } else {
-              bonusText = option.option_value2;
-            }
-          }
-          return {
-            text: `- 피어싱 레벨 ${baseLevel}${bonusText}`,
-            color: 'blue'
-          };
+          const bonusLevel = option.option_value2 ? option.option_value2 : "";
+          return `피어싱 레벨 ${baseLevel} ${bonusLevel}`;
         },
         filter: {
           displayName: '피어싱 레벨',
@@ -166,18 +107,58 @@ class OptionRenderer {
         }
       },
       
+      '인챈트': {
+        display: (option) => {
+          const type = option.option_sub_type;
+          const value = option.option_value;
+          return `[${type}] ${value}`;
+        },
+        filter: false
+      },
+      
+      '특별 개조': {
+        display: (option) => `특별개조 ${option.option_sub_type} (${option.option_value}단계)`,
+        filter: {
+          displayName: '특별개조 단계',
+          field: 'option_value',
+          type: 'range'
+        },
+        color: 'item-red'
+      },
+      
+      '에르그': {
+        display: (option) => `등급 ${option.option_sub_type} (${option.option_value}/${option.option_value2}레벨)`,
+        filter: {
+          displayName: '에르그 레벨',
+          field: 'option_value',
+          type: 'range'
+        },
+        color: 'item-red'
+      },
+      
+      '세트 효과': {
+        display: (option) => `- ${option.option_value} +${option.option_value2}`,
+        filter: {
+          displayName: '세트 효과',
+          field: 'option_value2',
+          type: 'range',
+          category: '세트 효과'
+        },
+        color: 'item-blue'
+      },
+      
       '아이템 보호': {
         display: (option) => {
           if (option.option_value === '인챈트 추출') {
-            return `#인챈트 추출 시 아이템 보호`;
+            return `인챈트 추출 시 아이템 보호`;
           } else if (option.option_value === '인챈트 실패') {
-            return `#인챈트 실패 시 아이템 보호`;
+            return `인챈트 실패 시 아이템 보호`;
           } else if (option.option_value === '수리 실패') {
-            return `#수리 실패 시 아이템 보호`;
+            return `수리 실패 시 아이템 보호`;
           }
-          return `#아이템 보호`;
+          return `아이템 보호`;
         },
-        filter: false
+        filter: false,
       },
 
       '특별 개조': {
@@ -189,6 +170,7 @@ class OptionRenderer {
         },
         color: 'red'
       },
+      
       '에르그': {
         display: (option) => `등급 ${option.option_sub_type} (${option.option_value}/${option.option_value2}레벨)`,
         filter: {
