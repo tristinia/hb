@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-22T09:26:48.781Z",
+  "updated": "2025-03-23T09:26:00.906Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -691,7 +691,7 @@
         },
         {
           "template": "솜씨 {value} 증가",
-          "min": 38,
+          "min": 32,
           "max": 39,
           "variable": true
         }
@@ -3704,8 +3704,8 @@
         {
           "template": "솜씨 {value} 증가",
           "min": 11,
-          "max": 11,
-          "variable": false
+          "max": 13,
+          "variable": true
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -4184,8 +4184,8 @@
         {
           "template": "최소대미지 {value} 증가",
           "min": 6,
-          "max": 6,
-          "variable": false
+          "max": 8,
+          "variable": true
         }
       ]
     },
@@ -4809,6 +4809,24 @@
           "template": "약해보임",
           "min": null,
           "max": null,
+          "variable": false
+        }
+      ]
+    },
+    "새벽": {
+      "name": "새벽",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "최대생명력 {value} 감소",
+          "min": 30,
+          "max": 30,
+          "variable": false
+        },
+        {
+          "template": "최대스태미나 {value} 증가",
+          "min": 20,
+          "max": 20,
           "variable": false
         }
       ]
@@ -5702,7 +5720,7 @@
         {
           "template": "모든 속성 연금술 대미지 {value} 증가",
           "min": 10,
-          "max": 14,
+          "max": 15,
           "variable": true
         }
       ]
@@ -5750,8 +5768,8 @@
         {
           "template": "피어싱 레벨 {value} 증가",
           "min": 2,
-          "max": 2,
-          "variable": false
+          "max": 3,
+          "variable": true
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -6883,7 +6901,7 @@
       "effects": [
         {
           "template": "체력 {value} 증가",
-          "min": 7,
+          "min": 5,
           "max": 8,
           "variable": true
         }
@@ -7191,6 +7209,18 @@
           "template": "마법 공격력 {value} 증가",
           "min": 17,
           "max": 20,
+          "variable": true
+        }
+      ]
+    },
+    "음침함의 (랭크 D)": {
+      "name": "음침함의 (랭크 D)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "의지 {value} 감소",
+          "min": 7,
+          "max": 9,
           "variable": true
         }
       ]
@@ -9843,6 +9873,36 @@
           "template": "불 속성 연금술 대미지 {value} 증가",
           "min": 6,
           "max": 6,
+          "variable": false
+        }
+      ]
+    },
+    "피닉스의 분노 (랭크 D)": {
+      "name": "피닉스의 분노 (랭크 D)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 50,
+          "max": 50,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 9,
+          "max": 9,
+          "variable": false
+        },
+        {
+          "template": "행운 {value} 증가",
+          "min": 20,
+          "max": 20,
           "variable": false
         }
       ]

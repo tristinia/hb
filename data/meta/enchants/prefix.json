@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-22T09:26:48.776Z",
+  "updated": "2025-03-23T09:26:00.901Z",
   "enchants": {
     "56층의": {
       "name": "56층의",
@@ -496,6 +496,24 @@
           "min": 5,
           "max": 5,
           "variable": false
+        }
+      ]
+    },
+    "갤락틱": {
+      "name": "갤락틱",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "최대마나 {value} 증가",
+          "min": 36,
+          "max": 70,
+          "variable": true
+        },
+        {
+          "template": "모든 속성 연금술 대미지 {value} 증가",
+          "min": 8,
+          "max": 9,
+          "variable": true
         }
       ]
     },
@@ -1640,7 +1658,7 @@
         {
           "template": "최소대미지 {value} 증가",
           "min": 3,
-          "max": 5,
+          "max": 6,
           "variable": true
         }
       ]
@@ -2037,6 +2055,18 @@
           "template": "크리티컬 {value} 증가",
           "min": 2,
           "max": 2,
+          "variable": false
+        }
+      ]
+    },
+    "낡은 (랭크 F)": {
+      "name": "낡은 (랭크 F)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "크리티컬 {value} 감소",
+          "min": 1,
+          "max": 1,
           "variable": false
         }
       ]
@@ -2792,8 +2822,8 @@
         {
           "template": "크리티컬 {value} 증가",
           "min": 5,
-          "max": 5,
-          "variable": false
+          "max": 7,
+          "variable": true
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -4568,7 +4598,7 @@
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
           "min": 6,
-          "max": 9,
+          "max": 10,
           "variable": true
         }
       ]
@@ -6985,7 +7015,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 11,
+          "min": 10,
           "max": 17,
           "variable": true
         }
@@ -7171,6 +7201,36 @@
         }
       ]
     },
+    "완고한": {
+      "name": "완고한",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "최대스태미나 {value} 감소",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        },
+        {
+          "template": "최대생명력 {value} 감소",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "대미지밸런스 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        }
+      ]
+    },
     "요정의 (랭크 F)": {
       "name": "요정의 (랭크 F)",
       "rank": null,
@@ -7282,6 +7342,24 @@
           "min": 4,
           "max": 6,
           "variable": true
+        }
+      ]
+    },
+    "웅덩이의 (랭크 C)": {
+      "name": "웅덩이의 (랭크 C)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "대미지밸런스 {value} 감소",
+          "min": 1,
+          "max": 1,
+          "variable": false
+        },
+        {
+          "template": "최소부상률 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
         }
       ]
     },
@@ -7946,8 +8024,8 @@
         {
           "template": "물 속성 연금술 대미지 {value} 증가",
           "min": 14,
-          "max": 14,
-          "variable": false
+          "max": 15,
+          "variable": true
         }
       ]
     },
@@ -9685,15 +9763,15 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 8,
+          "min": 6,
           "max": 8,
-          "variable": false
+          "variable": true
         },
         {
           "template": "크리티컬 {value} 증가",
-          "min": 9,
+          "min": 8,
           "max": 9,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -10580,7 +10658,7 @@
         {
           "template": "솜씨 {value} 증가",
           "min": 2,
-          "max": 3,
+          "max": 4,
           "variable": true
         }
       ]
