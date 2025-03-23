@@ -135,7 +135,7 @@ class OptionRenderer {
       },
       
       '남은 전용 해제 가능 횟수': {
-        display: (option) => `남은 전용 해제 가능 횟수: ${option.option_value}`,
+        display: (option) => ` 전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수: ${option.option_value}`,
         filter: {
           displayName: '전용 해제 가능 횟수',
           field: 'option_value',
@@ -147,8 +147,12 @@ class OptionRenderer {
       '피어싱 레벨': {
         display: (option) => {
           const baseLevel = option.option_value || "0";
-          const bonusLevel = option.option_value2 ? option.option_value2 : "";
-          return `피어싱 레벨 ${baseLevel} ${bonusLevel}`;
+          
+          if (option.option_value2) {
+            return `피어싱 레벨 ${baseLevel}+ ${option.option_value2.substring(1)}`;
+          } else {
+            return `피어싱 레벨 ${baseLevel}`;
+          }
         },
         filter: {
           displayName: '피어싱 레벨',
@@ -160,9 +164,9 @@ class OptionRenderer {
       
       '인챈트': {
         display: (option) => {
-          const type = option.option_sub_type; // 접두 or 접미
-          const value = option.option_value; // "충돌의 (랭크 4)"
-          const desc = option.option_desc || ''; // 인챈트 효과 설명
+          const type = option.option_sub_type;
+          const value = option.option_value;
+          const desc = option.option_desc || '';
           
           // 인챈트 이름과 랭크 추출
           const nameMatch = value.match(/(.*?)\s*\(랭크 (\d+)\)/);
