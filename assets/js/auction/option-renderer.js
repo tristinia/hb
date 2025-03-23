@@ -9,8 +9,37 @@ class OptionRenderer {
       blue: 'item-blue',
       yellow: 'item-yellow',
       orange: 'item-orange'
-    };    
+    };
+    this.enchantData = {
+      prefix: null,
+      suffix: null,
+      isLoaded: false
+    };
+    // 초기화 시 인챈트 메타데이터 로드
+    this.loadEnchantMetadata();
     this.debug = false;
+  }
+
+  // 인챈트 메타데이터 로드
+  async loadEnchantMetadata() {
+    try {
+      // 접두사 로드
+      const prefixResponse = await fetch('../../data/meta/enchants/prefix.json');
+      if (prefixResponse.ok) {
+        this.enchantData.prefix = await prefixResponse.json();
+      }
+      
+      // 접미사 로드
+      const suffixResponse = await fetch('../../data/meta/enchants/suffix.json');
+      if (suffixResponse.ok) {
+        this.enchantData.suffix = await suffixResponse.json();
+      }
+      
+      this.enchantData.isLoaded = true;
+      this.logDebug('인챈트 메타데이터 로드 완료');
+    } catch (error) {
+      console.error('인챈트 메타데이터 로드 실패:', error);
+    }
   }
   
   /**
@@ -108,11 +137,43 @@ class OptionRenderer {
       
       '인챈트': {
         display: (option) => {
-          const type = option.option_sub_type;
-          const value = option.option_value;
-          return `[${type}] ${value}`;
+          const type = option.option_sub_type; // 접두 or 접미
+          const value = option.option_value; // "충돌의 (랭크 4)"
+          const desc = option.option_desc || ''; // 인챈트 효과 설명
+          
+          // 인챈트 이름과 랭크 분리
+          const nameMatch = value.match(/(.*?)\s*\(랭크 (\d+)\)/);
+          let enchantName = value;
+          let rankText = '';
+          
+          if (nameMatch) {
+            enchantName = nameMatch[1];
+            rankText = `(랭크 ${nameMatch[2]})`;
+          }
+          
+          // 인챈트 메타데이터 찾기
+          const metadata = this.getEnchantMetadata(type, enchantName);
+          
+          // 효과 처리
+          let effectsHtml = '';
+          if (desc) {
+            const effects = desc.split(',');
+            const formattedEffects = effects.map(effect => {
+              return this.formatEnchantEffect(effect.trim(), metadata);
+            });
+            
+            effectsHtml = ' - ' + formattedEffects.join(' - ');
+          }
+          
+          // 최종 HTML 반환
+          return `<span class="enchant-type">[${type}]</span> ${enchantName} <span class="enchant-rank">${rankText}</span>${effectsHtml}`;
         },
-        filter: false
+        
+        filter: {
+          displayName: '인챈트',
+          type: 'enchant',
+          subTypes: ['접두', '접미']
+        }
       },
       
       '특별 개조': {
@@ -338,6 +399,53 @@ class OptionRenderer {
     return rawValue;
   }
   
+  // 인챈트 메타데이터 검색 함수
+  getEnchantMetadata(type, name) {
+    if (!this.enchantData.isLoaded) return null;
+    
+    const source = type === '접두' ? 'prefix' : 'suffix';
+    const data = this.enchantData[source];
+    
+    return data && data[name] ? data[name] : null;
+  }
+  
+  // 인챈트 효과 포맷팅 함수
+  formatEnchantEffect(effectText, metadata) {
+    // 조건부 텍스트 제거 (예: "회피 랭크 6 이상일 때")
+    const conditionMatch = effectText.match(/(.*?) 랭크 \d+ 이상일 때 (.*)/);
+    const cleanEffect = conditionMatch ? conditionMatch[2] : effectText;
+    
+    // 실제 값 추출 (예: "체력 44 증가" -> 44)
+    const valueMatch = cleanEffect.match(/(.*?)(\d+)(.*)/);
+    
+    if (valueMatch && metadata && metadata.effects) {
+      const [_, prefix, value, suffix] = valueMatch;
+      const fullText = prefix + value + suffix;
+      
+      // 메타데이터에서 해당 효과 찾기
+      for (const effect of metadata.effects) {
+        const template = effect.template;
+        // 템플릿을 정규식 패턴으로 변환 (예: "체력 {value} 증가" -> "체력 \d+ 증가")
+        const pattern = template.replace('{value}', '\\d+');
+        
+        if (new RegExp(pattern).test(cleanEffect)) {
+          // 부정 효과 여부 확인
+          const isNegative = 
+            (template.includes('수리비') && template.includes('증가')) || 
+            (template.includes('감소') && !template.includes('수리비'));
+          
+          // 변동 가능 옵션이면 범위 추가
+          const rangeText = effect.variable ? 
+            ` <span class="range-info">(${effect.min}~${effect.max})</span>` : '';
+          
+          return `<span class="enchant-effect ${isNegative ? 'negative' : 'positive'}">${fullText}</span>${rangeText}`;
+        }
+      }
+    }
+    
+    // 메타데이터 매칭 실패시 기본 반환
+    return `<span class="enchant-effect">${cleanEffect}</span>`;
+  }
   /**
    * 특수 기능 처리 (세공, 세트 효과, 개조 등)
    * @param {Object} item 아이템 데이터
