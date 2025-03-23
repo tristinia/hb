@@ -73,9 +73,23 @@
 }
 
 /* 아이템 색상 클래스 */
-.item-blue { color: var(--color-item-blue); }
-.item-red { color: var(--color-item-red); }
-.item-orange { color: var(--color-item-orange); }
+.item-blue, 
+.results-table td.item-blue, 
+.results-table td.item-price.item-blue { 
+    color: var(--color-item-blue); 
+}
+
+.item-red, 
+.results-table td.item-red, 
+.results-table td.item-price.item-red { 
+    color: var(--color-item-red); 
+}
+
+.item-orange, 
+.results-table td.item-orange, 
+.results-table td.item-price.item-orange { 
+    color: var(--color-item-orange); 
+}
 
 /* 기본 스타일 재설정 */
 * {
@@ -546,7 +560,7 @@ body {
     background-color: var(--color-off-white);
     color: var(--color-dark);
     padding: var(--spacing-sm) var(--spacing-md);
-    text-align: left;
+    text-align: center;
     font-weight: var(--font-weight-medium);
     font-size: var(--font-size-sm);
     border-bottom: 1px solid var(--color-light-gray);
@@ -561,6 +575,7 @@ body {
     border-top: 1px solid var(--color-light-gray);
     font-size: var(--font-size-sm);
     color: var(--color-dark);
+    text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
