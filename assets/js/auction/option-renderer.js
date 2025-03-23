@@ -49,20 +49,12 @@ class OptionRenderer {
           const maxValue = option.option_value2.toString().replace('%', '');
           return `부상률 ${minValue}~${maxValue}%`;
         },
-        filter: {
-          displayName: '최대 부상률',
-          field: 'option_value2',
-          type: 'range',
-          isPercent: true
+        filter: false
         }
       },
       '크리티컬': {
         display: (option) => `크리티컬 ${option.option_value}`,
-        filter: {
-          displayName: '크리티컬',
-          field: 'option_value',
-          type: 'range',
-          isPercent: true
+        filter: false
         }
       },
       '밸런스': {
@@ -76,11 +68,7 @@ class OptionRenderer {
       },
       '방어력': {
         display: (option) => `방어력 ${option.option_value}`,
-        filter: {
-          displayName: '방어력',
-          field: 'option_value',
-          type: 'range'
-        }
+        filter: false
       },
       '보호': {
         display: (option) => `보호 ${option.option_value}`,
@@ -92,37 +80,28 @@ class OptionRenderer {
       },
       '마법 방어력': {
         display: (option) => `마법 방어력 ${option.option_value}`,
-        filter: {
-          displayName: '마법 방어력',
-          field: 'option_value',
-          type: 'range'
-        }
+        filter: false
       },
       '마법 보호': {
         display: (option) => `마법 보호 ${option.option_value}`,
-        filter: {
-          displayName: '마법 보호',
-          field: 'option_value',
-          type: 'range'
-        }
+        filter: false
       },
       '내구력': {
         display: (option) => `내구력 ${option.option_value}/${option.option_value2}`,
         filter: {
-          displayName: '내구도',
+          displayName: '내구력',
           field: 'option_value2',
           type: 'range',
-          visible: false
         }
       },
       '숙련': {
         display: (option) => `숙련 ${option.option_value}`,
-        filter: false // 필터링 비활성화
+        filter: false
       },
       '남은 전용 해제 가능 횟수': {
-        display: (option) => `전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수 : ${option.option_value}`,
+        display: (option) => ` 전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수 : ${option.option_value}`,
         filter: {
-          displayName: '남은 전용 해제 가능 횟수',
+          displayName: '전용 해제 가능 횟수',
           field: 'option_value',
           type: 'range'
         }
