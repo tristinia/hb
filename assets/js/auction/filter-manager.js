@@ -290,8 +290,112 @@ const FilterManager = (() => {
         const filterContent = document.createElement('div');
         filterContent.className = 'filter-content';
         
-        // 필터 유형에 따른 입력 요소 생성
-        if (filterInfo.type === 'enchant') {
+        // 특별 개조 필터 특별 처리
+        if (filterInfo.name === '특별 개조') {
+            // 버튼 그룹 컨테이너
+            const buttonGroup = document.createElement('div');
+            buttonGroup.className = 'special-mod-buttons';
+            
+            // S 버튼
+            const sButton = document.createElement('button');
+            sButton.className = 'special-mod-btn';
+            sButton.textContent = 'S';
+            sButton.setAttribute('data-type', 'S');
+            
+            // R 버튼
+            const rButton = document.createElement('button');
+            rButton.className = 'special-mod-btn';
+            rButton.textContent = 'R';
+            rButton.setAttribute('data-type', 'R');
+            
+            // X 버튼 (없음)
+            const xButton = document.createElement('button');
+            xButton.className = 'special-mod-btn';
+            xButton.textContent = 'X';
+            xButton.setAttribute('data-type', 'X');
+            
+            // 범위 필터 컨테이너 (기본적으로 숨김)
+            const rangeContainer = document.createElement('div');
+            rangeContainer.className = 'range-filter-container';
+            rangeContainer.style.display = 'none';
+            rangeContainer.style.marginTop = '8px';
+            
+            // 범위 입력 필드
+            const inputRow = document.createElement('div');
+            inputRow.className = 'filter-input-row';
+            
+            // 최소값 입력
+            const minInput = document.createElement('input');
+            minInput.type = 'number';
+            minInput.className = 'filter-input min-value';
+            minInput.placeholder = '최소값';
+            minInput.min = 0;
+            minInput.setAttribute('aria-label', `${filterInfo.displayName} 최소값`);
+            
+            const separator = document.createElement('span');
+            separator.className = 'filter-separator';
+            separator.textContent = '~';
+            
+            const maxInput = document.createElement('input');
+            maxInput.type = 'number';
+            maxInput.className = 'filter-input max-value';
+            maxInput.placeholder = '최대값';
+            maxInput.min = 0;
+            maxInput.setAttribute('aria-label', `${filterInfo.displayName} 최대값`);
+            
+            // 범위 입력 이벤트
+            minInput.addEventListener('change', () => applySpecialModFilter(filterItem, filterInfo, rangeContainer));
+            maxInput.addEventListener('change', () => applySpecialModFilter(filterItem, filterInfo, rangeContainer));
+            
+            // 범위 컨테이너에 요소 추가
+            inputRow.appendChild(minInput);
+            inputRow.appendChild(separator);
+            inputRow.appendChild(maxInput);
+            rangeContainer.appendChild(inputRow);
+            
+            // 버튼 이벤트 설정
+            [sButton, rButton, xButton].forEach(button => {
+                button.addEventListener('click', () => {
+                    const type = button.getAttribute('data-type');
+                    const isActive = button.classList.contains('active');
+                    
+                    // 모든 버튼 비활성화
+                    [sButton, rButton, xButton].forEach(btn => btn.classList.remove('active'));
+                    
+                    // 이미 활성화된 버튼을 다시 클릭하면 토글 오프
+                    if (isActive) {
+                        rangeContainer.style.display = 'none';
+                        // 필터 제거
+                        removeSpecialModTypeFilter(filterInfo.name);
+                        applyFilters();
+                        return;
+                    }
+                    
+                    // 버튼 활성화
+                    button.classList.add('active');
+                    
+                    // X 버튼이면 범위 숨기고, 다른 버튼이면 범위 표시
+                    if (type === 'X') {
+                        rangeContainer.style.display = 'none';
+                        // 특별 개조 없음 필터 적용
+                        applySpecialModNoneFilter(filterItem, filterInfo);
+                    } else {
+                        rangeContainer.style.display = 'block';
+                        // 타입 필터 적용
+                        applySpecialModTypeFilter(filterItem, filterInfo, type);
+                    }
+                });
+            });
+            
+            // 버튼 그룹에 버튼 추가
+            buttonGroup.appendChild(sButton);
+            buttonGroup.appendChild(rButton);
+            buttonGroup.appendChild(xButton);
+            
+            // 필터 컨텐츠에 버튼 그룹과 범위 컨테이너 추가
+            filterContent.appendChild(buttonGroup);
+            filterContent.appendChild(rangeContainer);
+        } else if (filterInfo.type === 'enchant') {
             // 인챈트 검색 UI (접두/접미 별도 필드)
             const prefixContainer = document.createElement('div');
             prefixContainer.className = 'enchant-search-container';
@@ -655,6 +759,112 @@ const FilterManager = (() => {
     }
     
     /**
+     * 특별 개조 타입 필터 적용
+     * @param {HTMLElement} filterItem - 필터 항목 요소
+     * @param {Object} filterInfo - 필터 정보
+     * @param {string} type - 특별 개조 타입 (S 또는 R)
+     */
+    function applySpecialModTypeFilter(filterItem, filterInfo, type) {
+        // 같은 이름의 기존 필터 제거
+        state.activeFilters = state.activeFilters.filter(f => f.name !== filterInfo.name);
+        
+        // 새 필터 추가
+        const newFilter = {
+            name: filterInfo.name,
+            displayName: `특별개조 ${type}`,
+            type: 'special-mod-type',
+            modType: type
+        };
+        
+        state.activeFilters.push(newFilter);
+        applyFilters();
+    }
+    
+    /**
+     * 특별 개조 범위 필터 적용
+     * @param {HTMLElement} filterItem - 필터 항목 요소
+     * @param {Object} filterInfo - 필터 정보
+     * @param {HTMLElement} rangeContainer - 범위 필터 컨테이너
+     */
+    function applySpecialModFilter(filterItem, filterInfo, rangeContainer) {
+        // 현재 활성화된 타입 버튼 찾기
+        const activeBtn = filterItem.querySelector('.special-mod-btn.active');
+        if (!activeBtn) return;
+        
+        const type = activeBtn.getAttribute('data-type');
+        
+        // 값 수집
+        const minInput = rangeContainer.querySelector('.min-value');
+        const maxInput = rangeContainer.querySelector('.max-value');
+        
+        let filterValues = {};
+        
+        if (minInput && minInput.value) {
+            filterValues.min = parseFloat(minInput.value);
+        }
+        
+        if (maxInput && maxInput.value) {
+            filterValues.max = parseFloat(maxInput.value);
+        }
+        
+        // 유효한 값이 없으면 타입만 유지
+        if (Object.keys(filterValues).length === 0) {
+            applySpecialModTypeFilter(filterItem, filterInfo, type);
+            return;
+        }
+        
+        // 같은 이름의 기존 필터 제거
+        state.activeFilters = state.activeFilters.filter(f => f.name !== filterInfo.name);
+        
+        // 새 필터 추가 (타입 + 범위)
+        const newFilter = {
+            name: filterInfo.name,
+            displayName: `특별개조 ${type}`,
+            type: 'special-mod-range',
+            modType: type,
+            field: 'option_value',
+            ...filterValues
+        };
+        
+        state.activeFilters.push(newFilter);
+        applyFilters();
+    }
+    
+    /**
+     * 특별 개조 없음 필터 적용
+     * @param {HTMLElement} filterItem - 필터 항목 요소
+     * @param {Object} filterInfo - 필터 정보
+     */
+    function applySpecialModNoneFilter(filterItem, filterInfo) {
+        // 같은 이름의 기존 필터 제거
+        state.activeFilters = state.activeFilters.filter(f => f.name !== filterInfo.name);
+        
+        // 새 필터 추가
+        const newFilter = {
+            name: filterInfo.name,
+            displayName: '특별개조 없음',
+            type: 'special-mod-none'
+        };
+        
+        state.activeFilters.push(newFilter);
+        applyFilters();
+    }
+    
+    /**
+     * 특별 개조 타입 필터 제거
+     * @param {string} filterName - 필터 이름
+     */
+    function removeSpecialModTypeFilter(filterName) {
+        // 특별 개조 관련 필터 제거
+        state.activeFilters = state.activeFilters.filter(f => 
+            f.name !== filterName || 
+            (f.type !== 'special-mod-type' && 
+             f.type !== 'special-mod-range' &&
+             f.type !== 'special-mod-none')
+        );
+    }
+    
+    /**
      * 활성 필터 제거
      * @param {string} filterName - 필터 이름
      */
@@ -699,6 +909,15 @@ const FilterManager = (() => {
         
         // 모든 필터를 통과해야 함
         return state.activeFilters.every(filter => {
+            // 특별 개조 필터 특별 처리
+            if (filter.type === 'special-mod-type') {
+                return checkSpecialModTypeFilter(item, filter);
+            } else if (filter.type === 'special-mod-range') {
+                return checkSpecialModRangeFilter(item, filter);
+            } else if (filter.type === 'special-mod-none') {
+                return checkSpecialModNoneFilter(item);
+            }
+            
             // 인챈트 필터 특별 처리
             if (filter.type === 'enchant') {
                 return checkEnchantFilter(item, filter);
@@ -719,6 +938,76 @@ const FilterManager = (() => {
                     return checkTextFilter(options, filter);
             }
         });
+    }
+
+    /**
+     * 특별 개조 타입 필터 체크
+     * @param {Object} item - 아이템 객체
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkSpecialModTypeFilter(item, filter) {
+        // 옵션 필드 표준화
+        const options = item.options || item.item_option || [];
+        
+        // 특별 개조 옵션 찾기
+        const specialModOption = options.find(opt => opt.option_type === '특별 개조');
+        
+        // 특별 개조가 없으면 실패
+        if (!specialModOption) {
+            return false;
+        }
+        
+        // 타입 일치 확인
+        return specialModOption.option_sub_type === filter.modType;
+    }
+    
+    /**
+     * 특별 개조 범위 필터 체크
+     * @param {Object} item - 아이템 객체
+     * @param {Object} filter - 필터 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkSpecialModRangeFilter(item, filter) {
+        // 옵션 필드 표준화
+        const options = item.options || item.item_option || [];
+        
+        // 특별 개조 옵션 찾기
+        const specialModOption = options.find(opt => 
+            opt.option_type === '특별 개조' && 
+            opt.option_sub_type === filter.modType
+        );
+        
+        // 특별 개조가 없거나 타입이 다르면 실패
+        if (!specialModOption) {
+            return false;
+        }
+        
+        // 값 확인
+        const value = parseInt(specialModOption.option_value);
+        
+        // 범위 검사
+        if (filter.min !== undefined && value < filter.min) {
+            return false;
+        }
+        if (filter.max !== undefined && value > filter.max) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * 특별 개조 없음 필터 체크
+     * @param {Object} item - 아이템 객체
+     * @returns {boolean} 필터 통과 여부
+     */
+    function checkSpecialModNoneFilter(item) {
+        // 옵션 필드 표준화
+        const options = item.options || item.item_option || [];
+        
+        // 특별 개조 옵션이 없어야 통과
+        return !options.some(opt => opt.option_type === '특별 개조');
     }
     
     /**
