@@ -249,7 +249,7 @@ class OptionRenderer {
           field: 'option_value',
           type: 'range'
         },
-        color: 'red'
+        color: 'pink'
       },
       
       '에르그': {
@@ -497,15 +497,16 @@ class OptionRenderer {
     );
     
     if (normalModOption) {
+      // 한 줄에 일반 개조와 보석 강화 표시
       let modText = `일반 개조 (${normalModOption.option_value}/${normalModOption.option_value2})`;
       
-      // 보석 개조 확인
+      // 보석 개조 확인 - 이름을 "보석 강화"로 변경
       const gemModOption = options.find(opt => 
         opt.option_type === '보석 개조'
       );
       
       if (gemModOption) {
-        modText += `, 보석 개조`;
+        modText += `, 보석 강화`;
       }
       
       block.content.push({
@@ -514,26 +515,27 @@ class OptionRenderer {
       });
     }
     
-    // 장인 개조
+    // 장인 개조 - "장인 개조" 텍스트는 기본색, 효과는 파란색으로 변경
     const masterModOption = options.find(opt => 
       opt.option_type === '장인 개조'
     );
     
     if (masterModOption) {
       const modParts = masterModOption.option_value.split(',');
-      let modText = `장인개조`;
       
-      modParts.forEach(part => {
-        modText += ` - ${part.trim()}`;
+      // 장인개조 텍스트만 먼저 추가 (기본 색상)
+      block.content.push({
+        text: `장인 개조`,
+        filter: false
       });
       
-      block.content.push({
-        text: modText,
-        color: {
-          title: 'default', // "장인개조"는 기본 색상
-          content: 'blue'   // 나머지는 파란색
-        },
-        filter: false
+      // 효과들은 개별적으로 파란색으로 추가
+      modParts.forEach(part => {
+        block.content.push({
+          text: `- ${part.trim()}`,
+          color: 'blue',
+          filter: false
+        });
       });
     }
   }
