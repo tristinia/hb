@@ -69,21 +69,19 @@ const FilterManager = (() => {
      * 필터 드롭다운 업데이트
      */
     function updateFilterDropdown() {
-        if (!elements.filterSelector) return;
+      if (!elements.filterSelector) return;
+      
+      // 필터 드롭다운 초기화
+      elements.filterSelector.innerHTML = '<option value="">옵션 선택...</option>';
+      
+      // 필터 옵션 추가
+      state.availableFilters.forEach(filter => {
+        const option = document.createElement('option');
+        option.value = filter.name;
+        option.textContent = filter.displayName || filter.name;
         
-        // 필터 드롭다운 초기화
-        elements.filterSelector.innerHTML = '<option value="">옵션 선택...</option>';
-        
-        // 필터 옵션 추가
-        state.availableFilters.forEach(filter => {
-            if (filter.visible !== false) {
-                const option = document.createElement('option');
-                option.value = filter.name;
-                option.textContent = filter.displayName || filter.name;
-                
-                elements.filterSelector.appendChild(option);
-            }
-        });
+        elements.filterSelector.appendChild(option);
+      });
     }
 
     /**
