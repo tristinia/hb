@@ -15,6 +15,8 @@
     --color-item-blue: #4682B4;
     --color-item-red: #B33A3A;
     --color-item-orange: #FF8C00;
+    --color-item-pink: #FF69B4;
+    --color-item-navy: #000080;
     
     /* 기본 색상 투명도 변형 */
     --color-accent-80: rgba(255, 227, 149, 0.8);
@@ -625,7 +627,7 @@ body {
 
 /* 아이템 이름 색상 스타일 */
 .item-special-prefix {
-    color: var(--color-accent); /* 신성한 접두사 */
+    color: var(--color-accent); /* 접두사 */
     font-weight: var(--font-weight-medium);
 }
 
@@ -881,6 +883,53 @@ input[type="number"] {
 
 .filter-separator {
     color: var(--color-dark);
+}
+
+/* 인챈트 검색 스타일 */
+.enchant-search-container {
+  margin-bottom: var(--spacing-xs);
+  position: relative;
+}
+
+.enchant-label {
+  display: block;
+  font-size: var(--font-size-xs);
+  margin-bottom: 4px;
+  color: var(--color-dark);
+}
+
+.enchant-input {
+  width: 100%;
+}
+
+.enchant-suggestions {
+  position: absolute;
+  z-index: 10;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-light-gray);
+  border-radius: var(--border-radius-xs);
+  max-height: 150px;
+  overflow-y: auto;
+  width: 100%;
+  box-shadow: var(--shadow-sm);
+}
+
+.enchant-suggestion-item {
+  padding: var(--spacing-xxs) var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+}
+
+.enchant-suggestion-item:hover {
+  background-color: var(--color-accent-20);
+}
+
+.enchant-suggestion-loading,
+.enchant-suggestion-empty {
+  padding: var(--spacing-xxs) var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-dark-60);
+  font-style: italic;
 }
 
 /* 툴팁 스타일 (마비노기식 정보 표시) */
