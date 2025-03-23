@@ -2826,8 +2826,8 @@ const state = {
         };
     }
     
-    // 공개 API
-    const FilterManager = {
+    // IIFE 방식 제거하고 명시적 export 추가
+    export default {
         init,
         addStyles,
         updateFiltersForCategory,
@@ -2835,6 +2835,3 @@ const state = {
         resetFilters,
         getFilters
     };
-    
-    export default FilterManager;
-    
