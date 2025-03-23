@@ -12,9 +12,9 @@
     --color-dark: #4A4A4A;         /* 강조 색상: 진한 차콜 그레이 */
 
     /* 아이템 특수 색상 */
-    --color-item-blue: #4682B4;     /* 만 단위 가격 (파란색) */
-    --color-item-red: #B33A3A;      /* 억 단위 가격 (빨간색) */
-    --color-item-orange: #FF8C00;   /* 100억 이상 가격 (주황색) */
+    --color-item-blue: #4682B4;
+    --color-item-red: #B33A3A;
+    --color-item-orange: #FF8C00;
     
     /* 기본 색상 투명도 변형 */
     --color-accent-80: rgba(255, 227, 149, 0.8);
@@ -947,25 +947,15 @@ input[type="number"] {
 }
 
 .tooltip-yellow {
-    background-color: var(--color-accent);
-    display: inline-block;
-    padding: 0 var(--spacing-xxs);
+    color: var(--color-accent);
 }
 
 .tooltip-red {
-    color: var(--color-dark-80);
-    font-weight: var(--font-weight-bold);
+    color: var(--color-item-red);
 }
 
 .tooltip-blue {
-    background-color: var(--color-accent-40);
-    display: inline-block;
-    padding: 0 var(--spacing-xxs);
-}
-
-.tooltip-pink {
-    color: var(--color-dark);
-    font-weight: var(--font-weight-bold);
+    color: var(--color-item-blue);
 }
 
 /* 로딩 스피너 */
