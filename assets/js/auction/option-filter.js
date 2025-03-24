@@ -103,46 +103,55 @@ class OptionFilter {
    * @returns {boolean} 필터 통과 여부
    */
   checkRangeFilter(item, filter) {
-    const options = item.options || item.item_option || [];
-    
-    // 필터 필드 및 값 확인
-    const field = filter.field || 'option_value';
-    const optionType = filter.name;
-    
-    // 해당 옵션 찾기
-    const option = options.find(opt => opt.option_type === optionType);
-    
-    // 옵션이 없으면 기본값으로 0 사용
-    if (!option) {
-      // 최소값 검사 (최소값이 설정된 경우만)
-      if (filter.min !== undefined && 0 < filter.min) {
-        return false;
+      const options = item.options || item.item_option || [];
+      
+      // 필터 필드 및 값 확인
+      const optionType = filter.name;
+      
+      // 해당 옵션 찾기
+      const option = options.find(opt => opt.option_type === optionType);
+      
+      // 옵션이 없으면 기본값으로 0 사용
+      if (!option) {
+        if (filter.min !== undefined && 0 < filter.min) {
+          return false;
+        }
+        return true;
       }
+      
+      // 값 계산
+      let value;
+      
+      // 옵션 정의에서 커스텀 getValue 함수 확인
+      const definition = optionDefinitions[optionType];
+      if (definition && definition.filter && typeof definition.filter.getValue === 'function') {
+          // 커스텀 계산 로직 사용 (피어싱 레벨 등)
+          value = definition.filter.getValue(option);
+      } else {
+          // 기존 방식으로 값 계산
+          const field = filter.field || 'option_value';
+          value = option[field];
+          if (typeof value === 'string') {
+              value = parseFloat(value.replace('%', ''));
+          } else {
+              value = parseFloat(value);
+          }
+      }
+      
+      // 숫자가 아니면 기본값 0 사용
+      if (isNaN(value)) {
+          value = 0;
+      }
+      
+      // 범위 검사
+      if (filter.min !== undefined && value < filter.min) {
+          return false;
+      }
+      if (filter.max !== undefined && value > filter.max) {
+          return false;
+      }
+      
       return true;
-    }
-    
-    // 옵션 값 가져오기 (문자열이면 숫자로 변환)
-    let value = option[field];
-    if (typeof value === 'string') {
-      value = parseFloat(value.replace('%', ''));
-    } else {
-      value = parseFloat(value);
-    }
-    
-    // 숫자가 아니면 기본값으로 0 사용
-    if (isNaN(value)) {
-      value = 0;
-    }
-    
-    // 범위 검사
-    if (filter.min !== undefined && value < filter.min) {
-      return false;
-    }
-    if (filter.max !== undefined && value > filter.max) {
-      return false;
-    }
-    
-    return true;
   }
 
   /**
