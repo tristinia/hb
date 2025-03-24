@@ -334,13 +334,16 @@ const ItemDisplay = (() => {
         const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(item);
         elements.tooltip.appendChild(tooltipContent);
         
-        // 툴팁 위치 설정
-        updateTooltipPosition(event);
-        
-        // 툴팁 표시
+        // 툴팁을 화면 밖에 위치시키되 보이게 함 (크기 계산을 위해)
         elements.tooltip.style.display = 'block';
+        elements.tooltip.style.left = '-9999px';
+        elements.tooltip.style.top = '0px';
+        
+        // 약간의 지연 후 위치 계산 (DOM이 업데이트될 시간을 줌)
+        setTimeout(() => {
+            updateTooltipPosition(event);
+        }, 0);
     }
-
     /**
      * 남은 시간 포맷팅 함수
      * @param {string} expiryDate - ISO 형식 만료 시간
@@ -391,7 +394,7 @@ const ItemDisplay = (() => {
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         
-        // 툴팁 크기 가져오기 (이미 요소가 표시된 상태)
+        // 툴팁 크기 가져오기
         const tooltipRect = elements.tooltip.getBoundingClientRect();
         const tooltipWidth = tooltipRect.width;
         const tooltipHeight = tooltipRect.height;
@@ -421,11 +424,8 @@ const ItemDisplay = (() => {
         }
         
         // 경계값 확인 및 조정 (안전장치)
-        // X축 경계 확인
         if (posX < 0) posX = offset;
         if (posX + tooltipWidth > viewportWidth) posX = viewportWidth - tooltipWidth - offset;
-        
-        // Y축 경계 확인
         if (posY < 0) posY = offset;
         if (posY + tooltipHeight > viewportHeight) posY = viewportHeight - tooltipHeight - offset;
         
