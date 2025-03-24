@@ -124,6 +124,7 @@ const ItemDisplay = (() => {
             // 테이블 마우스 이벤트 (툴팁)
             elements.resultsBody.addEventListener('mouseover', handleTableMouseOver);
             elements.resultsBody.addEventListener('mouseout', handleTableMouseOut);
+            elements.resultsBody.addEventListener('mousemove', handleTableMouseMove);
         }
     }
     
@@ -299,23 +300,10 @@ const ItemDisplay = (() => {
         const tr = event.target.closest('.item-row');
         if (!tr) return;
         
-        // relatedTarget이 툴팁인 경우 숨기지 않음
-        if (elements.tooltip && elements.tooltip.contains(event.relatedTarget)) {
-            return;
-        }
-        
-        // relatedTarget이 같은 행 내부인 경우 숨기지 않음
         const relatedTarget = event.relatedTarget;
-        if (relatedTarget && tr.contains(relatedTarget)) {
-            return;
-        }
+        if (relatedTarget && tr.contains(relatedTarget)) return;
         
-        // 일정 시간 후에 숨김 (툴팁으로 마우스 이동 시간 확보)
-        setTimeout(() => {
-            if (!state.tooltipActive) {
-                hideItemTooltip();
-            }
-        }, 100);
+        hideItemTooltip();
     }
     
     /**
@@ -342,49 +330,24 @@ const ItemDisplay = (() => {
         // 툴팁 내용 초기화
         elements.tooltip.innerHTML = '';
         
-        // 마비노기 스타일의 툴팁 렌더링
+        // 초기 스타일 리셋
+        elements.tooltip.style.maxWidth = '';
+        elements.tooltip.style.maxHeight = '';
+        elements.tooltip.style.overflow = '';
+        
+        // 마비노기 스타일의 툴팁 렌더링 (옵션 렌더러로 위임)
         const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(item);
         elements.tooltip.appendChild(tooltipContent);
         
-        // 툴팁 표시
+        // 툴팁을 화면 밖에 위치시키되 보이게 함 (크기 계산을 위해)
         elements.tooltip.style.display = 'block';
+        elements.tooltip.style.left = '-9999px';
+        elements.tooltip.style.top = '0px';
         
-        // 화면 크기 가져오기
-        const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
-        
-        // 화면 크기에 따른 툴팁 크기 설정
-        const isMobile = viewportWidth < 768;
-        const maxWidth = isMobile ? Math.min(300, viewportWidth * 0.8) : 350;
-        const maxHeight = viewportHeight * 0.7;
-        
-        elements.tooltip.style.maxWidth = `${maxWidth}px`;
-        elements.tooltip.style.maxHeight = `${maxHeight}px`;
-        elements.tooltip.style.overflow = 'auto';
-        
-        // 화면 기준 위치 결정 (중앙 또는 오른쪽)
-        if (isMobile) {
-            // 모바일에서는 화면 중앙에 고정
-            elements.tooltip.style.left = `${Math.max(10, (viewportWidth - maxWidth) / 2)}px`;
-            elements.tooltip.style.top = `${Math.max(10, (viewportHeight - 300) / 2)}px`;
-        } else {
-            // 데스크톱에서는 화면 오른쪽에 고정
-            elements.tooltip.style.right = '20px';
-            elements.tooltip.style.left = 'auto';
-            elements.tooltip.style.top = '100px';
-        }
-        
-        // 툴팁에 마우스 이벤트 처리
-        elements.tooltip.onmouseover = () => {
-            state.tooltipActive = true;
-        };
-        
-        elements.tooltip.onmouseout = (e) => {
-            // 툴팁 내부 요소로의 이벤트 전파 방지
-            if (!elements.tooltip.contains(e.relatedTarget)) {
-                hideItemTooltip();
-            }
-        };
+        // 약간의 지연 후 위치 계산 (DOM이 업데이트될 시간을 줌)
+        setTimeout(() => {
+            updateTooltipPosition(event);
+        }, 0);
     }
     
     /**
@@ -433,75 +396,64 @@ const ItemDisplay = (() => {
     function updateTooltipPosition(event) {
         if (!elements.tooltip || !state.tooltipActive) return;
         
-        // 1. 뷰포트 및 툴팁 치수 가져오기
+        // 화면 치수 가져오기
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
-        const tooltipRect = elements.tooltip.getBoundingClientRect();
         
-        // 2. 화면 크기에 따른 설정
-        const isMobile = viewportWidth < 768;
-        const margin = 10; // 화면 경계와의 최소 거리
+        // 모바일 디바이스 확인
+        const isMobile = window.innerWidth < 768;
         
-        // 3. 툴팁 크기 제한
-        // 화면 크기에 비례하도록 설정 (모바일에서는 더 큰 비율 허용)
-        const maxWidth = Math.min(
-            350,  // 최대 고정 너비
-            Math.floor(viewportWidth * (isMobile ? 0.9 : 0.5)) - (margin * 2)
-        );
-        const maxHeight = Math.floor(viewportHeight * 0.6) - (margin * 2);
+        // 마진 설정 (화면 경계와의 간격)
+        const margin = 10;
         
+        // 툴팁 크기 제한 설정 (화면 비율 기준)
+        const maxWidthRatio = isMobile ? 0.8 : 0.4;
+        const maxHeightRatio = isMobile ? 0.6 : 0.5;
+        
+        // 최대 가능한 너비/높이 계산
+        const maxWidth = Math.floor(viewportWidth * maxWidthRatio) - (margin * 2);
+        const maxHeight = Math.floor(viewportHeight * maxHeightRatio) - (margin * 2);
+        
+        // 툴팁 크기 제한 적용
         elements.tooltip.style.maxWidth = `${maxWidth}px`;
         elements.tooltip.style.maxHeight = `${maxHeight}px`;
         elements.tooltip.style.overflow = 'auto';
         
-        // 4. 최신 툴팁 크기 다시 가져오기 (크기 제한 적용 후)
-        const updatedRect = elements.tooltip.getBoundingClientRect();
-        const tooltipWidth = updatedRect.width;
-        const tooltipHeight = updatedRect.height;
+        // 툴팁 크기 가져오기 (제한 적용 후)
+        const tooltipRect = elements.tooltip.getBoundingClientRect();
+        const tooltipWidth = tooltipRect.width;
+        const tooltipHeight = tooltipRect.height;
         
-        // 5. 위치 선정 알고리즘 (4단계 접근법)
-        let posX, posY;
+        // 기본 마우스 오프셋
+        const offset = 15;
         
-        // 기본 시도: 마우스 오른쪽 아래
-        posX = event.clientX + margin;
-        posY = event.clientY + margin;
+        // 기본 위치: 마우스 오른쪽 아래
+        let posX = event.clientX + offset;
+        let posY = event.clientY + offset;
         
-        // 화면 오른쪽을 벗어나면 마우스 왼쪽에 배치
+        // 화면 오른쪽 넘어가면 왼쪽으로
         if (posX + tooltipWidth > viewportWidth - margin) {
-            posX = event.clientX - tooltipWidth - margin;
+            posX = event.clientX - tooltipWidth - offset;
         }
         
-        // 화면 아래쪽을 벗어나면 마우스 위에 배치
+        // 화면 아래쪽 넘어가면 위쪽으로
         if (posY + tooltipHeight > viewportHeight - margin) {
-            posY = event.clientY - tooltipHeight - margin;
+            posY = event.clientY - tooltipHeight - offset;
         }
         
-        // 여전히 화면 왼쪽이나 위쪽을 벗어나면 화면 중앙에 배치
-        if (posX < margin || posY < margin) {
-            // 최종 대안: 화면 중앙에 배치
-            posX = Math.max(margin, Math.floor((viewportWidth - tooltipWidth) / 2));
-            posY = Math.max(margin, Math.floor((viewportHeight - tooltipHeight) / 2));
+        // 화면 왼쪽이나 위쪽을 넘어가면 조정
+        posX = Math.max(margin, posX);
+        posY = Math.max(margin, posY);
+        
+        // 혹시 또 화면 밖으로 나가면 최종 보정
+        // (넓이가 화면보다 큰 경우 대비)
+        if (posX + tooltipWidth > viewportWidth - margin) {
+            posX = viewportWidth - tooltipWidth - margin;
         }
         
-        // 6. 위치 적용
+        // 툴팁 위치 적용
         elements.tooltip.style.left = `${posX}px`;
         elements.tooltip.style.top = `${posY}px`;
-        
-        // 7. 화면 벗어남 검사 (최종 안전장치)
-        const finalRect = elements.tooltip.getBoundingClientRect();
-        const isOffScreen = 
-            finalRect.left < 0 || 
-            finalRect.top < 0 || 
-            finalRect.right > viewportWidth || 
-            finalRect.bottom > viewportHeight;
-        
-        // 화면을 벗어나면 최후의 수단으로 고정 위치 적용
-        if (isOffScreen) {
-            elements.tooltip.style.left = `${margin}px`;
-            elements.tooltip.style.top = `${margin}px`;
-            elements.tooltip.style.maxWidth = `${viewportWidth - (margin * 2)}px`;
-            elements.tooltip.style.maxHeight = `${viewportHeight - (margin * 2)}px`;
-        }
     }
     
     /**
