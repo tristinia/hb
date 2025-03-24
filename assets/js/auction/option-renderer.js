@@ -364,13 +364,46 @@ renderMabinogiStyleTooltip(item) {
               statElement.className = `tooltip-stat ${colorClass}`;
               statElement.innerHTML = processedOption.text;
               sectionBlock.appendChild(statElement);
+              
+              // 인챈트 효과 별도 처리
+              if (option.option_type === '인챈트' && option.option_desc) {
+                const effects = option.option_desc.split(',');
+                effects.forEach(effect => {
+                  const effectText = effect.trim();
+                  // 조건부 효과 분리
+                  const conditionMatch = effectText.match(/(.*?) 랭크 \d+ 이상일 때 (.*)/);
+                  
+                  if (conditionMatch) {
+                    const conditionElement = document.createElement('div');
+                    conditionElement.className = 'tooltip-special-stat';
+                    conditionElement.innerHTML = `- <span class="tooltip-yellow">${conditionMatch[1]} 조건</span>: ${conditionMatch[2]}`;
+                    sectionBlock.appendChild(conditionElement);
+                  } else {
+                    const effectElement = document.createElement('div');
+                    effectElement.className = 'tooltip-special-stat';
+                    effectElement.textContent = `- ${effectText}`;
+                    sectionBlock.appendChild(effectElement);
+                  }
+                });
+              }
             } 
-            // 일반 텍스트
+            // 일반 텍스트에서 줄바꿈 처리
             else {
-              const statElement = document.createElement('div');
-              statElement.className = `tooltip-stat ${colorClass}`;
-              statElement.textContent = processedOption.text;
-              sectionBlock.appendChild(statElement);
+              // 줄바꿈이 있는 텍스트 처리
+              if (processedOption.text.includes('\n')) {
+                const lines = processedOption.text.split('\n');
+                lines.forEach(line => {
+                  const lineElement = document.createElement('div');
+                  lineElement.className = `tooltip-stat ${colorClass}`;
+                  lineElement.textContent = line.trim();
+                  sectionBlock.appendChild(lineElement);
+                });
+              } else {
+                const statElement = document.createElement('div');
+                statElement.className = `tooltip-stat ${colorClass}`;
+                statElement.textContent = processedOption.text;
+                sectionBlock.appendChild(statElement);
+              }
             }
           }
         });
