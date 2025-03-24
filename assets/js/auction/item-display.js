@@ -387,28 +387,77 @@ const ItemDisplay = (() => {
     function updateTooltipPosition(event) {
         if (!elements.tooltip) return;
         
-        // 마우스 위치에 따라 툴팁 위치 조정
-        const x = event.clientX + 15;
-        const y = event.clientY + 15;
+        // 먼저 툴팁의 변형을 초기화 (이전 scale 효과 제거)
+        elements.tooltip.style.transform = 'scale(1)';
+        elements.tooltip.style.transformOrigin = 'top left';
         
-        // 뷰포트 경계 확인
+        // 마우스 위치 (오프셋 추가)
+        const offset = 15;
+        const x = event.clientX + offset;
+        const y = event.clientY + offset;
+        
+        // 뷰포트 크기
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
+        
+        // 툴팁 위치 설정 (초기 위치)
+        elements.tooltip.style.left = x + 'px';
+        elements.tooltip.style.top = y + 'px';
+        
+        // 실제 툴팁 크기 측정
         const tooltipWidth = elements.tooltip.offsetWidth;
         const tooltipHeight = elements.tooltip.offsetHeight;
         
-        // 화면 오른쪽 경계를 넘어가는 경우
-        if (x + tooltipWidth > viewportWidth) {
-            elements.tooltip.style.left = (viewportWidth - tooltipWidth - 10) + 'px';
-        } else {
-            elements.tooltip.style.left = x + 'px';
+        // 화면 경계 초과 여부 확인
+        const exceedsRight = (x + tooltipWidth) > viewportWidth;
+        const exceedsBottom = (y + tooltipHeight) > viewportHeight;
+        
+        // 경계를 벗어나는 경우 위치 조정 시도
+        let newX = x;
+        let newY = y;
+        
+        if (exceedsRight) {
+            newX = viewportWidth - tooltipWidth - offset;
         }
         
-        // 화면 아래 경계를 넘어가는 경우
-        if (y + tooltipHeight > viewportHeight) {
-            elements.tooltip.style.top = (viewportHeight - tooltipHeight - 10) + 'px';
-        } else {
-            elements.tooltip.style.top = y + 'px';
+        if (exceedsBottom) {
+            newY = viewportHeight - tooltipHeight - offset;
+        }
+        
+        // 위치 재설정
+        elements.tooltip.style.left = newX + 'px';
+        elements.tooltip.style.top = newY + 'px';
+        
+        // 조정 후에도 화면을 벗어나는지 다시 체크
+        const stillExceedsX = newX < 0 || (newX + tooltipWidth) > viewportWidth;
+        const stillExceedsY = newY < 0 || (newY + tooltipHeight) > viewportHeight;
+        
+        // 화면을 벗어나면 비율 조절 적용
+        if (stillExceedsX || stillExceedsY) {
+            // 가로/세로 중 더 많이 벗어나는 쪽 기준으로 비율 계산
+            const availableWidth = viewportWidth - offset * 2;
+            const availableHeight = viewportHeight - offset * 2;
+            
+            // X축, Y축 각각에 필요한 비율 계산
+            const scaleX = tooltipWidth > availableWidth ? availableWidth / tooltipWidth : 1;
+            const scaleY = tooltipHeight > availableHeight ? availableHeight / tooltipHeight : 1;
+            
+            // 더 작은 비율 선택 (가로세로 비율 유지)
+            const scale = Math.min(scaleX, scaleY, 1); // 1보다 크게 확대되지 않도록
+            
+            // 최종 크기 계산
+            const scaledWidth = tooltipWidth * scale;
+            const scaledHeight = tooltipHeight * scale;
+            
+            // 중앙 정렬을 위한 위치 계산
+            let finalX = Math.max(offset, Math.min(event.clientX - (scaledWidth / 2), viewportWidth - scaledWidth - offset));
+            let finalY = Math.max(offset, Math.min(event.clientY - (scaledHeight / 2), viewportHeight - scaledHeight - offset));
+            
+            // 최종 위치 및 비율 적용
+            elements.tooltip.style.left = finalX + 'px';
+            elements.tooltip.style.top = finalY + 'px';
+            elements.tooltip.style.transform = `scale(${scale})`;
+            elements.tooltip.style.transformOrigin = 'top left';
         }
     }
     
