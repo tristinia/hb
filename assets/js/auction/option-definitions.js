@@ -92,8 +92,14 @@ const optionDefinitions = {
     },
     filter: {
       displayName: '피어싱 레벨',
-      field: 'option_value',
-      type: 'range'
+      type: 'range',
+      // 값 계산 로직 추가
+      getValue: (option) => {
+        const baseLevel = parseInt(option.option_value || "0");
+        const additionalLevel = option.option_value2 ? 
+          parseInt(option.option_value2.replace(/\+/g, '')) : 0;
+        return baseLevel + additionalLevel;
+      }
     },
     color: 'blue'
   },
