@@ -385,37 +385,55 @@ const ItemDisplay = (() => {
      * @param {MouseEvent} event - 마우스 이벤트
      */
     function updateTooltipPosition(event) {
-        if (!elements.tooltip || !state.tooltipActive) return;
+        if (!elements.tooltip) return;
         
-        // 기본 마우스 오프셋
-        const offset = 15;
-        
-        // 툴팁을 먼저 기본 위치에 배치
-        elements.tooltip.style.left = (event.clientX + offset) + 'px';
-        elements.tooltip.style.top = (event.clientY + offset) + 'px';
-        
-        // 툴팁이 보이는 상태에서 크기 계산
-        const tooltipRect = elements.tooltip.getBoundingClientRect();
+        // 뷰포트 크기 확인
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         
-        // 화면 밖으로 나가는지 확인
-        if (tooltipRect.right > viewportWidth) {
-            elements.tooltip.style.left = (viewportWidth - tooltipRect.width - offset) + 'px';
+        // 마우스 위치
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+        
+        // 툴팁 초기화 및 표시
+        elements.tooltip.style.display = 'block';
+        
+        // 툴팁 크기 측정 (실제 콘텐츠 기준)
+        const tooltipWidth = elements.tooltip.offsetWidth;
+        const tooltipHeight = elements.tooltip.offsetHeight;
+        
+        // 안전 여백
+        const margin = 10;
+        
+        // 툴팁 위치 계산 - 기본은 마우스 아래 오른쪽
+        let posX = mouseX + margin;
+        let posY = mouseY + margin;
+        
+        // 오른쪽 경계 확인
+        if (posX + tooltipWidth > viewportWidth - margin) {
+            // 오른쪽 경계를 벗어나면 왼쪽에 배치
+            posX = mouseX - tooltipWidth - margin;
         }
         
-        if (tooltipRect.bottom > viewportHeight) {
-            elements.tooltip.style.top = (viewportHeight - tooltipRect.height - offset) + 'px';
+        // 왼쪽 경계까지 벗어나면 가능한 가장 왼쪽에 배치
+        if (posX < margin) {
+            posX = margin;
         }
         
-        // 왼쪽이나 위쪽으로 벗어나는 경우도 처리
-        if (tooltipRect.left < 0) {
-            elements.tooltip.style.left = offset + 'px';
+        // 아래쪽 경계 확인
+        if (posY + tooltipHeight > viewportHeight - margin) {
+            // 아래쪽 경계를 벗어나면 위쪽에 배치
+            posY = mouseY - tooltipHeight - margin;
         }
         
-        if (tooltipRect.top < 0) {
-            elements.tooltip.style.top = offset + 'px';
+        // 위쪽 경계까지 벗어나면 가능한 가장 위쪽에 배치
+        if (posY < margin) {
+            posY = margin;
         }
+        
+        // 계산된 위치 적용
+        elements.tooltip.style.left = posX + 'px';
+        elements.tooltip.style.top = posY + 'px';
     }
     
     /**
