@@ -213,11 +213,18 @@ const ItemDisplay = (() => {
         // 필터링 지연 처리 (브라우저 렌더링 차단 방지)
         setTimeout(() => {
             try {
-                // 필터링 로직 적용
-                state.filteredResults = state.lastSearchResults.filter(item => {
-                    return FilterManager.itemPassesFilters(item) && 
-                        optionFilter.itemPassesFilters(item, optionFilter.extractFilters(item));
-                });
+                // 활성화된 필터 가져오기
+                const activeFilters = FilterManager.getFilters().activeFilters;
+                
+                // 필터링 로직 적용 - 필터가 없으면 모든 아이템 표시
+                if (activeFilters.length === 0) {
+                    state.filteredResults = [...state.lastSearchResults];
+                } else {
+                    state.filteredResults = state.lastSearchResults.filter(item => {
+                        return FilterManager.itemPassesFilters(item) && 
+                            optionFilter.itemPassesFilters(item, activeFilters);
+                    });
+                }
                 
                 console.log('필터링 후 아이템 수:', state.filteredResults.length);
                 
