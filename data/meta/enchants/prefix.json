@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-23T09:26:00.901Z",
+  "updated": "2025-03-24T09:30:35.304Z",
   "enchants": {
     "56층의": {
       "name": "56층의",
@@ -79,7 +79,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 21,
+          "min": 20,
           "max": 24,
           "variable": true
         }
@@ -2882,8 +2882,8 @@
         {
           "template": "크리티컬 {value} 증가",
           "min": 6,
-          "max": 6,
-          "variable": false
+          "max": 9,
+          "variable": true
         },
         {
           "template": "마리오네트 최대 생명력 {value} 증가",
@@ -3091,6 +3091,24 @@
         }
       ]
     },
+    "래빗 (랭크 F)": {
+      "name": "래빗 (랭크 F)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "최대스태미나 {value} 감소",
+          "min": 1,
+          "max": 1,
+          "variable": false
+        },
+        {
+          "template": "최대생명력 {value} 증가",
+          "min": 1,
+          "max": 1,
+          "variable": false
+        }
+      ]
+    },
     "러스티 (랭크 E)": {
       "name": "러스티 (랭크 E)",
       "rank": null,
@@ -3241,14 +3259,14 @@
         },
         {
           "template": "마리오네트 조종술 크리티컬 확률 {value} 증가",
-          "min": 6,
+          "min": 5,
           "max": 6,
-          "variable": false
+          "variable": true
         },
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
           "min": 12,
-          "max": 13,
+          "max": 15,
           "variable": true
         }
       ]
@@ -3316,6 +3334,30 @@
           "min": 10,
           "max": 20,
           "variable": true
+        }
+      ]
+    },
+    "루나 이클립스": {
+      "name": "루나 이클립스",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "마나 소비 감소 {value}% 증가",
+          "min": 4,
+          "max": 4,
+          "variable": false
+        },
+        {
+          "template": "마법 공격력 {value} 증가",
+          "min": 8,
+          "max": 8,
+          "variable": false
         }
       ]
     },
@@ -10057,9 +10099,9 @@
       "effects": [
         {
           "template": "최소대미지 {value} 감소",
-          "min": 6,
+          "min": 5,
           "max": 6,
-          "variable": false
+          "variable": true
         }
       ]
     },

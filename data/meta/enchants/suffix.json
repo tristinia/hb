@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-23T09:26:00.906Z",
+  "updated": "2025-03-24T09:30:35.309Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -1544,14 +1544,14 @@
         {
           "template": "지력 {value} 증가",
           "min": 10,
-          "max": 10,
-          "variable": false
+          "max": 13,
+          "variable": true
         },
         {
           "template": "마법 공격력 {value} 증가",
           "min": 9,
-          "max": 9,
-          "variable": false
+          "max": 10,
+          "variable": true
         }
       ]
     },
@@ -1897,7 +1897,7 @@
         },
         {
           "template": "의지 {value} 증가",
-          "min": 9,
+          "min": 8,
           "max": 14,
           "variable": true
         },
@@ -3694,6 +3694,42 @@
           "min": 22,
           "max": 48,
           "variable": true
+        }
+      ]
+    },
+    "믿음직한": {
+      "name": "믿음직한",
+      "rank": 9,
+      "effects": [
+        {
+          "template": "수리비 {value}% 감소",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "솜씨 {value} 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 4,
+          "max": 4,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 4,
+          "max": 4,
+          "variable": false
+        },
+        {
+          "template": "최소대미지 {value} 증가",
+          "min": 4,
+          "max": 4,
+          "variable": false
         }
       ]
     },
@@ -6283,7 +6319,7 @@
         },
         {
           "template": "행운 {value} 증가",
-          "min": 24,
+          "min": 17,
           "max": 30,
           "variable": true
         }
@@ -6409,7 +6445,7 @@
         },
         {
           "template": "물 속성 연금술 대미지 {value} 증가",
-          "min": 8,
+          "min": 7,
           "max": 10,
           "variable": true
         },
@@ -8065,7 +8101,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 3,
+          "min": 2,
           "max": 10,
           "variable": true
         },
@@ -9217,7 +9253,7 @@
         },
         {
           "template": "최대마나 {value} 증가",
-          "min": 22,
+          "min": 16,
           "max": 46,
           "variable": true
         },
@@ -9837,6 +9873,18 @@
           "template": "솜씨 {value} 증가",
           "min": 10,
           "max": 10,
+          "variable": false
+        }
+      ]
+    },
+    "프래그먼트 (랭크 B)": {
+      "name": "프래그먼트 (랭크 B)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "분해 성공률 {value}% 증가",
+          "min": 1,
+          "max": 1,
           "variable": false
         }
       ]
