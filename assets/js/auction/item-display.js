@@ -323,38 +323,66 @@ const ItemDisplay = (() => {
     function showItemTooltip(item, event) {
         if (!elements.tooltip || !item) return;
         
-        // 툴팁 초기화
+        // 1단계: 모든 준비 설정 - 초기화 및 숨김 상태로 생성
         elements.tooltip.innerHTML = '';
+        elements.tooltip.style.display = 'none'; // 숨김 상태에서 시작
         
-        // ★★★ 여기가 핵심: 먼저 최대 크기 제약 설정 ★★★
-        // 뷰포트 크기에 대한 비율로 최대 크기 설정
+        // 2단계: 필요한 제약 조건 계산
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         const isMobile = viewportWidth < 768;
         
-        // 최대 크기 비율 설정
-        const maxWidthRatio = isMobile ? 0.9 : 0.4;
-        const maxHeightRatio = isMobile ? 0.7 : 0.6;
+        // 여백 조정
+        const margin = 15;
         
-        // ★★★ 툴팁에 직접 적용하기 전에 계산된 값 사용 ★★★
+        // 최대 크기 계산 (비율 적용)
+        const maxWidthRatio = isMobile ? 0.8 : 0.4;
+        const maxHeightRatio = isMobile ? 0.7 : 0.6;
         const maxWidth = Math.floor(viewportWidth * maxWidthRatio);
         const maxHeight = Math.floor(viewportHeight * maxHeightRatio);
         
-        // 툴팁에 최대 크기와 스크롤 설정
+        // 3단계: 툴팁에 스타일 적용
         elements.tooltip.style.maxWidth = `${maxWidth}px`;
         elements.tooltip.style.maxHeight = `${maxHeight}px`;
         elements.tooltip.style.overflow = 'auto';
         
-        // 마비노기 스타일 툴팁 렌더링
+        // 4단계: 내용 생성
         const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(item);
         elements.tooltip.appendChild(tooltipContent);
         
-        // 툴팁 활성화
-        elements.tooltip.style.display = 'block';
-        state.tooltipActive = true;
+        // 5단계: 임시로 표시해서 크기 측정
+        elements.tooltip.style.visibility = 'hidden'; // 보이지 않게
+        elements.tooltip.style.display = 'block';     // 표시 상태로
         
-        // 마우스 위치 기준 위치 계산 - 직접 호출
-        positionTooltipNow(event);
+        // 6단계: 강제 리플로우로 정확한 크기 얻기
+        // 이 줄이 브라우저에게 요소를 실제로 렌더링하도록 강제
+        const forceReflow = elements.tooltip.offsetHeight; 
+        
+        // 7단계: 이제 정확한 크기를 얻을 수 있음
+        const tooltipWidth = elements.tooltip.offsetWidth;
+        const tooltipHeight = elements.tooltip.offsetHeight;
+        
+        // 8단계: 위치 계산
+        let left = event.clientX + margin;
+        let top = event.clientY + margin;
+        
+        // 오른쪽 경계 확인
+        if (left + tooltipWidth + margin > viewportWidth) {
+            left = Math.max(margin, event.clientX - tooltipWidth - margin);
+        }
+        
+        // 아래쪽 경계 확인
+        if (top + tooltipHeight + margin > viewportHeight) {
+            top = Math.max(margin, event.clientY - tooltipHeight - margin);
+        }
+        
+        // 9단계: 최종 위치 설정
+        elements.tooltip.style.left = `${left}px`;
+        elements.tooltip.style.top = `${top}px`;
+        
+        // 10단계: 이제 표시
+        elements.tooltip.style.visibility = 'visible';
+        state.tooltipActive = true;
     }
     
     /**
