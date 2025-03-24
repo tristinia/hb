@@ -323,117 +323,81 @@ const ItemDisplay = (() => {
     function showItemTooltip(item, event) {
         if (!elements.tooltip || !item) return;
         
-        // 이전 타이머 정리
-        if (state.tooltipTimer) {
-            clearTimeout(state.tooltipTimer);
-        }
+        // 툴팁 초기화
+        elements.tooltip.innerHTML = '';
         
-        // 초기 설정
-        elements.tooltip.style.display = 'none'; // 먼저 숨김
-        elements.tooltip.innerHTML = ''; // 내용 초기화
+        // ★★★ 여기가 핵심: 먼저 최대 크기 제약 설정 ★★★
+        // 뷰포트 크기에 대한 비율로 최대 크기 설정
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        const isMobile = viewportWidth < 768;
         
-        // 스타일 초기화 (중요!)
-        elements.tooltip.style.width = 'auto';
-        elements.tooltip.style.height = 'auto';
-        elements.tooltip.style.maxWidth = 'none';
-        elements.tooltip.style.maxHeight = 'none';
-        elements.tooltip.style.overflow = 'visible';
+        // 최대 크기 비율 설정
+        const maxWidthRatio = isMobile ? 0.9 : 0.4;
+        const maxHeightRatio = isMobile ? 0.7 : 0.6;
         
-        // 마비노기 스타일의 툴팁 렌더링
+        // ★★★ 툴팁에 직접 적용하기 전에 계산된 값 사용 ★★★
+        const maxWidth = Math.floor(viewportWidth * maxWidthRatio);
+        const maxHeight = Math.floor(viewportHeight * maxHeightRatio);
+        
+        // 툴팁에 최대 크기와 스크롤 설정
+        elements.tooltip.style.maxWidth = `${maxWidth}px`;
+        elements.tooltip.style.maxHeight = `${maxHeight}px`;
+        elements.tooltip.style.overflow = 'auto';
+        
+        // 마비노기 스타일 툴팁 렌더링
         const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(item);
         elements.tooltip.appendChild(tooltipContent);
         
-        // 이제 화면 밖에서 내용 렌더링 (크기 계산용)
+        // 툴팁 활성화
         elements.tooltip.style.display = 'block';
-        elements.tooltip.style.visibility = 'hidden'; // 보이지 않게
-        elements.tooltip.style.left = '-9999px';
-        elements.tooltip.style.top = '0px';
+        state.tooltipActive = true;
         
-        // 2단계 접근방식: 
-        // 1단계 - 내용을 렌더링하고 자연스러운 크기 측정
-        state.tooltipTimer = setTimeout(() => {
-            // 자연 크기 측정 (제약 없는 상태)
-            const naturalWidth = elements.tooltip.offsetWidth;
-            const naturalHeight = elements.tooltip.offsetHeight;
-            
-            // 화면 치수 가져오기
-            const viewportWidth = document.documentElement.clientWidth;
-            const viewportHeight = document.documentElement.clientHeight;
-            
-            // 모바일 디바이스 확인
-            const isMobile = viewportWidth < 768;
-            
-            // 여백 설정
-            const margin = isMobile ? 10 : 20;
-            
-            // 최대 크기 계산
-            const maxWidth = Math.min(naturalWidth, Math.floor(viewportWidth * (isMobile ? 0.9 : 0.4)));
-            const maxHeight = Math.min(naturalHeight, Math.floor(viewportHeight * (isMobile ? 0.7 : 0.6)));
-            
-            // 2단계 - 최대 크기 적용 후 위치 설정
-            state.tooltipTimer = setTimeout(() => {
-                // 이제 최대 크기와 스크롤 설정
-                elements.tooltip.style.maxWidth = `${maxWidth}px`;
-                elements.tooltip.style.maxHeight = `${maxHeight}px`;
-                elements.tooltip.style.overflow = 'auto';
-                
-                // 최종 크기 측정 (최대 크기 적용 후)
-                const finalWidth = Math.min(naturalWidth, maxWidth);
-                const finalHeight = Math.min(naturalHeight, maxHeight);
-                
-                // 마우스 위치
-                const mouseX = event.clientX;
-                const mouseY = event.clientY;
-                
-                // 기본 오프셋
-                const offset = 15;
-                
-                // 위치 결정
-                let posX, posY;
-                
-                // 모바일에서는 화면 중앙에 배치
-                if (isMobile) {
-                    posX = (viewportWidth - finalWidth) / 2;
-                    posY = (viewportHeight - finalHeight) / 2;
-                } else {
-                    // 오른쪽 공간 확인
-                    if (mouseX + offset + finalWidth <= viewportWidth - margin) {
-                        // 오른쪽에 배치
-                        posX = mouseX + offset;
-                    } else if (mouseX - offset - finalWidth >= margin) {
-                        // 왼쪽에 배치
-                        posX = mouseX - offset - finalWidth;
-                    } else {
-                        // 수평 중앙 배치
-                        posX = (viewportWidth - finalWidth) / 2;
-                    }
-                    
-                    // 아래쪽 공간 확인
-                    if (mouseY + offset + finalHeight <= viewportHeight - margin) {
-                        // 아래쪽에 배치
-                        posY = mouseY + offset;
-                    } else if (mouseY - offset - finalHeight >= margin) {
-                        // 위쪽에 배치
-                        posY = mouseY - offset - finalHeight;
-                    } else {
-                        // 수직 중앙 배치
-                        posY = (viewportHeight - finalHeight) / 2;
-                    }
-                }
-                
-                // 경계 검사 (안전장치)
-                posX = Math.max(margin, Math.min(posX, viewportWidth - finalWidth - margin));
-                posY = Math.max(margin, Math.min(posY, viewportHeight - finalHeight - margin));
-                
-                // 최종 위치 적용 및 표시
-                elements.tooltip.style.left = `${posX}px`;
-                elements.tooltip.style.top = `${posY}px`;
-                elements.tooltip.style.visibility = 'visible';
-                
-                // 툴팁 활성화 상태 설정
-                state.tooltipActive = true;
-            }, 20); // 스타일 적용 후 위치 계산까지 짧은 지연
-        }, 50); // 첫 번째 렌더링 후 크기 측정까지 충분한 지연
+        // 마우스 위치 기준 위치 계산 - 직접 호출
+        positionTooltipNow(event);
+    }
+    
+    /**
+     * 툴팁 위치 즉시 계산 및 적용
+     * @param {MouseEvent} event - 마우스 이벤트
+     */
+    function positionTooltipNow(event) {
+        if (!elements.tooltip || !state.tooltipActive) return;
+        
+        // 화면 크기
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        
+        // 여백
+        const margin = 15;
+        
+        // ★★★ 여기가 핵심: offsetWidth/offsetHeight 사용 ★★★
+        // offsetWidth/offsetHeight는 스크롤바와 경계를 포함한 전체 요소 크기
+        const tooltipWidth = elements.tooltip.offsetWidth;
+        const tooltipHeight = elements.tooltip.offsetHeight;
+        
+        // 마우스 위치
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+        
+        // 초기 위치 (마우스 오른쪽 아래)
+        let left = mouseX + margin;
+        let top = mouseY + margin;
+        
+        // ★★★ 여기가 핵심: 화면 경계 확인 및 간단 조정 ★★★
+        // 오른쪽 확인
+        if (left + tooltipWidth + margin > viewportWidth) {
+            left = Math.max(margin, mouseX - tooltipWidth - margin);
+        }
+        
+        // 아래쪽 확인
+        if (top + tooltipHeight + margin > viewportHeight) {
+            top = Math.max(margin, mouseY - tooltipHeight - margin);
+        }
+        
+        // 위치 적용
+        elements.tooltip.style.left = `${left}px`;
+        elements.tooltip.style.top = `${top}px`;
     }
     
     /**
