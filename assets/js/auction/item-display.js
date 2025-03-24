@@ -330,6 +330,11 @@ const ItemDisplay = (() => {
         // 툴팁 내용 초기화
         elements.tooltip.innerHTML = '';
         
+        // 초기 스타일 리셋
+        elements.tooltip.style.maxWidth = '';
+        elements.tooltip.style.maxHeight = '';
+        elements.tooltip.style.overflow = '';
+        
         // 마비노기 스타일의 툴팁 렌더링 (옵션 렌더러로 위임)
         const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(item);
         elements.tooltip.appendChild(tooltipContent);
@@ -344,6 +349,7 @@ const ItemDisplay = (() => {
             updateTooltipPosition(event);
         }, 0);
     }
+    
     /**
      * 남은 시간 포맷팅 함수
      * @param {string} expiryDate - ISO 형식 만료 시간
@@ -394,7 +400,23 @@ const ItemDisplay = (() => {
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         
-        // 툴팁 크기 가져오기
+        // 모바일 디바이스 확인
+        const isMobile = window.innerWidth < 768;
+        
+        // 툴팁 크기 제한 설정 (화면 비율 기준)
+        const maxWidthRatio = isMobile ? 0.85 : 0.4;  // 모바일: 85%, PC: 40%
+        const maxHeightRatio = isMobile ? 0.7 : 0.6;  // 모바일: 70%, PC: 60%
+        
+        // 최대 가능한 너비/높이 계산
+        const maxWidth = Math.floor(viewportWidth * maxWidthRatio);
+        const maxHeight = Math.floor(viewportHeight * maxHeightRatio);
+        
+        // 툴팁 크기 제한 적용
+        elements.tooltip.style.maxWidth = `${maxWidth}px`;
+        elements.tooltip.style.maxHeight = `${maxHeight}px`;
+        elements.tooltip.style.overflow = 'auto';
+        
+        // 툴팁 크기 가져오기 (제한 적용 후)
         const tooltipRect = elements.tooltip.getBoundingClientRect();
         const tooltipWidth = tooltipRect.width;
         const tooltipHeight = tooltipRect.height;
