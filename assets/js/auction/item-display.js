@@ -387,35 +387,51 @@ const ItemDisplay = (() => {
     function updateTooltipPosition(event) {
         if (!elements.tooltip || !state.tooltipActive) return;
         
-        // 기본 마우스 오프셋
-        const offset = 15;
-        
-        // 툴팁을 먼저 기본 위치에 배치
-        elements.tooltip.style.left = (event.clientX + offset) + 'px';
-        elements.tooltip.style.top = (event.clientY + offset) + 'px';
-        
-        // 툴팁이 보이는 상태에서 크기 계산
-        const tooltipRect = elements.tooltip.getBoundingClientRect();
+        // 화면 치수 가져오기
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         
-        // 화면 밖으로 나가는지 확인
-        if (tooltipRect.right > viewportWidth) {
-            elements.tooltip.style.left = (viewportWidth - tooltipRect.width - offset) + 'px';
+        // 툴팁 크기 가져오기 (이미 요소가 표시된 상태)
+        const tooltipRect = elements.tooltip.getBoundingClientRect();
+        const tooltipWidth = tooltipRect.width;
+        const tooltipHeight = tooltipRect.height;
+        
+        // 기본 마우스 오프셋
+        const offset = 15;
+        
+        // 화면 영역에 따라 툴팁 위치 결정
+        let posX, posY;
+        
+        // X 위치 결정 (화면 중앙을 기준으로)
+        if (event.clientX > viewportWidth / 2) {
+            // 마우스가 화면 오른쪽에 있으면 툴팁을 왼쪽에 표시
+            posX = event.clientX - tooltipWidth - offset;
+        } else {
+            // 마우스가 화면 왼쪽에 있으면 툴팁을 오른쪽에 표시
+            posX = event.clientX + offset;
         }
         
-        if (tooltipRect.bottom > viewportHeight) {
-            elements.tooltip.style.top = (viewportHeight - tooltipRect.height - offset) + 'px';
+        // Y 위치 결정 (화면 중앙을 기준으로)
+        if (event.clientY > viewportHeight / 2) {
+            // 마우스가 화면 아래쪽에 있으면 툴팁을 위쪽에 표시
+            posY = event.clientY - tooltipHeight - offset;
+        } else {
+            // 마우스가 화면 위쪽에 있으면 툴팁을 아래쪽에 표시
+            posY = event.clientY + offset;
         }
         
-        // 왼쪽이나 위쪽으로 벗어나는 경우도 처리
-        if (tooltipRect.left < 0) {
-            elements.tooltip.style.left = offset + 'px';
-        }
+        // 경계값 확인 및 조정 (안전장치)
+        // X축 경계 확인
+        if (posX < 0) posX = offset;
+        if (posX + tooltipWidth > viewportWidth) posX = viewportWidth - tooltipWidth - offset;
         
-        if (tooltipRect.top < 0) {
-            elements.tooltip.style.top = offset + 'px';
-        }
+        // Y축 경계 확인
+        if (posY < 0) posY = offset;
+        if (posY + tooltipHeight > viewportHeight) posY = viewportHeight - tooltipHeight - offset;
+        
+        // 툴팁 위치 적용
+        elements.tooltip.style.left = posX + 'px';
+        elements.tooltip.style.top = posY + 'px';
     }
     
     /**
