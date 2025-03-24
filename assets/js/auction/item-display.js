@@ -7,7 +7,7 @@ import Utils from './utils.js';
 import ApiClient from './api-client.js';
 import FilterManager from './filter-manager.js';
 import PaginationManager from './pagination.js';
-import OptionFilterManager from './option-filter-manager.js';
+import optionFilter from './option-filter.js';
 import optionRenderer from './option-renderer.js';
 
 const ItemDisplay = (() => {
@@ -177,7 +177,7 @@ const ItemDisplay = (() => {
             tr.setAttribute('data-item', JSON.stringify(item));
             
             // 가격 포맷팅
-            const priceFormatted = formatItemPrice(item.auction_price_per_unit || 0);
+            const priceFormatted = optionRenderer.formatItemPrice(item.auction_price_per_unit || 0);
             
             // 남은 시간 포맷팅
             const remainingTime = formatRemainingTime(item.date_auction_expire);
@@ -215,9 +215,8 @@ const ItemDisplay = (() => {
             try {
                 // 필터링 로직 적용
                 state.filteredResults = state.lastSearchResults.filter(item => {
-                    const filterResult = FilterManager.itemPassesFilters(item);
-                    return filterResult && 
-                        OptionFilterManager.itemPassesFilters(item, OptionFilterManager.extractFilters(item));
+                    return FilterManager.itemPassesFilters(item) && 
+                        optionFilter.itemPassesFilters(item, optionFilter.extractFilters(item));
                 });
                 
                 console.log('필터링 후 아이템 수:', state.filteredResults.length);
@@ -324,8 +323,8 @@ const ItemDisplay = (() => {
         // 툴팁 내용 초기화
         elements.tooltip.innerHTML = '';
         
-        // 마비노기 스타일의 툴팁 렌더링
-        const tooltipContent = renderMabinogiStyleTooltip(item);
+        // 마비노기 스타일의 툴팁 렌더링 (옵션 렌더러로 위임)
+        const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(item);
         elements.tooltip.appendChild(tooltipContent);
         
         // 툴팁 위치 설정
@@ -333,80 +332,6 @@ const ItemDisplay = (() => {
         
         // 툴팁 표시
         elements.tooltip.style.display = 'block';
-    }
-
-    /**
-     * 가격 포맷팅 함수
-     * @param {number} price - 가격
-     * @returns {object} 포맷된 가격과 CSS 클래스
-     */
-    function formatItemPrice(price) {
-        if (!price) return { text: '0 Gold', class: '' };
-        
-        // 기본 가격 (1~9999)
-        if (price < 10000) {
-            return {
-                text: `${price.toLocaleString()} Gold`,
-                class: ''
-            };
-        }
-        
-        // 만 단위 가격 (10000~99999999)
-        if (price < 100000000) {
-            const man = Math.floor(price / 10000);
-            const remainder = price % 10000;
-            
-            let text = `${man}만`;
-            if (remainder > 0) {
-                text += `${remainder.toLocaleString()}`;
-            }
-            text += ' Gold';
-            
-            return {
-                text: text,
-                class: 'item-blue'
-            };
-        }
-        
-        // 억 단위 가격 (100000000~9999999999)
-        if (price < 10000000000) {
-            const eok = Math.floor(price / 100000000);
-            const manRemainder = Math.floor((price % 100000000) / 10000);
-            const remainder = price % 10000;
-            
-            let text = `${eok}억`;
-            if (manRemainder > 0) {
-                text += `${manRemainder}만`;
-            }
-            if (remainder > 0) {
-                text += `${remainder.toLocaleString()}`;
-            }
-            text += ' Gold';
-            
-            return {
-                text: text,
-                class: 'item-red'
-            };
-        }
-        
-        // 100억 이상 가격
-        const eok = Math.floor(price / 100000000);
-        const manRemainder = Math.floor((price % 100000000) / 10000);
-        const remainder = price % 10000;
-        
-        let text = `${eok}억`;
-        if (manRemainder > 0) {
-            text += `${manRemainder}만`;
-        }
-        if (remainder > 0) {
-            text += `${remainder.toLocaleString()}`;
-        }
-        text += ' Gold';
-        
-        return {
-            text: text,
-            class: 'item-orange'
-        };
     }
 
     /**
@@ -448,215 +373,6 @@ const ItemDisplay = (() => {
         }
     }
     
-    /**
-     * 마비노기 스타일 아이템 툴팁 렌더링 함수
-     * @param {Object} item - 아이템 데이터
-     * @returns {HTMLElement} 툴팁 내용 요소
-     */
-    function renderMabinogiStyleTooltip(item) {
-      const tooltipElement = document.createElement('div');
-      
-      // 아이템 이름 헤더
-      const header = document.createElement('div');
-      header.className = 'tooltip-header';
-      header.innerHTML = `<h3>${item.item_display_name || item.item_name || '이름 없음'}</h3>`;
-      tooltipElement.appendChild(header);
-      
-      // 툴팁 내용 컨테이너
-      const content = document.createElement('div');
-      content.className = 'tooltip-content';
-      
-      // 아이템 속성 블록
-      const attributesBlock = document.createElement('div');
-      attributesBlock.className = 'tooltip-block';
-      attributesBlock.innerHTML = `<div class="tooltip-block-title">아이템 속성</div>`;
-      
-      // 옵션 필드 표준화
-      const options = item.options || item.item_option || [];
-      
-      // 주요 속성 정보 추가 (optionHandlers 활용)
-      if (Array.isArray(options)) {
-        // 기본 속성 먼저 처리 (공격, 부상률, 크리티컬, 밸런스, 내구력 등)
-        const coreAttributes = [
-          '공격', '부상률', '크리티컬', '밸런스', '내구력', '숙련',
-          '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가',
-          '피어싱 레벨', '아이템 보호'
-        ];
-        
-        coreAttributes.forEach(attrType => {
-          const option = options.find(opt => opt.option_type === attrType);
-          if (option) {
-            const handler = optionRenderer.optionHandlers[attrType];
-            if (handler && handler.display) {
-              const displayText = handler.display(option);
-              const colorClass = handler.color || '';
-              
-              // 기본 HTML 템플릿 적용
-              attributesBlock.innerHTML += `<div class="tooltip-stat ${colorClass}">${displayText}</div>`;
-            }
-          }
-        });
-      }
-      
-      content.appendChild(attributesBlock);
-      
-      // 인챈트 블록
-      const enchantOptions = options.filter(opt => opt.option_type === '인챈트');
-      if (enchantOptions.length > 0) {
-        const enchantBlock = document.createElement('div');
-        enchantBlock.className = 'tooltip-block';
-        enchantBlock.innerHTML = `<div class="tooltip-block-title">인챈트</div>`;
-        
-        enchantOptions.forEach(option => {
-          // 인챈트 이름과 랭크 (정규식으로 분리)
-          const match = option.option_value.match(/(.+?)\s*(\(랭크 \d+\))/);
-          if (match) {
-            const enchantName = match[1];
-            const rankText = match[2];
-            
-            enchantBlock.innerHTML += `
-              <div class="tooltip-stat">[${option.option_sub_type}] ${enchantName} <span class="tooltip-pink">${rankText}</span></div>
-            `;
-            
-            // 인챈트 효과 (쉼표로 구분)
-            if (option.option_desc) {
-              const effects = option.option_desc.split(',');
-              effects.forEach(effect => {
-                enchantBlock.innerHTML += `<div class="tooltip-special-stat">- ${effect.trim()}</div>`;
-              });
-            }
-          } else {
-            enchantBlock.innerHTML += `<div class="tooltip-stat">[${option.option_sub_type}] ${option.option_value}</div>`;
-          }
-        });
-        
-        content.appendChild(enchantBlock);
-      }
-        
-        // 개조 블록
-        const modOptions = options.filter(opt => 
-            opt.option_type === '일반 개조' || 
-            opt.option_type === '장인 개조' || 
-            opt.option_type === '특별 개조'
-        );
-        
-        if (modOptions.length > 0) {
-            const modBlock = document.createElement('div');
-            modBlock.className = 'tooltip-block';
-            modBlock.innerHTML = `<div class="tooltip-block-title">개조</div>`;
-            
-            // 일반 개조
-            const normalMod = modOptions.find(opt => opt.option_type === '일반 개조');
-            if (normalMod) {
-                modBlock.innerHTML += `<div class="tooltip-stat">일반 개조 (${normalMod.option_value}/${normalMod.option_value2})</div>`;
-            }
-            
-            // 보석 개조
-            const gemMod = options.find(opt => opt.option_type === '보석 개조');
-            if (gemMod) {
-                modBlock.innerHTML += `<div class="tooltip-stat">, 보석 개조</div>`;
-            }
-            
-            // 장인 개조
-            const masterMod = modOptions.find(opt => opt.option_type === '장인 개조');
-            if (masterMod) {
-                modBlock.innerHTML += `<div class="tooltip-stat">장인개조</div>`;
-                
-                // 효과 추가 (쉼표로 구분)
-                const effects = masterMod.option_value.split(',');
-                effects.forEach(effect => {
-                    modBlock.innerHTML += `<div class="tooltip-special-stat">- ${effect.trim()}</div>`;
-                });
-            }
-            
-            // 특별 개조
-            const specialMod = modOptions.find(opt => opt.option_type === '특별 개조');
-            if (specialMod) {
-                const type = specialMod.option_sub_type; // "R" 또는 "S"
-                const level = specialMod.option_value;   // 숫자 값
-                
-                modBlock.innerHTML += `<div class="tooltip-stat">특별개조 <span class="tooltip-red">${type}</span> (${level}단계)</div>`;
-            }
-            
-            content.appendChild(modBlock);
-        }
-        
-        // 세공 블록
-        const reforgeRankOption = options.find(opt => opt.option_type === '세공 랭크');
-        const reforgeOptions = options.filter(opt => opt.option_type === '세공 옵션');
-        
-        if (reforgeRankOption || reforgeOptions.length > 0) {
-            const reforgeBlock = document.createElement('div');
-            reforgeBlock.className = 'tooltip-block';
-            reforgeBlock.innerHTML = `<div class="tooltip-block-title">세공</div>`;
-            
-            // 세공 랭크
-            if (reforgeRankOption) {
-                reforgeBlock.innerHTML += `<div class="tooltip-red">${reforgeRankOption.option_value}랭크</div>`;
-            }
-            
-            // 세공 옵션
-            reforgeOptions.forEach(opt => {
-                // "스매시 대미지(18레벨:180 % 증가)" 형식 파싱
-                const match = opt.option_value.match(/(.+?)\((\d+)레벨:(.*?)\)/);
-                if (match) {
-                    const [_, name, level, effect] = match;
-                    reforgeBlock.innerHTML += `
-                        <div class="tooltip-special-stat tooltip-blue">- ${name} ${level}레벨</div>
-                    `;
-                } else {
-                    reforgeBlock.innerHTML += `<div class="tooltip-special-stat">- ${opt.option_value}</div>`;
-                }
-            });
-            
-            content.appendChild(reforgeBlock);
-        }
-        
-        // 에르그 블록
-        const ergOption = options.find(opt => opt.option_type === '에르그');
-        if (ergOption) {
-            const ergBlock = document.createElement('div');
-            ergBlock.className = 'tooltip-block';
-            ergBlock.innerHTML = `
-                <div class="tooltip-block-title">에르그</div>
-                <div class="tooltip-red">등급 ${ergOption.option_sub_type} (${ergOption.option_value}/${ergOption.option_value2}레벨)</div>
-            `;
-            
-            content.appendChild(ergBlock);
-        }
-        
-        // 세트 효과 블록
-        const setEffects = options.filter(opt => opt.option_type === '세트 효과');
-        if (setEffects.length > 0) {
-            const setBlock = document.createElement('div');
-            setBlock.className = 'tooltip-block';
-            setBlock.innerHTML = `<div class="tooltip-block-title">세트 효과</div>`;
-            
-            setEffects.forEach(effect => {
-                setBlock.innerHTML += `<div class="tooltip-special-stat">- ${effect.option_value} +${effect.option_value2}</div>`;
-            });
-            
-            content.appendChild(setBlock);
-        }
-        
-        // 가격 정보
-        if (item.auction_price_per_unit) {
-            const priceFormatted = formatItemPrice(item.auction_price_per_unit);
-            const priceBlock = document.createElement('div');
-            priceBlock.className = 'tooltip-block';
-            
-            priceBlock.innerHTML = `
-                <div class="tooltip-block-title">가격 정보</div>
-                <div class="tooltip-stat">가격: <span class="${priceFormatted.class}">${priceFormatted.text}</span></div>
-            `;
-            
-            content.appendChild(priceBlock);
-        }
-        
-        tooltipElement.appendChild(content);
-        return tooltipElement;
-    }
-
     /**
      * 툴팁 위치 업데이트
      * @param {MouseEvent} event - 마우스 이벤트
@@ -730,7 +446,7 @@ const ItemDisplay = (() => {
             tr.setAttribute('data-item', JSON.stringify(item));
             
             // 가격 포맷팅
-            const priceFormatted = formatItemPrice(item.auction_price_per_unit || 0);
+            const priceFormatted = optionRenderer.formatItemPrice(item.auction_price_per_unit || 0);
             
             // 남은 시간 포맷팅
             const remainingTime = formatRemainingTime(item.date_auction_expire);
