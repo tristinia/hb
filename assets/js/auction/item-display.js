@@ -124,7 +124,6 @@ const ItemDisplay = (() => {
             // 테이블 마우스 이벤트 (툴팁)
             elements.resultsBody.addEventListener('mouseover', handleTableMouseOver);
             elements.resultsBody.addEventListener('mouseout', handleTableMouseOut);
-            elements.resultsBody.addEventListener('mousemove', handleTableMouseMove);
         }
     }
     
@@ -300,10 +299,23 @@ const ItemDisplay = (() => {
         const tr = event.target.closest('.item-row');
         if (!tr) return;
         
-        const relatedTarget = event.relatedTarget;
-        if (relatedTarget && tr.contains(relatedTarget)) return;
+        // relatedTarget이 툴팁인 경우 숨기지 않음
+        if (elements.tooltip && elements.tooltip.contains(event.relatedTarget)) {
+            return;
+        }
         
-        hideItemTooltip();
+        // relatedTarget이 같은 행 내부인 경우 숨기지 않음
+        const relatedTarget = event.relatedTarget;
+        if (relatedTarget && tr.contains(relatedTarget)) {
+            return;
+        }
+        
+        // 일정 시간 후에 숨김 (툴팁으로 마우스 이동 시간 확보)
+        setTimeout(() => {
+            if (!state.tooltipActive) {
+                hideItemTooltip();
+            }
+        }, 100);
     }
     
     /**
@@ -334,26 +346,45 @@ const ItemDisplay = (() => {
         const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(item);
         elements.tooltip.appendChild(tooltipContent);
         
-        // 화면에 일단 표시하되 보이지 않게 설정 (크기 계산용)
-        elements.tooltip.style.visibility = 'hidden';
+        // 툴팁 표시
         elements.tooltip.style.display = 'block';
-        elements.tooltip.style.left = '0px';
-        elements.tooltip.style.top = '0px';
-        elements.tooltip.style.maxWidth = '';
-        elements.tooltip.style.maxHeight = '';
         
-        // 내용이 완전히 렌더링될 시간을 주기 위해 약간 더 긴 지연 설정
-        setTimeout(() => {
-            // 툴팁을 표시하고 위치 계산
-            elements.tooltip.style.visibility = 'visible';
-            updateTooltipPosition(event);
-            
-            // 혹시 위치 계산이 실패했을 경우를 대비한 안전장치
-            // 한 번 더 위치 재계산 (내용 완전 렌더링 후)
-            setTimeout(() => {
-                updateTooltipPosition(event);
-            }, 50);
-        }, 20);
+        // 화면 크기 가져오기
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        
+        // 화면 크기에 따른 툴팁 크기 설정
+        const isMobile = viewportWidth < 768;
+        const maxWidth = isMobile ? Math.min(300, viewportWidth * 0.8) : 350;
+        const maxHeight = viewportHeight * 0.7;
+        
+        elements.tooltip.style.maxWidth = `${maxWidth}px`;
+        elements.tooltip.style.maxHeight = `${maxHeight}px`;
+        elements.tooltip.style.overflow = 'auto';
+        
+        // 화면 기준 위치 결정 (중앙 또는 오른쪽)
+        if (isMobile) {
+            // 모바일에서는 화면 중앙에 고정
+            elements.tooltip.style.left = `${Math.max(10, (viewportWidth - maxWidth) / 2)}px`;
+            elements.tooltip.style.top = `${Math.max(10, (viewportHeight - 300) / 2)}px`;
+        } else {
+            // 데스크톱에서는 화면 오른쪽에 고정
+            elements.tooltip.style.right = '20px';
+            elements.tooltip.style.left = 'auto';
+            elements.tooltip.style.top = '100px';
+        }
+        
+        // 툴팁에 마우스 이벤트 처리
+        elements.tooltip.onmouseover = () => {
+            state.tooltipActive = true;
+        };
+        
+        elements.tooltip.onmouseout = (e) => {
+            // 툴팁 내부 요소로의 이벤트 전파 방지
+            if (!elements.tooltip.contains(e.relatedTarget)) {
+                hideItemTooltip();
+            }
+        };
     }
     
     /**
