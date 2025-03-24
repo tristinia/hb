@@ -65,7 +65,7 @@ const optionDefinitions = {
   },
   
   '남은 전용 해제 가능 횟수': {
-    display: (option) => ` 전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수: ${option.option_value}`,
+    display: (option) => `전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수: ${option.option_value}`,
     filter: {
       displayName: '전용 해제 가능 횟수',
       field: 'option_value',
