@@ -249,12 +249,13 @@ class OptionRenderer {
   }
   
   /**
-   * 마비노기 스타일 아이템 툴팁 렌더링
-   * @param {Object} item - 아이템 데이터
-   * @returns {HTMLElement} 툴팁 요소
-   */
-  renderMabinogiStyleTooltip(item) {
+ * 마비노기 스타일 아이템 툴팁 렌더링
+ * @param {Object} item - 아이템 데이터
+ * @returns {HTMLElement} 툴팁 요소
+ */
+renderMabinogiStyleTooltip(item) {
     const tooltipElement = document.createElement('div');
+    tooltipElement.className = 'item-tooltip';
     
     // 아이템 이름 헤더
     const header = document.createElement('div');
@@ -266,41 +267,117 @@ class OptionRenderer {
     const content = document.createElement('div');
     content.className = 'tooltip-content';
     
-    // 아이템 속성 블록
-    const attributesBlock = document.createElement('div');
-    attributesBlock.className = 'tooltip-block';
-    attributesBlock.innerHTML = `<div class="tooltip-block-title">아이템 속성</div>`;
-    
-    // 옵션 처리
+    // 옵션 데이터 가져오기
     const options = item.options || item.item_option || [];
     
-    if (Array.isArray(options)) {
-      // 중요 순서로 정렬
-      const orderedOptions = this.orderOptionsByImportance(options);
-      
-      // 옵션 렌더링
-      for (const option of orderedOptions) {
-        // 일반 속성 처리
-        const processedOption = this.processOption(option);
-        
-        if (processedOption) {
-          const colorClass = processedOption.color ? this.colorClass[processedOption.color] : '';
-          
-          if (processedOption.text.includes('<')) {
-            // HTML 포함된 경우 wrapper div 추가
-            attributesBlock.innerHTML += `<div class="tooltip-stat ${colorClass}">${processedOption.text}</div>`;
-          } else {
-            // 일반 텍스트
-            const statElement = document.createElement('div');
-            statElement.className = `tooltip-stat ${colorClass}`;
-            statElement.textContent = processedOption.text;
-            attributesBlock.appendChild(statElement);
-          }
-        }
-      }
-    }
+    // 옵션을 카테고리별로 그룹화
+    const optionGroups = {
+      '아이템 속성': [],    // 공격, 부상률, 크리티컬, 내구력 등
+      '인챈트': [],         // 인챈트 정보
+      '개조': [],           // 일반 개조, 장인 개조, 특별 개조
+      '세공': [],           // 세공 랭크, 세공 옵션
+      '에르그': [],         // 에르그 관련
+      '세트 효과': [],      // 세트 효과
+      '아이템 색상': [],    // 아이템 색상 정보
+      '기타': []            // 기타 옵션
+    };
     
-    content.appendChild(attributesBlock);
+    // 옵션 정렬
+    const orderedOptions = this.orderOptionsByImportance(options);
+    
+    // 옵션을 그룹별로 분류
+    orderedOptions.forEach(option => {
+      const type = option.option_type;
+      
+      if (type === '공격' || type === '부상률' || type === '크리티컬' || 
+          type === '밸런스' || type === '내구력' || type === '숙련' || 
+          type === '남은 전용 해제 가능 횟수' || type === '피어싱 레벨' || 
+          type === '아이템 보호' || type === '방어력' || type === '보호' || 
+          type === '마법 방어력' || type === '마법 보호') {
+        optionGroups['아이템 속성'].push(option);
+      } 
+      else if (type === '인챈트') {
+        optionGroups['인챈트'].push(option);
+      } 
+      else if (type === '일반 개조' || type === '보석 개조' || 
+               type === '장인 개조' || type === '특별 개조') {
+        optionGroups['개조'].push(option);
+      } 
+      else if (type === '세공 랭크' || type === '세공 옵션') {
+        optionGroups['세공'].push(option);
+      } 
+      else if (type === '에르그') {
+        optionGroups['에르그'].push(option);
+      } 
+      else if (type === '세트 효과') {
+        optionGroups['세트 효과'].push(option);
+      } 
+      else if (type === '아이템 색상') {
+        optionGroups['아이템 색상'].push(option);
+      } 
+      else {
+        optionGroups['기타'].push(option);
+      }
+    });
+    
+    // 각 그룹별로 섹션 생성
+    Object.entries(optionGroups).forEach(([groupName, groupOptions]) => {
+      // 해당 그룹에 옵션이 있는 경우만 섹션 생성
+      if (groupOptions.length > 0) {
+        const sectionBlock = document.createElement('div');
+        sectionBlock.className = 'tooltip-block';
+        
+        // 섹션 제목
+        const sectionTitle = document.createElement('div');
+        sectionTitle.className = 'tooltip-block-title';
+        sectionTitle.textContent = groupName;
+        sectionBlock.appendChild(sectionTitle);
+        
+        // 해당 섹션의 옵션들 추가
+        groupOptions.forEach(option => {
+          // 옵션 처리
+          const processedOption = this.processOption(option);
+          
+          if (processedOption) {
+            const colorClass = processedOption.color ? this.colorClass[processedOption.color] : '';
+            
+            // 특수 처리: 장인 개조
+            if (option.option_type === '장인 개조') {
+              // 장인 개조 텍스트 추가
+              const labelElement = document.createElement('div');
+              labelElement.className = `tooltip-stat`;
+              labelElement.textContent = '장인 개조';
+              sectionBlock.appendChild(labelElement);
+              
+              // 효과들은 개별적으로 추가
+              const modParts = option.option_value.split(',');
+              modParts.forEach(part => {
+                const effectElement = document.createElement('div');
+                effectElement.className = `tooltip-stat item-blue`;
+                effectElement.textContent = `- ${part.trim()}`;
+                sectionBlock.appendChild(effectElement);
+              });
+            } 
+            // HTML 내용이 있는 경우
+            else if (processedOption.text.includes('<')) {
+              const statElement = document.createElement('div');
+              statElement.className = `tooltip-stat ${colorClass}`;
+              statElement.innerHTML = processedOption.text;
+              sectionBlock.appendChild(statElement);
+            } 
+            // 일반 텍스트
+            else {
+              const statElement = document.createElement('div');
+              statElement.className = `tooltip-stat ${colorClass}`;
+              statElement.textContent = processedOption.text;
+              sectionBlock.appendChild(statElement);
+            }
+          }
+        });
+        
+        content.appendChild(sectionBlock);
+      }
+    });
     
     // 가격 정보 (맨 아래)
     if (item.auction_price_per_unit) {
@@ -309,10 +386,15 @@ class OptionRenderer {
       const priceBlock = document.createElement('div');
       priceBlock.className = 'tooltip-block';
       
-      priceBlock.innerHTML = `
-          <div class="tooltip-block-title">가격 정보</div>
-          <div class="tooltip-stat">가격: <span class="${formattedPrice.class}">${formattedPrice.text}</span></div>
-      `;
+      const priceTitle = document.createElement('div');
+      priceTitle.className = 'tooltip-block-title';
+      priceTitle.textContent = '가격 정보';
+      priceBlock.appendChild(priceTitle);
+      
+      const priceContent = document.createElement('div');
+      priceContent.className = 'tooltip-stat';
+      priceContent.innerHTML = `가격: <span class="${formattedPrice.class}">${formattedPrice.text}</span>`;
+      priceBlock.appendChild(priceContent);
       
       content.appendChild(priceBlock);
     }
