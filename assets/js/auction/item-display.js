@@ -395,7 +395,7 @@ const ItemDisplay = (() => {
         if (!elements.tooltip || !state.tooltipActive) return;
         
         const tooltip = elements.tooltip;
-        const margin = 15; // 여백
+        const margin = 10;
         
         // 툴팁 크기
         const tooltipWidth = tooltip.offsetWidth;
@@ -405,47 +405,27 @@ const ItemDisplay = (() => {
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         
-        // 마우스 위치
-        const mouseX = event.clientX;
-        const mouseY = event.clientY;
+        // 기본 위치 계산 (마우스 위치)
+        let left = event.clientX + margin;
+        let top = event.clientY + margin;
         
-        // 공간 확인 - 가능한 배치 영역 계산
-        const spaceRight = viewportWidth - mouseX - margin;
-        const spaceLeft = mouseX - margin;
-        const spaceBelow = viewportHeight - mouseY - margin;
-        const spaceAbove = mouseY - margin;
-        
-        // 위치 결정 (수평)
-        let left;
-        if (spaceRight >= tooltipWidth) {
-            // 오른쪽에 충분한 공간이 있으면 마우스 오른쪽에 배치
-            left = mouseX + margin;
-        } else if (spaceLeft >= tooltipWidth) {
-            // 왼쪽에 충분한 공간이 있으면 마우스 왼쪽에 배치
-            left = mouseX - tooltipWidth - margin;
-        } else {
-            // 양쪽 모두 충분한 공간이 없으면 가능한 많은 공간이 있는 쪽으로 배치
-            left = (spaceLeft > spaceRight) 
-                ? Math.max(margin, mouseX - tooltipWidth - margin)
-                : Math.min(viewportWidth - tooltipWidth - margin, mouseX + margin);
+        // 화면 오른쪽 경계 검사 및 조정
+        if (left + tooltipWidth > viewportWidth - margin) {
+            left = Math.max(margin, viewportWidth - tooltipWidth - margin);
         }
         
-        // 위치 결정 (수직)
-        let top;
-        if (spaceBelow >= tooltipHeight) {
-            // 아래에 충분한 공간이 있으면 마우스 아래에 배치
-            top = mouseY + margin;
-        } else if (spaceAbove >= tooltipHeight) {
-            // 위에 충분한 공간이 있으면 마우스 위에 배치
-            top = mouseY - tooltipHeight - margin;
-        } else {
-            // 위아래 모두 충분한 공간이 없으면 가능한 많은 공간이 있는 쪽으로 배치
-            top = (spaceAbove > spaceBelow)
-                ? Math.max(margin, mouseY - tooltipHeight - margin)
-                : Math.min(viewportHeight - tooltipHeight - margin, mouseY + margin);
+        // 화면 아래쪽 경계 검사 및 조정 - 가장 중요한 부분
+        if (top + tooltipHeight > viewportHeight - margin) {
+            // 툴팁이 아래로 넘어가면 마우스 위쪽에 배치
+            top = Math.max(margin, event.clientY - tooltipHeight - margin);
+            
+            // 그래도 화면을 벗어나면 화면 상단에 고정
+            if (top + tooltipHeight > viewportHeight - margin) {
+                top = Math.max(margin, viewportHeight - tooltipHeight - margin);
+            }
         }
         
-        // 최종 위치 적용
+        // 위치 적용
         tooltip.style.left = `${left}px`;
         tooltip.style.top = `${top}px`;
     }
