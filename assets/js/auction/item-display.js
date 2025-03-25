@@ -215,24 +215,14 @@ const ItemDisplay = (() => {
     }
 
     
+    
     /**
      * 테이블 이벤트 리스너 설정
      */
     function setupTableEventListeners() {
         if (elements.resultsBody) {
-            // 클릭 이벤트에서 e.stopPropagation()을 추가하여 이벤트 전파 방지
-            // 이렇게 하면 특별히 다른 이벤트 리스너는 필요하지 않음
-            // 툴팁은 별도 모듈(ItemTooltip)에서 처리함
-            
-            // 이벤트 리스너가 충돌하지 않도록 기존 핸들러 제거
-            elements.resultsBody.removeEventListener('click', handleItemClick);
-            
-            // 이벤트 버블링 방지를 위한 클릭 핸들러 추가
-            elements.resultsBody.addEventListener('click', function(e) {
-                // 클릭 이벤트의 기본 동작 및 전파 방지
-                // 이렇게 하면 상위 요소의 이벤트 핸들러가 실행되지 않음
-                e.stopPropagation();
-            });
+            // 단순히 클릭 이벤트 전파만 중단
+            elements.resultsBody.addEventListener('click', e => e.stopPropagation());
         }
     }
     
