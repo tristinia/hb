@@ -27,7 +27,7 @@ const ItemTooltip = (() => {
         // 이미 초기화되었으면 무시
         if (state.initialized) return;
         
-        // 툴팁 HTML 요소 검색 또는 생성
+        // 툴팁 HTML 요소 검색
         tooltipElement = document.getElementById('item-tooltip');
         
         // 요소가 없으면 새로 생성
@@ -57,22 +57,39 @@ const ItemTooltip = (() => {
         // 테이블에 이벤트 리스너 추가 (이벤트 위임 사용)
         const resultsTable = document.querySelector('.results-table');
         if (resultsTable) {
-            // 마우스 오버 이벤트
+            // 마우스 오버 이벤트 (데스크톱)
             resultsTable.addEventListener('mouseover', handleMouseOver);
             
-            // 마우스 아웃 이벤트
+            // 마우스 아웃 이벤트 (데스크톱)
             resultsTable.addEventListener('mouseout', handleMouseOut);
             
-            // 마우스 이동 이벤트
+            // 마우스 이동 이벤트 (데스크톱)
             resultsTable.addEventListener('mousemove', handleMouseMove);
+            
+            // 터치/클릭 이벤트 (모바일)
+            resultsTable.addEventListener('click', handleClick);
         }
+        
+        // 툴팁 외부 클릭 시 닫기 (모바일)
+        document.addEventListener('click', (event) => {
+            // 클릭된 요소가 툴팁이나 아이템 행이 아니면 툴팁 숨기기
+            if (state.visible && 
+                tooltipElement && 
+                !tooltipElement.contains(event.target) && 
+                !event.target.closest('.item-row')) {
+                hideTooltip();
+            }
+        });
     }
     
     /**
-     * 마우스 오버 이벤트 핸들러
+     * 마우스 오버 이벤트 핸들러 (데스크톱)
      * @param {MouseEvent} event - 마우스 이벤트
      */
     function handleMouseOver(event) {
+        // 모바일 환경에서는 무시
+        if (isMobileDevice()) return;
+        
         const itemRow = event.target.closest('.item-row');
         if (!itemRow) return;
         
@@ -91,10 +108,13 @@ const ItemTooltip = (() => {
     }
     
     /**
-     * 마우스 아웃 이벤트 핸들러
+     * 마우스 아웃 이벤트 핸들러 (데스크톱)
      * @param {MouseEvent} event - 마우스 이벤트
      */
     function handleMouseOut(event) {
+        // 모바일 환경에서는 무시
+        if (isMobileDevice()) return;
+        
         const itemRow = event.target.closest('.item-row');
         if (!itemRow) return;
         
@@ -107,14 +127,66 @@ const ItemTooltip = (() => {
     }
     
     /**
-     * 마우스 이동 이벤트 핸들러
+     * 마우스 이동 이벤트 핸들러 (데스크톱)
      * @param {MouseEvent} event - 마우스 이벤트
      */
     function handleMouseMove(event) {
+        // 모바일 환경에서는 무시
+        if (isMobileDevice()) return;
+        
         if (!state.visible || !tooltipElement) return;
         
         // 툴팁 위치 업데이트
         updatePosition(event.clientX, event.clientY);
+    }
+    
+    /**
+     * 클릭 이벤트 핸들러 (모바일)
+     * @param {MouseEvent|TouchEvent} event - 클릭/터치 이벤트
+     */
+    function handleClick(event) {
+        // 데스크톱 환경에서는 무시
+        if (!isMobileDevice()) return;
+        
+        const itemRow = event.target.closest('.item-row');
+        if (!itemRow) return;
+        
+        try {
+            // 아이템 데이터 가져오기
+            const itemDataStr = itemRow.getAttribute('data-item');
+            if (!itemDataStr) return;
+            
+            const itemData = JSON.parse(itemDataStr);
+            
+            // 이미 같은 아이템의 툴팁이 표시중이면 숨기기
+            if (state.visible && state.lastItemData && 
+                state.lastItemData.auction_item_no === itemData.auction_item_no) {
+                hideTooltip();
+                return;
+            }
+            
+            // 이벤트 전파 방지 (중요: 다른 이벤트 핸들러 호출 방지)
+            event.stopPropagation();
+            
+            // 클릭 위치 또는 아이템 위치 계산
+            let x, y;
+            
+            if (event.clientX && event.clientY) {
+                // 마우스 클릭 위치
+                x = event.clientX;
+                y = event.clientY;
+            } else {
+                // 터치 이벤트나 위치 정보가 없는 경우, 아이템 행의 위치 사용
+                const rect = itemRow.getBoundingClientRect();
+                x = rect.left + rect.width / 2;
+                y = rect.top;
+            }
+            
+            // 툴팁 표시
+            showTooltip(itemData, x, y);
+        } catch (error) {
+            console.error('툴팁 표시 중 오류:', error);
+        }
     }
     
     /**
@@ -194,6 +266,14 @@ const ItemTooltip = (() => {
         tooltipElement.style.display = 'none';
         tooltipElement.innerHTML = '';
         state.visible = false;
+    }
+    
+    /**
+     * 모바일 디바이스 감지
+     * @returns {boolean} 모바일 디바이스 여부
+     */
+    function isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
     
     // 공개 API
