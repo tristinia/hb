@@ -1,6 +1,7 @@
 /**
  * item-tooltip.js
  * 아이템 툴팁 전용 독립 모듈
+ * PC/모바일 구분 없이 동일하게 작동하는 버전
  */
 
 import optionRenderer from './option-renderer.js';
@@ -57,24 +58,19 @@ const ItemTooltip = (() => {
         // 테이블에 이벤트 리스너 추가 (이벤트 위임 사용)
         const resultsTable = document.querySelector('.results-table');
         if (resultsTable) {
-            // 마우스 오버 이벤트 (데스크톱)
+            // 마우스 오버 이벤트 - PC/모바일 모두 동일하게 처리
             resultsTable.addEventListener('mouseover', handleMouseOver);
             
-            // 마우스 아웃 이벤트 (데스크톱)
+            // 마우스 아웃 이벤트
             resultsTable.addEventListener('mouseout', handleMouseOut);
             
-            // 마우스 이동 이벤트 (데스크톱)
+            // 마우스 이동 이벤트
             resultsTable.addEventListener('mousemove', handleMouseMove);
-            
-            // 터치/클릭 이벤트 (모바일)
-            resultsTable.addEventListener('click', handleClick);
         }
         
-        // 툴팁 외부 클릭 시 닫기 (모바일)
+        // 문서 클릭 시 툴팁 닫기
         document.addEventListener('click', (event) => {
-            // 클릭된 요소가 툴팁이나 아이템 행이 아니면 툴팁 숨기기
-            if (state.visible && 
-                tooltipElement && 
+            if (state.visible && tooltipElement && 
                 !tooltipElement.contains(event.target) && 
                 !event.target.closest('.item-row')) {
                 hideTooltip();
@@ -83,13 +79,10 @@ const ItemTooltip = (() => {
     }
     
     /**
-     * 마우스 오버 이벤트 핸들러 (데스크톱)
+     * 마우스 오버 이벤트 핸들러
      * @param {MouseEvent} event - 마우스 이벤트
      */
     function handleMouseOver(event) {
-        // 모바일 환경에서는 무시
-        if (isMobileDevice()) return;
-        
         const itemRow = event.target.closest('.item-row');
         if (!itemRow) return;
         
@@ -108,13 +101,10 @@ const ItemTooltip = (() => {
     }
     
     /**
-     * 마우스 아웃 이벤트 핸들러 (데스크톱)
+     * 마우스 아웃 이벤트 핸들러
      * @param {MouseEvent} event - 마우스 이벤트
      */
     function handleMouseOut(event) {
-        // 모바일 환경에서는 무시
-        if (isMobileDevice()) return;
-        
         const itemRow = event.target.closest('.item-row');
         if (!itemRow) return;
         
@@ -127,66 +117,14 @@ const ItemTooltip = (() => {
     }
     
     /**
-     * 마우스 이동 이벤트 핸들러 (데스크톱)
+     * 마우스 이동 이벤트 핸들러
      * @param {MouseEvent} event - 마우스 이벤트
      */
     function handleMouseMove(event) {
-        // 모바일 환경에서는 무시
-        if (isMobileDevice()) return;
-        
         if (!state.visible || !tooltipElement) return;
         
         // 툴팁 위치 업데이트
         updatePosition(event.clientX, event.clientY);
-    }
-    
-    /**
-     * 클릭 이벤트 핸들러 (모바일)
-     * @param {MouseEvent|TouchEvent} event - 클릭/터치 이벤트
-     */
-    function handleClick(event) {
-        // 데스크톱 환경에서는 무시
-        if (!isMobileDevice()) return;
-        
-        const itemRow = event.target.closest('.item-row');
-        if (!itemRow) return;
-        
-        try {
-            // 아이템 데이터 가져오기
-            const itemDataStr = itemRow.getAttribute('data-item');
-            if (!itemDataStr) return;
-            
-            const itemData = JSON.parse(itemDataStr);
-            
-            // 이미 같은 아이템의 툴팁이 표시중이면 숨기기
-            if (state.visible && state.lastItemData && 
-                state.lastItemData.auction_item_no === itemData.auction_item_no) {
-                hideTooltip();
-                return;
-            }
-            
-            // 이벤트 전파 방지 (중요: 다른 이벤트 핸들러 호출 방지)
-            event.stopPropagation();
-            
-            // 클릭 위치 또는 아이템 위치 계산
-            let x, y;
-            
-            if (event.clientX && event.clientY) {
-                // 마우스 클릭 위치
-                x = event.clientX;
-                y = event.clientY;
-            } else {
-                // 터치 이벤트나 위치 정보가 없는 경우, 아이템 행의 위치 사용
-                const rect = itemRow.getBoundingClientRect();
-                x = rect.left + rect.width / 2;
-                y = rect.top;
-            }
-            
-            // 툴팁 표시
-            showTooltip(itemData, x, y);
-        } catch (error) {
-            console.error('툴팁 표시 중 오류:', error);
-        }
     }
     
     /**
@@ -217,7 +155,7 @@ const ItemTooltip = (() => {
     }
     
     /**
-     * 툴팁 위치 업데이트
+     * 툴팁 위치 업데이트 - 아래쪽 경계 특히 신경써서 처리
      * @param {number} x - 마우스 X 좌표
      * @param {number} y - 마우스 Y 좌표
      */
@@ -234,27 +172,36 @@ const ItemTooltip = (() => {
         const tooltipHeight = rect.height;
         
         // 기본 위치 (마우스 오른쪽에 고정 간격)
-        const offsetX = 15; // 마우스와의 간격
-        let left = x + offsetX;
-        let top = y;
+        const offsetX = 15; // 마우스와의 X축 간격
+        const offsetY = -10; // 마우스 위로 약간 올림 (Y축 간격)
         
-        // 오른쪽 경계 검사 - 화면을 벗어나면 오른쪽 경계에 맞춤
+        let left = x + offsetX;
+        let top = y + offsetY; // 마우스 위치보다 약간 위에 위치
+        
+        // 아래쪽 경계 검사 (더 강력하게) - 아래로 넘어가지 않게 함
+        if (top + tooltipHeight > windowHeight) {
+            // 툴팁이 화면 아래로 넘어가면, 마우스 위치보다 충분히 위에 배치
+            // 툴팁 전체가 화면에 보이도록 보정
+            top = windowHeight - tooltipHeight;
+            
+            // 혹시라도 음수가 되면 0으로 보정
+            if (top < 0) top = 0;
+        }
+        
+        // 오른쪽 경계 검사
         if (left + tooltipWidth > windowWidth) {
             left = windowWidth - tooltipWidth;
+            
+            // 혹시라도 음수가 되면 0으로 보정
+            if (left < 0) left = 0;
         }
-        
-        // 아래쪽 경계 검사 - 화면을 벗어나면 위로 이동
-        if (top + tooltipHeight > windowHeight) {
-            top = windowHeight - tooltipHeight;
-        }
-        
-        // 위치가 음수가 되지 않도록 보정
-        left = Math.max(0, left);
-        top = Math.max(0, top);
         
         // 위치 적용
         tooltipElement.style.left = `${left}px`;
         tooltipElement.style.top = `${top}px`;
+        
+        // 디버깅 정보 (나중에 제거)
+        //console.log(`마우스: (${x}, ${y}), 툴팁: (${left}, ${top}), 크기: ${tooltipWidth}x${tooltipHeight}, 화면: ${windowWidth}x${windowHeight}`);
     }
     
     /**
@@ -266,14 +213,6 @@ const ItemTooltip = (() => {
         tooltipElement.style.display = 'none';
         tooltipElement.innerHTML = '';
         state.visible = false;
-    }
-    
-    /**
-     * 모바일 디바이스 감지
-     * @returns {boolean} 모바일 디바이스 여부
-     */
-    function isMobileDevice() {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
     
     // 공개 API
