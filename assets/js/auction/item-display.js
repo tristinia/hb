@@ -215,17 +215,26 @@ const ItemDisplay = (() => {
             }
         });
     }
+
     
     /**
      * 테이블 이벤트 리스너 설정
      */
     function setupTableEventListeners() {
         if (elements.resultsBody) {
-            // 아이템 행에 대한 이벤트 위임
-            elements.resultsBody.addEventListener('mouseover', handleItemMouseOver);
-            elements.resultsBody.addEventListener('mouseout', handleItemMouseOut);
-            elements.resultsBody.addEventListener('mousemove', handleItemMouseMove);
-            elements.resultsBody.addEventListener('click', handleItemClick);
+            // 클릭 이벤트에서 e.stopPropagation()을 추가하여 이벤트 전파 방지
+            // 이렇게 하면 특별히 다른 이벤트 리스너는 필요하지 않음
+            // 툴팁은 별도 모듈(ItemTooltip)에서 처리함
+            
+            // 이벤트 리스너가 충돌하지 않도록 기존 핸들러 제거
+            elements.resultsBody.removeEventListener('click', handleItemClick);
+            
+            // 이벤트 버블링 방지를 위한 클릭 핸들러 추가
+            elements.resultsBody.addEventListener('click', function(e) {
+                // 클릭 이벤트의 기본 동작 및 전파 방지
+                // 이렇게 하면 상위 요소의 이벤트 핸들러가 실행되지 않음
+                e.stopPropagation();
+            });
         }
     }
     
@@ -274,29 +283,7 @@ const ItemDisplay = (() => {
             TooltipManager.updatePosition(event.clientX, event.clientY);
         }
     }
-    
-    /**
-     * 아이템 클릭 이벤트 핸들러
-     * @param {MouseEvent} event - 마우스 이벤트
-     */
-    function handleItemClick(event) {
-        const itemRow = event.target.closest('.item-row');
-        if (!itemRow) return;
-        
-        try {
-            // 아이템 데이터 가져오기
-            const itemData = JSON.parse(itemRow.getAttribute('data-item'));
-            
-            // 아이템 선택 이벤트 발생
-            const selectEvent = new CustomEvent('itemSelected', {
-                detail: { item: itemData }
-            });
-            document.dispatchEvent(selectEvent);
-        } catch (e) {
-            console.error('아이템 데이터 파싱 오류:', e);
-        }
-    }
-    
+     
     /**
      * 검색 결과 설정 및 렌더링
      * @param {Array} items - 아이템 목록
