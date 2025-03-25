@@ -334,59 +334,42 @@ const ItemDisplay = (() => {
         const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(item);
         elements.tooltip.appendChild(tooltipContent);
         
-        // 1. 우선 툴팁을 보이지만 문서 흐름에서 벗어나게 렌더링
-        elements.tooltip.style.visibility = 'hidden';
+        // 1. 툴팁을 화면에 보이지 않게 렌더링하여 정확한 크기 측정
         elements.tooltip.style.display = 'block';
-        elements.tooltip.style.position = 'absolute';
-        elements.tooltip.style.maxHeight = 'none'; // 제약 없이 전체 크기 렌더링
+        elements.tooltip.style.position = 'fixed';
+        elements.tooltip.style.visibility = 'hidden';
+        elements.tooltip.style.maxHeight = 'none';
         elements.tooltip.style.overflow = 'visible';
-        elements.tooltip.style.left = '0';
-        elements.tooltip.style.top = '0';
+        elements.tooltip.style.left = '-9999px';
+        elements.tooltip.style.top = '-9999px';
         
-        // 2. 실제 크기 측정 (전체 렌더링 후)
-        const rect = elements.tooltip.getBoundingClientRect();
-        const tooltipHeight = rect.height;
-        const tooltipWidth = rect.width;
+        // 2. 실제 툴팁 크기 측정 (완전히 렌더링)
+        const tooltipRect = elements.tooltip.getBoundingClientRect();
+        const tooltipHeight = tooltipRect.height;
+        const tooltipWidth = tooltipRect.width;
         
-        // 3. 마우스 위치에 따른 위치 결정
-        const MARGIN = 15; // 마우스와의 여백
-        const BOTTOM_THRESHOLD = viewportHeight * 0.7; // 화면의 70% 이하면 위에 표시
+        // 3. 위치 결정 - 항상 마우스 위쪽에 툴팁 표시 (끝부분이 마우스 위치에 오도록)
+        let left, top;
         
-        let top, left;
-        
-        // 수직 위치 - 커서 위치에 따라 위/아래 결정 (하단에 가까우면 위에 표시)
-        if (event.clientY > BOTTOM_THRESHOLD || event.clientY + tooltipHeight + MARGIN > viewportHeight) {
-            // 마우스 위에 툴팁 표시 (하단 근처인 경우)
-            top = Math.max(MARGIN, event.clientY - tooltipHeight - MARGIN);
-        } else {
-            // 마우스 아래에 툴팁 표시
-            top = event.clientY + MARGIN;
-        }
-        
-        // 수평 위치 - 오른쪽 먼저 시도, 공간 부족하면 왼쪽
-        if (event.clientX + tooltipWidth + MARGIN <= viewportWidth) {
-            // 마우스 오른쪽에 충분한 공간이 있음
-            left = event.clientX + MARGIN;
+        // 수평 위치 계산 (오른쪽 우선, 공간 부족시 왼쪽)
+        if (event.clientX + tooltipWidth <= viewportWidth) {
+            // 오른쪽에 표시 가능
+            left = event.clientX;
         } else {
             // 오른쪽 공간 부족, 왼쪽에 표시
-            left = Math.max(MARGIN, event.clientX - tooltipWidth - MARGIN);
+            left = Math.max(0, event.clientX - tooltipWidth);
         }
         
-        // 4. 높이 제약 - 화면을 벗어날 경우 스크롤 가능하게
-        const spaceBelow = viewportHeight - top;
-        const spaceAbove = top;
-        const maxVisibleHeight = Math.max(spaceBelow, spaceAbove);
+        // 수직 위치 계산 - 항상 툴팁의 하단이 마우스 위치에 오도록
+        top = event.clientY - tooltipHeight;
         
-        if (tooltipHeight > maxVisibleHeight) {
-            elements.tooltip.style.maxHeight = `${maxVisibleHeight - 20}px`; // 여백 고려
-            elements.tooltip.style.overflow = 'auto';
-        } else {
-            elements.tooltip.style.maxHeight = null;
-            elements.tooltip.style.overflow = 'visible';
+        // 상단 경계 확인 (화면 위로 넘어가는지)
+        if (top < 0) {
+            // 위쪽 공간 부족, 화면 상단에 꽉 붙여 표시
+            top = 0;
         }
         
-        // 5. 계산된 위치 적용
-        elements.tooltip.style.position = 'fixed';
+        // 4. 계산된 위치 적용
         elements.tooltip.style.left = `${left}px`;
         elements.tooltip.style.top = `${top}px`;
         elements.tooltip.style.visibility = 'visible';
@@ -444,36 +427,33 @@ const ItemDisplay = (() => {
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         
-        // 툴팁 크기
-        const rect = elements.tooltip.getBoundingClientRect();
-        const tooltipHeight = rect.height;
-        const tooltipWidth = rect.width;
+        // 현재 툴팁 크기
+        const tooltipRect = elements.tooltip.getBoundingClientRect();
+        const tooltipHeight = tooltipRect.height;
+        const tooltipWidth = tooltipRect.width;
         
-        // 마우스와의 여백
-        const MARGIN = 15;
-        const BOTTOM_THRESHOLD = viewportHeight * 0.7; // 화면의 70% 이하면 위에 표시
+        // 위치 계산 - 항상 마우스 위쪽에 툴팁 표시 (끝부분이 마우스 위치에 오도록)
+        let left, top;
         
-        let top, left;
-        
-        // 수직 위치 - 커서 위치에 따라 위/아래 결정 (하단에 가까우면 위에 표시)
-        if (event.clientY > BOTTOM_THRESHOLD || event.clientY + tooltipHeight + MARGIN > viewportHeight) {
-            // 마우스 위에 툴팁 표시 (하단 근처인 경우)
-            top = Math.max(MARGIN, event.clientY - tooltipHeight - MARGIN);
-        } else {
-            // 마우스 아래에 툴팁 표시
-            top = event.clientY + MARGIN;
-        }
-        
-        // 수평 위치 - 오른쪽 먼저 시도, 공간 부족하면 왼쪽
-        if (event.clientX + tooltipWidth + MARGIN <= viewportWidth) {
-            // 마우스 오른쪽에 충분한 공간이 있음
-            left = event.clientX + MARGIN;
+        // 수평 위치 계산 (오른쪽 우선, 공간 부족시 왼쪽)
+        if (event.clientX + tooltipWidth <= viewportWidth) {
+            // 오른쪽에 표시 가능
+            left = event.clientX;
         } else {
             // 오른쪽 공간 부족, 왼쪽에 표시
-            left = Math.max(MARGIN, event.clientX - tooltipWidth - MARGIN);
+            left = Math.max(0, event.clientX - tooltipWidth);
         }
         
-        // 위치 적용
+        // 수직 위치 계산 - 항상 툴팁의 하단이 마우스 위치에 오도록
+        top = event.clientY - tooltipHeight;
+        
+        // 상단 경계 확인 (화면 위로 넘어가는지)
+        if (top < 0) {
+            // 위쪽 공간 부족, 화면 상단에 꽉 붙여 표시
+            top = 0;
+        }
+        
+        // 계산된 위치 적용
         elements.tooltip.style.left = `${left}px`;
         elements.tooltip.style.top = `${top}px`;
     }
