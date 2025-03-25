@@ -11,6 +11,7 @@ import FilterManager from './filter-manager.js';
 import PaginationManager from './pagination.js';
 import ApiClient from './api-client.js';
 import Utils from './utils.js';
+import ItemTooltip from './item-tooltip.js';
 
 /**
  * 애플리케이션 모듈
@@ -399,7 +400,8 @@ const App = (() => {
                 initPaginationManager(),
                 initItemDisplay()
             ]);
-            
+            ItemTooltip.init();
+
             // 반응형 레이아웃 초기 설정
             handleResize();
             
