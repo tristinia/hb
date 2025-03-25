@@ -123,8 +123,31 @@ const ItemTooltip = (() => {
     function handleMouseMove(event) {
         if (!state.visible || !tooltipElement) return;
         
-        // 툴팁 위치 업데이트
-        updatePosition(event.clientX, event.clientY);
+        // 툴팁 크기
+        const tooltipHeight = tooltipElement.offsetHeight;
+        const tooltipWidth = tooltipElement.offsetWidth;
+        
+        // 화면 크기
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        // 위치 계산
+        let left = event.clientX + 15;
+        let top = event.clientY - 10;
+        
+        // 오른쪽 경계 검사
+        if (left + tooltipWidth > windowWidth) {
+            left = windowWidth - tooltipWidth;
+        }
+        
+        // 아래쪽 경계 검사
+        if (top + tooltipHeight > windowHeight) {
+            top = windowHeight - tooltipHeight;
+        }
+        
+        // 위치 적용
+        tooltipElement.style.left = `${left}px`;
+        tooltipElement.style.top = `${top}px`;
     }
     
     /**
@@ -141,22 +164,44 @@ const ItemTooltip = (() => {
         const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(itemData);
         tooltipElement.appendChild(tooltipContent);
         
-        // 툴팁 표시 - 일단 실제로 렌더링되게 함
+        // 툴팁을 화면 밖에서 완전히 숨김
         tooltipElement.style.display = 'block';
-        tooltipElement.style.visibility = 'hidden'; // 보이지는 않게
-        tooltipElement.style.left = '0px';
-        tooltipElement.style.top = '0px';
+        tooltipElement.style.opacity = '0';
+        tooltipElement.style.position = 'fixed';
         
-        // 브라우저가 렌더링할 시간을 줌
-        setTimeout(() => {
-            // 이제 제대로 측정된 크기로 위치 계산
-            tooltipElement.style.visibility = 'visible';
-            updatePosition(x, y);
+        // 상태 업데이트
+        state.visible = true;
+        state.lastItemData = itemData;
+        
+        // 브라우저 렌더링 완료 후 실행
+        requestAnimationFrame(() => {
+            // 툴팁 크기 정확히 측정
+            const tooltipHeight = tooltipElement.offsetHeight;
+            const tooltipWidth = tooltipElement.offsetWidth;
             
-            // 상태 업데이트
-            state.visible = true;
-            state.lastItemData = itemData;
-        }, 0);
+            // 화면 크기
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            // 위치 계산
+            let left = x + 15;
+            let top = y - 10;
+            
+            // 오른쪽 경계 검사
+            if (left + tooltipWidth > windowWidth) {
+                left = windowWidth - tooltipWidth;
+            }
+            
+            // 아래쪽 경계 검사
+            if (top + tooltipHeight > windowHeight) {
+                top = windowHeight - tooltipHeight;
+            }
+            
+            // 위치 설정 후 표시
+            tooltipElement.style.left = `${left}px`;
+            tooltipElement.style.top = `${top}px`;
+            tooltipElement.style.opacity = '1';
+        });
     }
     
     /**
