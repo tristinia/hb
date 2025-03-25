@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-24T09:30:35.309Z",
+  "updated": "2025-03-25T09:30:03.566Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -523,7 +523,7 @@
         },
         {
           "template": "최소대미지 {value} 증가",
-          "min": 3,
+          "min": 2,
           "max": 8,
           "variable": true
         }
@@ -2569,7 +2569,7 @@
       "effects": [
         {
           "template": "최대스태미나 {value} 증가",
-          "min": 21,
+          "min": 20,
           "max": 30,
           "variable": true
         },
@@ -3740,7 +3740,7 @@
         {
           "template": "솜씨 {value} 증가",
           "min": 11,
-          "max": 13,
+          "max": 14,
           "variable": true
         },
         {
@@ -3925,7 +3925,7 @@
         },
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
-          "min": 9,
+          "min": 7,
           "max": 12,
           "variable": true
         }
