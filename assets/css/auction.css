@@ -969,7 +969,8 @@ input[type="number"] {
     box-shadow: var(--shadow-lg);
     pointer-events: none;
     opacity: 0.95;
-    max-width: 350px;
+    min-width: 280px;
+    max-width: 280px;
     font-family: 'Malgun Gothic', sans-serif;
     color: var(--color-dark);
     overflow: hidden;
