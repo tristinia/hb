@@ -1,8 +1,7 @@
 /**
- * 마비노기 경매장 스타일
+ * 마비노기 경매장 auction.css
  */
 
-/* 색상 팔레트 - 최상단에 정의하여 일관성 유지 */
 :root {
     /* 기본 색상 */
     --color-white: #FFFFFF;        /* 주 배경색: 순수한 흰색 */
@@ -12,11 +11,11 @@
     --color-dark: #4A4A4A;         /* 강조 색상: 진한 차콜 그레이 */
 
     /* 아이템 특수 색상 */
-    --color-item-blue: #4682B4;
-    --color-item-red: #B33A3A;
-    --color-item-orange: #FF8C00;
-    --color-item-pink: #FF69B4;
-    --color-item-navy: #000080;
+    --color-item-blue: #4682B4;    /* 아이템 블루 */
+    --color-item-red: #B33A3A;     /* 아이템 레드 */
+    --color-item-orange: #FF8C00;  /* 아이템 오렌지 */
+    --color-item-pink: #FF69B4;    /* 아이템 핑크 */
+    --color-item-navy: #000080;    /* 아이템 네이비 */
     
     /* 기본 색상 투명도 변형 */
     --color-accent-80: rgba(255, 227, 149, 0.8);
@@ -29,49 +28,49 @@
     --color-dark-20: rgba(74, 74, 74, 0.2);
     --color-dark-10: rgba(74, 74, 74, 0.1);
     
-    /* 에러 메시지용 색상 (제한된 팔레트 내에서 빨간색 대체) */
+    /* 에러 메시지용 색상 */
     --color-error: #B83A3A;
     --color-error-light: rgba(184, 58, 58, 0.1);
     --color-error-border: rgba(184, 58, 58, 0.25);
     
-    /* 그림자 효과 */
+    /* 그림자 효과 축소 */
     --shadow-xs: 0 1px 2px rgba(74, 74, 74, 0.05);
-    --shadow-sm: 0 2px 4px rgba(74, 74, 74, 0.1);
-    --shadow-md: 0 3px 8px rgba(74, 74, 74, 0.15);
-    --shadow-lg: 0 4px 12px rgba(74, 74, 74, 0.2);
-    --shadow-xl: 0 5px 16px rgba(74, 74, 74, 0.25);
+    --shadow-sm: 0 1px 3px rgba(74, 74, 74, 0.1);
+    --shadow-md: 0 2px 6px rgba(74, 74, 74, 0.15);
+    --shadow-lg: 0 3px 10px rgba(74, 74, 74, 0.2);
+    --shadow-xl: 0 4px 14px rgba(74, 74, 74, 0.25);
     
     /* 폰트 크기 */
-    --font-size-xs: 0.75rem;     /* 12px */
-    --font-size-sm: 0.875rem;    /* 14px */
-    --font-size-md: 1rem;        /* 16px */
-    --font-size-lg: 1.125rem;    /* 18px */
-    --font-size-xl: 1.25rem;     /* 20px */
+    --font-size-xs: 0.64rem;     /* 10.24px */
+    --font-size-sm: 0.75rem;     /* 12px */
+    --font-size-md: 0.85rem;     /* 13.6px - 기준 */
+    --font-size-lg: 0.95rem;     /* 15.2px */
+    --font-size-xl: 1.06rem;     /* 17px */
     
     /* 폰트 무게 */
     --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-bold: 700;
     
-    /* 간격 (spacing) */
-    --spacing-xxs: 0.25rem;    /* 4px */
-    --spacing-xs: 0.5rem;      /* 8px */
-    --spacing-sm: 0.75rem;     /* 12px */
-    --spacing-md: 1rem;        /* 16px */
-    --spacing-lg: 1.5rem;      /* 24px */
-    --spacing-xl: 2rem;        /* 32px */
+    /* 간격 */
+    --spacing-xxs: 0.21rem;    /* 3.36px */
+    --spacing-xs: 0.43rem;     /* 6.88px */
+    --spacing-sm: 0.64rem;     /* 10.24px */
+    --spacing-md: 0.85rem;     /* 13.6px - 기준 */
+    --spacing-lg: 1.28rem;     /* 20.48px */
+    --spacing-xl: 1.7rem;      /* 27.2px */
     
-    /* 테두리 반경 (border-radius) */
-    --border-radius-xs: 0.25rem;   /* 4px */
-    --border-radius-sm: 0.5rem;    /* 8px */
-    --border-radius-md: 0.75rem;   /* 12px */
-    --border-radius-lg: 1rem;      /* 16px */
+    /* 테두리 반경 */
+    --border-radius-xs: 0.21rem;   /* 3.36px */
+    --border-radius-sm: 0.43rem;   /* 6.88px */
+    --border-radius-md: 0.64rem;   /* 10.24px */
+    --border-radius-lg: 0.85rem;   /* 13.6px */
     --border-radius-full: 9999px;  /* 완전한 원형 */
     
     /* 애니메이션 지속 시간 */
     --duration-fast: 0.15s;
-    --duration-normal: 0.3s;
-    --duration-slow: 0.5s;
+    --duration-normal: 0.25s;
+    --duration-slow: 0.4s;
 }
 
 /* 아이템 색상 클래스 */
@@ -95,6 +94,16 @@
 .results-table td.item-price.item-yellow { 
     color: var(--color-accent);
 }
+.item-pink,
+.results-table td.item-pink,
+.results-table td.item-price.item-pink {
+    color: var(--color-item-pink);
+}
+.item-navy,
+.results-table td.item-navy,
+.results-table td.item-price.item-navy {
+    color: var(--color-item-navy);
+}
 
 /* 기본 스타일 재설정 */
 * {
@@ -108,11 +117,12 @@ body {
     color: var(--color-dark);
     font-family: 'Noto Sans KR', -apple-system, sans-serif;
     line-height: 1.5;
+    font-size: var(--font-size-md);
 }
 
 /* 메인 컨테이너 */
 .main-container {
-    max-width: 1350px;
+    max-width: 1250px;
     margin: 0 auto;
     padding: var(--spacing-md);
 }
@@ -133,10 +143,10 @@ body {
 /* 3열 레이아웃 구성 (카테고리/아이템 리스트/필터) */
 .content-layout {
     display: grid;
-    grid-template-columns: 250px 1fr 250px;
+    grid-template-columns: 213px 1fr 213px;
     grid-template-areas: "category main filter";
     gap: var(--spacing-lg);
-    height: calc(100vh - 150px);
+    height: calc(100vh - 128px);
 }
 
 /* 중앙 패널 내부 요소 레이아웃 */
@@ -217,8 +227,8 @@ body {
     align-items: center;
     justify-content: center;
     transition: color var(--duration-normal), transform var(--duration-normal);
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     border-radius: var(--border-radius-full);
 }
 
@@ -283,14 +293,14 @@ body {
 /* 토글 아이콘 (+ / -) */
 .toggle-icon {
     display: inline-block;
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     text-align: center;
     margin-right: var(--spacing-xs);
     font-weight: var(--font-weight-bold);
     transition: transform var(--duration-normal);
     font-size: var(--font-size-md);
-    line-height: 16px;
+    line-height: 14px;
 }
 
 .category-button.expanded .toggle-icon {
@@ -308,7 +318,7 @@ body {
 }
 
 .subcategory-list.expanded {
-    max-height: 500px;
+    max-height: 425px;
     padding-bottom: var(--spacing-xs);
 }
 
@@ -322,11 +332,11 @@ body {
 
 @keyframes expand-list {
     from { max-height: 0; }
-    to { max-height: 500px; }
+    to { max-height: 425px; }
 }
 
 @keyframes collapse-list {
-    from { max-height: 500px; }
+    from { max-height: 425px; }
     to { max-height: 0; }
 }
 
@@ -387,7 +397,7 @@ body {
 
 #search-input:focus {
     border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px var(--color-accent-20);
+    box-shadow: 0 0 0 2px var(--color-accent-20);
 }
 
 .search-button,
@@ -431,7 +441,7 @@ body {
     box-shadow: var(--shadow-lg);
     list-style: none;
     padding: 0;
-    max-height: 300px;
+    max-height: 255px;
     overflow-y: auto;
     display: none;
 }
@@ -669,8 +679,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 32px;
-    height: 32px;
+    min-width: 27px;
+    height: 27px;
     border-radius: var(--border-radius-xs);
     border: 1px solid var(--color-light-gray);
     background-color: var(--color-white);
@@ -755,14 +765,14 @@ body {
 
 /* 옵션 패널 펼쳐진 상태 */
 .options-panel.expanded .filter-dropdown-container {
-    max-height: 100px;
+    max-height: 85px;
     opacity: 1;
     visibility: visible;
     padding: var(--spacing-md);
 }
 
 .options-panel.expanded .active-filters {
-    max-height: calc(100% - 100px);
+    max-height: calc(100% - 85px);
     opacity: 1;
     visibility: visible;
     padding: 0 var(--spacing-md) var(--spacing-md);
@@ -790,7 +800,7 @@ body {
 
 .filter-selector:focus {
     border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px var(--color-accent-20);
+    box-shadow: 0 0 0 2px var(--color-accent-20);
     outline: none;
 }
 
@@ -831,8 +841,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: 21px;
+    height: 21px;
     border-radius: var(--border-radius-full);
 }
 
@@ -908,7 +918,7 @@ input[type="number"] {
   background-color: var(--color-white);
   border: 1px solid var(--color-light-gray);
   border-radius: var(--border-radius-xs);
-  max-height: 150px;
+  max-height: 125px;
   overflow-y: auto;
   width: 100%;
   box-shadow: var(--shadow-sm);
@@ -935,12 +945,12 @@ input[type="number"] {
 /* 특별 개조 버튼 스타일 */
 .special-mod-buttons {
   display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: 6px;
+  margin-bottom: 6px;
 }
 
 .special-mod-btn {
-  padding: 4px 12px;
+  padding: 3px 10px;
   background: var(--color-light-gray);
   border: 1px solid var(--color-dark-20);
   border-radius: var(--border-radius-xs);
@@ -968,9 +978,9 @@ input[type="number"] {
     box-shadow: var(--shadow-lg);
     pointer-events: none;
     opacity: 0.95;
-    min-width: 280px;
-    max-width: 280px;
-    min-height: 50px;
+    min-width: 240px;
+    max-width: 240px;
+    min-height: 45px;
     font-family: 'Malgun Gothic', sans-serif;
     color: var(--color-dark);
     overflow: auto;
@@ -1051,10 +1061,10 @@ input[type="number"] {
 }
 
 .spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid var(--color-accent-20);
-    border-top: 4px solid var(--color-accent);
+    width: 34px;
+    height: 34px;
+    border: 3px solid var(--color-accent-20);
+    border-top: 3px solid var(--color-accent);
     border-radius: 50%;
     animation: spin var(--duration-normal) linear infinite;
 }
@@ -1087,13 +1097,13 @@ input[type="number"] {
     }
     
     .options-panel {
-        max-height: 60px;
+        max-height: 51px;
         overflow: hidden;
         transition: max-height var(--duration-normal) ease;
     }
     
     .options-panel.expanded {
-        max-height: 500px;
+        max-height: 425px;
     }
     
     /* 중요: 모바일에서 center-panel이 직접 그리드 아이템으로 작동하지 않도록 함 */
@@ -1114,7 +1124,7 @@ input[type="number"] {
     }
     
     .results-table {
-        max-height: 500px;
+        max-height: 425px;
         overflow-y: auto;
     }
 }
@@ -1162,7 +1172,7 @@ input[type="number"] {
 
 .init-error {
     margin: var(--spacing-md) auto;
-    max-width: 600px;
+    max-width: 510px;
 }
 
 .reload-btn {
