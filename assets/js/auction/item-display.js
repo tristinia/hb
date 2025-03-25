@@ -325,10 +325,19 @@ const ItemDisplay = (() => {
     function showItemTooltip(item, event) {
         if (!elements.tooltip || !item) return;
         
+        console.log('툴팁 표시 시작:', event.clientX, event.clientY);
+        
         // 툴팁 내용 생성
         elements.tooltip.innerHTML = '';
         const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(item);
         elements.tooltip.appendChild(tooltipContent);
+        
+        // 툴팁 표시
+        elements.tooltip.style.display = 'block';
+        
+        // 실제 계산된 크기 로깅
+        console.log('툴팁 크기:', elements.tooltip.offsetWidth, elements.tooltip.offsetHeight);
+        console.log('화면 크기:', window.innerWidth, window.innerHeight);
         
         // 모바일 환경 확인
         const isMobile = window.innerWidth < 768;
