@@ -76,39 +76,37 @@ const ItemDisplay = (() => {
          * @param {number} x - 마우스 X 좌표
          * @param {number} y - 마우스 Y 좌표
          */
-        updatePosition(x, y) {
-            if (!this.element || !this.isVisible) return;
-            
-            // 화면 크기
+        function updatePosition(x, y) {
+            // 화면 크기 계산
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
             
-            // 툴팁 크기
-            const rect = this.element.getBoundingClientRect();
+            // 툴팁 크기 측정
+            const rect = tooltipElement.getBoundingClientRect();
             const tooltipWidth = rect.width;
             const tooltipHeight = rect.height;
             
             // 기본 위치 (마우스 오른쪽)
-            let left = x + this.offsetX;
+            const offsetX = 15;
+            let left = x + offsetX;
             let top = y;
             
-            // 오른쪽 경계 검사 - 화면을 벗어나면 오른쪽 경계에 맞춤
+            // 화면 경계 검사 및 조정
             if (left + tooltipWidth > windowWidth) {
                 left = windowWidth - tooltipWidth;
             }
             
-            // 아래쪽 경계 검사 - 화면을 벗어나면 아래쪽 경계에 맞춤
             if (top + tooltipHeight > windowHeight) {
                 top = windowHeight - tooltipHeight;
             }
             
-            // 위치가 음수가 되지 않도록 보정
+            // 음수 값 방지
             left = Math.max(0, left);
             top = Math.max(0, top);
             
             // 위치 적용
-            this.element.style.left = `${left}px`;
-            this.element.style.top = `${top}px`;
+            tooltipElement.style.left = `${left}px`;
+            tooltipElement.style.top = `${top}px`;
         },
         
         /**
