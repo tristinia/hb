@@ -16,7 +16,6 @@ const ItemDisplay = (() => {
         searchResults: [],
         filteredResults: [],
         lastSearchResults: [], // 필터링용 캐시
-        tooltipActive: false,
         currentCategory: null
     };
     
@@ -24,6 +23,104 @@ const ItemDisplay = (() => {
     let elements = {
         resultsBody: null,
         tooltip: null
+    };
+
+    /**
+     * 툴팁 관리자 - 아이템 툴팁 처리 전담
+     */
+    const TooltipManager = {
+        element: null,       // 툴팁 DOM 요소
+        isVisible: false,    // 툴팁 표시 상태
+        offsetX: 15,         // 마우스에서 X축 오프셋
+        
+        /**
+         * 툴팁 관리자 초기화
+         * @param {HTMLElement} tooltipElement - 툴팁 DOM 요소
+         */
+        init(tooltipElement) {
+            this.element = tooltipElement;
+            
+            if (this.element) {
+                this.element.style.position = 'fixed';
+                this.element.style.display = 'none';
+            }
+        },
+        
+        /**
+         * 아이템 툴팁 표시
+         * @param {Object} item - 아이템 데이터
+         * @param {number} x - 마우스 X 좌표
+         * @param {number} y - 마우스 Y 좌표
+         */
+        show(item, x, y) {
+            if (!this.element || !item) return;
+            
+            // 내용 초기화 및 생성
+            this.element.innerHTML = '';
+            const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(item);
+            this.element.appendChild(tooltipContent);
+            
+            // 툴팁 표시 (우선 화면 밖에서 크기 측정)
+            this.element.style.display = 'block';
+            this.element.style.left = '-9999px';
+            this.element.style.top = '-9999px';
+            
+            // 위치 계산 후 적용
+            this.updatePosition(x, y);
+            
+            this.isVisible = true;
+        },
+        
+        /**
+         * 툴팁 위치 업데이트
+         * @param {number} x - 마우스 X 좌표
+         * @param {number} y - 마우스 Y 좌표
+         */
+        updatePosition(x, y) {
+            if (!this.element || !this.isVisible) return;
+            
+            // 화면 크기
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            // 툴팁 크기
+            const rect = this.element.getBoundingClientRect();
+            const tooltipWidth = rect.width;
+            const tooltipHeight = rect.height;
+            
+            // 기본 위치 (마우스 오른쪽)
+            let left = x + this.offsetX;
+            let top = y;
+            
+            // 오른쪽 경계 검사 - 화면을 벗어나면 오른쪽 경계에 맞춤
+            if (left + tooltipWidth > windowWidth) {
+                left = windowWidth - tooltipWidth;
+            }
+            
+            // 아래쪽 경계 검사 - 화면을 벗어나면 아래쪽 경계에 맞춤
+            if (top + tooltipHeight > windowHeight) {
+                top = windowHeight - tooltipHeight;
+            }
+            
+            // 위치가 음수가 되지 않도록 보정
+            left = Math.max(0, left);
+            top = Math.max(0, top);
+            
+            // 위치 적용
+            this.element.style.left = `${left}px`;
+            this.element.style.top = `${top}px`;
+        },
+        
+        /**
+         * 툴팁 숨기기
+         */
+        hide() {
+            if (!this.element) return;
+            
+            this.element.style.display = 'none';
+            this.element.innerHTML = '';
+            this.isVisible = false;
+        }
     };
 
     /**
@@ -99,6 +196,9 @@ const ItemDisplay = (() => {
         elements.resultsBody = document.getElementById('results-body');
         elements.tooltip = document.getElementById('item-tooltip');
         
+        // 툴팁 관리자 초기화
+        TooltipManager.init(elements.tooltip);
+        
         // 테이블 이벤트 리스너 설정
         setupTableEventListeners();
         
@@ -121,10 +221,79 @@ const ItemDisplay = (() => {
      */
     function setupTableEventListeners() {
         if (elements.resultsBody) {
-            // 테이블 마우스 이벤트 (툴팁)
-            elements.resultsBody.addEventListener('mouseover', handleTableMouseOver);
-            elements.resultsBody.addEventListener('mouseout', handleTableMouseOut);
-            elements.resultsBody.addEventListener('mousemove', handleTableMouseMove);
+            // 아이템 행에 대한 이벤트 위임
+            elements.resultsBody.addEventListener('mouseover', handleItemMouseOver);
+            elements.resultsBody.addEventListener('mouseout', handleItemMouseOut);
+            elements.resultsBody.addEventListener('mousemove', handleItemMouseMove);
+            elements.resultsBody.addEventListener('click', handleItemClick);
+        }
+    }
+    
+    /**
+     * 아이템 마우스 오버 이벤트 핸들러
+     * @param {MouseEvent} event - 마우스 이벤트
+     */
+    function handleItemMouseOver(event) {
+        const itemRow = event.target.closest('.item-row');
+        if (!itemRow) return;
+        
+        try {
+            // 아이템 데이터 가져오기
+            const itemData = JSON.parse(itemRow.getAttribute('data-item'));
+            
+            // 툴팁 표시
+            TooltipManager.show(itemData, event.clientX, event.clientY);
+        } catch (e) {
+            console.error('아이템 데이터 파싱 오류:', e);
+        }
+    }
+    
+    /**
+     * 아이템 마우스 아웃 이벤트 핸들러
+     * @param {MouseEvent} event - 마우스 이벤트
+     */
+    function handleItemMouseOut(event) {
+        const itemRow = event.target.closest('.item-row');
+        if (!itemRow) return;
+        
+        // 자식 요소로 이동한 경우는 무시
+        const relatedTarget = event.relatedTarget;
+        if (relatedTarget && itemRow.contains(relatedTarget)) return;
+        
+        // 툴팁 숨기기
+        TooltipManager.hide();
+    }
+    
+    /**
+     * 아이템 마우스 이동 이벤트 핸들러
+     * @param {MouseEvent} event - 마우스 이벤트
+     */
+    function handleItemMouseMove(event) {
+        // 툴팁 위치 업데이트
+        if (TooltipManager.isVisible) {
+            TooltipManager.updatePosition(event.clientX, event.clientY);
+        }
+    }
+    
+    /**
+     * 아이템 클릭 이벤트 핸들러
+     * @param {MouseEvent} event - 마우스 이벤트
+     */
+    function handleItemClick(event) {
+        const itemRow = event.target.closest('.item-row');
+        if (!itemRow) return;
+        
+        try {
+            // 아이템 데이터 가져오기
+            const itemData = JSON.parse(itemRow.getAttribute('data-item'));
+            
+            // 아이템 선택 이벤트 발생
+            const selectEvent = new CustomEvent('itemSelected', {
+                detail: { item: itemData }
+            });
+            document.dispatchEvent(selectEvent);
+        } catch (e) {
+            console.error('아이템 데이터 파싱 오류:', e);
         }
     }
     
@@ -255,7 +424,7 @@ const ItemDisplay = (() => {
         const tr = document.createElement('tr');
         tr.className = 'error-result';
         tr.innerHTML = `
-            <td colspan="3">
+            <td colspan="4">
                 <div class="error-message">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
@@ -269,119 +438,6 @@ const ItemDisplay = (() => {
         
         elements.resultsBody.innerHTML = '';
         elements.resultsBody.appendChild(tr);
-        
-        if (elements.resultStats) {
-            elements.resultStats.textContent = '';
-        }
-    }
-    
-    /**
-     * 테이블 마우스 오버 이벤트 핸들러 (툴팁)
-     * @param {MouseEvent} event - 마우스 이벤트
-     */
-    function handleTableMouseOver(event) {
-        const tr = event.target.closest('.item-row');
-        if (!tr) return;
-        
-        // 아이템 데이터 가져오기
-        try {
-            const itemData = JSON.parse(tr.getAttribute('data-item'));
-            showItemTooltip(itemData, event);
-        } catch (e) {
-            console.error('아이템 데이터 파싱 오류:', e);
-        }
-    }
-    
-    /**
-     * 테이블 마우스 아웃 이벤트 핸들러 (툴팁)
-     * @param {MouseEvent} event - 마우스 이벤트
-     */
-    function handleTableMouseOut(event) {
-        const tr = event.target.closest('.item-row');
-        if (!tr) return;
-        
-        const relatedTarget = event.relatedTarget;
-        if (relatedTarget && tr.contains(relatedTarget)) return;
-        
-        hideItemTooltip();
-    }
-
-    
-    /**
-     * 테이블 마우스 이동 이벤트 핸들러 (툴팁 위치)
-     * @param {MouseEvent} event - 마우스 이벤트
-     */
-    function handleTableMouseMove(event) {
-        if (state.tooltipActive) {
-            // 툴팁 크기
-            const rect = elements.tooltip.getBoundingClientRect();
-            const tooltipHeight = rect.height;
-            const tooltipWidth = rect.width;
-            
-            // 위치 계산 (항상 마우스 위에 표시)
-            let left, top;
-            
-            // 수평 위치 계산
-            if (event.clientX + tooltipWidth > window.innerWidth) {
-                // 오른쪽 공간 부족 시 왼쪽에 표시
-                left = Math.max(0, event.clientX - tooltipWidth);
-            } else {
-                // 기본 - 마우스 위치에서 시작
-                left = event.clientX;
-            }
-            
-            // 수직 위치 계산 - 항상 마우스 위에 표시
-            top = Math.max(0, event.clientY - tooltipHeight);
-            
-            // 위치 적용
-            elements.tooltip.style.left = `${left}px`;
-            elements.tooltip.style.top = `${top}px`;
-        }
-    }
-    
-    /**
-     * 아이템 툴팁 표시 (간소화된 버전)
-     * @param {Object} item - 아이템 데이터
-     * @param {MouseEvent} event - 마우스 이벤트
-     */
-    function showItemTooltip(item, event) {
-        if (!elements.tooltip || !item) return;
-        
-        // 내용 초기화 및 생성
-        elements.tooltip.innerHTML = '';
-        const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(item);
-        elements.tooltip.appendChild(tooltipContent);
-        
-        // 임시로 화면 밖에 표시하여 크기 측정
-        elements.tooltip.style.display = 'block';
-        elements.tooltip.style.left = '-9999px';
-        elements.tooltip.style.top = '-9999px';
-        
-        // 1. 크기 측정
-        const rect = elements.tooltip.getBoundingClientRect();
-        const tooltipHeight = rect.height;
-        const tooltipWidth = rect.width;
-        
-        // 2. 위치 계산 (항상 마우스 위에 표시)
-        let left, top;
-        
-        // 수평 위치 계산
-        if (event.clientX + tooltipWidth > window.innerWidth) {
-            // 오른쪽 공간 부족 시 왼쪽에 표시
-            left = Math.max(0, event.clientX - tooltipWidth);
-        } else {
-            // 기본 - 마우스 위치에서 시작
-            left = event.clientX;
-        }
-        
-        // 수직 위치 계산 - 항상 마우스 위에 표시
-        top = Math.max(0, event.clientY - tooltipHeight);
-        
-        // 3. 위치 적용
-        elements.tooltip.style.left = `${left}px`;
-        elements.tooltip.style.top = `${top}px`;
-        
-        state.tooltipActive = true;
     }
     
     /**
@@ -421,50 +477,6 @@ const ItemDisplay = (() => {
             console.error('날짜 형식 오류:', error);
             return '';
         }
-    }
-    
-    /**
-     * 툴팁 위치 업데이트
-     * @param {MouseEvent} event - 마우스 이벤트
-     */
-    function updateTooltipPosition(event) {
-        if (!elements.tooltip || !state.tooltipActive) return;
-        
-        // 1. 현재 크기 측정
-        const tooltipRect = elements.tooltip.getBoundingClientRect();
-        const tooltipWidth = tooltipRect.width;
-        const tooltipHeight = tooltipRect.height;
-        
-        // 2. 윈도우 크기
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
-        
-        // 3. 위치 계산 - 항상 마우스 바로 위에 툴팁 배치
-        let tooltipLeft;
-        if (event.clientX + tooltipWidth > windowWidth) {
-            // 오른쪽 공간 부족 시 왼쪽으로 배치
-            tooltipLeft = Math.max(0, event.clientX - tooltipWidth);
-        } else {
-            // 기본적으로 마우스 위치에 배치
-            tooltipLeft = event.clientX;
-        }
-        
-        // 4. 수직 위치 - 항상 마우스 위에 표시
-        let tooltipTop = Math.max(0, event.clientY - tooltipHeight);
-        
-        // 5. 위치 업데이트
-        elements.tooltip.style.left = `${tooltipLeft}px`;
-        elements.tooltip.style.top = `${tooltipTop}px`;
-    }
-    
-    /**
-     * 툴팁 숨기기
-     */
-    function hideItemTooltip() {
-        if (!elements.tooltip) return;
-        state.tooltipActive = false;
-        elements.tooltip.style.display = 'none';
-        elements.tooltip.innerHTML = ''; // 내용 비우기로 메모리 관리
     }
     
     /**
@@ -530,9 +542,8 @@ const ItemDisplay = (() => {
             elements.resultsBody.innerHTML = '';
         }
         
-        if (elements.resultStats) {
-            elements.resultStats.textContent = '';
-        }
+        // 툴팁 숨기기
+        TooltipManager.hide();
     }
     
     /**
