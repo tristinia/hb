@@ -325,54 +325,71 @@ const ItemDisplay = (() => {
     function showItemTooltip(item, event) {
         if (!elements.tooltip || !item) return;
         
-        // 브라우저 창 크기
-        const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
-        
-        // 툴팁 내용 생성
-        elements.tooltip.innerHTML = '';
+        // 1. 툴팁 컨텐츠 생성 (DOM에 부착하기 전)
         const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(item);
+        
+        // 2. 먼저 컨테이너 스타일 초기화 (주요 문제 해결 포인트)
+        elements.tooltip.style.cssText = `
+            position: fixed;
+            display: block; 
+            visibility: hidden;
+            left: -9999px;
+            top: -9999px;
+            max-height: none;
+            overflow: visible;
+            z-index: 1001;
+            opacity: 0.95;
+            min-width: 280px;
+            max-width: 280px;
+        `;
+        
+        // 3. 내용물 교체
+        elements.tooltip.innerHTML = '';
         elements.tooltip.appendChild(tooltipContent);
         
-        // 1. 툴팁을 화면에 보이지 않게 렌더링하여 정확한 크기 측정
-        elements.tooltip.style.display = 'block';
-        elements.tooltip.style.position = 'fixed';
-        elements.tooltip.style.visibility = 'hidden';
-        elements.tooltip.style.maxHeight = 'none';
-        elements.tooltip.style.overflow = 'visible';
-        elements.tooltip.style.left = '-9999px';
-        elements.tooltip.style.top = '-9999px';
-        
-        // 2. 실제 툴팁 크기 측정 (완전히 렌더링)
+        // 4. 크기 측정 (화면 외부에 그려서 정확히 측정)
         const tooltipRect = elements.tooltip.getBoundingClientRect();
-        const tooltipHeight = tooltipRect.height;
         const tooltipWidth = tooltipRect.width;
+        const tooltipHeight = tooltipRect.height;
         
-        // 3. 위치 결정 - 항상 마우스 위쪽에 툴팁 표시 (끝부분이 마우스 위치에 오도록)
-        let left, top;
+        // 5. 윈도우 크기
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
         
-        // 수평 위치 계산 (오른쪽 우선, 공간 부족시 왼쪽)
-        if (event.clientX + tooltipWidth <= viewportWidth) {
-            // 오른쪽에 표시 가능
-            left = event.clientX;
+        // 6. 위치 계산 - 항상 마우스 바로 위에 툴팁 배치
+        let tooltipLeft;
+        if (event.clientX + tooltipWidth > windowWidth) {
+            // 오른쪽 공간 부족 시 왼쪽으로 배치
+            tooltipLeft = Math.max(0, event.clientX - tooltipWidth);
         } else {
-            // 오른쪽 공간 부족, 왼쪽에 표시
-            left = Math.max(0, event.clientX - tooltipWidth);
+            // 기본적으로 마우스 위치에 배치
+            tooltipLeft = event.clientX;
         }
         
-        // 수직 위치 계산 - 항상 툴팁의 하단이 마우스 위치에 오도록
-        top = event.clientY - tooltipHeight;
+        // 7. 수직 위치 - 항상 마우스 위에 표시
+        let tooltipTop = Math.max(0, event.clientY - tooltipHeight);
         
-        // 상단 경계 확인 (화면 위로 넘어가는지)
-        if (top < 0) {
-            // 위쪽 공간 부족, 화면 상단에 꽉 붙여 표시
-            top = 0;
-        }
-        
-        // 4. 계산된 위치 적용
-        elements.tooltip.style.left = `${left}px`;
-        elements.tooltip.style.top = `${top}px`;
-        elements.tooltip.style.visibility = 'visible';
+        // 8. 최종 위치 적용 및 표시
+        elements.tooltip.style.cssText = `
+            position: fixed;
+            display: block;
+            visibility: visible;
+            left: ${tooltipLeft}px;
+            top: ${tooltipTop}px;
+            max-height: ${windowHeight - 20}px;
+            overflow: auto;
+            z-index: 1001;
+            opacity: 0.95;
+            min-width: 280px; 
+            max-width: 280px;
+            background-color: var(--color-off-white);
+            border-radius: var(--border-radius-xs);
+            border: 1px solid var(--color-light-gray);
+            box-shadow: var(--shadow-lg);
+            pointer-events: none;
+            font-family: 'Malgun Gothic', sans-serif;
+            color: var(--color-dark);
+        `;
         
         state.tooltipActive = true;
     }
@@ -417,45 +434,37 @@ const ItemDisplay = (() => {
     }
     
     /**
-     * 테이블 마우스 이동 이벤트 핸들러 (툴팁 위치)
+     * 툴팁 위치 업데이트
      * @param {MouseEvent} event - 마우스 이벤트
      */
     function updateTooltipPosition(event) {
-        if (!state.tooltipActive || !elements.tooltip) return;
+        if (!elements.tooltip || !state.tooltipActive) return;
         
-        // 브라우저 창 크기
-        const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
-        
-        // 현재 툴팁 크기
+        // 1. 현재 크기 측정
         const tooltipRect = elements.tooltip.getBoundingClientRect();
-        const tooltipHeight = tooltipRect.height;
         const tooltipWidth = tooltipRect.width;
+        const tooltipHeight = tooltipRect.height;
         
-        // 위치 계산 - 항상 마우스 위쪽에 툴팁 표시 (끝부분이 마우스 위치에 오도록)
-        let left, top;
+        // 2. 윈도우 크기
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
         
-        // 수평 위치 계산 (오른쪽 우선, 공간 부족시 왼쪽)
-        if (event.clientX + tooltipWidth <= viewportWidth) {
-            // 오른쪽에 표시 가능
-            left = event.clientX;
+        // 3. 위치 계산 - 항상 마우스 바로 위에 툴팁 배치
+        let tooltipLeft;
+        if (event.clientX + tooltipWidth > windowWidth) {
+            // 오른쪽 공간 부족 시 왼쪽으로 배치
+            tooltipLeft = Math.max(0, event.clientX - tooltipWidth);
         } else {
-            // 오른쪽 공간 부족, 왼쪽에 표시
-            left = Math.max(0, event.clientX - tooltipWidth);
+            // 기본적으로 마우스 위치에 배치
+            tooltipLeft = event.clientX;
         }
         
-        // 수직 위치 계산 - 항상 툴팁의 하단이 마우스 위치에 오도록
-        top = event.clientY - tooltipHeight;
+        // 4. 수직 위치 - 항상 마우스 위에 표시
+        let tooltipTop = Math.max(0, event.clientY - tooltipHeight);
         
-        // 상단 경계 확인 (화면 위로 넘어가는지)
-        if (top < 0) {
-            // 위쪽 공간 부족, 화면 상단에 꽉 붙여 표시
-            top = 0;
-        }
-        
-        // 계산된 위치 적용
-        elements.tooltip.style.left = `${left}px`;
-        elements.tooltip.style.top = `${top}px`;
+        // 5. 위치 업데이트
+        elements.tooltip.style.left = `${tooltipLeft}px`;
+        elements.tooltip.style.top = `${tooltipTop}px`;
     }
     
     /**
@@ -465,6 +474,7 @@ const ItemDisplay = (() => {
         if (!elements.tooltip) return;
         state.tooltipActive = false;
         elements.tooltip.style.display = 'none';
+        elements.tooltip.innerHTML = ''; // 내용 비우기로 메모리 관리
     }
     
     /**
