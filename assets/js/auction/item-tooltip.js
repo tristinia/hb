@@ -141,17 +141,22 @@ const ItemTooltip = (() => {
         const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(itemData);
         tooltipElement.appendChild(tooltipContent);
         
-        // 툴팁 표시 (우선 화면 밖에서 크기 측정)
+        // 툴팁 표시 - 일단 실제로 렌더링되게 함
         tooltipElement.style.display = 'block';
-        tooltipElement.style.left = '-9999px';
-        tooltipElement.style.top = '-9999px';
+        tooltipElement.style.visibility = 'hidden'; // 보이지는 않게
+        tooltipElement.style.left = '0px';
+        tooltipElement.style.top = '0px';
         
-        // 위치 계산 후 적용
-        updatePosition(x, y);
-        
-        // 상태 업데이트
-        state.visible = true;
-        state.lastItemData = itemData;
+        // 브라우저가 렌더링할 시간을 줌
+        setTimeout(() => {
+            // 이제 제대로 측정된 크기로 위치 계산
+            tooltipElement.style.visibility = 'visible';
+            updatePosition(x, y);
+            
+            // 상태 업데이트
+            state.visible = true;
+            state.lastItemData = itemData;
+        }, 0);
     }
     
     /**
