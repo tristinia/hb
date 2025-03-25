@@ -166,42 +166,32 @@ const ItemTooltip = (() => {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         
-        // 툴팁 크기
-        const rect = tooltipElement.getBoundingClientRect();
-        const tooltipWidth = rect.width;
-        const tooltipHeight = rect.height;
+        // 툴팁 크기 - 실제 렌더링된 크기 재측정
+        tooltipElement.style.visibility = 'hidden'; // 측정만 하기 위해 숨김
+        const tooltipWidth = tooltipElement.offsetWidth;
+        const tooltipHeight = tooltipElement.offsetHeight;
+        tooltipElement.style.visibility = 'visible'; // 다시 표시
         
-        // 기본 위치 (마우스 오른쪽에 고정 간격)
+        // 기본 위치 (마우스 오른쪽 아래에 배치)
         const offsetX = 15; // 마우스와의 X축 간격
-        const offsetY = -10; // 마우스 위로 약간 올림 (Y축 간격)
+        const offsetY = 10; // 마우스 아래로 배치 (양수 값으로 변경)
         
         let left = x + offsetX;
-        let top = y + offsetY; // 마우스 위치보다 약간 위에 위치
-        
-        // 아래쪽 경계 검사 (더 강력하게) - 아래로 넘어가지 않게 함
-        if (top + tooltipHeight > windowHeight) {
-            // 툴팁이 화면 아래로 넘어가면, 마우스 위치보다 충분히 위에 배치
-            // 툴팁 전체가 화면에 보이도록 보정
-            top = windowHeight - tooltipHeight;
-            
-            // 혹시라도 음수가 되면 0으로 보정
-            if (top < 0) top = 0;
-        }
+        let top = y + offsetY;
         
         // 오른쪽 경계 검사
         if (left + tooltipWidth > windowWidth) {
             left = windowWidth - tooltipWidth;
-            
-            // 혹시라도 음수가 되면 0으로 보정
-            if (left < 0) left = 0;
+        }
+        
+        // 아래쪽 경계 검사 - 화면 아래로 넘어가지 않도록
+        if (top + tooltipHeight > windowHeight) {
+            top = windowHeight - tooltipHeight;
         }
         
         // 위치 적용
         tooltipElement.style.left = `${left}px`;
         tooltipElement.style.top = `${top}px`;
-        
-        // 디버깅 정보 (나중에 제거)
-        //console.log(`마우스: (${x}, ${y}), 툴팁: (${left}, ${top}), 크기: ${tooltipWidth}x${tooltipHeight}, 화면: ${windowWidth}x${windowHeight}`);
     }
     
     /**
