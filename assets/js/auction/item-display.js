@@ -349,49 +349,6 @@ const ItemDisplay = (() => {
     }
     
     /**
-     * 툴팁 위치 즉시 계산 및 적용
-     * @param {MouseEvent} event - 마우스 이벤트
-     */
-    function positionTooltipNow(event) {
-        if (!elements.tooltip || !state.tooltipActive) return;
-        
-        // 화면 크기
-        const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
-        
-        // 여백
-        const margin = 15;
-        
-        // ★★★ 여기가 핵심: offsetWidth/offsetHeight 사용 ★★★
-        // offsetWidth/offsetHeight는 스크롤바와 경계를 포함한 전체 요소 크기
-        const tooltipWidth = elements.tooltip.offsetWidth;
-        const tooltipHeight = elements.tooltip.offsetHeight;
-        
-        // 마우스 위치
-        const mouseX = event.clientX;
-        const mouseY = event.clientY;
-        
-        // 초기 위치 (마우스 오른쪽 아래)
-        let left = mouseX + margin;
-        let top = mouseY + margin;
-        
-        // ★★★ 여기가 핵심: 화면 경계 확인 및 간단 조정 ★★★
-        // 오른쪽 확인
-        if (left + tooltipWidth + margin > viewportWidth) {
-            left = Math.max(margin, mouseX - tooltipWidth - margin);
-        }
-        
-        // 아래쪽 확인
-        if (top + tooltipHeight + margin > viewportHeight) {
-            top = Math.max(margin, mouseY - tooltipHeight - margin);
-        }
-        
-        // 위치 적용
-        elements.tooltip.style.left = `${left}px`;
-        elements.tooltip.style.top = `${top}px`;
-    }
-    
-    /**
      * 남은 시간 포맷팅 함수
      * @param {string} expiryDate - ISO 형식 만료 시간
      * @returns {string} 포맷된 남은 시간
@@ -448,25 +405,47 @@ const ItemDisplay = (() => {
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         
-        // 기본 위치 (마우스 오른쪽 아래)
-        let left = event.clientX + margin;
-        let top = event.clientY + margin;
+        // 마우스 위치
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
         
-        // 화면 오른쪽 경계 처리 - 단순히 화면 안에 맞추기
-        if (left + tooltipWidth > viewportWidth - margin) {
-            left = viewportWidth - tooltipWidth - margin;
+        // 공간 확인 - 가능한 배치 영역 계산
+        const spaceRight = viewportWidth - mouseX - margin;
+        const spaceLeft = mouseX - margin;
+        const spaceBelow = viewportHeight - mouseY - margin;
+        const spaceAbove = mouseY - margin;
+        
+        // 위치 결정 (수평)
+        let left;
+        if (spaceRight >= tooltipWidth) {
+            // 오른쪽에 충분한 공간이 있으면 마우스 오른쪽에 배치
+            left = mouseX + margin;
+        } else if (spaceLeft >= tooltipWidth) {
+            // 왼쪽에 충분한 공간이 있으면 마우스 왼쪽에 배치
+            left = mouseX - tooltipWidth - margin;
+        } else {
+            // 양쪽 모두 충분한 공간이 없으면 가능한 많은 공간이 있는 쪽으로 배치
+            left = (spaceLeft > spaceRight) 
+                ? Math.max(margin, mouseX - tooltipWidth - margin)
+                : Math.min(viewportWidth - tooltipWidth - margin, mouseX + margin);
         }
         
-        // 화면 아래쪽 경계 처리 - 단순히 화면 안에 맞추기
-        if (top + tooltipHeight > viewportHeight - margin) {
-            top = viewportHeight - tooltipHeight - margin;
+        // 위치 결정 (수직)
+        let top;
+        if (spaceBelow >= tooltipHeight) {
+            // 아래에 충분한 공간이 있으면 마우스 아래에 배치
+            top = mouseY + margin;
+        } else if (spaceAbove >= tooltipHeight) {
+            // 위에 충분한 공간이 있으면 마우스 위에 배치
+            top = mouseY - tooltipHeight - margin;
+        } else {
+            // 위아래 모두 충분한 공간이 없으면 가능한 많은 공간이 있는 쪽으로 배치
+            top = (spaceAbove > spaceBelow)
+                ? Math.max(margin, mouseY - tooltipHeight - margin)
+                : Math.min(viewportHeight - tooltipHeight - margin, mouseY + margin);
         }
         
-        // 음수 위치 방지
-        left = Math.max(margin, left);
-        top = Math.max(margin, top);
-        
-        // 위치 적용
+        // 최종 위치 적용
         tooltip.style.left = `${left}px`;
         tooltip.style.top = `${top}px`;
     }
