@@ -313,83 +313,73 @@ const ItemDisplay = (() => {
      */
     function handleTableMouseMove(event) {
         if (state.tooltipActive) {
-            updateTooltipPosition(event);
+            // 툴팁 크기
+            const rect = elements.tooltip.getBoundingClientRect();
+            const tooltipHeight = rect.height;
+            const tooltipWidth = rect.width;
+            
+            // 위치 계산 (항상 마우스 위에 표시)
+            let left, top;
+            
+            // 수평 위치 계산
+            if (event.clientX + tooltipWidth > window.innerWidth) {
+                // 오른쪽 공간 부족 시 왼쪽에 표시
+                left = Math.max(0, event.clientX - tooltipWidth);
+            } else {
+                // 기본 - 마우스 위치에서 시작
+                left = event.clientX;
+            }
+            
+            // 수직 위치 계산 - 항상 마우스 위에 표시
+            top = Math.max(0, event.clientY - tooltipHeight);
+            
+            // 위치 적용
+            elements.tooltip.style.left = `${left}px`;
+            elements.tooltip.style.top = `${top}px`;
         }
     }
     
     /**
-     * 아이템 툴팁 표시
+     * 아이템 툴팁 표시 (간소화된 버전)
      * @param {Object} item - 아이템 데이터
      * @param {MouseEvent} event - 마우스 이벤트
      */
     function showItemTooltip(item, event) {
         if (!elements.tooltip || !item) return;
         
-        // 1. 툴팁 컨텐츠 생성 (DOM에 부착하기 전)
-        const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(item);
-        
-        // 2. 먼저 컨테이너 스타일 초기화 (주요 문제 해결 포인트)
-        elements.tooltip.style.cssText = `
-            position: fixed;
-            display: block; 
-            visibility: hidden;
-            left: -9999px;
-            top: -9999px;
-            max-height: none;
-            overflow: visible;
-            z-index: 1001;
-            opacity: 0.95;
-            min-width: 280px;
-            max-width: 280px;
-        `;
-        
-        // 3. 내용물 교체
+        // 내용 초기화 및 생성
         elements.tooltip.innerHTML = '';
+        const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(item);
         elements.tooltip.appendChild(tooltipContent);
         
-        // 4. 크기 측정 (화면 외부에 그려서 정확히 측정)
-        const tooltipRect = elements.tooltip.getBoundingClientRect();
-        const tooltipWidth = tooltipRect.width;
-        const tooltipHeight = tooltipRect.height;
+        // 임시로 화면 밖에 표시하여 크기 측정
+        elements.tooltip.style.display = 'block';
+        elements.tooltip.style.left = '-9999px';
+        elements.tooltip.style.top = '-9999px';
         
-        // 5. 윈도우 크기
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
+        // 1. 크기 측정
+        const rect = elements.tooltip.getBoundingClientRect();
+        const tooltipHeight = rect.height;
+        const tooltipWidth = rect.width;
         
-        // 6. 위치 계산 - 항상 마우스 바로 위에 툴팁 배치
-        let tooltipLeft;
-        if (event.clientX + tooltipWidth > windowWidth) {
-            // 오른쪽 공간 부족 시 왼쪽으로 배치
-            tooltipLeft = Math.max(0, event.clientX - tooltipWidth);
+        // 2. 위치 계산 (항상 마우스 위에 표시)
+        let left, top;
+        
+        // 수평 위치 계산
+        if (event.clientX + tooltipWidth > window.innerWidth) {
+            // 오른쪽 공간 부족 시 왼쪽에 표시
+            left = Math.max(0, event.clientX - tooltipWidth);
         } else {
-            // 기본적으로 마우스 위치에 배치
-            tooltipLeft = event.clientX;
+            // 기본 - 마우스 위치에서 시작
+            left = event.clientX;
         }
         
-        // 7. 수직 위치 - 항상 마우스 위에 표시
-        let tooltipTop = Math.max(0, event.clientY - tooltipHeight);
+        // 수직 위치 계산 - 항상 마우스 위에 표시
+        top = Math.max(0, event.clientY - tooltipHeight);
         
-        // 8. 최종 위치 적용 및 표시
-        elements.tooltip.style.cssText = `
-            position: fixed;
-            display: block;
-            visibility: visible;
-            left: ${tooltipLeft}px;
-            top: ${tooltipTop}px;
-            max-height: ${windowHeight - 20}px;
-            overflow: auto;
-            z-index: 1001;
-            opacity: 0.95;
-            min-width: 280px; 
-            max-width: 280px;
-            background-color: var(--color-off-white);
-            border-radius: var(--border-radius-xs);
-            border: 1px solid var(--color-light-gray);
-            box-shadow: var(--shadow-lg);
-            pointer-events: none;
-            font-family: 'Malgun Gothic', sans-serif;
-            color: var(--color-dark);
-        `;
+        // 3. 위치 적용
+        elements.tooltip.style.left = `${left}px`;
+        elements.tooltip.style.top = `${top}px`;
         
         state.tooltipActive = true;
     }
