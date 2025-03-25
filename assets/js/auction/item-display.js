@@ -432,12 +432,9 @@ const ItemDisplay = (() => {
     function updateTooltipPosition(event) {
         if (!elements.tooltip || !state.tooltipActive) return;
         
-        const tooltip = elements.tooltip;
-        const margin = 10;
-        
-        // 툴팁 크기
-        const tooltipWidth = tooltip.offsetWidth;
-        const tooltipHeight = tooltip.offsetHeight;
+        // 실제 툴팁 크기 가져오기
+        const tooltipWidth = elements.tooltip.offsetWidth;
+        const tooltipHeight = elements.tooltip.offsetHeight;
         
         // 화면 크기
         const viewportWidth = window.innerWidth;
@@ -447,34 +444,30 @@ const ItemDisplay = (() => {
         const mouseX = event.clientX;
         const mouseY = event.clientY;
         
-        // 기본 위치 (마우스 아래 오른쪽)
-        let left = mouseX + margin;
-        let top = mouseY + margin;
+        // 위치 계산
+        let left = mouseX + 10;
+        let top = mouseY + 10;
         
-        // 화면 아래쪽에 공간이 부족하면 위에 표시
-        if (top + tooltipHeight > viewportHeight - margin) {
-            top = Math.max(margin, mouseY - tooltipHeight - margin);
-        }
-        
-        // 화면 오른쪽에 공간이 부족하면 왼쪽에 표시
-        if (left + tooltipWidth > viewportWidth - margin) {
-            left = Math.max(margin, mouseX - tooltipWidth - margin);
+        // 오른쪽 경계 확인
+        if (left + tooltipWidth > viewportWidth - 10) {
+            left = Math.max(10, mouseX - tooltipWidth - 10);
         }
         
-        // 최종 화면 범위 체크 (어떤 경우든 화면을 벗어나지 않도록)
-        if (top + tooltipHeight > viewportHeight - margin) {
-            top = viewportHeight - tooltipHeight - margin;
-        }
-        if (top < margin) {
-            top = margin;
-        }
-        if (left < margin) {
-            left = margin;
+        // 아래쪽 경계 확인
+        if (top + tooltipHeight > viewportHeight - 10) {
+            // 위쪽 공간 확인
+            if (mouseY - tooltipHeight - 10 > 0) {
+                // 마우스 위쪽에 표시
+                top = mouseY - tooltipHeight - 10;
+            } else {
+                // 공간이 부족하면 상단에 고정
+                top = 10;
+            }
         }
         
         // 위치 적용
-        tooltip.style.left = `${left}px`;
-        tooltip.style.top = `${top}px`;
+        elements.tooltip.style.left = `${left}px`;
+        elements.tooltip.style.top = `${top}px`;
     }
     
     /**
