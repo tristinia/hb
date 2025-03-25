@@ -961,7 +961,6 @@ input[type="number"] {
 
 /* 툴팁 스타일 */
 .item-tooltip {
-    position: fixed;
     z-index: 1001;
     background-color: var(--color-off-white);
     border-radius: var(--border-radius-xs);
