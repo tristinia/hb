@@ -401,8 +401,8 @@ class OptionRenderer {
               
               effects.forEach(effect => {
                 const effectText = effect.trim();
-                // 조건부 효과에서 순수 효과만 추출
-                const conditionMatch = effectText.match(/(.*?) 랭크 \d+ 이상일 때 (.*)/);
+                // 조건부 효과에서 순수 효과만 추출 - 모든 "~일 때" 패턴 인식
+                const conditionMatch = effectText.match(/(.*?일 때) (.*)/);
                 const cleanEffect = conditionMatch ? conditionMatch[2].trim() : effectText;
                 
                 // 부정적 효과 확인
@@ -439,16 +439,16 @@ class OptionRenderer {
                     }
                   }
                   
-                  effectElement.innerHTML = `- <span class="${isNegative ? 'item-red' : 'item-blue'}">${effectBaseText}</span>${rangeInfo}`;
+                  // "-" 기호도 같은 색상으로 포함
+                  effectElement.innerHTML = `<span class="${isNegative ? 'item-red' : 'item-blue'}>- ${effectBaseText}</span>${rangeInfo}`;
                 } else {
                   // 메타데이터 매칭 실패 시 기본 표시
-                  effectElement.innerHTML = `- <span class="${isNegative ? 'item-red' : 'item-blue'}">${cleanEffect}</span>`;
+                  effectElement.innerHTML = `<span class="${isNegative ? 'item-red' : 'item-blue'}>- ${cleanEffect}</span>`;
                 }
                 
                 block.appendChild(effectElement);
               });
             }
-          }
           // 일반적인 옵션 처리
           else {
             // 옵션 처리
