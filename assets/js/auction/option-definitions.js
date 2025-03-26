@@ -149,8 +149,8 @@ const optionDefinitions = {
         const formattedEffects = [];
         
         effects.forEach(effect => {
-          // 조건부 정보 제거하고 순수 효과만 추출 - 모든 "~일 때" 패턴 인식
-          const conditionMatch = effect.match(/(.*?일 때) (.*)/);
+          // 조건부 정보 제거하고 순수 효과만 추출 - 모든 "때" 패턴 인식
+          const conditionMatch = effect.match(/(.*?때) (.*)/);
           const cleanEffect = conditionMatch ? conditionMatch[2].trim() : effect.trim();
           
           // 부정적 효과 확인 (수리비 증가, 또는 다른 감소 효과)
