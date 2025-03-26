@@ -838,88 +838,100 @@ function applyErgLevelFilter(filterItem, filterInfo) {
  * @param {Object} filterInfo - 필터 정보
  */
 function createSetEffectFilter(container, filterItem, filterInfo) {
-  // 세트 효과 검색 섹션
-  const searchSection = document.createElement('div');
-  searchSection.className = 'enchant-search-container';
+  // 세트 효과 입력 컨테이너
+  const effectsContainer = document.createElement('div');
+  effectsContainer.className = 'set-effects-container';
   
-  const searchLabel = document.createElement('label');
-  searchLabel.className = 'enchant-label';
-  searchLabel.textContent = '세트 효과:';
-  searchLabel.setAttribute('for', `set-search-${Date.now()}`);
+  // 3개의 세트 효과 검색창 생성
+  for (let i = 1; i <= 3; i++) {
+    // 세트 효과 검색 섹션
+    const searchSection = document.createElement('div');
+    searchSection.className = 'enchant-search-container';
+    searchSection.setAttribute('data-index', i);
+    
+    const searchLabel = document.createElement('label');
+    searchLabel.className = 'enchant-label';
+    searchLabel.textContent = `세트 효과 ${i}:`;
+    searchLabel.setAttribute('for', `set-search-${i}-${Date.now()}`);
+    
+    const searchInput = document.createElement('input');
+    searchInput.id = `set-search-${i}-${Date.now()}`;
+    searchInput.className = 'filter-input set-effect-input';
+    searchInput.setAttribute('data-index', i);
+    
+    const suggestions = document.createElement('div');
+    suggestions.className = 'enchant-suggestions';
+    suggestions.style.display = 'none';
+    
+    // 값 범위 섹션 (초기에는 숨김)
+    const valueSection = document.createElement('div');
+    valueSection.className = 'filter-section';
+    valueSection.style.display = 'none';
+    
+    const valueLabel = document.createElement('div');
+    valueLabel.className = 'filter-section-label';
+    valueLabel.textContent = '효과 수치:';
+    valueSection.appendChild(valueLabel);
+    
+    // 값 입력 컨테이너
+    const inputRow = document.createElement('div');
+    inputRow.className = 'filter-input-row';
+    
+    // 최소값 입력
+    const minInput = document.createElement('input');
+    minInput.type = 'number';
+    minInput.className = 'filter-input min-value';
+    minInput.min = 1;
+    minInput.setAttribute('aria-label', '세트 효과 최소 수치');
+    minInput.setAttribute('data-index', i);
+    
+    const separator = document.createElement('span');
+    separator.className = 'filter-separator';
+    separator.textContent = '~';
+    
+    const maxInput = document.createElement('input');
+    maxInput.type = 'number';
+    maxInput.className = 'filter-input max-value';
+    maxInput.min = 1;
+    maxInput.setAttribute('aria-label', '세트 효과 최대 수치');
+    maxInput.setAttribute('data-index', i);
+    
+    // 입력 컨테이너에 요소 추가
+    inputRow.appendChild(minInput);
+    inputRow.appendChild(separator);
+    inputRow.appendChild(maxInput);
+    valueSection.appendChild(inputRow);
+    
+    // 검색 섹션에 요소 추가
+    searchSection.appendChild(searchLabel);
+    searchSection.appendChild(searchInput);
+    searchSection.appendChild(suggestions);
+    searchSection.appendChild(valueSection);
+    
+    // 효과 컨테이너에 검색 섹션 추가
+    effectsContainer.appendChild(searchSection);
+    
+    // 세트 효과 자동완성 설정
+    setupSetEffectAutocomplete(searchInput, suggestions, valueSection, filterItem, filterInfo);
+    
+    // 범위 입력 시 자동 적용 이벤트
+    minInput.addEventListener('change', () => {
+      const effectName = searchInput.dataset.selectedEffect;
+      if (effectName) {
+        applySetEffectFilter(filterItem, filterInfo, effectName, i);
+      }
+    });
+    
+    maxInput.addEventListener('change', () => {
+      const effectName = searchInput.dataset.selectedEffect;
+      if (effectName) {
+        applySetEffectFilter(filterItem, filterInfo, effectName, i);
+      }
+    });
+  }
   
-  const searchInput = document.createElement('input');
-  searchInput.id = `set-search-${Date.now()}`;
-  searchInput.className = 'filter-input set-effect-input';
-  searchInput.placeholder = '세트 효과 입력...';
-  
-  const suggestions = document.createElement('div');
-  suggestions.className = 'enchant-suggestions';
-  suggestions.style.display = 'none';
-  
-  searchSection.appendChild(searchLabel);
-  searchSection.appendChild(searchInput);
-  searchSection.appendChild(suggestions);
-  container.appendChild(searchSection);
-  
-  // 값 범위 섹션
-  const valueSection = document.createElement('div');
-  valueSection.className = 'filter-section';
-  valueSection.style.display = 'none';
-  
-  const valueLabel = document.createElement('div');
-  valueLabel.className = 'filter-section-label';
-  valueLabel.textContent = '효과 수치:';
-  valueSection.appendChild(valueLabel);
-  
-  // 값 입력 컨테이너
-  const inputRow = document.createElement('div');
-  inputRow.className = 'filter-input-row';
-  
-  // 최소값 입력
-  const minInput = document.createElement('input');
-  minInput.type = 'number';
-  minInput.className = 'filter-input min-value';
-  minInput.placeholder = '최소';
-  minInput.min = 1;
-  minInput.setAttribute('aria-label', '세트 효과 최소 수치');
-  
-  const separator = document.createElement('span');
-  separator.className = 'filter-separator';
-  separator.textContent = '~';
-  
-  const maxInput = document.createElement('input');
-  maxInput.type = 'number';
-  maxInput.className = 'filter-input max-value';
-  maxInput.placeholder = '최대';
-  maxInput.min = 1;
-  maxInput.setAttribute('aria-label', '세트 효과 최대 수치');
-  
-  // 입력 후 자동 적용
-  minInput.addEventListener('change', () => {
-    // 세트 효과 이름 가져오기
-    const effectName = searchInput.dataset.selectedEffect;
-    if (effectName) {
-      applySetEffectFilter(filterItem, filterInfo, effectName);
-    }
-  });
-  
-  maxInput.addEventListener('change', () => {
-    // 세트 효과 이름 가져오기
-    const effectName = searchInput.dataset.selectedEffect;
-    if (effectName) {
-      applySetEffectFilter(filterItem, filterInfo, effectName);
-    }
-  });
-  
-  inputRow.appendChild(minInput);
-  inputRow.appendChild(separator);
-  inputRow.appendChild(maxInput);
-  valueSection.appendChild(inputRow);
-  
-  container.appendChild(valueSection);
-  
-  // 세트 효과 자동완성 설정
-  setupSetEffectAutocomplete(searchInput, suggestions, valueSection, filterItem, filterInfo);
+  // 컨테이너에 효과 컨테이너 추가
+  container.appendChild(effectsContainer);
 }
 
 /**
@@ -933,6 +945,9 @@ function createSetEffectFilter(container, filterItem, filterInfo) {
 async function setupSetEffectAutocomplete(input, suggestions, valueSection, filterItem, filterInfo) {
   // 현재 카테고리 세트 효과 목록 로드
   await metadataLoader.loadSetEffectForCategory(state.currentCategory);
+  
+  // 입력칸 인덱스 가져오기
+  const index = parseInt(input.getAttribute('data-index'));
   
   // 입력 이벤트
   input.addEventListener('input', async function() {
@@ -978,7 +993,7 @@ async function setupSetEffectAutocomplete(input, suggestions, valueSection, filt
         valueSection.style.display = 'block';
         
         // 필터 적용
-        applySetEffectFilter(filterItem, filterInfo, effect);
+        applySetEffectFilter(filterItem, filterInfo, effect, index);
       });
       
       suggestions.appendChild(item);
@@ -1008,26 +1023,32 @@ async function setupSetEffectAutocomplete(input, suggestions, valueSection, filt
  * @param {HTMLElement} filterItem - 필터 아이템 요소
  * @param {Object} filterInfo - 필터 정보
  * @param {string} effectName - 세트 효과 이름
+ * @param {number} index - 세트 효과 인덱스
  */
-function applySetEffectFilter(filterItem, filterInfo, effectName) {
+function applySetEffectFilter(filterItem, filterInfo, effectName, index) {
+  // 해당 인덱스의 입력 필드 섹션 찾기
+  const effectSection = filterItem.querySelector(`.enchant-search-container[data-index="${index}"]`);
+  if (!effectSection) return;
+  
   // 입력값 가져오기
-  const minInput = filterItem.querySelector('.min-value');
-  const maxInput = filterItem.querySelector('.max-value');
+  const minInput = effectSection.querySelector('.min-value');
+  const maxInput = effectSection.querySelector('.max-value');
   
   const min = minInput && minInput.value ? parseInt(minInput.value) : undefined;
   const max = maxInput && maxInput.value ? parseInt(maxInput.value) : undefined;
   
-  // 이미 존재하는 동일 세트 효과 필터 제거
+  // 이미 존재하는 동일 인덱스의 세트 효과 필터 제거
   state.activeFilters = state.activeFilters.filter(filter => 
-    !(filter.type === 'set-effect' && filter.effectName === effectName)
+    !(filter.type === 'set-effect' && filter.index === index)
   );
   
   // 새 필터 추가
   state.activeFilters.push({
     name: '세트 효과',
-    displayName: `세트 효과: ${effectName}`,
+    displayName: `세트 효과 ${index}: ${effectName}`,
     type: 'set-effect',
     effectName,
+    index,
     min,
     max
   });
@@ -1035,7 +1056,7 @@ function applySetEffectFilter(filterItem, filterInfo, effectName) {
   // 필터 적용
   applyFilters();
   
-  logDebug(`세트 효과 필터 적용: ${effectName}, 범위=${min}~${max}`);
+  logDebug(`세트 효과 필터 적용: ${effectName}, 인덱스=${index}, 범위=${min}~${max}`);
 }
 
 /**
