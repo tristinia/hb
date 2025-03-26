@@ -439,7 +439,7 @@ class OptionRenderer {
                     }
                   }
                   
-                  // "-" 기호도 같은 색상으로 포함
+                  // 효과 텍스트와 범위 정보 함께 표시
                   effectElement.innerHTML = `<span class="${isNegative ? 'item-red' : 'item-blue'}>- ${effectBaseText}</span>${rangeInfo}`;
                 } else {
                   // 메타데이터 매칭 실패 시 기본 표시
