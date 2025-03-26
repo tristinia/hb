@@ -188,15 +188,15 @@ class MetadataLoader {
     if (!query || !this.metadata.enchant.isLoaded) return [];
     
     const source = type === '접두' ? this.metadata.enchant.prefix : this.metadata.enchant.suffix;
-    if (!source) return [];
+    if (!source || !source.enchants) return [];
     
     const results = [];
     const lowerQuery = query.toLowerCase();
     
     // 객체 순회
-    for (const name in source) {
+    for (const name in source.enchants) {
       if (name.toLowerCase().includes(lowerQuery)) {
-        const info = source[name];
+        const info = source.enchants[name];
         results.push({
           name: name,
           rank: info.rank
