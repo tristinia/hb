@@ -395,6 +395,8 @@ class OptionRenderer {
             enchantElement.innerHTML = `<span class="enchant-type">[${type}]</span> ${enchantName} <span class="item-pink">${rankText}</span>`;
             block.appendChild(enchantElement);
             
+            // renderMabinogiStyleTooltip 내 인챈트 효과 처리 부분
+
             // 인챈트 효과 처리
             if (option.option_desc) {
               const effects = option.option_desc.split(',');
@@ -418,10 +420,9 @@ class OptionRenderer {
                 
                 if (valueMatch && metadata && metadata.effects) {
                   const [_, prefix, value, suffix] = valueMatch;
-                  const effectBaseText = prefix + value + suffix;
+                  const effectBaseText = cleanEffect; // 효과 전체 텍스트 유지
                   
                   // 메타데이터에서 효과 템플릿 찾기
-                  let foundMatchingEffect = false;
                   let rangeInfo = '';
                   
                   for (const metaEffect of metadata.effects) {
@@ -434,12 +435,11 @@ class OptionRenderer {
                       if (metaEffect.variable) {
                         rangeInfo = ` <span class="item-navy">(${metaEffect.min}~${metaEffect.max})</span>`;
                       }
-                      foundMatchingEffect = true;
                       break;
                     }
                   }
                   
-                  // 효과 텍스트와 범위 정보 함께 표시
+                  // 효과 텍스트와 범위 정보 모두 표시
                   effectElement.innerHTML = `<span class="${isNegative ? 'item-red' : 'item-blue'}>- ${effectBaseText}</span>${rangeInfo}`;
                 } else {
                   // 메타데이터 매칭 실패 시 기본 표시
@@ -449,7 +449,6 @@ class OptionRenderer {
                 block.appendChild(effectElement);
               });
             }
-          }
           // 일반적인 옵션 처리
           else {
             // 옵션 처리
