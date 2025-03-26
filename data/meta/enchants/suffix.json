@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-25T09:30:03.566Z",
+  "updated": "2025-03-26T09:29:40.020Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -25,7 +25,7 @@
         },
         {
           "template": "체력 {value} 증가",
-          "min": 19,
+          "min": 18,
           "max": 20,
           "variable": true
         },
@@ -103,7 +103,7 @@
         },
         {
           "template": "솜씨 {value} 증가",
-          "min": 9,
+          "min": 8,
           "max": 14,
           "variable": true
         },
@@ -5017,6 +5017,18 @@
         }
       ]
     },
+    "서스테이너 (랭크 B)": {
+      "name": "서스테이너 (랭크 B)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "최대스태미나 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        }
+      ]
+    },
     "선인장 (랭크 A)": {
       "name": "선인장 (랭크 A)",
       "rank": null,
@@ -5631,6 +5643,42 @@
           "template": "체력 {value} 증가",
           "min": 3,
           "max": 3,
+          "variable": false
+        }
+      ]
+    },
+    "스위트": {
+      "name": "스위트",
+      "rank": 9,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 50,
+          "max": 50,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최대마나 {value} 증가",
+          "min": 27,
+          "max": 27,
+          "variable": false
+        },
+        {
+          "template": "최대스태미나 {value} 증가",
+          "min": 25,
+          "max": 25,
+          "variable": false
+        },
+        {
+          "template": "방어 {value} 증가",
+          "min": 5,
+          "max": 5,
           "variable": false
         }
       ]
@@ -8779,7 +8827,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 32,
+          "min": 31,
           "max": 40,
           "variable": true
         },
@@ -10220,8 +10268,8 @@
         {
           "template": "솜씨 {value} 감소",
           "min": 7,
-          "max": 7,
-          "variable": false
+          "max": 9,
+          "variable": true
         }
       ]
     },

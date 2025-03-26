@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-25T09:30:03.561Z",
+  "updated": "2025-03-26T09:29:40.015Z",
   "enchants": {
     "56층의": {
       "name": "56층의",
@@ -313,7 +313,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 21,
+          "min": 20,
           "max": 25,
           "variable": true
         }
@@ -1790,7 +1790,7 @@
         {
           "template": "크리티컬 {value} 증가",
           "min": 11,
-          "max": 14,
+          "max": 15,
           "variable": true
         }
       ]
@@ -7363,7 +7363,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 26,
+          "min": 25,
           "max": 32,
           "variable": true
         },
@@ -7981,7 +7981,7 @@
       "effects": [
         {
           "template": "대미지밸런스 {value} 감소",
-          "min": 20,
+          "min": 19,
           "max": 24,
           "variable": true
         }
