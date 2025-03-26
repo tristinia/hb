@@ -518,102 +518,55 @@ function createReforgeOptionFilter(container, filterItem, filterInfo) {
  * @param {Object} filterInfo - 필터 정보
  */
 function createEnchantFilter(container, filterItem, filterInfo) {
-  // 접두/접미 선택 섹션
-  const typeSection = document.createElement('div');
-  typeSection.className = 'filter-section';
+  // 접두 검색 섹션
+  const prefixSection = document.createElement('div');
+  prefixSection.className = 'enchant-search-container';
   
-  const typeLabel = document.createElement('div');
-  typeLabel.className = 'filter-section-label';
-  typeLabel.textContent = '인챈트 타입:';
-  typeSection.appendChild(typeLabel);
+  const prefixLabel = document.createElement('label');
+  prefixLabel.className = 'enchant-label';
+  prefixLabel.textContent = '접두:';
+  prefixLabel.setAttribute('for', `prefix-search-${Date.now()}`);
   
-  // 타입 라디오 버튼
-  const typeOptions = document.createElement('div');
-  typeOptions.className = 'enchant-type-options';
+  const prefixInput = document.createElement('input');
+  prefixInput.id = `prefix-search-${Date.now()}`;
+  prefixInput.className = 'filter-input enchant-name-input';
+  prefixInput.dataset.enchantType = '접두';
   
-  const types = ['접두', '접미'];
-  types.forEach(type => {
-    const label = document.createElement('label');
-    label.className = 'enchant-type-label';
-    
-    const radio = document.createElement('input');
-    radio.type = 'radio';
-    radio.name = `enchant-type-${filterItem.getAttribute('data-filter')}`;
-    radio.value = type;
-    radio.className = 'enchant-type-radio';
-    if (type === '접두') radio.checked = true;
-    
-    label.appendChild(radio);
-    label.appendChild(document.createTextNode(` ${type}`));
-    typeOptions.appendChild(label);
-    
-    // 라디오 변경 이벤트
-    radio.addEventListener('change', () => {
-      // 인챈트 검색 필드 초기화
-      const searchInput = filterItem.querySelector('.enchant-name-input');
-      if (searchInput) {
-        searchInput.value = '';
-        searchInput.dataset.enchantType = type;
-      }
-      
-      // 자동완성 숨기기
-      const suggestions = filterItem.querySelector('.enchant-suggestions');
-      if (suggestions) {
-        suggestions.style.display = 'none';
-        suggestions.innerHTML = '';
-      }
-    });
-  });
+  const prefixSuggestions = document.createElement('div');
+  prefixSuggestions.className = 'enchant-suggestions';
+  prefixSuggestions.style.display = 'none';
   
-  typeSection.appendChild(typeOptions);
-  container.appendChild(typeSection);
+  prefixSection.appendChild(prefixLabel);
+  prefixSection.appendChild(prefixInput);
+  prefixSection.appendChild(prefixSuggestions);
+  container.appendChild(prefixSection);
   
-  // 인챈트 검색 섹션
-  const searchSection = document.createElement('div');
-  searchSection.className = 'enchant-search-container';
+  // 접미 검색 섹션
+  const suffixSection = document.createElement('div');
+  suffixSection.className = 'enchant-search-container';
   
-  const searchLabel = document.createElement('label');
-  searchLabel.className = 'enchant-label';
-  searchLabel.textContent = '인챈트 이름:';
-  searchLabel.setAttribute('for', `enchant-search-${Date.now()}`);
+  const suffixLabel = document.createElement('label');
+  suffixLabel.className = 'enchant-label';
+  suffixLabel.textContent = '접미:';
+  suffixLabel.setAttribute('for', `suffix-search-${Date.now()}`);
   
-  const searchInput = document.createElement('input');
-  searchInput.id = `enchant-search-${Date.now()}`;
-  searchInput.className = 'filter-input enchant-name-input';
-  searchInput.placeholder = '인챈트 이름 입력...';
-  searchInput.dataset.enchantType = '접두'; // 기본값
+  const suffixInput = document.createElement('input');
+  suffixInput.id = `suffix-search-${Date.now()}`;
+  suffixInput.className = 'filter-input enchant-name-input';
+  suffixInput.dataset.enchantType = '접미';
   
-  const suggestions = document.createElement('div');
-  suggestions.className = 'enchant-suggestions';
-  suggestions.style.display = 'none';
+  const suffixSuggestions = document.createElement('div');
+  suffixSuggestions.className = 'enchant-suggestions';
+  suffixSuggestions.style.display = 'none';
   
-  searchSection.appendChild(searchLabel);
-  searchSection.appendChild(searchInput);
-  searchSection.appendChild(suggestions);
-  container.appendChild(searchSection);
-  
-  // 랭크 범위 섹션
-  const rankSection = document.createElement('div');
-  rankSection.className = 'filter-section';
-  
-  const rankLabel = document.createElement('div');
-  rankLabel.className = 'filter-section-label';
-  rankLabel.textContent = '인챈트 랭크:';
-  rankSection.appendChild(rankLabel);
-  
-  // 랭크 입력 (최소값)
-  const rankInput = document.createElement('input');
-  rankInput.type = 'number';
-  rankInput.className = 'filter-input enchant-rank-input';
-  rankInput.placeholder = '최소 랭크';
-  rankInput.min = 1;
-  rankInput.max = 9;
-  rankSection.appendChild(rankInput);
-  
-  container.appendChild(rankSection);
+  suffixSection.appendChild(suffixLabel);
+  suffixSection.appendChild(suffixInput);
+  suffixSection.appendChild(suffixSuggestions);
+  container.appendChild(suffixSection);
   
   // 인챈트 자동완성 설정
-  setupEnchantAutocomplete(searchInput, suggestions, filterItem, filterInfo);
+  setupEnchantAutocomplete(prefixInput, prefixSuggestions, filterItem, filterInfo);
+  setupEnchantAutocomplete(suffixInput, suffixSuggestions, filterItem, filterInfo);
 }
 
 /**
@@ -653,7 +606,7 @@ function setupEnchantAutocomplete(input, suggestions, filterItem, filterInfo) {
     results.slice(0, 10).forEach(enchant => {
       const item = document.createElement('div');
       item.className = 'enchant-suggestion-item';
-      item.innerHTML = `${enchant.name} <span class="item-pink">(랭크 ${enchant.rank})</span>`;
+      item.innerHTML = `${enchant.name} (랭크 ${enchant.rank})`;
       
       // 클릭 이벤트
       item.addEventListener('click', () => {
@@ -664,7 +617,7 @@ function setupEnchantAutocomplete(input, suggestions, filterItem, filterInfo) {
         suggestions.style.display = 'none';
         
         // 필터 추가
-        addEnchantFilter(filterItem, filterInfo, enchantType, enchant.name, enchant.rank);
+        addEnchantFilter(filterItem, filterInfo, input.dataset.enchantType, enchant.name, enchant.rank);
         
         // 필터 적용
         applyFilters();
