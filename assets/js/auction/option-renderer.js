@@ -401,7 +401,7 @@ class OptionRenderer {
               
               effects.forEach(effect => {
                 const effectText = effect.trim();
-                // 조건부 효과에서 순수 효과만 추출 - 모든 "~일 때" 패턴 인식
+                // 조건부 효과에서 순수 효과만 추출
                 const conditionMatch = effectText.match(/(.*?일 때) (.*)/);
                 const cleanEffect = conditionMatch ? conditionMatch[2].trim() : effectText;
                 
@@ -449,6 +449,7 @@ class OptionRenderer {
                 block.appendChild(effectElement);
               });
             }
+          }
           // 일반적인 옵션 처리
           else {
             // 옵션 처리
