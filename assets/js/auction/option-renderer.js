@@ -395,7 +395,7 @@ class OptionRenderer {
             enchantElement.innerHTML = `<span class="enchant-type">[${type}]</span> ${enchantName} <span class="item-pink">${rankText}</span>`;
             block.appendChild(enchantElement);
             
-            // 여기서부터 인챈트 효과 처리 부분 - 수정 필요한 부분
+            // 인챈트 효과 처리 부분
             if (option.option_desc) {
               const effects = option.option_desc.split(',');
               
@@ -410,37 +410,29 @@ class OptionRenderer {
                   (cleanEffect.includes('수리비') && cleanEffect.includes('증가')) || 
                   (!cleanEffect.includes('수리비') && cleanEffect.includes('감소'));
                 
-                // 효과 값 추출 (예: "체력 44 증가" -> 44)
-                const valueMatch = cleanEffect.match(/(.*?)(\d+)(.*)/);
-                
                 const effectElement = document.createElement('div');
                 effectElement.className = 'tooltip-special-stat';
                 
-                if (valueMatch && metadata && metadata.effects) {
-                  // 메타데이터에서 효과 템플릿 찾기
-                  let rangeInfo = '';
-                  
+                // 기본 효과 텍스트 표시 (- 포함하여 적절한 색상 적용)
+                const colorClass = isNegative ? 'item-red' : 'item-blue';
+                let effectHTML = `<span class="${colorClass}">- ${cleanEffect}</span>`;
+                
+                // 메타데이터에서 유동 범위 확인 및 추가
+                if (metadata && metadata.effects) {
                   for (const metaEffect of metadata.effects) {
                     const template = metaEffect.template;
-                    // 정규식으로 템플릿 변환
+                    // 템플릿을 정규식 패턴으로 변환
                     const pattern = template.replace(/\{value\}/g, '\\d+');
                     
-                    if (new RegExp(pattern).test(cleanEffect)) {
-                      // 변동 가능 효과인 경우 범위 정보 추가
-                      if (metaEffect.variable) {
-                        rangeInfo = ` <span class="item-navy">(${metaEffect.min}~${metaEffect.max})</span>`;
-                      }
+                    if (new RegExp(pattern).test(cleanEffect) && metaEffect.variable) {
+                      // 변동 가능 효과인 경우 범위 정보 추가 (네이비 색상)
+                      effectHTML += ` <span class="item-navy">(${metaEffect.min}~${metaEffect.max})</span>`;
                       break;
                     }
                   }
-                  
-                  // 효과 텍스트와 범위 정보 모두 표시
-                  effectElement.innerHTML = `<span class="${isNegative ? 'item-red' : 'item-blue'}>- ${cleanEffect}</span>${rangeInfo}`;
-                } else {
-                  // 메타데이터 매칭 실패 시 기본 표시
-                  effectElement.innerHTML = `<span class="${isNegative ? 'item-red' : 'item-blue'}>- ${cleanEffect}</span>`;
                 }
                 
+                effectElement.innerHTML = effectHTML;
                 block.appendChild(effectElement);
               });
             }
