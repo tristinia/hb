@@ -171,7 +171,11 @@ class MetadataLoader {
     const source = type === '접두' ? 'prefix' : 'suffix';
     const data = this.metadata.enchant[source];
     
-    return data && data[name] ? data[name] : null;
+    // 데이터가 없으면 null 반환
+    if (!data || !data.enchants) return null;
+    
+    // enchants 객체 내에서 인챈트 찾기
+    return data.enchants && data.enchants[name] ? data.enchants[name] : null;
   }
   
   /**
