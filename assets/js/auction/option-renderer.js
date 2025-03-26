@@ -247,13 +247,14 @@ class OptionRenderer {
     
     return itemElement;
   }
-
+  
   /**
- * 마비노기 스타일 아이템 툴팁 렌더링
- * @param {Object} item - 아이템 데이터
- * @returns {HTMLElement} 툴팁 요소
- */
-renderMabinogiStyleTooltip(item) {
+   * 마비노기 스타일 아이템 툴팁 렌더링
+   * @param {Object} item - 아이템 데이터
+   * @returns {HTMLElement} 툴팁 요소
+   */
+  renderMabinogiStyleTooltip(item) {
+    // 최상위 툴팁 요소
     const tooltipElement = document.createElement('div');
     tooltipElement.className = 'item-tooltip';
     
@@ -263,9 +264,10 @@ renderMabinogiStyleTooltip(item) {
     header.innerHTML = `<h3>${item.item_display_name || item.item_name || '이름 없음'}</h3>`;
     tooltipElement.appendChild(header);
     
-    // 툴팁 내용 컨테이너 (직접 툴팁 요소에 추가)
+    // 툴팁 내용
     const content = document.createElement('div');
     content.className = 'tooltip-content';
+    tooltipElement.appendChild(content);
     
     // 옵션 데이터 가져오기
     const options = item.options || item.item_option || [];
@@ -324,14 +326,15 @@ renderMabinogiStyleTooltip(item) {
     Object.entries(optionGroups).forEach(([groupName, groupOptions]) => {
       // 해당 그룹에 옵션이 있는 경우만 섹션 생성
       if (groupOptions.length > 0) {
-        const sectionBlock = document.createElement('div');
-        sectionBlock.className = 'tooltip-block';
+        // 블록 생성
+        const block = document.createElement('div');
+        block.className = 'tooltip-block';
         
-        // 섹션 제목
-        const sectionTitle = document.createElement('div');
-        sectionTitle.className = 'tooltip-block-title';
-        sectionTitle.textContent = groupName;
-        sectionBlock.appendChild(sectionTitle);
+        // 제목 생성
+        const title = document.createElement('div');
+        title.className = 'tooltip-block-title';
+        title.textContent = groupName;
+        block.appendChild(title);
         
         // 해당 섹션의 옵션들 추가
         groupOptions.forEach(option => {
@@ -342,17 +345,17 @@ renderMabinogiStyleTooltip(item) {
           if (option.option_type === '장인 개조') {
             // 장인 개조 텍스트 추가
             const labelElement = document.createElement('div');
-            labelElement.className = `tooltip-stat`;
+            labelElement.className = 'tooltip-stat';
             labelElement.textContent = '장인 개조';
-            sectionBlock.appendChild(labelElement);
+            block.appendChild(labelElement);
             
             // 효과들은 개별적으로 추가
             const modParts = option.option_value.split(',');
             modParts.forEach(part => {
               const effectElement = document.createElement('div');
-              effectElement.className = `tooltip-stat item-blue`;
+              effectElement.className = 'tooltip-stat item-blue';
               effectElement.textContent = `- ${part.trim()}`;
-              sectionBlock.appendChild(effectElement);
+              block.appendChild(effectElement);
             });
           } 
           // 특수 처리: 전용 아이템 해제
@@ -360,14 +363,14 @@ renderMabinogiStyleTooltip(item) {
             // 첫 번째 줄
             const firstLine = document.createElement('div');
             firstLine.className = `tooltip-stat ${definition?.color ? this.colorClass[definition.color] : ''}`;
-            firstLine.textContent = `전용 아이템 (전용 일시 해제)`;
-            sectionBlock.appendChild(firstLine);
+            firstLine.textContent = '전용 아이템 (전용 일시 해제)';
+            block.appendChild(firstLine);
             
             // 두 번째 줄
             const secondLine = document.createElement('div');
             secondLine.className = `tooltip-stat ${definition?.color ? this.colorClass[definition.color] : ''}`;
             secondLine.textContent = `남은 전용 해제 가능 횟수: ${option.option_value}`;
-            sectionBlock.appendChild(secondLine);
+            block.appendChild(secondLine);
           }
           // 특수 처리: 인챈트
           else if (option.option_type === '인챈트') {
@@ -393,9 +396,9 @@ renderMabinogiStyleTooltip(item) {
             
             // 기본 정보 요소 생성
             const enchantElement = document.createElement('div');
-            enchantElement.className = `tooltip-stat`;
+            enchantElement.className = 'tooltip-stat';
             enchantElement.innerHTML = `<span class="enchant-type">[${type}]</span> ${enchantName} <span class="item-pink">${rankText}</span>`;
-            sectionBlock.appendChild(enchantElement);
+            block.appendChild(enchantElement);
             
             // 인챈트 효과 처리
             if (option.option_desc) {
@@ -447,7 +450,7 @@ renderMabinogiStyleTooltip(item) {
                   effectElement.innerHTML = `- <span class="${isNegative ? 'item-red' : 'item-blue'}">${cleanEffect}</span>`;
                 }
                 
-                sectionBlock.appendChild(effectElement);
+                block.appendChild(effectElement);
               });
             }
           }
@@ -464,7 +467,7 @@ renderMabinogiStyleTooltip(item) {
                 const statElement = document.createElement('div');
                 statElement.className = `tooltip-stat ${colorClass}`;
                 statElement.innerHTML = processedOption.text;
-                sectionBlock.appendChild(statElement);
+                block.appendChild(statElement);
               } 
               // 일반 텍스트에서 줄바꿈 처리
               else if (processedOption.text.includes('\n')) {
@@ -473,19 +476,20 @@ renderMabinogiStyleTooltip(item) {
                   const lineElement = document.createElement('div');
                   lineElement.className = `tooltip-stat ${colorClass}`;
                   lineElement.textContent = line.trim();
-                  sectionBlock.appendChild(lineElement);
+                  block.appendChild(lineElement);
                 });
               } else {
                 const statElement = document.createElement('div');
                 statElement.className = `tooltip-stat ${colorClass}`;
                 statElement.textContent = processedOption.text;
-                sectionBlock.appendChild(statElement);
+                block.appendChild(statElement);
               }
             }
           }
         });
         
-        content.appendChild(sectionBlock);
+        // 완성된 블록을 컨텐츠에 추가
+        content.appendChild(block);
       }
     });
     
@@ -493,14 +497,12 @@ renderMabinogiStyleTooltip(item) {
     if (item.auction_price_per_unit) {
       const formattedPrice = this.formatItemPrice(item.auction_price_per_unit);
       
-      // 가격 정보 - 테두리 없이 직접 추가
-      const priceContent = document.createElement('div');
-      priceContent.className = 'tooltip-price';
-      priceContent.innerHTML = `가격: <span class="${formattedPrice.class}">${formattedPrice.text}</span>`;
-      content.appendChild(priceContent);
+      const priceElement = document.createElement('div');
+      priceElement.className = 'tooltip-price';
+      priceElement.innerHTML = `가격: <span class="${formattedPrice.class}">${formattedPrice.text}</span>`;
+      content.appendChild(priceElement);
     }
     
-    tooltipElement.appendChild(content);
     return tooltipElement;
   }
   
