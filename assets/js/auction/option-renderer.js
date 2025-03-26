@@ -249,11 +249,11 @@ class OptionRenderer {
   }
 
   /**
-   * 마비노기 스타일 아이템 툴팁 렌더링
-   * @param {Object} item - 아이템 데이터
-   * @returns {HTMLElement} 툴팁 요소
-   */
-  renderMabinogiStyleTooltip(item) {
+ * 마비노기 스타일 아이템 툴팁 렌더링
+ * @param {Object} item - 아이템 데이터
+ * @returns {HTMLElement} 툴팁 요소
+ */
+renderMabinogiStyleTooltip(item) {
     const tooltipElement = document.createElement('div');
     tooltipElement.className = 'item-tooltip';
     
@@ -263,7 +263,7 @@ class OptionRenderer {
     header.innerHTML = `<h3>${item.item_display_name || item.item_name || '이름 없음'}</h3>`;
     tooltipElement.appendChild(header);
     
-    // 툴팁 내용 컨테이너
+    // 툴팁 내용 컨테이너 (직접 툴팁 요소에 추가)
     const content = document.createElement('div');
     content.className = 'tooltip-content';
     
@@ -493,20 +493,11 @@ class OptionRenderer {
     if (item.auction_price_per_unit) {
       const formattedPrice = this.formatItemPrice(item.auction_price_per_unit);
       
-      const priceBlock = document.createElement('div');
-      priceBlock.className = 'tooltip-block';
-      
-      const priceTitle = document.createElement('div');
-      priceTitle.className = 'tooltip-block-title';
-      priceTitle.textContent = '가격 정보';
-      priceBlock.appendChild(priceTitle);
-      
+      // 가격 정보 - 테두리 없이 직접 추가
       const priceContent = document.createElement('div');
-      priceContent.className = 'tooltip-stat';
+      priceContent.className = 'tooltip-price';
       priceContent.innerHTML = `가격: <span class="${formattedPrice.class}">${formattedPrice.text}</span>`;
-      priceBlock.appendChild(priceContent);
-      
-      content.appendChild(priceBlock);
+      content.appendChild(priceContent);
     }
     
     tooltipElement.appendChild(content);
