@@ -249,11 +249,11 @@ class OptionRenderer {
   }
 
   /**
- * 마비노기 스타일 아이템 툴팁 렌더링
- * @param {Object} item - 아이템 데이터
- * @returns {HTMLElement} 툴팁 요소
- */
-renderMabinogiStyleTooltip(item) {
+   * 마비노기 스타일 아이템 툴팁 렌더링
+   * @param {Object} item - 아이템 데이터
+   * @returns {HTMLElement} 툴팁 요소
+   */
+  renderMabinogiStyleTooltip(item) {
     const tooltipElement = document.createElement('div');
     tooltipElement.className = 'item-tooltip';
     
