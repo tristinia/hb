@@ -979,60 +979,86 @@ input[type="number"] {
     pointer-events: none;
     opacity: 0.95;
     min-width: 240px;
-    max-width: 240px;
+    max-width: 300px;
     min-height: 45px;
     font-family: 'Malgun Gothic', sans-serif;
     color: var(--color-dark);
     overflow: auto;
+    padding: 0; /* 패딩 제거 */
 }
 
+/* 헤더 스타일 */
 .tooltip-header {
     text-align: center;
-    padding: var(--spacing-xs) var(--spacing-xs);
-    border-bottom: 1px dotted var(--color-light-gray);
-    background-color: var(--color-accent-20);
+    margin-bottom: var(--spacing-xs);
+    background: none;
+    border: none;
+    padding: var(--spacing-xs) var(--spacing-xs) 0; /* 패딩 추가 */
 }
 
 .tooltip-header h3 {
-    color: var(--color-dark);
     font-size: var(--font-size-md);
     font-weight: var(--font-weight-bold);
     margin: 0;
     line-height: 1.2;
 }
 
-.tooltip-content {
-    padding: var(--spacing-xs) var(--spacing-xs);
-}
-
+/* 섹션 블록 */
 .tooltip-block {
-    margin-bottom: var(--spacing-xs);
+    position: relative;
+    border: 1px solid var(--color-light-gray);
+    border-radius: var(--border-radius-xs);
+    padding: var(--spacing-xs);
+    margin: 0 var(--spacing-xs) var(--spacing-xs); /* 좌우 마진 추가 */
+    background: none;
 }
 
+.tooltip-block:first-of-type {
+    margin-top: var(--spacing-xs);
+}
+
+/* 블록 제목 */
 .tooltip-block-title {
-    color: var(--color-dark);
-    font-size: var(--font-size-sm);
+    position: absolute;
+    top: -7px;
+    left: var(--spacing-sm);
+    font-size: var(--font-size-xs);
     font-weight: var(--font-weight-bold);
-    border-bottom: 1px dotted var(--color-light-gray);
-    padding-bottom: var(--spacing-xxs);
-    margin-bottom: var(--spacing-xxs);
-    background-color: var(--color-accent-40);
+    padding: 0 var(--spacing-xxs);
+    background-color: var(--color-off-white);
+    border: none;
 }
 
+/* 아이템 속성 */
 .tooltip-stat {
-    color: var(--color-dark);
     font-size: var(--font-size-xs);
-    line-height: 1.4;
+    line-height: 1.3;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 2px 0;
 }
 
+/* 특수 속성 */
 .tooltip-special-stat {
-    color: var(--color-dark);
     font-size: var(--font-size-xs);
-    line-height: 1.4;
+    line-height: 1.3;
     margin-left: var(--spacing-xs);
-    background-color: var(--color-accent-20);
+    border: none;
+    background: none;
 }
 
+/* 가격 정보 */
+.tooltip-price {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    margin: var(--spacing-xs) 0;
+    padding: 0 var(--spacing-xs); /* 좌우 패딩만 */
+    border: none;
+    background: none;
+}
+
+/* 색상 클래스 */
 .tooltip-yellow {
     color: var(--color-accent);
 }
