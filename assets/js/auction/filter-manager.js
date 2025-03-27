@@ -649,7 +649,7 @@ function addFilterItem(filterName) {
 }
 
 /**
- * 드롭다운에 필터 추가
+ * 드롭다운에 필터 추가 (원래 순서 유지)
  */
 function addFilterToDropdown(filterInfo) {
     if (!elements.filterSelector) return;
@@ -661,25 +661,54 @@ function addFilterToDropdown(filterInfo) {
     
     if (existingOption) return;
     
-    // 옵션 추가
+    // 옵션 추가 - 원래 위치를 찾기 위해 availableFilters 배열 활용
     const option = document.createElement('option');
     option.value = filterInfo.name;
     option.textContent = filterInfo.displayName || filterInfo.name;
     
-    elements.filterSelector.appendChild(option);
+    // 원래 순서를 유지하기 위해 적절한 위치 찾기
+    const availableFilterIndex = state.availableFilters.findIndex(f => f.name === filterInfo.name);
+    
+    if (availableFilterIndex === -1) {
+        // 필터 정보를 찾을 수 없으면 맨 뒤에 추가
+        elements.filterSelector.appendChild(option);
+        return;
+    }
+    
+    // 삽입 위치 결정
+    let insertPosition = 1; // 첫 번째 옵션(기본 '옵션 선택...' 옵션) 다음부터 시작
+    
+    for (let i = 0; i < availableFilterIndex; i++) {
+        const filter = state.availableFilters[i];
+        // 이미 드롭다운에 있는 필터인지 확인
+        const existingFilterOption = Array.from(elements.filterSelector.options).find(opt => 
+            opt.value === filter.name
+        );
+        
+        if (existingFilterOption) {
+            insertPosition++;
+        }
+    }
+    
+    // 적절한 위치에 옵션 삽입
+    const referenceOption = elements.filterSelector.options[insertPosition] || null;
+    elements.filterSelector.insertBefore(option, referenceOption);
 }
 
 /**
  * 필터 적용
  */
 function applyFilters() {
+    // 로딩 스피너 표시하지 않음 (사용성 향상)
+    
     // 페이지네이션 가시성 업데이트
     updatePaginationVisibility();
     
     // 필터 변경 이벤트 발생
     const event = new CustomEvent('filterChanged', {
         detail: {
-            filters: state.activeFilters
+            filters: state.activeFilters,
+            hideLoading: true // 로딩 스피너 숨김 옵션 추가
         }
     });
     document.dispatchEvent(event);
@@ -689,6 +718,7 @@ function applyFilters() {
 
 /**
  * 페이지네이션 가시성 업데이트
+ * 참고: 필터 상태와 관계없이 페이지네이션은 항상 표시되어야 함
  */
 function updatePaginationVisibility() {
     // 페이지네이션 관리자 존재하는지 확인
@@ -697,14 +727,8 @@ function updatePaginationVisibility() {
     const paginationElement = document.getElementById('pagination');
     if (!paginationElement) return;
     
-    // 필터가 없거나 빈 상태일 때 페이지네이션 숨김
-    const hasActiveFilters = state.activeFilters.length > 0;
-    
-    if (!hasActiveFilters) {
-        paginationElement.style.display = 'none';
-    } else {
-        paginationElement.style.display = '';
-    }
+    // 페이지네이션은 항상 표시 (필터와 무관)
+    paginationElement.style.display = '';
 }
 
 /**
@@ -820,7 +844,7 @@ function createReforgeStatusFilter(container, filterItem, filterInfo) {
     
     const rankLabel = document.createElement('div');
     rankLabel.className = 'filter-section-label';
-    rankLabel.textContent = '세공 랭크:';
+    rankLabel.textContent = '랭크';
     rankSection.appendChild(rankLabel);
     
     // 랭크 버튼 컨테이너
@@ -862,7 +886,7 @@ function createReforgeStatusFilter(container, filterItem, filterInfo) {
     
     const lineLabel = document.createElement('div');
     lineLabel.className = 'filter-section-label';
-    lineLabel.textContent = '줄 수:';
+    lineLabel.textContent = '발현';
     lineSection.appendChild(lineLabel);
     
     // 줄 수 버튼 컨테이너
@@ -909,7 +933,7 @@ function createErgFilter(container, filterItem, filterInfo) {
     
     const gradeLabel = document.createElement('div');
     gradeLabel.className = 'filter-section-label';
-    gradeLabel.textContent = '에르그 등급:';
+    gradeLabel.textContent = '등급';
     gradeSection.appendChild(gradeLabel);
     
     // 등급 버튼 컨테이너
@@ -951,7 +975,7 @@ function createErgFilter(container, filterItem, filterInfo) {
     
     const levelLabel = document.createElement('div');
     levelLabel.className = 'filter-section-label';
-    levelLabel.textContent = '에르그 레벨:';
+    levelLabel.textContent = '레벨';
     levelSection.appendChild(levelLabel);
     
     // 범위 입력 컨테이너
@@ -962,7 +986,7 @@ function createErgFilter(container, filterItem, filterInfo) {
     const minInput = document.createElement('input');
     minInput.type = 'number';
     minInput.className = 'filter-input min-value erg-min-level';
-    minInput.placeholder = '최소 레벨';
+    minInput.placeholder = '';
     minInput.min = 0;
     minInput.max = 50;  // 에르그 최대 레벨 50
     
@@ -973,7 +997,7 @@ function createErgFilter(container, filterItem, filterInfo) {
     const maxInput = document.createElement('input');
     maxInput.type = 'number';
     maxInput.className = 'filter-input max-value erg-max-level';
-    maxInput.placeholder = '최대 레벨';
+    maxInput.placeholder = '';
     maxInput.min = 0;
     maxInput.max = 50;  // 에르그 최대 레벨 50
     
@@ -997,22 +1021,22 @@ function createErgFilter(container, filterItem, filterInfo) {
  * 특별 개조 필터 UI 생성
  */
 function createSpecialModFilter(container, filterItem, filterInfo) {
-    // 1. 특별 개조 타입 선택 섹션 (S, R 버튼)
+    // 1. 특별 개조 타입 선택 섹션 (R, S 버튼) - 순서 변경
     const typeSection = document.createElement('div');
     typeSection.className = 'filter-section';
     
     // 타입 레이블
     const typeLabel = document.createElement('div');
     typeLabel.className = 'filter-section-label';
-    typeLabel.textContent = '타입:';
+    typeLabel.textContent = '타입';
     typeSection.appendChild(typeLabel);
     
     // 타입 버튼 컨테이너
     const typeButtons = document.createElement('div');
     typeButtons.className = 'special-mod-buttons';
     
-    // 타입 버튼: S, R
-    ['S', 'R'].forEach(type => {
+    // 타입 버튼: R, S (순서 변경)
+    ['R', 'S'].forEach(type => {
         const button = document.createElement('button');
         button.className = 'special-mod-btn';
         button.textContent = type;
@@ -1047,7 +1071,7 @@ function createSpecialModFilter(container, filterItem, filterInfo) {
     
     const levelLabel = document.createElement('div');
     levelLabel.className = 'filter-section-label';
-    levelLabel.textContent = '단계 범위:';
+    levelLabel.textContent = '단계';
     levelSection.appendChild(levelLabel);
     
     const levelInputRow = document.createElement('div');
@@ -1056,7 +1080,7 @@ function createSpecialModFilter(container, filterItem, filterInfo) {
     const minInput = document.createElement('input');
     minInput.type = 'number';
     minInput.className = 'filter-input min-value';
-    minInput.placeholder = '최소 단계';
+    minInput.placeholder = '';
     minInput.min = 1;
     minInput.max = 10;  // 특별 개조 최대 단계
     
@@ -1067,7 +1091,7 @@ function createSpecialModFilter(container, filterItem, filterInfo) {
     const maxInput = document.createElement('input');
     maxInput.type = 'number';
     maxInput.className = 'filter-input max-value';
-    maxInput.placeholder = '최대 단계';
+    maxInput.placeholder = '';
     maxInput.min = 1;
     maxInput.max = 10;  // 특별 개조 최대 단계
     
@@ -1093,47 +1117,203 @@ function createSpecialModFilter(container, filterItem, filterInfo) {
 function createEnchantFilter(container, filterItem, filterInfo) {
     // 접두 인챈트 입력 필드
     const prefixSection = document.createElement('div');
-    prefixSection.className = 'enchant-search-container';
+    prefixSection.className = 'filter-section';
     
     const prefixLabel = document.createElement('div');
-    prefixLabel.className = 'enchant-label';
-    prefixLabel.textContent = '접두:';
+    prefixLabel.className = 'filter-section-label';
+    prefixLabel.textContent = '접두';
     prefixSection.appendChild(prefixLabel);
+    
+    const prefixInputWrapper = document.createElement('div');
+    prefixInputWrapper.className = 'input-with-clear';
     
     const prefixInput = document.createElement('input');
     prefixInput.type = 'text';
     prefixInput.className = 'filter-input enchant-input prefix-enchant';
-    prefixInput.placeholder = '접두 인챈트';
+    prefixInput.placeholder = '';
+    
+    // 자동완성 기능
+    prefixInput.addEventListener('input', (e) => {
+        handleEnchantAutocomplete(prefixInput, 'prefix');
+    });
     
     // 입력 완료 후 필터링 적용
     prefixInput.addEventListener('change', () => {
         applyEnchantFilter(filterItem, filterInfo);
     });
     
-    prefixSection.appendChild(prefixInput);
+    // 클리어 버튼
+    const prefixClearBtn = document.createElement('button');
+    prefixClearBtn.className = 'clear-input-btn';
+    prefixClearBtn.innerHTML = '×';
+    prefixClearBtn.style.display = 'none';
+    prefixClearBtn.addEventListener('click', () => {
+        prefixInput.value = '';
+        prefixClearBtn.style.display = 'none';
+        applyEnchantFilter(filterItem, filterInfo);
+    });
+    
+    // 입력값에 따라 클리어 버튼 표시/숨김
+    prefixInput.addEventListener('input', () => {
+        prefixClearBtn.style.display = prefixInput.value ? 'block' : 'none';
+    });
+    
+    prefixInputWrapper.appendChild(prefixInput);
+    prefixInputWrapper.appendChild(prefixClearBtn);
+    prefixSection.appendChild(prefixInputWrapper);
     container.appendChild(prefixSection);
+    
+    // 자동완성 목록 컨테이너
+    const prefixAutoCompleteList = document.createElement('div');
+    prefixAutoCompleteList.className = 'autocomplete-list prefix-autocomplete';
+    prefixAutoCompleteList.style.display = 'none';
+    prefixSection.appendChild(prefixAutoCompleteList);
     
     // 접미 인챈트 입력 필드
     const suffixSection = document.createElement('div');
-    suffixSection.className = 'enchant-search-container';
+    suffixSection.className = 'filter-section';
     
     const suffixLabel = document.createElement('div');
-    suffixLabel.className = 'enchant-label';
-    suffixLabel.textContent = '접미:';
+    suffixLabel.className = 'filter-section-label';
+    suffixLabel.textContent = '접미';
     suffixSection.appendChild(suffixLabel);
+    
+    const suffixInputWrapper = document.createElement('div');
+    suffixInputWrapper.className = 'input-with-clear';
     
     const suffixInput = document.createElement('input');
     suffixInput.type = 'text';
     suffixInput.className = 'filter-input enchant-input suffix-enchant';
-    suffixInput.placeholder = '접미 인챈트';
+    suffixInput.placeholder = '';
+    
+    // 자동완성 기능
+    suffixInput.addEventListener('input', (e) => {
+        handleEnchantAutocomplete(suffixInput, 'suffix');
+    });
     
     // 입력 완료 후 필터링 적용
     suffixInput.addEventListener('change', () => {
         applyEnchantFilter(filterItem, filterInfo);
     });
     
-    suffixSection.appendChild(suffixInput);
+    // 클리어 버튼
+    const suffixClearBtn = document.createElement('button');
+    suffixClearBtn.className = 'clear-input-btn';
+    suffixClearBtn.innerHTML = '×';
+    suffixClearBtn.style.display = 'none';
+    suffixClearBtn.addEventListener('click', () => {
+        suffixInput.value = '';
+        suffixClearBtn.style.display = 'none';
+        applyEnchantFilter(filterItem, filterInfo);
+    });
+    
+    // 입력값에 따라 클리어 버튼 표시/숨김
+    suffixInput.addEventListener('input', () => {
+        suffixClearBtn.style.display = suffixInput.value ? 'block' : 'none';
+    });
+    
+    suffixInputWrapper.appendChild(suffixInput);
+    suffixInputWrapper.appendChild(suffixClearBtn);
+    suffixSection.appendChild(suffixInputWrapper);
     container.appendChild(suffixSection);
+    
+    // 자동완성 목록 컨테이너
+    const suffixAutoCompleteList = document.createElement('div');
+    suffixAutoCompleteList.className = 'autocomplete-list suffix-autocomplete';
+    suffixAutoCompleteList.style.display = 'none';
+    suffixSection.appendChild(suffixAutoCompleteList);
+}
+
+/**
+ * 인챈트 자동완성 처리 함수
+ */
+function handleEnchantAutocomplete(inputElement, type) {
+    const query = inputElement.value.trim();
+    
+    // 자동완성 목록 엘리먼트 찾기
+    const listElement = inputElement.closest('.filter-section')
+        .querySelector(`.${type}-autocomplete`);
+    
+    // 검색어가 없으면 자동완성 숨김
+    if (!query || query.length < 2) {
+        listElement.style.display = 'none';
+        return;
+    }
+    
+    // 메타데이터에서 인챈트 검색
+    const enchants = searchEnchantsByName(query, type);
+    
+    // 결과가 없으면 자동완성 숨김
+    if (enchants.length === 0) {
+        listElement.style.display = 'none';
+        return;
+    }
+    
+    // 자동완성 목록 렌더링
+    renderEnchantAutoComplete(listElement, enchants, inputElement);
+}
+
+/**
+ * 인챈트 이름으로 검색
+ */
+function searchEnchantsByName(query, type) {
+    // 메타데이터에서 찾기
+    const enchantData = state.autoCompleteData.enchants[type === 'prefix' ? 'prefix' : 'suffix'];
+    
+    if (!enchantData || !enchantData.enchants) {
+        return [];
+    }
+    
+    const results = [];
+    const lowerQuery = query.toLowerCase();
+    
+    // 검색어와 일치하는 인챈트 찾기
+    for (const enchantName in enchantData.enchants) {
+        if (enchantName.toLowerCase().includes(lowerQuery)) {
+            const enchant = enchantData.enchants[enchantName];
+            results.push({
+                name: enchantName,
+                rank: enchant.rank
+            });
+        }
+    }
+    
+    // 최대 10개까지만 반환
+    return results.slice(0, 10);
+}
+
+/**
+ * 인챈트 자동완성 목록 렌더링
+ */
+function renderEnchantAutoComplete(listElement, enchants, inputElement) {
+    listElement.innerHTML = '';
+    
+    // 각 인챈트에 대한 항목 생성
+    enchants.forEach(enchant => {
+        const item = document.createElement('div');
+        item.className = 'autocomplete-item';
+        item.textContent = `${enchant.name} (랭크 ${enchant.rank})`;
+        
+        // 클릭 이벤트
+        item.addEventListener('click', () => {
+            inputElement.value = enchant.name;
+            listElement.style.display = 'none';
+            
+            // 클리어 버튼 표시
+            const clearBtn = inputElement.nextElementSibling;
+            if (clearBtn && clearBtn.classList.contains('clear-input-btn')) {
+                clearBtn.style.display = 'block';
+            }
+            
+            // 변경 이벤트 발생시켜 필터 적용
+            inputElement.dispatchEvent(new Event('change'));
+        });
+        
+        listElement.appendChild(item);
+    });
+    
+    // 자동완성 목록 표시
+    listElement.style.display = 'block';
 }
 
 /**
@@ -1147,23 +1327,60 @@ function createReforgeOptionFilter(container, filterItem, filterInfo) {
         
         const optionLabel = document.createElement('div');
         optionLabel.className = 'filter-section-label';
-        optionLabel.textContent = `옵션 ${i}:`;
+        optionLabel.textContent = '명칭';
         optionSection.appendChild(optionLabel);
+        
+        // 옵션 이름 입력 래퍼
+        const inputWrapper = document.createElement('div');
+        inputWrapper.className = 'input-with-clear';
         
         // 옵션 이름 입력
         const nameInput = document.createElement('input');
         nameInput.type = 'text';
         nameInput.className = `filter-input reforge-option-name reforge-option-${i}`;
-        nameInput.placeholder = '세공 옵션 이름';
+        nameInput.placeholder = '';
         
-        // 입력 변경 이벤트
+        // 클리어 버튼
+        const clearBtn = document.createElement('button');
+        clearBtn.className = 'clear-input-btn';
+        clearBtn.innerHTML = '×';
+        clearBtn.style.display = 'none';
+        clearBtn.addEventListener('click', () => {
+            nameInput.value = '';
+            clearBtn.style.display = 'none';
+            
+            // 범위 섹션 숨기기
+            const rangeSection = optionSection.querySelector('.reforge-range-section');
+            if (rangeSection) {
+                rangeSection.style.display = 'none';
+            }
+            
+            applyReforgeOptionFilter(filterItem, filterInfo);
+        });
+        
+        // 자동완성 기능
         nameInput.addEventListener('input', () => {
+            // 클리어 버튼 표시/숨김
+            clearBtn.style.display = nameInput.value ? 'block' : 'none';
+            
+            // 자동완성 처리
+            handleReforgeOptionAutocomplete(nameInput);
+            
             // 입력값이 있으면 범위 필터 표시, 없으면 숨김
             const hasValue = nameInput.value.trim() !== '';
             const rangeSection = optionSection.querySelector('.reforge-range-section');
             
             if (rangeSection) {
-                rangeSection.style.display = hasValue ? 'block' : 'none';
+                // 부드러운 애니메이션 전환
+                if (hasValue) {
+                    rangeSection.style.maxHeight = '100px';
+                    rangeSection.style.opacity = '1';
+                    rangeSection.style.visibility = 'visible';
+                } else {
+                    rangeSection.style.maxHeight = '0';
+                    rangeSection.style.opacity = '0';
+                    rangeSection.style.visibility = 'hidden';
+                }
             } else if (hasValue) {
                 // 범위 필터 섹션 생성
                 createReforgeRangeSection(optionSection, i);
@@ -1175,9 +1392,125 @@ function createReforgeOptionFilter(container, filterItem, filterInfo) {
             applyReforgeOptionFilter(filterItem, filterInfo);
         });
         
-        optionSection.appendChild(nameInput);
+        inputWrapper.appendChild(nameInput);
+        inputWrapper.appendChild(clearBtn);
+        optionSection.appendChild(inputWrapper);
+        
+        // 자동완성 목록 컨테이너
+        const autoCompleteList = document.createElement('div');
+        autoCompleteList.className = 'autocomplete-list reforge-option-autocomplete';
+        autoCompleteList.style.display = 'none';
+        optionSection.appendChild(autoCompleteList);
+        
         container.appendChild(optionSection);
     }
+}
+
+/**
+ * 세공 옵션 자동완성 처리
+ */
+function handleReforgeOptionAutocomplete(inputElement) {
+    const query = inputElement.value.trim();
+    
+    // 자동완성 목록 엘리먼트 찾기
+    const listElement = inputElement.closest('.filter-section')
+        .querySelector('.reforge-option-autocomplete');
+    
+    // 검색어가 없으면 자동완성 숨김
+    if (!query || query.length < 2) {
+        listElement.style.display = 'none';
+        return;
+    }
+    
+    // 메타데이터에서 세공 옵션 검색
+    const options = searchReforgeOptions(query);
+    
+    // 결과가 없으면 자동완성 숨김
+    if (options.length === 0) {
+        listElement.style.display = 'none';
+        return;
+    }
+    
+    // 자동완성 목록 렌더링
+    renderReforgeOptionAutoComplete(listElement, options, inputElement);
+}
+
+/**
+ * 세공 옵션 검색
+ */
+function searchReforgeOptions(query) {
+    // 메타데이터에서 찾기
+    const reforgeData = state.autoCompleteData.reforges;
+    
+    if (!reforgeData || !reforgeData.reforges) {
+        return [];
+    }
+    
+    const results = [];
+    const lowerQuery = query.toLowerCase();
+    const category = state.currentCategory || '';
+    
+    // 현재 카테고리 또는 모든 카테고리에서 검색
+    let categories = [];
+    
+    if (reforgeData.reforges[category]) {
+        categories.push(category);
+    } else {
+        // 모든 카테고리 검색
+        categories = Object.keys(reforgeData.reforges);
+    }
+    
+    // 각 카테고리에서 검색
+    categories.forEach(cat => {
+        const options = reforgeData.reforges[cat] || [];
+        
+        options.forEach(option => {
+            if (option.toLowerCase().includes(lowerQuery) && 
+                !results.includes(option)) {
+                results.push(option);
+            }
+        });
+    });
+    
+    // 최대 10개까지만 반환
+    return results.slice(0, 10);
+}
+
+/**
+ * 세공 옵션 자동완성 목록 렌더링
+ */
+function renderReforgeOptionAutoComplete(listElement, options, inputElement) {
+    listElement.innerHTML = '';
+    
+    // 각 옵션에 대한 항목 생성
+    options.forEach(option => {
+        const item = document.createElement('div');
+        item.className = 'autocomplete-item';
+        item.textContent = option;
+        
+        // 클릭 이벤트
+        item.addEventListener('click', () => {
+            inputElement.value = option;
+            listElement.style.display = 'none';
+            
+            // 클리어 버튼 표시
+            const clearBtn = inputElement.nextElementSibling;
+            if (clearBtn && clearBtn.classList.contains('clear-input-btn')) {
+                clearBtn.style.display = 'block';
+            }
+            
+            // 입력값 변경 이벤트 발생
+            inputElement.dispatchEvent(new Event('input'));
+            
+            // 변경 이벤트 발생시켜 필터 적용
+            inputElement.dispatchEvent(new Event('change'));
+        });
+        
+        listElement.appendChild(item);
+    });
+    
+    // 자동완성 목록 표시
+    listElement.style.display = 'block';
 }
 
 /**
@@ -1186,11 +1519,15 @@ function createReforgeOptionFilter(container, filterItem, filterInfo) {
 function createReforgeRangeSection(parentSection, index) {
     const rangeSection = document.createElement('div');
     rangeSection.className = 'reforge-range-section';
-    rangeSection.style.marginTop = '8px';
+    rangeSection.style.transition = 'max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s';
+    rangeSection.style.maxHeight = '0';
+    rangeSection.style.opacity = '0';
+    rangeSection.style.visibility = 'hidden';
+    rangeSection.style.overflow = 'hidden';
     
     const rangeLabel = document.createElement('div');
     rangeLabel.className = 'filter-section-label';
-    rangeLabel.textContent = '레벨 범위:';
+    rangeLabel.textContent = '범위';
     rangeSection.appendChild(rangeLabel);
     
     const inputRow = document.createElement('div');
@@ -1199,7 +1536,7 @@ function createReforgeRangeSection(parentSection, index) {
     const minInput = document.createElement('input');
     minInput.type = 'number';
     minInput.className = `filter-input reforge-min-level reforge-min-level-${index}`;
-    minInput.placeholder = '최소 레벨';
+    minInput.placeholder = '';
     minInput.min = 1;
     
     const separator = document.createElement('span');
@@ -1209,7 +1546,7 @@ function createReforgeRangeSection(parentSection, index) {
     const maxInput = document.createElement('input');
     maxInput.type = 'number';
     maxInput.className = `filter-input reforge-max-level reforge-max-level-${index}`;
-    maxInput.placeholder = '최대 레벨';
+    maxInput.placeholder = '';
     maxInput.min = 1;
     
     inputRow.appendChild(minInput);
@@ -1217,10 +1554,14 @@ function createReforgeRangeSection(parentSection, index) {
     inputRow.appendChild(maxInput);
     rangeSection.appendChild(inputRow);
     
-    // 초기에는 숨김 상태
-    rangeSection.style.display = 'none';
-    
     parentSection.appendChild(rangeSection);
+    
+    // 애니메이션 시작을 위해 setTimeout 사용
+    setTimeout(() => {
+        rangeSection.style.maxHeight = '100px';
+        rangeSection.style.opacity = '1';
+        rangeSection.style.visibility = 'visible';
+    }, 10);
 }
 
 /**
@@ -1234,23 +1575,62 @@ function createSetEffectFilter(container, filterItem, filterInfo) {
         
         const effectLabel = document.createElement('div');
         effectLabel.className = 'filter-section-label';
-        effectLabel.textContent = `효과 ${i}:`;
+        effectLabel.textContent = '명칭';
         effectSection.appendChild(effectLabel);
+        
+        // 효과 이름 입력 래퍼
+        const inputWrapper = document.createElement('div');
+        inputWrapper.className = 'input-with-clear';
         
         // 효과 이름 입력
         const nameInput = document.createElement('input');
         nameInput.type = 'text';
         nameInput.className = `filter-input set-effect-name set-effect-${i}`;
-        nameInput.placeholder = '세트 효과 이름';
+        nameInput.placeholder = '';
         
-        // 입력 변경 이벤트
+        // 클리어 버튼
+        const clearBtn = document.createElement('button');
+        clearBtn.className = 'clear-input-btn';
+        clearBtn.innerHTML = '×';
+        clearBtn.style.display = 'none';
+        clearBtn.addEventListener('click', () => {
+            nameInput.value = '';
+            clearBtn.style.display = 'none';
+            
+            // 범위 섹션 숨기기
+            const rangeSection = effectSection.querySelector('.set-effect-range-section');
+            if (rangeSection) {
+                rangeSection.style.maxHeight = '0';
+                rangeSection.style.opacity = '0';
+                rangeSection.style.visibility = 'hidden';
+            }
+            
+            applySetEffectFilter(filterItem, filterInfo);
+        });
+        
+        // 자동완성 기능
         nameInput.addEventListener('input', () => {
+            // 클리어 버튼 표시/숨김
+            clearBtn.style.display = nameInput.value ? 'block' : 'none';
+            
+            // 자동완성 처리
+            handleSetEffectAutocomplete(nameInput);
+            
             // 입력값이 있으면 범위 필터 표시, 없으면 숨김
             const hasValue = nameInput.value.trim() !== '';
             const rangeSection = effectSection.querySelector('.set-effect-range-section');
             
             if (rangeSection) {
-                rangeSection.style.display = hasValue ? 'block' : 'none';
+                // 부드러운 애니메이션 전환
+                if (hasValue) {
+                    rangeSection.style.maxHeight = '100px';
+                    rangeSection.style.opacity = '1';
+                    rangeSection.style.visibility = 'visible';
+                } else {
+                    rangeSection.style.maxHeight = '0';
+                    rangeSection.style.opacity = '0';
+                    rangeSection.style.visibility = 'hidden';
+                }
             } else if (hasValue) {
                 // 범위 필터 섹션 생성
                 createSetEffectRangeSection(effectSection, i);
@@ -1262,9 +1642,120 @@ function createSetEffectFilter(container, filterItem, filterInfo) {
             applySetEffectFilter(filterItem, filterInfo);
         });
         
-        effectSection.appendChild(nameInput);
+        inputWrapper.appendChild(nameInput);
+        inputWrapper.appendChild(clearBtn);
+        effectSection.appendChild(inputWrapper);
+        
+        // 자동완성 목록 컨테이너
+        const autoCompleteList = document.createElement('div');
+        autoCompleteList.className = 'autocomplete-list set-effect-autocomplete';
+        autoCompleteList.style.display = 'none';
+        effectSection.appendChild(autoCompleteList);
+        
         container.appendChild(effectSection);
     }
+}
+
+/**
+ * 세트 효과 자동완성 처리
+ */
+function handleSetEffectAutocomplete(inputElement) {
+    const query = inputElement.value.trim();
+    
+    // 자동완성 목록 엘리먼트 찾기
+    const listElement = inputElement.closest('.filter-section')
+        .querySelector('.set-effect-autocomplete');
+    
+    // 검색어가 없으면 자동완성 숨김
+    if (!query || query.length < 2) {
+        listElement.style.display = 'none';
+        return;
+    }
+    
+    // 메타데이터에서 세트 효과 검색
+    const effects = searchSetEffects(query);
+    
+    // 결과가 없으면 자동완성 숨김
+    if (effects.length === 0) {
+        listElement.style.display = 'none';
+        return;
+    }
+    
+    // 자동완성 목록 렌더링
+    renderSetEffectAutoComplete(listElement, effects, inputElement);
+}
+
+/**
+ * 세트 효과 검색
+ */
+function searchSetEffects(query) {
+    // 세트 효과 메타데이터에서 찾기
+    const category = state.currentCategory || '';
+    const results = [];
+    const lowerQuery = query.toLowerCase();
+    
+    // 현재 카테고리 또는 모든 카테고리에서 검색
+    let categories = [];
+    
+    if (state.autoCompleteData.setEffects[category]) {
+        categories.push(category);
+    } else {
+        // 모든 카테고리 검색
+        categories = Object.keys(state.autoCompleteData.setEffects);
+    }
+    
+    // 각 카테고리에서 검색
+    categories.forEach(cat => {
+        const setEffectData = state.autoCompleteData.setEffects[cat];
+        if (setEffectData && Array.isArray(setEffectData.set_effects)) {
+            setEffectData.set_effects.forEach(effect => {
+                if (effect.toLowerCase().includes(lowerQuery) && 
+                    !results.includes(effect)) {
+                    results.push(effect);
+                }
+            });
+        }
+    });
+    
+    // 최대 10개까지만 반환
+    return results.slice(0, 10);
+}
+
+/**
+ * 세트 효과 자동완성 목록 렌더링
+ */
+function renderSetEffectAutoComplete(listElement, effects, inputElement) {
+    listElement.innerHTML = '';
+    
+    // 각 세트 효과에 대한 항목 생성
+    effects.forEach(effect => {
+        const item = document.createElement('div');
+        item.className = 'autocomplete-item';
+        item.textContent = effect;
+        
+        // 클릭 이벤트
+        item.addEventListener('click', () => {
+            inputElement.value = effect;
+            listElement.style.display = 'none';
+            
+            // 클리어 버튼 표시
+            const clearBtn = inputElement.nextElementSibling;
+            if (clearBtn && clearBtn.classList.contains('clear-input-btn')) {
+                clearBtn.style.display = 'block';
+            }
+            
+            // 입력값 변경 이벤트 발생
+            inputElement.dispatchEvent(new Event('input'));
+            
+            // 변경 이벤트 발생시켜 필터 적용
+            inputElement.dispatchEvent(new Event('change'));
+        });
+        
+        listElement.appendChild(item);
+    });
+    
+    // 자동완성 목록 표시
+    listElement.style.display = 'block';
 }
 
 /**
@@ -1273,11 +1764,15 @@ function createSetEffectFilter(container, filterItem, filterInfo) {
 function createSetEffectRangeSection(parentSection, index) {
     const rangeSection = document.createElement('div');
     rangeSection.className = 'set-effect-range-section';
-    rangeSection.style.marginTop = '8px';
+    rangeSection.style.transition = 'max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s';
+    rangeSection.style.maxHeight = '0';
+    rangeSection.style.opacity = '0';
+    rangeSection.style.visibility = 'hidden';
+    rangeSection.style.overflow = 'hidden';
     
     const rangeLabel = document.createElement('div');
     rangeLabel.className = 'filter-section-label';
-    rangeLabel.textContent = '수치 범위:';
+    rangeLabel.textContent = '범위';
     rangeSection.appendChild(rangeLabel);
     
     const inputRow = document.createElement('div');
@@ -1286,7 +1781,7 @@ function createSetEffectRangeSection(parentSection, index) {
     const minInput = document.createElement('input');
     minInput.type = 'number';
     minInput.className = `filter-input set-effect-min-value set-effect-min-value-${index}`;
-    minInput.placeholder = '최소값';
+    minInput.placeholder = '';
     minInput.min = 1;
     
     const separator = document.createElement('span');
@@ -1296,7 +1791,7 @@ function createSetEffectRangeSection(parentSection, index) {
     const maxInput = document.createElement('input');
     maxInput.type = 'number';
     maxInput.className = `filter-input set-effect-max-value set-effect-max-value-${index}`;
-    maxInput.placeholder = '최대값';
+    maxInput.placeholder = '';
     maxInput.min = 1;
     
     inputRow.appendChild(minInput);
@@ -1304,10 +1799,14 @@ function createSetEffectRangeSection(parentSection, index) {
     inputRow.appendChild(maxInput);
     rangeSection.appendChild(inputRow);
     
-    // 초기에는 숨김 상태
-    rangeSection.style.display = 'none';
-    
     parentSection.appendChild(rangeSection);
+    
+    // 애니메이션 시작을 위해 setTimeout 사용
+    setTimeout(() => {
+        rangeSection.style.maxHeight = '100px';
+        rangeSection.style.opacity = '1';
+        rangeSection.style.visibility = 'visible';
+    }, 10);
 }
 
 /**
@@ -1579,6 +2078,16 @@ function applySetEffectFilter(filterItem, filterInfo) {
  * 단순 범위 필터 UI 생성
  */
 function createRangeFilter(container, filterItem, filterInfo) {
+    // 범위 레이블과 입력 컨테이너
+    const filterSection = document.createElement('div');
+    filterSection.className = 'filter-section';
+    
+    // "범위" 레이블 추가
+    const rangeLabel = document.createElement('div');
+    rangeLabel.className = 'filter-section-label';
+    rangeLabel.textContent = '범위';
+    filterSection.appendChild(rangeLabel);
+    
     // 범위 입력 컨테이너
     const inputRow = document.createElement('div');
     inputRow.className = 'filter-input-row';
@@ -1587,7 +2096,7 @@ function createRangeFilter(container, filterItem, filterInfo) {
     const minInput = document.createElement('input');
     minInput.type = 'number';
     minInput.className = 'filter-input min-value';
-    minInput.placeholder = '최소값';
+    minInput.placeholder = ''; // 도움말 제거
     minInput.min = 0;
     minInput.setAttribute('aria-label', `${filterInfo.displayName || filterInfo.name} 최소값`);
     
@@ -1598,7 +2107,7 @@ function createRangeFilter(container, filterItem, filterInfo) {
     const maxInput = document.createElement('input');
     maxInput.type = 'number';
     maxInput.className = 'filter-input max-value';
-    maxInput.placeholder = '최대값';
+    maxInput.placeholder = ''; // 도움말 제거
     maxInput.min = 0;
     maxInput.setAttribute('aria-label', `${filterInfo.displayName || filterInfo.name} 최대값`);
     
@@ -1609,7 +2118,9 @@ function createRangeFilter(container, filterItem, filterInfo) {
     inputRow.appendChild(minInput);
     inputRow.appendChild(separator);
     inputRow.appendChild(maxInput);
-    container.appendChild(inputRow);
+    filterSection.appendChild(inputRow);
+    
+    container.appendChild(filterSection);
 }
 
 /**
@@ -1643,17 +2154,39 @@ function createSelectFilter(container, filterItem, filterInfo) {
  * 텍스트 필터 UI 생성
  */
 function createTextFilter(container, filterItem, filterInfo) {
+    // 입력 래퍼 생성
+    const inputWrapper = document.createElement('div');
+    inputWrapper.className = 'input-with-clear';
+    
     // 기본 텍스트 입력
     const input = document.createElement('input');
     input.type = 'text';
     input.className = 'filter-input text-value';
-    input.placeholder = '값 입력';
+    input.placeholder = '';
     input.setAttribute('aria-label', `${filterInfo.displayName || filterInfo.name} 값`);
+    
+    // 클리어 버튼
+    const clearBtn = document.createElement('button');
+    clearBtn.className = 'clear-input-btn';
+    clearBtn.innerHTML = '×';
+    clearBtn.style.display = 'none';
+    clearBtn.addEventListener('click', () => {
+        input.value = '';
+        clearBtn.style.display = 'none';
+        autoApplyFilter(filterItem, filterInfo);
+    });
+    
+    // 입력값에 따라 클리어 버튼 표시/숨김
+    input.addEventListener('input', () => {
+        clearBtn.style.display = input.value ? 'block' : 'none';
+    });
     
     // 입력 후 자동 적용
     input.addEventListener('change', () => autoApplyFilter(filterItem, filterInfo));
     
-    container.appendChild(input);
+    inputWrapper.appendChild(input);
+    inputWrapper.appendChild(clearBtn);
+    container.appendChild(inputWrapper);
 }
 
 /**
