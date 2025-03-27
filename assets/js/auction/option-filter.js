@@ -104,18 +104,17 @@ class OptionFilter {
         case '에르그':
           filters.push({
             name: optionType,
-            displayName: '에르그 레벨',
-            type: 'range',
-            field: 'option_value',
+            displayName: '에르그',
+            type: 'erg',
             option,
-            definition: { type: 'range', field: 'option_value' }
+            definition: { type: 'erg' }
           });
           break;
           
         case '세공 랭크':
           filters.push({
             name: optionType,
-            displayName: '세공 상태',
+            displayName: '세공',
             type: 'reforge-status',
             option,
             definition: { type: 'reforge-status' }
@@ -136,14 +135,10 @@ class OptionFilter {
           filters.push({
             name: optionType,
             displayName: '세트 효과',
-            type: 'range',
-            field: 'option_value2',
-            category: '세트 효과',
+            type: 'set-effect',
             option,
             definition: { 
-              type: 'range', 
-              field: 'option_value2',
-              category: '세트 효과'
+              type: 'set-effect'
             }
           });
           break;
@@ -173,14 +168,10 @@ class OptionFilter {
           return this.checkEnchantFilter(item, filter);
         case 'reforge-option':
           return this.checkReforgeOptionFilter(item, filter);
-        case 'reforge-rank':
-          return this.checkReforgeRankFilter(item, filter);
-        case 'reforge-count':
-          return this.checkReforgeCountFilter(item, filter);
-        case 'erg-grade':
-          return this.checkErgGradeFilter(item, filter);
-        case 'erg-level':
-          return this.checkErgLevelFilter(item, filter);
+        case 'reforge-status':
+          return this.checkReforgeStatusFilter(item, filter);
+        case 'erg':
+          return this.checkErgFilter(item, filter);
         case 'special-mod':
           return this.checkSpecialModFilter(item, filter);
         case 'set-effect':
@@ -277,45 +268,40 @@ class OptionFilter {
   checkEnchantFilter(item, filter) {
     const options = item.options || item.item_option || [];
     
-    // 인챈트 옵션 찾기
-    const enchants = options.filter(opt => 
-      opt.option_type === '인챈트' && 
-      (filter.enchantType ? opt.option_sub_type === filter.enchantType : true)
-    );
-    
-    // 해당 타입의 인챈트가 없으면 실패
-    if (enchants.length === 0) {
-      return false;
+    // 접두 인챈트 필터
+    if (filter.prefixEnchant) {
+      const prefixEnchants = options.filter(opt => 
+        opt.option_type === '인챈트' && opt.option_sub_type === '접두'
+      );
+      
+      // 접두 인챈트 검색
+      const hasMatchingPrefix = prefixEnchants.some(enchant => {
+        const value = enchant.option_value || '';
+        return value.includes(filter.prefixEnchant);
+      });
+      
+      if (!hasMatchingPrefix) return false;
     }
     
-    // 인챈트 이름이 지정되지 않았으면 성공 (타입만 일치)
-    if (!filter.enchantName) {
-      return true;
+    // 접미 인챈트 필터
+    if (filter.suffixEnchant) {
+      const suffixEnchants = options.filter(opt => 
+        opt.option_type === '인챈트' && opt.option_sub_type === '접미'
+      );
+      
+      // 접미 인챈트 검색
+      const hasMatchingSuffix = suffixEnchants.some(enchant => {
+        const value = enchant.option_value || '';
+        return value.includes(filter.suffixEnchant);
+      });
+      
+      if (!hasMatchingSuffix) return false;
     }
     
-    // 인챈트 이름 및 랭크 확인
-    for (const enchant of enchants) {
-      const match = enchant.option_value && enchant.option_value.match(/(.*?)\s*\(랭크 (\d+)\)/);
-      if (match) {
-        const name = match[1].trim();
-        const rank = parseInt(match[2]);
-        
-        // 이름이 포함되는지 확인 (부분 일치)
-        if (name.includes(filter.enchantName)) {
-          // 랭크 비교 (필터에 랭크가 지정된 경우만)
-          if (filter.enchantRank !== undefined && filter.enchantRank !== null && filter.enchantRank !== '') {
-            const minRank = parseInt(filter.enchantRank);
-            return !isNaN(minRank) ? rank >= minRank : true;
-          }
-          return true;
-        }
-      }
-    }
-    
-    return false;
+    return true;
   }
 
-  checkReforgeRankFilter(item, filter) {
+  checkReforgeStatusFilter(item, filter) {
     const options = item.options || item.item_option || [];
     
     // 세공 랭크 옵션 찾기
@@ -326,18 +312,66 @@ class OptionFilter {
       return false;
     }
     
-    // 랭크 일치 확인
-    return reforgeRankOption.option_value === filter.rank;
+    // 세공 랭크 검사
+    if (filter.rank) {
+      const rank = parseInt(reforgeRankOption.option_value);
+      const filterRank = parseInt(filter.rank);
+      
+      if (isNaN(rank) || rank !== filterRank) {
+        return false;
+      }
+    }
+    
+    // 줄 수 검사
+    if (filter.lineCount) {
+      const reforgeOptions = options.filter(opt => opt.option_type === '세공 옵션');
+      const lineCount = reforgeOptions.length;
+      const filterLineCount = parseInt(filter.lineCount);
+      
+      if (lineCount < filterLineCount) {
+        return false;
+      }
+    }
+    
+    return true;
   }
   
-  checkReforgeCountFilter(item, filter) {
+  checkErgFilter(item, filter) {
     const options = item.options || item.item_option || [];
     
-    // 세공 옵션 찾기
-    const reforgeOptions = options.filter(opt => opt.option_type === '세공 옵션');
+    // 에르그 옵션 찾기
+    const ergOption = options.find(opt => opt.option_type === '에르그');
     
-    // 발현 수 확인
-    return reforgeOptions.length >= filter.count;
+    // 에르그가 없으면 실패
+    if (!ergOption) {
+      return false;
+    }
+    
+    // 등급 검사
+    if (filter.grade && ergOption.option_sub_type !== filter.grade) {
+      return false;
+    }
+    
+    // 레벨 범위 검사
+    const level = parseInt(ergOption.option_value || "0");
+    
+    // 최소 레벨 검사
+    if (filter.minLevel) {
+      const minLevel = parseInt(filter.minLevel);
+      if (!isNaN(minLevel) && level < minLevel) {
+        return false;
+      }
+    }
+    
+    // 최대 레벨 검사
+    if (filter.maxLevel) {
+      const maxLevel = parseInt(filter.maxLevel);
+      if (!isNaN(maxLevel) && level > maxLevel) {
+        return false;
+      }
+    }
+    
+    return true;
   }
   
   checkReforgeOptionFilter(item, filter) {
@@ -346,97 +380,56 @@ class OptionFilter {
     // 세공 옵션 찾기
     const reforgeOptions = options.filter(opt => opt.option_type === '세공 옵션');
     
-    // 옵션 이름이 지정되지 않았으면 옵션 존재만 확인
-    if (!filter.optionName) {
-      return reforgeOptions.length > 0;
+    // 세공 옵션이 없으면 실패
+    if (reforgeOptions.length === 0) {
+      return false;
     }
     
-    // 옵션 이름으로 필터링
-    const matchedOptions = reforgeOptions.filter(opt => {
-      // 옵션 텍스트 파싱
-      const optionText = opt.option_value || '';
+    // 각 필터 옵션에 대해 검사
+    return filter.options.every(filterOption => {
+      // 옵션 이름으로 필터링
+      const matchingOptions = reforgeOptions.filter(opt => {
+        const optionValue = opt.option_value || '';
+        return optionValue.includes(filterOption.name);
+      });
       
-      // 옵션 이름이 포함되는지 확인 (부분 일치)
-      return optionText.includes(filter.optionName);
+      // 일치하는 옵션이 없으면 실패
+      if (matchingOptions.length === 0) {
+        return false;
+      }
+      
+      // 레벨 범위 검사가 없으면 성공
+      if (!filterOption.minLevel && !filterOption.maxLevel) {
+        return true;
+      }
+      
+      // 최소 한 개의 옵션이 레벨 범위를 만족하면 성공
+      return matchingOptions.some(opt => {
+        // "(20레벨:40 증가)" 형식 파싱
+        const match = opt.option_value && opt.option_value.match(/\((\d+)레벨:/);
+        if (!match) return true; // 레벨 정보가 없으면 통과
+        
+        const level = parseInt(match[1]);
+        
+        // 최소 레벨 검사
+        if (filterOption.minLevel) {
+          const minLevel = parseInt(filterOption.minLevel);
+          if (!isNaN(minLevel) && level < minLevel) {
+            return false;
+          }
+        }
+        
+        // 최대 레벨 검사
+        if (filterOption.maxLevel) {
+          const maxLevel = parseInt(filterOption.maxLevel);
+          if (!isNaN(maxLevel) && level > maxLevel) {
+            return false;
+          }
+        }
+        
+        return true;
+      });
     });
-    
-    // 일치하는 옵션이 없으면 실패
-    if (matchedOptions.length === 0) {
-      return false;
-    }
-    
-    // 범위 필터가 없으면 성공
-    if ((filter.min === undefined || filter.min === null || filter.min === '') && 
-        (filter.max === undefined || filter.max === null || filter.max === '')) {
-      return true;
-    }
-    
-    // 최소 한 개의 옵션이 범위를 만족하면 성공
-    return matchedOptions.some(opt => {
-      // "최대 공격력(20레벨:40 증가)" 형식 파싱
-      const match = opt.option_value && opt.option_value.match(/\((\d+)레벨:/);
-      if (!match) return false;
-      
-      const level = parseInt(match[1]);
-      
-      // 범위 검사
-      const minLevel = filter.min !== undefined && filter.min !== null && filter.min !== '' ? 
-                     parseInt(filter.min) : undefined;
-      const maxLevel = filter.max !== undefined && filter.max !== null && filter.max !== '' ? 
-                     parseInt(filter.max) : undefined;
-      
-      if (minLevel !== undefined && isNaN(minLevel)) return true;
-      if (maxLevel !== undefined && isNaN(maxLevel)) return true;
-      
-      if (minLevel !== undefined && level < minLevel) return false;
-      if (maxLevel !== undefined && level > maxLevel) return false;
-      
-      return true;
-    });
-  }
-  
-  checkErgGradeFilter(item, filter) {
-    const options = item.options || item.item_option || [];
-    
-    // 에르그 옵션 찾기
-    const ergOption = options.find(opt => opt.option_type === '에르그');
-    
-    // 에르그가 없으면 실패
-    if (!ergOption) {
-      return false;
-    }
-    
-    // 등급 일치 확인
-    return ergOption.option_sub_type === filter.grade;
-  }
-  
-  checkErgLevelFilter(item, filter) {
-    const options = item.options || item.item_option || [];
-    
-    // 에르그 옵션 찾기
-    const ergOption = options.find(opt => opt.option_type === '에르그');
-    
-    // 에르그가 없으면 실패
-    if (!ergOption) {
-      return false;
-    }
-    
-    // 레벨 확인
-    const level = parseInt(ergOption.option_value || "0");
-    
-    // 범위 검사
-    const minLevel = filter.min !== undefined && filter.min !== null && filter.min !== '' ? 
-                   parseInt(filter.min) : undefined;
-    const maxLevel = filter.max !== undefined && filter.max !== null && filter.max !== '' ? 
-                   parseInt(filter.max) : undefined;
-    
-    if (minLevel !== undefined && isNaN(minLevel)) return true;
-    if (maxLevel !== undefined && isNaN(maxLevel)) return true;
-    
-    if (minLevel !== undefined && level < minLevel) return false;
-    if (maxLevel !== undefined && level > maxLevel) return false;
-    
-    return true;
   }
   
   checkSetEffectFilter(item, filter) {
@@ -450,44 +443,46 @@ class OptionFilter {
       return false;
     }
     
-    // 세트 효과 이름이 지정되지 않았으면 효과 존재만 확인
-    if (!filter.effectName) {
-      return true;
-    }
-    
-    // 이름으로 필터링
-    const matchedEffects = setEffectOptions.filter(opt => 
-      opt.option_value && opt.option_value.includes(filter.effectName)
-    );
-    
-    // 일치하는 세트 효과가 없으면 실패
-    if (matchedEffects.length === 0) {
-      return false;
-    }
-    
-    // 범위 필터가 없으면 성공
-    if ((filter.min === undefined || filter.min === null || filter.min === '') && 
-        (filter.max === undefined || filter.max === null || filter.max === '')) {
-      return true;
-    }
-    
-    // 최소 한 개의 세트 효과가 범위를 만족하면 성공
-    return matchedEffects.some(opt => {
-      const value = parseInt(opt.option_value2 || "0");
+    // 각 필터 효과에 대해 검사
+    return filter.effects.every(filterEffect => {
+      // 효과 이름으로 필터링
+      const matchingEffects = setEffectOptions.filter(opt => {
+        const effectValue = opt.option_value || '';
+        return effectValue.includes(filterEffect.name);
+      });
       
-      // 범위 검사
-      const minValue = filter.min !== undefined && filter.min !== null && filter.min !== '' ? 
-                     parseInt(filter.min) : undefined;
-      const maxValue = filter.max !== undefined && filter.max !== null && filter.max !== '' ? 
-                     parseInt(filter.max) : undefined;
+      // 일치하는 효과가 없으면 실패
+      if (matchingEffects.length === 0) {
+        return false;
+      }
       
-      if (minValue !== undefined && isNaN(minValue)) return true;
-      if (maxValue !== undefined && isNaN(maxValue)) return true;
+      // 수치 범위 검사가 없으면 성공
+      if (!filterEffect.minValue && !filterEffect.maxValue) {
+        return true;
+      }
       
-      if (minValue !== undefined && value < minValue) return false;
-      if (maxValue !== undefined && value > maxValue) return false;
-      
-      return true;
+      // 최소 한 개의 효과가 수치 범위를 만족하면 성공
+      return matchingEffects.some(opt => {
+        const value = parseInt(opt.option_value2 || "0");
+        
+        // 최소값 검사
+        if (filterEffect.minValue) {
+          const minValue = parseInt(filterEffect.minValue);
+          if (!isNaN(minValue) && value < minValue) {
+            return false;
+          }
+        }
+        
+        // 최대값 검사
+        if (filterEffect.maxValue) {
+          const maxValue = parseInt(filterEffect.maxValue);
+          if (!isNaN(maxValue) && value > maxValue) {
+            return false;
+          }
+        }
+        
+        return true;
+      });
     });
   }
   
@@ -505,8 +500,7 @@ class OptionFilter {
     // 타입 필터가 없으면 모든 특별 개조 옵션 고려
     if (!filter.modType) {
       // 단계 범위 필터만 검사
-      if ((filter.minLevel === undefined || filter.minLevel === null || filter.minLevel === '') &&
-          (filter.maxLevel === undefined || filter.maxLevel === null || filter.maxLevel === '')) {
+      if (!filter.minLevel && !filter.maxLevel) {
         return true;  // 필터 조건이 없으면 통과
       }
       
@@ -515,17 +509,21 @@ class OptionFilter {
         // 단계 값 구하기
         const level = parseInt(specialMod.option_value || "0");
         
-        // 범위 검사
-        const minLevel = filter.minLevel !== undefined && filter.minLevel !== null && filter.minLevel !== '' ? 
-                       parseInt(filter.minLevel) : undefined;
-        const maxLevel = filter.maxLevel !== undefined && filter.maxLevel !== null && filter.maxLevel !== '' ? 
-                       parseInt(filter.maxLevel) : undefined;
+        // 최소 단계 검사
+        if (filter.minLevel) {
+          const minLevel = parseInt(filter.minLevel);
+          if (!isNaN(minLevel) && level < minLevel) {
+            return false;
+          }
+        }
         
-        if (minLevel !== undefined && isNaN(minLevel)) return true;
-        if (maxLevel !== undefined && isNaN(maxLevel)) return true;
-        
-        if (minLevel !== undefined && level < minLevel) return false;
-        if (maxLevel !== undefined && level > maxLevel) return false;
+        // 최대 단계 검사
+        if (filter.maxLevel) {
+          const maxLevel = parseInt(filter.maxLevel);
+          if (!isNaN(maxLevel) && level > maxLevel) {
+            return false;
+          }
+        }
         
         return true;
       });
@@ -542,8 +540,7 @@ class OptionFilter {
     }
     
     // 단계 범위 필터가 없으면 성공
-    if ((filter.minLevel === undefined || filter.minLevel === null || filter.minLevel === '') &&
-        (filter.maxLevel === undefined || filter.maxLevel === null || filter.maxLevel === '')) {
+    if (!filter.minLevel && !filter.maxLevel) {
       return true;
     }
     
@@ -552,17 +549,21 @@ class OptionFilter {
       // 단계 값 구하기
       const level = parseInt(mod.option_value || "0");
       
-      // 범위 검사
-      const minLevel = filter.minLevel !== undefined && filter.minLevel !== null && filter.minLevel !== '' ? 
-                     parseInt(filter.minLevel) : undefined;
-      const maxLevel = filter.maxLevel !== undefined && filter.maxLevel !== null && filter.maxLevel !== '' ? 
-                     parseInt(filter.maxLevel) : undefined;
+      // 최소 단계 검사
+      if (filter.minLevel) {
+        const minLevel = parseInt(filter.minLevel);
+        if (!isNaN(minLevel) && level < minLevel) {
+          return false;
+        }
+      }
       
-      if (minLevel !== undefined && isNaN(minLevel)) return true;
-      if (maxLevel !== undefined && isNaN(maxLevel)) return true;
-      
-      if (minLevel !== undefined && level < minLevel) return false;
-      if (maxLevel !== undefined && level > maxLevel) return false;
+      // 최대 단계 검사
+      if (filter.maxLevel) {
+        const maxLevel = parseInt(filter.maxLevel);
+        if (!isNaN(maxLevel) && level > maxLevel) {
+          return false;
+        }
+      }
       
       return true;
     });
