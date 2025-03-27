@@ -81,8 +81,8 @@ class OptionRenderer {
     const optionOrder = [
       '공격', '부상률', '크리티컬', '밸런스', '내구력', '숙련',
       '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가',
-      '피어싱 레벨', '아이템 보호', '인챈트', '특별 개조', '에르그',
-      '세공 랭크', '세공 옵션', '세트 효과', '남은 거래 횟수'
+      '피어싱 레벨', '아이템 보호', '인챈트', '일반 개조', '보석 개조',
+      '장인 개조', '특별 개조', '에르그', '세공 랭크', '세공 옵션', '세트 효과', '남은 거래 횟수'
     ];
     
     // 옵션 정렬
@@ -180,11 +180,11 @@ class OptionRenderer {
         break;
         
       case '일반 개조':
-        text = `일반 개조 (${option.option_value}/${option.option_value2})`;
+        text = `일반 개조(${option.option_value}/${option.option_value2})`;
         break;
         
       case '보석 개조':
-        text = `보석 개조`;
+        text = `보석 강화`;
         break;
         
       case '장인 개조':
@@ -192,7 +192,7 @@ class OptionRenderer {
         break;
         
       case '특별 개조':
-        text = `특별개조 <span class="item-pink">${option.option_sub_type}</span> <span class="item-pink">(${option.option_value}단계)</span>`;
+        text = `특별 개조 ${option.option_sub_type} (${option.option_value}단계)`;
         break;
         
       case '에르그':
@@ -472,9 +472,13 @@ class OptionRenderer {
         block.appendChild(title);
         
         // 해당 섹션의 옵션들 추가
-        groupOptions.forEach(option => {
-          this.renderTooltipOption(option, block);
-        });
+        if (groupName === '개조') {
+          this.renderModificationOptions(groupOptions, block);
+        } else {
+          groupOptions.forEach(option => {
+            this.renderTooltipOption(option, block);
+          });
+        }
         
         // 완성된 블록을 직접 툴팁에 추가
         tooltipElement.appendChild(block);
@@ -494,28 +498,70 @@ class OptionRenderer {
     return tooltipElement;
   }
   
-  renderTooltipOption(option, block) {
-    const optionType = option.option_type;
+  renderModificationOptions(options, block) {
+    // 옵션 타입으로 분류
+    let normalMod = options.find(opt => opt.option_type === '일반 개조');
+    let gemMod = options.find(opt => opt.option_type === '보석 개조');
+    let masterMod = options.find(opt => opt.option_type === '장인 개조');
+    let specialMod = options.find(opt => opt.option_type === '특별 개조');
     
-    // 특수 처리: 장인 개조
-    if (optionType === '장인 개조') {
-      // 장인 개조 텍스트 추가
-      const labelElement = document.createElement('div');
-      labelElement.className = 'tooltip-stat';
-      labelElement.textContent = '장인 개조';
-      block.appendChild(labelElement);
+    // 1. 일반 개조와 보석 개조를 한 줄에 표시
+    if (normalMod || gemMod) {
+      const modLine = document.createElement('div');
+      modLine.className = 'tooltip-stat';
       
-      // 효과들은 개별적으로 추가
-      const modParts = option.option_value.split(',');
+      let text = '';
+      if (normalMod) {
+        text += `일반 개조(${normalMod.option_value}/${normalMod.option_value2})`;
+        if (gemMod) {
+          text += ', 보석 강화';
+        }
+      } else if (gemMod) {
+        text += '보석 강화';
+      }
+      
+      modLine.textContent = text;
+      block.appendChild(modLine);
+    }
+    
+    // 2. 장인 개조 처리
+    if (masterMod) {
+      // 장인 개조 타이틀
+      const masterModTitle = document.createElement('div');
+      masterModTitle.className = 'tooltip-stat';
+      masterModTitle.textContent = '장인 개조';
+      block.appendChild(masterModTitle);
+      
+      // 장인 개조 효과들 처리
+      const modParts = masterMod.option_value.split(',');
       modParts.forEach(part => {
         const effectElement = document.createElement('div');
         effectElement.className = 'tooltip-stat item-blue';
         effectElement.textContent = `- ${part.trim()}`;
         block.appendChild(effectElement);
       });
-    } 
+    }
+    
+    // 3. 특별 개조 처리
+    if (specialMod) {
+      const specialModElement = document.createElement('div');
+      specialModElement.className = 'tooltip-stat item-pink';
+      specialModElement.textContent = `특별 개조 ${specialMod.option_sub_type} (${specialMod.option_value}단계)`;
+      block.appendChild(specialModElement);
+    }
+  }
+  
+  renderTooltipOption(option, block) {
+    const optionType = option.option_type;
+    
+    // 특수 처리: 장인 개조, 개조 관련 옵션은 renderModificationOptions에서 처리
+    if (optionType === '일반 개조' || optionType === '보석 개조' || 
+        optionType === '장인 개조' || optionType === '특별 개조') {
+      return;
+    }
+    
     // 특수 처리: 전용 아이템 해제
-    else if (optionType === '남은 전용 해제 가능 횟수') {
+    if (optionType === '남은 전용 해제 가능 횟수') {
       // 첫 번째 줄
       const firstLine = document.createElement('div');
       firstLine.className = 'tooltip-stat item-yellow';
