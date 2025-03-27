@@ -94,11 +94,10 @@ class OptionFilter {
         case '특별 개조':
           filters.push({
             name: optionType,
-            displayName: '특별개조 단계',
-            type: 'range',
-            field: 'option_value',
+            displayName: '특수 개조',
+            type: 'special-mod',
             option,
-            definition: { type: 'range', field: 'option_value' }
+            definition: { type: 'special-mod' }
           });
           break;
           
@@ -182,12 +181,8 @@ class OptionFilter {
           return this.checkErgGradeFilter(item, filter);
         case 'erg-level':
           return this.checkErgLevelFilter(item, filter);
-        case 'special-mod-type':
-          return this.checkSpecialModTypeFilter(item, filter);
-        case 'special-mod-range':
-          return this.checkSpecialModRangeFilter(item, filter);
-        case 'special-mod-none':
-          return this.checkSpecialModNoneFilter(item);
+        case 'special-mod':
+          return this.checkSpecialModFilter(item, filter);
         case 'set-effect':
           return this.checkSetEffectFilter(item, filter);
         default:
@@ -443,7 +438,7 @@ class OptionFilter {
     return true;
   }
   
-  checkSpecialModTypeFilter(item, filter) {
+  checkSpecialModFilter(item, filter) {
     const options = item.options || item.item_option || [];
     
     // 특별 개조 옵션 찾기
@@ -454,43 +449,25 @@ class OptionFilter {
       return false;
     }
     
-    // 타입 일치 확인
-    return specialMod.option_sub_type === filter.modType;
-  }
-  
-  checkSpecialModRangeFilter(item, filter) {
-    const options = item.options || item.item_option || [];
-    
-    // 특별 개조 옵션 찾기
-    const specialMod = options.find(opt => opt.option_type === '특별 개조');
-    
-    // 특별 개조가 없으면 실패
-    if (!specialMod) {
+    // 타입 필터 확인
+    if (filter.modType && specialMod.option_sub_type !== filter.modType) {
       return false;
     }
     
-    // 레벨 확인
-    const level = parseInt(specialMod.option_value);
-    
-    // 범위 검사
-    if (filter.min !== undefined && level < filter.min) {
-      return false;
-    }
-    if (filter.max !== undefined && level > filter.max) {
-      return false;
+    // 단계 확인
+    if (filter.minLevel !== undefined || filter.maxLevel !== undefined) {
+      const level = parseInt(specialMod.option_value);
+      
+      // 범위 검사
+      if (filter.minLevel !== undefined && level < filter.minLevel) {
+        return false;
+      }
+      if (filter.maxLevel !== undefined && level > filter.maxLevel) {
+        return false;
+      }
     }
     
     return true;
-  }
-  
-  checkSpecialModNoneFilter(item) {
-    const options = item.options || item.item_option || [];
-    
-    // 특별 개조 옵션 찾기
-    const specialMod = options.find(opt => opt.option_type === '특별 개조');
-    
-    // 특별 개조가 없으면 통과
-    return !specialMod;
   }
 }
 
