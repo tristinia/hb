@@ -1216,3 +1216,228 @@ input[type="number"] {
     background-color: var(--color-error);
     opacity: 0.9;
 }
+
+/* 필터 섹션 스타일 - 각 필터 섹션의 레이아웃 정의 */
+.filter-section {
+    margin-bottom: var(--spacing-sm);
+    position: relative;
+}
+
+/* 필터 섹션 레이블 - "범위", "등급" 등의 레이블 텍스트 */
+.filter-section-label {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-xxs);
+    color: var(--color-dark);
+    font-weight: var(--font-weight-medium);
+}
+
+/* 범위 입력 행 (최소값~최대값) */
+.filter-input-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+/* 필터 입력 필드 */
+.filter-input {
+    width: 100%;
+    padding: var(--spacing-xxs) var(--spacing-xs);
+    border: 1px solid var(--color-light-gray);
+    border-radius: var(--border-radius-xs);
+    font-size: var(--font-size-sm);
+    transition: border-color var(--duration-fast);
+    background-color: var(--color-white);
+    color: var(--color-dark);
+}
+
+.filter-input:focus {
+    border-color: var(--color-accent);
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-accent-20);
+}
+
+/* 범위 구분자 (~) */
+.filter-separator {
+    color: var(--color-dark);
+    font-weight: var(--font-weight-medium);
+}
+
+/* 버튼식 필터(에르그 등급, 특별 개조 등) */
+.special-mod-buttons {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-xxs);
+}
+
+.special-mod-btn {
+    background-color: var(--color-light-gray);
+    border: 1px solid var(--color-light-gray);
+    border-radius: var(--border-radius-xs);
+    padding: var(--spacing-xxs) var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: all var(--duration-fast);
+}
+
+.special-mod-btn:hover {
+    background-color: var(--color-accent-20);
+}
+
+.special-mod-btn.active {
+    background-color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+}
+
+/* 자동완성 목록 스타일 */
+.autocomplete-list {
+    position: absolute;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-light-gray);
+    border-radius: var(--border-radius-xs);
+    box-shadow: var(--shadow-md);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+    width: calc(100% - 16px);
+    margin-top: 2px;
+    left: 0;
+}
+
+.autocomplete-item {
+    padding: var(--spacing-xxs) var(--spacing-xs);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    transition: background-color var(--duration-fast);
+}
+
+.autocomplete-item:hover {
+    background-color: var(--color-accent-20);
+}
+
+/* 입력 필드 클리어 버튼 (X) 컨테이너 */
+.input-with-clear {
+    position: relative;
+    width: 100%;
+}
+
+/* 입력 필드 클리어 버튼 (X) */
+.clear-input-btn {
+    position: absolute;
+    right: var(--spacing-xs);
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--color-dark-60);
+    font-size: var(--font-size-md);
+    cursor: pointer;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all var(--duration-fast);
+}
+
+.clear-input-btn:hover {
+    background-color: var(--color-dark-10);
+    color: var(--color-dark);
+}
+
+/* 범위 필터 애니메이션 효과 */
+.reforge-range-section,
+.set-effect-range-section {
+    transition: max-height var(--duration-normal) ease, 
+                opacity var(--duration-normal) ease, 
+                visibility var(--duration-normal);
+    overflow: hidden;
+    margin-top: var(--spacing-xxs);
+}
+
+/* 필터 아이템 컨테이너 */
+.filter-item {
+    background-color: var(--color-off-white);
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    box-shadow: var(--shadow-xs);
+}
+
+/* 필터 헤더 (필터 이름 + 삭제 버튼) */
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xs);
+}
+
+/* 필터 이름 */
+.filter-name {
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-md);
+    color: var(--color-dark);
+}
+
+/* 필터 삭제 버튼 */
+.filter-remove {
+    background: none;
+    border: none;
+    color: var(--color-dark);
+    cursor: pointer;
+    font-size: var(--font-size-lg);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: var(--border-radius-full);
+    transition: all var(--duration-fast);
+}
+
+.filter-remove:hover {
+    color: var(--color-error);
+    background-color: var(--color-error-light);
+}
+
+/* 인챈트 검색 컨테이너 */
+.enchant-search-container {
+    margin-bottom: var(--spacing-xs);
+}
+
+/* 인챈트 자동완성 입력 필드 */
+.enchant-input {
+    width: 100%;
+    padding-right: 24px; /* 클리어 버튼 공간 확보 */
+}
+
+/* 필터 선택기 (드롭다운) */
+.filter-selector {
+    width: 100%;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-xs);
+    border: 1px solid var(--color-light-gray);
+    font-size: var(--font-size-sm);
+    background-color: var(--color-white);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234A4A4A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--spacing-sm) center;
+    cursor: pointer;
+    transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+    color: var(--color-dark);
+}
+
+.filter-selector:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px var(--color-accent-20);
+    outline: none;
+}
+
+/* 활성 필터 컨테이너 */
+.active-filters {
+    padding: 0 var(--spacing-sm) var(--spacing-sm);
+    overflow-y: auto;
+}
