@@ -613,8 +613,19 @@ function autoApplyFilter(filterItem, filterInfo) {
         const minInput = filterItem.querySelector('.min-value');
         const maxInput = filterItem.querySelector('.max-value');
         
-        const min = minInput && minInput.value ? parseFloat(minInput.value.replace('%', '')) : undefined;
-        const max = maxInput && maxInput.value ? parseFloat(maxInput.value.replace('%', '')) : undefined;
+        // 빈 문자열이나 NaN을 명확히 처리
+        let min = undefined;
+        let max = undefined;
+        
+        if (minInput && minInput.value.trim() !== '') {
+            min = parseFloat(minInput.value.replace('%', ''));
+            if (isNaN(min)) min = undefined;
+        }
+        
+        if (maxInput && maxInput.value.trim() !== '') {
+            max = parseFloat(maxInput.value.replace('%', ''));
+            if (isNaN(max)) max = undefined;
+        }
         
         // 이미 존재하는 동일 필터 제거
         state.activeFilters = state.activeFilters.filter(f => 
@@ -765,8 +776,19 @@ function applySpecialModFilter(filterItem, filterInfo) {
     const minInput = filterItem.querySelector('.min-value');
     const maxInput = filterItem.querySelector('.max-value');
     
-    const min = minInput && minInput.value ? parseInt(minInput.value) : undefined;
-    const max = maxInput && maxInput.value ? parseInt(maxInput.value) : undefined;
+    // 빈 문자열이나 NaN을 명확히 처리
+    let min = undefined;
+    let max = undefined;
+    
+    if (minInput && minInput.value.trim() !== '') {
+        min = parseInt(minInput.value);
+        if (isNaN(min)) min = undefined;
+    }
+    
+    if (maxInput && maxInput.value.trim() !== '') {
+        max = parseInt(maxInput.value);
+        if (isNaN(max)) max = undefined;
+    }
     
     // 특별 개조 필터 추가
     const filter = {
