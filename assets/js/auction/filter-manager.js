@@ -1132,7 +1132,6 @@ function createEnchantFilter(container, filterItem, filterInfo) {
     const prefixInput = document.createElement('input');
     prefixInput.type = 'text';
     prefixInput.className = 'filter-input enchant-input prefix-enchant';
-    prefixInput.placeholder = '';
     
     // 자동완성 처리
     prefixInput.addEventListener('input', (e) => {
@@ -1192,7 +1191,6 @@ function createEnchantFilter(container, filterItem, filterInfo) {
     const suffixInput = document.createElement('input');
     suffixInput.type = 'text';
     suffixInput.className = 'filter-input enchant-input suffix-enchant';
-    suffixInput.placeholder = '';
     
     // 자동완성 처리
     suffixInput.addEventListener('input', (e) => {
@@ -1357,7 +1355,6 @@ function createReforgeOptionFilter(container, filterItem, filterInfo) {
         const nameInput = document.createElement('input');
         nameInput.type = 'text';
         nameInput.className = `filter-input reforge-option-name reforge-option-${i}`;
-        nameInput.placeholder = '';
         
         // 클리어 버튼
         const clearBtn = document.createElement('button');
@@ -1392,7 +1389,7 @@ function createReforgeOptionFilter(container, filterItem, filterInfo) {
             if (rangeSection) {
                 rangeSection.style.display = hasValue ? 'flex' : 'none';
             } else if (hasValue) {
-                // 범위 필터 섹션 생성 (가로 방향)
+                // 범위 필터 섹션 생성
                 createReforgeRangeSection(filterItem, i);
             }
         });
@@ -1498,10 +1495,8 @@ function searchReforgeOptions(query) {
  * 자동완성 목록 위치 조정
  */
 function positionAutocompleteList(listElement, inputElement) {
-    // 입력 필드 위치 정보
     const inputRect = inputElement.getBoundingClientRect();
     
-    // 목록 위치 설정
     listElement.style.position = 'absolute';
     listElement.style.width = inputElement.offsetWidth + 'px';
     listElement.style.left = (inputElement.offsetLeft) + 'px';
@@ -1546,6 +1541,7 @@ function renderReforgeOptionAutoComplete(listElement, options, inputElement) {
     positionAutocompleteList(listElement, inputElement);
     listElement.style.display = 'block';
 }
+
 /**
  * 세공 옵션 범위 섹션 생성
  */
@@ -1604,7 +1600,7 @@ function createReforgeRangeSection(parentElement, index) {
 function createSetEffectFilter(container, filterItem, filterInfo) {
     // 최대 3개의 세트 효과 입력 필드 생성
     for (let i = 1; i <= 3; i++) {
-        // 1. 효과 이름 섹션 - 가로 배치
+        // 효과 이름 섹션
         const effectSection = document.createElement('div');
         effectSection.className = 'filter-section filter-row';
         
@@ -1621,7 +1617,6 @@ function createSetEffectFilter(container, filterItem, filterInfo) {
         const nameInput = document.createElement('input');
         nameInput.type = 'text';
         nameInput.className = `filter-input set-effect-name set-effect-${i}`;
-        nameInput.placeholder = '';
         
         // 클리어 버튼
         const clearBtn = document.createElement('button');
@@ -1656,7 +1651,7 @@ function createSetEffectFilter(container, filterItem, filterInfo) {
             if (rangeSection) {
                 rangeSection.style.display = hasValue ? 'flex' : 'none';
             } else if (hasValue) {
-                // 범위 필터 섹션 생성 (가로 방향)
+                // 범위 필터 섹션 생성
                 createSetEffectRangeSection(filterItem, i);
             }
         });
@@ -1810,7 +1805,6 @@ function createSetEffectRangeSection(parentElement, index) {
     const minInput = document.createElement('input');
     minInput.type = 'number';
     minInput.className = `filter-input set-effect-min-value set-effect-min-value-${index}`;
-    minInput.placeholder = '최소';
     minInput.min = 1;
     
     const separator = document.createElement('span');
@@ -1820,7 +1814,6 @@ function createSetEffectRangeSection(parentElement, index) {
     const maxInput = document.createElement('input');
     maxInput.type = 'number';
     maxInput.className = `filter-input set-effect-max-value set-effect-max-value-${index}`;
-    maxInput.placeholder = '최대';
     maxInput.min = 1;
     
     // 입력 필드 추가
@@ -1832,7 +1825,7 @@ function createSetEffectRangeSection(parentElement, index) {
     rangeSection.appendChild(rangeLabel);
     rangeSection.appendChild(inputRow);
     
-    // 필터 아이템에 추가
+    // 필터 아이템에 추가 (레이블 바로 아래에)
     const targetSection = parentElement.querySelector(`.set-effect-${index}`).closest('.filter-section');
     targetSection.parentNode.insertBefore(rangeSection, targetSection.nextSibling);
 }
@@ -2123,7 +2116,6 @@ function createRangeFilter(container, filterItem, filterInfo) {
     const minInput = document.createElement('input');
     minInput.type = 'number';
     minInput.className = 'filter-input min-value';
-    minInput.placeholder = '최소';
     minInput.min = 0;
     minInput.setAttribute('aria-label', `${filterInfo.displayName || filterInfo.name} 최소값`);
     
@@ -2134,7 +2126,6 @@ function createRangeFilter(container, filterItem, filterInfo) {
     const maxInput = document.createElement('input');
     maxInput.type = 'number';
     maxInput.className = 'filter-input max-value';
-    maxInput.placeholder = '최대';
     maxInput.min = 0;
     maxInput.setAttribute('aria-label', `${filterInfo.displayName || filterInfo.name} 최대값`);
     
