@@ -227,9 +227,8 @@ function getAllPossibleFilters() {
         },
         {
             name: '특별 개조',
-            displayName: '특별개조 단계',
-            type: 'range',
-            field: 'option_value',
+            displayName: '특수 개조',
+            type: 'special-mod',
             visible: true
         },
         {
@@ -358,9 +357,8 @@ function defineBaseFilters(category) {
     if (supportsSpecialMod(category)) {
         filters.push({
             name: '특별 개조',
-            displayName: '특별개조 단계',
-            type: 'range',
-            field: 'option_value',
+            displayName: '특수 개조',
+            type: 'special-mod',
             visible: true
         });
     }
@@ -555,7 +553,7 @@ function addFilterItem(filterName) {
     } else if (filterInfo.type === 'set-effect') {
         // 세트 효과 필터
         createSetEffectFilter(filterContent, filterItem, filterInfo);
-    } else if (filterInfo.name === '특별 개조') {
+    } else if (filterInfo.type === 'special-mod') {
         // 특별 개조 필터 특별 처리
         createSpecialModFilter(filterContent, filterItem, filterInfo);
     } else if (filterInfo.type === 'enchant') {
@@ -653,6 +651,9 @@ function autoApplyFilter(filterItem, filterInfo) {
                 value
             });
         }
+    } else if (type === 'special-mod') {
+        // 특별 개조 필터 처리
+        applySpecialModFilter(filterItem, filterInfo);
     } else {
         const input = filterItem.querySelector('.text-value');
         const value = input ? input.value : '';
@@ -677,83 +678,113 @@ function autoApplyFilter(filterItem, filterInfo) {
     applyFilters();
 }
 
-// 이하 필터 UI 생성 함수들은 변경 없이 그대로 유지
-// 기존 코드를 그대로 유지하는 것이 좋을 것 같으므로 생략합니다
-// createReforgeStatusFilter, createReforgeOptionFilter, createEnchantFilter 등
+/**
+ * 특별 개조 필터 UI 생성
+ */
+function createSpecialModFilter(container, filterItem, filterInfo) {
+    // 1. 특별 개조 타입 선택 섹션 (S, R 버튼)
+    const typeSection = document.createElement('div');
+    typeSection.className = 'filter-section';
+    
+    // 타입 레이블
+    const typeLabel = document.createElement('div');
+    typeLabel.className = 'filter-section-label';
+    typeLabel.textContent = '타입:';
+    typeSection.appendChild(typeLabel);
+    
+    // 타입 버튼 컨테이너
+    const typeButtons = document.createElement('div');
+    typeButtons.className = 'special-mod-buttons';
+    
+    // 타입 버튼: S, R
+    ['S', 'R'].forEach(type => {
+        const button = document.createElement('button');
+        button.className = 'special-mod-btn';
+        button.textContent = type;
+        button.setAttribute('data-type', type);
+        
+        // 버튼 클릭 이벤트
+        button.addEventListener('click', () => {
+            // 다른 타입 버튼 비활성화
+            typeButtons.querySelectorAll('.active').forEach(activeBtn => {
+                if (activeBtn !== button) {
+                    activeBtn.classList.remove('active');
+                }
+            });
+            
+            // 토글 효과
+            const isActive = button.classList.contains('active');
+            button.classList.toggle('active', !isActive);
+            
+            // 필터 적용
+            applySpecialModFilter(filterItem, filterInfo);
+        });
+        
+        typeButtons.appendChild(button);
+    });
+    
+    typeSection.appendChild(typeButtons);
+    container.appendChild(typeSection);
+    
+    // 2. 특별 개조 단계 범위 섹션
+    createRangeFilter(container, filterItem, {
+        name: '특별개조단계',
+        displayName: '단계',
+        type: 'range'
+    });
+    
+    // 범위 필터의 입력 필드에 이벤트 추가
+    const inputs = container.querySelectorAll('input');
+    inputs.forEach(input => {
+        input.addEventListener('change', () => {
+            applySpecialModFilter(filterItem, filterInfo);
+        });
+    });
+}
 
-// 필터 생성 함수들
-function createReforgeStatusFilter(container, filterItem, filterInfo) {
-    // 1. 세공 랭크 선택 섹션
-    const rankSection = document.createElement('div');
-    rankSection.className = 'filter-section';
+/**
+ * 특별 개조 필터 적용
+ */
+function applySpecialModFilter(filterItem, filterInfo) {
+    // 이미 존재하는 동일 필터 제거
+    state.activeFilters = state.activeFilters.filter(f => 
+        f.name !== filterInfo.name
+    );
     
-    const rankLabel = document.createElement('div');
-    rankLabel.className = 'filter-section-label';
-    rankLabel.textContent = '세공 랭크:';
-    rankSection.appendChild(rankLabel);
+    // 타입 버튼 확인
+    const typeButtons = filterItem.querySelectorAll('.special-mod-btn');
+    let selectedType = null;
     
-    // 랭크 버튼 컨테이너
-    const rankButtons = document.createElement('div');
-    rankButtons.className = 'special-mod-buttons';
+    typeButtons.forEach(button => {
+        if (button.classList.contains('active')) {
+            selectedType = button.getAttribute('data-type');
+        }
+    });
     
-    // 랭크 버튼 생성 (1, 2, 3)
-    for (let i = 1; i <= 3; i++) {
-        const button = document.createElement('button');
-        button.className = 'special-mod-btn';
-        button.textContent = i;
-        button.setAttribute('data-rank', i);
-        
-        // 버튼 클릭 이벤트
-        button.addEventListener('click', () => {
-            // 토글 효과
-            const isActive = button.classList.contains('active');
-            button.classList.toggle('active', !isActive);
-            
-            // 필터 적용
-            applyReforgeRankFilter(filterItem, filterInfo);
-        });
-        
-        rankButtons.appendChild(button);
+    // 범위 입력 확인
+    const minInput = filterItem.querySelector('.min-value');
+    const maxInput = filterItem.querySelector('.max-value');
+    
+    const min = minInput && minInput.value ? parseInt(minInput.value) : undefined;
+    const max = maxInput && maxInput.value ? parseInt(maxInput.value) : undefined;
+    
+    // 특별 개조 필터 추가
+    const filter = {
+        name: filterInfo.name,
+        displayName: filterInfo.displayName || filterInfo.name,
+        type: 'special-mod',
+        modType: selectedType,
+        minLevel: min,
+        maxLevel: max
+    };
+    
+    // 값이 있는 경우만 필터 추가
+    if (selectedType || min !== undefined || max !== undefined) {
+        state.activeFilters.push(filter);
     }
     
-    rankSection.appendChild(rankButtons);
-    container.appendChild(rankSection);
-    
-    // 2. 발현 수 선택 섹션
-    const countSection = document.createElement('div');
-    countSection.className = 'filter-section';
-    
-    const countLabel = document.createElement('div');
-    countLabel.className = 'filter-section-label';
-    countLabel.textContent = '세공 발현 수:';
-    countSection.appendChild(countLabel);
-    
-    // 발현 수 버튼 컨테이너
-    const countButtons = document.createElement('div');
-    countButtons.className = 'special-mod-buttons';
-    
-    // 발현 수 버튼 생성 (1, 2, 3)
-    for (let i = 1; i <= 3; i++) {
-        const button = document.createElement('button');
-        button.className = 'special-mod-btn';
-        button.textContent = i;
-        button.setAttribute('data-count', i);
-        
-        // 버튼 클릭 이벤트
-        button.addEventListener('click', () => {
-            // 토글 효과
-            const isActive = button.classList.contains('active');
-            button.classList.toggle('active', !isActive);
-            
-            // 필터 적용
-            applyReforgeCountFilter(filterItem, filterInfo);
-        });
-        
-        countButtons.appendChild(button);
-    }
-    
-    countSection.appendChild(countButtons);
-    container.appendChild(countSection);
+    // 필터 적용
+    applyFilters();
 }
 
 function createRangeFilter(container, filterItem, filterInfo) {
