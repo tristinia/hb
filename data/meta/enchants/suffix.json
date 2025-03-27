@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-26T09:29:40.020Z",
+  "updated": "2025-03-27T09:29:51.238Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -1081,9 +1081,9 @@
         },
         {
           "template": "행운 {value} 증가",
-          "min": 5,
+          "min": 3,
           "max": 5,
-          "variable": false
+          "variable": true
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -1801,9 +1801,9 @@
       "effects": [
         {
           "template": "의지 {value} 감소",
-          "min": 12,
+          "min": 11,
           "max": 12,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -2701,9 +2701,9 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 8,
+          "min": 6,
           "max": 8,
-          "variable": false
+          "variable": true
         },
         {
           "template": "솜씨 {value} 증가",
@@ -4261,7 +4261,7 @@
         },
         {
           "template": "체력 {value} 증가",
-          "min": 16,
+          "min": 15,
           "max": 25,
           "variable": true
         },
@@ -6913,6 +6913,30 @@
         }
       ]
     },
+    "와이트": {
+      "name": "와이트",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "솜씨 {value} 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최대마나 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "지력 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        }
+      ]
+    },
     "용감한 (랭크 A)": {
       "name": "용감한 (랭크 A)",
       "rank": null,
@@ -8282,14 +8306,14 @@
         {
           "template": "크리티컬 {value} 증가",
           "min": 6,
-          "max": 6,
-          "variable": false
+          "max": 7,
+          "variable": true
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 14,
+          "min": 13,
           "max": 14,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -9097,7 +9121,7 @@
         },
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
-          "min": 11,
+          "min": 10,
           "max": 14,
           "variable": true
         },
@@ -10628,7 +10652,7 @@
         {
           "template": "최대대미지 {value} 증가",
           "min": 10,
-          "max": 17,
+          "max": 18,
           "variable": true
         },
         {
