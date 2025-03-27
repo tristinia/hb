@@ -193,7 +193,7 @@ class OptionFilter {
 
   checkRangeFilter(item, filter) {
     const options = item.options || item.item_option || [];
-      
+    
     // 필터 필드 및 값 확인
     const optionType = filter.name;
     
@@ -202,7 +202,7 @@ class OptionFilter {
     
     // 옵션이 없으면 기본값으로 0 사용
     if (!option) {
-      if (filter.min !== undefined && 0 < filter.min) {
+      if (filter.min !== undefined && filter.min > 0) {
         return false;
       }
       return true;
@@ -220,11 +220,18 @@ class OptionFilter {
     } else {
       // 기본 방식으로 값 계산
       const field = filter.field || 'option_value';
-      value = option[field];
-      if (typeof value === 'string') {
-        value = parseFloat(value.replace('%', ''));
+      
+      // 값이 없는 경우 처리
+      if (option[field] === undefined || option[field] === null) {
+        value = 0;
       } else {
-        value = parseFloat(value);
+        // 문자열이면 숫자로 변환, '%' 제거
+        if (typeof option[field] === 'string') {
+          // '%' 제거하고 숫자로 변환
+          value = parseFloat(option[field].replace(/[^0-9.-]/g, ''));
+        } else {
+          value = parseFloat(option[field]);
+        }
       }
     }
     
@@ -234,10 +241,10 @@ class OptionFilter {
     }
     
     // 범위 검사
-    if (filter.min !== undefined && value < filter.min) {
+    if (filter.min !== undefined && filter.min !== null && filter.min !== '' && value < filter.min) {
       return false;
     }
-    if (filter.max !== undefined && value > filter.max) {
+    if (filter.max !== undefined && filter.max !== null && filter.max !== '' && value > filter.max) {
       return false;
     }
     
