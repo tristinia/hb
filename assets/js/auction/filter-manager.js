@@ -844,10 +844,15 @@ function createSetEffectFilter(container, filterItem, filterInfo) {
   
   // 3개의 세트 효과 검색창 생성
   for (let i = 1; i <= 3; i++) {
-    // 세트 효과 검색 섹션
+    // 세트 효과 검색 섹션 (각 검색창 + 범위 필터를 감싸는 컨테이너)
     const searchSection = document.createElement('div');
-    searchSection.className = 'enchant-search-container';
+    searchSection.className = 'set-effect-section';
     searchSection.setAttribute('data-index', i);
+    searchSection.style.marginBottom = '12px';
+    
+    // 검색 입력 컨테이너
+    const inputContainer = document.createElement('div');
+    inputContainer.className = 'enchant-search-container';
     
     const searchLabel = document.createElement('label');
     searchLabel.className = 'enchant-label';
@@ -863,10 +868,17 @@ function createSetEffectFilter(container, filterItem, filterInfo) {
     suggestions.className = 'enchant-suggestions';
     suggestions.style.display = 'none';
     
+    // 검색 입력 컨테이너에 요소 추가
+    inputContainer.appendChild(searchLabel);
+    inputContainer.appendChild(searchInput);
+    inputContainer.appendChild(suggestions);
+    
     // 값 범위 섹션 (초기에는 숨김)
     const valueSection = document.createElement('div');
     valueSection.className = 'filter-section';
     valueSection.style.display = 'none';
+    valueSection.style.marginTop = '8px';
+    valueSection.style.paddingLeft = '12px';
     
     const valueLabel = document.createElement('div');
     valueLabel.className = 'filter-section-label';
@@ -903,9 +915,7 @@ function createSetEffectFilter(container, filterItem, filterInfo) {
     valueSection.appendChild(inputRow);
     
     // 검색 섹션에 요소 추가
-    searchSection.appendChild(searchLabel);
-    searchSection.appendChild(searchInput);
-    searchSection.appendChild(suggestions);
+    searchSection.appendChild(inputContainer);
     searchSection.appendChild(valueSection);
     
     // 효과 컨테이너에 검색 섹션 추가
