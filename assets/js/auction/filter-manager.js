@@ -4,6 +4,7 @@
 
 import optionFilter from './option-filter.js';
 import metadataLoader from './metadata-loader.js';
+import PaginationManager from './pagination.js';
 
 // 필터 상태
 const state = {
@@ -11,7 +12,12 @@ const state = {
     activeFilters: [],
     currentCategory: null,
     isInitialized: false,
-    debug: false
+    debug: false,
+    autoCompleteData: {
+        enchants: {},
+        reforges: {},
+        setEffects: {}
+    }
 };
     
 // DOM 요소 참조
@@ -55,6 +61,9 @@ function init() {
             if (selectedValue) {
                 addFilterItem(selectedValue);
                 e.target.value = ''; // 선택 초기화
+                
+                // 드롭다운에서 선택된 필터 제거
+                removeFilterFromDropdown(selectedValue);
             }
         });
     }
@@ -62,10 +71,55 @@ function init() {
     // 메타데이터 로더 초기화
     metadataLoader.initialize().then(() => {
         logDebug('메타데이터 로더 초기화 완료');
+        // 초기 자동완성 데이터 로드
+        loadAllMetadata();
     });
     
     state.isInitialized = true;
     logDebug('FilterManager 초기화 완료');
+}
+
+/**
+ * 모든 메타데이터 로드
+ */
+async function loadAllMetadata() {
+    try {
+        // 인챈트 메타데이터 로드
+        const prefixData = await metadataLoader.loadEnchantMetadata();
+        if (prefixData && prefixData.prefix) {
+            state.autoCompleteData.enchants.prefix = prefixData.prefix;
+        }
+        
+        const suffixData = await metadataLoader.loadEnchantMetadata();
+        if (suffixData && suffixData.suffix) {
+            state.autoCompleteData.enchants.suffix = suffixData.suffix;
+        }
+        
+        // 세공 메타데이터 로드
+        const reforgeData = await metadataLoader.loadReforgeMetadata();
+        if (reforgeData && reforgeData.data) {
+            state.autoCompleteData.reforges = reforgeData.data;
+        }
+        
+        logDebug('모든 메타데이터 로드 완료');
+    } catch (error) {
+        console.error('메타데이터 로드 중 오류:', error);
+    }
+}
+
+/**
+ * 드롭다운에서 선택된 필터 제거
+ */
+function removeFilterFromDropdown(filterName) {
+    if (!elements.filterSelector) return;
+    
+    const optionToRemove = Array.from(elements.filterSelector.options).find(option => 
+        option.value === filterName
+    );
+    
+    if (optionToRemove) {
+        elements.filterSelector.removeChild(optionToRemove);
+    }
 }
 
 /**
@@ -77,8 +131,17 @@ function updateFilterDropdown() {
     // 필터 드롭다운 초기화
     elements.filterSelector.innerHTML = '<option value="">옵션 선택...</option>';
     
-    // 필터 옵션 추가
+    // 활성화된 필터 목록 가져오기
+    const activeFilterNames = Array.from(elements.activeFilters.querySelectorAll('.filter-item'))
+        .map(item => item.getAttribute('data-filter-name'));
+    
+    // 필터 옵션 추가 (이미 활성화된 필터는 제외)
     state.availableFilters.forEach(filter => {
+        // 이미 활성화된 필터면 건너뛰기
+        if (activeFilterNames.includes(filter.name)) {
+            return;
+        }
+        
         const option = document.createElement('option');
         option.value = filter.name;
         option.textContent = filter.displayName || filter.name;
@@ -110,10 +173,18 @@ async function updateFiltersForCategory(category) {
             elements.activeFilters.innerHTML = '';
         }
         
-        // 세트 효과 메타데이터 로드
-        metadataLoader.loadSetEffectForCategory(category);
+        // 페이지네이션 업데이트 (필터 초기화 시 페이지네이션 숨김)
+        updatePaginationVisibility();
         
-        logDebug(`카테고리 ${category}의 필터 옵션 업데이트 완료: ${filters.length}개 필터`);
+        // 세트 효과 메타데이터 로드
+        if (category) {
+            loadCategoryMetadata(category);
+        } else {
+            // 카테고리가 없으면 모든 메타데이터 로드
+            loadAllMetadata();
+        }
+        
+        logDebug(`카테고리 ${category || '전체'}의 필터 옵션 업데이트 완료: ${filters.length}개 필터`);
     } catch (error) {
         console.error('필터 업데이트 중 오류:', error);
         
@@ -127,6 +198,24 @@ async function updateFiltersForCategory(category) {
         if (elements.activeFilters) {
             elements.activeFilters.innerHTML = '<div class="filter-error">필터 옵션을 로드할 수 없습니다. 페이지를 새로고침해 주세요.</div>';
         }
+    }
+}
+
+/**
+ * 카테고리별 메타데이터 로드
+ */
+async function loadCategoryMetadata(category) {
+    try {
+        // 세트 효과 메타데이터 로드
+        const setEffectData = await metadataLoader.loadSetEffectForCategory(category);
+        if (setEffectData) {
+            state.autoCompleteData.setEffects[category] = setEffectData;
+        }
+        
+        // 세공 메타데이터는 이미 전체 로드되어 있음
+        logDebug(`카테고리 ${category}의 메타데이터 로드 완료`);
+    } catch (error) {
+        console.error(`카테고리 ${category} 메타데이터 로드 중 오류:`, error);
     }
 }
 
@@ -226,14 +315,13 @@ function getAllPossibleFilters() {
         },
         {
             name: '에르그',
-            displayName: '에르그 레벨',
-            type: 'range',
-            field: 'option_value',
+            displayName: '에르그',
+            type: 'erg',
             visible: true
         },
         {
             name: '세공 랭크',
-            displayName: '세공 상태',
+            displayName: '세공',
             type: 'reforge-status',
             visible: true
         },
@@ -246,9 +334,7 @@ function getAllPossibleFilters() {
         {
             name: '세트 효과',
             displayName: '세트 효과',
-            type: 'range',
-            field: 'option_value2',
-            category: '세트 효과',
+            type: 'set-effect',
             visible: true
         }
     ];
@@ -352,9 +438,8 @@ function defineBaseFilters(category) {
     if (supportsErg(category)) {
         filters.push({
             name: '에르그',
-            displayName: '에르그 레벨',
-            type: 'range',
-            field: 'option_value',
+            displayName: '에르그',
+            type: 'erg',
             visible: true
         });
     }
@@ -363,7 +448,7 @@ function defineBaseFilters(category) {
     if (supportsReforge(category)) {
         filters.push({
             name: '세공 랭크',
-            displayName: '세공 상태',
+            displayName: '세공',
             type: 'reforge-status',
             visible: true
         });
@@ -380,9 +465,7 @@ function defineBaseFilters(category) {
     filters.push({
         name: '세트 효과',
         displayName: '세트 효과',
-        type: 'range',
-        field: 'option_value2',
-        category: '세트 효과',
+        type: 'set-effect',
         visible: true
     });
     
@@ -514,6 +597,10 @@ function addFilterItem(filterName) {
     removeBtn.addEventListener('click', () => {
         filterItem.remove();
         removeActiveFilter(filterName);
+        
+        // 드롭다운에 필터 다시 추가
+        addFilterToDropdown(filterInfo);
+        
         applyFilters(); // 필터 즉시 적용
     });
     
@@ -529,12 +616,12 @@ function addFilterItem(filterName) {
     if (filterInfo.type === 'reforge-status') {
         // 세공 상태 필터 (랭크 + 발현 수)
         createReforgeStatusFilter(filterContent, filterItem, filterInfo);
+    } else if (filterInfo.type === 'erg') {
+        // 에르그 필터 (등급 + 레벨)
+        createErgFilter(filterContent, filterItem, filterInfo);
     } else if (filterInfo.type === 'reforge-option') {
         // 세공 옵션 필터
         createReforgeOptionFilter(filterContent, filterItem, filterInfo);
-    } else if (filterInfo.type === 'erg') {
-        // 에르그 필터
-        createErgFilter(filterContent, filterItem, filterInfo);
     } else if (filterInfo.type === 'set-effect') {
         // 세트 효과 필터
         createSetEffectFilter(filterContent, filterItem, filterInfo);
@@ -562,9 +649,33 @@ function addFilterItem(filterName) {
 }
 
 /**
+ * 드롭다운에 필터 추가
+ */
+function addFilterToDropdown(filterInfo) {
+    if (!elements.filterSelector) return;
+    
+    // 이미 있는지 확인
+    const existingOption = Array.from(elements.filterSelector.options).find(option => 
+        option.value === filterInfo.name
+    );
+    
+    if (existingOption) return;
+    
+    // 옵션 추가
+    const option = document.createElement('option');
+    option.value = filterInfo.name;
+    option.textContent = filterInfo.displayName || filterInfo.name;
+    
+    elements.filterSelector.appendChild(option);
+}
+
+/**
  * 필터 적용
  */
 function applyFilters() {
+    // 페이지네이션 가시성 업데이트
+    updatePaginationVisibility();
+    
     // 필터 변경 이벤트 발생
     const event = new CustomEvent('filterChanged', {
         detail: {
@@ -574,6 +685,26 @@ function applyFilters() {
     document.dispatchEvent(event);
     
     logDebug('필터 적용됨:', state.activeFilters);
+}
+
+/**
+ * 페이지네이션 가시성 업데이트
+ */
+function updatePaginationVisibility() {
+    // 페이지네이션 관리자 존재하는지 확인
+    if (typeof PaginationManager === 'undefined') return;
+    
+    const paginationElement = document.getElementById('pagination');
+    if (!paginationElement) return;
+    
+    // 필터가 없거나 빈 상태일 때 페이지네이션 숨김
+    const hasActiveFilters = state.activeFilters.length > 0;
+    
+    if (!hasActiveFilters) {
+        paginationElement.style.display = 'none';
+    } else {
+        paginationElement.style.display = '';
+    }
 }
 
 /**
@@ -588,7 +719,7 @@ function removeActiveFilter(filterName) {
 }
 
 /**
- * 필터 자동 적용
+ * 자동 필터 적용 함수
  */
 function autoApplyFilter(filterItem, filterInfo) {
     // 필터 타입에 따른 값 추출
@@ -649,6 +780,12 @@ function autoApplyFilter(filterItem, filterInfo) {
     } else if (type === 'set-effect') {
         // 세트 효과 필터 처리
         applySetEffectFilter(filterItem, filterInfo);
+    } else if (type === 'erg') {
+        // 에르그 필터 처리
+        applyErgFilter(filterItem, filterInfo);
+    } else if (type === 'reforge-status') {
+        // 세공 상태 필터 처리
+        applyReforgeStatusFilter(filterItem, filterInfo);
     } else {
         const input = filterItem.querySelector('.text-value');
         const value = input ? input.value : '';
@@ -671,6 +808,189 @@ function autoApplyFilter(filterItem, filterInfo) {
     
     // 필터 적용
     applyFilters();
+}
+
+/**
+ * 세공 상태 필터 UI 생성 (버튼+버튼)
+ */
+function createReforgeStatusFilter(container, filterItem, filterInfo) {
+    // 1. 세공 랭크 버튼 섹션
+    const rankSection = document.createElement('div');
+    rankSection.className = 'filter-section';
+    
+    const rankLabel = document.createElement('div');
+    rankLabel.className = 'filter-section-label';
+    rankLabel.textContent = '세공 랭크:';
+    rankSection.appendChild(rankLabel);
+    
+    // 랭크 버튼 컨테이너
+    const rankButtons = document.createElement('div');
+    rankButtons.className = 'special-mod-buttons';
+    
+    // 랭크 버튼: 1, 2, 3
+    [1, 2, 3].forEach(rank => {
+        const button = document.createElement('button');
+        button.className = 'special-mod-btn';
+        button.textContent = rank.toString();
+        button.setAttribute('data-rank', rank);
+        
+        // 버튼 클릭 이벤트
+        button.addEventListener('click', () => {
+            // 다른 버튼 비활성화
+            rankButtons.querySelectorAll('.active').forEach(activeBtn => {
+                if (activeBtn !== button) {
+                    activeBtn.classList.remove('active');
+                }
+            });
+            
+            // 토글 효과
+            button.classList.toggle('active');
+            
+            // 필터 적용
+            applyReforgeStatusFilter(filterItem, filterInfo);
+        });
+        
+        rankButtons.appendChild(button);
+    });
+    
+    rankSection.appendChild(rankButtons);
+    container.appendChild(rankSection);
+    
+    // 2. 세공 줄 수 버튼 섹션
+    const lineSection = document.createElement('div');
+    lineSection.className = 'filter-section';
+    
+    const lineLabel = document.createElement('div');
+    lineLabel.className = 'filter-section-label';
+    lineLabel.textContent = '줄 수:';
+    lineSection.appendChild(lineLabel);
+    
+    // 줄 수 버튼 컨테이너
+    const lineButtons = document.createElement('div');
+    lineButtons.className = 'special-mod-buttons';
+    
+    // 줄 수 버튼: 1, 2, 3
+    [1, 2, 3].forEach(line => {
+        const button = document.createElement('button');
+        button.className = 'special-mod-btn';
+        button.textContent = line.toString();
+        button.setAttribute('data-line', line);
+        
+        // 버튼 클릭 이벤트
+        button.addEventListener('click', () => {
+            // 다른 버튼 비활성화
+            lineButtons.querySelectorAll('.active').forEach(activeBtn => {
+                if (activeBtn !== button) {
+                    activeBtn.classList.remove('active');
+                }
+            });
+            
+            // 토글 효과
+            button.classList.toggle('active');
+            
+            // 필터 적용
+            applyReforgeStatusFilter(filterItem, filterInfo);
+        });
+        
+        lineButtons.appendChild(button);
+    });
+    
+    lineSection.appendChild(lineButtons);
+    container.appendChild(lineSection);
+}
+
+/**
+ * 에르그 필터 UI 생성 (버튼+범위)
+ */
+function createErgFilter(container, filterItem, filterInfo) {
+    // 1. 에르그 등급 버튼 섹션
+    const gradeSection = document.createElement('div');
+    gradeSection.className = 'filter-section';
+    
+    const gradeLabel = document.createElement('div');
+    gradeLabel.className = 'filter-section-label';
+    gradeLabel.textContent = '에르그 등급:';
+    gradeSection.appendChild(gradeLabel);
+    
+    // 등급 버튼 컨테이너
+    const gradeButtons = document.createElement('div');
+    gradeButtons.className = 'special-mod-buttons';
+    
+    // 등급 버튼: S, A, B
+    ['S', 'A', 'B'].forEach(grade => {
+        const button = document.createElement('button');
+        button.className = 'special-mod-btn';
+        button.textContent = grade;
+        button.setAttribute('data-grade', grade);
+        
+        // 버튼 클릭 이벤트
+        button.addEventListener('click', () => {
+            // 다른 버튼 비활성화
+            gradeButtons.querySelectorAll('.active').forEach(activeBtn => {
+                if (activeBtn !== button) {
+                    activeBtn.classList.remove('active');
+                }
+            });
+            
+            // 토글 효과
+            button.classList.toggle('active');
+            
+            // 필터 적용
+            applyErgFilter(filterItem, filterInfo);
+        });
+        
+        gradeButtons.appendChild(button);
+    });
+    
+    gradeSection.appendChild(gradeButtons);
+    container.appendChild(gradeSection);
+    
+    // 2. 에르그 레벨 범위 필터
+    const levelSection = document.createElement('div');
+    levelSection.className = 'filter-section';
+    
+    const levelLabel = document.createElement('div');
+    levelLabel.className = 'filter-section-label';
+    levelLabel.textContent = '에르그 레벨:';
+    levelSection.appendChild(levelLabel);
+    
+    // 범위 입력 컨테이너
+    const levelInputRow = document.createElement('div');
+    levelInputRow.className = 'filter-input-row';
+    
+    // 최소값 입력
+    const minInput = document.createElement('input');
+    minInput.type = 'number';
+    minInput.className = 'filter-input min-value erg-min-level';
+    minInput.placeholder = '최소 레벨';
+    minInput.min = 0;
+    minInput.max = 50;  // 에르그 최대 레벨 50
+    
+    const separator = document.createElement('span');
+    separator.className = 'filter-separator';
+    separator.textContent = '~';
+    
+    const maxInput = document.createElement('input');
+    maxInput.type = 'number';
+    maxInput.className = 'filter-input max-value erg-max-level';
+    maxInput.placeholder = '최대 레벨';
+    maxInput.min = 0;
+    maxInput.max = 50;  // 에르그 최대 레벨 50
+    
+    // 이벤트 리스너
+    minInput.addEventListener('change', () => {
+        applyErgFilter(filterItem, filterInfo);
+    });
+    
+    maxInput.addEventListener('change', () => {
+        applyErgFilter(filterItem, filterInfo);
+    });
+    
+    levelInputRow.appendChild(minInput);
+    levelInputRow.appendChild(separator);
+    levelInputRow.appendChild(maxInput);
+    levelSection.appendChild(levelInputRow);
+    container.appendChild(levelSection);
 }
 
 /**
@@ -722,252 +1042,364 @@ function createSpecialModFilter(container, filterItem, filterInfo) {
     container.appendChild(typeSection);
     
     // 2. 특별 개조 단계 범위 섹션
-    createRangeFilter(container, filterItem, {
-        name: '특별개조단계',
-        displayName: '단계',
-        type: 'range'
+    const levelSection = document.createElement('div');
+    levelSection.className = 'filter-section';
+    
+    const levelLabel = document.createElement('div');
+    levelLabel.className = 'filter-section-label';
+    levelLabel.textContent = '단계 범위:';
+    levelSection.appendChild(levelLabel);
+    
+    const levelInputRow = document.createElement('div');
+    levelInputRow.className = 'filter-input-row';
+    
+    const minInput = document.createElement('input');
+    minInput.type = 'number';
+    minInput.className = 'filter-input min-value';
+    minInput.placeholder = '최소 단계';
+    minInput.min = 1;
+    minInput.max = 10;  // 특별 개조 최대 단계
+    
+    const separator = document.createElement('span');
+    separator.className = 'filter-separator';
+    separator.textContent = '~';
+    
+    const maxInput = document.createElement('input');
+    maxInput.type = 'number';
+    maxInput.className = 'filter-input max-value';
+    maxInput.placeholder = '최대 단계';
+    maxInput.min = 1;
+    maxInput.max = 10;  // 특별 개조 최대 단계
+    
+    // 이벤트 리스너
+    minInput.addEventListener('change', () => {
+        applySpecialModFilter(filterItem, filterInfo);
     });
     
-    // 범위 필터의 입력 필드에 이벤트 추가
-    const inputs = container.querySelectorAll('input');
-    inputs.forEach(input => {
-        input.addEventListener('change', () => {
-            applySpecialModFilter(filterItem, filterInfo);
-        });
+    maxInput.addEventListener('change', () => {
+        applySpecialModFilter(filterItem, filterInfo);
     });
+    
+    levelInputRow.appendChild(minInput);
+    levelInputRow.appendChild(separator);
+    levelInputRow.appendChild(maxInput);
+    levelSection.appendChild(levelInputRow);
+    container.appendChild(levelSection);
 }
 
 /**
  * 인챈트 필터 UI 생성
  */
 function createEnchantFilter(container, filterItem, filterInfo) {
-    // 1. 접두/접미 선택
-    const typeSection = document.createElement('div');
-    typeSection.className = 'filter-section';
+    // 접두 인챈트 입력 필드
+    const prefixSection = document.createElement('div');
+    prefixSection.className = 'enchant-search-container';
     
-    // 타입 라디오 버튼 그룹
-    const typeLabel = document.createElement('div');
-    typeLabel.className = 'filter-section-label';
-    typeLabel.textContent = '타입:';
-    typeSection.appendChild(typeLabel);
+    const prefixLabel = document.createElement('div');
+    prefixLabel.className = 'enchant-label';
+    prefixLabel.textContent = '접두:';
+    prefixSection.appendChild(prefixLabel);
     
-    const typeContainer = document.createElement('div');
-    typeContainer.className = 'enchant-type-container';
+    const prefixInput = document.createElement('input');
+    prefixInput.type = 'text';
+    prefixInput.className = 'filter-input enchant-input prefix-enchant';
+    prefixInput.placeholder = '접두 인챈트';
     
-    // 라디오 버튼: 접두, 접미
-    ['접두', '접미'].forEach(type => {
-        const radioContainer = document.createElement('label');
-        radioContainer.className = 'enchant-type-option';
-        
-        const radio = document.createElement('input');
-        radio.type = 'radio';
-        radio.name = `enchant-type-${filterItem.getAttribute('data-filter')}`;
-        radio.value = type;
-        radio.className = 'enchant-type-radio';
-        
-        // 첫 번째 옵션 기본 선택
-        if (type === '접두') {
-            radio.checked = true;
-        }
-        
-        // 이벤트 리스너
-        radio.addEventListener('change', () => {
-            // 필터 적용
-            applyEnchantFilter(filterItem, filterInfo);
-        });
-        
-        radioContainer.appendChild(radio);
-        radioContainer.appendChild(document.createTextNode(type));
-        typeContainer.appendChild(radioContainer);
-    });
-    
-    typeSection.appendChild(typeContainer);
-    container.appendChild(typeSection);
-    
-    // 2. 인챈트 이름 검색
-    const nameSection = document.createElement('div');
-    nameSection.className = 'filter-section';
-    
-    const nameLabel = document.createElement('div');
-    nameLabel.className = 'enchant-label';
-    nameLabel.textContent = '인챈트 이름:';
-    nameSection.appendChild(nameLabel);
-    
-    const nameInput = document.createElement('input');
-    nameInput.type = 'text';
-    nameInput.className = 'filter-input enchant-name';
-    nameInput.placeholder = '인챈트 이름 입력';
-    
-    // 이벤트 리스너 - 인챈트 이름 입력 변경 시
-    nameInput.addEventListener('input', () => {
+    // 입력 완료 후 필터링 적용
+    prefixInput.addEventListener('change', () => {
         applyEnchantFilter(filterItem, filterInfo);
     });
     
-    nameSection.appendChild(nameInput);
-    container.appendChild(nameSection);
+    prefixSection.appendChild(prefixInput);
+    container.appendChild(prefixSection);
     
-    // 3. 최소 랭크 입력
-    const rankSection = document.createElement('div');
-    rankSection.className = 'filter-section';
+    // 접미 인챈트 입력 필드
+    const suffixSection = document.createElement('div');
+    suffixSection.className = 'enchant-search-container';
     
-    const rankLabel = document.createElement('div');
-    rankLabel.className = 'enchant-label';
-    rankLabel.textContent = '최소 랭크:';
-    rankSection.appendChild(rankLabel);
+    const suffixLabel = document.createElement('div');
+    suffixLabel.className = 'enchant-label';
+    suffixLabel.textContent = '접미:';
+    suffixSection.appendChild(suffixLabel);
     
-    const rankInput = document.createElement('input');
-    rankInput.type = 'number';
-    rankInput.className = 'filter-input enchant-rank';
-    rankInput.placeholder = '최소 랭크';
-    rankInput.min = 1;
+    const suffixInput = document.createElement('input');
+    suffixInput.type = 'text';
+    suffixInput.className = 'filter-input enchant-input suffix-enchant';
+    suffixInput.placeholder = '접미 인챈트';
     
-    // 이벤트 리스너 - 랭크 변경 시
-    rankInput.addEventListener('input', () => {
+    // 입력 완료 후 필터링 적용
+    suffixInput.addEventListener('change', () => {
         applyEnchantFilter(filterItem, filterInfo);
     });
     
-    rankSection.appendChild(rankInput);
-    container.appendChild(rankSection);
+    suffixSection.appendChild(suffixInput);
+    container.appendChild(suffixSection);
 }
 
 /**
  * 세공 옵션 필터 UI 생성
  */
 function createReforgeOptionFilter(container, filterItem, filterInfo) {
-    // 1. 세공 옵션 이름 입력
-    const nameSection = document.createElement('div');
-    nameSection.className = 'filter-section';
+    // 최대 3개의 세공 옵션 입력 필드 생성
+    for (let i = 1; i <= 3; i++) {
+        const optionSection = document.createElement('div');
+        optionSection.className = 'filter-section';
+        
+        const optionLabel = document.createElement('div');
+        optionLabel.className = 'filter-section-label';
+        optionLabel.textContent = `옵션 ${i}:`;
+        optionSection.appendChild(optionLabel);
+        
+        // 옵션 이름 입력
+        const nameInput = document.createElement('input');
+        nameInput.type = 'text';
+        nameInput.className = `filter-input reforge-option-name reforge-option-${i}`;
+        nameInput.placeholder = '세공 옵션 이름';
+        
+        // 입력 변경 이벤트
+        nameInput.addEventListener('input', () => {
+            // 입력값이 있으면 범위 필터 표시, 없으면 숨김
+            const hasValue = nameInput.value.trim() !== '';
+            const rangeSection = optionSection.querySelector('.reforge-range-section');
+            
+            if (rangeSection) {
+                rangeSection.style.display = hasValue ? 'block' : 'none';
+            } else if (hasValue) {
+                // 범위 필터 섹션 생성
+                createReforgeRangeSection(optionSection, i);
+            }
+        });
+        
+        // 입력 완료 이벤트
+        nameInput.addEventListener('change', () => {
+            applyReforgeOptionFilter(filterItem, filterInfo);
+        });
+        
+        optionSection.appendChild(nameInput);
+        container.appendChild(optionSection);
+    }
+}
+
+/**
+ * 세공 옵션 범위 섹션 생성
+ */
+function createReforgeRangeSection(parentSection, index) {
+    const rangeSection = document.createElement('div');
+    rangeSection.className = 'reforge-range-section';
+    rangeSection.style.marginTop = '8px';
     
-    const nameLabel = document.createElement('div');
-    nameLabel.className = 'filter-section-label';
-    nameLabel.textContent = '옵션 이름:';
-    nameSection.appendChild(nameLabel);
+    const rangeLabel = document.createElement('div');
+    rangeLabel.className = 'filter-section-label';
+    rangeLabel.textContent = '레벨 범위:';
+    rangeSection.appendChild(rangeLabel);
     
-    const nameInput = document.createElement('input');
-    nameInput.type = 'text';
-    nameInput.className = 'filter-input reforge-option-name';
-    nameInput.placeholder = '세공 옵션 이름';
+    const inputRow = document.createElement('div');
+    inputRow.className = 'filter-input-row';
     
-    // 이벤트 리스너
-    nameInput.addEventListener('input', () => {
-        applyReforgeOptionFilter(filterItem, filterInfo);
-    });
-    
-    nameSection.appendChild(nameInput);
-    container.appendChild(nameSection);
-    
-    // 2. 레벨 범위 입력
-    const levelSection = document.createElement('div');
-    levelSection.className = 'filter-section';
-    
-    const levelLabel = document.createElement('div');
-    levelLabel.className = 'filter-section-label';
-    levelLabel.textContent = '레벨 범위:';
-    levelSection.appendChild(levelLabel);
-    
-    const levelInputRow = document.createElement('div');
-    levelInputRow.className = 'filter-input-row';
-    
-    const minLevelInput = document.createElement('input');
-    minLevelInput.type = 'number';
-    minLevelInput.className = 'filter-input reforge-min-level';
-    minLevelInput.placeholder = '최소 레벨';
-    minLevelInput.min = 1;
+    const minInput = document.createElement('input');
+    minInput.type = 'number';
+    minInput.className = `filter-input reforge-min-level reforge-min-level-${index}`;
+    minInput.placeholder = '최소 레벨';
+    minInput.min = 1;
     
     const separator = document.createElement('span');
     separator.className = 'filter-separator';
     separator.textContent = '~';
     
-    const maxLevelInput = document.createElement('input');
-    maxLevelInput.type = 'number';
-    maxLevelInput.className = 'filter-input reforge-max-level';
-    maxLevelInput.placeholder = '최대 레벨';
-    maxLevelInput.min = 1;
+    const maxInput = document.createElement('input');
+    maxInput.type = 'number';
+    maxInput.className = `filter-input reforge-max-level reforge-max-level-${index}`;
+    maxInput.placeholder = '최대 레벨';
+    maxInput.min = 1;
     
-    // 이벤트 리스너
-    minLevelInput.addEventListener('change', () => {
-        applyReforgeOptionFilter(filterItem, filterInfo);
-    });
+    inputRow.appendChild(minInput);
+    inputRow.appendChild(separator);
+    inputRow.appendChild(maxInput);
+    rangeSection.appendChild(inputRow);
     
-    maxLevelInput.addEventListener('change', () => {
-        applyReforgeOptionFilter(filterItem, filterInfo);
-    });
+    // 초기에는 숨김 상태
+    rangeSection.style.display = 'none';
     
-    levelInputRow.appendChild(minLevelInput);
-    levelInputRow.appendChild(separator);
-    levelInputRow.appendChild(maxLevelInput);
-    levelSection.appendChild(levelInputRow);
-    container.appendChild(levelSection);
+    parentSection.appendChild(rangeSection);
 }
 
 /**
  * 세트 효과 필터 UI 생성
  */
 function createSetEffectFilter(container, filterItem, filterInfo) {
-    // 1. 세트 효과 이름 입력
-    const nameSection = document.createElement('div');
-    nameSection.className = 'filter-section';
+    // 최대 3개의 세트 효과 입력 필드 생성
+    for (let i = 1; i <= 3; i++) {
+        const effectSection = document.createElement('div');
+        effectSection.className = 'filter-section';
+        
+        const effectLabel = document.createElement('div');
+        effectLabel.className = 'filter-section-label';
+        effectLabel.textContent = `효과 ${i}:`;
+        effectSection.appendChild(effectLabel);
+        
+        // 효과 이름 입력
+        const nameInput = document.createElement('input');
+        nameInput.type = 'text';
+        nameInput.className = `filter-input set-effect-name set-effect-${i}`;
+        nameInput.placeholder = '세트 효과 이름';
+        
+        // 입력 변경 이벤트
+        nameInput.addEventListener('input', () => {
+            // 입력값이 있으면 범위 필터 표시, 없으면 숨김
+            const hasValue = nameInput.value.trim() !== '';
+            const rangeSection = effectSection.querySelector('.set-effect-range-section');
+            
+            if (rangeSection) {
+                rangeSection.style.display = hasValue ? 'block' : 'none';
+            } else if (hasValue) {
+                // 범위 필터 섹션 생성
+                createSetEffectRangeSection(effectSection, i);
+            }
+        });
+        
+        // 입력 완료 이벤트
+        nameInput.addEventListener('change', () => {
+            applySetEffectFilter(filterItem, filterInfo);
+        });
+        
+        effectSection.appendChild(nameInput);
+        container.appendChild(effectSection);
+    }
+}
+
+/**
+ * 세트 효과 범위 섹션 생성
+ */
+function createSetEffectRangeSection(parentSection, index) {
+    const rangeSection = document.createElement('div');
+    rangeSection.className = 'set-effect-range-section';
+    rangeSection.style.marginTop = '8px';
     
-    const nameLabel = document.createElement('div');
-    nameLabel.className = 'filter-section-label';
-    nameLabel.textContent = '세트 효과:';
-    nameSection.appendChild(nameLabel);
+    const rangeLabel = document.createElement('div');
+    rangeLabel.className = 'filter-section-label';
+    rangeLabel.textContent = '수치 범위:';
+    rangeSection.appendChild(rangeLabel);
     
-    const nameInput = document.createElement('input');
-    nameInput.type = 'text';
-    nameInput.className = 'filter-input set-effect-name';
-    nameInput.placeholder = '세트 효과 이름';
+    const inputRow = document.createElement('div');
+    inputRow.className = 'filter-input-row';
     
-    // 이벤트 리스너
-    nameInput.addEventListener('input', () => {
-        applySetEffectFilter(filterItem, filterInfo);
-    });
-    
-    nameSection.appendChild(nameInput);
-    container.appendChild(nameSection);
-    
-    // 2. 수치 범위 입력
-    const valueSection = document.createElement('div');
-    valueSection.className = 'filter-section';
-    
-    const valueLabel = document.createElement('div');
-    valueLabel.className = 'filter-section-label';
-    valueLabel.textContent = '수치 범위:';
-    valueSection.appendChild(valueLabel);
-    
-    const valueInputRow = document.createElement('div');
-    valueInputRow.className = 'filter-input-row';
-    
-    const minValueInput = document.createElement('input');
-    minValueInput.type = 'number';
-    minValueInput.className = 'filter-input set-effect-min-value';
-    minValueInput.placeholder = '최소값';
-    minValueInput.min = 1;
+    const minInput = document.createElement('input');
+    minInput.type = 'number';
+    minInput.className = `filter-input set-effect-min-value set-effect-min-value-${index}`;
+    minInput.placeholder = '최소값';
+    minInput.min = 1;
     
     const separator = document.createElement('span');
     separator.className = 'filter-separator';
     separator.textContent = '~';
     
-    const maxValueInput = document.createElement('input');
-    maxValueInput.type = 'number';
-    maxValueInput.className = 'filter-input set-effect-max-value';
-    maxValueInput.placeholder = '최대값';
-    maxValueInput.min = 1;
+    const maxInput = document.createElement('input');
+    maxInput.type = 'number';
+    maxInput.className = `filter-input set-effect-max-value set-effect-max-value-${index}`;
+    maxInput.placeholder = '최대값';
+    maxInput.min = 1;
     
-    // 이벤트 리스너
-    minValueInput.addEventListener('change', () => {
-        applySetEffectFilter(filterItem, filterInfo);
+    inputRow.appendChild(minInput);
+    inputRow.appendChild(separator);
+    inputRow.appendChild(maxInput);
+    rangeSection.appendChild(inputRow);
+    
+    // 초기에는 숨김 상태
+    rangeSection.style.display = 'none';
+    
+    parentSection.appendChild(rangeSection);
+}
+
+/**
+ * 에르그 필터 적용
+ */
+function applyErgFilter(filterItem, filterInfo) {
+    // 이미 존재하는 동일 필터 제거
+    state.activeFilters = state.activeFilters.filter(f => 
+        f.name !== filterInfo.name
+    );
+    
+    // 등급 버튼 확인
+    const gradeButtons = filterItem.querySelectorAll('.special-mod-btn[data-grade]');
+    let selectedGrade = null;
+    
+    gradeButtons.forEach(button => {
+        if (button.classList.contains('active')) {
+            selectedGrade = button.getAttribute('data-grade');
+        }
     });
     
-    maxValueInput.addEventListener('change', () => {
-        applySetEffectFilter(filterItem, filterInfo);
+    // 레벨 범위 입력 확인
+    const minInput = filterItem.querySelector('.erg-min-level');
+    const maxInput = filterItem.querySelector('.erg-max-level');
+    
+    const minLevel = minInput ? minInput.value.trim() : '';
+    const maxLevel = maxInput ? maxInput.value.trim() : '';
+    
+    // 에르그 필터 추가
+    const filter = {
+        name: filterInfo.name,
+        displayName: filterInfo.displayName || filterInfo.name,
+        type: 'erg',
+        grade: selectedGrade,
+        minLevel,
+        maxLevel
+    };
+    
+    // 등급이나 범위 중 하나라도 값이 있는 경우 필터 추가
+    if (selectedGrade || minLevel !== '' || maxLevel !== '') {
+        state.activeFilters.push(filter);
+    }
+    
+    // 필터 적용
+    applyFilters();
+}
+
+/**
+ * 세공 상태 필터 적용
+ */
+function applyReforgeStatusFilter(filterItem, filterInfo) {
+    // 이미 존재하는 동일 필터 제거
+    state.activeFilters = state.activeFilters.filter(f => 
+        f.name !== filterInfo.name
+    );
+    
+    // 랭크 버튼 확인
+    const rankButtons = filterItem.querySelectorAll('.special-mod-btn[data-rank]');
+    let selectedRank = null;
+    
+    rankButtons.forEach(button => {
+        if (button.classList.contains('active')) {
+            selectedRank = button.getAttribute('data-rank');
+        }
     });
     
-    valueInputRow.appendChild(minValueInput);
-    valueInputRow.appendChild(separator);
-    valueInputRow.appendChild(maxValueInput);
-    valueSection.appendChild(valueInputRow);
-    container.appendChild(valueSection);
+    // 줄 수 버튼 확인
+    const lineButtons = filterItem.querySelectorAll('.special-mod-btn[data-line]');
+    let selectedLine = null;
+    
+    lineButtons.forEach(button => {
+        if (button.classList.contains('active')) {
+            selectedLine = button.getAttribute('data-line');
+        }
+    });
+    
+    // 세공 상태 필터 추가
+    const filter = {
+        name: filterInfo.name,
+        displayName: filterInfo.displayName || filterInfo.name,
+        type: 'reforge-status',
+        rank: selectedRank,
+        lineCount: selectedLine
+    };
+    
+    // 랭크나 줄 수 중 하나라도 값이 있는 경우 필터 추가
+    if (selectedRank || selectedLine) {
+        state.activeFilters.push(filter);
+    }
+    
+    // 필터 적용
+    applyFilters();
 }
 
 /**
@@ -980,7 +1412,7 @@ function applySpecialModFilter(filterItem, filterInfo) {
     );
     
     // 타입 버튼 확인
-    const typeButtons = filterItem.querySelectorAll('.special-mod-btn');
+    const typeButtons = filterItem.querySelectorAll('.special-mod-btn[data-type]');
     let selectedType = null;
     
     typeButtons.forEach(button => {
@@ -1024,33 +1456,22 @@ function applyEnchantFilter(filterItem, filterInfo) {
         f.name !== filterInfo.name
     );
     
-    // 접두/접미 타입 가져오기
-    const typeRadios = filterItem.querySelectorAll('.enchant-type-radio');
-    let selectedType = null;
+    // 접두 인챈트 입력 가져오기
+    const prefixInput = filterItem.querySelector('.prefix-enchant');
+    const prefixEnchant = prefixInput ? prefixInput.value.trim() : '';
     
-    typeRadios.forEach(radio => {
-        if (radio.checked) {
-            selectedType = radio.value;
-        }
-    });
-    
-    // 인챈트 이름 입력 가져오기
-    const nameInput = filterItem.querySelector('.enchant-name');
-    const enchantName = nameInput ? nameInput.value.trim() : '';
-    
-    // 랭크 입력 가져오기
-    const rankInput = filterItem.querySelector('.enchant-rank');
-    const enchantRank = rankInput ? rankInput.value.trim() : '';
+    // 접미 인챈트 입력 가져오기
+    const suffixInput = filterItem.querySelector('.suffix-enchant');
+    const suffixEnchant = suffixInput ? suffixInput.value.trim() : '';
     
     // 인챈트 필터 추가
-    if (selectedType || enchantName !== '' || enchantRank !== '') {
+    if (prefixEnchant !== '' || suffixEnchant !== '') {
         state.activeFilters.push({
             name: filterInfo.name,
             displayName: filterInfo.displayName || filterInfo.name,
             type: 'enchant',
-            enchantType: selectedType,
-            enchantName,
-            enchantRank
+            prefixEnchant,
+            suffixEnchant
         });
     }
     
@@ -1067,26 +1488,38 @@ function applyReforgeOptionFilter(filterItem, filterInfo) {
         f.name !== filterInfo.name
     );
     
-    // 옵션 이름 입력 가져오기
-    const nameInput = filterItem.querySelector('.reforge-option-name');
-    const optionName = nameInput ? nameInput.value.trim() : '';
+    // 각 세공 옵션 입력 확인
+    const options = [];
     
-    // 레벨 범위 입력 가져오기
-    const minLevelInput = filterItem.querySelector('.reforge-min-level');
-    const maxLevelInput = filterItem.querySelector('.reforge-max-level');
+    for (let i = 1; i <= 3; i++) {
+        const nameInput = filterItem.querySelector(`.reforge-option-${i}`);
+        if (!nameInput) continue;
+        
+        const optionName = nameInput.value.trim();
+        if (optionName === '') continue;
+        
+        // 레벨 범위 입력 확인
+        const minInput = filterItem.querySelector(`.reforge-min-level-${i}`);
+        const maxInput = filterItem.querySelector(`.reforge-max-level-${i}`);
+        
+        const minLevel = minInput ? minInput.value.trim() : '';
+        const maxLevel = maxInput ? maxInput.value.trim() : '';
+        
+        // 옵션 추가
+        options.push({
+            name: optionName,
+            minLevel,
+            maxLevel
+        });
+    }
     
-    const min = minLevelInput ? minLevelInput.value.trim() : '';
-    const max = maxLevelInput ? maxLevelInput.value.trim() : '';
-    
-    // 세공 옵션 필터 추가
-    if (optionName !== '' || min !== '' || max !== '') {
+    // 옵션이 하나라도 있으면 필터 추가
+    if (options.length > 0) {
         state.activeFilters.push({
             name: filterInfo.name,
             displayName: filterInfo.displayName || filterInfo.name,
             type: 'reforge-option',
-            optionName,
-            min,
-            max
+            options
         });
     }
     
@@ -1103,26 +1536,38 @@ function applySetEffectFilter(filterItem, filterInfo) {
         f.name !== filterInfo.name
     );
     
-    // 세트 효과 이름 입력 가져오기
-    const nameInput = filterItem.querySelector('.set-effect-name');
-    const effectName = nameInput ? nameInput.value.trim() : '';
+    // 각 세트 효과 입력 확인
+    const effects = [];
     
-    // 수치 범위 입력 가져오기
-    const minValueInput = filterItem.querySelector('.set-effect-min-value');
-    const maxValueInput = filterItem.querySelector('.set-effect-max-value');
+    for (let i = 1; i <= 3; i++) {
+        const nameInput = filterItem.querySelector(`.set-effect-${i}`);
+        if (!nameInput) continue;
+        
+        const effectName = nameInput.value.trim();
+        if (effectName === '') continue;
+        
+        // 수치 범위 입력 확인
+        const minInput = filterItem.querySelector(`.set-effect-min-value-${i}`);
+        const maxInput = filterItem.querySelector(`.set-effect-max-value-${i}`);
+        
+        const minValue = minInput ? minInput.value.trim() : '';
+        const maxValue = maxInput ? maxInput.value.trim() : '';
+        
+        // 효과 추가
+        effects.push({
+            name: effectName,
+            minValue,
+            maxValue
+        });
+    }
     
-    const min = minValueInput ? minValueInput.value.trim() : '';
-    const max = maxValueInput ? maxValueInput.value.trim() : '';
-    
-    // 세트 효과 필터 추가
-    if (effectName !== '' || min !== '' || max !== '') {
+    // 효과가 하나라도 있으면 필터 추가
+    if (effects.length > 0) {
         state.activeFilters.push({
             name: filterInfo.name,
             displayName: filterInfo.displayName || filterInfo.name,
             type: 'set-effect',
-            effectName,
-            min,
-            max
+            effects
         });
     }
     
@@ -1130,6 +1575,9 @@ function applySetEffectFilter(filterItem, filterInfo) {
     applyFilters();
 }
 
+/**
+ * 단순 범위 필터 UI 생성
+ */
 function createRangeFilter(container, filterItem, filterInfo) {
     // 범위 입력 컨테이너
     const inputRow = document.createElement('div');
@@ -1164,6 +1612,9 @@ function createRangeFilter(container, filterItem, filterInfo) {
     container.appendChild(inputRow);
 }
 
+/**
+ * 선택형 필터 UI 생성
+ */
 function createSelectFilter(container, filterItem, filterInfo) {
     // 선택형 입력 (드롭다운)
     const select = document.createElement('select');
@@ -1188,6 +1639,9 @@ function createSelectFilter(container, filterItem, filterInfo) {
     container.appendChild(select);
 }
 
+/**
+ * 텍스트 필터 UI 생성
+ */
 function createTextFilter(container, filterItem, filterInfo) {
     // 기본 텍스트 입력
     const input = document.createElement('input');
@@ -1219,6 +1673,12 @@ function resetFilters() {
     if (elements.activeFilters) {
         elements.activeFilters.innerHTML = '';
     }
+    
+    // 필터 드롭다운 초기화
+    updateFilterDropdown();
+    
+    // 페이지네이션 가시성 업데이트
+    updatePaginationVisibility();
     
     logDebug('필터 초기화 완료');
 }
