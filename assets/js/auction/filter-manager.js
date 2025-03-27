@@ -135,9 +135,9 @@ async function updateFiltersForCategory(category) {
  */
 async function loadFiltersForCategory(category) {
     try {
-        // 카테고리 없는 경우 빈 배열 반환
+        // 카테고리 없는 경우, 모든 필터 옵션 반환
         if (!category) {
-            return [];
+            return getAllPossibleFilters();
         }
         
         // 기본 필터 정보를 직접 정의
@@ -155,6 +155,111 @@ async function loadFiltersForCategory(category) {
     } catch (error) {
         throw error; // 오류 전파
     }
+}
+
+/**
+ * 모든 필터 옵션 반환
+ */
+function getAllPossibleFilters() {
+    // 모든 필터 옵션을 포함하는 배열
+    return [
+        {
+            name: '공격',
+            displayName: '최대 공격력',
+            type: 'range',
+            field: 'option_value2',
+            visible: true
+        },
+        {
+            name: '크리티컬',
+            displayName: '크리티컬',
+            type: 'range',
+            field: 'option_value',
+            visible: true
+        },
+        {
+            name: '밸런스',
+            displayName: '밸런스',
+            type: 'range',
+            field: 'option_value',
+            isPercent: true,
+            visible: true
+        },
+        {
+            name: '방어력',
+            displayName: '방어력',
+            type: 'range',
+            field: 'option_value',
+            visible: true
+        },
+        {
+            name: '보호',
+            displayName: '보호',
+            type: 'range',
+            field: 'option_value',
+            visible: true
+        },
+        {
+            name: '내구력',
+            displayName: '최대 내구력',
+            type: 'range',
+            field: 'option_value2',
+            visible: true
+        },
+        {
+            name: '인챈트',
+            displayName: '인챈트',
+            type: 'enchant',
+            subTypes: ['접두', '접미'],
+            visible: true
+        },
+        {
+            name: '피어싱 레벨',
+            displayName: '피어싱 레벨',
+            type: 'range',
+            visible: true,
+            getValue: (option) => {
+                const baseLevel = parseInt(option.option_value || "0");
+                const additionalLevel = option.option_value2 ? 
+                    parseInt(option.option_value2.replace(/\+/g, '')) : 0;
+                return baseLevel + additionalLevel;
+            }
+        },
+        {
+            name: '특별 개조',
+            displayName: '특별개조 단계',
+            type: 'range',
+            field: 'option_value',
+            visible: true
+        },
+        {
+            name: '에르그',
+            displayName: '에르그 레벨',
+            type: 'range',
+            field: 'option_value',
+            visible: true
+        },
+        {
+            name: '세공 랭크',
+            displayName: '세공 상태',
+            type: 'reforge-status',
+            visible: true
+        },
+        {
+            name: '세공 옵션',
+            displayName: '세공 옵션',
+            type: 'reforge-option',
+            visible: true
+        },
+        {
+            name: '세트 효과',
+            displayName: '세트 효과',
+            type: 'range',
+            field: 'option_value2',
+            category: '세트 효과',
+            visible: true
+        }
+    ];
 }
 
 /**
