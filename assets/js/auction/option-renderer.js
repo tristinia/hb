@@ -267,7 +267,7 @@ class OptionRenderer {
       const formattedEffects = [];
       
       effects.forEach(effect => {
-        // 조건부 정보 제거하고 순수 효과만 추출 - 모든 "때" 패턴 인식
+        // 조건부 정보 제거하고 순수 효과만 추출
         const conditionMatch = effect.match(/(.*?때) (.*)/);
         const cleanEffect = conditionMatch ? conditionMatch[2].trim() : effect.trim();
         
@@ -563,7 +563,7 @@ class OptionRenderer {
         effects.forEach(effect => {
           const effectText = effect.trim();
           // 조건부 효과에서 순수 효과만 추출
-          const conditionMatch = effectText.match(/(.*?일 때) (.*)/);
+          const conditionMatch = effectText.match(/(.*?때) (.*)/);
           const cleanEffect = conditionMatch ? conditionMatch[2].trim() : effectText;
           
           // 부정적 효과 확인
