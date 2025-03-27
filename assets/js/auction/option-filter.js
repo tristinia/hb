@@ -265,34 +265,45 @@ class OptionFilter {
     return value === filter.value;
   }
 
+  /**
+   * 인챈트 필터 확인
+   */
   checkEnchantFilter(item, filter) {
     const options = item.options || item.item_option || [];
     
     // 접두 인챈트 필터
-    if (filter.prefixEnchant) {
+    if (filter.prefixEnchant && filter.prefixEnchant.trim() !== '') {
       const prefixEnchants = options.filter(opt => 
         opt.option_type === '인챈트' && opt.option_sub_type === '접두'
       );
       
-      // 접두 인챈트 검색
+      // 접두 인챈트가 없으면 실패
+      if (prefixEnchants.length === 0) return false;
+      
+      // 접두 인챈트 검색 - 부분 일치로 변경
+      const searchTerm = filter.prefixEnchant.toLowerCase().trim();
       const hasMatchingPrefix = prefixEnchants.some(enchant => {
-        const value = enchant.option_value || '';
-        return value.includes(filter.prefixEnchant);
+        const value = (enchant.option_value || '').toLowerCase();
+        return value.includes(searchTerm);
       });
       
       if (!hasMatchingPrefix) return false;
     }
     
     // 접미 인챈트 필터
-    if (filter.suffixEnchant) {
+    if (filter.suffixEnchant && filter.suffixEnchant.trim() !== '') {
       const suffixEnchants = options.filter(opt => 
         opt.option_type === '인챈트' && opt.option_sub_type === '접미'
       );
       
-      // 접미 인챈트 검색
+      // 접미 인챈트가 없으면 실패
+      if (suffixEnchants.length === 0) return false;
+      
+      // 접미 인챈트 검색 - 부분 일치로 변경
+      const searchTerm = filter.suffixEnchant.toLowerCase().trim();
       const hasMatchingSuffix = suffixEnchants.some(enchant => {
-        const value = enchant.option_value || '';
-        return value.includes(filter.suffixEnchant);
+        const value = (enchant.option_value || '').toLowerCase();
+        return value.includes(searchTerm);
       });
       
       if (!hasMatchingSuffix) return false;
@@ -374,6 +385,9 @@ class OptionFilter {
     return true;
   }
   
+  /**
+   * 세공 옵션 필터 확인
+   */
   checkReforgeOptionFilter(item, filter) {
     const options = item.options || item.item_option || [];
     
@@ -387,10 +401,16 @@ class OptionFilter {
     
     // 각 필터 옵션에 대해 검사
     return filter.options.every(filterOption => {
-      // 옵션 이름으로 필터링
+      // 빈 필터 옵션은 무시
+      if (!filterOption.name || filterOption.name.trim() === '') {
+        return true;
+      }
+      
+      // 옵션 이름으로 필터링 - 부분 일치로 변경
+      const searchTerm = filterOption.name.toLowerCase().trim();
       const matchingOptions = reforgeOptions.filter(opt => {
-        const optionValue = opt.option_value || '';
-        return optionValue.includes(filterOption.name);
+        const optionValue = (opt.option_value || '').toLowerCase();
+        return optionValue.includes(searchTerm);
       });
       
       // 일치하는 옵션이 없으면 실패
@@ -412,7 +432,7 @@ class OptionFilter {
         const level = parseInt(match[1]);
         
         // 최소 레벨 검사
-        if (filterOption.minLevel) {
+        if (filterOption.minLevel && filterOption.minLevel.trim() !== '') {
           const minLevel = parseInt(filterOption.minLevel);
           if (!isNaN(minLevel) && level < minLevel) {
             return false;
@@ -420,7 +440,7 @@ class OptionFilter {
         }
         
         // 최대 레벨 검사
-        if (filterOption.maxLevel) {
+        if (filterOption.maxLevel && filterOption.maxLevel.trim() !== '') {
           const maxLevel = parseInt(filterOption.maxLevel);
           if (!isNaN(maxLevel) && level > maxLevel) {
             return false;
@@ -432,6 +452,9 @@ class OptionFilter {
     });
   }
   
+  /**
+   * 세트 효과 필터 확인
+   */
   checkSetEffectFilter(item, filter) {
     const options = item.options || item.item_option || [];
     
@@ -445,10 +468,16 @@ class OptionFilter {
     
     // 각 필터 효과에 대해 검사
     return filter.effects.every(filterEffect => {
-      // 효과 이름으로 필터링
+      // 빈 필터 효과는 무시
+      if (!filterEffect.name || filterEffect.name.trim() === '') {
+        return true;
+      }
+      
+      // 효과 이름으로 필터링 - 부분 일치로 변경
+      const searchTerm = filterEffect.name.toLowerCase().trim();
       const matchingEffects = setEffectOptions.filter(opt => {
-        const effectValue = opt.option_value || '';
-        return effectValue.includes(filterEffect.name);
+        const effectValue = (opt.option_value || '').toLowerCase();
+        return effectValue.includes(searchTerm);
       });
       
       // 일치하는 효과가 없으면 실패
@@ -466,7 +495,7 @@ class OptionFilter {
         const value = parseInt(opt.option_value2 || "0");
         
         // 최소값 검사
-        if (filterEffect.minValue) {
+        if (filterEffect.minValue && filterEffect.minValue.trim() !== '') {
           const minValue = parseInt(filterEffect.minValue);
           if (!isNaN(minValue) && value < minValue) {
             return false;
@@ -474,7 +503,7 @@ class OptionFilter {
         }
         
         // 최대값 검사
-        if (filterEffect.maxValue) {
+        if (filterEffect.maxValue && filterEffect.maxValue.trim() !== '') {
           const maxValue = parseInt(filterEffect.maxValue);
           if (!isNaN(maxValue) && value > maxValue) {
             return false;
