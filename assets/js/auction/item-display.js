@@ -208,8 +208,14 @@ const ItemDisplay = (() => {
             return;
         }
         
-        // 로딩 시작 (API 호출이 아니므로 별도 처리)
-        ApiClient.setLoading(true);
+        // hideLoading 플래그가 true인 경우 로딩 스피너 표시하지 않음
+        const event = document.createEvent('CustomEvent');
+        const isFilterEvent = event && event.detail && event.detail.hideLoading;
+        
+        if (!isFilterEvent) {
+            // 로딩 스피너 표시하지 않음 (필터링은 클라이언트 사이드 연산)
+            // ApiClient.setLoading(true);
+        }
         
         // 필터링 지연 처리 (브라우저 렌더링 차단 방지)
         setTimeout(() => {
@@ -240,8 +246,8 @@ const ItemDisplay = (() => {
                 console.error('필터링 중 오류 발생:', error);
                 showFilterError('필터링 중 오류가 발생했습니다');
             } finally {
-                // 로딩 종료
-                ApiClient.setLoading(false);
+                // 로딩 종료 - 필터링 작업에서는 로딩 스피너를 사용하지 않음
+                // ApiClient.setLoading(false);
             }
         }, 10);
     }
