@@ -142,7 +142,7 @@ class OptionRenderer {
         break;
         
       case '남은 전용 해제 가능 횟수':
-        text = `전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수: ${option.option_value}`;
+        text = ` 전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수: ${option.option_value}`;
         color = 'yellow';
         break;
         
@@ -209,12 +209,12 @@ class OptionRenderer {
         if (match) {
           const name = match[1].trim();
           const level = match[2];
-          text = `${name} ${level}레벨`;
+          text = `- ${name} ${level}레벨`;
         } else {
-          text = option.option_value;
+          text = `- ${option.option_value}`;
         }
         color = 'blue';
-        break;
+      break;
         
       case '세트 효과':
         text = `- ${option.option_value} +${option.option_value2}`;
