@@ -1241,8 +1241,8 @@ function handleEnchantAutocomplete(inputElement, type) {
     const query = inputElement.value.trim();
     
     // 자동완성 목록 엘리먼트 찾기
-    const listElement = inputElement.closest('.filter-content')
-        .querySelector(`.${type}-autocomplete`);
+    const listElement = inputElement.closest('.filter-section')
+        .nextElementSibling;
     
     // 검색어가 없으면 자동완성 숨김
     if (!query || query.length < 2) {
@@ -1250,22 +1250,17 @@ function handleEnchantAutocomplete(inputElement, type) {
         return;
     }
     
-    // 메타데이터에서 인챈트 검색
-    metadataLoader.searchEnchants(type === 'prefix' ? '접두' : '접미', query)
-        .then(enchants => {
-            // 결과가 없으면 자동완성 숨김
-            if (enchants.length === 0) {
-                listElement.style.display = 'none';
-                return;
-            }
-            
-            // 자동완성 목록 렌더링
-            renderEnchantAutoComplete(listElement, enchants, inputElement);
-        })
-        .catch(error => {
-            console.error(`인챈트 검색 오류 (${type}):`, error);
-            listElement.style.display = 'none';
-        });
+    // 인챈트 검색
+    const enchants = searchEnchantsByName(query, type);
+    
+    // 결과가 없으면 자동완성 숨김
+    if (enchants.length === 0) {
+        listElement.style.display = 'none';
+        return;
+    }
+    
+    // 자동완성 목록 렌더링
+    renderEnchantAutoComplete(listElement, enchants, inputElement);
 }
 
 /**
@@ -1422,9 +1417,12 @@ function createReforgeOptionFilter(container, filterItem, filterInfo) {
 function handleReforgeOptionAutocomplete(inputElement) {
     const query = inputElement.value.trim();
     
-    // 자동완성 목록 엘리먼트 찾기
-    const listElement = inputElement.closest('.filter-content')
-        .querySelector('.reforge-option-autocomplete');
+    // 현재 input의 인덱스 찾기 (reforge-option-1, reforge-option-2, reforge-option-3)
+    const index = inputElement.className.match(/reforge-option-(\d+)/)[1];
+    
+    // 자동완성 목록 엘리먼트 찾기 - 각 input 바로 뒤에 위치하는 자동완성 목록
+    const listElement = inputElement.closest('.filter-section')
+        .nextElementSibling;
     
     // 검색어가 없으면 자동완성 숨김
     if (!query || query.length < 2) {
@@ -1432,23 +1430,19 @@ function handleReforgeOptionAutocomplete(inputElement) {
         return;
     }
     
-    // 메타데이터에서 세공 옵션 검색
-    metadataLoader.searchReforgeOptions(getCurrentCategory(), query)
-        .then(options => {
-            // 결과가 없으면 자동완성 숨김
-            if (options.length === 0) {
-                listElement.style.display = 'none';
-                return;
-            }
-            
-            // 자동완성 목록 렌더링
-            renderReforgeOptionAutoComplete(listElement, options, inputElement);
-        })
-        .catch(error => {
-            console.error('세공 옵션 검색 오류:', error);
-            listElement.style.display = 'none';
-        });
+    // 세공 옵션 검색
+    const options = searchReforgeOptions(query);
+    
+    // 결과가 없으면 자동완성 숨김
+    if (options.length === 0) {
+        listElement.style.display = 'none';
+        return;
+    }
+    
+    // 자동완성 목록 렌더링
+    renderReforgeOptionAutoComplete(listElement, options, inputElement);
 }
+
 
 /**
  * 세공 옵션 검색
@@ -1495,21 +1489,19 @@ function searchReforgeOptions(query) {
  * 자동완성 목록 위치 조정
  */
 function positionAutocompleteList(listElement, inputElement) {
-    const inputRect = inputElement.getBoundingClientRect();
-    const parentRect = inputElement.closest('.filter-content').getBoundingClientRect();
+    // 부모 요소 포지션 설정
+    const parentElement = inputElement.closest('.filter-content');
+    if (parentElement) {
+        parentElement.style.position = 'relative';
+    }
     
     listElement.style.position = 'absolute';
     listElement.style.width = inputElement.offsetWidth + 'px';
     listElement.style.left = '0';
-    listElement.style.top = (inputRect.top - parentRect.top + inputElement.offsetHeight) + 'px';
+    listElement.style.top = inputElement.offsetHeight + 5 + 'px';
     listElement.style.zIndex = '1000';
-    
-    // 부모 요소 포지션 설정
-    const parentElement = inputElement.closest('.filter-section');
-    if (parentElement) {
-        parentElement.style.position = 'relative';
-    }
 }
+
 /**
  * 세공 옵션 자동완성 목록 렌더링
  */
@@ -1690,9 +1682,12 @@ function createSetEffectFilter(container, filterItem, filterInfo) {
 function handleSetEffectAutocomplete(inputElement) {
     const query = inputElement.value.trim();
     
+    // 현재 input의 인덱스 찾기 (set-effect-1, set-effect-2, set-effect-3)
+    const index = inputElement.className.match(/set-effect-(\d+)/)[1];
+    
     // 자동완성 목록 엘리먼트 찾기
     const listElement = inputElement.closest('.filter-section')
-        .querySelector('.set-effect-autocomplete');
+        .nextElementSibling;
     
     // 검색어가 없으면 자동완성 숨김
     if (!query || query.length < 2) {
@@ -1700,7 +1695,7 @@ function handleSetEffectAutocomplete(inputElement) {
         return;
     }
     
-    // 메타데이터에서 세트 효과 검색
+    // 세트 효과 검색
     const effects = searchSetEffects(query);
     
     // 결과가 없으면 자동완성 숨김
@@ -1821,6 +1816,19 @@ function createSetEffectRangeSection(parentElement, index) {
     maxInput.type = 'number';
     maxInput.className = `filter-input set-effect-max-value set-effect-max-value-${index}`;
     maxInput.min = 1;
+    
+    // 레벨 변경 시 필터 적용
+    minInput.addEventListener('change', () => {
+        const filterItem = parentElement;
+        const filterInfo = { name: '세트 효과', displayName: '세트 효과', type: 'set-effect' };
+        applySetEffectFilter(filterItem, filterInfo);
+    });
+    
+    maxInput.addEventListener('change', () => {
+        const filterItem = parentElement;
+        const filterInfo = { name: '세트 효과', displayName: '세트 효과', type: 'set-effect' };
+        applySetEffectFilter(filterItem, filterInfo);
+    });
     
     // 입력 필드 추가
     inputRow.appendChild(minInput);
