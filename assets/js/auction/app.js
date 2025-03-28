@@ -253,7 +253,7 @@ const App = (() => {
         
         // 검색 결과가 있을 때 세부 옵션 탭 활성화
         // 사이드바가 닫혀있는 상태라면, 열리지 않음
-        if (!state.sidebarState.isCollapsed && state.isSearchMode) {
+        if (!state.sidebarState.isCollapsed) {
             activateTab('filter');
         }
     
