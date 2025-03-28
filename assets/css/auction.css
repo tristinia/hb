@@ -126,7 +126,7 @@
 body {
     background-color: var(--color-white);
     color: var(--color-dark);
-    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    font-family: 'Nanum Gothic', 'Noto Sans KR', -apple-system, sans-serif;
     line-height: 1.5;
     font-size: var(--font-size-md);
     overflow-x: hidden;
@@ -489,6 +489,7 @@ body {
     position: relative;
     overflow-y: auto;
     transition: margin-left var(--duration-normal) ease-in-out;
+    align-items: center;
 }
 
 /* 검색 컨테이너 */
@@ -503,16 +504,15 @@ body {
     transition: transform var(--duration-slow) ease-in-out, padding var(--duration-slow) ease-in-out;
     transform: translateY(var(--search-initial-position));
     width: 100%;
-    /* 항상 화면 중앙에 위치하도록 설정 */
-    left: 0;
-    right: 0;
+    max-width: var(--search-max-width);
     margin: 0 auto;
 }
 
 /* 검색 모드 전환 시 */
 .search-container.search-mode {
     transform: translateY(var(--spacing-xxl));
-    padding-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
 }
 
 /* 카테고리 정보 패널 숨김 처리 */
@@ -704,11 +704,16 @@ body {
     margin: 0 auto;
     max-width: var(--search-max-width);
     width: 100%;
+    margin-top: var(--spacing-xl);
 }
 
 .results-container.visible {
     display: block;
     animation: fadeIn var(--duration-normal) ease-in-out;
+}
+
+.results-container.visible + .pagination {
+    margin-top: var(--spacing-sm);
 }
 
 /* 검색 결과 테이블 */
@@ -771,8 +776,7 @@ body {
     display: flex;
     justify-content: center;
     padding: var(--spacing-md) var(--spacing-lg);
-    display: none;
-    margin: 0 auto;
+    margin: var(--spacing-md) auto var(--spacing-xxl);
     max-width: var(--search-max-width);
     width: 100%;
 }
