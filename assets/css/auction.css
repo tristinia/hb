@@ -140,7 +140,7 @@ body {
     overflow: hidden;
 }
 
-/* 사이드바 - 개선 */
+/* 사이드바 */
 .sidebar {
     width: var(--sidebar-width);
     height: 100%;
@@ -160,7 +160,7 @@ body {
     transform: translateX(calc(-1 * var(--sidebar-width)));
 }
 
-/* 사이드바 헤더 - 심플하게 */
+/* 사이드바 헤더 */
 .sidebar-header {
     padding: var(--spacing-md);
     display: flex;
@@ -176,7 +176,7 @@ body {
     color: var(--color-dark);
 }
 
-/* 사이드바 토글 버튼 - 심플하게 */
+/* 사이드바 토글 버튼 */
 .toggle-sidebar-btn {
     background: none;
     border: none;
@@ -196,7 +196,7 @@ body {
     color: var(--color-dark);
 }
 
-/* 사이드바 탭 - 개선 */
+/* 사이드바 탭 */
 .sidebar-tabs {
     display: flex;
     border-bottom: 1px solid var(--color-light-gray);
@@ -240,7 +240,7 @@ body {
     position: relative;
 }
 
-/* 사이드바 패널 - 좌우 슬라이드 효과 추가 */
+/* 사이드바 패널 - 좌우 슬라이드 효과 */
 .sidebar-panel {
     position: absolute;
     top: 0;
@@ -261,7 +261,7 @@ body {
     transform: translateX(0);
 }
 
-/* 카테고리 리스트 - 개선 */
+/* 카테고리 리스트 */
 .category-list {
     list-style: none;
     padding: 0;
@@ -351,7 +351,7 @@ body {
     background-color: var(--color-accent-40);
 }
 
-/* 세부 옵션 필터 패널 - 개선 */
+/* 세부 옵션 필터 패널 */
 .filter-dropdown-container {
     padding: var(--spacing-md);
 }
@@ -491,7 +491,7 @@ body {
     transition: margin-left var(--duration-normal) ease-in-out;
 }
 
-/* 검색 컨테이너 - 개선된 애니메이션 */
+/* 검색 컨테이너 */
 .search-container {
     display: flex;
     flex-direction: column;
@@ -502,12 +502,22 @@ body {
     height: auto;
     transition: transform var(--duration-slow) ease-in-out, padding var(--duration-slow) ease-in-out;
     transform: translateY(var(--search-initial-position));
+    width: 100%;
+    /* 항상 화면 중앙에 위치하도록 설정 */
+    left: 0;
+    right: 0;
+    margin: 0 auto;
 }
 
-/* 검색 컨테이너 - 검색 후 상태 */
+/* 검색 모드 전환 시 */
 .search-container.search-mode {
     transform: translateY(var(--spacing-xxl));
     padding-bottom: var(--spacing-md);
+}
+
+/* 카테고리 정보 패널 숨김 처리 */
+.category-info-panel {
+    display: none !important;
 }
 
 /* 검색창 래퍼 */
@@ -523,6 +533,8 @@ body {
     overflow: hidden;
     transition: box-shadow var(--duration-fast);
     margin-bottom: var(--spacing-xs);
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .search-wrapper:hover {
@@ -602,14 +614,14 @@ body {
     background-color: var(--color-light-gray);
 }
 
-/* 자동완성 목록 - 위치 조정 */
+/* 자동완성 목록 */
 .suggestions-list {
     position: absolute;
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
-    margin-top: 0;
+    margin-top: 4px;
     background-color: var(--color-white);
     border-radius: var(--border-radius-md);
     box-shadow: var(--shadow-lg);
@@ -621,6 +633,25 @@ body {
     width: 100%;
     max-width: var(--search-max-width);
     border: 1px solid var(--color-light-gray);
+}
+
+/* 자동완성 스크롤바 스타일 */
+.suggestions-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.suggestions-list::-webkit-scrollbar-track {
+    background: var(--color-off-white);
+    border-radius: 4px;
+}
+
+.suggestions-list::-webkit-scrollbar-thumb {
+    background-color: var(--color-dark-40);
+    border-radius: 4px;
+}
+
+.suggestions-list::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-dark-60);
 }
 
 .suggestions-list.show {
@@ -655,32 +686,14 @@ body {
 .suggestion-name {
     font-weight: var(--font-weight-medium);
     color: var(--color-dark);
+    line-height: 1.4;
 }
 
 .suggestion-category {
     font-size: var(--font-size-xs);
     color: var(--color-medium);
     margin-top: var(--spacing-xxs);
-}
-
-/* 카테고리 정보 패널 - 심플하게 개선 */
-.category-info-panel {
-    padding: var(--spacing-sm) 0;
-    display: none;
-    margin: 0 auto var(--spacing-md);
-    max-width: var(--search-max-width);
-    width: 100%;
-}
-
-.category-info-panel.visible {
-    display: block;
-    animation: fadeIn var(--duration-fast) ease-in-out;
-}
-
-.category-info {
-    font-size: var(--font-size-sm);
-    color: var(--color-medium);
-    font-weight: var(--font-weight-normal);
+    line-height: 1.2;
 }
 
 /* 검색 결과 컨테이너 */
@@ -958,7 +971,7 @@ body {
     margin-left: 0;
 }
 
-/* 사이드바 토글 버튼 - 심플하게 개선 */
+/* 사이드바 토글 버튼 - 사이드바 상태에 따라 표시/숨김 처리 */
 .content-sidebar-toggle {
     position: fixed;
     top: var(--spacing-md);
@@ -976,6 +989,9 @@ body {
     box-shadow: var(--shadow-sm);
     transition: all var(--duration-fast);
     color: var(--color-medium);
+    /* 기본 상태는 숨김 */
+    opacity: 0;
+    visibility: hidden;
 }
 
 .content-sidebar-toggle:hover {
@@ -983,12 +999,11 @@ body {
     color: var(--color-dark);
 }
 
+/* 사이드바가 접힌 상태에서만 버튼 표시 */
 .main-container.sidebar-collapsed .content-sidebar-toggle {
+    opacity: 1;
+    visibility: visible;
     left: var(--spacing-md);
-}
-
-.main-container:not(.sidebar-collapsed) .content-sidebar-toggle {
-    left: calc(var(--sidebar-width) + var(--spacing-md));
 }
 
 /* 특별 클래스들 */
@@ -1022,13 +1037,20 @@ body {
         left: var(--spacing-md);
     }
     
-    .main-container:not(.sidebar-collapsed) .content-sidebar-toggle {
-        left: var(--spacing-md);
-    }
-    
     /* 검색 컨테이너 반응형 조정 */
     .search-container {
         transform: translateY(30vh);
+        padding-left: var(--spacing-md);
+        padding-right: var(--spacing-md);
+    }
+    
+    /* 자동완성 목록 모바일 최적화 */
+    .suggestions-list {
+        width: calc(100% - 2 * var(--spacing-md));
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: var(--border-radius-md);
+        margin-top: 4px;
     }
     
     /* 모바일에서 사이드바 열릴때 배경 딤처리 */
