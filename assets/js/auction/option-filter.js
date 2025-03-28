@@ -312,7 +312,7 @@ class OptionFilter {
     return true;
   }
 
-  checkReforgeStatusFilter(item, filter) {
+    checkReforgeStatusFilter(item, filter) {
     const options = item.options || item.item_option || [];
     
     // 세공 랭크 옵션 찾기
@@ -339,7 +339,7 @@ class OptionFilter {
       const lineCount = reforgeOptions.length;
       const filterLineCount = parseInt(filter.lineCount);
       
-      if (lineCount < filterLineCount) {
+      if (lineCount !== filterLineCount) {
         return false;
       }
     }
