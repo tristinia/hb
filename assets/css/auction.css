@@ -3,42 +3,44 @@
  */
 
 :root {
-    /* 기본 색상 */
+    /* 기본 색상 - 심플하게 조정 */
     --color-white: #FFFFFF;        /* 주 배경색: 순수한 흰색 */
-    --color-off-white: #F9F7F3;    /* 보조 배경색: 크림색 오프화이트 */
-    --color-light-gray: #EDEDED;   /* 중성 색상: 매우 밝은 그레이 */
-    --color-accent: #FFE395;       /* 포인트 색상: 파스텔 노란색 */
-    --color-dark: #4A4A4A;         /* 강조 색상: 진한 차콜 그레이 */
+    --color-off-white: #F8F8F8;    /* 보조 배경색: 더 밝게 조정 */
+    --color-light-gray: #EEEEEE;   /* 중성 색상: 더 밝게 */
+    --color-accent: #FFE395;       /* 포인트 색상: 기존 유지 */
+    --color-dark: #333333;         /* 강조 색상: 더 어둡게 */
+    --color-medium: #666666;       /* 중간 색상: 추가 */
 
-    /* 아이템 특수 색상 */
-    --color-item-blue: #4682B4;    /* 아이템 블루 */
+    /* 아이템 특수 색상 - 유지 */
+    --color-item-blue: #4badff;    /* 아이템 블루 */
     --color-item-red: #B33A3A;     /* 아이템 레드 */
     --color-item-orange: #FF8C00;  /* 아이템 오렌지 */
     --color-item-pink: #FF69B4;    /* 아이템 핑크 */
-    --color-item-navy: #000080;    /* 아이템 네이비 */
+    --color-item-navy: #bdbddce8;    /* 아이템 네이비 */
     
     /* 기본 색상 투명도 변형 */
     --color-accent-80: rgba(255, 227, 149, 0.8);
     --color-accent-60: rgba(255, 227, 149, 0.6);
     --color-accent-40: rgba(255, 227, 149, 0.4);
     --color-accent-20: rgba(255, 227, 149, 0.2);
-    --color-dark-80: rgba(74, 74, 74, 0.8);
-    --color-dark-60: rgba(74, 74, 74, 0.6);
-    --color-dark-40: rgba(74, 74, 74, 0.4);
-    --color-dark-20: rgba(74, 74, 74, 0.2);
-    --color-dark-10: rgba(74, 74, 74, 0.1);
+    --color-dark-80: rgba(51, 51, 51, 0.8);
+    --color-dark-60: rgba(51, 51, 51, 0.6);
+    --color-dark-40: rgba(51, 51, 51, 0.4);
+    --color-dark-20: rgba(51, 51, 51, 0.2);
+    --color-dark-10: rgba(51, 51, 51, 0.1);
+    --color-white-50: rgba(255, 255, 255, 0.5);     /* 툴팁 테두리 색상 */
     
     /* 에러 메시지용 색상 */
     --color-error: #B83A3A;
     --color-error-light: rgba(184, 58, 58, 0.1);
     --color-error-border: rgba(184, 58, 58, 0.25);
     
-    /* 그림자 효과 축소 */
-    --shadow-xs: 0 1px 2px rgba(74, 74, 74, 0.05);
-    --shadow-sm: 0 1px 3px rgba(74, 74, 74, 0.1);
-    --shadow-md: 0 2px 6px rgba(74, 74, 74, 0.15);
-    --shadow-lg: 0 3px 10px rgba(74, 74, 74, 0.2);
-    --shadow-xl: 0 4px 14px rgba(74, 74, 74, 0.25);
+    /* 그림자 효과 - 더 미묘하게 */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.07);
+    --shadow-md: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 3px 8px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 4px 12px rgba(0, 0, 0, 0.15);
     
     /* 폰트 크기 */
     --font-size-xs: 0.64rem;     /* 10.24px */
@@ -59,7 +61,7 @@
     --spacing-md: 0.85rem;     /* 13.6px - 기준 */
     --spacing-lg: 1.28rem;     /* 20.48px */
     --spacing-xl: 1.7rem;      /* 27.2px */
-    --spacing-xxl: 3rem;       /* 48px - 추가됨 */
+    --spacing-xxl: 3rem;       /* 48px */
     
     /* 테두리 반경 */
     --border-radius-xs: 0.21rem;   /* 3.36px */
@@ -76,9 +78,13 @@
     /* 사이드바 관련 */
     --sidebar-width: 280px;
     --sidebar-collapsed-width: 0px;
+    
+    /* 검색창 관련 - 추가 */
+    --search-initial-position: 40vh; /* 초기 위치 - 화면 높이의 40% */
+    --search-max-width: 640px;      /* 최대 너비 */
 }
 
-/* 아이템 색상 클래스 */
+/* 아이템 색상 클래스 - 유지 */
 .item-blue, 
 .results-table td.item-blue, 
 .results-table td.item-price.item-blue { 
@@ -134,7 +140,7 @@ body {
     overflow: hidden;
 }
 
-/* 사이드바 */
+/* 사이드바 - 개선 */
 .sidebar {
     width: var(--sidebar-width);
     height: 100%;
@@ -154,7 +160,7 @@ body {
     transform: translateX(calc(-1 * var(--sidebar-width)));
 }
 
-/* 사이드바 헤더 */
+/* 사이드바 헤더 - 심플하게 */
 .sidebar-header {
     padding: var(--spacing-md);
     display: flex;
@@ -165,31 +171,32 @@ body {
 
 /* 앱 제목 */
 .app-title {
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-medium);
     font-size: var(--font-size-lg);
     color: var(--color-dark);
 }
 
-/* 사이드바 토글 버튼 */
+/* 사이드바 토글 버튼 - 심플하게 */
 .toggle-sidebar-btn {
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--color-dark);
+    color: var(--color-medium);
     display: flex;
     align-items: center;
     justify-content: center;
     width: 32px;
     height: 32px;
     border-radius: var(--border-radius-full);
-    transition: background-color var(--duration-fast);
+    transition: background-color var(--duration-fast), color var(--duration-fast);
 }
 
 .toggle-sidebar-btn:hover {
     background-color: var(--color-light-gray);
+    color: var(--color-dark);
 }
 
-/* 사이드바 탭 */
+/* 사이드바 탭 - 개선 */
 .sidebar-tabs {
     display: flex;
     border-bottom: 1px solid var(--color-light-gray);
@@ -197,7 +204,7 @@ body {
 
 .sidebar-tab {
     flex: 1;
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-xs);
     background: none;
     border: none;
     border-bottom: 2px solid transparent;
@@ -206,8 +213,9 @@ body {
     align-items: center;
     justify-content: center;
     gap: var(--spacing-xs);
-    color: var(--color-dark-60);
+    color: var(--color-medium);
     transition: all var(--duration-fast);
+    font-size: var(--font-size-sm);
 }
 
 .sidebar-tab svg {
@@ -232,7 +240,7 @@ body {
     position: relative;
 }
 
-/* 사이드바 패널 */
+/* 사이드바 패널 - 좌우 슬라이드 효과 추가 */
 .sidebar-panel {
     position: absolute;
     top: 0;
@@ -242,16 +250,18 @@ body {
     overflow-y: auto;
     background-color: var(--color-white);
     display: none;
-    transition: opacity var(--duration-normal);
+    transition: transform var(--duration-normal) ease-in-out, opacity var(--duration-normal);
     opacity: 0;
+    transform: translateX(-20px);
 }
 
 .sidebar-panel.active {
     display: block;
     opacity: 1;
+    transform: translateX(0);
 }
 
-/* 카테고리 리스트 */
+/* 카테고리 리스트 - 개선 */
 .category-list {
     list-style: none;
     padding: 0;
@@ -260,7 +270,7 @@ body {
 .category-loading {
     padding: var(--spacing-md);
     text-align: center;
-    color: var(--color-dark-60);
+    color: var(--color-medium);
     font-style: italic;
 }
 
@@ -341,7 +351,7 @@ body {
     background-color: var(--color-accent-40);
 }
 
-/* 세부 옵션 필터 패널 */
+/* 세부 옵션 필터 패널 - 개선 */
 .filter-dropdown-container {
     padding: var(--spacing-md);
 }
@@ -354,7 +364,7 @@ body {
     font-size: var(--font-size-md);
     background-color: var(--color-white);
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234A4A4A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right var(--spacing-sm) center;
     cursor: pointer;
@@ -391,7 +401,7 @@ body {
 .filter-remove {
     background: none;
     border: none;
-    color: var(--color-dark);
+    color: var(--color-medium);
     cursor: pointer;
     font-size: var(--font-size-lg);
     padding: 0;
@@ -458,7 +468,7 @@ body {
 .bookmark-empty {
     padding: var(--spacing-lg);
     text-align: center;
-    color: var(--color-dark-60);
+    color: var(--color-medium);
 }
 
 .bookmark-empty p {
@@ -481,28 +491,23 @@ body {
     transition: margin-left var(--duration-normal) ease-in-out;
 }
 
-/* 검색 컨테이너 - 초기 상태 */
+/* 검색 컨테이너 - 개선된 애니메이션 */
 .search-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 0 var(--spacing-lg);
-    min-height: 100vh; /* 전체 높이 사용 */
-    transition: min-height var(--duration-normal) ease-in-out, padding var(--duration-normal) ease-in-out;
+    position: relative;
+    height: auto;
+    transition: transform var(--duration-slow) ease-in-out, padding var(--duration-slow) ease-in-out;
+    transform: translateY(var(--search-initial-position));
 }
 
 /* 검색 컨테이너 - 검색 후 상태 */
 .search-container.search-mode {
-    min-height: auto;
-    padding: var(--spacing-xxl) var(--spacing-lg) var(--spacing-md); /* 상단 여백 증가 */
-    justify-content: flex-start;
-    animation: slideUp var(--duration-normal) ease-in-out;
-}
-
-@keyframes slideUp {
-    from { transform: translateY(20px); opacity: 0.8; }
-    to { transform: translateY(0); opacity: 1; }
+    transform: translateY(var(--spacing-xxl));
+    padding-bottom: var(--spacing-md);
 }
 
 /* 검색창 래퍼 */
@@ -510,21 +515,18 @@ body {
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 640px;
+    max-width: var(--search-max-width);
     border-radius: var(--border-radius-full);
     border: 1px solid var(--color-light-gray);
     background-color: var(--color-white);
     box-shadow: var(--shadow-md);
     overflow: hidden;
-    transition: box-shadow var(--duration-fast), width var(--duration-normal) ease-in-out;
+    transition: box-shadow var(--duration-fast);
+    margin-bottom: var(--spacing-xs);
 }
 
 .search-wrapper:hover {
     box-shadow: var(--shadow-lg);
-}
-
-.search-container.search-mode .search-wrapper {
-    max-width: 100%;
 }
 
 /* 로고 버튼 (초기화) */
@@ -536,12 +538,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-dark);
+    color: var(--color-medium);
     transition: color var(--duration-fast), background-color var(--duration-fast);
 }
 
 .logo-button:hover {
-    color: var(--color-dark-80);
+    color: var(--color-dark);
     background-color: var(--color-light-gray);
 }
 
@@ -569,7 +571,7 @@ body {
     display: none;
     align-items: center;
     justify-content: center;
-    color: var(--color-dark-60);
+    color: var(--color-medium);
     transition: color var(--duration-fast), background-color var(--duration-fast);
 }
 
@@ -591,23 +593,23 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-dark);
+    color: var(--color-medium);
     transition: color var(--duration-fast), background-color var(--duration-fast);
 }
 
 .search-button:hover {
-    color: var(--color-dark-80);
+    color: var(--color-dark);
     background-color: var(--color-light-gray);
 }
 
-/* 자동완성 목록 */
+/* 자동완성 목록 - 위치 조정 */
 .suggestions-list {
     position: absolute;
     top: 100%;
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 10;
-    margin: var(--spacing-xs) auto 0;
+    margin-top: 0;
     background-color: var(--color-white);
     border-radius: var(--border-radius-md);
     box-shadow: var(--shadow-lg);
@@ -617,7 +619,8 @@ body {
     overflow-y: auto;
     display: none;
     width: 100%;
-    max-width: 640px;
+    max-width: var(--search-max-width);
+    border: 1px solid var(--color-light-gray);
 }
 
 .suggestions-list.show {
@@ -626,8 +629,8 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 .suggestion-item {
@@ -656,18 +659,17 @@ body {
 
 .suggestion-category {
     font-size: var(--font-size-xs);
-    color: var(--color-dark-60);
+    color: var(--color-medium);
     margin-top: var(--spacing-xxs);
 }
 
-/* 카테고리 정보 패널 */
+/* 카테고리 정보 패널 - 심플하게 개선 */
 .category-info-panel {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background-color: var(--color-off-white);
+    padding: var(--spacing-sm) 0;
     display: none;
-    margin-bottom: var(--spacing-sm);
-    border-top: 1px solid var(--color-light-gray);
-    border-bottom: 1px solid var(--color-light-gray);
+    margin: 0 auto var(--spacing-md);
+    max-width: var(--search-max-width);
+    width: 100%;
 }
 
 .category-info-panel.visible {
@@ -676,9 +678,9 @@ body {
 }
 
 .category-info {
-    font-size: var(--font-size-md);
-    color: var(--color-dark);
-    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-sm);
+    color: var(--color-medium);
+    font-weight: var(--font-weight-normal);
 }
 
 /* 검색 결과 컨테이너 */
@@ -686,6 +688,9 @@ body {
     flex: 1;
     padding: 0 var(--spacing-lg);
     display: none;
+    margin: 0 auto;
+    max-width: var(--search-max-width);
+    width: 100%;
 }
 
 .results-container.visible {
@@ -745,7 +750,7 @@ body {
 .empty-result td {
     text-align: center;
     padding: var(--spacing-xl);
-    color: var(--color-dark-60);
+    color: var(--color-medium);
 }
 
 /* 페이지네이션 */
@@ -754,6 +759,9 @@ body {
     justify-content: center;
     padding: var(--spacing-md) var(--spacing-lg);
     display: none;
+    margin: 0 auto;
+    max-width: var(--search-max-width);
+    width: 100%;
 }
 
 .pagination.visible {
@@ -833,7 +841,7 @@ body {
 .spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid var(--color-accent-20);
+    border: 3px solid rgba(255, 255, 255, 0.2);
     border-top: 3px solid var(--color-accent);
     border-radius: 50%;
     animation: spin var(--duration-normal) linear infinite;
@@ -864,18 +872,85 @@ body {
     font-weight: var(--font-weight-medium);
 }
 
-/* 아이템 툴팁 */
+/* 툴팁 스타일 */
 .item-tooltip {
     z-index: 1001;
-    background-color: var(--color-off-white);
-    border-radius: var(--border-radius-md);
-    border: 1px solid var(--color-light-gray);
+    background-color: var(--color-dark);
+    border-radius: var(--border-radius-xs);
     box-shadow: var(--shadow-lg);
     pointer-events: none;
-    max-width: 320px;
+    opacity: 0.95;
+    min-width: 240px;
+    max-width: 300px;
+    min-height: 45px;
     font-family: 'Malgun Gothic', sans-serif;
-    color: var(--color-dark);
-    padding: var(--spacing-md);
+    color: var(--color-white);
+    overflow: auto;
+    padding: 0;
+}
+
+/* 헤더 스타일 */
+.tooltip-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xs);
+    background: none;
+    border: none;
+    padding: var(--spacing-xs) var(--spacing-xs) 0;
+}
+
+.tooltip-header h3 {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* 섹션 블록 */
+.tooltip-block {
+    position: relative;
+    border: 1px solid var(--color-white-50);
+    border-radius: var(--border-radius-xs);
+    padding: var(--spacing-xs);
+    padding-top: var(--spacing-sm);
+    margin: 0 var(--spacing-xs) var(--spacing-sm);
+    background: none;
+}
+
+/* 블록 제목 */
+.tooltip-block-title {
+    position: absolute;
+    top: -10px;
+    font-size: var(--font-size-md);
+    padding: 0 var(--spacing-xxs);
+    background-color: var(--color-dark);
+    color: var(--color-item-red);
+    border: none;
+}
+
+/* 아이템 속성 */
+.tooltip-stat {
+    font-size: var(--font-size-md);
+    line-height: 1.1;
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+/* 특수 속성 */
+.tooltip-special-stat {
+    font-size: var(--font-size-md);
+    line-height: 1.3;
+    border: none;
+    background: none;
+}
+
+/* 가격 정보 */
+.tooltip-price {
+    font-size: var(--font-size-md);
+    margin: var(--spacing-xs);
+    padding: 0 var(--spacing-xs);
+    border: none;
+    background: none;
 }
 
 /* 콘텐츠 메인영역의 사이드바 상태에 따른 마진 조정 */
@@ -883,7 +958,7 @@ body {
     margin-left: 0;
 }
 
-/* 사이드바 토글 버튼이 항상 표시되도록 추가 */
+/* 사이드바 토글 버튼 - 심플하게 개선 */
 .content-sidebar-toggle {
     position: fixed;
     top: var(--spacing-md);
@@ -891,19 +966,21 @@ body {
     background-color: var(--color-white);
     border: 1px solid var(--color-light-gray);
     border-radius: var(--border-radius-full);
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     z-index: 100;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
     transition: all var(--duration-fast);
+    color: var(--color-medium);
 }
 
 .content-sidebar-toggle:hover {
     background-color: var(--color-accent-20);
+    color: var(--color-dark);
 }
 
 .main-container.sidebar-collapsed .content-sidebar-toggle {
@@ -917,7 +994,7 @@ body {
 /* 특별 클래스들 */
 .enchant-type {
     font-weight: var(--font-weight-medium);
-    color: var(--color-dark-60);
+    color: var(--color-medium);
 }
 
 /* 반응형 디자인 */
@@ -936,10 +1013,6 @@ body {
         width: 100%;
     }
     
-    .search-container.search-mode .search-wrapper {
-        max-width: 100%;
-    }
-    
     .main-container.sidebar-collapsed .sidebar {
         transform: translateX(-100%);
     }
@@ -951,6 +1024,11 @@ body {
     
     .main-container:not(.sidebar-collapsed) .content-sidebar-toggle {
         left: var(--spacing-md);
+    }
+    
+    /* 검색 컨테이너 반응형 조정 */
+    .search-container {
+        transform: translateY(30vh);
     }
     
     /* 모바일에서 사이드바 열릴때 배경 딤처리 */
