@@ -1,9 +1,8 @@
 /**
- * app.js
- * 애플리케이션 메인 통합 모듈 - 모든 하위 모듈 관리 및 초기화
+ * app.js - 수정된 사용자 인터페이스용 메인 스크립트
  */
 
-// 모듈 가져오기
+// 기존 모듈 가져오기
 import CategoryManager from './category-manager.js';
 import SearchManager from './search-manager.js';
 import ItemDisplay from './item-display.js';
@@ -21,13 +20,35 @@ const App = (() => {
     // 앱 상태 관리
     const state = {
         initialized: false,
+        isSearchMode: false,
         modules: {
             category: false,
             search: false,
             filter: false,
             pagination: false,
             display: false
+        },
+        sidebarState: {
+            isCollapsed: true,
+            activeTab: 'category'
         }
+    };
+
+    // DOM 요소 참조
+    const elements = {
+        mainContainer: document.querySelector('.main-container'),
+        searchContainer: document.getElementById('search-container'),
+        searchInput: document.getElementById('search-input'),
+        searchButton: document.getElementById('search-button'),
+        clearButton: document.getElementById('clear-button'),
+        logoButton: document.getElementById('logo-button'),
+        toggleSidebarBtn: document.getElementById('toggle-sidebar'),
+        sidebarTabs: document.querySelectorAll('.sidebar-tab'),
+        sidebarPanels: document.querySelectorAll('.sidebar-panel'),
+        categoryInfoPanel: document.getElementById('category-info-panel'),
+        categoryInfo: document.getElementById('category-info'),
+        resultsContainer: document.getElementById('results-container'),
+        pagination: document.getElementById('pagination')
     };
 
     /**
@@ -52,11 +73,40 @@ const App = (() => {
         // 필터 변경 이벤트
         document.addEventListener('filterChanged', handleFilterChanged);
         
-        // 옵션 토글 버튼
-        const toggleOptionsBtn = document.getElementById('toggle-options');
-        if (toggleOptionsBtn) {
-            toggleOptionsBtn.addEventListener('click', toggleOptions);
+        // 검색창 이벤트 리스너
+        if (elements.searchButton) {
+            elements.searchButton.addEventListener('click', triggerSearch);
         }
+        
+        if (elements.searchInput) {
+            elements.searchInput.addEventListener('input', handleSearchInputChange);
+            elements.searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    triggerSearch();
+                }
+            });
+        }
+        
+        if (elements.clearButton) {
+            elements.clearButton.addEventListener('click', clearSearchInput);
+        }
+        
+        if (elements.logoButton) {
+            elements.logoButton.addEventListener('click', resetSearch);
+        }
+        
+        // 사이드바 토글 버튼
+        if (elements.toggleSidebarBtn) {
+            elements.toggleSidebarBtn.addEventListener('click', toggleSidebar);
+        }
+        
+        // 사이드바 탭 이벤트 리스너
+        elements.sidebarTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabName = tab.getAttribute('data-tab');
+                activateTab(tabName);
+            });
+        });
 
         // 윈도우 리사이즈 이벤트
         window.addEventListener('resize', Utils.debounce(handleResize, 200));
@@ -65,22 +115,88 @@ const App = (() => {
     }
     
     /**
+     * 검색 입력창 변경 처리
+     */
+    function handleSearchInputChange() {
+        // 검색어가 있으면 클리어 버튼 표시, 없으면 숨김
+        if (elements.searchInput.value) {
+            elements.clearButton.classList.add('visible');
+        } else {
+            elements.clearButton.classList.remove('visible');
+        }
+    }
+    
+    /**
+     * 사이드바 토글
+     */
+    function toggleSidebar() {
+        state.sidebarState.isCollapsed = !state.sidebarState.isCollapsed;
+        elements.mainContainer.classList.toggle('sidebar-collapsed', state.sidebarState.isCollapsed);
+    }
+    
+    /**
+     * 사이드바 열기
+     */
+    function openSidebar() {
+        if (state.sidebarState.isCollapsed) {
+            state.sidebarState.isCollapsed = false;
+            elements.mainContainer.classList.remove('sidebar-collapsed');
+        }
+    }
+    
+    /**
+     * 사이드바 탭 활성화
+     * @param {string} tabName - 활성화할 탭 이름
+     */
+    function activateTab(tabName) {
+        // 모든 탭 비활성화
+        elements.sidebarTabs.forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // 선택한 탭 활성화
+        const selectedTab = document.querySelector(`.sidebar-tab[data-tab="${tabName}"]`);
+        if (selectedTab) {
+            selectedTab.classList.add('active');
+        }
+        
+        // 모든 패널 숨기기
+        elements.sidebarPanels.forEach(panel => {
+            panel.classList.remove('active');
+        });
+        
+        // 선택한 패널 표시
+        const selectedPanel = document.getElementById(`${tabName}-panel`);
+        if (selectedPanel) {
+            selectedPanel.classList.add('active');
+        }
+        
+        // 사이드바 상태 업데이트
+        state.sidebarState.activeTab = tabName;
+    }
+    
+    /**
+     * 검색 입력창 클리어
+     */
+    function clearSearchInput() {
+        if (elements.searchInput) {
+            elements.searchInput.value = '';
+            elements.clearButton.classList.remove('visible');
+            elements.searchInput.focus();
+        }
+    }
+    
+    /**
      * 윈도우 리사이즈 처리
      */
     function handleResize() {
-        // 반응형 레이아웃 조정을 위한 플래그 설정
-        const isMobile = window.innerWidth < 768;
-        document.body.classList.toggle('mobile-view', isMobile);
-        
-        // 옵션 패널 상태 설정 (모바일에서는 기본적으로 접힘)
-        const optionsPanel = document.querySelector('.options-panel');
-        if (optionsPanel) {
-            optionsPanel.classList.toggle('expanded', !isMobile);
-        }
-        
-        // 필요한 UI 업데이트 호출
-        if (CategoryManager && typeof CategoryManager.handleResponsiveChange === 'function') {
-            CategoryManager.handleResponsiveChange({ matches: isMobile });
+        // 반응형 처리 필요한 경우 여기에 추가
+        if (window.innerWidth > 768 && !state.sidebarState.isCollapsed) {
+            // 상태 유지, 큰 화면에서는 사이드바를 열어둠
+        } else if (window.innerWidth <= 768) {
+            // 모바일 화면에서는 사이드바 접기
+            state.sidebarState.isCollapsed = true;
+            elements.mainContainer.classList.add('sidebar-collapsed');
         }
     }
 
@@ -115,6 +231,14 @@ const App = (() => {
     async function handleSearch(event) {
         const { searchTerm, selectedItem, mainCategory, subCategory } = event.detail;
     
+        // 검색 모드로 전환
+        enterSearchMode();
+        
+        // 세부 옵션 탭 활성화
+        if (!state.sidebarState.isCollapsed && state.isSearchMode) {
+            activateTab('filter');
+        }
+    
         ApiClient.setLoading(true);
     
         try {
@@ -136,6 +260,9 @@ const App = (() => {
                     category, 
                     selectedItem.name
                 );
+                
+                // 카테고리 정보 업데이트
+                updateCategoryInfo(mainCat, category);
             }
             // 카테고리 검색 처리
             else if (subCategory) {
@@ -148,6 +275,9 @@ const App = (() => {
                 
                 result = await ApiClient.searchByCategory(mainCategory, subCategory);
                 
+                // 카테고리 정보 업데이트
+                updateCategoryInfo(mainCategory, subCategory);
+                
                 // 검색어가 있으면 클라이언트 측 필터링
                 if (searchTerm && result.items && result.items.length > 0) {
                     const filteredItems = filterItemsBySearchTerm(result.items, searchTerm);
@@ -159,6 +289,7 @@ const App = (() => {
             else if (searchTerm) {
                 console.log('키워드 검색: ', { searchTerm });
                 result = await ApiClient.searchByKeyword(searchTerm);
+                updateCategoryInfo();
             } 
             else {
                 ApiClient.setLoading(false);
@@ -173,6 +304,7 @@ const App = (() => {
             } else {
                 ItemDisplay.setSearchResults(result.items);
                 PaginationManager.resetPagination(result.items.length || 0);
+                showResultsContainer();
             }
         } catch (error) {
             console.error('검색 처리 중 오류:', error);
@@ -183,17 +315,141 @@ const App = (() => {
     }
     
     /**
+     * 카테고리 정보 업데이트
+     * @param {string} mainCategory - 메인 카테고리 ID
+     * @param {string} subCategory - 서브 카테고리 ID
+     */
+    function updateCategoryInfo(mainCategory, subCategory) {
+        if (!elements.categoryInfo) return;
+        
+        let categoryText = '전체';
+        
+        // 메인 카테고리 찾기
+        if (mainCategory) {
+            try {
+                const mainCategoryObj = CategoryManager.getSelectedCategories().mainCategories.find(
+                    cat => cat.id === mainCategory
+                );
+                
+                if (mainCategoryObj) {
+                    categoryText = mainCategoryObj.name;
+                    
+                    // 서브 카테고리 찾기
+                    if (subCategory) {
+                        const subCategoryObj = CategoryManager.getSelectedCategories().subCategories.find(
+                            cat => cat.id === subCategory
+                        );
+                        
+                        if (subCategoryObj) {
+                            categoryText += ` > ${subCategoryObj.name}`;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('카테고리 정보 업데이트 중 오류:', error);
+            }
+        }
+        
+        elements.categoryInfo.textContent = categoryText;
+        elements.categoryInfoPanel.classList.add('visible');
+    }
+    
+    /**
+     * 검색 모드로 전환
+     */
+    function enterSearchMode() {
+        if (state.isSearchMode) return;
+        
+        state.isSearchMode = true;
+        elements.searchContainer.classList.add('search-mode');
+        elements.categoryInfoPanel.classList.add('visible');
+        showResultsContainer();
+        elements.pagination.classList.add('visible');
+    }
+    
+    /**
+     * 초기 모드로 전환
+     */
+    function exitSearchMode() {
+        if (!state.isSearchMode) return;
+        
+        state.isSearchMode = false;
+        elements.searchContainer.classList.remove('search-mode');
+        elements.categoryInfoPanel.classList.remove('visible');
+        hideResultsContainer();
+        elements.pagination.classList.remove('visible');
+    }
+    
+    /**
+     * 결과 컨테이너 표시
+     */
+    function showResultsContainer() {
+        elements.resultsContainer.classList.add('visible');
+        elements.pagination.classList.add('visible');
+    }
+    
+    /**
+     * 결과 컨테이너 숨기기
+     */
+    function hideResultsContainer() {
+        elements.resultsContainer.classList.remove('visible');
+        elements.pagination.classList.remove('visible');
+    }
+    
+    /**
+     * 검색 실행 트리거
+     */
+    function triggerSearch() {
+        const searchTerm = elements.searchInput.value.trim();
+        
+        if (!searchTerm) return;
+        
+        const searchEvent = new CustomEvent('search', {
+            detail: {
+                searchTerm,
+                selectedItem: null,
+                mainCategory: null,
+                subCategory: null
+            }
+        });
+        
+        document.dispatchEvent(searchEvent);
+    }
+    
+    /**
      * 검색 초기화 처리
      */
-    function handleSearchReset() {
-        // 검색 결과 초기화
-        ItemDisplay.clearResults();
+    function resetSearch() {
+        // 검색 입력창 초기화
+        clearSearchInput();
+        
+        // 초기 모드로 전환
+        exitSearchMode();
         
         // 카테고리 선택 초기화
         CategoryManager.resetSelectedCategories();
         
         // 필터 초기화
         FilterManager.resetFilters();
+        
+        // 사이드바 탭 상태 - 카테고리 탭 활성화
+        if (!state.sidebarState.isCollapsed) {
+            activateTab('category');
+        }
+        
+        // 검색 초기화 이벤트 발생
+        document.dispatchEvent(new CustomEvent('searchReset'));
+    }
+    
+    /**
+     * 검색 초기화 이벤트 핸들러
+     */
+    function handleSearchReset() {
+        // 결과 테이블 초기화
+        ItemDisplay.clearResults();
+        
+        // 초기 모드로 전환
+        exitSearchMode();
     }
     
     /**
@@ -300,32 +556,6 @@ const App = (() => {
     }
     
     /**
-     * 옵션 패널 토글
-     */
-    function toggleOptions() {
-        const optionsPanel = document.querySelector('.options-panel');
-        const toggleBtn = document.getElementById('toggle-options');
-        
-        if (optionsPanel && toggleBtn) {
-            const isExpanded = !optionsPanel.classList.contains('expanded');
-            optionsPanel.classList.toggle('expanded', isExpanded);
-            toggleBtn.classList.toggle('expanded', isExpanded);
-            toggleBtn.title = isExpanded ? '세부 옵션 접기' : '세부 옵션 펼치기';
-            
-            // 아이콘 회전 효과
-            const icon = toggleBtn.querySelector('svg');
-            if (icon) {
-                icon.style.transform = isExpanded ? 'rotate(180deg)' : '';
-            }
-            
-            // 접힌 상태에서 내용 스크롤 방지
-            if (!isExpanded) {
-                optionsPanel.scrollTop = 0;
-            }
-        }
-    }
-    
-    /**
      * 오류 메시지 표시
      * @param {string} message - 오류 메시지
      */
@@ -335,7 +565,7 @@ const App = (() => {
         if (resultsBody) {
             resultsBody.innerHTML = `
                 <tr class="error-result">
-                    <td colspan="3">
+                    <td colspan="4">
                         <div class="error-message">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10"></circle>
@@ -347,18 +577,9 @@ const App = (() => {
                     </td>
                 </tr>
             `;
-        }
-        
-        // 페이지네이션 초기화
-        const paginationContainer = document.getElementById('pagination');
-        if (paginationContainer) {
-            paginationContainer.innerHTML = '';
-        }
-        
-        // 결과 통계 초기화
-        const resultStats = document.getElementById('result-stats');
-        if (resultStats) {
-            resultStats.textContent = '';
+            
+            // 결과 컨테이너 표시
+            showResultsContainer();
         }
     }
     
@@ -380,12 +601,19 @@ const App = (() => {
     }
     
     /**
-     * 애플리케이션 초기화 함수
+     * 애플리케이션 초기화
      */
     async function init() {
         try {
             // 이벤트 리스너 설정
             setupEventListeners();
+            
+            // 기본 UI 상태 설정
+            elements.mainContainer.classList.add('sidebar-collapsed');
+            elements.clearButton.classList.remove('visible');
+            hideResultsContainer();
+            elements.categoryInfoPanel.classList.remove('visible');
+            elements.pagination.classList.remove('visible');
             
             // 순차적 초기화 (의존성 있는 모듈)
             console.log('CategoryManager 초기화 시작...');
@@ -400,6 +628,7 @@ const App = (() => {
                 initPaginationManager(),
                 initItemDisplay()
             ]);
+            
             ItemTooltip.init();
 
             // 반응형 레이아웃 초기 설정
@@ -407,25 +636,6 @@ const App = (() => {
             
             // URL 파라미터 처리
             processUrlParameters();
-            
-            // 화면 크기에 따른 초기 상태 설정
-            const isMobile = window.matchMedia("(max-width: 768px)").matches;
-            const optionsPanel = document.querySelector('.options-panel');
-            if (optionsPanel) {
-                optionsPanel.classList.toggle('expanded', !isMobile);
-                
-                // 토글 버튼 상태 동기화
-                const toggleBtn = document.getElementById('toggle-options');
-                if (toggleBtn) {
-                    toggleBtn.classList.toggle('expanded', !isMobile);
-                    toggleBtn.title = !isMobile ? '옵션 접기' : '옵션 펼치기';
-                    
-                    const icon = toggleBtn.querySelector('svg');
-                    if (icon) {
-                        icon.style.transform = !isMobile ? 'rotate(180deg)' : '';
-                    }
-                }
-            }
             
             console.log('애플리케이션 초기화 완료');
         } catch (error) {
@@ -514,11 +724,16 @@ const App = (() => {
         
         // 검색어나 카테고리가 URL에 있는 경우 자동 검색
         if (searchTerm) {
-            SearchManager.setSearchTerm(searchTerm);
-            SearchManager.handleSearch();
+            // 검색어 설정
+            if (elements.searchInput) {
+                elements.searchInput.value = searchTerm;
+                handleSearchInputChange();
+            }
+            
+            // 검색 실행
+            triggerSearch();
         } else if (category) {
             // 카테고리 선택 처리
-            // 해당 카테고리 정보 찾기
             const categoryInfo = findCategoryById(category);
             if (categoryInfo) {
                 // 카테고리 자동 선택
@@ -539,31 +754,27 @@ const App = (() => {
      * @param {string} message - 오류 메시지
      */
     function showInitError(message) {
-        // 헤더 아래에 오류 메시지 표시
-        const headerSection = document.querySelector('.header-section');
-        if (headerSection) {
-            const errorBox = document.createElement('div');
-            errorBox.className = 'init-error';
-            errorBox.innerHTML = `
-                <div class="error-message">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="8" x2="12" y2="12"></line>
-                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                    </svg>
-                    ${message} <button class="reload-btn">새로고침</button>
-                </div>
-            `;
-            
-            headerSection.appendChild(errorBox);
-            
-            // 새로고침 버튼 이벤트
-            const reloadBtn = errorBox.querySelector('.reload-btn');
-            if (reloadBtn) {
-                reloadBtn.addEventListener('click', () => {
-                    window.location.reload();
-                });
-            }
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.style.margin = '2rem';
+        errorDiv.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            ${message} <button class="reload-btn">새로고침</button>
+        `;
+        
+        // 검색 컨테이너에 오류 메시지 추가
+        elements.searchContainer.appendChild(errorDiv);
+        
+        // 새로고침 버튼 이벤트
+        const reloadBtn = errorDiv.querySelector('.reload-btn');
+        if (reloadBtn) {
+            reloadBtn.addEventListener('click', () => {
+                window.location.reload();
+            });
         }
     }
     
