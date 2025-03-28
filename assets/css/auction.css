@@ -3,7 +3,7 @@
  */
 
 :root {
-    /* 기본 색상 - 심플하게 조정 */
+    /* 기본 색상 */
     --color-white: #FFFFFF;        /* 주 배경색: 순수한 흰색 */
     --color-off-white: #F8F8F8;    /* 보조 배경색: 더 밝게 조정 */
     --color-light-gray: #EEEEEE;   /* 중성 색상: 더 밝게 */
@@ -11,7 +11,7 @@
     --color-dark: #333333;         /* 강조 색상: 더 어둡게 */
     --color-medium: #666666;       /* 중간 색상: 추가 */
 
-    /* 아이템 특수 색상 - 유지 */
+    /* 아이템 특수 색상 */
     --color-item-blue: #4badff;    /* 아이템 블루 */
     --color-item-red: #d64c2d;     /* 아이템 레드 */
     --color-item-orange: #FF8C00;  /* 아이템 오렌지 */
@@ -35,7 +35,7 @@
     --color-error-light: rgba(184, 58, 58, 0.1);
     --color-error-border: rgba(184, 58, 58, 0.25);
     
-    /* 그림자 효과 - 더 미묘하게 */
+    /* 그림자 효과 */
     --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.07);
     --shadow-md: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -84,7 +84,7 @@
     --search-max-width: 640px;      /* 최대 너비 */
 }
 
-/* 아이템 색상 클래스 - 유지 */
+/* 아이템 색상 클래스 */
 .item-blue, 
 .results-table td.item-blue, 
 .results-table td.item-price.item-blue { 
