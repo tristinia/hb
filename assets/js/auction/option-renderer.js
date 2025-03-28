@@ -679,12 +679,12 @@ class OptionRenderer {
   }
   
   formatItemPrice(price) {
-    if (!price) return { text: '0 Gold', class: '' };
+    if (!price) return { text: '0', class: '' };
     
     // 기본 가격 (1~9999)
     if (price < 10000) {
       return {
-        text: `${price.toLocaleString()} Gold`,
+        text: `${price}`,
         class: ''
       };
     }
@@ -696,9 +696,8 @@ class OptionRenderer {
       
       let text = `${man}만`;
       if (remainder > 0) {
-        text += `${remainder.toLocaleString()}`;
+        text += `${remainder}`;
       }
-      text += ' Gold';
       
       return {
         text: text,
@@ -717,9 +716,8 @@ class OptionRenderer {
         text += `${manRemainder}만`;
       }
       if (remainder > 0) {
-        text += `${remainder.toLocaleString()}`;
+        text += `${remainder}`;
       }
-      text += ' Gold';
       
       return {
         text: text,
@@ -737,9 +735,8 @@ class OptionRenderer {
       text += `${manRemainder}만`;
     }
     if (remainder > 0) {
-      text += `${remainder.toLocaleString()}`;
+      text += `${remainder}`;
     }
-    text += ' Gold';
     
     return {
       text: text,
