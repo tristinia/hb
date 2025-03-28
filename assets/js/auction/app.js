@@ -36,13 +36,15 @@ const App = (() => {
 
     // DOM 요소 참조
     const elements = {
-        mainContainer: document.querySelector('.main-container'),
+        mainContainer: document.getElementById('main-container'),
         searchContainer: document.getElementById('search-container'),
         searchInput: document.getElementById('search-input'),
         searchButton: document.getElementById('search-button'),
         clearButton: document.getElementById('clear-button'),
         logoButton: document.getElementById('logo-button'),
         toggleSidebarBtn: document.getElementById('toggle-sidebar'),
+        contentSidebarToggle: document.getElementById('content-sidebar-toggle'),
+        sidebarBackdrop: document.getElementById('sidebar-backdrop'),
         sidebarTabs: document.querySelectorAll('.sidebar-tab'),
         sidebarPanels: document.querySelectorAll('.sidebar-panel'),
         categoryInfoPanel: document.getElementById('category-info-panel'),
@@ -95,9 +97,18 @@ const App = (() => {
             elements.logoButton.addEventListener('click', resetSearch);
         }
         
-        // 사이드바 토글 버튼
+        // 사이드바 토글 버튼들
         if (elements.toggleSidebarBtn) {
             elements.toggleSidebarBtn.addEventListener('click', toggleSidebar);
+        }
+        
+        if (elements.contentSidebarToggle) {
+            elements.contentSidebarToggle.addEventListener('click', toggleSidebar);
+        }
+        
+        // 사이드바 백드롭 클릭 시 닫기
+        if (elements.sidebarBackdrop) {
+            elements.sidebarBackdrop.addEventListener('click', closeSidebar);
         }
         
         // 사이드바 탭 이벤트 리스너
@@ -132,6 +143,14 @@ const App = (() => {
     function toggleSidebar() {
         state.sidebarState.isCollapsed = !state.sidebarState.isCollapsed;
         elements.mainContainer.classList.toggle('sidebar-collapsed', state.sidebarState.isCollapsed);
+    }
+    
+    /**
+     * 사이드바 닫기
+     */
+    function closeSidebar() {
+        state.sidebarState.isCollapsed = true;
+        elements.mainContainer.classList.add('sidebar-collapsed');
     }
     
     /**
@@ -234,7 +253,8 @@ const App = (() => {
         // 검색 모드로 전환
         enterSearchMode();
         
-        // 세부 옵션 탭 활성화
+        // 검색 결과가 있을 때 세부 옵션 탭 활성화
+        // 사이드바가 닫혀있는 상태라면, 열리지 않음
         if (!state.sidebarState.isCollapsed && state.isSearchMode) {
             activateTab('filter');
         }
