@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-27T09:29:51.238Z",
+  "updated": "2025-03-28T09:30:23.597Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -2953,6 +2953,48 @@
         }
       ]
     },
+    "마이트": {
+      "name": "마이트",
+      "rank": 6,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "지력 {value} 감소",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 8,
+          "max": 8,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 7,
+          "max": 7,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        }
+      ]
+    },
     "마크스맨": {
       "name": "마크스맨",
       "rank": 6,
@@ -5869,7 +5911,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 41,
+          "min": 37,
           "max": 50,
           "variable": true
         }
