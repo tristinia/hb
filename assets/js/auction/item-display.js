@@ -119,14 +119,31 @@ const ItemDisplay = (() => {
      * 테이블 이벤트 리스너 설정
      */
     function setupTableEventListeners() {
-        if (elements.resultsBody) {
-            // 클릭 이벤트 - 이벤트 전파만 중단 (검색 버그 방지)
-            elements.resultsBody.addEventListener('click', e => {
-                e.stopPropagation();
-            });
-            
-            // 참고: 툴팁 관련 이벤트는 별도 모듈에서 처리
+      const resultsTable = document.querySelector('.results-table');
+      if (!resultsTable) return;
+      
+      // 행 클릭 이벤트 - 모바일, PC 모두 적용
+      resultsTable.addEventListener('click', (event) => {
+        const itemRow = event.target.closest('.item-row');
+        if (!itemRow) return;
+        
+        try {
+          const itemDataStr = itemRow.getAttribute('data-item');
+          if (!itemDataStr) return;
+          
+          const itemData = JSON.parse(itemDataStr);
+          showTooltip(itemData, event.clientX || window.innerWidth/2, event.clientY || window.innerHeight/3);
+        } catch (error) {
+          console.error('툴팁 표시 중 오류:', error);
         }
+      });
+      
+      // PC에서만 사용할 마우스 오버/아웃 이벤트
+      if (window.innerWidth > 768) {
+        resultsTable.addEventListener('mouseover', handleMouseOver);
+        resultsTable.addEventListener('mouseout', handleMouseOut);
+        resultsTable.addEventListener('mousemove', handleMouseMove);
+      }
     }
     
     /**
