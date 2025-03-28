@@ -68,6 +68,12 @@ const ItemTooltip = (() => {
             resultsTable.addEventListener('mousemove', handleMouseMove);
         }
         
+        // 툴팁 자체에 클릭 이벤트 추가 (모바일에서 터치로 닫기 위함)
+        if (tooltipElement) {
+            tooltipElement.addEventListener('click', hideTooltip);
+            tooltipElement.addEventListener('touchstart', hideTooltip);
+        }
+        
         // 문서 클릭 시 툴팁 닫기
         document.addEventListener('click', (event) => {
             if (state.visible && tooltipElement && 
