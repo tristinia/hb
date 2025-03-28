@@ -1,5 +1,5 @@
 /**
- * app.js - 수정된 사용자 인터페이스용 메인 스크립트
+ * app.js - 마비노기 경매장 메인 스크립트
  */
 
 // 기존 모듈 가져오기
@@ -47,8 +47,6 @@ const App = (() => {
         sidebarBackdrop: document.getElementById('sidebar-backdrop'),
         sidebarTabs: document.querySelectorAll('.sidebar-tab'),
         sidebarPanels: document.querySelectorAll('.sidebar-panel'),
-        categoryInfoPanel: document.getElementById('category-info-panel'),
-        categoryInfo: document.getElementById('category-info'),
         resultsContainer: document.getElementById('results-container'),
         pagination: document.getElementById('pagination')
     };
@@ -280,9 +278,6 @@ const App = (() => {
                     category, 
                     selectedItem.name
                 );
-                
-                // 카테고리 정보 업데이트
-                updateCategoryInfo(mainCat, category);
             }
             // 카테고리 검색 처리
             else if (subCategory) {
@@ -295,9 +290,6 @@ const App = (() => {
                 
                 result = await ApiClient.searchByCategory(mainCategory, subCategory);
                 
-                // 카테고리 정보 업데이트
-                updateCategoryInfo(mainCategory, subCategory);
-                
                 // 검색어가 있으면 클라이언트 측 필터링
                 if (searchTerm && result.items && result.items.length > 0) {
                     const filteredItems = filterItemsBySearchTerm(result.items, searchTerm);
@@ -309,7 +301,6 @@ const App = (() => {
             else if (searchTerm) {
                 console.log('키워드 검색: ', { searchTerm });
                 result = await ApiClient.searchByKeyword(searchTerm);
-                updateCategoryInfo();
             } 
             else {
                 ApiClient.setLoading(false);
@@ -333,47 +324,7 @@ const App = (() => {
             ApiClient.setLoading(false);
         }
     }
-    
-    /**
-     * 카테고리 정보 업데이트
-     * @param {string} mainCategory - 메인 카테고리 ID
-     * @param {string} subCategory - 서브 카테고리 ID
-     */
-    function updateCategoryInfo(mainCategory, subCategory) {
-        if (!elements.categoryInfo) return;
-        
-        let categoryText = '전체';
-        
-        // 메인 카테고리 찾기
-        if (mainCategory) {
-            try {
-                const mainCategoryObj = CategoryManager.getSelectedCategories().mainCategories.find(
-                    cat => cat.id === mainCategory
-                );
-                
-                if (mainCategoryObj) {
-                    categoryText = mainCategoryObj.name;
-                    
-                    // 서브 카테고리 찾기
-                    if (subCategory) {
-                        const subCategoryObj = CategoryManager.getSelectedCategories().subCategories.find(
-                            cat => cat.id === subCategory
-                        );
-                        
-                        if (subCategoryObj) {
-                            categoryText += ` > ${subCategoryObj.name}`;
-                        }
-                    }
-                }
-            } catch (error) {
-                console.error('카테고리 정보 업데이트 중 오류:', error);
-            }
-        }
-        
-        elements.categoryInfo.textContent = categoryText;
-        elements.categoryInfoPanel.classList.add('visible');
-    }
-    
+
     /**
      * 검색 모드로 전환
      */
@@ -382,7 +333,6 @@ const App = (() => {
         
         state.isSearchMode = true;
         elements.searchContainer.classList.add('search-mode');
-        elements.categoryInfoPanel.classList.add('visible');
         showResultsContainer();
         elements.pagination.classList.add('visible');
     }
@@ -395,7 +345,6 @@ const App = (() => {
         
         state.isSearchMode = false;
         elements.searchContainer.classList.remove('search-mode');
-        elements.categoryInfoPanel.classList.remove('visible');
         hideResultsContainer();
         elements.pagination.classList.remove('visible');
     }
@@ -632,7 +581,6 @@ const App = (() => {
             elements.mainContainer.classList.add('sidebar-collapsed');
             elements.clearButton.classList.remove('visible');
             hideResultsContainer();
-            elements.categoryInfoPanel.classList.remove('visible');
             elements.pagination.classList.remove('visible');
             
             // 순차적 초기화 (의존성 있는 모듈)
