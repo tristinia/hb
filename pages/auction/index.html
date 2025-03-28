@@ -9,7 +9,7 @@
     <script src="../../assets/js/common/firebase-config.js"></script>
 </head>
 <body>
-    <div class="main-container">
+    <div class="main-container sidebar-collapsed" id="main-container">
         <!-- 좌측 사이드바 -->
         <div class="sidebar">
             <div class="sidebar-header">
@@ -68,8 +68,16 @@
             </div>
         </div>
 
+        <!-- 모바일용 백드롭 -->
+        <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
         <!-- 메인 콘텐츠 영역 -->
         <div class="content">
+            <!-- 사이드바 토글 버튼 (콘텐츠 영역) -->
+            <button class="content-sidebar-toggle" id="content-sidebar-toggle" title="메뉴 열기">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            
             <!-- 메인 검색 영역 -->
             <div class="search-container" id="search-container">
                 <div class="search-wrapper">
