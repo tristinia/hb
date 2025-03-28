@@ -1496,14 +1496,20 @@ function searchReforgeOptions(query) {
  */
 function positionAutocompleteList(listElement, inputElement) {
     const inputRect = inputElement.getBoundingClientRect();
+    const parentRect = inputElement.closest('.filter-content').getBoundingClientRect();
     
     listElement.style.position = 'absolute';
     listElement.style.width = inputElement.offsetWidth + 'px';
-    listElement.style.left = (inputElement.offsetLeft) + 'px';
-    listElement.style.top = (inputElement.offsetTop + inputElement.offsetHeight) + 'px';
+    listElement.style.left = '0';
+    listElement.style.top = (inputRect.top - parentRect.top + inputElement.offsetHeight) + 'px';
     listElement.style.zIndex = '1000';
+    
+    // 부모 요소 포지션 설정
+    const parentElement = inputElement.closest('.filter-section');
+    if (parentElement) {
+        parentElement.style.position = 'relative';
+    }
 }
-
 /**
  * 세공 옵션 자동완성 목록 렌더링
  */
