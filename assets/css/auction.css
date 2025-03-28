@@ -59,6 +59,7 @@
     --spacing-md: 0.85rem;     /* 13.6px - 기준 */
     --spacing-lg: 1.28rem;     /* 20.48px */
     --spacing-xl: 1.7rem;      /* 27.2px */
+    --spacing-xxl: 3rem;       /* 48px - 추가됨 */
     
     /* 테두리 반경 */
     --border-radius-xs: 0.21rem;   /* 3.36px */
@@ -145,6 +146,7 @@ body {
     box-shadow: var(--shadow-md);
     position: relative;
     z-index: 10;
+    transform: translateX(0); /* 기본값 설정 */
 }
 
 /* 사이드바 숨김 상태 */
@@ -479,21 +481,21 @@ body {
     transition: margin-left var(--duration-normal) ease-in-out;
 }
 
-/* 검색 컨테이너 */
+/* 검색 컨테이너 - 초기 상태 */
 .search-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-lg);
-    height: 100%;
-    transition: height var(--duration-normal) ease-in-out, padding var(--duration-normal) ease-in-out;
+    padding: 0 var(--spacing-lg);
+    min-height: 100vh; /* 전체 높이 사용 */
+    transition: min-height var(--duration-normal) ease-in-out, padding var(--duration-normal) ease-in-out;
 }
 
 /* 검색 컨테이너 - 검색 후 상태 */
 .search-container.search-mode {
-    height: auto;
-    padding: var(--spacing-md) var(--spacing-lg);
+    min-height: auto;
+    padding: var(--spacing-xxl) var(--spacing-lg) var(--spacing-md); /* 상단 여백 증가 */
     justify-content: flex-start;
     animation: slideUp var(--duration-normal) ease-in-out;
 }
@@ -876,6 +878,42 @@ body {
     padding: var(--spacing-md);
 }
 
+/* 콘텐츠 메인영역의 사이드바 상태에 따른 마진 조정 */
+.main-container:not(.sidebar-collapsed) .content {
+    margin-left: 0;
+}
+
+/* 사이드바 토글 버튼이 항상 표시되도록 추가 */
+.content-sidebar-toggle {
+    position: fixed;
+    top: var(--spacing-md);
+    left: var(--spacing-md);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-light-gray);
+    border-radius: var(--border-radius-full);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: var(--shadow-md);
+    transition: all var(--duration-fast);
+}
+
+.content-sidebar-toggle:hover {
+    background-color: var(--color-accent-20);
+}
+
+.main-container.sidebar-collapsed .content-sidebar-toggle {
+    left: var(--spacing-md);
+}
+
+.main-container:not(.sidebar-collapsed) .content-sidebar-toggle {
+    left: calc(var(--sidebar-width) + var(--spacing-md));
+}
+
 /* 특별 클래스들 */
 .enchant-type {
     font-weight: var(--font-weight-medium);
@@ -885,12 +923,13 @@ body {
 /* 반응형 디자인 */
 @media (max-width: 768px) {
     .sidebar {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         z-index: 100;
         width: 85%;
         max-width: var(--sidebar-width);
+        height: 100%;
     }
     
     .search-wrapper {
@@ -903,5 +942,30 @@ body {
     
     .main-container.sidebar-collapsed .sidebar {
         transform: translateX(-100%);
+    }
+    
+    .content-sidebar-toggle {
+        top: var(--spacing-md);
+        left: var(--spacing-md);
+    }
+    
+    .main-container:not(.sidebar-collapsed) .content-sidebar-toggle {
+        left: var(--spacing-md);
+    }
+    
+    /* 모바일에서 사이드바 열릴때 배경 딤처리 */
+    .sidebar-backdrop {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 50;
+    }
+    
+    .main-container:not(.sidebar-collapsed) .sidebar-backdrop {
+        display: block;
     }
 }
