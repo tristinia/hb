@@ -141,6 +141,16 @@ const App = (() => {
     function toggleSidebar() {
         state.sidebarState.isCollapsed = !state.sidebarState.isCollapsed;
         elements.mainContainer.classList.toggle('sidebar-collapsed', state.sidebarState.isCollapsed);
+        
+        // 사이드바를 열 때 검색 상태에 따라 적절한 탭 활성화
+        if (!state.sidebarState.isCollapsed) {
+            // 검색 모드인 경우 필터 탭 활성화, 아닌 경우 카테고리 탭 활성화
+            if (state.isSearchMode) {
+                activateTab('filter');
+            } else {
+                activateTab('category');
+            }
+        }
     }
     
     /**
