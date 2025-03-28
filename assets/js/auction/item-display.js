@@ -70,7 +70,7 @@ const ItemDisplay = (() => {
             if (specialPrefix) {
                 if (specialPrefix === "신성한 ") {
                     // 신성한 = 노란색
-                    result += `<span class="item-special-prefix">${specialPrefix}</span>`;
+                    result += `<span class="item-yellow">${specialPrefix}</span>`;
                 } else {
                     result += `<span class="item-normal">${specialPrefix}</span>`;
                 }
@@ -78,7 +78,7 @@ const ItemDisplay = (() => {
             
             if (enchantPart) {
                 // 인챈트 = 파란색
-                result += `<span class="item-enchant">${enchantPart}</span>`;
+                result += `<span class="item-blue">${enchantPart}</span>`;
             }
             
             result += `<span class="item-base-name">${baseName}</span>`;
