@@ -178,7 +178,7 @@ const ItemDisplay = (() => {
             tr.setAttribute('data-item', JSON.stringify(item));
             
             // 가격 포맷팅
-            const priceFormatted = optionRenderer.formatItemPrice(item.auction_price_per_unit || 0);
+            const priceFormatted = formatItemPrice(item.auction_price_per_unit || 0);
             
             // 남은 시간 포맷팅
             const remainingTime = formatRemainingTime(item.date_auction_expire);
@@ -190,7 +190,7 @@ const ItemDisplay = (() => {
                     </div>
                 </td>
                 <td>${remainingTime}</td>
-                <td>${item.auction_count || 1}개</td>
+                <td>${item.auction_count || 1}</td>
                 <td class="item-price ${priceFormatted.class}">${priceFormatted.text}</td>
             `;
             
@@ -318,6 +318,77 @@ const ItemDisplay = (() => {
     }
     
     /**
+     * 아이템 가격 포맷팅
+     * @param {number} price - 가격
+     * @returns {Object} 포맷팅된 가격 정보
+     */
+    function formatItemPrice(price) {
+        if (!price) return { text: '0', class: '' };
+        
+        // 기본 가격 (1~9999)
+        if (price < 10000) {
+            return {
+                text: `${price}`,
+                class: ''
+            };
+        }
+        
+        // 만 단위 가격 (10000~99999999)
+        if (price < 100000000) {
+            const man = Math.floor(price / 10000);
+            const remainder = price % 10000;
+            
+            let text = `${man}만`;
+            if (remainder > 0) {
+                text += `${remainder}`;
+            }
+            
+            return {
+                text: text,
+                class: 'item-blue'
+            };
+        }
+        
+        // 억 단위 가격 (100000000~9999999999)
+        if (price < 10000000000) {
+            const eok = Math.floor(price / 100000000);
+            const manRemainder = Math.floor((price % 100000000) / 10000);
+            const remainder = price % 10000;
+            
+            let text = `${eok}억`;
+            if (manRemainder > 0) {
+                text += `${manRemainder}만`;
+            }
+            if (remainder > 0) {
+                text += `${remainder}`;
+            }
+            
+            return {
+                text: text,
+                class: 'item-red'
+            };
+        }
+        
+        // 100억 이상 가격
+        const eok = Math.floor(price / 100000000);
+        const manRemainder = Math.floor((price % 100000000) / 10000);
+        const remainder = price % 10000;
+        
+        let text = `${eok}억`;
+        if (manRemainder > 0) {
+            text += `${manRemainder}만`;
+        }
+        if (remainder > 0) {
+            text += `${remainder}`;
+        }
+        
+        return {
+            text: text,
+            class: 'item-orange'
+        };
+    }
+    
+    /**
      * 현재 페이지의 아이템 렌더링
      * @param {number} startIndex - 시작 인덱스
      * @param {number} endIndex - 종료 인덱스
@@ -348,7 +419,7 @@ const ItemDisplay = (() => {
             tr.setAttribute('data-item', JSON.stringify(item));
             
             // 가격 포맷팅
-            const priceFormatted = optionRenderer.formatItemPrice(item.auction_price_per_unit || 0);
+            const priceFormatted = formatItemPrice(item.auction_price_per_unit || 0);
             
             // 남은 시간 포맷팅
             const remainingTime = formatRemainingTime(item.date_auction_expire);
@@ -360,7 +431,7 @@ const ItemDisplay = (() => {
                     </div>
                 </td>
                 <td>${remainingTime}</td>
-                <td>${item.auction_count || 1}개</td>
+                <td>${item.auction_count || 1}</td>
                 <td class="item-price ${priceFormatted.class}">${priceFormatted.text}</td>
             `;
             
