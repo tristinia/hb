@@ -45,27 +45,20 @@ const ItemTooltip = (() => {
         tooltipElement.style.zIndex = '1001';
         tooltipElement.style.cursor = 'default';
         
-        // 환경별 설정
         if ('ontouchstart' in window) {
-            // 모바일에서 툴팁이 터치 이벤트를 먼저처리
+            // 모바일에서는 툴팁 터치 이벤트 처리
             tooltipElement.style.pointerEvents = 'auto';
-            
-            // 툴팁 터치 시 닫히도록 설정
             tooltipElement.addEventListener('touchstart', function(e) {
                 e.stopPropagation();
                 e.preventDefault();
                 hideTooltip();
             });
         } else {
-            // PC에서 이벤트를 투과하도록 설정
-            tooltipElement.style.pointerEvents = 'none';
-            
-            // 클릭 이벤트만 캐치
-            document.addEventListener('click', function(e) {
-                if (state.visible && tooltipElement.contains(e.target)) {
-                    hideTooltip();
-                    e.stopPropagation();
-                }
+            // PC에서는 마우스 이벤트 통과
+            tooltipElement.style.pointerEvents = 'auto';
+            tooltipElement.addEventListener('click', function(e) {
+                e.stopPropagation();
+                hideTooltip();
             });
         }
         
@@ -140,7 +133,7 @@ const ItemTooltip = (() => {
         
         // 오른쪽 경계 검사
         if (left + tooltipWidth > windowWidth) {
-            left = windowWidth - tooltipWidth - 5; // 우측 여백 5px 추가
+            left = windowWidth - tooltipWidth - 5;
         }
         
         // 왼쪽 경계 검사
@@ -150,7 +143,7 @@ const ItemTooltip = (() => {
         
         // 아래쪽 경계 검사
         if (top + tooltipHeight > windowHeight) {
-            top = windowHeight - tooltipHeight - 5; // 하단 여백 5px 추가
+            top = windowHeight - tooltipHeight - 5;
         }
         
         // 위쪽 경계 검사
