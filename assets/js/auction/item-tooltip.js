@@ -41,12 +41,12 @@ const ItemTooltip = (() => {
         tooltipElement.style.display = 'none';
         tooltipElement.style.zIndex = '1001';
         
-        // 모바일/PC 환경에 따른 설정
+        // 환경별 설정
         if (state.isMobile) {
-            // 모바일에서는 툴팁 터치 가능하게 설정
+            // 모바일에서는 툴팁 터치 이벤트 허용
             tooltipElement.style.pointerEvents = "auto";
         } else {
-            // PC에서는 툴팁이 마우스 이벤트를 차단하지 않음
+            // PC에서는 툴팁이 마우스 이벤트를 차단하지 않도록 설정
             tooltipElement.style.pointerEvents = "none";
         }
         
@@ -68,15 +68,19 @@ const ItemTooltip = (() => {
         const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(itemData);
         tooltipElement.appendChild(tooltipContent);
         
+        // 툴팁 처음에는 보이지 않게 설정 (위치 계산을 위해)
+        tooltipElement.style.visibility = 'hidden';
+        tooltipElement.style.display = 'block';
+        
         // 상태 업데이트
         state.currentItemId = itemData.auction_item_no || '';
         state.visible = true;
         
-        // 툴팁 표시
-        tooltipElement.style.display = 'block';
-        
         // 위치 계산 및 적용
         calculatePosition(x, y);
+        
+        // 계산 후 툴팁 표시
+        tooltipElement.style.visibility = 'visible';
     }
     
     /**
@@ -95,7 +99,7 @@ const ItemTooltip = (() => {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         
-        // 항상 마우스/터치 오른쪽에 위치
+        // 기본 위치 (커서 오른쪽)
         let left = x + 15; // 마우스/터치에서 15px 오른쪽으로
         let top = y;
         
