@@ -119,20 +119,12 @@ const ItemDisplay = (() => {
      * 테이블 이벤트 리스너 설정
      */
     function setupTableEventListeners() {
-        const resultsTable = document.querySelector('.results-table');
-        if (!resultsTable) return;
-        
-        // PC와 모바일 분리 처리
+        // 모바일 감지
         const isMobile = ItemTooltip.isMobileDevice();
         
-        if (isMobile) {
-            // 모바일: 터치 이벤트는 ItemTooltip에서 처리함
-            console.log('모바일 환경 감지: 터치 이벤트 설정');
-        } else {
-            // PC: 테이블 이벤트 리스너 설정
-            console.log('PC 환경 감지: 마우스 이벤트 설정');
-            // 이벤트 위임으로 처리
-        }
+        // 이벤트 등록은 ItemTooltip 내부에서 처리하므로 여기서는 아무 것도 하지 않음
+        // ItemTooltip.init() 함수가 모든 필요한 이벤트를 설정함
+        console.log(`테이블 이벤트 리스너 설정 완료 (${isMobile ? '모바일' : 'PC'} 모드)`);
     }
 
     /**
