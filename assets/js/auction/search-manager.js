@@ -824,6 +824,8 @@ async function loadItemListFromFile(category) {
             state.suggestions = [];
             state.activeSuggestion = -1;
             state.isSuggestionVisible = false;
+            
+            elements.suggestionsList.classList.remove('hide');
         }, 300);
     }
     
