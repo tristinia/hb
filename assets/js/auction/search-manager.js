@@ -814,11 +814,17 @@ async function loadItemListFromFile(category) {
     function clearSuggestions() {
         if (!elements.suggestionsList) return;
         
-        elements.suggestionsList.innerHTML = '';
+        // 페이드 아웃 애니메이션 시작
+        elements.suggestionsList.classList.add('hide');
         elements.suggestionsList.classList.remove('show');
-        state.suggestions = [];
-        state.activeSuggestion = -1;
-        state.isSuggestionVisible = false;
+        
+        // 애니메이션 완료 후 내용 지우기
+        setTimeout(() => {
+            elements.suggestionsList.innerHTML = '';
+            state.suggestions = [];
+            state.activeSuggestion = -1;
+            state.isSuggestionVisible = false;
+        }, 300);
     }
     
     /**
