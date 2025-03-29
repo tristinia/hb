@@ -222,34 +222,10 @@ const ItemDisplay = (() => {
      * @param {MouseEvent} event - 마우스 이벤트
      */
     function handleMouseMove(event) {
-    // 아이템 행에서만 마우스 이동 처리
-        const itemRow = event.target.closest('.item-row');
-        if (!itemRow) return;
+        if (!ItemTooltip.isVisible()) return;
         
-        // 활성 행이 변경된 경우 새 툴팁 표시
-        if (itemRow !== state.activeRow && ItemTooltip.isVisible()) {
-            // 현재 활성 행 업데이트
-            if (state.activeRow) {
-                state.activeRow.classList.remove('hovered');
-            }
-            state.activeRow = itemRow;
-            itemRow.classList.add('hovered');
-            
-            // 새 아이템 데이터로 툴팁 갱신
-            try {
-                const itemDataStr = itemRow.getAttribute('data-item');
-                if (itemDataStr) {
-                    const itemData = JSON.parse(itemDataStr);
-                    ItemTooltip.showTooltip(itemData, event.clientX, event.clientY);
-                }
-            } catch (error) {
-                console.error('툴팁 업데이트 중 오류:', error);
-            }
-        } 
-        // 같은 행 내에서 마우스 이동 시 툴팁 위치만 업데이트
-        else if (ItemTooltip.isVisible() && itemRow === state.activeRow) {
-            ItemTooltip.updatePosition(event.clientX, event.clientY);
-        }
+        // 툴팁 위치 업데이트
+        ItemTooltip.updatePosition(event.clientX, event.clientY);
     }
     
     /**
