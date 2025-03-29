@@ -126,29 +126,92 @@ const ItemDisplay = (() => {
         const isMobile = ItemTooltip.isMobileDevice();
         
         if (isMobile) {
-            // 모바일: 터치 시작 시점에 행 감지 (touchend 대신)
-            resultsTable.addEventListener('touchstart', handleTouchStart);
+            // 모바일: 단일 클릭 이벤트로 처리
+            document.addEventListener('click', handleMobileItemClick);
+        } else {
+            // PC: 기존 호버 이벤트 활용
+            resultsTable.addEventListener('mouseover', handleItemHover);
             
-            // 터치가 끝나는 시점에는 툴팁 표시 여부만 결정
-            resultsTable.addEventListener('touchend', handleTouchEnd);
-            
-            // 모바일: 결과 테이블 외부 터치시 툴팁 닫기
-            document.addEventListener('touchstart', function(e) {
-                const isResultsArea = e.target.closest('.results-container');
-                if (!isResultsArea && ItemTooltip.isVisible()) {
+            // 테이블에서 완전히 벗어났을 때만 툴팁 숨김
+            resultsTable.addEventListener('mouseleave', (e) => {
+                // 툴팁으로 이동한 경우는 제외
+                if (!e.relatedTarget || !e.relatedTarget.closest('#item-tooltip')) {
                     ItemTooltip.hideTooltip();
-                    
-                    // 모든 행 강조 제거
-                    document.querySelectorAll('.item-row.hovered').forEach(row => {
-                        row.classList.remove('hovered');
-                    });
                 }
             });
-        } else {
-            // PC 코드는 그대로 유지
-            resultsTable.addEventListener('mouseover', handleMouseOver);
-            resultsTable.addEventListener('mouseout', handleMouseOut);
-            resultsTable.addEventListener('mousemove', handleMouseMove);
+        }
+    }
+
+    /**
+     * 모바일 아이템 클릭 처리
+     */
+    function handleMobileItemClick(e) {
+        // 툴팁 클릭 시 처리
+        if (e.target.closest('#item-tooltip')) {
+            e.preventDefault();
+            ItemTooltip.hideTooltip();
+            return;
+        }
+        
+        // 아이템 행 검색
+        const itemRow = e.target.closest('.item-row');
+        if (!itemRow) {
+            // 행 외부 클릭 시 툴팁 숨김
+            if (ItemTooltip.isVisible()) {
+                ItemTooltip.hideTooltip();
+            }
+            return;
+        }
+        
+        try {
+            // 아이템 데이터 가져오기
+            const itemDataStr = itemRow.getAttribute('data-item');
+            if (!itemDataStr) return;
+            
+            const itemData = JSON.parse(itemDataStr);
+            
+            // 툴팁 표시 여부 및 현재 아이템 ID 확인
+            if (ItemTooltip.isVisible() && ItemTooltip.getCurrentItemId() === itemData.auction_item_no) {
+                // 같은 아이템 재클릭 시 툴팁 숨김
+                ItemTooltip.hideTooltip();
+            } else {
+                // 새 아이템 클릭 시 툴팁 표시
+                ItemTooltip.showTooltip(itemData, e.clientX, e.clientY, itemRow);
+            }
+        } catch (error) {
+            console.error('모바일 툴팁 처리 중 오류:', error);
+        }
+    }
+    
+    /**
+     * PC 아이템 호버 처리
+     */
+    function handleItemHover(e) {
+        const itemRow = e.target.closest('.item-row');
+        if (!itemRow) return;
+        
+        try {
+            // 아이템 데이터 가져오기
+            const itemDataStr = itemRow.getAttribute('data-item');
+            if (!itemDataStr) return;
+            
+            const itemData = JSON.parse(itemDataStr);
+            
+            // 툴팁 상태에 따라 처리
+            if (ItemTooltip.isVisible()) {
+                if (ItemTooltip.getCurrentItemId() === itemData.auction_item_no) {
+                    // 같은 아이템이면 위치만 업데이트
+                    ItemTooltip.updatePosition(e.clientX, e.clientY);
+                } else {
+                    // 다른 아이템이면 툴팁 내용 업데이트
+                    ItemTooltip.updateTooltip(itemData, e.clientX, e.clientY, itemRow);
+                }
+            } else {
+                // 툴팁이 없으면 새 툴팁 표시
+                ItemTooltip.showTooltip(itemData, e.clientX, e.clientY, itemRow);
+            }
+        } catch (error) {
+            console.error('PC 툴팁 처리 중 오류:', error);
         }
     }
     
