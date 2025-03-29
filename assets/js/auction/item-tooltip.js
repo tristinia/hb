@@ -59,15 +59,14 @@ const ItemTooltip = (() => {
      */
     function setupEventListeners() {
         if (tooltipElement) {
-            // 툴팁 클릭 시 숨기기 (PC)
-            tooltipElement.addEventListener('click', (e) => {
-                e.stopPropagation(); // 이벤트 전파 방지
-                hideTooltip();
+            tooltipElement.addEventListener('mousemove', function(e) {
+                e.stopPropagation();
+                updatePosition(e.clientX, e.clientY);
             });
             
-            // 툴팁 터치 시 숨기기 (모바일)
-            tooltipElement.addEventListener('touchstart', (e) => {
-                e.stopPropagation(); // 이벤트 전파 방지
+            // 모바일 환경에서는 툴팁을 터치하여 닫기
+            tooltipElement.addEventListener('touchstart', function(e) {
+                e.stopPropagation();
                 hideTooltip();
             });
         }
