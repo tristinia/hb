@@ -491,21 +491,21 @@ body {
 
 /* 검색 컨테이너 */
 .search-container {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 50%;
   z-index: 10;
   width: 100%;
   padding: 20px 0;
   background-color: var(--color-white);
-  text-align: center;
-  transform: translateY(40vh);
+  transform: translate(-50%, 40vh);
   transition: transform 0.3s ease-out;
 }
 
 
 /* 검색 모드 전환 시 */
 .search-container.search-mode {
-  transform: translateY(0);
+  transform: translate(-50%, 0);
 }
 
 /* 카테고리 정보 패널 숨김 처리 */
@@ -516,7 +516,7 @@ body {
 /* 검색창 래퍼 */
 .search-wrapper {
   width: 90%;
-  max-width: 640px;
+  max-width: var(--search-max-width);
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -708,8 +708,12 @@ body {
 }
 /* 검색 결과 컨테이너 */
 .results-container {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 90%;
-  max-width: 640px;
+  max-width: var(--search-max-width);
   margin: 20px auto 0;
   display: none;
 }
@@ -794,12 +798,14 @@ body {
 
 /* 페이지네이션 */
 .pagination {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 90%;
-  max-width: 640px;
-  margin: 10px auto 30px;
+  max-width: var(--search-max-width);
   display: none;
   justify-content: center;
-  position: relative;
   z-index: 8;
 }
 
@@ -1066,7 +1072,8 @@ body {
     
     /* 검색 컨테이너 반응형 조정 */
     .search-container {
-        transform: translateY(30vh);
+        left: 50%;
+        transform: translate(-50%, 30vh);
         padding-left: var(--spacing-md);
         padding-right: var(--spacing-md);
     }
