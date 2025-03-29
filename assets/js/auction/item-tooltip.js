@@ -79,6 +79,14 @@ const ItemTooltip = (() => {
         // 툴팁 표시
         tooltipElement.style.display = 'block';
         
+        if (state.isMobile) {
+            tooltipElement.style.pointerEvents = 'none';
+            // 약간의 지연 후 다시 터치 이벤트 수신 가능하게 설정
+            setTimeout(() => {
+                tooltipElement.style.pointerEvents = 'auto';
+            }, 300);
+        }
+        
         // 상태 업데이트
         state.visible = true;
         state.currentItemId = itemData.auction_item_no || '';
