@@ -12,8 +12,7 @@ const ItemTooltip = (() => {
         visible: false,
         currentItemId: null,
         isMobile: false,
-        tooltipMargin: 5, // 화면 경계에서 유지할 여백
-        tooltipOffset: 15 // 마우스/터치 지점과의 기본 거리
+        tooltipMargin: 5 // 화면 경계에서 유지할 여백
     };
 
     // DOM 요소
@@ -42,37 +41,23 @@ const ItemTooltip = (() => {
         tooltipElement.style.display = 'none';
         tooltipElement.style.zIndex = '1001';
         
-        // 환경별 설정 적용
+        // 모바일 환경에서만 포인터 이벤트 설정
         if (state.isMobile) {
-            setupMobileEnvironment();
+            // 모바일에서는 툴팁 자체 클릭 가능
+            tooltipElement.style.pointerEvents = "auto";
+            
+            // 툴팁 클릭 시 닫기
+            tooltipElement.addEventListener('click', function(e) {
+                e.stopPropagation();
+                hideTooltip();
+            });
         } else {
-            setupDesktopEnvironment();
+            // PC에서는 툴팁이 마우스 이벤트를 차단하지 않도록 설정
+            tooltipElement.style.pointerEvents = "none";
         }
         
         state.initialized = true;
         console.log(`툴팁 초기화 완료 (${state.isMobile ? '모바일' : 'PC'} 환경)`);
-    }
-    
-    /**
-     * 모바일 환경 설정
-     */
-    function setupMobileEnvironment() {
-        // 모바일에서는 포인터 이벤트 허용 (터치 가능)
-        tooltipElement.style.pointerEvents = "auto";
-        
-        // 툴팁 자체를 터치하면 닫기
-        tooltipElement.addEventListener('click', function(e) {
-            e.stopPropagation();
-            hideTooltip();
-        });
-    }
-    
-    /**
-     * PC 환경 설정
-     */
-    function setupDesktopEnvironment() {
-        // PC에서는 툴팁이 마우스 이벤트를 통과시키도록 설정
-        tooltipElement.style.pointerEvents = "none";
     }
     
     /**
@@ -83,12 +68,6 @@ const ItemTooltip = (() => {
      */
     function showTooltip(itemData, x, y) {
         if (!tooltipElement || !itemData) return;
-        
-        // 같은 아이템이 이미 표시 중이면 위치만 업데이트
-        if (state.visible && state.currentItemId === (itemData.auction_item_no || '')) {
-            calculatePosition(x, y);
-            return;
-        }
         
         // 툴팁 내용 생성
         tooltipElement.innerHTML = '';
@@ -123,7 +102,7 @@ const ItemTooltip = (() => {
         const windowHeight = window.innerHeight;
         
         // 기본 위치 (커서 오른쪽)
-        let left = x + state.tooltipOffset;
+        let left = x + 15; // 마우스/터치에서 15px 오른쪽으로
         let top = y;
         
         // 화면 경계 확인
