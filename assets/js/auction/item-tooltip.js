@@ -41,12 +41,17 @@ const ItemTooltip = (() => {
         tooltipElement.style.display = 'none';
         tooltipElement.style.zIndex = '1001';
         
-        // 환경별 설정
+        // 모바일에서는 툴팁 터치 가능
         if (state.isMobile) {
-            // 모바일에서는 툴팁 터치 이벤트 허용
             tooltipElement.style.pointerEvents = "auto";
+            
+            // 모바일 환경에서 툴팁 클릭 이벤트
+            tooltipElement.addEventListener('click', (e) => {
+                e.stopPropagation();
+                hideTooltip();
+            });
         } else {
-            // PC에서는 툴팁이 마우스 이벤트를 차단하지 않도록 설정
+            // PC에서는 툴팁이 마우스 이벤트를 무시
             tooltipElement.style.pointerEvents = "none";
         }
         
@@ -68,7 +73,7 @@ const ItemTooltip = (() => {
         const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(itemData);
         tooltipElement.appendChild(tooltipContent);
         
-        // 툴팁 처음에는 보이지 않게 설정 (위치 계산을 위해)
+        // 먼저 표시하고 크기 측정 위해 숨김 상태로 설정
         tooltipElement.style.visibility = 'hidden';
         tooltipElement.style.display = 'block';
         
@@ -79,7 +84,7 @@ const ItemTooltip = (() => {
         // 위치 계산 및 적용
         calculatePosition(x, y);
         
-        // 계산 후 툴팁 표시
+        // 툴팁 표시
         tooltipElement.style.visibility = 'visible';
     }
     
@@ -99,24 +104,24 @@ const ItemTooltip = (() => {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         
-        // 기본 위치 (커서 오른쪽)
-        let left = x + 15; // 마우스/터치에서 15px 오른쪽으로
+        // 기본 위치 (커서 오른쪽에 배치)
+        let left = x + 15;
         let top = y;
         
         // 경계 여백
         const margin = state.tooltipMargin;
         
-        // 오른쪽 경계 넘어가면 조정
+        // 오른쪽 경계 검사
         if (left + tooltipWidth > windowWidth - margin) {
             left = windowWidth - tooltipWidth - margin;
         }
         
-        // 하단 경계 넘어가면 조정
+        // 하단 경계 검사
         if (top + tooltipHeight > windowHeight - margin) {
             top = windowHeight - tooltipHeight - margin;
         }
         
-        // 위치 적용 (반올림하여 픽셀 경계 깨짐 방지)
+        // 위치 적용 (반올림)
         tooltipElement.style.left = `${Math.round(left)}px`;
         tooltipElement.style.top = `${Math.round(top)}px`;
     }
@@ -128,15 +133,8 @@ const ItemTooltip = (() => {
      * @param {number} y - Y 좌표
      */
     function updateTooltip(itemData, x, y) {
-        // 현재 표시 중인 아이템과 다른 경우만 업데이트
-        const newItemId = itemData.auction_item_no || '';
-        
-        if (state.currentItemId !== newItemId) {
-            showTooltip(itemData, x, y);
-        } else if (state.visible) {
-            // 같은 아이템이면 위치만 업데이트
-            calculatePosition(x, y);
-        }
+        // 항상 새로운 툴팁으로 갱신
+        showTooltip(itemData, x, y);
     }
     
     /**
@@ -151,38 +149,6 @@ const ItemTooltip = (() => {
         state.currentItemId = null;
     }
     
-    /**
-     * 현재 표시 중인 아이템 ID 반환
-     * @returns {string} 현재 아이템 ID
-     */
-    function getCurrentItemId() {
-        return state.currentItemId;
-    }
-    
-    /**
-     * 모바일 환경 여부 확인
-     * @returns {boolean} 모바일 여부
-     */
-    function isMobileDevice() {
-        return state.isMobile;
-    }
-    
-    /**
-     * 툴팁 표시 여부 확인
-     * @returns {boolean} 표시 여부
-     */
-    function isVisible() {
-        return state.visible;
-    }
-    
-    /**
-     * 툴팁 요소 가져오기
-     * @returns {HTMLElement} 툴팁 요소
-     */
-    function getElement() {
-        return tooltipElement;
-    }
-    
     // 공개 API
     return {
         init,
@@ -190,10 +156,10 @@ const ItemTooltip = (() => {
         updateTooltip,
         hideTooltip,
         updatePosition: calculatePosition,
-        isVisible,
-        getCurrentItemId,
-        isMobileDevice,
-        getElement
+        isVisible: () => state.visible,
+        getCurrentItemId: () => state.currentItemId,
+        isMobileDevice: () => state.isMobile,
+        getElement: () => tooltipElement
     };
 })();
 
