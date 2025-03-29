@@ -164,20 +164,47 @@ const ItemDisplay = (() => {
             // 툴팁 터치시 닫기
             event.preventDefault();
             ItemTooltip.hideTooltip();
+            
+            // 활성화된 행 강조 제거
+            document.querySelectorAll('.item-row.hovered').forEach(row => {
+                row.classList.remove('hovered');
+            });
             return;
         }
         
-        // 터치 지점에서 아이템 행 찾기
+        // 터치 지점 정보
         const touch = event.changedTouches[0];
-        const x = touch.clientX;
-        const y = touch.clientY;
+        const touchX = touch.clientX;
+        const touchY = touch.clientY;
         
-        // 실제 터치된 위치의 요소 찾기
-        let touchedElement = document.elementFromPoint(x, y);
+        // 툴팁이 현재 표시 중인지 확인
+        const isTooltipVisible = ItemTooltip.isVisible();
+        let tooltipElement = null;
+        
+        if (isTooltipVisible) {
+            tooltipElement = document.getElementById('item-tooltip');
+        }
+        
+        // 아이템 행 찾기 (툴팁이 있으면 일시적으로 숨겨서 확인)
+        let elementAtPoint;
+        
+        if (isTooltipVisible && tooltipElement) {
+            // 툴팁 일시적으로 숨기기
+            const originalDisplay = tooltipElement.style.display;
+            tooltipElement.style.display = 'none';
+            
+            // 실제 터치된 요소 찾기
+            elementAtPoint = document.elementFromPoint(touchX, touchY);
+            
+            // 툴팁 다시 표시
+            tooltipElement.style.display = originalDisplay;
+        } else {
+            elementAtPoint = document.elementFromPoint(touchX, touchY);
+        }
         
         // 아이템 행 확인
-        const itemRow = touchedElement ? touchedElement.closest('.item-row') : null;
-        if (!itemRow) return; // 행이 없으면 아무 작업도 하지 않음
+        const itemRow = elementAtPoint ? elementAtPoint.closest('.item-row') : null;
+        if (!itemRow) return;
         
         // 이벤트 기본 동작 방지 (스크롤 등)
         event.preventDefault();
@@ -191,7 +218,7 @@ const ItemDisplay = (() => {
             const currentItemId = itemData.auction_item_no || '';
             
             // 툴팁 표시 여부에 따른 처리
-            if (ItemTooltip.isVisible()) {
+            if (isTooltipVisible) {
                 const visibleItemId = ItemTooltip.getCurrentItemId();
                 
                 if (currentItemId === visibleItemId) {
@@ -207,17 +234,15 @@ const ItemDisplay = (() => {
                     // 현재 행 강조
                     itemRow.classList.add('hovered');
                     
-                    // 툴팁 업데이트 - 위치 조정 (상단 배치)
-                    const adjustedY = Math.max(touch.clientY - 10, 10);
-                    ItemTooltip.updateTooltip(itemData, touch.clientX, adjustedY);
+                    // 툴팁 업데이트
+                    ItemTooltip.updateTooltip(itemData, touchX, touchY);
                 }
             } else {
                 // 툴팁이 없으면 새로 표시
                 itemRow.classList.add('hovered');
                 
-                // 위치 조정 (상단 배치)
-                const adjustedY = Math.max(touch.clientY - 10, 10);
-                ItemTooltip.showTooltip(itemData, touch.clientX, adjustedY);
+                // 툴팁 표시
+                ItemTooltip.showTooltip(itemData, touchX, touchY);
             }
         } catch (error) {
             console.error('툴팁 표시 중 오류:', error);
@@ -273,31 +298,48 @@ const ItemDisplay = (() => {
         handleMouseMove.lastItemId = handleMouseMove.lastItemId || null;
         handleMouseMove.lastItemRow = handleMouseMove.lastItemRow || null;
     
-        // 툴팁이 현재 표시 중이면 마우스가 툴팁 위에 있는지 확인
-        if (ItemTooltip.isVisible()) {
-            const tooltipElement = document.getElementById('item-tooltip');
+        // 툴팁이 표시 중인지 확인
+        const isTooltipVisible = ItemTooltip.isVisible();
+        
+        // 툴팁 요소와 마우스가 툴팁 위에 있는지 확인
+        let isMouseOverTooltip = false;
+        let tooltipElement = null;
+        
+        if (isTooltipVisible) {
+            tooltipElement = document.getElementById('item-tooltip');
             if (tooltipElement) {
                 const rect = tooltipElement.getBoundingClientRect();
-                const isMouseOverTooltip = 
+                isMouseOverTooltip = 
                     event.clientX >= rect.left && 
                     event.clientX <= rect.right && 
                     event.clientY >= rect.top && 
                     event.clientY <= rect.bottom;
-                
-                // 마우스가 툴팁 위에 있으면 마지막 상태 유지
-                if (isMouseOverTooltip && handleMouseMove.lastItemRow) {
-                    // 툴팁 위치만 업데이트하고 내용과 행 상태는 변경하지 않음
-                    ItemTooltip.updatePosition(event.clientX, event.clientY);
-                    return;
-                }
             }
         }
         
-        // 툴팁 위가 아닐 때 정상적인 요소 감지
-        const elementAtPoint = document.elementFromPoint(event.clientX, event.clientY);
+        // 마우스 포인터 위치에서 요소 찾기 (툴팁 아래 요소 포함)
+        let elementAtPoint;
+        
+        if (isMouseOverTooltip && tooltipElement) {
+            // 툴팁을 일시적으로 숨겨서 아래 요소 확인
+            const originalDisplay = tooltipElement.style.display;
+            tooltipElement.style.pointerEvents = 'none';
+            tooltipElement.style.display = 'none';
+            
+            // 요소 찾기
+            elementAtPoint = document.elementFromPoint(event.clientX, event.clientY);
+            
+            // 툴팁 다시 표시
+            tooltipElement.style.display = originalDisplay;
+            tooltipElement.style.pointerEvents = 'none';
+        } else {
+            // 일반적인 경우 요소 찾기
+            elementAtPoint = document.elementFromPoint(event.clientX, event.clientY);
+        }
+        
         if (!elementAtPoint) return;
         
-        // 요소에서 가장 가까운 아이템 행 찾기
+        // 아이템 행 찾기
         const itemRow = elementAtPoint.closest('.item-row');
         
         // 아이템 행이 있는 경우 툴팁 업데이트
@@ -324,7 +366,7 @@ const ItemDisplay = (() => {
                     handleMouseMove.lastItemRow = itemRow;
                     
                     // 툴팁 업데이트
-                    if (ItemTooltip.isVisible()) {
+                    if (isTooltipVisible) {
                         ItemTooltip.updateTooltip(itemData, event.clientX, event.clientY);
                     } else {
                         ItemTooltip.showTooltip(itemData, event.clientX, event.clientY);
@@ -338,7 +380,7 @@ const ItemDisplay = (() => {
             }
         } else {
             // 아이템 행이 없는 경우 툴팁 숨기기
-            if (ItemTooltip.isVisible()) {
+            if (isTooltipVisible) {
                 ItemTooltip.hideTooltip();
                 handleMouseMove.lastItemId = null;
                 handleMouseMove.lastItemRow = null;
