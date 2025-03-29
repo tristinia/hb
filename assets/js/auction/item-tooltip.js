@@ -41,16 +41,20 @@ const ItemTooltip = (() => {
         tooltipElement.style.display = 'none';
         tooltipElement.style.zIndex = '1001';
         
-        // PC와 모바일 환경에 따라 다른 설정
-        if (state.isMobile) {
-            setupMobileEvents();
-        } else {
-            // PC 환경: 툴팁이 마우스 이벤트를 가로채지 않도록 설정
+        // PC에서는 툴팁이 마우스 이벤트를 차단하지 않도록 설정
+        if (!state.isMobile) {
             tooltipElement.style.pointerEvents = "none";
-        }
-        
-        // 전역 문서 클릭 이벤트 (모바일용 외부 클릭 처리)
-        if (state.isMobile) {
+        } else {
+            // 모바일에서는 툴팁을 터치 가능하게 설정
+            tooltipElement.style.pointerEvents = "auto";
+            
+            // 툴팁을 터치했을 때 숨기기
+            tooltipElement.addEventListener('click', (e) => {
+                e.stopPropagation();
+                hideTooltip();
+            });
+            
+            // 외부 영역 클릭 시 툴팁 숨김 (모바일 전용)
             document.addEventListener('click', (e) => {
                 if (state.visible && 
                     !e.target.closest('.item-row') && 
@@ -63,21 +67,7 @@ const ItemTooltip = (() => {
         state.initialized = true;
         console.log(`툴팁 초기화 완료 (${state.isMobile ? '모바일' : 'PC'} 환경)`);
     }
-    
-    /**
-     * 모바일 환경 이벤트 설정
-     */
-    function setupMobileEvents() {
-        // 모바일에서는 툴팁이 터치 이벤트를 캡처하도록 설정
-        tooltipElement.style.pointerEvents = "auto";
-        
-        // 툴팁을 터치했을 때 숨김 처리
-        tooltipElement.addEventListener('click', function(e) {
-            e.stopPropagation(); // 이벤트 전파 중지
-            hideTooltip();
-        });
-    }
-    
+
     /**
      * 툴팁 표시
      */
@@ -164,12 +154,6 @@ const ItemTooltip = (() => {
     function hideTooltip() {
         if (!tooltipElement) return;
         
-        // 현재 행 강조 제거
-        if (state.currentRow) {
-            state.currentRow.classList.remove('hovered');
-            state.currentRow = null;
-        }
-        
         // 툴팁 숨김 및 상태 초기화
         tooltipElement.style.display = 'none';
         tooltipElement.innerHTML = '';
@@ -198,20 +182,6 @@ const ItemTooltip = (() => {
         return state.visible;
     }
     
-    /**
-     * 현재 행 설정
-     */
-    function setCurrentRow(row) {
-        if (state.currentRow && state.currentRow !== row) {
-            state.currentRow.classList.remove('hovered');
-        }
-        
-        if (row) {
-            row.classList.add('hovered');
-            state.currentRow = row;
-        }
-    }
-    
     // 공개 API
     return {
         init,
@@ -221,8 +191,7 @@ const ItemTooltip = (() => {
         updatePosition: calculatePosition,
         isVisible,
         getCurrentItemId,
-        isMobileDevice,
-        setCurrentRow
+        isMobileDevice
     };
 })();
 
