@@ -1114,3 +1114,13 @@ body {
     cursor: pointer;
     }
 }
+
+@media (hover: hover) {
+  .results-table tr:hover td {
+    background-color: var(--color-accent-20);
+  }
+}
+
+.results-table tr.hovered td {
+  background-color: var(--color-accent-20);
+}
