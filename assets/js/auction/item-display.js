@@ -18,7 +18,9 @@ const ItemDisplay = (() => {
         filteredResults: [],
         lastSearchResults: [], // 필터링용 캐시
         currentCategory: null,
-        activeRow: null  // 현재 활성화된 행 추적
+        activeRow: null,  // 현재 활성화된 행 추적
+        lastMousePosition: { x: 0, y: 0 }, // 마지막 마우스 위치
+        lastItemId: null // 마지막으로 처리한 아이템 ID
     };
     
     // DOM 요소 참조
@@ -129,78 +131,39 @@ const ItemDisplay = (() => {
         if (elements.resultsContainer) {
             if (isMobile) {
                 // 모바일 이벤트 설정
-                elements.resultsContainer.addEventListener('click', handleItemClick);
-                
-                // 모바일에서 외부 클릭 시 툴팁 닫기
-                document.addEventListener('click', (e) => {
-                    // 아이템 행이나 툴팁 자체가 아닌 곳을 클릭했을 때만 닫기
-                    if (!e.target.closest('.item-row') && !e.target.closest('#item-tooltip')) {
-                        ItemTooltip.hideTooltip();
-                        
-                        // 활성화된 행이 있으면 하이라이트 제거
-                        if (state.activeRow) {
-                            state.activeRow.classList.remove('hovered');
-                            state.activeRow = null;
-                        }
-                    }
-                });
+                setupMobileEvents();
             } else {
                 // PC 이벤트 설정
-                // 마우스 이동 이벤트 - 전체 문서에 설정
-                document.addEventListener('mousemove', handleItemHover);
+                setupDesktopEvents();
             }
+        }
+        
+        // 깜빡임 방지를 위한 툴팁 위치 조정
+        adjustTooltipZIndex();
+    }
+    
+    /**
+     * 툴팁 z-index 조정 (깜빡임 방지 용)
+     */
+    function adjustTooltipZIndex() {
+        // 툴팁 요소의 z-index를 아이템 행보다 낮게 설정
+        const tooltipElement = ItemTooltip.getElement();
+        if (tooltipElement) {
+            tooltipElement.style.zIndex = "999"; // 행보다 낮은 z-index
         }
     }
     
     /**
-     * PC에서 아이템 호버 처리
-     * 문서 전체 mousemove 이벤트로 마우스 아래 요소 확인 방식
+     * 모바일 이벤트 설정
      */
-    function handleItemHover(e) {
-        // 마우스 아래에 있는 요소 확인
-        const elementUnderMouse = document.elementFromPoint(e.clientX, e.clientY);
+    function setupMobileEvents() {
+        // 결과 컨테이너에 클릭 이벤트 추가
+        elements.resultsContainer.addEventListener('click', handleItemClick);
         
-        // 아이템 행 또는 그 하위 요소인지 확인
-        const itemRow = elementUnderMouse?.closest('.item-row');
-        
-        // 아이템 행이 있을 경우만 처리
-        if (itemRow) {
-            try {
-                // 아이템 데이터 가져오기
-                const itemDataStr = itemRow.getAttribute('data-item');
-                if (!itemDataStr) return;
-                
-                const itemData = JSON.parse(itemDataStr);
-                const itemId = itemData.auction_item_no || '';
-                
-                // 이전 활성화 상태 제거
-                if (state.activeRow && state.activeRow !== itemRow) {
-                    state.activeRow.classList.remove('hovered');
-                }
-                
-                // 현재 행 활성화
-                itemRow.classList.add('hovered');
-                state.activeRow = itemRow;
-                
-                // 툴팁 표시 또는 업데이트
-                if (ItemTooltip.isVisible()) {
-                    if (ItemTooltip.getCurrentItemId() !== itemId) {
-                        ItemTooltip.updateTooltip(itemData, e.clientX, e.clientY);
-                    } else {
-                        ItemTooltip.updatePosition(e.clientX, e.clientY);
-                    }
-                } else {
-                    ItemTooltip.showTooltip(itemData, e.clientX, e.clientY);
-                }
-            } catch (error) {
-                console.error('아이템 호버 처리 중 오류:', error);
-            }
-        } else {
-            // 아이템 행 밖으로 마우스가 나간 경우
-            const resultsContainer = elementUnderMouse?.closest('.results-container');
-            
-            // 결과 컨테이너 밖으로 나간 경우만 툴팁 숨김
-            if (!resultsContainer && ItemTooltip.isVisible()) {
+        // 모바일에서 외부 클릭 시 툴팁 닫기
+        document.addEventListener('click', (e) => {
+            // 아이템 행이나 툴팁 자체가 아닌 곳을 클릭했을 때만 닫기
+            if (!e.target.closest('.item-row') && !e.target.closest('#item-tooltip')) {
                 ItemTooltip.hideTooltip();
                 
                 // 활성화된 행이 있으면 하이라이트 제거
@@ -209,6 +172,104 @@ const ItemDisplay = (() => {
                     state.activeRow = null;
                 }
             }
+        });
+    }
+    
+    /**
+     * PC 이벤트 설정
+     */
+    function setupDesktopEvents() {
+        // 아이템 행에 호버 이벤트 추가
+        elements.resultsContainer.addEventListener('mouseover', (e) => {
+            const itemRow = e.target.closest('.item-row');
+            if (itemRow) {
+                handleItemRowHover(itemRow, e);
+            }
+        });
+        
+        // 마우스 이동 시 툴팁 위치 업데이트
+        document.addEventListener('mousemove', (e) => {
+            // 마지막 마우스 위치 저장
+            state.lastMousePosition.x = e.clientX;
+            state.lastMousePosition.y = e.clientY;
+            
+            if (ItemTooltip.isVisible() && state.activeRow) {
+                // 마우스 아래 실제 요소 확인 (툴팁은 pointerEvents: none 이므로 무시됨)
+                const elementUnderMouse = document.elementFromPoint(e.clientX, e.clientY);
+                const hoveredRow = elementUnderMouse?.closest('.item-row');
+                
+                if (hoveredRow) {
+                    // 다른 아이템 행 위에 마우스가 있을 경우
+                    if (hoveredRow !== state.activeRow) {
+                        handleItemRowHover(hoveredRow, e);
+                    } else {
+                        // 같은 행 위에 있을 경우 위치만 업데이트
+                        ItemTooltip.updatePosition(e.clientX, e.clientY);
+                    }
+                } else {
+                    // 결과 컨테이너 밖으로 나간 경우 확인
+                    const isInsideContainer = elementUnderMouse?.closest('.results-container');
+                    if (!isInsideContainer) {
+                        ItemTooltip.hideTooltip();
+                        if (state.activeRow) {
+                            state.activeRow.classList.remove('hovered');
+                            state.activeRow = null;
+                        }
+                    } else {
+                        // 결과 컨테이너 안이지만 아이템 행이 아닌 곳
+                        ItemTooltip.updatePosition(e.clientX, e.clientY);
+                    }
+                }
+            }
+        });
+        
+        // 결과 컨테이너 나갔을 때 툴팁 숨기기
+        elements.resultsContainer.addEventListener('mouseleave', (e) => {
+            if (!e.relatedTarget?.closest('#item-tooltip')) {
+                ItemTooltip.hideTooltip();
+                
+                if (state.activeRow) {
+                    state.activeRow.classList.remove('hovered');
+                    state.activeRow = null;
+                }
+            }
+        });
+    }
+    
+    /**
+     * 아이템 행 호버 처리 (PC)
+     */
+    function handleItemRowHover(itemRow, e) {
+        try {
+            // 아이템 데이터 가져오기
+            const itemDataStr = itemRow.getAttribute('data-item');
+            if (!itemDataStr) return;
+            
+            const itemData = JSON.parse(itemDataStr);
+            const itemId = itemData.auction_item_no || '';
+            
+            // 같은 아이템은 처리하지 않음 (성능 최적화)
+            if (state.lastItemId === itemId) return;
+            
+            state.lastItemId = itemId;
+            
+            // 이전 활성화 상태 제거
+            if (state.activeRow && state.activeRow !== itemRow) {
+                state.activeRow.classList.remove('hovered');
+            }
+            
+            // 현재 행 활성화
+            itemRow.classList.add('hovered');
+            state.activeRow = itemRow;
+            
+            // 툴팁 표시 또는 업데이트
+            if (ItemTooltip.isVisible()) {
+                ItemTooltip.updateTooltip(itemData, e.clientX, e.clientY);
+            } else {
+                ItemTooltip.showTooltip(itemData, e.clientX, e.clientY);
+            }
+        } catch (error) {
+            console.error('아이템 행 호버 처리 중 오류:', error);
         }
     }
     
@@ -220,6 +281,9 @@ const ItemDisplay = (() => {
         if (!itemRow) return;
         
         try {
+            // 이벤트 전파 중단 (문서 클릭 이벤트와 충돌 방지)
+            e.stopPropagation();
+            
             const itemDataStr = itemRow.getAttribute('data-item');
             if (!itemDataStr) return;
             
@@ -233,28 +297,20 @@ const ItemDisplay = (() => {
                 }
             });
             
-            // 현재 선택된 아이템인지 확인
-            const isAlreadySelected = itemRow.classList.contains('hovered');
+            // 현재 행 항상 활성화
+            itemRow.classList.add('hovered');
+            state.activeRow = itemRow;
             
-            // 현재 행 상태 업데이트
-            if (isAlreadySelected && ItemTooltip.isVisible() && ItemTooltip.getCurrentItemId() === itemId) {
-                // 이미 선택된 동일 아이템이면 툴팁 그대로 유지
-                // 모바일에서는 툴팁 자체를 클릭하거나 외부를 클릭해야만 닫힘
+            // 터치 이벤트 좌표 가져오기
+            const touchX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : window.innerWidth / 2);
+            const touchY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : window.innerHeight / 2);
+            
+            // 항상 툴팁 표시 또는 업데이트
+            if (ItemTooltip.isVisible()) {
+                ItemTooltip.updateTooltip(itemData, touchX, touchY);
             } else {
-                // 새 아이템 선택
-                itemRow.classList.add('hovered');
-                state.activeRow = itemRow;
-                
-                // 터치 이벤트 좌표 가져오기
-                const touchX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : window.innerWidth / 2);
-                const touchY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : window.innerHeight / 2);
-                
-                // 툴팁 표시
                 ItemTooltip.showTooltip(itemData, touchX, touchY);
             }
-            
-            // 이벤트 전파 중단 (모바일에서 외부 클릭 처리와 충돌 방지)
-            e.stopPropagation();
         } catch (error) {
             console.error('아이템 클릭 처리 중 오류:', error);
         }
@@ -568,6 +624,7 @@ const ItemDisplay = (() => {
         state.filteredResults = [];
         state.lastSearchResults = [];
         state.activeRow = null;
+        state.lastItemId = null;
         
         if (elements.resultsBody) {
             elements.resultsBody.innerHTML = '';
