@@ -611,7 +611,6 @@ body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
-  margin-top: 3px;
   background-color: var(--color-white);
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-lg);
@@ -623,6 +622,7 @@ body {
   max-width: var(--search-max-width);
   border: 1px solid var(--color-light-gray);
   text-align: left;
+  text-indent: 40px;
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--duration-fast) ease-in-out, visibility var(--duration-fast) ease-in-out;
@@ -693,6 +693,7 @@ body {
 
 .suggestion-name {
   font-weight: var(--font-weight-medium);
+    
   color: var(--color-dark);
   line-height: 1.4;
   text-align: left;
@@ -719,12 +720,13 @@ body {
 
 /* 검색 결과 테이블 */
 .results-table {
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
-  box-shadow: var(--shadow-md);
-  border-radius: var(--border-radius-md);
-  overflow: hidden;
+    cursor: default;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    box-shadow: var(--shadow-md);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
 }
 
 .results-table thead {
