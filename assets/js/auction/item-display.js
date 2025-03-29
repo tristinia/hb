@@ -124,28 +124,36 @@ const ItemDisplay = (() => {
         const resultsTable = document.querySelector('.results-table');
         if (!resultsTable) return;
         
-        // 호버 이벤트 - PC와 모바일 둘 다 설정
+        // 호버 이벤트 - PC, 모바일
         resultsTable.addEventListener('mouseover', handleMouseOver);
         resultsTable.addEventListener('mouseout', handleMouseOut);
         resultsTable.addEventListener('mousemove', handleMouseMove);
         
-        // 터치 이벤트 - 모바일용
+        // 터치 이벤트 - 모바일
         resultsTable.addEventListener('touchend', handleTouch);
         
-        // 이벤트 전파 방지를 위한 툴팁 이벤트
+        // 툴팁 관련 이벤트
         const tooltipEl = document.getElementById('item-tooltip');
         if (tooltipEl) {
-            // 툴팁 클릭/터치 시 닫히도록 설정
-            tooltipEl.addEventListener('touchstart', function(e) {
-                e.stopPropagation(); // 이벤트 전파 방지 (중요)
-                ItemTooltip.hideTooltip();
-            });
-            
             // 마우스가 툴팁 위에 있을 때도 행 강조 유지
             tooltipEl.addEventListener('mouseover', function(e) {
                 if (state.activeRow) {
                     state.activeRow.classList.add('hovered');
                 }
+            });
+            
+            // 마우스가 툴팁 위에서 움직일 때도 툴팁 위치 업데이트
+            tooltipEl.addEventListener('mousemove', function(e) {
+                if (ItemTooltip.isVisible()) {
+                    ItemTooltip.updatePosition(e.clientX, e.clientY);
+                }
+            });
+            
+            // 모바일용 닫기 강화 - touchend 이벤트
+            tooltipEl.addEventListener('touchend', function(e) {
+                e.stopPropagation();
+                e.preventDefault(); // 스크롤 등 방지
+                ItemTooltip.hideTooltip();
             });
         }
         
