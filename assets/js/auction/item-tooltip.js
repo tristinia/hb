@@ -1,3 +1,10 @@
+/**
+ * item-tooltip.js
+ * 아이템 정보 툴팁 표시와 위치 계산 담당 모듈
+ */
+
+import optionRenderer from './option-renderer.js';
+
 const ItemTooltip = (() => {
     // 기본 상태 변수
     const state = {
