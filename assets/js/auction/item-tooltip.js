@@ -19,7 +19,6 @@ const ItemTooltip = (() => {
 
     // DOM 요소
     let tooltipElement = null;
-    let activeTimeout = null; // 깜빡임 방지용 타임아웃
     
     /**
      * 모듈 초기화
@@ -73,8 +72,17 @@ const ItemTooltip = (() => {
         
         // 툴팁 자체를 터치하면 닫기
         tooltipElement.addEventListener('click', function(e) {
-            e.stopPropagation(); // 이벤트 전파 중단
+            e.stopPropagation();
             hideTooltip();
+        });
+        
+        // 외부 터치 시 툴팁 닫기
+        document.addEventListener('click', function(e) {
+            if (state.visible && 
+                !e.target.closest('.item-row') && 
+                !e.target.closest('#item-tooltip')) {
+                hideTooltip();
+            }
         });
     }
     
@@ -95,18 +103,6 @@ const ItemTooltip = (() => {
     function showTooltip(itemData, x, y) {
         if (!tooltipElement || !itemData) return;
         
-        // 깜빡임 방지: 기존 타임아웃 취소
-        if (activeTimeout) {
-            clearTimeout(activeTimeout);
-            activeTimeout = null;
-        }
-        
-        // 같은 아이템이 이미 표시 중이면 위치만 업데이트
-        if (state.visible && state.currentItemId === (itemData.auction_item_no || '')) {
-            calculatePosition(x, y);
-            return;
-        }
-        
         // 툴팁 내용 생성
         tooltipElement.innerHTML = '';
         const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(itemData);
@@ -116,18 +112,11 @@ const ItemTooltip = (() => {
         state.currentItemId = itemData.auction_item_no || '';
         state.visible = true;
         
-        // 툴팁 표시 (제로 사이즈로 시작하여 깜빡임 방지)
-        tooltipElement.style.opacity = '0';
+        // 툴팁 표시
         tooltipElement.style.display = 'block';
         
         // 위치 계산 및 적용
         calculatePosition(x, y);
-        
-        // 스무스한 등장을 위한 타이밍
-        requestAnimationFrame(() => {
-            tooltipElement.style.opacity = '1';
-            tooltipElement.style.transition = 'opacity 0.15s ease-out';
-        });
     }
     
     /**
@@ -202,23 +191,10 @@ const ItemTooltip = (() => {
     function hideTooltip() {
         if (!tooltipElement) return;
         
-        // 깜빡임 방지: 이미 진행 중인 타임아웃 취소
-        if (activeTimeout) {
-            clearTimeout(activeTimeout);
-        }
-        
-        // 사라지는 애니메이션
-        tooltipElement.style.opacity = '0';
-        tooltipElement.style.transition = 'opacity 0.15s ease-out';
-        
-        // 애니메이션 완료 후 실제로 숨김
-        activeTimeout = setTimeout(() => {
-            tooltipElement.style.display = 'none';
-            tooltipElement.innerHTML = '';
-            state.visible = false;
-            state.currentItemId = null;
-            activeTimeout = null;
-        }, 150); // 트랜지션 시간과 일치시킴
+        tooltipElement.style.display = 'none';
+        tooltipElement.innerHTML = '';
+        state.visible = false;
+        state.currentItemId = null;
     }
     
     /**
