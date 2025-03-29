@@ -125,20 +125,9 @@ const ItemDisplay = (() => {
         // PC와 모바일 분리 처리
         const isMobile = ItemTooltip.isMobileDevice();
         
-        if (isMobile) {
-            // 모바일: 단일 클릭 이벤트로 처리
-            document.addEventListener('click', handleMobileItemClick);
-        } else {
-            // PC: 기존 호버 이벤트 활용
+        if (!isMobile) {
+            // PC: 아이템 호버 이벤트만 처리
             resultsTable.addEventListener('mouseover', handleItemHover);
-            
-            // 테이블에서 완전히 벗어났을 때만 툴팁 숨김
-            resultsTable.addEventListener('mouseleave', (e) => {
-                // 툴팁으로 이동한 경우는 제외
-                if (!e.relatedTarget || !e.relatedTarget.closest('#item-tooltip')) {
-                    ItemTooltip.hideTooltip();
-                }
-            });
         }
     }
 
