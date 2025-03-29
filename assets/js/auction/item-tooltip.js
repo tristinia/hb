@@ -15,7 +15,7 @@ const ItemTooltip = (() => {
         initialized: false,
         visible: false,
         lastItemData: null,
-        lastUpdateTime: 0       // 마지막 업데이트 시간 (깜빡임 방지용)
+        supportsHover: false     // 호버 지원 여부
     };
 
     // DOM 요소
@@ -27,6 +27,9 @@ const ItemTooltip = (() => {
     function init() {
         // 이미 초기화되었으면 무시
         if (state.initialized) return;
+        
+        // 호버 지원 여부 감지
+        state.supportsHover = window.matchMedia('(hover: hover)').matches;
         
         // 툴팁 HTML 요소 검색
         tooltipElement = document.getElementById('item-tooltip');
@@ -45,44 +48,21 @@ const ItemTooltip = (() => {
         tooltipElement.style.zIndex = '1001';
         tooltipElement.style.cursor = 'default';
         
-        if ('ontouchstart' in window) {
-            // 모바일에서는 툴팁 터치 이벤트 처리
-            tooltipElement.style.pointerEvents = 'auto';
+        // 포인터 이벤트 설정
+        tooltipElement.style.pointerEvents = 'auto';
+        
+        // 호버 지원 여부에 따른 이벤트 처리 분기
+        if (!state.supportsHover || 'ontouchstart' in window) {
+            // 터치 기기에서만 터치로 툴팁 닫기 활성화
             tooltipElement.addEventListener('touchstart', function(e) {
                 e.stopPropagation();
                 e.preventDefault();
-                hideTooltip();
-            });
-        } else {
-            // PC에서는 마우스 이벤트 통과
-            tooltipElement.style.pointerEvents = 'auto';
-            tooltipElement.addEventListener('click', function(e) {
-                e.stopPropagation();
                 hideTooltip();
             });
         }
         
         state.initialized = true;
         console.log('ItemTooltip 모듈 초기화 완료');
-    }
-    
-    /**
-     * 이벤트 리스너 설정
-     */
-    function setupEventListeners() {
-        if (tooltipElement) {
-            if (!('ontouchstart' in window)) {
-                tooltipElement.style.pointerEvents = 'none';
-            } else {
-                tooltipElement.style.pointerEvents = 'auto';
-            }
-            
-            // 모바일 환경에서는 툴팁을 터치하여 닫기
-            tooltipElement.addEventListener('touchstart', function(e) {
-                e.stopPropagation();
-                hideTooltip();
-            });
-        }
     }
     
     /**
@@ -173,7 +153,8 @@ const ItemTooltip = (() => {
         showTooltip,
         hideTooltip,
         updatePosition,
-        isVisible: () => state.visible
+        isVisible: () => state.visible,
+        supportsHover: () => state.supportsHover
     };
 })();
 
