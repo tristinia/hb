@@ -59,41 +59,17 @@ const ItemTooltip = (() => {
      */
     function setupEventListeners() {
         if (tooltipElement) {
-            // 툴팁이 마우스 이벤트를 방해하지 않도록 설정
-            tooltipElement.style.pointerEvents = 'none';
+            if (!('ontouchstart' in window)) {
+                tooltipElement.style.pointerEvents = 'none';
+            } else {
+                tooltipElement.style.pointerEvents = 'auto';
+            }
             
-            // 모바일 환경에서는 툴팁을 터치하여 닫기 기능 유지
+            // 모바일 환경에서는 툴팁을 터치하여 닫기
             tooltipElement.addEventListener('touchstart', function(e) {
                 e.stopPropagation();
                 hideTooltip();
             });
-            
-            // 모바일에서 터치 인식을 위해 필요한 부분만 포인터 이벤트 활성화
-            const closeButton = document.createElement('div');
-            closeButton.className = 'tooltip-close-button';
-            closeButton.innerHTML = '×';
-            closeButton.style.position = 'absolute';
-            closeButton.style.top = '5px';
-            closeButton.style.right = '5px';
-            closeButton.style.width = '24px';
-            closeButton.style.height = '24px';
-            closeButton.style.background = 'rgba(0,0,0,0.3)';
-            closeButton.style.color = '#fff';
-            closeButton.style.borderRadius = '50%';
-            closeButton.style.display = 'flex';
-            closeButton.style.alignItems = 'center';
-            closeButton.style.justifyContent = 'center';
-            closeButton.style.cursor = 'pointer';
-            closeButton.style.pointerEvents = 'auto'; // 이 버튼만 이벤트 반응
-            closeButton.style.zIndex = '2';
-            
-            closeButton.addEventListener('click', hideTooltip);
-            closeButton.addEventListener('touchstart', function(e) {
-                e.stopPropagation();
-                hideTooltip();
-            });
-            
-            tooltipElement.appendChild(closeButton);
         }
     }
     
@@ -111,7 +87,7 @@ const ItemTooltip = (() => {
         const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(itemData);
         tooltipElement.appendChild(tooltipContent);
         
-        // 툴팁을 화면 밖에서 완전히 숨김
+        // 툴팁 표시 설정
         tooltipElement.style.display = 'block';
         tooltipElement.style.opacity = '0';
         
@@ -120,37 +96,13 @@ const ItemTooltip = (() => {
         state.lastItemData = itemData;
         state.lastUpdateTime = Date.now();
         
+        // 트랜지션 설정
+        tooltipElement.style.transition = 'left 0.1s ease-out, top 0.1s ease-out, opacity 0.2s';
+        
         // 브라우저 렌더링 완료 후 실행
         requestAnimationFrame(() => {
-            // 툴팁 크기 정확히 측정
-            const tooltipHeight = tooltipElement.offsetHeight;
-            const tooltipWidth = tooltipElement.offsetWidth;
-            
-            // 화면 크기
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
-            
-            // 위치 계산 - 마우스 오른쪽, 같은 높이에 표시
-            let left = x + 15;  // 마우스 오른쪽
-            let top = y;        // 마우스와 같은 높이 
-            
-            // 오른쪽 경계 검사
-            if (left + tooltipWidth > windowWidth) {
-                left = windowWidth - tooltipWidth - 5;
-            }
-            
-            // 아래쪽 경계 검사
-            if (top + tooltipHeight > windowHeight) {
-                top = windowHeight - tooltipHeight - 5;
-            }
-            
-            // 위치 설정 후 표시
-            tooltipElement.style.left = `${left}px`;
-            tooltipElement.style.top = `${top}px`;
+            updatePosition(x, y);
             tooltipElement.style.opacity = '1';
-            
-            // z-index 더 높게 설정하여 항상 위에 표시
-            tooltipElement.style.zIndex = '1001';
         });
     }
     
