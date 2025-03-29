@@ -14,7 +14,8 @@ const ItemTooltip = (() => {
     const state = {
         initialized: false,
         visible: false,
-        lastItemData: null
+        lastItemData: null,
+        lastUpdateTime: 0       // 마지막 업데이트 시간 (깜빡임 방지용)
     };
 
     // DOM 요소
@@ -43,6 +44,9 @@ const ItemTooltip = (() => {
         tooltipElement.style.display = 'none';
         tooltipElement.style.zIndex = '1001';
         
+        // 툴팁에 스타일 추가 - 모바일에서 리스트 호버 효과 덮기 위한 설정
+        tooltipElement.style.pointerEvents = 'auto';
+        
         // 이벤트 리스너 등록
         setupEventListeners();
         
@@ -54,25 +58,19 @@ const ItemTooltip = (() => {
      * 이벤트 리스너 설정
      */
     function setupEventListeners() {
-        // 툴팁 자체에 클릭 이벤트 추가
         if (tooltipElement) {
-            tooltipElement.addEventListener('click', hideTooltip);
+            // 툴팁 클릭 시 숨기기 (PC)
+            tooltipElement.addEventListener('click', (e) => {
+                e.stopPropagation(); // 이벤트 전파 방지
+                hideTooltip();
+            });
+            
+            // 툴팁 터치 시 숨기기 (모바일)
             tooltipElement.addEventListener('touchstart', (e) => {
-                // 이벤트 전파 방지
-                e.stopPropagation();
-                // 툴팁 닫기
+                e.stopPropagation(); // 이벤트 전파 방지
                 hideTooltip();
             });
         }
-        
-        // 문서 클릭 시 툴팁 닫기
-        document.addEventListener('click', (event) => {
-            if (state.visible && tooltipElement && 
-                !tooltipElement.contains(event.target) && 
-                !event.target.closest('.item-row')) {
-                hideTooltip();
-            }
-        });
     }
     
     /**
@@ -92,11 +90,11 @@ const ItemTooltip = (() => {
         // 툴팁을 화면 밖에서 완전히 숨김
         tooltipElement.style.display = 'block';
         tooltipElement.style.opacity = '0';
-        tooltipElement.style.position = 'fixed';
         
         // 상태 업데이트
         state.visible = true;
         state.lastItemData = itemData;
+        state.lastUpdateTime = Date.now();
         
         // 브라우저 렌더링 완료 후 실행
         requestAnimationFrame(() => {
@@ -108,61 +106,68 @@ const ItemTooltip = (() => {
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
             
-            // 위치 계산
-            let left = x + 15;
-            let top = y - 10;
+            // 위치 계산 - 마우스 오른쪽, 같은 높이에 표시
+            let left = x + 15;  // 마우스 오른쪽
+            let top = y;        // 마우스와 같은 높이 
             
             // 오른쪽 경계 검사
             if (left + tooltipWidth > windowWidth) {
-                left = windowWidth - tooltipWidth;
+                left = windowWidth - tooltipWidth - 5;
             }
             
             // 아래쪽 경계 검사
             if (top + tooltipHeight > windowHeight) {
-                top = windowHeight - tooltipHeight;
+                top = windowHeight - tooltipHeight - 5;
             }
             
             // 위치 설정 후 표시
             tooltipElement.style.left = `${left}px`;
             tooltipElement.style.top = `${top}px`;
             tooltipElement.style.opacity = '1';
+            
+            // z-index 더 높게 설정하여 항상 위에 표시
+            tooltipElement.style.zIndex = '1001';
         });
     }
     
     /**
-     * 툴팁 위치 업데이트 - 아래쪽 경계 특히 신경써서 처리
+     * 툴팁 위치 업데이트 - 깜빡임 방지 로직 추가
      * @param {number} x - 마우스 X 좌표
      * @param {number} y - 마우스 Y 좌표
      */
     function updatePosition(x, y) {
         if (!tooltipElement || !state.visible) return;
         
+        // 너무 빈번한 업데이트 방지 (깜빡임 방지) - 약 30fps로 제한
+        const now = Date.now();
+        if (now - state.lastUpdateTime < 32) {
+            return;
+        }
+        state.lastUpdateTime = now;
+        
+        // 툴팁 크기 측정
+        const tooltipWidth = tooltipElement.offsetWidth;
+        const tooltipHeight = tooltipElement.offsetHeight;
+        
         // 화면 크기
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         
-        // 툴팁 크기 - 실제 렌더링된 크기 재측정
-        const tooltipWidth = tooltipElement.offsetWidth;
-        const tooltipHeight = tooltipElement.offsetHeight;
-        
-        // 기본 위치 (항상 마우스 오른쪽에 배치)
-        const offsetX = 15; // 마우스와의 X축 간격
-        const offsetY = 10; // 마우스와의 Y축 간격
-        
-        let left = x + offsetX;
-        let top = y - offsetY;
+        // 위치 계산 - 마우스 오른쪽, 같은 높이에 표시
+        let left = x + 15;  // 마우스 오른쪽
+        let top = y;        // 마우스와 같은 높이
         
         // 오른쪽 경계 검사
         if (left + tooltipWidth > windowWidth) {
-            left = windowWidth - tooltipWidth;
+            left = windowWidth - tooltipWidth - 5;
         }
         
         // 아래쪽 경계 검사
         if (top + tooltipHeight > windowHeight) {
-            top = windowHeight - tooltipHeight;
+            top = windowHeight - tooltipHeight - 5;
         }
         
-        // 위치 적용
+        // 위치만 업데이트하여 깜빡임 최소화
         tooltipElement.style.left = `${left}px`;
         tooltipElement.style.top = `${top}px`;
     }
