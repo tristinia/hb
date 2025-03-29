@@ -151,6 +151,78 @@ const ItemDisplay = (() => {
             resultsTable.addEventListener('mousemove', handleMouseMove);
         }
     }
+    
+    // 새로운 터치 이벤트 핸들러들
+    function handleTouchStart(event) {
+        // touchstart에서는 아직 아무 작업도 하지 않고, 나중에 touchend에서 처리
+        // 이 이벤트는 스크롤 등 기본 동작 허용을 위해 preventDefault()를 호출하지 않음
+    }
+    
+    function handleTouchEnd(event) {
+        // 툴팁 자체에 대한 터치인지 확인
+        if (event.target.closest('#item-tooltip')) {
+            // 툴팁 터치시 닫기
+            event.preventDefault();
+            ItemTooltip.hideTooltip();
+            return;
+        }
+        
+        // 터치 지점에서 아이템 행 찾기
+        const touch = event.changedTouches[0];
+        const x = touch.clientX;
+        const y = touch.clientY;
+        
+        // 실제 터치된 위치의 요소 찾기
+        let touchedElement = document.elementFromPoint(x, y);
+        
+        // 아이템 행 확인
+        const itemRow = touchedElement ? touchedElement.closest('.item-row') : null;
+        if (!itemRow) return; // 행이 없으면 아무 작업도 하지 않음
+        
+        // 이벤트 기본 동작 방지 (스크롤 등)
+        event.preventDefault();
+        
+        try {
+            // 아이템 데이터 가져오기
+            const itemDataStr = itemRow.getAttribute('data-item');
+            if (!itemDataStr) return;
+            
+            const itemData = JSON.parse(itemDataStr);
+            const currentItemId = itemData.auction_item_no || '';
+            
+            // 툴팁 표시 여부에 따른 처리
+            if (ItemTooltip.isVisible()) {
+                const visibleItemId = ItemTooltip.getCurrentItemId();
+                
+                if (currentItemId === visibleItemId) {
+                    // 같은 아이템을 다시 터치하면 툴팁 숨김
+                    ItemTooltip.hideTooltip();
+                    itemRow.classList.remove('hovered');
+                } else {
+                    // 다른 아이템 터치하면 새 아이템 표시
+                    document.querySelectorAll('.item-row.hovered').forEach(row => {
+                        if (row !== itemRow) row.classList.remove('hovered');
+                    });
+                    
+                    // 현재 행 강조
+                    itemRow.classList.add('hovered');
+                    
+                    // 툴팁 업데이트 - 위치 조정 (상단 배치)
+                    const adjustedY = Math.max(touch.clientY - 10, 10);
+                    ItemTooltip.updateTooltip(itemData, touch.clientX, adjustedY);
+                }
+            } else {
+                // 툴팁이 없으면 새로 표시
+                itemRow.classList.add('hovered');
+                
+                // 위치 조정 (상단 배치)
+                const adjustedY = Math.max(touch.clientY - 10, 10);
+                ItemTooltip.showTooltip(itemData, touch.clientX, adjustedY);
+            }
+        } catch (error) {
+            console.error('툴팁 표시 중 오류:', error);
+        }
+    }
 
     /**
      * 마우스 오버 이벤트 핸들러 (PC 전용)
