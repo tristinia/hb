@@ -271,27 +271,29 @@ const ItemDisplay = (() => {
     function handleMouseMove(event) {
         // 마지막 아이템 ID와 행 참조 추적
         handleMouseMove.lastItemId = handleMouseMove.lastItemId || null;
+        handleMouseMove.lastItemRow = handleMouseMove.lastItemRow || null;
     
-        // 툴팁 위에 있는 경우 깜빡임 방지
-        const tooltipElement = document.getElementById('item-tooltip');
-        if (tooltip && tooltip.style.display === 'block') {
-            // 툴팁이 표시 중이면, 마우스가 툴팁 영역 내에 있는지 확인
-            const rect = tooltip.getBoundingClientRect();
-            const isMouseOverTooltip = 
-                event.clientX >= rect.left && 
-                event.clientX <= rect.right && 
-                event.clientY >= rect.top && 
-                event.clientY <= rect.bottom;
-            
-            // 마우스가 툴팁 위에 있으면 마지막 상태 유지
-            if (isMouseOverTooltip && handleMouseMove.lastItemRow) {
-                // 툴팁 위치만 업데이트하고 내용은 변경하지 않음
-                ItemTooltip.updatePosition(event.clientX, event.clientY);
-                return;
+        // 툴팁이 현재 표시 중이면 마우스가 툴팁 위에 있는지 확인
+        if (ItemTooltip.isVisible()) {
+            const tooltipElement = document.getElementById('item-tooltip');
+            if (tooltipElement) {
+                const rect = tooltipElement.getBoundingClientRect();
+                const isMouseOverTooltip = 
+                    event.clientX >= rect.left && 
+                    event.clientX <= rect.right && 
+                    event.clientY >= rect.top && 
+                    event.clientY <= rect.bottom;
+                
+                // 마우스가 툴팁 위에 있으면 마지막 상태 유지
+                if (isMouseOverTooltip && handleMouseMove.lastItemRow) {
+                    // 툴팁 위치만 업데이트하고 내용과 행 상태는 변경하지 않음
+                    ItemTooltip.updatePosition(event.clientX, event.clientY);
+                    return;
+                }
             }
         }
         
-        // 툴팁 위가 아닐 때는 정상적인 요소 감지
+        // 툴팁 위가 아닐 때 정상적인 요소 감지
         const elementAtPoint = document.elementFromPoint(event.clientX, event.clientY);
         if (!elementAtPoint) return;
         
