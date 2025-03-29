@@ -280,21 +280,21 @@ const ItemDisplay = (() => {
      * 터치 이벤트 핸들러 (모바일 전용)
      */
     function handleTouch(event) {
-        // 이벤트 기본 동작 방지
-        event.preventDefault();
+        // 툴팁 터치 확인 - 툴팁을 터치하면 닫기
+        if (event.target.closest('#item-tooltip')) {
+            event.preventDefault();
+            ItemTooltip.hideTooltip();
+            return;
+        }
         
-        // 터치 지점에서 아이템 행 찾기 - 직접 elementFromPoint 사용
-        const touch = event.changedTouches[0];
-        const elementAtPoint = document.elementFromPoint(touch.clientX, touch.clientY);
-        
-        // 아이템 행 또는 그 하위 요소를 찾음
-        const itemRow = elementAtPoint ? elementAtPoint.closest('.item-row') : null;
+        // 아이템 행 확인
+        const itemRow = event.target.closest('.item-row');
         if (!itemRow) return;
         
+        // 이제 행을 찾았을 때만 기본 동작 방지
+        event.preventDefault();
+        
         try {
-            // 현재 행 강조
-            itemRow.classList.add('hovered');
-            
             // 아이템 데이터 가져오기
             const itemDataStr = itemRow.getAttribute('data-item');
             if (!itemDataStr) return;
@@ -319,10 +319,22 @@ const ItemDisplay = (() => {
                         }
                     });
                     
+                    // 현재 행 강조
+                    itemRow.classList.add('hovered');
+                    
+                    // 터치 위치 가져오기
+                    const touch = event.changedTouches[0];
+                    
                     // 툴팁 업데이트
                     ItemTooltip.updateTooltip(itemData, touch.clientX, touch.clientY);
                 }
             } else {
+                // 현재 행 강조
+                itemRow.classList.add('hovered');
+                
+                // 터치 위치 가져오기
+                const touch = event.changedTouches[0];
+                
                 // 툴팁이 없으면 새로 표시
                 ItemTooltip.showTooltip(itemData, touch.clientX, touch.clientY);
             }
