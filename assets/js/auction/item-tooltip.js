@@ -11,8 +11,7 @@ const ItemTooltip = (() => {
         initialized: false,
         visible: false,
         currentItemId: null,
-        isMobile: false,
-        lastPosition: { x: 0, y: 0 }
+        isMobile: false
     };
 
     // DOM 요소
@@ -47,50 +46,14 @@ const ItemTooltip = (() => {
             tooltipElement.style.pointerEvents = 'auto';
             tooltipElement.addEventListener('touchstart', handleTooltipTouch);
         } else {
-            // PC: 항상 포인터 이벤트를 무시하도록 설정 (깜빡임 방지 핵심)
+            // PC: 마우스 이벤트를 항상 무시하도록 설정 (깜빡임 방지 핵심)
             tooltipElement.style.pointerEvents = 'none';
             
-            // 추가: 깜빡임 방지를 위한 이벤트 리스너
-            document.addEventListener('mousemove', (e) => {
-                // 툴팁이 표시되어 있고 마우스가 움직이는 경우
-                if (state.visible) {
-                    // 마우스 위치에서 아이템을 찾아 툴팁 갱신
-                    const itemAtPoint = getItemElementAtPoint(e.clientX, e.clientY);
-                    if (itemAtPoint && itemAtPoint.hasAttribute('data-item')) {
-                        // 아이템이 있으면 툴팁 위치만 업데이트
-                        updatePosition(e.clientX, e.clientY);
-                    }
-                }
-            });
+            // 이 이벤트 리스너는 제거 - item-display.js의 handleMouseMove에서 처리
+            // document.addEventListener('mousemove', ...);
         }
         
         state.initialized = true;
-    }
-    
-    /**
-     * 특정 위치에 있는 아이템 요소 가져오기
-     * @param {number} x - 화면 X 좌표
-     * @param {number} y - 화면 Y 좌표
-     * @returns {HTMLElement|null} 아이템 요소 또는 null
-     */
-    function getItemElementAtPoint(x, y) {
-        // elementFromPoint는 툴팁이 있으면 툴팁을 반환할 수 있으므로
-        // 일시적으로 툴팁을 숨기고 체크
-        const currentVisibility = tooltipElement.style.visibility;
-        tooltipElement.style.visibility = 'hidden';
-        
-        // 특정 지점의 요소 확인
-        const element = document.elementFromPoint(x, y);
-        
-        // 툴팁 가시성 복원
-        tooltipElement.style.visibility = currentVisibility;
-        
-        // 요소가 있으면 가장 가까운 아이템 행 찾기
-        if (element) {
-            return element.closest('.item-row');
-        }
-        
-        return null;
     }
     
     /**
@@ -168,7 +131,7 @@ const ItemTooltip = (() => {
         if (state.isMobile) {
             // 모바일: PC와 유사하게 터치 위치 오른쪽에 표시
             left = x + 15; // 터치 지점 우측에 15px 여백
-            top = y - 10;  // 터치 지점 위쪽에 10px 여백 (손가락에 가려지지 않게)
+            top = y + 5;   // 터치 지점 아래쪽에 5px 여백 (PC와 일관성 유지)
         } else {
             // PC: 마우스 커서 오른쪽 아래에 표시
             left = x + 15; // 커서 우측에 15px 여백
@@ -190,17 +153,11 @@ const ItemTooltip = (() => {
         const maxTop = windowHeight - tooltipHeight - bottomMargin;
         
         if (top > maxTop) {
-            // 모바일: 높이가 넘칠 경우 상단에 고정
-            if (state.isMobile) {
-                top = 10; // 상단에 10px 여백
-            } else {
-                top = maxTop; // 하단 여백 유지
-            }
+            // 모바일과 PC 모두 동일하게 처리
+            top = maxTop; // 하단 여백 유지
         }
         
-        // 위치 고정 (깜빡임 방지를 위해 숫자를 정수로 올림하고 px 단위로 설정)
-        // 브라우저 렌더링 엔진에 따라 소수점 계산에서 미세한 차이가 발생할 수 있으므로 
-        // 정수 사용하여 안정화
+        // 위치 고정 (깜빡임 방지를 위해 숫자를 정수로 사용)
         tooltipElement.style.left = `${Math.floor(left)}px`;
         tooltipElement.style.top = `${Math.floor(top)}px`;
     }
@@ -215,10 +172,6 @@ const ItemTooltip = (() => {
         tooltipElement.innerHTML = '';
         state.visible = false;
         state.currentItemId = null;
-        
-        // 마지막 위치 초기화
-        state.lastPosition.x = 0;
-        state.lastPosition.y = 0;
     }
     
     /**
