@@ -13,8 +13,8 @@ const ItemTooltip = (() => {
         currentItemId: null,
         currentRow: null,
         isMobile: false,
-        lastPosition: { x: 0, y: 0 }, // 마지막 위치 저장 변수 추가
-        updatePending: false // 위치 업데이트 예약 상태
+        mousePosition: { x: 0, y: 0 },
+        animationFrameId: null
     };
 
     // DOM 요소
@@ -42,7 +42,6 @@ const ItemTooltip = (() => {
         tooltipElement.style.position = 'fixed';
         tooltipElement.style.display = 'none';
         tooltipElement.style.zIndex = '1001';
-        tooltipElement.style.willChange = 'transform'; // 브라우저 최적화 힌트 추가
         
         // PC와 모바일에서 다른 이벤트 처리
         if (state.isMobile) {
@@ -53,15 +52,24 @@ const ItemTooltip = (() => {
                 hideTooltip();
             });
         } else {
-            // PC: 툴팁 위에서 이벤트 전파 방지 (깜빡임 해결의 핵심)
+            // PC: 전역 마우스 이동 추적 (깜빡임과 부드러운 이동을 위한 핵심)
+            document.addEventListener('mousemove', (e) => {
+                if (state.visible) {
+                    state.mousePosition.x = e.clientX;
+                    state.mousePosition.y = e.clientY;
+                }
+            });
+            
+            // 툴팁 자체에는 필요한 이벤트 리스너만 추가 (깜빡임 방지)
             tooltipElement.addEventListener('mouseover', (e) => {
                 e.stopPropagation();
             });
             
             tooltipElement.addEventListener('mouseout', (e) => {
-                // 툴팁에서 다른 요소로 마우스가 이동할 때만 처리
                 if (!e.relatedTarget || !tooltipElement.contains(e.relatedTarget)) {
-                    hideTooltip();
+                    if (!e.relatedTarget || !e.relatedTarget.closest('.item-row')) {
+                        hideTooltip();
+                    }
                 }
                 e.stopPropagation();
             });
@@ -96,25 +104,49 @@ const ItemTooltip = (() => {
             tooltipElement.style.pointerEvents = 'auto';
         }
         
-        // 툴팁 표시 전에 위치 설정 (깜빡임 방지)
-        tooltipElement.style.left = '0px';
-        tooltipElement.style.top = '0px';
-        tooltipElement.style.transform = `translate(${x + 15}px, ${y + 5}px)`;
-        
         // 툴팁 표시
         tooltipElement.style.display = 'block';
+        
+        // 초기 위치 설정
+        tooltipElement.style.left = '0px';
+        tooltipElement.style.top = '0px';
+        
+        // 초기 마우스 위치 설정
+        state.mousePosition = { x, y };
         
         // 상태 업데이트
         state.visible = true;
         state.currentItemId = itemData.auction_item_no || '';
         
-        // 위치 설정 저장
-        state.lastPosition = { x, y };
-        
-        // 다음 프레임에서 정확한 위치 업데이트 (경계 확인 포함)
-        requestAnimationFrame(() => {
+        // 애니메이션 시작 (PC에서만)
+        if (!state.isMobile) {
+            startPositionAnimation();
+        } else {
+            // 모바일에서는 한 번만 위치 설정
             updatePosition(x, y);
-        });
+        }
+    }
+    
+    /**
+     * 위치 애니메이션 시작
+     */
+    function startPositionAnimation() {
+        // 기존 애니메이션 중지
+        if (state.animationFrameId) {
+            cancelAnimationFrame(state.animationFrameId);
+        }
+        
+        // 애니메이션 프레임 함수
+        function animatePosition() {
+            // 툴팁이 표시 중일 때만 위치 업데이트
+            if (state.visible) {
+                updatePosition(state.mousePosition.x, state.mousePosition.y);
+                state.animationFrameId = requestAnimationFrame(animatePosition);
+            }
+        }
+        
+        // 애니메이션 시작
+        state.animationFrameId = requestAnimationFrame(animatePosition);
     }
     
     /**
@@ -125,7 +157,7 @@ const ItemTooltip = (() => {
         
         // 같은 아이템이면 위치만 업데이트
         if (state.currentItemId === (itemData.auction_item_no || '')) {
-            updatePosition(x, y);
+            state.mousePosition = { x, y };
             return;
         }
         
@@ -147,75 +179,54 @@ const ItemTooltip = (() => {
         // 상태 업데이트
         state.currentItemId = itemData.auction_item_no || '';
         
-        // 위치 업데이트
-        updatePosition(x, y);
+        // 마우스 위치 업데이트
+        state.mousePosition = { x, y };
     }
     
     /**
-     * 툴팁 위치 업데이트 - 부드러운 움직임 지원
+     * 툴팁 위치 업데이트 - 화면 경계 처리 포함
      */
     function updatePosition(x, y) {
         if (!tooltipElement || !state.visible) return;
         
-        // 마지막 위치와 비교하여 큰 변화가 있을 때만 업데이트
-        const distanceSquared = Math.pow(x - state.lastPosition.x, 2) + Math.pow(y - state.lastPosition.y, 2);
-        const isMajorMove = distanceSquared > 4; // 2px 이상 움직였을 때만 위치 계산
+        // 툴팁 크기
+        const tooltipWidth = tooltipElement.offsetWidth;
+        const tooltipHeight = tooltipElement.offsetHeight;
         
-        // 작은 움직임은 transform만 업데이트
-        if (!isMajorMove) {
-            tooltipElement.style.transform = `translate(${x + 15}px, ${y + 5}px)`;
-            state.lastPosition = { x, y };
-            return;
+        // 화면 크기
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        // 위치 계산 (기존 로직 유지)
+        let left = x + 15; // 커서 우측에 15px 여백
+        let top = y + 5;   // 커서 아래쪽에 5px 여백
+        
+        // 화면 경계 처리
+        const rightMargin = 5;
+        const maxLeft = windowWidth - tooltipWidth - rightMargin;
+        if (left > maxLeft) {
+            left = maxLeft;
         }
-
-        // 위치 업데이트가 이미 예약되어 있으면 중복 실행 방지
-        if (state.updatePending) return;
         
-        // 위치 업데이트 예약
-        state.updatePending = true;
+        const bottomMargin = 5;
+        const maxTop = windowHeight - tooltipHeight - bottomMargin;
+        if (top > maxTop) {
+            top = maxTop;
+        }
         
-        // 애니메이션 프레임에 위치 업데이트 예약 (부드러운 움직임)
-        requestAnimationFrame(() => {
-            // 툴팁 크기
-            const tooltipWidth = tooltipElement.offsetWidth;
-            const tooltipHeight = tooltipElement.offsetHeight;
-            
-            // 화면 크기
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
-            
-            // 위치 계산 (기본)
-            let left = x + 15; // 커서 우측에 15px 여백
-            let top = y + 5;   // 커서 아래쪽에 5px 여백
-            
-            // 화면 경계 처리
-            const rightMargin = 5;
-            const maxLeft = windowWidth - tooltipWidth - rightMargin;
-            if (left > maxLeft) {
-                left = maxLeft;
-            }
-            
-            const bottomMargin = 5;
-            const maxTop = windowHeight - tooltipHeight - bottomMargin;
-            if (top > maxTop) {
-                top = maxTop;
-            }
-            
-            // 정수 좌표로 변환
-            left = Math.round(left);
-            top = Math.round(top);
-            
-            // 직접 위치 설정 (transform 대신 left/top 속성 사용)
-            tooltipElement.style.transform = '';
-            tooltipElement.style.left = `${left}px`;
-            tooltipElement.style.top = `${top}px`;
-            
-            // 마지막 위치 저장
-            state.lastPosition = { x, y };
-            
-            // 업데이트 예약 상태 해제
-            state.updatePending = false;
-        });
+        // 좌측 경계도 확인
+        if (left < 5) {
+            left = 5;
+        }
+        
+        // 상단 경계도 확인
+        if (top < 5) {
+            top = 5;
+        }
+        
+        // 위치 고정 (정수값으로 고정)
+        tooltipElement.style.left = `${Math.round(left)}px`;
+        tooltipElement.style.top = `${Math.round(top)}px`;
     }
     
     /**
@@ -223,6 +234,12 @@ const ItemTooltip = (() => {
      */
     function hideTooltip() {
         if (!tooltipElement) return;
+        
+        // 애니메이션 중지
+        if (state.animationFrameId) {
+            cancelAnimationFrame(state.animationFrameId);
+            state.animationFrameId = null;
+        }
         
         // 현재 행의 강조 제거
         if (state.currentRow) {
@@ -234,7 +251,6 @@ const ItemTooltip = (() => {
         tooltipElement.innerHTML = '';
         state.visible = false;
         state.currentItemId = null;
-        state.updatePending = false;
     }
     
     /**
