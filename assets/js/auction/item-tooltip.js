@@ -43,12 +43,28 @@ const ItemTooltip = (() => {
         tooltipElement.style.position = 'fixed';
         tooltipElement.style.display = 'none';
         tooltipElement.style.zIndex = '1001';
+        tooltipElement.style.cursor = 'default';
         
-        // 툴팁에 스타일 추가 - 모바일에서 리스트 호버 효과 덮기 위한 설정
-        tooltipElement.style.pointerEvents = 'auto';
-        
-        // 이벤트 리스너 등록
-        setupEventListeners();
+        // 모바일 환경 감지 및 스타일 설정
+        if ('ontouchstart' in window) {
+            // 모바일에서는 포인터 이벤트 활성화 (클릭 처리를 위해)
+            tooltipElement.style.pointerEvents = 'auto';
+            
+            // 모바일 환경에서 툴팁 터치 시 닫히도록 처리
+            tooltipElement.addEventListener('touchstart', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                hideTooltip();
+            });
+            
+            tooltipElement.addEventListener('click', function(e) {
+                e.stopPropagation();
+                hideTooltip();
+            });
+        } else {
+            // PC 환경에서는 포인터 이벤트 비활성화
+            tooltipElement.style.pointerEvents = 'none';
+        }
         
         state.initialized = true;
         console.log('ItemTooltip 모듈 초기화 완료');
@@ -97,7 +113,7 @@ const ItemTooltip = (() => {
         state.lastUpdateTime = Date.now();
         
         // 트랜지션 설정
-        tooltipElement.style.transition = 'left 0.1s ease-out, top 0.1s ease-out, opacity 0.2s';
+        tooltipElement.style.transition = 'opacity 0.2s';
         
         // 브라우저 렌더링 완료 후 실행
         requestAnimationFrame(() => {
@@ -122,24 +138,32 @@ const ItemTooltip = (() => {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         
-        // 마우스 오른쪽에 배치 (기준점)
+        // 기본 위치 계산 (마우스 오른쪽 약간 아래)
         let left = x + 15;
-        let top = y;
+        let top = y + 5;
         
-        // 오른쪽 경계 검사
+        // 오른쪽 경계 검사 - 화면 밖으로 나가지 않도록 조정
         if (left + tooltipWidth > windowWidth) {
-            left = windowWidth - tooltipWidth;
+            left = windowWidth - tooltipWidth - 5; // 우측 여백 5px 추가
         }
         
-        // 아래쪽 경계 검사
+        // 왼쪽 경계 검사 - 최소 5px 여백 확보
+        if (left < 5) {
+            left = 5;
+        }
+        
+        // 아래쪽 경계 검사 - 화면 밖으로 나가지 않도록 조정
         if (top + tooltipHeight > windowHeight) {
-            top = windowHeight - tooltipHeight;
+            top = windowHeight - tooltipHeight - 5; // 하단 여백 5px 추가
         }
         
-        // 부드러운 움직임을 위한 트랜지션 적용
-        if (!tooltipElement.style.transition) {
-            tooltipElement.style.transition = 'left 0.1s ease-out, top 0.1s ease-out';
+        // 위쪽 경계 검사 - 최소 5px 여백 확보
+        if (top < 5) {
+            top = 5;
         }
+        
+        // 부드러운 움직임을 위한 트랜지션 설정
+        tooltipElement.style.transition = 'left 0.1s ease-out, top 0.1s ease-out';
         
         // 위치 업데이트
         tooltipElement.style.left = `${left}px`;
