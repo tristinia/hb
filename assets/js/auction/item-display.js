@@ -188,15 +188,26 @@ const ItemDisplay = (() => {
             
             // 마우스 위치 아래 요소 확인
             const elementUnderCursor = document.elementFromPoint(e.clientX, e.clientY);
+            
+            // 툴팁 위에 있는 경우 처리
+            if (elementUnderCursor?.closest('#item-tooltip')) {
+                // 툴팁 위치만 업데이트 (아이템 정보는 유지)
+                ItemTooltip.updatePosition(e.clientX, e.clientY);
+                return; // 여기서 종료하여 나머지 로직 실행하지 않음
+            }
+            
             const itemRow = elementUnderCursor?.closest('.item-row');
             
             if (itemRow) {
                 // 아이템 행 위에 있을 때
-                if (itemRow !== state.activeRow) {
-                    // 다른 아이템 행으로 이동한 경우
+                const itemId = itemRow.getAttribute('data-item-id');
+                const currentItemId = ItemTooltip.getCurrentItemId();
+                
+                if (itemId !== currentItemId) {
+                    // 다른 아이템 행으로 이동한 경우만 툴팁 업데이트
                     handleItemHover(itemRow, e);
                 } else {
-                    // 같은 아이템 행 내에서 이동한 경우
+                    // 같은 아이템 행 내에서 이동한 경우, 위치만 업데이트
                     ItemTooltip.updatePosition(e.clientX, e.clientY);
                 }
             } else if (!elementUnderCursor?.closest('.results-container')) {
