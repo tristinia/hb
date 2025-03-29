@@ -123,11 +123,14 @@ const ItemDisplay = (() => {
     function setupTableEventListeners() {
         const resultsTable = document.querySelector('.results-table');
         if (!resultsTable) return;
+
+        // 호버 지원 여부 확인
+        const supportsHover = window.matchMedia('(hover: hover)').matches;
         
-        // 호버 이벤트 리스너
-        resultsTable.addEventListener('mouseover', handleMouseOver);
-        resultsTable.addEventListener('mouseout', handleMouseOut);
-        resultsTable.addEventListener('mousemove', handleMouseMove);
+        // 포인터 이벤트 리스너 (모든 입력 장치 대응)
+        resultsTable.addEventListener('pointerover', handlePointerEvent);
+        resultsTable.addEventListener('pointerout', handlePointerEvent);
+        resultsTable.addEventListener('pointermove', handlePointerMove);
         
         // 터치 이벤트 리스너 (모바일)
         resultsTable.addEventListener('touchend', handleTouch);
@@ -139,99 +142,122 @@ const ItemDisplay = (() => {
                 ItemTooltip.hideTooltip();
             }
         });
-    }
-    
-    /**
-     * 마우스 오버 이벤트 핸들러
-     * @param {MouseEvent} event - 마우스 이벤트
-     */
-    function handleMouseOver(event) {
-        const itemRow = event.target.closest('.item-row');
-        if (!itemRow) return;
         
-        try {
-            // 행 강조 표시
-            itemRow.classList.add('hovered');
+        // 문서 터치 이벤트 (모바일에서 호버 효과 제거)
+        document.addEventListener('touchstart', function(e) {
+            // 터치한 요소가 아이템 행이나 툴팁이 아니면 모든 호버 효과 제거
+            if (!e.target.closest('.item-row') && !e.target.closest('.item-tooltip')) {
+                document.querySelectorAll('.item-row.hovered').forEach(row => {
+                    row.classList.remove('hovered');
+                });
+            }
+        });
+    }
+
+    /**
+     * 포인터 이벤트 핸들러 (over/out)
+     * @param {PointerEvent} event - 포인터 이벤트
+     */
+    function handlePointerEvent(event) {
+        // 입력 장치 타입 확인
+        const isTouch = event.pointerType === 'touch';
+        const isMouseOrPen = event.pointerType === 'mouse' || event.pointerType === 'pen';
+        const supportsHover = ItemTooltip.supportsHover();
+        
+        // 호버 지원 장치에서 마우스/펜으로 호버하는 경우만 처리
+        if (supportsHover && isMouseOrPen) {
+            const itemRow = event.target.closest('.item-row');
+            if (!itemRow) return;
             
-            // 아이템 데이터 가져오기
-            const itemDataStr = itemRow.getAttribute('data-item');
-            if (!itemDataStr) return;
-            
-            // 툴팁 표시
-            const itemData = JSON.parse(itemDataStr);
-            ItemTooltip.showTooltip(itemData, event.clientX, event.clientY);
-        } catch (error) {
-            console.error('툴팁 표시 중 오류:', error);
-        }
-    }
-    
-    /**
-     * 마우스 아웃 이벤트 핸들러
-     * @param {MouseEvent} event - 마우스 이벤트
-     */
-    function handleMouseOut(event) {
-        const itemRow = event.target.closest('.item-row');
-        if (!itemRow) return;
-        
-        // 행 강조 제거
-        itemRow.classList.remove('hovered');
-        
-        // 다른 아이템 행이나 툴팁으로 이동한 경우 툴팁 유지
-        const relatedTarget = event.relatedTarget;
-        if (relatedTarget && 
-            (relatedTarget.closest('.item-row') || 
-             relatedTarget.closest('.item-tooltip'))) {
-            return;
-        }
-        
-        // 그 외의 경우 툴팁 숨기기
-        ItemTooltip.hideTooltip();
-    }
-    
-    /**
-     * 마우스 이동 이벤트 핸들러
-     * @param {MouseEvent} event - 마우스 이벤트
-     */
-    function handleMouseMove(event) {
-        // 현재 마우스가 위치한 아이템 행 찾기
-        const itemRow = event.target.closest('.item-row');
-        
-        // 아이템 행 위에 있으면 툴팁 업데이트
-        if (itemRow) {
-            try {
-                // 아이템 데이터 가져오기
-                const itemDataStr = itemRow.getAttribute('data-item');
-                if (!itemDataStr) return;
-                
-                // 툴팁 표시 또는 위치 업데이트
-                const itemData = JSON.parse(itemDataStr);
-                
-                if (ItemTooltip.isVisible()) {
-                    // 툴팁이 이미 표시되어 있으면 위치만 업데이트
-                    ItemTooltip.updatePosition(event.clientX, event.clientY);
-                } else {
-                    // 툴팁이 표시되어 있지 않으면 새로 표시
+            if (event.type === 'pointerover') {
+                try {
+                    // 행 강조 표시
+                    itemRow.classList.add('hovered');
+                    
+                    // 아이템 데이터 가져오기
+                    const itemDataStr = itemRow.getAttribute('data-item');
+                    if (!itemDataStr) return;
+                    
+                    // 툴팁 표시
+                    const itemData = JSON.parse(itemDataStr);
                     ItemTooltip.showTooltip(itemData, event.clientX, event.clientY);
+                } catch (error) {
+                    console.error('툴팁 표시 중 오류:', error);
                 }
+            }
+            else if (event.type === 'pointerout') {
+                // 행 강조 제거
+                itemRow.classList.remove('hovered');
+                
+                // 다른 아이템 행이나 툴팁으로 이동한 경우 툴팁 유지
+                const relatedTarget = event.relatedTarget;
+                if (relatedTarget && 
+                    (relatedTarget.closest('.item-row') || 
+                    relatedTarget.closest('.item-tooltip'))) {
+                    return;
+                }
+                
+                // 그 외의 경우 툴팁 숨기기
+                ItemTooltip.hideTooltip();
+            }
+        }
+    }
+
+    /**
+     * 포인터 이동 이벤트 핸들러
+     * @param {PointerEvent} event - 포인터 이벤트
+     */
+    function handlePointerMove(event) {
+        // 입력 장치 타입 확인
+        const isTouch = event.pointerType === 'touch';
+        const isMouseOrPen = event.pointerType === 'mouse' || event.pointerType === 'pen';
+        const supportsHover = ItemTooltip.supportsHover();
+        
+        // 호버 지원 장치에서 마우스/펜으로 호버하는 경우만 처리
+        if (supportsHover && isMouseOrPen) {
+            // 현재 포인터가 위치한 아이템 행 찾기
+            const itemRow = event.target.closest('.item-row');
+            const tooltipHover = event.target.closest('.item-tooltip');
+            
+            if (itemRow) {
+                try {
+                    // 아이템 데이터 가져오기
+                    const itemDataStr = itemRow.getAttribute('data-item');
+                    if (!itemDataStr) return;
+                    
+                    const itemData = JSON.parse(itemDataStr);
+                    
+                    // 툴팁 표시 또는 위치 업데이트
+                    if (ItemTooltip.isVisible()) {
+                        ItemTooltip.updatePosition(event.clientX, event.clientY);
+                    } else {
+                        ItemTooltip.showTooltip(itemData, event.clientX, event.clientY);
+                    }
+                    
+                    // 모든 행의 강조 제거
+                    document.querySelectorAll('.item-row').forEach(row => {
+                        row.classList.remove('hovered');
+                    });
+                    
+                    // 현재 행 강조
+                    itemRow.classList.add('hovered');
+                } catch (error) {
+                    console.error('툴팁 업데이트 중 오류:', error);
+                }
+            } 
+            else if (tooltipHover) {
+                // 툴팁 위에 있는 경우 위치만 업데이트
+                ItemTooltip.updatePosition(event.clientX, event.clientY);
+            }
+            else {
+                // 아이템 행이나 툴팁에 없는 경우 툴팁 숨기기
+                ItemTooltip.hideTooltip();
                 
                 // 모든 행의 강조 제거
                 document.querySelectorAll('.item-row').forEach(row => {
                     row.classList.remove('hovered');
                 });
-                
-                // 현재 행 강조
-                itemRow.classList.add('hovered');
-            } catch (error) {
-                console.error('툴팁 업데이트 중 오류:', error);
             }
-        } else {
-            // 아이템 행에서 벗어난 경우 툴팁 숨기기
-            ItemTooltip.hideTooltip();
-            
-            // 모든 행의 강조 제거
-            document.querySelectorAll('.item-row').forEach(row => {
-                row.classList.remove('hovered');
-            });
         }
     }
     
