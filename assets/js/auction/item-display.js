@@ -126,12 +126,14 @@ const ItemDisplay = (() => {
         const isMobile = ItemTooltip.isMobileDevice();
         
         if (isMobile) {
-            // 모바일: 터치 이벤트만 사용
-            resultsTable.addEventListener('touchend', handleTouch);
+            // 모바일: 터치 시작 시점에 행 감지 (touchend 대신)
+            resultsTable.addEventListener('touchstart', handleTouchStart);
             
-            // 모바일: 외부 터치 시 툴팁 닫기 (결과 테이블 외부만)
+            // 터치가 끝나는 시점에는 툴팁 표시 여부만 결정
+            resultsTable.addEventListener('touchend', handleTouchEnd);
+            
+            // 모바일: 결과 테이블 외부 터치시 툴팁 닫기
             document.addEventListener('touchstart', function(e) {
-                // 결과 컨테이너 밖을 터치한 경우만 툴팁 숨김
                 const isResultsArea = e.target.closest('.results-container');
                 if (!isResultsArea && ItemTooltip.isVisible()) {
                     ItemTooltip.hideTooltip();
@@ -143,7 +145,7 @@ const ItemDisplay = (() => {
                 }
             });
         } else {
-            // PC: 포인터 이벤트 사용
+            // PC 코드는 그대로 유지
             resultsTable.addEventListener('mouseover', handleMouseOver);
             resultsTable.addEventListener('mouseout', handleMouseOut);
             resultsTable.addEventListener('mousemove', handleMouseMove);
@@ -195,13 +197,6 @@ const ItemDisplay = (() => {
      * 마우스 이동 이벤트 핸들러 (PC 전용)
      */
     function handleMouseMove(event) {
-        // 이벤트 스로틀링 구현 (약 60fps에 맞춤)
-        const now = Date.now();
-        if (now - (handleMouseMove.lastCallTime || 0) < 16) {
-            return; // 약 16ms 간격으로만 실행 (60fps)
-        }
-        handleMouseMove.lastCallTime = now;
-        
         // 마지막 아이템 ID 추적
         handleMouseMove.lastItemId = handleMouseMove.lastItemId || null;
         
