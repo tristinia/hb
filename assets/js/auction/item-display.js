@@ -9,7 +9,7 @@ import FilterManager from './filter-manager.js';
 import PaginationManager from './pagination.js';
 import optionFilter from './option-filter.js';
 import optionRenderer from './option-renderer.js';
-import ItemTooltip from './item-tooltip.js'; // ItemTooltip 모듈 추가
+import ItemTooltip from './item-tooltip.js';
 
 const ItemDisplay = (() => {
     // 아이템 표시 상태
@@ -17,7 +17,8 @@ const ItemDisplay = (() => {
         searchResults: [],
         filteredResults: [],
         lastSearchResults: [], // 필터링용 캐시
-        currentCategory: null
+        currentCategory: null,
+        activeRow: null  // 현재 활성화된 행 추적
     };
     
     // DOM 요소 참조
@@ -123,29 +124,43 @@ const ItemDisplay = (() => {
         const resultsTable = document.querySelector('.results-table');
         if (!resultsTable) return;
         
-        // PC 환경에서는 마우스 오버/아웃 이벤트 처리
-        if (!isMobileDevice()) {
-            resultsTable.addEventListener('mouseover', handleMouseOver);
-            resultsTable.addEventListener('mouseout', handleMouseOut);
-            resultsTable.addEventListener('mousemove', handleMouseMove);
-        } 
-        // 모바일 환경에서는 터치 이벤트 처리
-        else {
-            // 모바일에서는 터치로 표시/숨김을 전환
-            resultsTable.addEventListener('touchend', handleTouch);
+        // 호버 이벤트 - PC와 모바일 둘 다 설정
+        resultsTable.addEventListener('mouseover', handleMouseOver);
+        resultsTable.addEventListener('mouseout', handleMouseOut);
+        resultsTable.addEventListener('mousemove', handleMouseMove);
+        
+        // 터치 이벤트 - 모바일용
+        resultsTable.addEventListener('touchend', handleTouch);
+        
+        // 이벤트 전파 방지를 위한 툴팁 이벤트
+        const tooltipEl = document.getElementById('item-tooltip');
+        if (tooltipEl) {
+            // 툴팁 클릭/터치 시 닫히도록 설정
+            tooltipEl.addEventListener('touchstart', function(e) {
+                e.stopPropagation(); // 이벤트 전파 방지 (중요)
+                ItemTooltip.hideTooltip();
+            });
+            
+            // 마우스가 툴팁 위에 있을 때도 행 강조 유지
+            tooltipEl.addEventListener('mouseover', function(e) {
+                if (state.activeRow) {
+                    state.activeRow.classList.add('hovered');
+                }
+            });
         }
         
-        // PC와 모바일 둘다 클릭 이벤트도 처리 (일관된 동작 위해)
-        resultsTable.addEventListener('click', handleClick);
-    }
-    
-    /**
-     * 모바일 기기 여부 확인
-     * @returns {boolean} 모바일 기기 여부
-     */
-    function isMobileDevice() {
-        return window.matchMedia("(max-width: 768px)").matches || 
-               /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        // 문서 전체 클릭/터치 시 툴팁 닫기
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.item-row') && !e.target.closest('.item-tooltip')) {
+                ItemTooltip.hideTooltip();
+            }
+        });
+        
+        document.addEventListener('touchstart', function(e) {
+            if (!e.target.closest('.item-row') && !e.target.closest('.item-tooltip')) {
+                ItemTooltip.hideTooltip();
+            }
+        });
     }
     
     /**
@@ -157,13 +172,14 @@ const ItemDisplay = (() => {
         if (!itemRow) return;
         
         try {
-            // 아이템 데이터 가져오기
+            // 현재 활성화된 행 저장 및 강조
+            state.activeRow = itemRow;
+            itemRow.classList.add('hovered');
+            
             const itemDataStr = itemRow.getAttribute('data-item');
             if (!itemDataStr) return;
             
             const itemData = JSON.parse(itemDataStr);
-            
-            // 툴팁 표시
             ItemTooltip.showTooltip(itemData, event.clientX, event.clientY);
         } catch (error) {
             console.error('툴팁 표시 중 오류:', error);
@@ -178,11 +194,18 @@ const ItemDisplay = (() => {
         const itemRow = event.target.closest('.item-row');
         if (!itemRow) return;
         
-        // 다른 자식 요소로 이동한 경우는 무시
-        const relatedTarget = event.relatedTarget;
-        if (relatedTarget && itemRow.contains(relatedTarget)) return;
+        // hover 효과 제거
+        itemRow.classList.remove('hovered');
         
-        // 툴팁 숨기기
+        // 마우스가 툴팁으로 이동한 경우 툴팁 유지
+        const relatedTarget = event.relatedTarget;
+        if (relatedTarget && 
+            (itemRow.contains(relatedTarget) || 
+             relatedTarget.closest('.item-tooltip'))) {
+            return;
+        }
+        
+        state.activeRow = null;
         ItemTooltip.hideTooltip();
     }
     
@@ -198,61 +221,41 @@ const ItemDisplay = (() => {
     }
     
     /**
-     * 클릭 이벤트 핸들러
-     * @param {MouseEvent} event - 클릭 이벤트
-     */
-    function handleClick(event) {
-        // PC 환경에서는 클릭을 무시 (호버로 처리)
-        if (!isMobileDevice()) return;
-        
-        const itemRow = event.target.closest('.item-row');
-        if (!itemRow) return;
-        
-        try {
-            const itemDataStr = itemRow.getAttribute('data-item');
-            if (!itemDataStr) return;
-            
-            const itemData = JSON.parse(itemDataStr);
-            
-            // 툴팁 표시/숨김 전환
-            if (ItemTooltip.isVisible()) {
-                ItemTooltip.hideTooltip();
-            } else {
-                ItemTooltip.showTooltip(itemData, event.clientX, event.clientY);
-            }
-        } catch (error) {
-            console.error('툴팁 표시 중 오류:', error);
-        }
-    }
-    
-    /**
-     * 터치 이벤트 핸들러
+     * 터치 이벤트 핸들러 (모바일)
      * @param {TouchEvent} event - 터치 이벤트
      */
     function handleTouch(event) {
-        // 기본 동작 방지 (스크롤 등)
-        event.preventDefault();
+        // 기본 이벤트 방지 (스크롤 등)
+        if (event.cancelable) {
+            event.preventDefault();
+        }
         
         const itemRow = event.target.closest('.item-row');
         if (!itemRow) return;
         
         try {
+            // 기존 강조 효과 제거
+            const allRows = document.querySelectorAll('.item-row');
+            allRows.forEach(row => row.classList.remove('hovered'));
+            
+            // 현재 행 강조
+            itemRow.classList.add('hovered');
+            state.activeRow = itemRow;
+            
             const itemDataStr = itemRow.getAttribute('data-item');
             if (!itemDataStr) return;
             
             const itemData = JSON.parse(itemDataStr);
             
-            // 터치 위치 가져오기
-            const touch = event.changedTouches[0];
-            const x = touch.clientX;
-            const y = touch.clientY;
-            
-            // 툴팁 표시/숨김 전환
+            // 이미 툴팁이 표시된 상태면 숨기기 (토글 기능)
             if (ItemTooltip.isVisible()) {
                 ItemTooltip.hideTooltip();
-            } else {
-                ItemTooltip.showTooltip(itemData, x, y);
+                return;
             }
+            
+            // 터치 위치에 툴팁 표시
+            const touch = event.changedTouches[0];
+            ItemTooltip.showTooltip(itemData, touch.clientX, touch.clientY);
         } catch (error) {
             console.error('툴팁 표시 중 오류:', error);
         }
@@ -306,12 +309,6 @@ const ItemDisplay = (() => {
             tr.setAttribute('data-item-id', item.auction_item_no || '');
             tr.setAttribute('data-item', JSON.stringify(item));
             
-            // 모바일용 속성 추가
-            if (isMobileDevice()) {
-                tr.setAttribute('role', 'button'); // 터치 접근성 향상
-                tr.setAttribute('tabindex', '0');  // 포커스 가능하도록
-            }
-            
             // 가격 포맷팅
             const priceFormatted = formatItemPrice(item.auction_price_per_unit || 0);
             
@@ -347,11 +344,6 @@ const ItemDisplay = (() => {
         const event = document.createEvent('CustomEvent');
         const isFilterEvent = event && event.detail && event.detail.hideLoading;
         
-        if (!isFilterEvent) {
-            // 로딩 스피너 표시하지 않음 (필터링은 클라이언트 사이드 연산)
-            // ApiClient.setLoading(true);
-        }
-        
         // 필터링 지연 처리 (브라우저 렌더링 차단 방지)
         setTimeout(() => {
             try {
@@ -380,9 +372,6 @@ const ItemDisplay = (() => {
             } catch (error) {
                 console.error('필터링 중 오류 발생:', error);
                 showFilterError('필터링 중 오류가 발생했습니다');
-            } finally {
-                // 로딩 종료 - 필터링 작업에서는 로딩 스피너를 사용하지 않음
-                // ApiClient.setLoading(false);
             }
         }, 10);
     }
@@ -427,7 +416,7 @@ const ItemDisplay = (() => {
             
             // 이미 만료된 경우
             if (expiry <= now) {
-                return '만료됨';
+                return '만료';
             }
             
             const diffMs = expiry - now;
@@ -552,12 +541,6 @@ const ItemDisplay = (() => {
             tr.className = 'item-row';
             tr.setAttribute('data-item-id', item.auction_item_no || '');
             tr.setAttribute('data-item', JSON.stringify(item));
-            
-            // 모바일용 속성 추가
-            if (isMobileDevice()) {
-                tr.setAttribute('role', 'button'); // 터치 접근성 향상
-                tr.setAttribute('tabindex', '0');  // 포커스 가능하도록
-            }
             
             // 가격 포맷팅
             const priceFormatted = formatItemPrice(item.auction_price_per_unit || 0);
