@@ -119,31 +119,31 @@ const ItemDisplay = (() => {
      * 테이블 이벤트 리스너 설정
      */
     function setupTableEventListeners() {
-      const resultsTable = document.querySelector('.results-table');
-      if (!resultsTable) return;
-      
-      // 행 클릭 이벤트 - 모바일, PC 모두 적용
-      resultsTable.addEventListener('click', (event) => {
-        const itemRow = event.target.closest('.item-row');
-        if (!itemRow) return;
+        const resultsTable = document.querySelector('.results-table');
+        if (!resultsTable) return;
         
-        try {
-          const itemDataStr = itemRow.getAttribute('data-item');
-          if (!itemDataStr) return;
-          
-          const itemData = JSON.parse(itemDataStr);
-          showTooltip(itemData, event.clientX || window.innerWidth/2, event.clientY || window.innerHeight/3);
-        } catch (error) {
-          console.error('툴팁 표시 중 오류:', error);
+        // 행 클릭 이벤트 (모바일, PC)
+        resultsTable.addEventListener('click', (event) => {
+            const itemRow = event.target.closest('.item-row');
+            if (!itemRow) return;
+            
+            try {
+                const itemDataStr = itemRow.getAttribute('data-item');
+                if (!itemDataStr) return;
+                
+                const itemData = JSON.parse(itemDataStr);
+                ItemTooltip.showTooltip(itemData, event.clientX || window.innerWidth/2, event.clientY || window.innerHeight/3);
+            } catch (error) {
+                console.error('툴팁 표시 중 오류:', error);
+            }
+        });
+        
+        // 마우스 오버/아웃 이벤트 (PC)
+        if (window.innerWidth > 768) {
+            resultsTable.addEventListener('mouseover', handleMouseOver);
+            resultsTable.addEventListener('mouseout', handleMouseOut);
+            resultsTable.addEventListener('mousemove', handleMouseMove);
         }
-      });
-      
-      // PC에서만 사용할 마우스 오버/아웃 이벤트
-      if (window.innerWidth > 768) {
-        resultsTable.addEventListener('mouseover', handleMouseOver);
-        resultsTable.addEventListener('mouseout', handleMouseOut);
-        resultsTable.addEventListener('mousemove', handleMouseMove);
-      }
     }
     
     /**
