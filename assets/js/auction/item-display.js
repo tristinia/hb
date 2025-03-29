@@ -194,11 +194,23 @@ const ItemDisplay = (() => {
      * 마우스 이동 이벤트 핸들러 (PC 전용)
      */
     function handleMouseMove(event) {
-        // 깜빡임 방지를 위한 함수 속성
+        // 마지막 아이템 ID 추적
         handleMouseMove.lastItemId = handleMouseMove.lastItemId || null;
         
-        // 현재 마우스 위치의 요소 확인 (항상 최상위 요소)
-        const elementAtPoint = document.elementFromPoint(event.clientX, event.clientY);
+        // 현재 마우스 위치의 요소 확인 (툴팁 아래의 요소 확인을 위해 툴팁을 일시적으로 숨김)
+        const tooltip = document.getElementById('item-tooltip');
+        let elementAtPoint = null;
+        
+        if (tooltip) {
+            // 마우스가 툴팁 위/아래 상태를 계속해서 변경하지 않도록 처리
+            const originalVisibility = tooltip.style.visibility;
+            tooltip.style.visibility = 'hidden';
+            elementAtPoint = document.elementFromPoint(event.clientX, event.clientY);
+            tooltip.style.visibility = originalVisibility;
+        } else {
+            elementAtPoint = document.elementFromPoint(event.clientX, event.clientY);
+        }
+        
         if (!elementAtPoint) return;
         
         // 요소에서 가장 가까운 아이템 행 찾기
