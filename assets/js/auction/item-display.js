@@ -258,11 +258,12 @@ const ItemDisplay = (() => {
         // 이벤트 기본 동작 방지
         event.preventDefault();
         
+        // 터치된 아이템 행 찾기
         const itemRow = event.target.closest('.item-row');
         if (!itemRow) return;
         
         try {
-            // 모든 행에서 강조 제거하지 않고 현재 행만 강조
+            // 현재 행 강조
             itemRow.classList.add('hovered');
             
             // 아이템 데이터 가져오기
@@ -279,17 +280,24 @@ const ItemDisplay = (() => {
                 if (currentItemId === visibleItemId) {
                     // 같은 아이템을 다시 터치하면 툴팁 숨김
                     ItemTooltip.hideTooltip();
+                    // 강조 제거
+                    itemRow.classList.remove('hovered');
                 } else {
-                    // 다른 아이템 터치면 툴팁 업데이트
+                    // 다른 아이템 터치면 기존 강조 제거 후 새 아이템 강조
+                    document.querySelectorAll('.item-row.hovered').forEach(row => {
+                        if (row !== itemRow) {
+                            row.classList.remove('hovered');
+                        }
+                    });
+                    
+                    // 툴팁 업데이트
                     const touch = event.changedTouches[0];
-                    const yOffset = -150; // 상단 여백
-                    ItemTooltip.updateTooltip(itemData, touch.clientX, touch.clientY + yOffset);
+                    ItemTooltip.updateTooltip(itemData, touch.clientX, touch.clientY);
                 }
             } else {
                 // 툴팁이 없으면 새로 표시
                 const touch = event.changedTouches[0];
-                const yOffset = -150; // 상단 여백
-                ItemTooltip.showTooltip(itemData, touch.clientX, touch.clientY + yOffset);
+                ItemTooltip.showTooltip(itemData, touch.clientX, touch.clientY);
             }
         } catch (error) {
             console.error('툴팁 표시 중 오류:', error);
