@@ -209,27 +209,27 @@ const ItemDisplay = (() => {
         const supportsPenHover = event.pointerType === 'pen' && typeof event.clientX !== 'undefined';
         const supportsNormalHover = ItemTooltip.supportsHover();
         
-        // 이전 위치 저장 (깜빡임 방지용)
-        static let lastX = null;
-        static let lastY = null;
-        static let lastItemId = null;
-        static let updateLock = false;
+        // 이전 위치 저장을 위한 클로저 변수 (모듈 레벨에서 정의)
+        if (!handlePointerMove.lastX) handlePointerMove.lastX = null;
+        if (!handlePointerMove.lastY) handlePointerMove.lastY = null;
+        if (!handlePointerMove.lastItemId) handlePointerMove.lastItemId = null;
+        if (!handlePointerMove.updateLock) handlePointerMove.updateLock = false;
         
         // 깜빡임 방지: 마우스 위치가 5px 이내로 변경된 경우 무시
         const moveDistance = Math.sqrt(
-            Math.pow((lastX || 0) - event.clientX, 2) + 
-            Math.pow((lastY || 0) - event.clientY, 2)
+            Math.pow((handlePointerMove.lastX || 0) - event.clientX, 2) + 
+            Math.pow((handlePointerMove.lastY || 0) - event.clientY, 2)
         );
         
         // 위치 변경이 적고, 업데이트 잠금 상태면 무시
-        if (moveDistance < 5 && updateLock) {
+        if (moveDistance < 5 && handlePointerMove.updateLock) {
             return;
         }
         
         // 업데이트 잠금 설정 (깜빡임 방지)
         if (moveDistance < 2) {
-            updateLock = true;
-            setTimeout(() => { updateLock = false; }, 100); // 100ms 후 잠금 해제
+            handlePointerMove.updateLock = true;
+            setTimeout(() => { handlePointerMove.updateLock = false; }, 100); // 100ms 후 잠금 해제
         }
         
         // 호버 지원 장치 또는 터치펜에서 호버하는 경우 처리
@@ -252,7 +252,7 @@ const ItemDisplay = (() => {
                     const currentItemId = itemData.auction_item_no || '';
                     
                     // 같은 아이템에 대한 업데이트면 위치만 조정 (깜빡임 방지)
-                    if (currentItemId === lastItemId) {
+                    if (currentItemId === handlePointerMove.lastItemId) {
                         // 모든 행의 강조 효과 유지
                         // 위치만 업데이트
                         if (ItemTooltip.isVisible()) {
@@ -268,7 +268,7 @@ const ItemDisplay = (() => {
                         
                         // 현재 행 강조
                         itemRow.classList.add('hovered');
-                        lastItemId = currentItemId;
+                        handlePointerMove.lastItemId = currentItemId;
                         
                         // 툴팁 표시 또는 업데이트
                         if (ItemTooltip.isVisible()) {
@@ -279,8 +279,8 @@ const ItemDisplay = (() => {
                     }
                     
                     // 마지막 위치 저장
-                    lastX = event.clientX;
-                    lastY = event.clientY;
+                    handlePointerMove.lastX = event.clientX;
+                    handlePointerMove.lastY = event.clientY;
                 } catch (error) {
                     console.error('툴팁 업데이트 중 오류:', error);
                 }
