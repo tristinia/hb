@@ -119,12 +119,9 @@ const ItemDisplay = (() => {
      * 테이블 이벤트 리스너 설정
      */
     function setupTableEventListeners() {
-        // 모바일 감지
-        const isMobile = ItemTooltip.isMobileDevice();
-        
-        // 이벤트 등록은 ItemTooltip 내부에서 처리하므로 여기서는 아무 것도 하지 않음
-        // ItemTooltip.init() 함수가 모든 필요한 이벤트를 설정함
-        console.log(`테이블 이벤트 리스너 설정 완료 (${isMobile ? '모바일' : 'PC'} 모드)`);
+        // 이벤트 처리는 ItemTooltip에서 모두 관리하므로
+        // 여기서는 아무 작업도 수행하지 않음
+        console.log('테이블 이벤트 리스너: ItemTooltip 모듈에서 관리');
     }
 
     /**
