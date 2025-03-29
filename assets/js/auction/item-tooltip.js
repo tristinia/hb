@@ -41,33 +41,34 @@ const ItemTooltip = (() => {
         tooltipElement.style.display = 'none';
         tooltipElement.style.zIndex = '1001';
         
-        // PC에서는 툴팁이 마우스 이벤트를 차단하지 않도록 설정
-        if (!state.isMobile) {
-            tooltipElement.style.pointerEvents = "none";
-        } else {
-            // 모바일에서는 툴팁을 터치 가능하게 설정
+        // PC와 모바일 환경에 따라 다른 설정
+        if (state.isMobile) {
+            // 모바일 환경
             tooltipElement.style.pointerEvents = "auto";
             
-            // 툴팁을 터치했을 때 숨기기
-            tooltipElement.addEventListener('click', (e) => {
+            // 툴팁 터치 시 닫기
+            tooltipElement.addEventListener('click', function(e) {
                 e.stopPropagation();
                 hideTooltip();
             });
             
-            // 외부 영역 클릭 시 툴팁 숨김 (모바일 전용)
-            document.addEventListener('click', (e) => {
+            // 외부 터치 시 툴팁 닫기
+            document.addEventListener('click', function(e) {
                 if (state.visible && 
                     !e.target.closest('.item-row') && 
                     !e.target.closest('#item-tooltip')) {
                     hideTooltip();
                 }
             });
+        } else {
+            // PC 환경: 툴팁이 마우스 이벤트를 차단하지 않도록 설정
+            tooltipElement.style.pointerEvents = "none";
         }
         
         state.initialized = true;
         console.log(`툴팁 초기화 완료 (${state.isMobile ? '모바일' : 'PC'} 환경)`);
     }
-
+    
     /**
      * 툴팁 표시
      */
