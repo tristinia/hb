@@ -11,7 +11,8 @@ const ItemTooltip = (() => {
         initialized: false,
         visible: false,
         currentItemId: null,
-        isMobile: false
+        isMobile: false,
+        lastPosition: { x: 0, y: 0 }
     };
 
     // DOM 요소
@@ -40,10 +41,26 @@ const ItemTooltip = (() => {
         tooltipElement.style.display = 'none';
         tooltipElement.style.zIndex = '1001';
         
-        // PC에서는 마우스 이벤트를 차단하지 않음 (하단 요소 감지 위해)
-        tooltipElement.style.pointerEvents = 'none';
+        // PC와 모바일에서 이벤트 처리 방식 분리
+        if (state.isMobile) {
+            // 모바일: 툴팁 자체 터치 가능하게 설정 (툴팁 자체를 터치하면 닫히도록)
+            tooltipElement.style.pointerEvents = 'auto';
+            tooltipElement.addEventListener('touchstart', handleTooltipTouch);
+        } else {
+            // PC: 마우스 이벤트를 차단하지 않음 (하단 요소 감지 위해)
+            tooltipElement.style.pointerEvents = 'none';
+        }
         
         state.initialized = true;
+    }
+    
+    /**
+     * 툴팁 터치 이벤트 처리 (모바일 전용)
+     */
+    function handleTooltipTouch(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        hideTooltip();
     }
     
     /**
@@ -110,45 +127,43 @@ const ItemTooltip = (() => {
         
         // 모바일과 PC 처리 분리
         if (state.isMobile) {
-            // 모바일: 터치 위치 위에 표시 (손가락에 가려지지 않게)
-            left = x - (tooltipWidth / 2); // 터치 지점 중앙 정렬
-            top = y - tooltipHeight - 20;   // 터치 지점 위쪽에 20px 여백
+            // 모바일: 화면 중앙에 표시
+            left = (windowWidth - tooltipWidth) / 2; // 화면 중앙 정렬
+            top = Math.max(10, y - tooltipHeight - 40); // 터치 지점 위 40px, 최소 상단 10px
         } else {
-            // PC: 마우스 커서 우측에 표시
-            left = x + 15;
-            top = y - 10;
+            // PC: 마우스 커서 오른쪽 아래에 표시 (요청에 따라 변경)
+            left = x + 15; // 커서 우측에 15px 여백
+            top = y + 5;   // 커서 아래쪽에 5px 여백
         }
         
-        // 화면 경계 처리 (PC/모바일 공통)
+        // 화면 경계 처리 (오른쪽과 아래쪽만 체크)
         
-        // 오른쪽 경계
-        if (left + tooltipWidth > windowWidth) {
-            left = windowWidth - tooltipWidth - 5;
+        // 오른쪽 경계 - 오른쪽에 항상 최소 5px 여백 유지
+        const rightMargin = 5; // 우측 여백
+        const maxLeft = windowWidth - tooltipWidth - rightMargin;
+        
+        if (left > maxLeft) {
+            left = maxLeft; // 오른쪽 경계에서 여백 유지
         }
         
-        // 왼쪽 경계
-        if (left < 5) {
-            left = 5;
-        }
+        // 아래쪽 경계 - 동일한 방식으로 처리
+        const bottomMargin = 5; // 하단 여백
+        const maxTop = windowHeight - tooltipHeight - bottomMargin;
         
-        // 아래쪽 경계
-        if (top + tooltipHeight > windowHeight) {
-            top = windowHeight - tooltipHeight - 5;
-        }
-        
-        // 위쪽 경계
-        if (top < 5) {
+        if (top > maxTop) {
+            // 모바일: 높이가 넘칠 경우 상단에 고정
             if (state.isMobile) {
-                // 모바일: 터치 위치 아래에 표시 (공간 부족 시)
-                top = y + 20;
+                top = 10; // 상단에 10px 여백
             } else {
-                top = 5;
+                top = maxTop; // 하단 여백 유지
             }
         }
         
-        // 위치 설정 (깜빡임 방지를 위해 정수로 반올림)
-        tooltipElement.style.left = `${Math.round(left)}px`;
-        tooltipElement.style.top = `${Math.round(top)}px`;
+        // 위치 고정 (깜빡임 방지를 위해 숫자를 정수로 올림하고 px 단위로 설정)
+        // 브라우저 렌더링 엔진에 따라 소수점 계산에서 미세한 차이가 발생할 수 있으므로 
+        // 정수 사용하여 안정화
+        tooltipElement.style.left = `${Math.floor(left)}px`;
+        tooltipElement.style.top = `${Math.floor(top)}px`;
     }
     
     /**
@@ -161,6 +176,10 @@ const ItemTooltip = (() => {
         tooltipElement.innerHTML = '';
         state.visible = false;
         state.currentItemId = null;
+        
+        // 마지막 위치 초기화
+        state.lastPosition.x = 0;
+        state.lastPosition.y = 0;
     }
     
     /**
