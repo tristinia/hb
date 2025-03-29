@@ -144,7 +144,7 @@ const ItemTooltip = (() => {
         
         // 오른쪽 경계 검사 - 화면 밖으로 나가지 않도록 조정
         if (left + tooltipWidth > windowWidth) {
-            left = windowWidth - tooltipWidth - 5; // 우측 여백 5px 추가
+            left = windowWidth - tooltipWidth;
         }
         
         // 왼쪽 경계 검사 - 최소 5px 여백 확보
@@ -154,16 +154,13 @@ const ItemTooltip = (() => {
         
         // 아래쪽 경계 검사 - 화면 밖으로 나가지 않도록 조정
         if (top + tooltipHeight > windowHeight) {
-            top = windowHeight - tooltipHeight - 5; // 하단 여백 5px 추가
+            top = windowHeight - tooltipHeight;
         }
         
         // 위쪽 경계 검사 - 최소 5px 여백 확보
         if (top < 5) {
             top = 5;
         }
-        
-        // 부드러운 움직임을 위한 트랜지션 설정
-        tooltipElement.style.transition = 'left 0.1s ease-out, top 0.1s ease-out';
         
         // 위치 업데이트
         tooltipElement.style.left = `${left}px`;
