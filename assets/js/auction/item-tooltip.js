@@ -59,16 +59,41 @@ const ItemTooltip = (() => {
      */
     function setupEventListeners() {
         if (tooltipElement) {
-            tooltipElement.addEventListener('mousemove', function(e) {
-                e.stopPropagation();
-                updatePosition(e.clientX, e.clientY);
-            });
+            // 툴팁이 마우스 이벤트를 방해하지 않도록 설정
+            tooltipElement.style.pointerEvents = 'none';
             
-            // 모바일 환경에서는 툴팁을 터치하여 닫기
+            // 모바일 환경에서는 툴팁을 터치하여 닫기 기능 유지
             tooltipElement.addEventListener('touchstart', function(e) {
                 e.stopPropagation();
                 hideTooltip();
             });
+            
+            // 모바일에서 터치 인식을 위해 필요한 부분만 포인터 이벤트 활성화
+            const closeButton = document.createElement('div');
+            closeButton.className = 'tooltip-close-button';
+            closeButton.innerHTML = '×';
+            closeButton.style.position = 'absolute';
+            closeButton.style.top = '5px';
+            closeButton.style.right = '5px';
+            closeButton.style.width = '24px';
+            closeButton.style.height = '24px';
+            closeButton.style.background = 'rgba(0,0,0,0.3)';
+            closeButton.style.color = '#fff';
+            closeButton.style.borderRadius = '50%';
+            closeButton.style.display = 'flex';
+            closeButton.style.alignItems = 'center';
+            closeButton.style.justifyContent = 'center';
+            closeButton.style.cursor = 'pointer';
+            closeButton.style.pointerEvents = 'auto'; // 이 버튼만 이벤트 반응
+            closeButton.style.zIndex = '2';
+            
+            closeButton.addEventListener('click', hideTooltip);
+            closeButton.addEventListener('touchstart', function(e) {
+                e.stopPropagation();
+                hideTooltip();
+            });
+            
+            tooltipElement.appendChild(closeButton);
         }
     }
     
@@ -137,13 +162,6 @@ const ItemTooltip = (() => {
     function updatePosition(x, y) {
         if (!tooltipElement || !state.visible) return;
         
-        // 너무 빈번한 업데이트 방지 (깜빡임 방지) - 약 30fps로 제한
-        const now = Date.now();
-        if (now - state.lastUpdateTime < 32) {
-            return;
-        }
-        state.lastUpdateTime = now;
-        
         // 툴팁 크기 측정
         const tooltipWidth = tooltipElement.offsetWidth;
         const tooltipHeight = tooltipElement.offsetHeight;
@@ -152,21 +170,26 @@ const ItemTooltip = (() => {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         
-        // 위치 계산 - 마우스 오른쪽, 같은 높이에 표시
-        let left = x + 15;  // 마우스 오른쪽
-        let top = y;        // 마우스와 같은 높이
+        // 마우스 오른쪽에 배치 (기준점)
+        let left = x + 15;
+        let top = y;
         
         // 오른쪽 경계 검사
         if (left + tooltipWidth > windowWidth) {
-            left = windowWidth - tooltipWidth - 5;
+            left = windowWidth - tooltipWidth;
         }
         
         // 아래쪽 경계 검사
         if (top + tooltipHeight > windowHeight) {
-            top = windowHeight - tooltipHeight - 5;
+            top = windowHeight - tooltipHeight;
         }
         
-        // 위치만 업데이트하여 깜빡임 최소화
+        // 부드러운 움직임을 위한 트랜지션 적용
+        if (!tooltipElement.style.transition) {
+            tooltipElement.style.transition = 'left 0.1s ease-out, top 0.1s ease-out';
+        }
+        
+        // 위치 업데이트
         tooltipElement.style.left = `${left}px`;
         tooltipElement.style.top = `${top}px`;
     }
