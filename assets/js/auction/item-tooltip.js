@@ -14,29 +14,11 @@ const ItemTooltip = (() => {
         currentRow: null,
         isMobile: false,
         mousePosition: { x: 0, y: 0 },
-        lastItemRowUnderMouse: null, // 마지막으로 감지된 아이템 행
-        lastMoveTime: 0 // 마지막 이동 시간 (쓰로틀링용)
+        lockedToItem: false // 아이템 행에 고정 여부
     };
 
     // DOM 요소
     let tooltipElement = null;
-    
-    /**
-     * 쓰로틀 함수 (내장)
-     * @param {Function} func - 실행할 함수
-     * @param {number} limit - 실행 간격 (ms)
-     * @returns {Function} 쓰로틀된 함수
-     */
-    function throttle(func, limit) {
-        let lastRun = 0;
-        return function(...args) {
-            const now = Date.now();
-            if (now - lastRun >= limit) {
-                lastRun = now;
-                return func.apply(this, args);
-            }
-        };
-    }
     
     /**
      * 모듈 초기화
@@ -78,24 +60,27 @@ const ItemTooltip = (() => {
      * PC 환경 이벤트 설정
      */
     function setupPCEvents() {
-        // PC 환경에서는 툴팁이 마우스 이벤트를 차단하지 않도록 설정
-        // 하지만 마우스 이동 시 깜빡임을 방지하기 위해 이벤트를 다른 방식으로 처리
-        
         // 결과 테이블에 마우스 이벤트 리스너 추가
         const resultsTable = document.querySelector('.results-table');
         if (resultsTable) {
-            // 마우스 움직임을 쓰로틀링하여 과도한 업데이트 방지
-            const throttledMouseMove = throttle(handleTableMouseMove, 30);
-            resultsTable.addEventListener('mousemove', throttledMouseMove);
+            // 아이템 행에 mouse enter/leave 이벤트 등록 (이벤트 위임)
+            resultsTable.addEventListener('mouseenter', handleItemRowMouseEnter, true);
+            resultsTable.addEventListener('mouseleave', handleItemRowMouseLeave, true);
             
-            // 마우스가 테이블 밖으로 나갈 때
+            // 아이템 행 위에서의 마우스 이동 처리
+            resultsTable.addEventListener('mousemove', handleItemRowMouseMove);
+            
+            // 테이블 자체에서 마우스가 나갈 때
             resultsTable.addEventListener('mouseleave', function(e) {
-                hideTooltip();
+                // 테이블 밖으로 마우스가 완전히 나갔을 때만 툴팁 숨김
+                if (!e.relatedTarget || !e.relatedTarget.closest('.results-table')) {
+                    hideTooltip();
+                }
             });
         }
         
-        // 툴팁 요소 설정
-        tooltipElement.style.pointerEvents = "none"; // 마우스 이벤트를 무시하여 하단 요소 감지
+        // 툴팁 자체에는 이벤트 처리 없음 (pointer-events 사용 안함)
+        tooltipElement.style.pointerEvents = "auto";
     }
     
     /**
@@ -112,7 +97,7 @@ const ItemTooltip = (() => {
             resultsTable.addEventListener('click', handleMobileItemClick);
         }
         
-        // 툴팁을 터치했을 때만 숨김 처리
+        // 툴팁을 터치했을 때 숨김 처리
         tooltipElement.addEventListener('click', function(e) {
             e.stopPropagation(); // 이벤트 전파 중지
             hideTooltip();
@@ -133,26 +118,12 @@ const ItemTooltip = (() => {
     }
     
     /**
-     * 테이블 내 마우스 이동 처리 (PC 환경)
+     * 아이템 행 진입 이벤트 처리 (PC)
      */
-    function handleTableMouseMove(e) {
-        // 마우스 위치 업데이트
-        state.mousePosition = { x: e.clientX, y: e.clientY };
-        
-        // 마우스 아래 아이템 행 찾기
+    function handleItemRowMouseEnter(e) {
+        // 아이템 행인 경우에만 처리
         const itemRow = e.target.closest('.item-row');
         if (!itemRow) return;
-        
-        // 이전에 감지된 것과 같은 행이면 위치만 업데이트하고 내용은 변경하지 않음
-        if (state.lastItemRowUnderMouse === itemRow) {
-            if (state.visible) {
-                updatePosition(e.clientX, e.clientY);
-            }
-            return;
-        }
-        
-        // 새로운 아이템 행 감지 - 상태 업데이트
-        state.lastItemRowUnderMouse = itemRow;
         
         try {
             // 아이템 데이터 가져오기
@@ -160,25 +131,72 @@ const ItemTooltip = (() => {
             if (!itemDataStr) return;
             
             const itemData = JSON.parse(itemDataStr);
-            const newItemId = itemData.auction_item_no || '';
             
-            // 이전 행 강조 제거
-            if (state.currentRow && state.currentRow !== itemRow) {
+            // 행 강조 처리
+            if (state.currentRow) {
                 state.currentRow.classList.remove('hovered');
             }
             
-            // 새 행 강조
             itemRow.classList.add('hovered');
             state.currentRow = itemRow;
             
-            // 툴팁 표시 또는 업데이트
-            if (!state.visible) {
-                showTooltip(itemData, e.clientX, e.clientY, itemRow);
-            } else {
-                updateTooltip(itemData, e.clientX, e.clientY, itemRow);
-            }
+            // 툴팁 표시
+            showTooltip(itemData, e.clientX, e.clientY, itemRow);
+            
+            // 아이템에 고정
+            state.lockedToItem = true;
         } catch (error) {
-            console.error("아이템 데이터 처리 오류:", error);
+            console.error('아이템 행 마우스 진입 오류:', error);
+        }
+    }
+    
+    /**
+     * 아이템 행 이탈 이벤트 처리 (PC)
+     */
+    function handleItemRowMouseLeave(e) {
+        // 아이템 행인 경우에만 처리
+        const itemRow = e.target.closest('.item-row');
+        if (!itemRow) return;
+        
+        // 다른 아이템 행으로 넘어가는 경우 무시
+        if (e.relatedTarget && e.relatedTarget.closest('.item-row')) {
+            return;
+        }
+        
+        // 툴팁으로 이동하는 경우 무시
+        if (e.relatedTarget && e.relatedTarget.closest('#item-tooltip')) {
+            return;
+        }
+        
+        // 툴팁과 테이블 모두 벗어나는 경우에만 툴팁 숨김
+        if (!e.relatedTarget || 
+            (!e.relatedTarget.closest('.item-row') && 
+             !e.relatedTarget.closest('#item-tooltip') && 
+             !e.relatedTarget.closest('.results-table'))) {
+            
+            hideTooltip();
+        }
+        
+        // 고정 해제
+        state.lockedToItem = false;
+    }
+    
+    /**
+     * 아이템 행 위에서 마우스 이동 처리 (PC)
+     */
+    function handleItemRowMouseMove(e) {
+        // 아이템 행을 찾아봄
+        const itemRow = e.target.closest('.item-row');
+        
+        // 아이템 행 위에 있지 않으면 무시
+        if (!itemRow) return;
+        
+        // 마우스 위치 업데이트
+        state.mousePosition = { x: e.clientX, y: e.clientY };
+        
+        // 툴팁이 표시 중이면 위치만 업데이트
+        if (state.visible) {
+            updatePosition(e.clientX, e.clientY);
         }
     }
     
@@ -196,7 +214,6 @@ const ItemTooltip = (() => {
             if (!itemDataStr) return;
             
             const itemData = JSON.parse(itemDataStr);
-            const newItemId = itemData.auction_item_no || '';
             
             // 이전 행 강조 제거
             if (state.currentRow && state.currentRow !== itemRow) {
@@ -241,11 +258,11 @@ const ItemTooltip = (() => {
         state.visible = true;
         state.mousePosition = { x, y };
         
-        // 툴팁 표시
-        tooltipElement.style.display = 'block';
-        
         // 위치 설정
         updatePosition(x, y);
+        
+        // 툴팁 표시
+        tooltipElement.style.display = 'block';
     }
     
     /**
@@ -314,8 +331,8 @@ const ItemTooltip = (() => {
             state.currentRow = null;
         }
         
-        // 마지막 감지된 행 초기화
-        state.lastItemRowUnderMouse = null;
+        // 고정 해제
+        state.lockedToItem = false;
         
         // 툴팁 숨김 및 상태 초기화
         tooltipElement.style.display = 'none';
