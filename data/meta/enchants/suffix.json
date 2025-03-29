@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-28T09:30:23.597Z",
+  "updated": "2025-03-29T09:26:55.535Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -1531,6 +1531,24 @@
         }
       ]
     },
+    "너구리 (랭크 F)": {
+      "name": "너구리 (랭크 F)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "최대생명력 {value} 감소",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "솜씨 {value} 증가",
+          "min": 1,
+          "max": 1,
+          "variable": false
+        }
+      ]
+    },
     "네뷸러": {
       "name": "네뷸러",
       "rank": 8,
@@ -2077,15 +2095,15 @@
         },
         {
           "template": "지력 {value} 증가",
-          "min": 54,
+          "min": 48,
           "max": 54,
-          "variable": false
+          "variable": true
         },
         {
           "template": "마법 공격력 {value} 증가",
           "min": 10,
-          "max": 10,
-          "variable": false
+          "max": 12,
+          "variable": true
         }
       ]
     },
@@ -2971,9 +2989,9 @@
         },
         {
           "template": "체력 {value} 증가",
-          "min": 8,
-          "max": 8,
-          "variable": false
+          "min": 5,
+          "max": 10,
+          "variable": true
         },
         {
           "template": "체력 {value} 증가",
@@ -5071,6 +5089,18 @@
         }
       ]
     },
+    "석양 (랭크 F)": {
+      "name": "석양 (랭크 F)",
+      "rank": null,
+      "effects": [
+        {
+          "template": "최대생명력 {value} 증가",
+          "min": 25,
+          "max": 25,
+          "variable": false
+        }
+      ]
+    },
     "선인장 (랭크 A)": {
       "name": "선인장 (랭크 A)",
       "rank": null,
@@ -5121,6 +5151,30 @@
           "template": "최대스태미나 {value} 증가",
           "min": 10,
           "max": 10,
+          "variable": false
+        }
+      ]
+    },
+    "섬광의": {
+      "name": "섬광의",
+      "rank": 9,
+      "effects": [
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 7,
+          "max": 7,
+          "variable": false
+        },
+        {
+          "template": "최소대미지 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 3,
+          "max": 3,
           "variable": false
         }
       ]
@@ -8144,7 +8198,7 @@
         {
           "template": "보호 {value} 감소",
           "min": 2,
-          "max": 3,
+          "max": 4,
           "variable": true
         }
       ]
@@ -9661,9 +9715,9 @@
       "effects": [
         {
           "template": "최대스태미나 {value} 증가",
-          "min": 4,
+          "min": 3,
           "max": 4,
-          "variable": false
+          "variable": true
         }
       ]
     },

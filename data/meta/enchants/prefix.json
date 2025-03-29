@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-28T09:30:23.592Z",
+  "updated": "2025-03-29T09:26:55.530Z",
   "enchants": {
     "56층의": {
       "name": "56층의",
@@ -3235,7 +3235,7 @@
       "effects": [
         {
           "template": "최대부상률 {value} 증가",
-          "min": 8,
+          "min": 6,
           "max": 10,
           "variable": true
         }
@@ -3301,9 +3301,9 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 13,
+          "min": 11,
           "max": 13,
-          "variable": false
+          "variable": true
         },
         {
           "template": "체력 {value} 증가",
@@ -5704,6 +5704,42 @@
           "min": 2,
           "max": 4,
           "variable": true
+        }
+      ]
+    },
+    "스크랩": {
+      "name": "스크랩",
+      "rank": 3,
+      "effects": [
+        {
+          "template": "최소대미지 {value} 감소",
+          "min": 7,
+          "max": 7,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 감소",
+          "min": 7,
+          "max": 7,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "최대부상률 {value} 증가",
+          "min": 6,
+          "max": 6,
+          "variable": false
+        },
+        {
+          "template": "조금 약해보임",
+          "min": null,
+          "max": null,
+          "variable": false
         }
       ]
     },
@@ -8323,6 +8359,48 @@
         }
       ]
     },
+    "주말": {
+      "name": "주말",
+      "rank": 2,
+      "effects": [
+        {
+          "template": "체력 {value} 증가",
+          "min": 60,
+          "max": 60,
+          "variable": false
+        },
+        {
+          "template": "행운 {value} 증가",
+          "min": 60,
+          "max": 60,
+          "variable": false
+        },
+        {
+          "template": "의지 {value} 증가",
+          "min": 60,
+          "max": 60,
+          "variable": false
+        },
+        {
+          "template": "독 면역 세트 효과 수치 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        },
+        {
+          "template": "스톰프 저항 세트 효과 수치 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "폭발 저항 세트 효과 수치 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        }
+      ]
+    },
     "주먹의 (랭크 A)": {
       "name": "주먹의 (랭크 A)",
       "rank": null,
@@ -8791,7 +8869,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 14,
+          "min": 13,
           "max": 20,
           "variable": true
         }
