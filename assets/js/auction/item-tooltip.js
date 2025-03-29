@@ -15,7 +15,8 @@ const ItemTooltip = (() => {
         initialized: false,
         visible: false,
         lastItemData: null,
-        supportsHover: false     // 호버 지원 여부
+        currentItemId: null,
+        supportsHover: false    // 호버 지원 여부
     };
 
     // DOM 요소
@@ -48,18 +49,9 @@ const ItemTooltip = (() => {
         tooltipElement.style.zIndex = '1001';
         tooltipElement.style.cursor = 'default';
         
-        // 포인터 이벤트 설정
-        tooltipElement.style.pointerEvents = 'auto';
-        
-        // 호버 지원 여부에 따른 이벤트 처리 분기
-        if (!state.supportsHover || 'ontouchstart' in window) {
-            // 터치 기기에서만 터치로 툴팁 닫기 활성화
-            tooltipElement.addEventListener('touchstart', function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                hideTooltip();
-            });
-        }
+        // 툴팁 자체는 포인터 이벤트를 캡처하지 않도록 설정
+        // 이렇게 하면 툴팁 아래 요소의 이벤트가 감지됨
+        tooltipElement.style.pointerEvents = 'none';
         
         state.initialized = true;
         console.log('ItemTooltip 모듈 초기화 완료');
@@ -85,9 +77,37 @@ const ItemTooltip = (() => {
         // 상태 업데이트
         state.visible = true;
         state.lastItemData = itemData;
-        state.lastUpdateTime = Date.now();
+        state.currentItemId = itemData.auction_item_no || '';
         
         // 위치 즉시 업데이트
+        updatePosition(x, y);
+    }
+    
+    /**
+     * 툴팁 내용 업데이트
+     * @param {Object} itemData - 아이템 데이터
+     * @param {number} x - 마우스 X 좌표
+     * @param {number} y - 마우스 Y 좌표
+     */
+    function updateTooltip(itemData, x, y) {
+        if (!tooltipElement || !itemData) return;
+        
+        // 같은 아이템이면 위치만 업데이트
+        if (state.currentItemId === (itemData.auction_item_no || '')) {
+            updatePosition(x, y);
+            return;
+        }
+        
+        // 다른 아이템이면 내용 업데이트
+        tooltipElement.innerHTML = '';
+        const tooltipContent = optionRenderer.renderMabinogiStyleTooltip(itemData);
+        tooltipElement.appendChild(tooltipContent);
+        
+        // 상태 업데이트
+        state.lastItemData = itemData;
+        state.currentItemId = itemData.auction_item_no || '';
+        
+        // 위치 업데이트
         updatePosition(x, y);
     }
     
@@ -107,9 +127,18 @@ const ItemTooltip = (() => {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         
-        // 기본 위치 계산
+        // 기본 위치 계산 - 마우스 커서 오른쪽 위에 표시
         let left = x + 15;
-        let top = y + 5;
+        let top = y - 15;
+        
+        // 모바일 기기 감지
+        const isMobile = !state.supportsHover || ('ontouchstart' in window);
+        
+        // 모바일일 경우 위치 조정 (손가락이 가리지 않도록)
+        if (isMobile) {
+            // 모바일에서는 터치 위치 위에 표시
+            top = y - tooltipHeight - 20;
+        }
         
         // 오른쪽 경계 검사
         if (left + tooltipWidth > windowWidth) {
@@ -123,12 +152,18 @@ const ItemTooltip = (() => {
         
         // 아래쪽 경계 검사
         if (top + tooltipHeight > windowHeight) {
+            // 화면 아래 경계를 벗어나면 위에 표시
             top = windowHeight - tooltipHeight - 5;
         }
         
         // 위쪽 경계 검사
         if (top < 5) {
-            top = 5;
+            // 모바일에서는 아래에 표시, PC에서는 위치 조정
+            if (isMobile) {
+                top = y + 15; // 터치 위치 아래로
+            } else {
+                top = 5;
+            }
         }
         
         // 위치 즉시 업데이트
@@ -145,16 +180,27 @@ const ItemTooltip = (() => {
         tooltipElement.style.display = 'none';
         tooltipElement.innerHTML = '';
         state.visible = false;
+        state.currentItemId = null;
+    }
+    
+    /**
+     * 현재 표시 중인 아이템 ID 반환
+     * @returns {string} 현재 아이템 ID
+     */
+    function getCurrentItemId() {
+        return state.currentItemId;
     }
     
     // 공개 API
     return {
         init,
         showTooltip,
+        updateTooltip,
         hideTooltip,
         updatePosition,
         isVisible: () => state.visible,
-        supportsHover: () => state.supportsHover
+        supportsHover: () => state.supportsHover,
+        getCurrentItemId
     };
 })();
 
