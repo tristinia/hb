@@ -11,7 +11,6 @@ const ItemTooltip = (() => {
         initialized: false,
         visible: false,
         currentItemId: null,
-        currentRow: null,
         isMobile: false,
         tooltipMargin: 5, // 화면 경계에서 유지할 여백
         tooltipOffset: 15 // 마우스/터치 지점과의 기본 거리
@@ -44,23 +43,14 @@ const ItemTooltip = (() => {
         tooltipElement.style.zIndex = '1001';
         
         // 환경별 설정 적용
-        setupEnvironmentSpecificBehavior();
+        if (state.isMobile) {
+            setupMobileEnvironment();
+        } else {
+            setupDesktopEnvironment();
+        }
         
         state.initialized = true;
         console.log(`툴팁 초기화 완료 (${state.isMobile ? '모바일' : 'PC'} 환경)`);
-    }
-    
-    /**
-     * 환경별 동작 설정 (모바일/PC)
-     */
-    function setupEnvironmentSpecificBehavior() {
-        if (state.isMobile) {
-            // 모바일 환경 설정
-            setupMobileEnvironment();
-        } else {
-            // PC 환경 설정
-            setupDesktopEnvironment();
-        }
     }
     
     /**
@@ -74,15 +64,6 @@ const ItemTooltip = (() => {
         tooltipElement.addEventListener('click', function(e) {
             e.stopPropagation();
             hideTooltip();
-        });
-        
-        // 외부 터치 시 툴팁 닫기
-        document.addEventListener('click', function(e) {
-            if (state.visible && 
-                !e.target.closest('.item-row') && 
-                !e.target.closest('#item-tooltip')) {
-                hideTooltip();
-            }
         });
     }
     
@@ -102,6 +83,12 @@ const ItemTooltip = (() => {
      */
     function showTooltip(itemData, x, y) {
         if (!tooltipElement || !itemData) return;
+        
+        // 같은 아이템이 이미 표시 중이면 위치만 업데이트
+        if (state.visible && state.currentItemId === (itemData.auction_item_no || '')) {
+            calculatePosition(x, y);
+            return;
+        }
         
         // 툴팁 내용 생성
         tooltipElement.innerHTML = '';
@@ -221,6 +208,14 @@ const ItemTooltip = (() => {
         return state.visible;
     }
     
+    /**
+     * 툴팁 요소 가져오기
+     * @returns {HTMLElement} 툴팁 요소
+     */
+    function getElement() {
+        return tooltipElement;
+    }
+    
     // 공개 API
     return {
         init,
@@ -230,7 +225,8 @@ const ItemTooltip = (() => {
         updatePosition: calculatePosition,
         isVisible,
         getCurrentItemId,
-        isMobileDevice
+        isMobileDevice,
+        getElement
     };
 })();
 
