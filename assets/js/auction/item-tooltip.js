@@ -4,6 +4,7 @@
  */
 
 import optionRenderer from './option-renderer.js';
+import Utils from '../common/utils.js';
 
 const ItemTooltip = (() => {
     // 기본 상태 변수
@@ -13,7 +14,9 @@ const ItemTooltip = (() => {
         currentItemId: null,
         currentRow: null,
         isMobile: false,
-        mousePosition: { x: 0, y: 0 }
+        mousePosition: { x: 0, y: 0 },
+        lastItemRowUnderMouse: null, // 마지막으로 감지된 아이템 행
+        mouseLeaveTimeout: null // 마우스 이동 타임아웃
     };
 
     // DOM 요소
@@ -60,19 +63,23 @@ const ItemTooltip = (() => {
      */
     function setupPCEvents() {
         // PC 환경에서는 툴팁이 마우스 이벤트를 차단하지 않도록 설정
-        tooltipElement.style.pointerEvents = "none";
+        // 하지만 마우스 이동 시 깜빡임을 방지하기 위해 이벤트를 다른 방식으로 처리
         
         // 결과 테이블에 마우스 이벤트 리스너 추가
         const resultsTable = document.querySelector('.results-table');
         if (resultsTable) {
-            // 아이템 행에서 마우스 움직일 때마다 호출되는 이벤트
-            resultsTable.addEventListener('mousemove', handleTableMouseMove);
+            // 마우스 움직임을 쓰로틀링하여 과도한 업데이트 방지
+            const throttledMouseMove = Utils.throttle(handleTableMouseMove, 30);
+            resultsTable.addEventListener('mousemove', throttledMouseMove);
             
             // 마우스가 테이블 밖으로 나갈 때
             resultsTable.addEventListener('mouseleave', function(e) {
                 hideTooltip();
             });
         }
+        
+        // 툴팁 요소 설정
+        tooltipElement.style.pointerEvents = "none"; // 마우스 이벤트를 무시하여 하단 요소 감지
     }
     
     /**
@@ -94,29 +101,50 @@ const ItemTooltip = (() => {
             e.stopPropagation(); // 이벤트 전파 중지
             hideTooltip();
         });
+        
+        // 모바일에서 외부 터치 시 툴팁 숨김
+        document.addEventListener('click', function(e) {
+            // 아이템 행이나 툴팁 터치는 무시
+            if (e.target.closest('.item-row') || e.target.closest('#item-tooltip')) {
+                return;
+            }
+            
+            // 다른 영역 터치 시 툴팁 숨김
+            if (state.visible) {
+                hideTooltip();
+            }
+        });
     }
     
     /**
      * 테이블 내 마우스 이동 처리 (PC 환경)
      */
     function handleTableMouseMove(e) {
-        // 마우스 위치에서 아이템 행 찾기
+        // 마우스 위치 업데이트
+        state.mousePosition = { x: e.clientX, y: e.clientY };
+        
+        // 마우스 아래 아이템 행 찾기
         const itemRow = e.target.closest('.item-row');
         if (!itemRow) return;
         
-        // 아이템 데이터 가져오기
+        // 이전에 감지된 것과 같은 행이면 위치만 업데이트하고 내용은 변경하지 않음
+        if (state.lastItemRowUnderMouse === itemRow) {
+            if (state.visible) {
+                updatePosition(e.clientX, e.clientY);
+            }
+            return;
+        }
+        
+        // 새로운 아이템 행 감지 - 상태 업데이트
+        state.lastItemRowUnderMouse = itemRow;
+        
         try {
+            // 아이템 데이터 가져오기
             const itemDataStr = itemRow.getAttribute('data-item');
             if (!itemDataStr) return;
             
             const itemData = JSON.parse(itemDataStr);
             const newItemId = itemData.auction_item_no || '';
-            
-            // 같은 아이템 위에 있는 경우 위치만 업데이트
-            if (state.visible && state.currentItemId === newItemId) {
-                updatePosition(e.clientX, e.clientY);
-                return;
-            }
             
             // 이전 행 강조 제거
             if (state.currentRow && state.currentRow !== itemRow) {
@@ -127,8 +155,12 @@ const ItemTooltip = (() => {
             itemRow.classList.add('hovered');
             state.currentRow = itemRow;
             
-            // 툴팁 표시
-            showTooltip(itemData, e.clientX, e.clientY, itemRow);
+            // 툴팁 표시 또는 업데이트
+            if (!state.visible) {
+                showTooltip(itemData, e.clientX, e.clientY, itemRow);
+            } else {
+                updateTooltip(itemData, e.clientX, e.clientY, itemRow);
+            }
         } catch (error) {
             console.error("아이템 데이터 처리 오류:", error);
         }
@@ -265,6 +297,9 @@ const ItemTooltip = (() => {
             state.currentRow.classList.remove('hovered');
             state.currentRow = null;
         }
+        
+        // 마지막 감지된 행 초기화
+        state.lastItemRowUnderMouse = null;
         
         // 툴팁 숨김 및 상태 초기화
         tooltipElement.style.display = 'none';
