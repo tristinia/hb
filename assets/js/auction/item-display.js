@@ -143,14 +143,27 @@ const ItemDisplay = (() => {
             const itemRow = e.target.closest('.item-row');
             if (!itemRow) return;
             
+            // 툴팁이 표시 중이어도 새 아이템 클릭 시 즉시 해당 아이템 툴팁으로 전환
             handleItemClick(itemRow, e);
         });
         
-        // 문서 클릭 시 툴팁 닫기 (아이템과 툴팁 외부 클릭)
+        // 툴팁 직접 터치 시 닫기
         document.addEventListener('click', (e) => {
-            if (ItemTooltip.isVisible() && 
-                !e.target.closest('.item-row') && 
-                !e.target.closest('#item-tooltip')) {
+            if (!ItemTooltip.isVisible()) return;
+            
+            // 툴팁을 직접 터치한 경우
+            if (e.target.closest('#item-tooltip')) {
+                e.stopPropagation(); // 이벤트 전파 막기
+                ItemTooltip.hideTooltip();
+                
+                // 활성화된 행 초기화
+                if (state.activeRow) {
+                    state.activeRow.classList.remove('hovered');
+                    state.activeRow = null;
+                }
+            } 
+            // 툴팁이 표시된 상태에서 아이템 행과 툴팁 외부를 터치한 경우
+            else if (!e.target.closest('.item-row')) {
                 ItemTooltip.hideTooltip();
                 
                 // 활성화된 행 초기화
@@ -174,23 +187,26 @@ const ItemDisplay = (() => {
             }
         });
         
-        // 마우스 이동 시 툴팁 위치 업데이트
+        // 마우스 이동 시 툴팁 위치 업데이트 및 아이템 변경 처리
         document.addEventListener('mousemove', (e) => {
-            if (ItemTooltip.isVisible() && state.activeRow) {
-                // 마우스 아래 요소 확인
+            if (ItemTooltip.isVisible()) {
+                // 마우스 커서 아래의 요소 확인 - 항상 마우스 위치를 기준으로 체크
                 const elementUnderMouse = document.elementFromPoint(e.clientX, e.clientY);
                 
-                // 마우스가 다른 아이템 행 위에 있는지 확인
+                // 마우스가 아이템 행 위에 있는지 확인 (툴팁과 상관없이)
                 const hoveredRow = elementUnderMouse?.closest('.item-row');
                 
-                if (hoveredRow && hoveredRow !== state.activeRow) {
-                    // 다른 아이템 행으로 이동한 경우 새 툴팁 표시
-                    handleItemHover(hoveredRow, e);
-                } else if (hoveredRow === state.activeRow) {
-                    // 같은 행 위에서 움직이는 경우 위치만 업데이트
-                    ItemTooltip.updatePosition(e.clientX, e.clientY);
+                if (hoveredRow) {
+                    // 아이템 행 위에 있을 때 (이전 행과 다르거나 같거나 상관없이)
+                    if (hoveredRow !== state.activeRow) {
+                        // 다른 아이템 행이면 새 툴팁 표시
+                        handleItemHover(hoveredRow, e);
+                    } else {
+                        // 같은 행이면 위치만 업데이트
+                        ItemTooltip.updatePosition(e.clientX, e.clientY);
+                    }
                 } else if (!elementUnderMouse?.closest('.results-container')) {
-                    // 결과 영역 밖으로 나간 경우 툴팁 숨김
+                    // 결과 영역 완전히 밖으로 나가면 툴팁 숨김
                     ItemTooltip.hideTooltip();
                     
                     if (state.activeRow) {
@@ -198,21 +214,8 @@ const ItemDisplay = (() => {
                         state.activeRow = null;
                     }
                 } else {
-                    // 결과 영역 안이지만 아이템 행이 아닌 경우 위치만 업데이트
+                    // 결과 영역 내이지만 아이템 행이 아닌 경우 위치만 업데이트
                     ItemTooltip.updatePosition(e.clientX, e.clientY);
-                }
-            }
-        });
-        
-        // 결과 영역을 벗어날 때 툴팁 숨김 (백업 처리)
-        elements.resultsContainer.addEventListener('mouseleave', (e) => {
-            // 툴팁으로 이동하는 경우는 무시 (PC에서는 툴팁이 pointerEvents:none이므로 이 조건은 필요 없지만 안전 장치)
-            if (!e.relatedTarget?.closest('#item-tooltip')) {
-                ItemTooltip.hideTooltip();
-                
-                if (state.activeRow) {
-                    state.activeRow.classList.remove('hovered');
-                    state.activeRow = null;
                 }
             }
         });
