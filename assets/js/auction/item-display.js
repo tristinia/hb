@@ -195,13 +195,32 @@ const ItemDisplay = (() => {
      * 마우스 이동 이벤트 핸들러 (PC 전용)
      */
     function handleMouseMove(event) {
+        // 이벤트 스로틀링 구현 (약 60fps에 맞춤)
+        const now = Date.now();
+        if (now - (handleMouseMove.lastCallTime || 0) < 16) {
+            return; // 약 16ms 간격으로만 실행 (60fps)
+        }
+        handleMouseMove.lastCallTime = now;
+        
         // 마지막 아이템 ID 추적
         handleMouseMove.lastItemId = handleMouseMove.lastItemId || null;
         
         // 현재 마우스 위치의 요소 확인
-        // 툴팁은 pointerEvents: none이므로 마우스 이벤트를 방해하지 않음
-        // 이렇게 하면 마우스가 툴팁 위에 있어도 아래 아이템에 접근 가능
-        const elementAtPoint = document.elementFromPoint(event.clientX, event.clientY);
+        let elementAtPoint = document.elementFromPoint(event.clientX, event.clientY);
+        
+        // 툴팁 자체를 확인하고 건너뛰기
+        if (elementAtPoint && (elementAtPoint.id === 'item-tooltip' || elementAtPoint.closest('#item-tooltip'))) {
+            // 툴팁 요소를 임시로 숨겨서 그 아래 요소 확인
+            const tooltip = document.getElementById('item-tooltip');
+            const origDisplay = tooltip.style.display;
+            tooltip.style.display = 'none';
+            
+            // 툴팁 아래 실제 요소 가져오기
+            elementAtPoint = document.elementFromPoint(event.clientX, event.clientY);
+            
+            // 툴팁 원상복구
+            tooltip.style.display = origDisplay;
+        }
         
         if (!elementAtPoint) return;
         
@@ -245,13 +264,15 @@ const ItemDisplay = (() => {
             }
         } else {
             // 아이템 행이 없는 경우 툴팁 숨기기
-            ItemTooltip.hideTooltip();
-            handleMouseMove.lastItemId = null;
-            
-            // 모든 행의 강조 제거
-            document.querySelectorAll('.item-row.hovered').forEach(row => {
-                row.classList.remove('hovered');
-            });
+            if (ItemTooltip.isVisible()) {
+                ItemTooltip.hideTooltip();
+                handleMouseMove.lastItemId = null;
+                
+                // 모든 행의 강조 제거
+                document.querySelectorAll('.item-row.hovered').forEach(row => {
+                    row.classList.remove('hovered');
+                });
+            }
         }
     }
     
