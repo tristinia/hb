@@ -41,18 +41,12 @@ const ItemTooltip = (() => {
         tooltipElement.style.display = 'none';
         tooltipElement.style.zIndex = '1001';
         
-        // 모바일 환경에서만 포인터 이벤트 설정
+        // 모바일/PC 환경에 따른 설정
         if (state.isMobile) {
-            // 모바일에서는 툴팁 자체 클릭 가능
+            // 모바일에서는 툴팁 터치 가능하게 설정
             tooltipElement.style.pointerEvents = "auto";
-            
-            // 툴팁 클릭 시 닫기
-            tooltipElement.addEventListener('click', function(e) {
-                e.stopPropagation();
-                hideTooltip();
-            });
         } else {
-            // PC에서는 툴팁이 마우스 이벤트를 차단하지 않도록 설정
+            // PC에서는 툴팁이 마우스 이벤트를 차단하지 않음
             tooltipElement.style.pointerEvents = "none";
         }
         
@@ -101,11 +95,11 @@ const ItemTooltip = (() => {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         
-        // 기본 위치 (커서 오른쪽)
+        // 항상 마우스/터치 오른쪽에 위치
         let left = x + 15; // 마우스/터치에서 15px 오른쪽으로
         let top = y;
         
-        // 화면 경계 확인
+        // 경계 여백
         const margin = state.tooltipMargin;
         
         // 오른쪽 경계 넘어가면 조정
@@ -116,16 +110,6 @@ const ItemTooltip = (() => {
         // 하단 경계 넘어가면 조정
         if (top + tooltipHeight > windowHeight - margin) {
             top = windowHeight - tooltipHeight - margin;
-        }
-        
-        // 왼쪽 경계 넘어가면 조정
-        if (left < margin) {
-            left = margin;
-        }
-        
-        // 상단 경계 넘어가면 조정
-        if (top < margin) {
-            top = margin;
         }
         
         // 위치 적용 (반올림하여 픽셀 경계 깨짐 방지)
