@@ -4,7 +4,6 @@
  */
 
 import optionRenderer from './option-renderer.js';
-import Utils from '../common/utils.js';
 
 const ItemTooltip = (() => {
     // 기본 상태 변수
@@ -16,11 +15,28 @@ const ItemTooltip = (() => {
         isMobile: false,
         mousePosition: { x: 0, y: 0 },
         lastItemRowUnderMouse: null, // 마지막으로 감지된 아이템 행
-        mouseLeaveTimeout: null // 마우스 이동 타임아웃
+        lastMoveTime: 0 // 마지막 이동 시간 (쓰로틀링용)
     };
 
     // DOM 요소
     let tooltipElement = null;
+    
+    /**
+     * 쓰로틀 함수 (내장)
+     * @param {Function} func - 실행할 함수
+     * @param {number} limit - 실행 간격 (ms)
+     * @returns {Function} 쓰로틀된 함수
+     */
+    function throttle(func, limit) {
+        let lastRun = 0;
+        return function(...args) {
+            const now = Date.now();
+            if (now - lastRun >= limit) {
+                lastRun = now;
+                return func.apply(this, args);
+            }
+        };
+    }
     
     /**
      * 모듈 초기화
@@ -69,7 +85,7 @@ const ItemTooltip = (() => {
         const resultsTable = document.querySelector('.results-table');
         if (resultsTable) {
             // 마우스 움직임을 쓰로틀링하여 과도한 업데이트 방지
-            const throttledMouseMove = Utils.throttle(handleTableMouseMove, 30);
+            const throttledMouseMove = throttle(handleTableMouseMove, 30);
             resultsTable.addEventListener('mousemove', throttledMouseMove);
             
             // 마우스가 테이블 밖으로 나갈 때
