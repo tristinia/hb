@@ -47,11 +47,50 @@ const ItemTooltip = (() => {
             tooltipElement.style.pointerEvents = 'auto';
             tooltipElement.addEventListener('touchstart', handleTooltipTouch);
         } else {
-            // PC: 마우스 이벤트를 차단하지 않음 (하단 요소 감지 위해)
+            // PC: 항상 포인터 이벤트를 무시하도록 설정 (깜빡임 방지 핵심)
             tooltipElement.style.pointerEvents = 'none';
+            
+            // 추가: 깜빡임 방지를 위한 이벤트 리스너
+            document.addEventListener('mousemove', (e) => {
+                // 툴팁이 표시되어 있고 마우스가 움직이는 경우
+                if (state.visible) {
+                    // 마우스 위치에서 아이템을 찾아 툴팁 갱신
+                    const itemAtPoint = getItemElementAtPoint(e.clientX, e.clientY);
+                    if (itemAtPoint && itemAtPoint.hasAttribute('data-item')) {
+                        // 아이템이 있으면 툴팁 위치만 업데이트
+                        updatePosition(e.clientX, e.clientY);
+                    }
+                }
+            });
         }
         
         state.initialized = true;
+    }
+    
+    /**
+     * 특정 위치에 있는 아이템 요소 가져오기
+     * @param {number} x - 화면 X 좌표
+     * @param {number} y - 화면 Y 좌표
+     * @returns {HTMLElement|null} 아이템 요소 또는 null
+     */
+    function getItemElementAtPoint(x, y) {
+        // elementFromPoint는 툴팁이 있으면 툴팁을 반환할 수 있으므로
+        // 일시적으로 툴팁을 숨기고 체크
+        const currentVisibility = tooltipElement.style.visibility;
+        tooltipElement.style.visibility = 'hidden';
+        
+        // 특정 지점의 요소 확인
+        const element = document.elementFromPoint(x, y);
+        
+        // 툴팁 가시성 복원
+        tooltipElement.style.visibility = currentVisibility;
+        
+        // 요소가 있으면 가장 가까운 아이템 행 찾기
+        if (element) {
+            return element.closest('.item-row');
+        }
+        
+        return null;
     }
     
     /**
@@ -127,11 +166,11 @@ const ItemTooltip = (() => {
         
         // 모바일과 PC 처리 분리
         if (state.isMobile) {
-            // 모바일: 화면 중앙에 표시
-            left = (windowWidth - tooltipWidth) / 2; // 화면 중앙 정렬
-            top = Math.max(10, y - tooltipHeight - 40); // 터치 지점 위 40px, 최소 상단 10px
+            // 모바일: PC와 유사하게 터치 위치 오른쪽에 표시
+            left = x + 15; // 터치 지점 우측에 15px 여백
+            top = y - 10;  // 터치 지점 위쪽에 10px 여백 (손가락에 가려지지 않게)
         } else {
-            // PC: 마우스 커서 오른쪽 아래에 표시 (요청에 따라 변경)
+            // PC: 마우스 커서 오른쪽 아래에 표시
             left = x + 15; // 커서 우측에 15px 여백
             top = y + 5;   // 커서 아래쪽에 5px 여백
         }
