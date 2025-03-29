@@ -125,9 +125,13 @@ const ItemDisplay = (() => {
         // PC와 모바일 분리 처리
         const isMobile = ItemTooltip.isMobileDevice();
         
-        if (!isMobile) {
-            // PC: 아이템 호버 이벤트만 처리
-            resultsTable.addEventListener('mouseover', handleItemHover);
+        if (isMobile) {
+            // 모바일: 터치 이벤트는 ItemTooltip에서 처리함
+            console.log('모바일 환경 감지: 터치 이벤트 설정');
+        } else {
+            // PC: 테이블 이벤트 리스너 설정
+            console.log('PC 환경 감지: 마우스 이벤트 설정');
+            // 이벤트 위임으로 처리
         }
     }
 
