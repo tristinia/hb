@@ -172,6 +172,7 @@ const ItemDisplay = (() => {
             console.error('툴팁 표시 중 오류:', error);
         }
     }
+    
 
     /**
      * 마우스 아웃 이벤트 핸들러 (PC 전용)
@@ -197,19 +198,10 @@ const ItemDisplay = (() => {
         // 마지막 아이템 ID 추적
         handleMouseMove.lastItemId = handleMouseMove.lastItemId || null;
         
-        // 현재 마우스 위치의 요소 확인 (툴팁 아래의 요소 확인을 위해 툴팁을 일시적으로 숨김)
-        const tooltip = document.getElementById('item-tooltip');
-        let elementAtPoint = null;
-        
-        if (tooltip) {
-            // 마우스가 툴팁 위/아래 상태를 계속해서 변경하지 않도록 처리
-            const originalVisibility = tooltip.style.visibility;
-            tooltip.style.visibility = 'hidden';
-            elementAtPoint = document.elementFromPoint(event.clientX, event.clientY);
-            tooltip.style.visibility = originalVisibility;
-        } else {
-            elementAtPoint = document.elementFromPoint(event.clientX, event.clientY);
-        }
+        // 현재 마우스 위치의 요소 확인
+        // 툴팁은 pointerEvents: none이므로 마우스 이벤트를 방해하지 않음
+        // 이렇게 하면 마우스가 툴팁 위에 있어도 아래 아이템에 접근 가능
+        const elementAtPoint = document.elementFromPoint(event.clientX, event.clientY);
         
         if (!elementAtPoint) return;
         
@@ -270,8 +262,12 @@ const ItemDisplay = (() => {
         // 이벤트 기본 동작 방지
         event.preventDefault();
         
-        // 터치된 아이템 행 찾기
-        const itemRow = event.target.closest('.item-row');
+        // 터치 지점에서 아이템 행 찾기 - 직접 elementFromPoint 사용
+        const touch = event.changedTouches[0];
+        const elementAtPoint = document.elementFromPoint(touch.clientX, touch.clientY);
+        
+        // 아이템 행 또는 그 하위 요소를 찾음
+        const itemRow = elementAtPoint ? elementAtPoint.closest('.item-row') : null;
         if (!itemRow) return;
         
         try {
@@ -303,12 +299,10 @@ const ItemDisplay = (() => {
                     });
                     
                     // 툴팁 업데이트
-                    const touch = event.changedTouches[0];
                     ItemTooltip.updateTooltip(itemData, touch.clientX, touch.clientY);
                 }
             } else {
                 // 툴팁이 없으면 새로 표시
-                const touch = event.changedTouches[0];
                 ItemTooltip.showTooltip(itemData, touch.clientX, touch.clientY);
             }
         } catch (error) {
