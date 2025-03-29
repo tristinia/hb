@@ -200,7 +200,7 @@ const ItemDisplay = (() => {
             // 툴팁 상태에 따라 처리
             if (ItemTooltip.isVisible()) {
                 if (ItemTooltip.getCurrentItemId() === itemData.auction_item_no) {
-                    // 같은 아이템이면 위치만 업데이트
+                    // 같은 아이템이면 위치만 업데이트 (매 이벤트마다 실행)
                     ItemTooltip.updatePosition(e.clientX, e.clientY);
                 } else {
                     // 다른 아이템이면 툴팁 내용 업데이트
