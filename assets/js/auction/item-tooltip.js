@@ -16,7 +16,12 @@ const ItemTooltip = (() => {
         visible: false,
         lastItemData: null,
         currentItemId: null,
-        supportsHover: false    // 호버 지원 여부
+        supportsHover: false,    // 호버 지원 여부
+        lastPositionX: 0,        // 마지막 위치 X (깜빡임 방지용)
+        lastPositionY: 0,        // 마지막 위치 Y (깜빡임 방지용)
+        isPositionStable: false, // 위치 안정화 상태
+        positionUpdateCount: 0,  // 위치 업데이트 카운터
+        positionLocked: false    // 위치 잠금 상태 (깜빡임 방지)
     };
 
     // DOM 요소
@@ -53,6 +58,15 @@ const ItemTooltip = (() => {
         // 이렇게 하면 툴팁 아래 요소의 이벤트가 감지됨
         tooltipElement.style.pointerEvents = 'none';
         
+        // 모바일에서는 툴팁 클릭 감지를 위해 이벤트 활성화 (터치 전용)
+        if (!state.supportsHover && 'ontouchstart' in window) {
+            tooltipElement.addEventListener('touchstart', function(e) {
+                // 툴팁 터치 시 이벤트 전파 중단 및 툴팁 숨김
+                e.stopPropagation();
+                hideTooltip();
+            });
+        }
+        
         state.initialized = true;
         console.log('ItemTooltip 모듈 초기화 완료');
     }
@@ -78,6 +92,9 @@ const ItemTooltip = (() => {
         state.visible = true;
         state.lastItemData = itemData;
         state.currentItemId = itemData.auction_item_no || '';
+        state.positionUpdateCount = 0;
+        state.isPositionStable = false;
+        state.positionLocked = false;
         
         // 위치 즉시 업데이트
         updatePosition(x, y);
@@ -92,7 +109,7 @@ const ItemTooltip = (() => {
     function updateTooltip(itemData, x, y) {
         if (!tooltipElement || !itemData) return;
         
-        // 같은 아이템이면 위치만 업데이트
+        // 같은 아이템이면 위치만 업데이트 (깜빡임 방지)
         if (state.currentItemId === (itemData.auction_item_no || '')) {
             updatePosition(x, y);
             return;
@@ -106,6 +123,9 @@ const ItemTooltip = (() => {
         // 상태 업데이트
         state.lastItemData = itemData;
         state.currentItemId = itemData.auction_item_no || '';
+        state.positionUpdateCount = 0;
+        state.isPositionStable = false;
+        state.positionLocked = false;
         
         // 위치 업데이트
         updatePosition(x, y);
@@ -118,6 +138,20 @@ const ItemTooltip = (() => {
      */
     function updatePosition(x, y) {
         if (!tooltipElement || !state.visible) return;
+        
+        // 위치 잠금 중이면 무시 (깜빡임 방지)
+        if (state.positionLocked) return;
+        
+        // 이전 위치와 거의 동일하면 무시 (깜빡임 방지)
+        const moveDistance = Math.sqrt(
+            Math.pow((state.lastPositionX) - x, 2) + 
+            Math.pow((state.lastPositionY) - y, 2)
+        );
+        
+        // 작은 움직임이고 안정화 상태면 무시
+        if (moveDistance < 5 && state.isPositionStable) {
+            return;
+        }
         
         // 툴팁 크기 측정
         const tooltipWidth = tooltipElement.offsetWidth;
@@ -166,9 +200,39 @@ const ItemTooltip = (() => {
             }
         }
         
-        // 위치 즉시 업데이트
-        tooltipElement.style.left = `${left}px`;
-        tooltipElement.style.top = `${top}px`;
+        // 위치가 경계에 가까우면 안정화 상태로 변경 (깜빡임 방지)
+        const isNearBoundary = 
+            (left <= 5) || 
+            (left + tooltipWidth >= windowWidth - 5) || 
+            (top <= 5) || 
+            (top + tooltipHeight >= windowHeight - 5);
+        
+        if (isNearBoundary) {
+            state.positionUpdateCount++;
+            
+            // 여러 번 경계 근처에서 업데이트되면 안정화 상태로 전환
+            if (state.positionUpdateCount > 3) {
+                state.isPositionStable = true;
+                
+                // 일시적으로 위치 잠금 (깜빡임 방지)
+                state.positionLocked = true;
+                setTimeout(() => {
+                    state.positionLocked = false;
+                }, 300);
+            }
+        } else {
+            // 경계에서 멀어지면 상태 초기화
+            state.positionUpdateCount = 0;
+            state.isPositionStable = false;
+        }
+        
+        // 위치 업데이트
+        tooltipElement.style.left = `${Math.round(left)}px`;
+        tooltipElement.style.top = `${Math.round(top)}px`;
+        
+        // 마지막 위치 저장
+        state.lastPositionX = x;
+        state.lastPositionY = y;
     }
     
     /**
@@ -181,6 +245,8 @@ const ItemTooltip = (() => {
         tooltipElement.innerHTML = '';
         state.visible = false;
         state.currentItemId = null;
+        state.isPositionStable = false;
+        state.positionUpdateCount = 0;
     }
     
     /**
@@ -191,6 +257,30 @@ const ItemTooltip = (() => {
         return state.currentItemId;
     }
     
+    /**
+     * Apple Pencil 호버 지원 여부 확인 (아이패드 전용)
+     * @returns {boolean} 호버 지원 여부
+     */
+    function checkApplePencilHover() {
+        // iPad OS 13 이상 + Apple Pencil 2 + Safari 브라우저 확인
+        const isIPad = /iPad/i.test(navigator.userAgent) || 
+                       (/Macintosh/i.test(navigator.userAgent) && 'ontouchend' in document);
+        
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        
+        // iPad + Safari + hoverable 확인
+        return isIPad && (isSafari || state.supportsHover);
+    }
+    
+    /**
+     * 호버링 지원 여부 확인 (마우스 + 터치펜 고려)
+     * @returns {boolean} 호버 지원 여부
+     */
+    function supportsHoverOrPen() {
+        // 기본 호버 지원 또는 Apple Pencil 호버 지원 확인
+        return state.supportsHover || checkApplePencilHover();
+    }
+    
     // 공개 API
     return {
         init,
@@ -199,7 +289,7 @@ const ItemTooltip = (() => {
         hideTooltip,
         updatePosition,
         isVisible: () => state.visible,
-        supportsHover: () => state.supportsHover,
+        supportsHover: supportsHoverOrPen,
         getCurrentItemId
     };
 })();
