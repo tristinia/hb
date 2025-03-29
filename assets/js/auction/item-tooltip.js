@@ -45,25 +45,28 @@ const ItemTooltip = (() => {
         tooltipElement.style.zIndex = '1001';
         tooltipElement.style.cursor = 'default';
         
-        // 모바일 환경 감지 및 스타일 설정
+        // 환경별 설정
         if ('ontouchstart' in window) {
-            // 모바일에서는 포인터 이벤트 활성화 (클릭 처리를 위해)
+            // 모바일에서 툴팁이 터치 이벤트를 먼저처리
             tooltipElement.style.pointerEvents = 'auto';
             
-            // 모바일 환경에서 툴팁 터치 시 닫히도록 처리
+            // 툴팁 터치 시 닫히도록 설정
             tooltipElement.addEventListener('touchstart', function(e) {
                 e.stopPropagation();
                 e.preventDefault();
                 hideTooltip();
             });
-            
-            tooltipElement.addEventListener('click', function(e) {
-                e.stopPropagation();
-                hideTooltip();
-            });
         } else {
-            // PC 환경에서는 포인터 이벤트 비활성화
+            // PC에서 이벤트를 투과하도록 설정
             tooltipElement.style.pointerEvents = 'none';
+            
+            // 클릭 이벤트만 캐치
+            document.addEventListener('click', function(e) {
+                if (state.visible && tooltipElement.contains(e.target)) {
+                    hideTooltip();
+                    e.stopPropagation();
+                }
+            });
         }
         
         state.initialized = true;
@@ -105,25 +108,18 @@ const ItemTooltip = (() => {
         
         // 툴팁 표시 설정
         tooltipElement.style.display = 'block';
-        tooltipElement.style.opacity = '0';
         
         // 상태 업데이트
         state.visible = true;
         state.lastItemData = itemData;
         state.lastUpdateTime = Date.now();
         
-        // 트랜지션 설정
-        tooltipElement.style.transition = 'opacity 0.2s';
-        
-        // 브라우저 렌더링 완료 후 실행
-        requestAnimationFrame(() => {
-            updatePosition(x, y);
-            tooltipElement.style.opacity = '1';
-        });
+        // 위치 즉시 업데이트
+        updatePosition(x, y);
     }
     
     /**
-     * 툴팁 위치 업데이트 - 깜빡임 방지 로직 추가
+     * 툴팁 위치 업데이트
      * @param {number} x - 마우스 X 좌표
      * @param {number} y - 마우스 Y 좌표
      */
@@ -138,31 +134,31 @@ const ItemTooltip = (() => {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         
-        // 기본 위치 계산 (마우스 오른쪽 약간 아래)
+        // 기본 위치 계산
         let left = x + 15;
         let top = y + 5;
         
-        // 오른쪽 경계 검사 - 화면 밖으로 나가지 않도록 조정
+        // 오른쪽 경계 검사
         if (left + tooltipWidth > windowWidth) {
-            left = windowWidth - tooltipWidth;
+            left = windowWidth - tooltipWidth - 5; // 우측 여백 5px 추가
         }
         
-        // 왼쪽 경계 검사 - 최소 5px 여백 확보
+        // 왼쪽 경계 검사
         if (left < 5) {
             left = 5;
         }
         
-        // 아래쪽 경계 검사 - 화면 밖으로 나가지 않도록 조정
+        // 아래쪽 경계 검사
         if (top + tooltipHeight > windowHeight) {
-            top = windowHeight - tooltipHeight;
+            top = windowHeight - tooltipHeight - 5; // 하단 여백 5px 추가
         }
         
-        // 위쪽 경계 검사 - 최소 5px 여백 확보
+        // 위쪽 경계 검사
         if (top < 5) {
             top = 5;
         }
         
-        // 위치 업데이트
+        // 위치 즉시 업데이트
         tooltipElement.style.left = `${left}px`;
         tooltipElement.style.top = `${top}px`;
     }
