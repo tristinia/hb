@@ -125,41 +125,26 @@ const ItemTooltip = (() => {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         
-        let left, top;
+        // 위치 계산 (기존 로직 유지)
+        let left = x + 15; // 커서 우측에 15px 여백
+        let top = y + 5;   // 커서 아래쪽에 5px 여백
         
-        // 모바일과 PC 처리 분리
-        if (state.isMobile) {
-            // 모바일: PC와 유사하게 터치 위치 오른쪽에 표시
-            left = x + 15; // 터치 지점 우측에 15px 여백
-            top = y + 5;   // 터치 지점 아래쪽에 5px 여백 (PC와 일관성 유지)
-        } else {
-            // PC: 마우스 커서 오른쪽 아래에 표시
-            left = x + 15; // 커서 우측에 15px 여백
-            top = y + 5;   // 커서 아래쪽에 5px 여백
-        }
-        
-        // 화면 경계 처리 (오른쪽과 아래쪽만 체크)
-        
-        // 오른쪽 경계 - 오른쪽에 항상 최소 5px 여백 유지
-        const rightMargin = 5; // 우측 여백
+        // 화면 경계 처리
+        const rightMargin = 5;
         const maxLeft = windowWidth - tooltipWidth - rightMargin;
-        
         if (left > maxLeft) {
-            left = maxLeft; // 오른쪽 경계에서 여백 유지
+            left = maxLeft;
         }
         
-        // 아래쪽 경계 - 동일한 방식으로 처리
-        const bottomMargin = 5; // 하단 여백
+        const bottomMargin = 5;
         const maxTop = windowHeight - tooltipHeight - bottomMargin;
-        
         if (top > maxTop) {
-            // 모바일과 PC 모두 동일하게 처리
-            top = maxTop; // 하단 여백 유지
+            top = maxTop;
         }
         
-        // 위치 고정 (깜빡임 방지를 위해 숫자를 정수로 사용)
-        tooltipElement.style.left = `${Math.floor(left)}px`;
-        tooltipElement.style.top = `${Math.floor(top)}px`;
+        // 위치 고정 (정수값으로 고정하여 깜빡임 방지)
+        tooltipElement.style.left = `${Math.round(left)}px`;
+        tooltipElement.style.top = `${Math.round(top)}px`;
     }
     
     /**
