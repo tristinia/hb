@@ -135,21 +135,14 @@ const ItemDisplay = (() => {
         // 터치 이벤트 리스너 (모바일)
         resultsTable.addEventListener('touchend', handleTouch);
         
-        // 문서 클릭 이벤트 리스너 (툴팁 외부 클릭 시 툴팁 닫기)
-        document.addEventListener('click', function(e) {
-            // 아이템 행 클릭이 아닌 경우 (예: 배경 클릭)
-            if (!e.target.closest('.item-row')) {
-                ItemTooltip.hideTooltip();
-            }
-        });
-        
-        // 문서 터치 이벤트 (모바일에서 호버 효과 제거)
+        // 문서 터치 이벤트 - 필요한 부분만 유지
         document.addEventListener('touchstart', function(e) {
-            // 터치한 요소가 아이템 행이나 툴팁이 아니면 모든 호버 효과 제거
-            if (!e.target.closest('.item-row') && !e.target.closest('.item-tooltip')) {
+            // 툴팁 또는 아이템 행 외부 터치 시 호버 효과와 툴팁 제거
+            if (!e.target.closest('.item-tooltip') && !e.target.closest('.item-row')) {
                 document.querySelectorAll('.item-row.hovered').forEach(row => {
                     row.classList.remove('hovered');
                 });
+                ItemTooltip.hideTooltip();
             }
         });
     }
@@ -160,12 +153,12 @@ const ItemDisplay = (() => {
      */
     function handlePointerEvent(event) {
         // 입력 장치 타입 확인
-        const isTouch = event.pointerType === 'touch';
         const isMouseOrPen = event.pointerType === 'mouse' || event.pointerType === 'pen';
         const supportsHover = ItemTooltip.supportsHover();
         
         // 호버 지원 장치에서 마우스/펜으로 호버하는 경우만 처리
         if (supportsHover && isMouseOrPen) {
+            // 현재 요소나 상위 요소 중 item-row 찾기
             const itemRow = event.target.closest('.item-row');
             if (!itemRow) return;
             
@@ -186,19 +179,14 @@ const ItemDisplay = (() => {
                 }
             }
             else if (event.type === 'pointerout') {
-                // 행 강조 제거
-                itemRow.classList.remove('hovered');
+                // 마우스가 아이템 행을 벗어나면 행 강조 제거
+                // 관련 요소가 다른 아이템 행이면 handlePointerMove에서 자동으로 처리됨
+                const relatedItemRow = event.relatedTarget ? event.relatedTarget.closest('.item-row') : null;
                 
-                // 다른 아이템 행이나 툴팁으로 이동한 경우 툴팁 유지
-                const relatedTarget = event.relatedTarget;
-                if (relatedTarget && 
-                    (relatedTarget.closest('.item-row') || 
-                    relatedTarget.closest('.item-tooltip'))) {
-                    return;
+                if (!relatedItemRow) {
+                    itemRow.classList.remove('hovered');
+                    ItemTooltip.hideTooltip();
                 }
-                
-                // 그 외의 경우 툴팁 숨기기
-                ItemTooltip.hideTooltip();
             }
         }
     }
@@ -209,18 +197,29 @@ const ItemDisplay = (() => {
      */
     function handlePointerMove(event) {
         // 입력 장치 타입 확인
-        const isTouch = event.pointerType === 'touch';
         const isMouseOrPen = event.pointerType === 'mouse' || event.pointerType === 'pen';
         const supportsHover = ItemTooltip.supportsHover();
         
-        // 호버 지원 장치에서 마우스/펜으로 호버하는 경우만 처리
+        // 호버 지원 장치 처리
         if (supportsHover && isMouseOrPen) {
-            // 현재 포인터가 위치한 아이템 행 찾기
-            const itemRow = event.target.closest('.item-row');
-            const tooltipHover = event.target.closest('.item-tooltip');
+            // 마우스 아래 있는 요소 바로 확인 (항상 최상위 요소)
+            const elementAtPoint = document.elementFromPoint(event.clientX, event.clientY);
+            if (!elementAtPoint) return;
             
+            // 요소에서 가장 가까운 아이템 행 찾기
+            const itemRow = elementAtPoint.closest('.item-row');
+            
+            // 모든 강조 효과 제거 (필요한 경우에만 다시 추가)
+            document.querySelectorAll('.item-row.hovered').forEach(row => {
+                row.classList.remove('hovered');
+            });
+            
+            // 아이템 행을 찾은 경우 툴팁 표시
             if (itemRow) {
                 try {
+                    // 현재 행 강조
+                    itemRow.classList.add('hovered');
+                    
                     // 아이템 데이터 가져오기
                     const itemDataStr = itemRow.getAttribute('data-item');
                     if (!itemDataStr) return;
@@ -229,34 +228,16 @@ const ItemDisplay = (() => {
                     
                     // 툴팁 표시 또는 위치 업데이트
                     if (ItemTooltip.isVisible()) {
-                        ItemTooltip.updatePosition(event.clientX, event.clientY);
+                        ItemTooltip.updateTooltip(itemData, event.clientX, event.clientY);
                     } else {
                         ItemTooltip.showTooltip(itemData, event.clientX, event.clientY);
                     }
-                    
-                    // 모든 행의 강조 제거
-                    document.querySelectorAll('.item-row').forEach(row => {
-                        row.classList.remove('hovered');
-                    });
-                    
-                    // 현재 행 강조
-                    itemRow.classList.add('hovered');
                 } catch (error) {
                     console.error('툴팁 업데이트 중 오류:', error);
                 }
-            } 
-            else if (tooltipHover) {
-                // 툴팁 위에 있는 경우 위치만 업데이트
-                ItemTooltip.updatePosition(event.clientX, event.clientY);
-            }
-            else {
-                // 아이템 행이나 툴팁에 없는 경우 툴팁 숨기기
+            } else {
+                // 아이템 행이 없는 경우 툴팁 숨기기
                 ItemTooltip.hideTooltip();
-                
-                // 모든 행의 강조 제거
-                document.querySelectorAll('.item-row').forEach(row => {
-                    row.classList.remove('hovered');
-                });
             }
         }
     }
@@ -266,8 +247,8 @@ const ItemDisplay = (() => {
      * @param {TouchEvent} event - 터치 이벤트
      */
     function handleTouch(event) {
-        // 이벤트 전파 중단
-        event.stopPropagation();
+        // 이벤트 기본 동작 방지
+        event.preventDefault();
         
         const itemRow = event.target.closest('.item-row');
         if (!itemRow) return;
@@ -288,13 +269,20 @@ const ItemDisplay = (() => {
             
             // 이미 툴팁이 표시된 상태면 숨기기 (토글 기능)
             if (ItemTooltip.isVisible()) {
-                ItemTooltip.hideTooltip();
-                return;
+                // 현재 보여지는 아이템과 같은 아이템인 경우만 숨김
+                const currentItemId = itemData.auction_item_no || '';
+                const visibleItemId = ItemTooltip.getCurrentItemId();
+                
+                if (currentItemId === visibleItemId) {
+                    ItemTooltip.hideTooltip();
+                    return;
+                }
             }
             
             // 터치 위치에 툴팁 표시
             const touch = event.changedTouches[0];
-            ItemTooltip.showTooltip(itemData, touch.clientX, touch.clientY);
+            const yOffset = -150; // 상단으로 이동
+            ItemTooltip.showTooltip(itemData, touch.clientX, touch.clientY + yOffset);
         } catch (error) {
             console.error('툴팁 표시 중 오류:', error);
         }
