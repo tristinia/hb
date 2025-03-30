@@ -697,10 +697,7 @@ class OptionRenderer {
         upperGroup.push(opt);
       });
       
-      // 인챈트 불가능 옵션 추가
-      if (notEnchantableOption) {
-        lowerGroup.push(notEnchantableOption);
-      }
+      // 인챈트 불가능 옵션은 특수 처리에서만 추가하므로 여기서는 추가하지 않음
     } else {
       // 피어싱이 없는 경우 - 전용해제/아이템보호 기준으로 나눔
       options.forEach(option => {
@@ -726,10 +723,7 @@ class OptionRenderer {
         upperGroup.push(opt);
       });
       
-      // 인챈트 불가능 옵션 추가
-      if (notEnchantableOption) {
-        lowerGroup.push(notEnchantableOption);
-      }
+      // 인챈트 불가능 옵션은 특수 처리에서만 추가하므로 여기서는 추가하지 않음
     }
     
     // 정렬
@@ -765,7 +759,7 @@ class OptionRenderer {
       this.createOptionElement(piercingOption, block, gapClass);
     }
     
-    // 하단 그룹 렌더링 (인챈트 불가능 등)
+    // 하단 그룹 렌더링
     lowerGroup.forEach((option, index) => {
       const isLast = index === lowerGroup.length - 1;
       // 아이템 보호 옵션이 있는지 확인
@@ -774,16 +768,22 @@ class OptionRenderer {
       // 마지막 항목이고 아이템 보호가 없으면 간격 없음, 아니면 xxs
       const gapClass = isLast && !hasProtectionOptions ? '' : 'gap-xxs';
       
-      // 인챈트 불가능 속성인 경우 특별 처리
-      if (option.option_type === '인챈트 불가능' && option.option_value === 'true') {
-        const optionElement = document.createElement('div');
-        optionElement.className = `tooltip-stat item-red ${gapClass}`;
-        optionElement.textContent = '#인챈트 부여 불가';
-        block.appendChild(optionElement);
-      } else {
-        this.createOptionElement(option, block, gapClass);
-      }
+      this.createOptionElement(option, block, gapClass);
     });
+    
+    // 인챈트 불가능 속성 별도 처리 (중복 방지)
+    if (notEnchantableOption && notEnchantableOption.option_value === 'true') {
+      // 아이템 보호 옵션이 있는지 확인
+      const hasProtectionOptions = Object.values(protectionOptions).some(opt => opt !== null);
+      
+      // 아이템 보호가 있으면 gap-xxs, 없으면 간격 없음
+      const gapClass = hasProtectionOptions ? 'gap-xxs' : '';
+      
+      const optionElement = document.createElement('div');
+      optionElement.className = `tooltip-stat item-red ${gapClass}`;
+      optionElement.textContent = '#인챈트 부여 불가';
+      block.appendChild(optionElement);
+    }
     
     // 마지막으로 아이템 보호 옵션 순서대로 렌더링
     const protectionValues = Object.keys(protectionOptions);
