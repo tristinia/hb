@@ -470,22 +470,25 @@ class OptionRenderer {
     
     // 가격 정보 (맨 아래)
     if (item.auction_price_per_unit) {
-    const formattedPrice = this.formatItemPrice(item.auction_price_per_unit);
-    
-    const priceElement = document.createElement('div');
-    priceElement.className = 'tooltip-price';
-    
-    // 가격을 먼저 표시
-    let tooltipText = `가격: <span class="${formattedPrice.class}">${formattedPrice.text}</span>`;
-    
-    // 아이템이 여러 개인 경우 수량 정보 표시
-    if (item.item_count && item.item_count > 1) {
-      tooltipText += ` 수량: <span class="item-yellow">${item.item_count}</span>`;
+      const formattedPrice = this.formatItemPrice(item.auction_price_per_unit);
+      
+      const priceElement = document.createElement('div');
+      priceElement.className = 'tooltip-price';
+      
+      // 가격을 먼저 표시
+      let tooltipText = `가격: <span class="${formattedPrice.class}">${formattedPrice.text}</span>`;
+      
+      // 아이템이 여러 개인 경우 수량 정보 표시
+      if (item.item_count && item.item_count > 1) {
+        tooltipText += ` 수량: <span class="item-yellow">${item.item_count}</span>`;
+      }
+      
+      priceElement.innerHTML = tooltipText;
+      tooltipElement.appendChild(priceElement);
     }
     
-    priceElement.innerHTML = tooltipText;
-    tooltipElement.appendChild(priceElement);
-  }
+    return tooltipElement;
+    }
   
   createSectionBlock(groupName, options) {
     const block = document.createElement('div');
