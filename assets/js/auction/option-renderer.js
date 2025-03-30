@@ -457,31 +457,14 @@ class OptionRenderer {
       }
     });
     
-    // 각 그룹별로 섹션 생성 - 직접 툴팁에 추가
+    // 각 그룹 렌더링
     Object.entries(optionGroups).forEach(([groupName, groupOptions]) => {
-      // 해당 그룹에 옵션이 있는 경우만 섹션 생성
       if (groupOptions.length > 0) {
-        // 블록 생성
-        const block = document.createElement('div');
-        block.className = 'tooltip-block';
-        
-        // 제목 생성
-        const title = document.createElement('div');
-        title.className = 'tooltip-block-title';
-        title.textContent = groupName;
-        block.appendChild(title);
-        
-        // 해당 섹션의 옵션들 추가
-        if (groupName === '개조') {
-          this.renderModificationOptions(groupOptions, block);
-        } else {
-          groupOptions.forEach(option => {
-            this.renderTooltipOption(option, block);
-          });
+        // 섹션 블록 생성
+        const sectionBlock = this.createSectionBlock(groupName, groupOptions);
+        if (sectionBlock) {
+          tooltipElement.appendChild(sectionBlock);
         }
-        
-        // 완성된 블록을 직접 툴팁에 추가
-        tooltipElement.appendChild(block);
       }
     });
     
@@ -498,18 +481,225 @@ class OptionRenderer {
     return tooltipElement;
   }
   
-  renderModificationOptions(options, block) {
-    // 옵션 타입으로 분류
-    let normalMod = options.find(opt => opt.option_type === '일반 개조');
-    let gemMod = options.find(opt => opt.option_type === '보석 개조');
-    let masterMod = options.find(opt => opt.option_type === '장인 개조');
-    let specialMod = options.find(opt => opt.option_type === '특별 개조');
+  createSectionBlock(groupName, options) {
+    const block = document.createElement('div');
+    block.className = 'tooltip-block';
     
-    // 1. 일반 개조와 보석 개조를 한 줄에 표시
-    if (normalMod || gemMod) {
-      const modLine = document.createElement('div');
-      modLine.className = 'tooltip-stat';
+    // 섹션 제목
+    const title = document.createElement('div');
+    title.className = 'tooltip-block-title';
+    title.textContent = groupName;
+    block.appendChild(title);
+    
+    // 각 그룹별 렌더링 로직 적용
+    switch(groupName) {
+      case '아이템 속성':
+        this.renderItemAttributesSection(options, block);
+        break;
+      case '인챈트':
+        this.renderEnchantsSection(options, block);
+        break;
+      case '개조':
+        this.renderModificationsSection(options, block);
+        break;
+      case '세공':
+        this.renderReforgeSection(options, block);
+        break;
+      case '에르그':
+        this.renderErgSection(options, block);
+        break;
+      case '세트 효과':
+        this.renderSetEffectSection(options, block);
+        break;
+      case '아이템 색상':
+        this.renderItemColorSection(options, block);
+        break;
+      default:
+        // 기타 옵션 기본 렌더링
+        options.forEach(option => {
+          this.createOptionElement(option, block, 'gap-xxs');
+        });
+    }
+    
+    return block;
+  }
+  
+  renderItemAttributesSection(options, block) {
+    // 아이템 속성을 피어싱 기준으로 그룹화
+    const upperGroup = []; // 피어싱 위쪽 그룹
+    const lowerGroup = []; // 피어싱 아래쪽 그룹
+    let piercingOption = null;
+    
+    // 피어싱 위치 찾기
+    const piercingIndex = options.findIndex(opt => opt.option_type === '피어싱 레벨');
+    
+    if (piercingIndex >= 0) {
+      // 피어싱이 있는 경우
+      piercingOption = options[piercingIndex];
       
+      // 피어싱 위쪽 그룹
+      for (let i = 0; i < piercingIndex; i++) {
+        upperGroup.push(options[i]);
+      }
+      
+      // 피어싱 아래쪽 그룹
+      for (let i = piercingIndex + 1; i < options.length; i++) {
+        lowerGroup.push(options[i]);
+      }
+    } else {
+      // 피어싱이 없는 경우
+      // 전용해제/아이템보호 기준으로 나눔
+      const protectionIndex = options.findIndex(opt => opt.option_type === '아이템 보호');
+      
+      if (protectionIndex >= 0) {
+        // 아이템 보호가 있는 경우
+        for (let i = 0; i < protectionIndex; i++) {
+          upperGroup.push(options[i]);
+        }
+        lowerGroup.push(options[protectionIndex]); // 아이템 보호는 아래 그룹에
+      } else {
+        // 아이템 보호도 없는 경우
+        options.forEach(opt => upperGroup.push(opt));
+      }
+    }
+    
+    // 상단 그룹 렌더링
+    upperGroup.forEach((option, index) => {
+      const isLast = index === upperGroup.length - 1;
+      // 마지막 항목은 일반 간격, 나머지는 짧은 간격
+      const gapClass = isLast ? 'gap-md' : 'gap-xxs';
+      this.createOptionElement(option, block, gapClass);
+    });
+    
+    // 피어싱 렌더링
+    if (piercingOption) {
+      this.createOptionElement(piercingOption, block, lowerGroup.length > 0 ? 'gap-md' : '');
+    }
+    
+    // 하단 그룹 렌더링
+    lowerGroup.forEach((option, index) => {
+      const isLast = index === lowerGroup.length - 1;
+      const gapClass = isLast ? '' : 'gap-xxs';
+      this.createOptionElement(option, block, gapClass);
+    });
+  }
+  
+  renderEnchantsSection(options, block) {
+    // 접두/접미 구분
+    const prefixEnchants = options.filter(opt => opt.option_sub_type === '접두');
+    const suffixEnchants = options.filter(opt => opt.option_sub_type === '접미');
+    
+    // 접두 인챈트 렌더링
+    prefixEnchants.forEach((enchant, index) => {
+      // 인챈트 기본 정보
+      const context = {
+        getEnchantMetadata: (type, name) => metadataLoader.getEnchantMetadata(type, name)
+      };
+      
+      // 접두 이름과 랭크 추출
+      const type = enchant.option_sub_type;
+      const value = enchant.option_value;
+      const nameMatch = value.match(/(.*?)\s*\(랭크 (\d+)\)/);
+      let enchantName = value;
+      let rankText = '';
+      
+      if (nameMatch) {
+        enchantName = nameMatch[1].trim();
+        rankText = `(랭크 ${nameMatch[2]})`;
+      }
+      
+      // 인챈트 제목 요소
+      const enchantElement = document.createElement('div');
+      enchantElement.className = 'tooltip-stat gap-xs';
+      enchantElement.innerHTML = `<span class="enchant-type">[${type}]</span> ${enchantName} <span class="item-pink">${rankText}</span>`;
+      block.appendChild(enchantElement);
+      
+      // 인챈트 효과 처리
+      if (enchant.option_desc) {
+        const effects = enchant.option_desc.split(',');
+        
+        effects.forEach((effect, i) => {
+          const isLastEffect = i === effects.length - 1;
+          // 마지막 효과이고 접미사가 있으면 일반 간격, 없으면 짧은 간격
+          const gapClass = isLastEffect && suffixEnchants.length > 0 ? 'gap-md' : 'gap-xxs';
+          
+          const effectText = effect.trim();
+          const conditionMatch = effectText.match(/(.*?때) (.*)/);
+          const cleanEffect = conditionMatch ? conditionMatch[2].trim() : effectText;
+          
+          const isNegative = 
+            (cleanEffect.includes('수리비') && cleanEffect.includes('증가')) || 
+            (!cleanEffect.includes('수리비') && cleanEffect.includes('감소'));
+          
+          const effectElement = document.createElement('div');
+          effectElement.className = `tooltip-special-stat ${gapClass}`;
+          
+          const colorClass = isNegative ? 'item-red' : 'item-blue';
+          effectElement.innerHTML = `<span class="${colorClass}">- ${cleanEffect}</span>`;
+          
+          block.appendChild(effectElement);
+        });
+      }
+    });
+    
+    // 접미 인챈트 렌더링 (접두와 유사)
+    suffixEnchants.forEach((enchant, index) => {
+      const context = {
+        getEnchantMetadata: (type, name) => metadataLoader.getEnchantMetadata(type, name)
+      };
+      
+      const type = enchant.option_sub_type;
+      const value = enchant.option_value;
+      const nameMatch = value.match(/(.*?)\s*\(랭크 (\d+)\)/);
+      let enchantName = value;
+      let rankText = '';
+      
+      if (nameMatch) {
+        enchantName = nameMatch[1].trim();
+        rankText = `(랭크 ${nameMatch[2]})`;
+      }
+      
+      const enchantElement = document.createElement('div');
+      enchantElement.className = 'tooltip-stat gap-xs';
+      enchantElement.innerHTML = `<span class="enchant-type">[${type}]</span> ${enchantName} <span class="item-pink">${rankText}</span>`;
+      block.appendChild(enchantElement);
+      
+      if (enchant.option_desc) {
+        const effects = enchant.option_desc.split(',');
+        
+        effects.forEach((effect, i) => {
+          const isLast = i === effects.length - 1;
+          const gapClass = isLast ? '' : 'gap-xxs';
+          
+          const effectText = effect.trim();
+          const conditionMatch = effectText.match(/(.*?때) (.*)/);
+          const cleanEffect = conditionMatch ? conditionMatch[2].trim() : effectText;
+          
+          const isNegative = 
+            (cleanEffect.includes('수리비') && cleanEffect.includes('증가')) || 
+            (!cleanEffect.includes('수리비') && cleanEffect.includes('감소'));
+          
+          const effectElement = document.createElement('div');
+          effectElement.className = `tooltip-special-stat ${gapClass}`;
+          
+          const colorClass = isNegative ? 'item-red' : 'item-blue';
+          effectElement.innerHTML = `<span class="${colorClass}">- ${cleanEffect}</span>`;
+          
+          block.appendChild(effectElement);
+        });
+      }
+    });
+  }
+  
+  renderModificationsSection(options, block) {
+    // 개조 타입별 추출
+    const normalMod = options.find(opt => opt.option_type === '일반 개조');
+    const gemMod = options.find(opt => opt.option_type === '보석 개조');
+    const masterMod = options.find(opt => opt.option_type === '장인 개조');
+    const specialMod = options.find(opt => opt.option_type === '특별 개조');
+    
+    // 일반 개조와 보석 개조 처리
+    if (normalMod || gemMod) {
       let text = '';
       if (normalMod) {
         text += `일반 개조(${normalMod.option_value}/${normalMod.option_value2})`;
@@ -520,29 +710,34 @@ class OptionRenderer {
         text += '보석 강화';
       }
       
-      modLine.textContent = text;
-      block.appendChild(modLine);
+      const modElement = document.createElement('div');
+      modElement.className = 'tooltip-stat gap-md';
+      modElement.textContent = text;
+      block.appendChild(modElement);
     }
     
-    // 2. 장인 개조 처리
+    // 장인 개조 처리
     if (masterMod) {
       // 장인 개조 타이틀
       const masterModTitle = document.createElement('div');
-      masterModTitle.className = 'tooltip-stat';
+      masterModTitle.className = 'tooltip-stat gap-xs';
       masterModTitle.textContent = '장인 개조';
       block.appendChild(masterModTitle);
       
-      // 장인 개조 효과들 처리
+      // 장인 개조 효과 처리
       const modParts = masterMod.option_value.split(',');
-      modParts.forEach(part => {
+      modParts.forEach((part, index) => {
+        const isLast = index === modParts.length - 1;
+        const gapClass = isLast && specialMod ? 'gap-md' : (isLast ? '' : 'gap-xxs');
+        
         const effectElement = document.createElement('div');
-        effectElement.className = 'tooltip-stat item-blue';
+        effectElement.className = `tooltip-stat item-blue ${gapClass}`;
         effectElement.textContent = `- ${part.trim()}`;
         block.appendChild(effectElement);
       });
     }
     
-    // 3. 특별 개조 처리
+    // 특별 개조 처리
     if (specialMod) {
       const specialModElement = document.createElement('div');
       specialModElement.className = 'tooltip-stat item-pink';
@@ -551,130 +746,206 @@ class OptionRenderer {
     }
   }
   
-  renderTooltipOption(option, block) {
-    const optionType = option.option_type;
+  renderReforgeSection(options, block) {
+    // 세공 랭크 찾기
+    const reforgeRank = options.find(opt => opt.option_type === '세공 랭크');
+    const reforgeOptions = options.filter(opt => opt.option_type === '세공 옵션');
     
-    // 특수 처리: 장인 개조, 개조 관련 옵션은 renderModificationOptions에서 처리
-    if (optionType === '일반 개조' || optionType === '보석 개조' || 
-        optionType === '장인 개조' || optionType === '특별 개조') {
-      return;
+    // 세공 랭크 표시
+    if (reforgeRank) {
+      const rankElement = document.createElement('div');
+      rankElement.className = 'tooltip-stat item-pink gap-xs';
+      rankElement.textContent = `${reforgeRank.option_value}랭크`;
+      block.appendChild(rankElement);
     }
     
-    // 특수 처리: 전용 아이템 해제
-    if (optionType === '남은 전용 해제 가능 횟수') {
-      // 첫 번째 줄
-      const firstLine = document.createElement('div');
-      firstLine.className = 'tooltip-stat item-yellow';
-      firstLine.textContent = '전용 아이템 (전용 일시 해제)';
-      block.appendChild(firstLine);
+    // 세공 옵션 표시
+    reforgeOptions.forEach((option, index) => {
+      const isLast = index === reforgeOptions.length - 1;
+      const gapClass = isLast ? '' : 'gap-xxs';
       
-      // 두 번째 줄
-      const secondLine = document.createElement('div');
-      secondLine.className = 'tooltip-stat item-yellow';
-      secondLine.textContent = `남은 전용 해제 가능 횟수: ${option.option_value}`;
-      block.appendChild(secondLine);
-    }
-    // 특수 처리: 인챈트
-    else if (optionType === '인챈트') {
-      // 인챈트 기본 정보 표시
-      const context = {
-        getEnchantMetadata: (type, name) => metadataLoader.getEnchantMetadata(type, name)
-      };
+      const match = option.option_value.match(/(.*?)\((\d+)레벨:(.*)\)/);
+      const optionElement = document.createElement('div');
+      optionElement.className = `tooltip-stat item-blue ${gapClass}`;
       
-      // 인챈트 이름과 랭크 추출
-      const type = option.option_sub_type;
-      const value = option.option_value;
-      const nameMatch = value.match(/(.*?)\s*\(랭크 (\d+)\)/);
-      let enchantName = value;
-      let rankText = '';
-      
-      if (nameMatch) {
-        enchantName = nameMatch[1].trim();
-        rankText = `(랭크 ${nameMatch[2]})`;
+      if (match) {
+        const name = match[1].trim();
+        const level = match[2];
+        optionElement.textContent = `- ${name} ${level}레벨`;
+      } else {
+        optionElement.textContent = `- ${option.option_value}`;
       }
       
-      // 메타데이터 조회
-      const metadata = context.getEnchantMetadata(type, enchantName);
+      block.appendChild(optionElement);
+    });
+  }
+  
+  renderErgSection(options, block) {
+    options.forEach(option => {
+      const optionElement = document.createElement('div');
+      optionElement.className = 'tooltip-stat item-pink';
+      optionElement.innerHTML = `등급 <span class="item-pink">${option.option_sub_type}</span> <span class="item-pink">(${option.option_value}/${option.option_value2}레벨)</span>`;
+      block.appendChild(optionElement);
+    });
+  }
+  
+  renderSetEffectSection(options, block) {
+    options.forEach((option, index) => {
+      const isLast = index === options.length - 1;
+      const gapClass = isLast ? '' : 'gap-xxs';
       
-      // 기본 정보 요소 생성
-      const enchantElement = document.createElement('div');
-      enchantElement.className = 'tooltip-stat';
-      enchantElement.innerHTML = `<span class="enchant-type">[${type}]</span> ${enchantName} <span class="item-pink">${rankText}</span>`;
-      block.appendChild(enchantElement);
+      const optionElement = document.createElement('div');
+      optionElement.className = `tooltip-stat item-blue ${gapClass}`;
+      optionElement.textContent = `- ${option.option_value} +${option.option_value2}`;
+      block.appendChild(optionElement);
+    });
+  }
+  
+  renderItemColorSection(options, block) {
+    options.forEach((option, index) => {
+      const isLast = index === options.length - 1;
+      const gapClass = isLast ? '' : 'gap-xxs';
       
-      // 인챈트 효과 처리 부분
+      let colorText = `${option.option_sub_type}: `;
+      if (option.option_value) {
+        colorText += option.option_value;
+      }
       if (option.option_desc) {
-        const effects = option.option_desc.split(',');
-        
-        effects.forEach(effect => {
-          const effectText = effect.trim();
-          // 조건부 효과에서 순수 효과만 추출
-          const conditionMatch = effectText.match(/(.*?때) (.*)/);
-          const cleanEffect = conditionMatch ? conditionMatch[2].trim() : effectText;
-          
-          // 부정적 효과 확인
-          const isNegative = 
-            (cleanEffect.includes('수리비') && cleanEffect.includes('증가')) || 
-            (!cleanEffect.includes('수리비') && cleanEffect.includes('감소'));
-          
-          const effectElement = document.createElement('div');
-          effectElement.className = 'tooltip-special-stat';
-          
-          // 기본 효과 텍스트 표시 (- 포함하여 적절한 색상 적용)
-          const colorClass = isNegative ? 'item-red' : 'item-blue';
-          let effectHTML = `<span class="${colorClass}">- ${cleanEffect}</span>`;
-          
-          // 메타데이터에서 유동 범위 확인 및 추가
-          if (metadata && metadata.effects) {
-            for (const metaEffect of metadata.effects) {
-              const template = metaEffect.template;
-              // 템플릿을 정규식 패턴으로 변환
-              const pattern = template.replace(/\{value\}/g, '\\d+');
-              
-              if (new RegExp(pattern).test(cleanEffect) && metaEffect.variable) {
-                // 변동 가능 효과인 경우 범위 정보 추가 (네이비 색상)
-                effectHTML += ` <span class="item-navy">(${metaEffect.min}~${metaEffect.max})</span>`;
-                break;
-              }
-            }
-          }
-          
-          effectElement.innerHTML = effectHTML;
-          block.appendChild(effectElement);
-        });
+        colorText += ` ${option.option_desc}`;
       }
-    }
-    // 일반적인 옵션 처리
-    else {
-      // 옵션 처리
-      const processedOption = this.processOption(option);
       
-      if (processedOption) {
-        const colorClass = processedOption.color ? this.colorClass[processedOption.color] : '';
-        
-        // HTML 내용이 있는 경우
-        if (processedOption.text.includes('<')) {
-          const statElement = document.createElement('div');
-          statElement.className = `tooltip-stat ${colorClass}`;
-          statElement.innerHTML = processedOption.text;
-          block.appendChild(statElement);
-        } 
-        // 일반 텍스트에서 줄바꿈 처리
-        else if (processedOption.text.includes('\n')) {
-          const lines = processedOption.text.split('\n');
-          lines.forEach(line => {
-            const lineElement = document.createElement('div');
-            lineElement.className = `tooltip-stat ${colorClass}`;
-            lineElement.textContent = line.trim();
-            block.appendChild(lineElement);
-          });
-        } else {
-          const statElement = document.createElement('div');
-          statElement.className = `tooltip-stat ${colorClass}`;
-          statElement.textContent = processedOption.text;
-          block.appendChild(statElement);
-        }
+      const optionElement = document.createElement('div');
+      optionElement.className = `tooltip-stat ${gapClass}`;
+      optionElement.textContent = colorText;
+      block.appendChild(optionElement);
+    });
+  }
+  
+  createOptionElement(option, block, gapClass) {
+    // 옵션 처리하여 HTML 또는 텍스트 내용 생성
+    const processedOption = this.processTooltipOption(option);
+    if (!processedOption) return;
+    
+    // HTML 내용이 있는 경우
+    if (processedOption.html) {
+      const statElement = document.createElement('div');
+      statElement.className = `tooltip-stat ${gapClass || ''}`;
+      if (processedOption.colorClass) {
+        statElement.classList.add(processedOption.colorClass);
       }
+      statElement.innerHTML = processedOption.html;
+      block.appendChild(statElement);
+    } 
+    // 일반 텍스트에서 줄바꿈 처리
+    else if (processedOption.text.includes('\n')) {
+      const lines = processedOption.text.split('\n');
+      lines.forEach((line, i) => {
+        const lineElement = document.createElement('div');
+        lineElement.className = `tooltip-stat ${i < lines.length - 1 ? 'gap-xxs' : gapClass || ''}`;
+        if (processedOption.colorClass) {
+          lineElement.classList.add(processedOption.colorClass);
+        }
+        lineElement.textContent = line.trim();
+        block.appendChild(lineElement);
+      });
+    } else {
+      const statElement = document.createElement('div');
+      statElement.className = `tooltip-stat ${gapClass || ''}`;
+      if (processedOption.colorClass) {
+        statElement.classList.add(processedOption.colorClass);
+      }
+      statElement.textContent = processedOption.text;
+      block.appendChild(statElement);
+    }
+  }
+  
+  processTooltipOption(option) {
+    // 옵션 타입별 처리
+    switch (option.option_type) {
+      case '공격':
+        return {
+          text: `공격 ${option.option_value}~${option.option_value2}`
+        };
+        
+      case '부상률':
+        const minValue = option.option_value.toString().replace('%', '');
+        const maxValue = option.option_value2.toString().replace('%', '');
+        return {
+          text: `부상률 ${minValue}~${maxValue}%`
+        };
+        
+      case '크리티컬':
+        return {
+          text: `크리티컬 ${option.option_value}`
+        };
+        
+      case '밸런스':
+        return {
+          text: `밸런스 ${option.option_value}`
+        };
+        
+      case '내구력':
+        const currentDurability = parseInt(option.option_value) || 0;
+        const maxDurability = parseInt(option.option_value2) || 1;
+        return {
+          text: `내구력 ${currentDurability}/${maxDurability}`,
+          colorClass: 'item-yellow'
+        };
+        
+      case '숙련':
+        return {
+          text: `숙련 ${option.option_value}`
+        };
+        
+      case '남은 전용 해제 가능 횟수':
+        return {
+          text: `전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수: ${option.option_value}`,
+          colorClass: 'item-yellow'
+        };
+        
+      case '전용 해제 거래 보증서 사용 불가':
+        return {
+          text: `전용 해제 거래 보증서 사용 불가`,
+          colorClass: 'item-yellow'
+        };
+        
+      case '피어싱 레벨':
+        const baseLevel = option.option_value || "0";
+        let text;
+        
+        if (option.option_value2) {
+          text = `피어싱 레벨 ${baseLevel}+ ${option.option_value2.substring(1)}`;
+        } else {
+          text = `피어싱 레벨 ${baseLevel}`;
+        }
+        
+        return {
+          text,
+          colorClass: 'item-blue'
+        };
+        
+      case '아이템 보호':
+        let protectionText;
+        
+        if (option.option_value === '인챈트 추출') {
+          protectionText = `인챈트 추출 시 아이템 보호`;
+        } else if (option.option_value === '인챈트 실패') {
+          protectionText = `인챈트 실패 시 아이템 보호`;
+        } else if (option.option_value === '수리 실패') {
+          protectionText = `수리 실패 시 아이템 보호`;
+        } else {
+          protectionText = `아이템 보호`;
+        }
+        
+        return {
+          text: protectionText,
+          colorClass: 'item-yellow'
+        };
+        
+      default:
+        return {
+          text: `${option.option_type}: ${option.option_value}`
+        };
     }
   }
   
