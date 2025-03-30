@@ -698,7 +698,6 @@ class OptionRenderer {
         upperGroup.push(opt);
       });
       
-      // 인챈트 불가능 옵션은 특수 처리에서만 추가하므로 여기서는 추가하지 않음
     } else {
       // 피어싱이 없는 경우 - 전용해제/아이템보호 기준으로 나눔
       options.forEach(option => {
@@ -722,8 +721,6 @@ class OptionRenderer {
         // 방어 속성은 항상 upperGroup에 추가
         upperGroup.push(opt);
       });
-      
-      // 인챈트 불가능 옵션은 특수 처리에서만 추가하므로 여기서는 추가하지 않음
     }
     
     // 정렬
