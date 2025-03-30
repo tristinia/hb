@@ -552,133 +552,259 @@ class OptionRenderer {
   }
   
   renderItemAttributesSection(options, block) {
-    
-    // 아이템 속성을 특정 순서로 정렬하기 위한 순서 배열
-    const attributeOrder = [
-      '공격', '부상률', '크리티컬', '밸런스', '방어력', '보호', '마법 방어력', '마법 보호', 
-      '내구력', '숙련', '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가', 
-      '피어싱 레벨', '아이템 보호'
-    ];
-    
-    // 아이템 보호 옵션을 순서대로 수집
-    const protectionOptions = {
-      '인챈트 추출': null,
-      '인챈트 실패': null,
-      '수리 실패': null
-    };
-    
-    // 모든 아이템 보호 옵션 찾기
-    options.forEach(option => {
-      if (option.option_type === '아이템 보호') {
-        const value = option.option_value;
-        if (value in protectionOptions) {
-          protectionOptions[value] = option;
-        }
-      }
-    });
-    
-    // 아이템 속성을 피어싱 기준으로 그룹화
-    const upperGroup = []; // 피어싱 위쪽 그룹
-    const lowerGroup = []; // 피어싱 아래쪽 그룹
-    let piercingOption = null;
-    
-    // 피어싱 위치 찾기
-    const piercingIndex = options.findIndex(opt => opt.option_type === '피어싱 레벨');
-    
-    if (piercingIndex >= 0) {
-      // 피어싱이 있는 경우
-      piercingOption = options[piercingIndex];
+      // 아이템 속성을 특정 순서로 정렬하기 위한 순서 배열
+      const attributeOrder = [
+        '공격', '부상률', '크리티컬', '밸런스', '방어력', '보호', '마법 방어력', '마법 보호', 
+        '내구력', '숙련', '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가', 
+        '피어싱 레벨', '인챈트 불가능', '아이템 보호'
+      ];
       
-      // 옵션 분류
+      // 인챈트 불가능 옵션 확인
+      const notEnchantableOption = options.find(opt => 
+        opt.option_type === '인챈트 불가능' && opt.option_value === 'true'
+      );
+      
+      // 방어 관련 속성 확인
+      const hasDefenseValues = options.some(opt => 
+        opt.option_type === '방어력' || opt.option_type === '보호'
+      );
+      
+      const hasMagicDefenseValues = options.some(opt => 
+        opt.option_type === '마법 방어력' || opt.option_type === '마법 보호'
+      );
+      
+      // 아이템 보호 옵션을 순서대로 수집
+      const protectionOptions = {
+        '인챈트 추출': null,
+        '인챈트 실패': null,
+        '수리 실패': null
+      };
+      
+      // 모든 아이템 보호 옵션 찾기
       options.forEach(option => {
-        const type = option.option_type;
-        
-        // 아이템 보호 옵션 제외 (나중에 별도 처리)
-        if (type === '아이템 보호') return;
-        
-        // 옵션 타입에 따라 그룹에 추가
-        const optionIndex = attributeOrder.indexOf(type);
-        if (optionIndex < attributeOrder.indexOf('피어싱 레벨')) {
-          upperGroup.push(option);
-        } else if (type !== '피어싱 레벨') {
-          lowerGroup.push(option);
+        if (option.option_type === '아이템 보호') {
+          const value = option.option_value;
+          if (value in protectionOptions) {
+            protectionOptions[value] = option;
+          }
         }
       });
-    } else {
-      // 피어싱이 없는 경우 - 전용해제/아이템보호 기준으로 나눔
-      options.forEach(option => {
-        const type = option.option_type;
-        
-        // 아이템 보호 옵션 제외 (나중에 별도 처리)
-        if (type === '아이템 보호') return;
-        
-        if (type === '남은 전용 해제 가능 횟수' || type === '전용 해제 거래 보증서 사용 불가') {
-          lowerGroup.push(option);
-        } else {
-          upperGroup.push(option);
-        }
-      });
-    }
-    
-    // 정렬
-    upperGroup.sort((a, b) => attributeOrder.indexOf(a.option_type) - attributeOrder.indexOf(b.option_type));
-    lowerGroup.sort((a, b) => attributeOrder.indexOf(a.option_type) - attributeOrder.indexOf(b.option_type));
-    
-    // 상단 그룹 렌더링
-    upperGroup.forEach((option, index) => {
-      const isLast = index === upperGroup.length - 1;
       
-      // 간격 클래스
-      let gapClass = 'gap-xxs';
-      if (isLast) {
-        // 간격이 필요할때만 생성
-        if (piercingOption || lowerGroup.length > 0) {
-          gapClass = 'gap-md';
+      // 아이템 속성을 피어싱 기준으로 그룹화
+      const upperGroup = []; // 피어싱 위쪽 그룹
+      const lowerGroup = []; // 피어싱 아래쪽 그룹
+      let piercingOption = null;
+      
+      // 피어싱 위치 찾기
+      const piercingIndex = options.findIndex(opt => opt.option_type === '피어싱 레벨');
+      
+      // 방어 관련 속성 보강
+      const defenseOptions = [];
+      
+      // 방어력 속성 보강
+      if (hasDefenseValues || hasMagicDefenseValues) {
+        // 방어력
+        const defenseOpt = options.find(opt => opt.option_type === '방어력');
+        if (defenseOpt) {
+          defenseOptions.push(defenseOpt);
         } else {
-          gapClass = ''; // 간격 없음
+          // 방어력 속성이 없으면 0으로 가상 속성 추가
+          defenseOptions.push({
+            option_type: '방어력',
+            option_value: '0'
+          });
+        }
+        
+        // 보호
+        const protectionOpt = options.find(opt => opt.option_type === '보호');
+        if (protectionOpt) {
+          defenseOptions.push(protectionOpt);
+        } else {
+          // 보호 속성이 없으면 0으로 가상 속성 추가
+          defenseOptions.push({
+            option_type: '보호',
+            option_value: '0'
+          });
         }
       }
       
-      this.createOptionElement(option, block, gapClass);
-    });
-    
-    // 피어싱 렌더링
-    if (piercingOption) {
-      // 피어싱 아래에 다른 그룹이 있는지 확인
-      const hasLowerGroup = lowerGroup.length > 0;
-      const hasProtectionOptions = Object.values(protectionOptions).some(opt => opt !== null);
-      const gapClass = (hasLowerGroup || hasProtectionOptions) ? 'gap-md' : '';
-      this.createOptionElement(piercingOption, block, gapClass);
-    }
-    
-    // 하단 그룹 렌더링
-    lowerGroup.forEach((option, index) => {
-      const isLast = index === lowerGroup.length - 1;
-      // 마지막 항목이고 아이템 보호 옵션이 하나라도 있으면 gap-md, 아니면 옵션 간 간격
-      const hasProtectionOptions = Object.values(protectionOptions).some(opt => opt !== null);
-      const gapClass = isLast && hasProtectionOptions ? 'gap-md' : (isLast ? '' : 'gap-xxs');
-      this.createOptionElement(option, block, gapClass);
-    });
-    
-    // 마지막으로 아이템 보호 옵션 순서대로 렌더링
-    const protectionValues = Object.keys(protectionOptions);
-    protectionValues.forEach((value, index) => {
-      const option = protectionOptions[value];
-      if (option) {
-        const isLast = index === protectionValues.length - 1;
-        const gapClass = isLast ? '' : 'gap-xxs';
+      // 마법 방어 관련 속성 보강
+      if (hasMagicDefenseValues) {
+        // 마법 방어력
+        const magicDefenseOpt = options.find(opt => opt.option_type === '마법 방어력');
+        if (magicDefenseOpt) {
+          defenseOptions.push(magicDefenseOpt);
+        } else {
+          // 마법 방어력 속성이 없으면 0으로 가상 속성 추가
+          defenseOptions.push({
+            option_type: '마법 방어력',
+            option_value: '0'
+          });
+        }
+        
+        // 마법 보호
+        const magicProtectionOpt = options.find(opt => opt.option_type === '마법 보호');
+        if (magicProtectionOpt) {
+          defenseOptions.push(magicProtectionOpt);
+        } else {
+          // 마법 보호 속성이 없으면 0으로 가상 속성 추가
+          defenseOptions.push({
+            option_type: '마법 보호',
+            option_value: '0'
+          });
+        }
+      }
+      
+      if (piercingIndex >= 0) {
+        // 피어싱이 있는 경우
+        piercingOption = options[piercingIndex];
+        
+        // 옵션 분류
+        options.forEach(option => {
+          const type = option.option_type;
+          
+          // 아이템 보호 옵션 제외 (나중에 별도 처리)
+          if (type === '아이템 보호') return;
+          // 인챈트 불가능도 별도 처리
+          if (type === '인챈트 불가능') return;
+          
+          // 방어 속성은 이미 defenseOptions에 수집됨
+          if (defenseOptions.some(o => o.option_type === type)) return;
+          
+          // 옵션 타입에 따라 그룹에 추가
+          const optionIndex = attributeOrder.indexOf(type);
+          if (optionIndex < attributeOrder.indexOf('피어싱 레벨')) {
+            upperGroup.push(option);
+          } else if (type !== '피어싱 레벨') {
+            lowerGroup.push(option);
+          }
+        });
+        
+        // 보강된 방어 속성 추가
+        defenseOptions.forEach(opt => {
+          // 방어 속성은 항상 upperGroup에 추가
+          upperGroup.push(opt);
+        });
+        
+        // 인챈트 불가능 옵션 추가
+        if (notEnchantableOption) {
+          lowerGroup.push(notEnchantableOption);
+        }
+      } else {
+        // 피어싱이 없는 경우 - 전용해제/아이템보호 기준으로 나눔
+        options.forEach(option => {
+          const type = option.option_type;
+          
+          // 아이템 보호 옵션 제외 (나중에 별도 처리)
+          if (type === '아이템 보호') return;
+          // 인챈트 불가능도 별도 처리
+          if (type === '인챈트 불가능') return;
+          
+          // 방어 속성은 이미 defenseOptions에 수집됨
+          if (defenseOptions.some(o => o.option_type === type)) return;
+          
+          if (type === '남은 전용 해제 가능 횟수' || type === '전용 해제 거래 보증서 사용 불가') {
+            lowerGroup.push(option);
+          } else {
+            upperGroup.push(option);
+          }
+        });
+        
+        // 보강된 방어 속성 추가
+        defenseOptions.forEach(opt => {
+          // 방어 속성은 항상 upperGroup에 추가
+          upperGroup.push(opt);
+        });
+        
+        // 인챈트 불가능 옵션 추가
+        if (notEnchantableOption) {
+          lowerGroup.push(notEnchantableOption);
+        }
+      }
+      
+      // 정렬
+      upperGroup.sort((a, b) => attributeOrder.indexOf(a.option_type) - attributeOrder.indexOf(b.option_type));
+      lowerGroup.sort((a, b) => attributeOrder.indexOf(a.option_type) - attributeOrder.indexOf(b.option_type));
+      
+      // 상단 그룹 렌더링
+      upperGroup.forEach((option, index) => {
+        const isLast = index === upperGroup.length - 1;
+        
+        // 간격 클래스
+        let gapClass = 'gap-xxs';
+        if (isLast) {
+          // 간격이 필요할때만 생성
+          if (piercingOption || lowerGroup.length > 0) {
+            gapClass = 'gap-md';
+          } else {
+            gapClass = ''; // 간격 없음
+          }
+        }
+        
         this.createOptionElement(option, block, gapClass);
+      });
+      
+      // 피어싱 렌더링
+      if (piercingOption) {
+        // 피어싱 아래에 다른 그룹이 있는지 확인
+        const hasLowerGroup = lowerGroup.length > 0;
+        const hasProtectionOptions = Object.values(protectionOptions).some(opt => opt !== null);
+        const gapClass = (hasLowerGroup || hasProtectionOptions) ? 'gap-md' : '';
+        this.createOptionElement(piercingOption, block, gapClass);
       }
-    });
+      
+      // 하단 그룹 렌더링
+      lowerGroup.forEach((option, index) => {
+        const isLast = index === lowerGroup.length - 1;
+        
+        // 마지막 항목이고 아이템 보호 옵션이 하나라도 있으면 gap-md, 아니면 옵션 간 간격
+        const hasProtectionOptions = Object.values(protectionOptions).some(opt => opt !== null);
+        
+        // 인챈트 불가능 속성인 경우 특별 처리
+        if (option.option_type === '인챈트 불가능') {
+          const gapClass = hasProtectionOptions ? 'gap-md' : '';
+          const optionElement = document.createElement('div');
+          optionElement.className = `tooltip-stat item-red ${gapClass}`;
+          optionElement.textContent = '#인챈트 부여 불가';
+          block.appendChild(optionElement);
+        } else {
+          const gapClass = isLast && hasProtectionOptions ? 'gap-md' : (isLast ? '' : 'gap-xxs');
+          this.createOptionElement(option, block, gapClass);
+        }
+      });
+      
+      // 마지막으로 아이템 보호 옵션 순서대로 렌더링
+      const protectionValues = Object.keys(protectionOptions);
+      protectionValues.forEach((value, index) => {
+        const option = protectionOptions[value];
+        if (option) {
+          const isLast = index === protectionValues.length - 1;
+          const gapClass = isLast ? '' : 'gap-xxs';
+          this.createOptionElement(option, block, gapClass);
+        }
+      });
   }
   
   renderEnchantsSection(options, block) {
-    // 접두/접미 구분
-    const prefixEnchants = options.filter(opt => opt.option_sub_type === '접두');
-    const suffixEnchants = options.filter(opt => opt.option_sub_type === '접미');
-    
-    // 접두 인챈트 렌더링
-    prefixEnchants.forEach((enchant, index) => {
+      // 인챈트 불가능 확인
+      const notEnchantableOption = options.find(opt => 
+        opt.option_type === '인챈트 불가능' && opt.option_value === 'true'
+      );
+      
+      // 인챈트 불가능 표시
+      if (notEnchantableOption) {
+        const notEnchantableElement = document.createElement('div');
+        notEnchantableElement.className = 'tooltip-stat item-red gap-md';
+        notEnchantableElement.textContent = '인챈트 부여 불가';
+        block.appendChild(notEnchantableElement);
+      }
+      
+      // 접두/접미 구분
+      const prefixEnchants = options.filter(opt => opt.option_sub_type === '접두');
+      const suffixEnchants = options.filter(opt => opt.option_sub_type === '접미');
+      
+      // 접두 인챈트 렌더링
+      prefixEnchants.forEach((enchant, index) => {
       // 인챈트 기본 정보
       const context = {
         getEnchantMetadata: (type, name) => metadataLoader.getEnchantMetadata(type, name)
@@ -1035,6 +1161,12 @@ class OptionRenderer {
         return {
           text,
           colorClass: 'item-blue'
+        };
+
+      case '인챈트 불가능':
+        return {
+          text: `#인챈트 부여 불가`,
+          colorClass: 'item-red'
         };
         
       case '아이템 보호':
