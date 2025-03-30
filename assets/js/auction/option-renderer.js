@@ -601,6 +601,8 @@ class OptionRenderer {
         }
       }
     });
+
+    const hasProtectionOptions = Object.values(protectionOptions).some(opt => opt !== null);
     
     // 아이템 속성을 피어싱 기준으로 그룹화
     const upperGroup = []; // 피어싱 위쪽 그룹
