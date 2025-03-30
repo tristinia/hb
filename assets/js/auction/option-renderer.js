@@ -604,13 +604,13 @@ class OptionRenderer {
 
     const hasProtectionOptions = Object.values(protectionOptions).some(opt => opt !== null);
     
-    // 아이템 속성을 피어싱 기준으로 그룹화
-    const upperGroup = []; // 피어싱 위쪽 그룹
-    const lowerGroup = []; // 피어싱 아래쪽 그룹
-    let piercingOption = null;
+    // 아이템 속성을 그룹으로 나누기
+    const basicGroup = []; // 기본 속성 그룹
+    const piercingGroup = []; // 피어싱 속성 그룹
+    const protectionGroup = []; // 보호 속성 그룹
     
-    // 피어싱 위치 찾기
-    const piercingIndex = options.findIndex(opt => opt.option_type === '피어싱 레벨');
+    // 피어싱 옵션 찾기
+    const piercingOption = options.find(opt => opt.option_type === '피어싱 레벨');
     
     // 방어 관련 속성 보강
     const defenseOptions = [];
@@ -669,111 +669,69 @@ class OptionRenderer {
       }
     }
     
-    if (piercingIndex >= 0) {
-      // 피어싱이 있는 경우
-      piercingOption = options[piercingIndex];
+    // 옵션 분류
+    options.forEach(option => {
+      const type = option.option_type;
       
-      // 옵션 분류
-      options.forEach(option => {
-        const type = option.option_type;
-        
-        // 아이템 보호 옵션과 인챈트 불가능 옵션 제외 (나중에 별도 처리)
-        if (type === '아이템 보호' || type === '인챈트 불가능') return;
-        
-        // 방어 속성은 이미 defenseOptions에 수집됨
-        if (defenseOptions.some(o => o.option_type === type)) return;
-        
-        // 옵션 타입에 따라 그룹에 추가
-        const optionIndex = attributeOrder.indexOf(type);
-        if (optionIndex < attributeOrder.indexOf('피어싱 레벨')) {
-          upperGroup.push(option);
-        } else if (type !== '피어싱 레벨') {
-          lowerGroup.push(option);
-        }
-      });
+      // 아이템 보호 옵션은 별도 처리
+      if (type === '아이템 보호') return;
       
-      // 보강된 방어 속성 추가
-      defenseOptions.forEach(opt => {
-        // 방어 속성은 항상 upperGroup에 추가
-        upperGroup.push(opt);
-      });
+      // 인챈트 불가능 옵션은 별도 처리
+      if (type === '인챈트 불가능') return;
       
-    } else {
-      // 피어싱이 없는 경우 - 전용해제/아이템보호 기준으로 나눔
-      options.forEach(option => {
-        const type = option.option_type;
-        
-        // 아이템 보호 옵션과 인챈트 불가능 옵션 제외 (나중에 별도 처리)
-        if (type === '아이템 보호' || type === '인챈트 불가능') return;
-        
-        // 방어 속성은 이미 defenseOptions에 수집됨
-        if (defenseOptions.some(o => o.option_type === type)) return;
-        
-        if (type === '남은 전용 해제 가능 횟수' || type === '전용 해제 거래 보증서 사용 불가') {
-          lowerGroup.push(option);
-        } else {
-          upperGroup.push(option);
-        }
-      });
+      // 피어싱 레벨은 별도 처리
+      if (type === '피어싱 레벨') return;
       
-      // 보강된 방어 속성 추가
-      defenseOptions.forEach(opt => {
-        // 방어 속성은 항상 upperGroup에 추가
-        upperGroup.push(opt);
-      });
+      // 방어 속성은 이미 defenseOptions에 수집됨
+      if (defenseOptions.some(o => o.option_type === type)) return;
+      
+      // 기본 그룹에 추가
+      basicGroup.push(option);
+    });
+    
+    // 보강된 방어 속성 추가
+    defenseOptions.forEach(opt => {
+      basicGroup.push(opt);
+    });
+    
+    // 피어싱 옵션 추가
+    if (piercingOption) {
+      piercingGroup.push(piercingOption);
     }
     
     // 정렬
-    upperGroup.sort((a, b) => attributeOrder.indexOf(a.option_type) - attributeOrder.indexOf(b.option_type));
-    lowerGroup.sort((a, b) => attributeOrder.indexOf(a.option_type) - attributeOrder.indexOf(b.option_type));
+    basicGroup.sort((a, b) => attributeOrder.indexOf(a.option_type) - attributeOrder.indexOf(b.option_type));
     
-    // 상단 그룹 렌더링
-    upperGroup.forEach((option, index) => {
-      const isLast = index === upperGroup.length - 1;
+    // 기본 그룹 렌더링
+    basicGroup.forEach((option, index) => {
+      const isLast = index === basicGroup.length - 1;
       
-      // 간격 클래스
+      // 간격 클래스 - 마지막 항목이고 다른 그룹이 있으면 md, 없으면 xxs
       let gapClass = 'gap-xxs';
-      if (isLast) {
-        // 피어싱이 있거나 하단 그룹이 있는 경우에만 md 간격 추가
-        if (piercingOption || lowerGroup.length > 0 || hasProtectionOptions) {
-          gapClass = 'gap-md';
-        } else {
-          gapClass = ''; // 아무것도 없으면 간격 없음
-        }
+      
+      // 마지막 항목이고 피어싱 또는 보호 그룹이 있는 경우만 md 간격
+      if (isLast && (piercingGroup.length > 0 || notEnchantableOption || hasProtectionOptions)) {
+        gapClass = 'gap-md';
       }
       
       this.createOptionElement(option, block, gapClass);
     });
     
-    // 피어싱 렌더링
-    if (piercingOption) {
-      // 하단 그룹(아이템 보호, 인챈트 불가능)이 있는지 확인
-      const hasLowerGroup = lowerGroup.length > 0;
-      const hasProtectionOptions = Object.values(protectionOptions).some(opt => opt !== null);
+    // 피어싱 그룹 렌더링
+    if (piercingGroup.length > 0) {
+      // 피어싱 레벨 다음에 인챈트 불가능 또는 아이템 보호 옵션이 있는지 확인
+      const hasNextGroup = notEnchantableOption || hasProtectionOptions;
       
-      // 하단 그룹이 있으면 md 간격, 없으면 간격 없음
-      const gapClass = (hasLowerGroup || hasProtectionOptions) ? 'gap-md' : '';
-      this.createOptionElement(piercingOption, block, gapClass);
+      // 다음 그룹이 있으면 md 간격, 없으면 간격 없음
+      const gapClass = hasNextGroup ? 'gap-md' : '';
+      
+      // 피어싱 옵션 렌더링
+      this.createOptionElement(piercingGroup[0], block, gapClass);
     }
     
-    // 하단 그룹 렌더링
-    lowerGroup.forEach((option, index) => {
-      const isLast = index === lowerGroup.length - 1;
-      // 아이템 보호 옵션이 있는지 확인
-      const hasProtectionOptions = Object.values(protectionOptions).some(opt => opt !== null);
-      
-      // 마지막 항목이고 아이템 보호가 없으면 간격 없음, 아니면 xxs
-      const gapClass = isLast && !hasProtectionOptions ? '' : 'gap-xxs';
-      
-      this.createOptionElement(option, block, gapClass);
-    });
-    
-    // 인챈트 불가능 속성 별도 처리 (중복 방지)
+    // 인챈트 불가능 옵션 렌더링
     if (notEnchantableOption && notEnchantableOption.option_value === 'true') {
-      // 아이템 보호 옵션이 있는지 확인
-      const hasProtectionOptions = Object.values(protectionOptions).some(opt => opt !== null);
-      
-      // 아이템 보호가 있으면 gap-xxs, 없으면 간격 없음
+      // 아이템 보호 옵션이 있는지 확인 - 있으면 xxs, 없으면 간격 없음
       const gapClass = hasProtectionOptions ? 'gap-xxs' : '';
       
       const optionElement = document.createElement('div');
@@ -782,7 +740,7 @@ class OptionRenderer {
       block.appendChild(optionElement);
     }
     
-    // 마지막으로 아이템 보호 옵션 순서대로 렌더링
+    // 아이템 보호 옵션 렌더링
     const protectionValues = Object.keys(protectionOptions);
     protectionValues.forEach((value, index) => {
       const option = protectionOptions[value];
