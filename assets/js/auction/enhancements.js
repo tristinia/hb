@@ -164,7 +164,7 @@ const VirtualScroller = (() => {
                     <div class="item-name">${item.item_name}</div>
                 </div>
             </td>
-            <td>${item.auction_count || 1}개</td>
+            <td class="item-quantity">${item.item_count || 1}개</td>
             <td class="item-price">${Utils.formatNumber(item.auction_price_per_unit)}G</td>
         `;
         
