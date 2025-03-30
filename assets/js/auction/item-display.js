@@ -37,13 +37,25 @@ const ItemDisplay = (() => {
         const displayName = item.item_display_name || item.item_name || '이름 없음';
         const baseName = item.item_name || '';
         
+        // 인챈트 불가능 확인
+        const options = item.options || item.item_option || [];
+        const isNotEnchantable = options.some(opt => 
+            opt.option_type === '인챈트 불가능' && opt.option_value === 'true'
+        );
+        
+        // 인챈트 불가능 표시 생성
+        let enchantablePrefix = '';
+        if (isNotEnchantable) {
+            enchantablePrefix = '<span class="item-red">(인챈트 불가능)</span> ';
+        }
+        
         // 기본 이름만 있는 경우
         if (!item.item_display_name || item.item_display_name === baseName) {
-            return displayName;
+            return enchantablePrefix + displayName;
         }
         
         // 아이템 이름 분리 처리
-        let result = '';
+        let result = enchantablePrefix; // 인챈트 불가능 접두사 추가
         let enchantPart = '';
         let specialPrefix = '';
         
@@ -86,7 +98,7 @@ const ItemDisplay = (() => {
             result += `<span class="item-base-name">${baseName}</span>`;
         } else {
             // 분리 실패 시 원본 그대로 표시
-            result = displayName;
+            result = enchantablePrefix + displayName;
         }
         
         return result;
