@@ -79,7 +79,7 @@ class OptionRenderer {
   orderOptionsByImportance(options) {
     // 주요 속성 순서 정의
     const optionOrder = [
-      '공격', '부상률', '크리티컬', '밸런스', '내구력', '숙련',
+      '공격', '부상률', '크리티컬', '밸런스', '방어력', '보호', '마법 방어력', '마법 보호', '내구력', '숙련',
       '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가',
       '피어싱 레벨', '아이템 보호', '인챈트', '일반 개조', '보석 개조',
       '장인 개조', '특별 개조', '에르그', '세공 랭크', '세공 옵션', '세트 효과', '남은 거래 횟수'
@@ -129,6 +129,22 @@ class OptionRenderer {
       case '밸런스':
         text = `밸런스 ${option.option_value}`;
         break;
+      
+      case '방어력':
+        text = `방어력 ${option.option_value}`;
+        break;
+        
+      case '보호':
+        text = `보호 ${option.option_value}`;
+        break;
+        
+      case '마법 방어력':
+        text = `마법 방어력 ${option.option_value}`;
+        break;
+        
+      case '마법 보호':
+        text = `마법 보호 ${option.option_value}`;
+        break;
         
       case '내구력':
         const currentDurability = parseInt(option.option_value) || 0;
@@ -142,13 +158,13 @@ class OptionRenderer {
         break;
         
       case '남은 전용 해제 가능 횟수':
-        text = ` 전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수: ${option.option_value}`;
+        text = ` 전용 아이템(전용 일시 해제)\n남은 전용 해제 가능 횟수: ${option.option_value}`;
         color = 'yellow';
         break;
         
       case '전용 해제 거래 보증서 사용 불가':
         text = `전용 해제 거래 보증서 사용 불가`;
-        color = 'yellow';
+        color = 'red';
         break;
         
       case '피어싱 레벨':
@@ -164,13 +180,13 @@ class OptionRenderer {
         
       case '아이템 보호':
         if (option.option_value === '인챈트 추출') {
-          text = `인챈트 추출 시 아이템 보호`;
+          text = `#인챈트 추출 시 아이템 보호`;
         } else if (option.option_value === '인챈트 실패') {
-          text = `인챈트 실패 시 아이템 보호`;
+          text = `#인챈트 실패 시 아이템 보호`;
         } else if (option.option_value === '수리 실패') {
-          text = `수리 실패 시 아이템 보호`;
+          text = `#수리 실패 시 아이템 보호`;
         } else {
-          text = `아이템 보호`;
+          text = `#아이템 보호`;
         }
         color = 'yellow';
         break;
@@ -192,7 +208,7 @@ class OptionRenderer {
         break;
         
       case '특별 개조':
-        text = `특별 개조 ${option.option_sub_type} (${option.option_value}단계)`;
+        text = `특별 개조 <span class="item-pink">${option.option_sub_type} (${option.option_value}단계)</span>`;
         break;
         
       case '에르그':
@@ -415,8 +431,7 @@ class OptionRenderer {
       '세공': [],
       '에르그': [],
       '세트 효과': [],
-      '아이템 색상': [],
-      '기타': []
+      '아이템 색상': []
     };
     
     // 옵션 정렬
@@ -430,7 +445,8 @@ class OptionRenderer {
           type === '밸런스' || type === '내구력' || type === '숙련' || 
           type === '남은 전용 해제 가능 횟수' || type === '피어싱 레벨' || 
           type === '아이템 보호' || type === '방어력' || type === '보호' || 
-          type === '마법 방어력' || type === '마법 보호') {
+          type === '마법 방어력' || type === '마법 보호' ||
+          type === '전용 해제 거래 보증서 사용 불가') {
         optionGroups['아이템 속성'].push(option);
       } 
       else if (type === '인챈트') {
@@ -451,9 +467,6 @@ class OptionRenderer {
       } 
       else if (type === '아이템 색상') {
         optionGroups['아이템 색상'].push(option);
-      } 
-      else {
-        optionGroups['기타'].push(option);
       }
     });
     
@@ -524,16 +537,41 @@ class OptionRenderer {
         this.renderItemColorSection(options, block);
         break;
       default:
-        // 기타 옵션 기본 렌더링
-        options.forEach(option => {
-          this.createOptionElement(option, block, 'gap-xxs');
-        });
+        // 기타 옵션 기본 렌더링 (제거됨 - 더 이상 '기타' 카테고리 없음)
+        break;
     }
     
     return block;
   }
   
-  renderItemAttributesSection(options, block) {
+  renderItemAttributesSection(options) {
+    const block = document.createElement('div');
+    block.className = 'tooltip-block';
+    
+    // 아이템 속성을 특정 순서로 정렬하기 위한 순서 배열
+    const attributeOrder = [
+      '공격', '부상률', '크리티컬', '밸런스', '방어력', '보호', '마법 방어력', '마법 보호', 
+      '내구력', '숙련', '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가', 
+      '피어싱 레벨', '아이템 보호'
+    ];
+    
+    // 아이템 보호 옵션을 순서대로 수집
+    const protectionOptions = {
+      '인챈트 추출': null,
+      '인챈트 실패': null,
+      '수리 실패': null
+    };
+    
+    // 모든 아이템 보호 옵션 찾기
+    options.forEach(option => {
+      if (option.option_type === '아이템 보호') {
+        const value = option.option_value;
+        if (value in protectionOptions) {
+          protectionOptions[value] = option;
+        }
+      }
+    });
+    
     // 아이템 속성을 피어싱 기준으로 그룹화
     const upperGroup = []; // 피어싱 위쪽 그룹
     const lowerGroup = []; // 피어싱 아래쪽 그룹
@@ -546,37 +584,46 @@ class OptionRenderer {
       // 피어싱이 있는 경우
       piercingOption = options[piercingIndex];
       
-      // 피어싱 위쪽 그룹
-      for (let i = 0; i < piercingIndex; i++) {
-        upperGroup.push(options[i]);
-      }
-      
-      // 피어싱 아래쪽 그룹
-      for (let i = piercingIndex + 1; i < options.length; i++) {
-        lowerGroup.push(options[i]);
-      }
-    } else {
-      // 피어싱이 없는 경우
-      // 전용해제/아이템보호 기준으로 나눔
-      const protectionIndex = options.findIndex(opt => opt.option_type === '아이템 보호');
-      
-      if (protectionIndex >= 0) {
-        // 아이템 보호가 있는 경우
-        for (let i = 0; i < protectionIndex; i++) {
-          upperGroup.push(options[i]);
+      // 옵션 분류
+      options.forEach(option => {
+        const type = option.option_type;
+        
+        // 아이템 보호 옵션 제외 (나중에 별도 처리)
+        if (type === '아이템 보호') return;
+        
+        // 옵션 타입에 따라 그룹에 추가
+        const optionIndex = attributeOrder.indexOf(type);
+        if (optionIndex < attributeOrder.indexOf('피어싱 레벨')) {
+          upperGroup.push(option);
+        } else if (type !== '피어싱 레벨') {
+          lowerGroup.push(option);
         }
-        lowerGroup.push(options[protectionIndex]); // 아이템 보호는 아래 그룹에
-      } else {
-        // 아이템 보호도 없는 경우
-        options.forEach(opt => upperGroup.push(opt));
-      }
+      });
+    } else {
+      // 피어싱이 없는 경우 - 전용해제/아이템보호 기준으로 나눔
+      options.forEach(option => {
+        const type = option.option_type;
+        
+        // 아이템 보호 옵션 제외 (나중에 별도 처리)
+        if (type === '아이템 보호') return;
+        
+        if (type === '남은 전용 해제 가능 횟수' || type === '전용 해제 거래 보증서 사용 불가') {
+          lowerGroup.push(option);
+        } else {
+          upperGroup.push(option);
+        }
+      });
     }
+    
+    // 정렬
+    upperGroup.sort((a, b) => attributeOrder.indexOf(a.option_type) - attributeOrder.indexOf(b.option_type));
+    lowerGroup.sort((a, b) => attributeOrder.indexOf(a.option_type) - attributeOrder.indexOf(b.option_type));
     
     // 상단 그룹 렌더링
     upperGroup.forEach((option, index) => {
       const isLast = index === upperGroup.length - 1;
       
-      // 기본 속성만 있는경우 체크
+      // 간격 클래스
       let gapClass = 'gap-xxs';
       if (isLast) {
         // 간격이 필요할때만 생성
@@ -601,6 +648,16 @@ class OptionRenderer {
       const gapClass = isLast ? '' : 'gap-xxs';
       this.createOptionElement(option, block, gapClass);
     });
+    
+    // 마지막으로 아이템 보호 옵션 순서대로 렌더링
+    for (const value of Object.keys(protectionOptions)) {
+      const option = protectionOptions[value];
+      if (option) {
+        this.createOptionElement(option, block, '');
+      }
+    }
+    
+    return block;
   }
   
   renderEnchantsSection(options, block) {
@@ -759,8 +816,8 @@ class OptionRenderer {
     // 특별 개조 처리
     if (specialMod) {
       const specialModElement = document.createElement('div');
-      specialModElement.className = 'tooltip-stat item-pink';
-      specialModElement.textContent = `특별 개조 ${specialMod.option_sub_type} (${specialMod.option_value}단계)`;
+      specialModElement.className = 'tooltip-stat';
+      specialModElement.innerHTML = `특별 개조 <span class="item-pink">${specialMod.option_sub_type} (${specialMod.option_value}단계)</span>`;
       block.appendChild(specialModElement);
     }
   }
@@ -902,6 +959,26 @@ class OptionRenderer {
         return {
           text: `밸런스 ${option.option_value}`
         };
+      
+      case '방어력':
+        return {
+          text: `방어력 ${option.option_value}`
+        };
+        
+      case '보호':
+        return {
+          text: `보호 ${option.option_value}`
+        };
+        
+      case '마법 방어력':
+        return {
+          text: `마법 방어력 ${option.option_value}`
+        };
+        
+      case '마법 보호':
+        return {
+          text: `마법 보호 ${option.option_value}`
+        };
         
       case '내구력':
         const currentDurability = parseInt(option.option_value) || 0;
@@ -918,14 +995,14 @@ class OptionRenderer {
         
       case '남은 전용 해제 가능 횟수':
         return {
-          text: `전용 아이템 (전용 일시 해제)\n남은 전용 해제 가능 횟수: ${option.option_value}`,
+          text: ` 전용 아이템(전용 일시 해제)\n남은 전용 해제 가능 횟수: ${option.option_value}`,
           colorClass: 'item-yellow'
         };
         
       case '전용 해제 거래 보증서 사용 불가':
         return {
           text: `전용 해제 거래 보증서 사용 불가`,
-          colorClass: 'item-yellow'
+          colorClass: 'item-red'
         };
         
       case '피어싱 레벨':
@@ -947,18 +1024,24 @@ class OptionRenderer {
         let protectionText;
         
         if (option.option_value === '인챈트 추출') {
-          protectionText = `인챈트 추출 시 아이템 보호`;
+          protectionText = `#인챈트 추출 시 아이템 보호`;
         } else if (option.option_value === '인챈트 실패') {
-          protectionText = `인챈트 실패 시 아이템 보호`;
+          protectionText = `#인챈트 실패 시 아이템 보호`;
         } else if (option.option_value === '수리 실패') {
-          protectionText = `수리 실패 시 아이템 보호`;
+          protectionText = `#수리 실패 시 아이템 보호`;
         } else {
-          protectionText = `아이템 보호`;
+          protectionText = `#아이템 보호`;
         }
         
         return {
           text: protectionText,
           colorClass: 'item-yellow'
+        };
+        
+      case '특별 개조':
+        return {
+          html: `특별 개조 <span class="item-pink">${option.option_sub_type} (${option.option_value}단계)</span>`,
+          colorClass: ''
         };
         
       default:
