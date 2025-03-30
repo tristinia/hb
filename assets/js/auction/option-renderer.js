@@ -544,9 +544,7 @@ class OptionRenderer {
     return block;
   }
   
-  renderItemAttributesSection(options) {
-    const block = document.createElement('div');
-    block.className = 'tooltip-block';
+  renderItemAttributesSection(options, block) {
     
     // 아이템 속성을 특정 순서로 정렬하기 위한 순서 배열
     const attributeOrder = [
@@ -656,8 +654,6 @@ class OptionRenderer {
         this.createOptionElement(option, block, '');
       }
     }
-    
-    return block;
   }
   
   renderEnchantsSection(options, block) {
