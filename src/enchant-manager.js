@@ -72,14 +72,14 @@ function parseEnchantEffect(effectText) {
  * @returns {Object} 이름과 랭크 정보
  */
 function parseEnchantNameAndRank(enchantStr) {
-  const rankPattern = /\(랭크 (\d+)\)$/;
+  const rankPattern = /\(랭크 ([A-Za-z0-9]+)\)$/;
   const rankMatch = enchantStr.match(rankPattern);
   
   let rank = null;
   let name = enchantStr;
   
   if (rankMatch) {
-    rank = parseInt(rankMatch[1]);
+    rank = /^\d+$/.test(rankMatch[1]) ? parseInt(rankMatch[1]) : rankMatch[1];
     name = enchantStr.replace(rankPattern, '').trim();
   }
   
