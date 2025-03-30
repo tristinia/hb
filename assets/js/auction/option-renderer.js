@@ -282,7 +282,7 @@ class OptionRenderer {
     const metadata = context?.getEnchantMetadata?.(type, enchantName);
     
     // 기본 HTML 구성
-    let result = `[${type}] ${enchantName} <span class="item-pink">${rankText}</span>`;
+    let result = `<span class="enchant-type">[${type}]</span> ${enchantName} <span class="item-pink">${rankText}</span>`;
     
     // 효과 처리
     if (desc) {
@@ -568,7 +568,7 @@ class OptionRenderer {
     };
     
     // 모든 아이템 보호 옵션 찾기
-    processedOptions.forEach(option => {
+    options.forEach(option => {
       if (option.option_type === '아이템 보호') {
         const value = option.option_value;
         if (value in protectionOptions) {
@@ -583,14 +583,14 @@ class OptionRenderer {
     let piercingOption = null;
     
     // 피어싱 위치 찾기
-    const piercingIndex = processedOptions.findIndex(opt => opt.option_type === '피어싱 레벨');
+    const piercingIndex = options.findIndex(opt => opt.option_type === '피어싱 레벨');
     
     if (piercingIndex >= 0) {
       // 피어싱이 있는 경우
-      piercingOption = processedOptions[piercingIndex];
+      piercingOption = options[piercingIndex];
       
       // 옵션 분류
-      processedOptions.forEach(option => {
+      options.forEach(option => {
         const type = option.option_type;
         
         // 아이템 보호 옵션 제외 (나중에 별도 처리)
@@ -606,7 +606,7 @@ class OptionRenderer {
       });
     } else {
       // 피어싱이 없는 경우 - 전용해제/아이템보호 기준으로 나눔
-      processedOptions.forEach(option => {
+      options.forEach(option => {
         const type = option.option_type;
         
         // 아이템 보호 옵션 제외 (나중에 별도 처리)
@@ -699,7 +699,7 @@ class OptionRenderer {
       // 인챈트 제목 요소
       const enchantElement = document.createElement('div');
       enchantElement.className = 'tooltip-stat gap-xs';
-      enchantElement.innerHTML = `[${type}] ${enchantName} <span class="item-pink">${rankText}</span>`;
+      enchantElement.innerHTML = `<span class="enchant-type">[${type}]</span> ${enchantName} <span class="item-pink">${rankText}</span>`;
       block.appendChild(enchantElement);
       
       // 인챈트 효과 처리
