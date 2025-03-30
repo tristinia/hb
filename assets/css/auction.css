@@ -788,6 +788,11 @@ body {
     overflow-wrap: break-word;
 }
 
+.item-time, 
+.item-quantity {
+    text-align: center !important;
+}
+
 .item-price {
     font-weight: var(--font-weight-medium);
     text-align: right;
