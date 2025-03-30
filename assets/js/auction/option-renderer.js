@@ -566,8 +566,18 @@ class OptionRenderer {
     // 상단 그룹 렌더링
     upperGroup.forEach((option, index) => {
       const isLast = index === upperGroup.length - 1;
-      // 마지막 항목은 일반 간격, 나머지는 짧은 간격
-      const gapClass = isLast ? 'gap-md' : 'gap-xxs';
+      
+      // 기본 속성만 있는경우 체크
+      let gapClass = 'gap-xxs';
+      if (isLast) {
+        // 간격이 필요할때만 생성
+        if (piercingOption || lowerGroup.length > 0) {
+          gapClass = 'gap-md';
+        } else {
+          gapClass = ''; // 간격 없음
+        }
+      }
+      
       this.createOptionElement(option, block, gapClass);
     });
     
