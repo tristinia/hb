@@ -571,8 +571,8 @@ const ItemDisplay = (() => {
                         <div class="item-name">${formatItemDisplayName(item)}</div>
                     </div>
                 </td>
-                <td>${remainingTime}</td>
-                <td>${item.auction_count || 1}</td>
+                <td class="item-time">${remainingTime}</td>
+                <td class="item-quantity">${item.item_count || 1}</td>
                 <td class="item-price ${priceFormatted.class}">${priceFormatted.text}</td>
             `;
             
