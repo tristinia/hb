@@ -738,7 +738,7 @@ class OptionRenderer {
       let gapClass = 'gap-xxs';
       if (isLast) {
         // 피어싱이 있거나 하단 그룹이 있는 경우에만 md 간격 추가
-        if (piercingOption || lowerGroup.length > 0) {
+        if (piercingOption || lowerGroup.length > 0 || hasProtectionOptions) {
           gapClass = 'gap-md';
         } else {
           gapClass = ''; // 아무것도 없으면 간격 없음
@@ -810,7 +810,8 @@ class OptionRenderer {
     // 인챈트 불가능 표시 - 가장 먼저 표시
     if (notEnchantableOption) {
       const notEnchantableElement = document.createElement('div');
-      notEnchantableElement.className = 'tooltip-stat item-red gap-md';
+      // 다음 인챈트가 있을 때만 gap-md 적용
+      notEnchantableElement.className = `tooltip-stat item-red ${(prefixEnchants.length > 0 || suffixEnchants.length > 0) ? 'gap-md' : ''}`;
       notEnchantableElement.textContent = '인챈트 부여 불가';
       block.appendChild(notEnchantableElement);
     }
@@ -836,7 +837,9 @@ class OptionRenderer {
       
       // 인챈트 제목 요소
       const enchantElement = document.createElement('div');
-      enchantElement.className = 'tooltip-stat gap-xs';
+      // 효과가 있을 때만 gap-xs 적용
+      const hasEffects = enchant.option_desc && enchant.option_desc.length > 0;
+      enchantElement.className = `tooltip-stat ${hasEffects ? 'gap-xs' : ''}`;
       enchantElement.innerHTML = `<span class="enchant-type">[${type}]</span> ${enchantName} <span class="item-pink">${rankText}</span>`;
       block.appendChild(enchantElement);
       
@@ -846,8 +849,8 @@ class OptionRenderer {
         
         effects.forEach((effect, i) => {
           const isLastEffect = i === effects.length - 1;
-          // 마지막 효과이고 접미사가 있으면 일반 간격, 없으면 짧은 간격
-          const gapClass = isLastEffect && suffixEnchants.length > 0 ? 'gap-md' : 'gap-xxs';
+          // 마지막 효과이고 접미사가 있으면 gap-md, 아니면 gap-xxs
+          const gapClass = isLastEffect && suffixEnchants.length > 0 ? 'gap-md' : (isLastEffect ? '' : 'gap-xxs');
           
           const effectText = effect.trim();
           const conditionMatch = effectText.match(/(.*?때) (.*)/);
@@ -886,7 +889,8 @@ class OptionRenderer {
       }
       
       const enchantElement = document.createElement('div');
-      enchantElement.className = 'tooltip-stat gap-xs';
+      const hasEffects = enchant.option_desc && enchant.option_desc.length > 0;
+      enchantElement.className = `tooltip-stat ${hasEffects ? 'gap-xs' : ''}`;
       enchantElement.innerHTML = `<span class="enchant-type">[${type}]</span> ${enchantName} <span class="item-pink">${rankText}</span>`;
       block.appendChild(enchantElement);
       
@@ -895,6 +899,7 @@ class OptionRenderer {
         
         effects.forEach((effect, i) => {
           const isLast = i === effects.length - 1;
+          // 마지막 항목은 간격 없음, 중간 항목은 gap-xxs
           const gapClass = isLast ? '' : 'gap-xxs';
           
           const effectText = effect.trim();
@@ -937,7 +942,8 @@ class OptionRenderer {
       }
       
       const modElement = document.createElement('div');
-      modElement.className = 'tooltip-stat gap-md';
+      // 다음 개조 항목이 있는 경우만 gap-md 적용
+      modElement.className = `tooltip-stat ${(masterMod || specialMod) ? 'gap-md' : ''}`;
       modElement.textContent = text;
       block.appendChild(modElement);
     }
@@ -946,21 +952,26 @@ class OptionRenderer {
     if (masterMod) {
       // 장인 개조 타이틀
       const masterModTitle = document.createElement('div');
-      masterModTitle.className = 'tooltip-stat gap-xs';
+      // 장인 개조 내용이 있을 때만 gap-xs 적용
+      const hasMasterModContent = masterMod.option_value && masterMod.option_value.includes(',');
+      masterModTitle.className = `tooltip-stat ${hasMasterModContent ? 'gap-xs' : ''}`;
       masterModTitle.textContent = '장인 개조';
       block.appendChild(masterModTitle);
       
       // 장인 개조 효과 처리
-      const modParts = masterMod.option_value.split(',');
-      modParts.forEach((part, index) => {
-        const isLast = index === modParts.length - 1;
-        const gapClass = isLast && specialMod ? 'gap-md' : (isLast ? '' : 'gap-xxs');
-        
-        const effectElement = document.createElement('div');
-        effectElement.className = `tooltip-stat item-blue ${gapClass}`;
-        effectElement.textContent = `- ${part.trim()}`;
-        block.appendChild(effectElement);
-      });
+      if (hasMasterModContent) {
+        const modParts = masterMod.option_value.split(',');
+        modParts.forEach((part, index) => {
+          const isLast = index === modParts.length - 1;
+          // 마지막 항목이고 특별 개조가 있을 때만 gap-md, 마지막이면서 다음 항목 없으면 gap 없음
+          const gapClass = isLast ? (specialMod ? 'gap-md' : '') : 'gap-xxs';
+          
+          const effectElement = document.createElement('div');
+          effectElement.className = `tooltip-stat item-blue ${gapClass}`;
+          effectElement.textContent = `- ${part.trim()}`;
+          block.appendChild(effectElement);
+        });
+      }
     }
     
     // 특별 개조 처리
@@ -977,10 +988,14 @@ class OptionRenderer {
     const reforgeRank = options.find(opt => opt.option_type === '세공 랭크');
     const reforgeOptions = options.filter(opt => opt.option_type === '세공 옵션');
     
+    // 세공 랭크가 있고 옵션도 있는지 확인
+    const hasOptions = reforgeOptions.length > 0;
+    
     // 세공 랭크 표시
     if (reforgeRank) {
       const rankElement = document.createElement('div');
-      rankElement.className = 'tooltip-stat item-pink gap-xs';
+      // 세공 랭크와 첫 옵션 사이는 gap-xs, 옵션이 없으면 간격 없음
+      rankElement.className = `tooltip-stat item-pink ${hasOptions ? 'gap-xs' : ''}`;
       rankElement.textContent = `${reforgeRank.option_value}랭크`;
       block.appendChild(rankElement);
     }
@@ -988,6 +1003,7 @@ class OptionRenderer {
     // 세공 옵션 표시
     reforgeOptions.forEach((option, index) => {
       const isLast = index === reforgeOptions.length - 1;
+      // 마지막 항목이면 간격 없음, 아니면 gap-xxs
       const gapClass = isLast ? '' : 'gap-xxs';
       
       const match = option.option_value.match(/(.*?)\((\d+)레벨:(.*)\)/);
@@ -1007,9 +1023,13 @@ class OptionRenderer {
   }
   
   renderErgSection(options, block) {
-    options.forEach(option => {
+    options.forEach((option, index) => {
+      const isLast = index === options.length - 1;
+      // 마지막 항목은 간격 없음, 중간 항목은 gap-xxs
+      const gapClass = isLast ? '' : 'gap-xxs';
+      
       const optionElement = document.createElement('div');
-      optionElement.className = 'tooltip-stat item-pink';
+      optionElement.className = `tooltip-stat item-pink ${gapClass}`;
       optionElement.innerHTML = `등급 <span class="item-pink">${option.option_sub_type}</span> <span class="item-pink">(${option.option_value}/${option.option_value2}레벨)</span>`;
       block.appendChild(optionElement);
     });
@@ -1018,6 +1038,7 @@ class OptionRenderer {
   renderSetEffectSection(options, block) {
     options.forEach((option, index) => {
       const isLast = index === options.length - 1;
+      // 마지막 항목은 간격 없음, 중간 항목은 gap-xxs
       const gapClass = isLast ? '' : 'gap-xxs';
       
       const optionElement = document.createElement('div');
