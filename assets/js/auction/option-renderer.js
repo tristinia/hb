@@ -480,6 +480,18 @@ class OptionRenderer {
     // 각 그룹 렌더링
     Object.entries(optionGroups).forEach(([groupName, groupOptions]) => {
       if (groupOptions.length > 0) {
+        // 인챈트 불가능 옵션을 인챈트 그룹에도 추가
+        if (groupName === '인챈트') {
+          const notEnchantableOption = options.find(opt => 
+            opt.option_type === '인챈트 불가능' && opt.option_value === 'true'
+          );
+          
+          if (notEnchantableOption && !groupOptions.includes(notEnchantableOption)) {
+            // 인챈트 불가능 옵션을 인챈트 그룹의 맨 앞에 추가
+            groupOptions.unshift(notEnchantableOption);
+          }
+        }
+        
         // 섹션 블록 생성
         const sectionBlock = this.createSectionBlock(groupName, groupOptions);
         if (sectionBlock) {
@@ -665,8 +677,7 @@ class OptionRenderer {
         
         // 아이템 보호 옵션 제외 (나중에 별도 처리)
         if (type === '아이템 보호') return;
-        // 인챈트 불가능도 별도 처리
-        if (type === '인챈트 불가능') return;
+        // 인챈트 불가능 옵션은 정상적으로 처리되도록 수정
         
         // 방어 속성은 이미 defenseOptions에 수집됨
         if (defenseOptions.some(o => o.option_type === type)) return;
@@ -697,8 +708,7 @@ class OptionRenderer {
         
         // 아이템 보호 옵션 제외 (나중에 별도 처리)
         if (type === '아이템 보호') return;
-        // 인챈트 불가능도 별도 처리
-        if (type === '인챈트 불가능') return;
+        // 인챈트 불가능 옵션은 정상적으로 처리되도록 수정
         
         // 방어 속성은 이미 defenseOptions에 수집됨
         if (defenseOptions.some(o => o.option_type === type)) return;
@@ -733,11 +743,11 @@ class OptionRenderer {
       // 간격 클래스
       let gapClass = 'gap-xxs';
       if (isLast) {
-        // 간격이 필요할때만 생성
+        // 피어싱이 있거나 하단 그룹이 있는 경우에만 md 간격 추가
         if (piercingOption || lowerGroup.length > 0) {
           gapClass = 'gap-md';
         } else {
-          gapClass = ''; // 간격 없음
+          gapClass = ''; // 아무것도 없으면 간격 없음
         }
       }
       
@@ -746,22 +756,26 @@ class OptionRenderer {
     
     // 피어싱 렌더링
     if (piercingOption) {
-      // 피어싱 아래에 다른 그룹이 있는지 확인
+      // 하단 그룹(아이템 보호, 인챈트 불가능)이 있는지 확인
       const hasLowerGroup = lowerGroup.length > 0;
       const hasProtectionOptions = Object.values(protectionOptions).some(opt => opt !== null);
+      
+      // 하단 그룹이 있으면 md 간격, 없으면 간격 없음
       const gapClass = (hasLowerGroup || hasProtectionOptions) ? 'gap-md' : '';
       this.createOptionElement(piercingOption, block, gapClass);
     }
     
-    // 하단 그룹 렌더링
+    // 하단 그룹 렌더링 (인챈트 불가능 등)
     lowerGroup.forEach((option, index) => {
       const isLast = index === lowerGroup.length - 1;
+      // 아이템 보호 옵션이 있는지 확인
+      const hasProtectionOptions = Object.values(protectionOptions).some(opt => opt !== null);
       
-      // 기본적으로 항목 간 간격은 gap-xxs, 마지막 항목은 간격 없음
-      const gapClass = isLast ? '' : 'gap-xxs';
+      // 마지막 항목이고 아이템 보호가 없으면 간격 없음, 아니면 xxs
+      const gapClass = isLast && !hasProtectionOptions ? '' : 'gap-xxs';
       
       // 인챈트 불가능 속성인 경우 특별 처리
-      if (option.option_type === '인챈트 불가능') {
+      if (option.option_type === '인챈트 불가능' && option.option_value === 'true') {
         const optionElement = document.createElement('div');
         optionElement.className = `tooltip-stat item-red ${gapClass}`;
         optionElement.textContent = '#인챈트 부여 불가';
@@ -793,7 +807,7 @@ class OptionRenderer {
     const prefixEnchants = options.filter(opt => opt.option_sub_type === '접두');
     const suffixEnchants = options.filter(opt => opt.option_sub_type === '접미');
     
-    // 인챈트 불가능 표시
+    // 인챈트 불가능 표시 - 가장 먼저 표시
     if (notEnchantableOption) {
       const notEnchantableElement = document.createElement('div');
       notEnchantableElement.className = 'tooltip-stat item-red gap-md';
@@ -1162,10 +1176,13 @@ class OptionRenderer {
         };
 
       case '인챈트 불가능':
-        return {
-          text: `#인챈트 부여 불가`,
-          colorClass: 'item-red'
-        };
+        if (option.option_value === 'true') {
+          return {
+            text: `#인챈트 부여 불가`,
+            colorClass: 'item-red'
+          };
+        }
+        return null;
         
       case '아이템 보호':
         let protectionText;
