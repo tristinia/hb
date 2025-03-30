@@ -448,6 +448,14 @@ class OptionRenderer {
     orderedOptions.forEach(option => {
       const type = option.option_type;
       
+      console.log('Processing option:', type, option); // 디버깅용
+      
+      if (type === '인챈트 불가능') {
+        console.log('Found 인챈트 불가능 option:', option); // 인챈트 불가능 옵션 발견 시 로그 추가
+        optionGroups['아이템 속성'].push(option);
+        return; // 명시적으로 이 옵션이 처리됨을 표시
+      }
+      
       if (type === '공격' || type === '부상률' || type === '크리티컬' || 
           type === '밸런스' || type === '내구력' || type === '숙련' || 
           type === '남은 전용 해제 가능 횟수' || type === '피어싱 레벨' || 
