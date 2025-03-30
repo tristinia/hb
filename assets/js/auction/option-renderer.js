@@ -150,7 +150,14 @@ class OptionRenderer {
         const currentDurability = parseInt(option.option_value) || 0;
         const maxDurability = parseInt(option.option_value2) || 1;
         text = `내구력 ${currentDurability}/${maxDurability}`;
-        color = 'yellow';
+        
+        // 현재 내구력이 최대 내구력의 20% 이하인지 확인 (올림 적용)
+        const durabilityThreshold = Math.ceil(maxDurability * 0.2);
+        if (currentDurability <= durabilityThreshold) {
+          color = 'red'; // 20% 이하면 빨간색
+        } else {
+          color = 'yellow'; // 그 외에는 노란색
+        }
         break;
         
       case '숙련':
@@ -637,23 +644,32 @@ class OptionRenderer {
     
     // 피어싱 렌더링
     if (piercingOption) {
-      this.createOptionElement(piercingOption, block, lowerGroup.length > 0 ? 'gap-md' : '');
+      // 피어싱 아래에 다른 그룹이 있는지 확인
+      const hasLowerGroup = lowerGroup.length > 0;
+      const hasProtectionOptions = Object.values(protectionOptions).some(opt => opt !== null);
+      const gapClass = (hasLowerGroup || hasProtectionOptions) ? 'gap-md' : '';
+      this.createOptionElement(piercingOption, block, gapClass);
     }
     
     // 하단 그룹 렌더링
     lowerGroup.forEach((option, index) => {
       const isLast = index === lowerGroup.length - 1;
-      const gapClass = isLast ? '' : 'gap-xxs';
+      // 마지막 항목이고 아이템 보호 옵션이 하나라도 있으면 gap-md, 아니면 옵션 간 간격
+      const hasProtectionOptions = Object.values(protectionOptions).some(opt => opt !== null);
+      const gapClass = isLast && hasProtectionOptions ? 'gap-md' : (isLast ? '' : 'gap-xxs');
       this.createOptionElement(option, block, gapClass);
     });
     
     // 마지막으로 아이템 보호 옵션 순서대로 렌더링
-    for (const value of Object.keys(protectionOptions)) {
+    const protectionValues = Object.keys(protectionOptions);
+    protectionValues.forEach((value, index) => {
       const option = protectionOptions[value];
       if (option) {
-        this.createOptionElement(option, block, '');
+        const isLast = index === protectionValues.length - 1;
+        const gapClass = isLast ? '' : 'gap-xxs';
+        this.createOptionElement(option, block, gapClass);
       }
-    }
+    });
   }
   
   renderEnchantsSection(options, block) {
@@ -917,7 +933,8 @@ class OptionRenderer {
         if (processedOption.colorClass) {
           lineElement.classList.add(processedOption.colorClass);
         }
-        lineElement.textContent = line.trim();
+        // 줄바꿈 처리 시 trim()을 제거하여 앞부분 공백 유지
+        lineElement.textContent = line;
         block.appendChild(lineElement);
       });
     } else {
@@ -979,9 +996,13 @@ class OptionRenderer {
       case '내구력':
         const currentDurability = parseInt(option.option_value) || 0;
         const maxDurability = parseInt(option.option_value2) || 1;
+        
+        // 현재 내구력이 최대 내구력의 20% 이하인지 확인 (올림 적용)
+        const durabilityThreshold = Math.ceil(maxDurability * 0.2);
+        
         return {
           text: `내구력 ${currentDurability}/${maxDurability}`,
-          colorClass: 'item-yellow'
+          colorClass: currentDurability <= durabilityThreshold ? 'item-red' : 'item-yellow'
         };
         
       case '숙련':
