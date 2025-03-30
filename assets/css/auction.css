@@ -116,6 +116,11 @@
     color: var(--color-item-navy);
 }
 
+/* 아이템 세부 간격 */
+.tooltip-stat.gap-xxs { margin-bottom: 2px; }
+.tooltip-stat.gap-xs { margin-bottom: 5px; }
+.tooltip-stat.gap-md { margin-bottom: 10px; }
+
 /* 기본 스타일 재설정 */
 * {
     box-sizing: border-box;
