@@ -453,7 +453,7 @@ class OptionRenderer {
           type === '남은 전용 해제 가능 횟수' || type === '피어싱 레벨' || 
           type === '아이템 보호' || type === '방어력' || type === '보호' || 
           type === '마법 방어력' || type === '마법 보호' ||
-          type === '전용 해제 거래 보증서 사용 불가') {
+          type === '전용 해제 거래 보증서 사용 불가' || type === '인챈트 불가능') {
         optionGroups['아이템 속성'].push(option);
       } 
       else if (type === '인챈트') {
