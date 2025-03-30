@@ -677,9 +677,8 @@ class OptionRenderer {
       options.forEach(option => {
         const type = option.option_type;
         
-        // 아이템 보호 옵션 제외 (나중에 별도 처리)
-        if (type === '아이템 보호') return;
-        // 인챈트 불가능 옵션은 정상적으로 처리되도록 수정
+        // 아이템 보호 옵션과 인챈트 불가능 옵션 제외 (나중에 별도 처리)
+        if (type === '아이템 보호' || type === '인챈트 불가능') return;
         
         // 방어 속성은 이미 defenseOptions에 수집됨
         if (defenseOptions.some(o => o.option_type === type)) return;
@@ -705,9 +704,8 @@ class OptionRenderer {
       options.forEach(option => {
         const type = option.option_type;
         
-        // 아이템 보호 옵션 제외 (나중에 별도 처리)
-        if (type === '아이템 보호') return;
-        // 인챈트 불가능 옵션은 정상적으로 처리되도록 수정
+        // 아이템 보호 옵션과 인챈트 불가능 옵션 제외 (나중에 별도 처리)
+        if (type === '아이템 보호' || type === '인챈트 불가능') return;
         
         // 방어 속성은 이미 defenseOptions에 수집됨
         if (defenseOptions.some(o => o.option_type === type)) return;
