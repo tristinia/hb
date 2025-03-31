@@ -31,6 +31,13 @@ const App = (() => {
         sidebarState: {
             isCollapsed: true,
             activeTab: 'category'
+        },
+        lastSearch: {
+            searchTerm: null,
+            selectedItem: null,
+            mainCategory: null, 
+            subCategory: null,
+            timestamp: 0
         }
     };
 
@@ -258,6 +265,32 @@ const App = (() => {
    async function handleSearch(event) {
         const { searchTerm, selectedItem, mainCategory, subCategory } = event.detail;
     
+        // 검색 중복 체크 (300ms 이내 동일 검색 요청 무시)
+        const currentTime = Date.now();
+        const lastSearch = state.lastSearch;
+        const isDuplicateSearch = 
+            lastSearch.searchTerm === searchTerm &&
+            ((!lastSearch.selectedItem && !selectedItem) || 
+             (lastSearch.selectedItem && selectedItem && 
+              lastSearch.selectedItem.name === selectedItem.name)) &&
+            lastSearch.mainCategory === mainCategory &&
+            lastSearch.subCategory === subCategory &&
+            (currentTime - lastSearch.timestamp < 300);
+    
+        if (isDuplicateSearch) {
+            console.log('중복 검색 요청 무시');
+            return;
+        }
+    
+        // 검색 요청 정보 저장
+        state.lastSearch = {
+            searchTerm,
+            selectedItem,
+            mainCategory,
+            subCategory,
+            timestamp: currentTime
+        };
+    
         // 검색 모드로 전환
         enterSearchMode();
         
@@ -344,7 +377,6 @@ const App = (() => {
             ApiClient.setLoading(false);
         }
     }
-
     /**
      * 검색 모드로 전환
      */
@@ -416,30 +448,38 @@ const App = (() => {
      * 검색 초기화 처리
      */
     function resetSearch() {
-    // 검색 입력창 초기화
-    clearSearchInput();
-    
-    // 초기 모드로 전환
-    exitSearchMode();
-    
-    // 카테고리 선택 초기화
-    CategoryManager.resetSelectedCategories();
-    
-    // 필터 초기화
-    FilterManager.resetFilters();
-    
-    // 검색 상태 초기화
-    SearchManager.resetSearch();
-    
-    // 사이드바 탭 상태 - 카테고리 탭 활성화
-    if (!state.sidebarState.isCollapsed) {
-        activateTab('category');
+        // 검색 입력창 초기화
+        clearSearchInput();
+        
+        // 초기 모드로 전환
+        exitSearchMode();
+        
+        // 카테고리 선택 초기화
+        CategoryManager.resetSelectedCategories();
+        
+        // 필터 초기화
+        FilterManager.resetFilters();
+        
+        // 검색 상태 초기화
+        SearchManager.resetSearch();
+        
+        // 마지막 검색 정보 초기화
+        state.lastSearch = {
+            searchTerm: null,
+            selectedItem: null,
+            mainCategory: null,
+            subCategory: null,
+            timestamp: 0
+        };
+        
+        // 사이드바 탭 상태 - 카테고리 탭 활성화
+        if (!state.sidebarState.isCollapsed) {
+            activateTab('category');
+        }
+        
+        // 검색 초기화 이벤트 발생
+        document.dispatchEvent(new CustomEvent('searchReset'));
     }
-    
-    // 검색 초기화 이벤트 발생
-    document.dispatchEvent(new CustomEvent('searchReset'));
-}
-
     
     /**
      * 검색 초기화 이벤트 핸들러
