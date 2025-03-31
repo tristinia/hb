@@ -271,7 +271,7 @@ const App = (() => {
         try {
             let result;
             
-            // 자동완성 검색 처리
+            // 자동완성 검색 처리 - 이 조건을 먼저 체크
             if (selectedItem && selectedItem.name) {
                 const category = selectedItem.subCategory || subCategory;
                 const mainCat = selectedItem.mainCategory || mainCategory;
@@ -289,7 +289,7 @@ const App = (() => {
                     // 특별 카테고리는 먼저 카테고리 검색 후 클라이언트 측 필터링
                     result = await ApiClient.searchByCategory(mainCat, category);
                     
-                    // 클라이언트 측 필터링 - 선택된 아이템 이름과 일치하는 항목만 필터링
+                    // 클라이언트 측 필터링
                     if (result.items && result.items.length > 0) {
                         const filteredItems = result.items.filter(item => 
                             item.item_display_name === selectedItem.name
@@ -314,7 +314,7 @@ const App = (() => {
                     subCategory
                 });
                 
-                // 카테고리 검색만 수행
+                // 순수 카테고리 검색만 수행 (검색어 필터링 제거)
                 result = await ApiClient.searchByCategory(mainCategory, subCategory);
             }
             // 키워드 검색 처리
