@@ -308,21 +308,14 @@ const App = (() => {
             }
             // 카테고리 검색 처리
             else if (subCategory) {
-                // 카테고리 검색 먼저 수행
+                // 카테고리 검색 수행
                 console.log('카테고리 검색: ', {
                     mainCategory,
-                    subCategory,
-                    hasSearchTerm: !!searchTerm
+                    subCategory
                 });
                 
+                // 카테고리 검색만 수행
                 result = await ApiClient.searchByCategory(mainCategory, subCategory);
-                
-                // 검색어가 있으면 클라이언트 측 필터링
-                if (searchTerm && result.items && result.items.length > 0) {
-                    const filteredItems = filterItemsBySearchTerm(result.items, searchTerm);
-                    result.items = filteredItems;
-                    result.totalCount = filteredItems.length;
-                }
             }
             // 키워드 검색 처리
             else if (searchTerm) {
