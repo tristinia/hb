@@ -166,13 +166,35 @@ const SearchManager = (() => {
             }
         });
     }
+
+    /**
+     * 아이템 데이터 처리 및 자동완성 데이터 형식으로 변환
+     * @param {Array} items - JSON에서 가져온 아이템 목록
+     * @param {Object} category - 카테고리 정보
+     */
+    function processItems(items, category) {
+      if (!Array.isArray(items) || items.length === 0) return;
+      
+      // 자동완성 데이터 형식으로 변환하여 추가
+      items.forEach(item => {
+        autocompleteData.push({
+          name: item.name,
+          price: item.price || 0,
+          date: item.date || '',
+          mainCategory: category.mainCategory,
+          subCategory: category.id
+        });
+      });
+      
+      // 로드 완료 표시
+      state.loadedItemFiles.add(category.id);
+      console.log(`카테고리 ${category.id} 아이템 목록 로드 완료: ${items.length}개 아이템`);
+    }
     
     /**
-     * 여러 카테고리에서 자동완성 데이터 로드
+     * 카테고리에서 자동완성 데이터 로드
      */
-    async function loadAutocompleteData() {
-        console.log('자동완성 데이터 로드 시작...');
-        
+    async function loadAutocompleteData() {       
         try {
             // 이미 로드되었으면 스킵
             if (autocompleteData.length > 0) {
@@ -384,17 +406,6 @@ const SearchManager = (() => {
             
             // 모든 카테고리 로드 완료
             console.log(`모든 카테고리 아이템 로드 완료: 총 ${autocompleteData.length}개 항목`);
-            
-            // 최종 캐시 업데이트
-            try {
-                const now = new Date().getTime();
-                localStorage.setItem('autocompleteData', JSON.stringify(autocompleteData));
-                localStorage.setItem('autocompleteDataTimestamp', now.toString());
-                localStorage.setItem('autocompleteDataVersion', '1.1');
-                console.log(`최종 자동완성 데이터 캐싱 완료: ${autocompleteData.length}개 항목`);
-            } catch (error) {
-                console.warn('최종 자동완성 데이터 캐싱 실패:', error);
-            }
             
             // 검색 입력창 활성화
             enableSearchInput();
