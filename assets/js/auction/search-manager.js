@@ -4,7 +4,7 @@
  */
 
 import Utils from './utils.js';
-import CategoryManager from './category-manager.js'; // CategoryManager 직접 import
+import CategoryManager from './category-manager.js';
 
 const SearchManager = (() => {
     // 검색 상태
@@ -18,7 +18,12 @@ const SearchManager = (() => {
         isInitialized: false, // 초기화 상태 추적
         isLoading: false, // 로딩 상태
         hasError: false, // 오류 상태
-        categoryManagerReady: false // CategoryManager 준비 상태
+        categoryManagerReady: false, // CategoryManager 준비 상태
+        dataLoadStats: {
+            total: 0,
+            loaded: 0,
+            lastLoggedPercent: 0
+        }
     };
     
     // 자동완성 데이터
@@ -54,7 +59,6 @@ const SearchManager = (() => {
             
             // 카테고리 초기화 완료 이벤트 리스너 추가
             document.addEventListener('categoriesLoaded', () => {
-                console.log('categoriesLoaded 이벤트 수신: 카테고리 로딩 완료');
                 state.categoryManagerReady = true;
                 
                 // 약간의 지연 후 데이터 로드
@@ -66,11 +70,10 @@ const SearchManager = (() => {
                 }, 100);
             });
             
-            // CategoryManager가 이미 준비되었는지 확인
+            // CategoryManager 준비 상태 확인
             checkCategoryManagerAndLoadData();
             
             state.isInitialized = true;
-            console.log('SearchManager 초기화 완료');
         } catch (error) {
             console.error('검색 관리자 초기화 오류:', error);
             state.hasError = true;
@@ -86,13 +89,11 @@ const SearchManager = (() => {
      */
     function checkCategoryManagerAndLoadData() {
         try {
-            // getSelectedCategories 메서드가 있는지 확인
             if (CategoryManager.getSelectedCategories && 
                 typeof CategoryManager.getSelectedCategories === 'function') {
                 
                 const categories = CategoryManager.getSelectedCategories();
                 if (categories && categories.subCategories && categories.subCategories.length > 0) {
-                    console.log('CategoryManager 이미 초기화됨, 자동완성 데이터 로드 시작');
                     state.categoryManagerReady = true;
                     
                     // 자동완성 데이터 로드
@@ -100,11 +101,7 @@ const SearchManager = (() => {
                         console.error('자동완성 데이터 로드 실패:', error);
                         showSearchInputError('데이터를 불러올 수 없습니다. 페이지를 새로고침 해주세요.');
                     });
-                } else {
-                    console.log('CategoryManager는 준비되었지만 카테고리 데이터가 없음');
                 }
-            } else {
-                console.log('CategoryManager는 존재하지만 아직 완전히 초기화되지 않음');
             }
         } catch (error) {
             console.log('CategoryManager 상태 확인 중 오류:', error);
@@ -188,7 +185,44 @@ const SearchManager = (() => {
       
       // 로드 완료 표시
       state.loadedItemFiles.add(category.id);
-      console.log(`카테고리 ${category.id} 아이템 목록 로드 완료: ${items.length}개 아이템`);
+      
+      // 진행 상황 업데이트
+      state.dataLoadStats.loaded++;
+      updateLoadingProgress();
+    }
+    
+    /**
+     * 진행 상황 업데이트 및 로그 표시
+     */
+    function updateLoadingProgress() {
+        if (state.dataLoadStats.total === 0) return;
+        
+        const percent = Math.round((state.dataLoadStats.loaded / state.dataLoadStats.total) * 100);
+        
+        // 검색창 placeholder 업데이트
+        if (elements.searchInput) {
+            elements.searchInput.placeholder = `데이터 로드 중... (${percent}%)`;
+        }
+        
+        // 중요 진행률(25%, 50%, 75%, 100%)에서만 로그 출력
+        const significantPercents = [25, 50, 75, 100];
+        const currentSignificantPercent = significantPercents.find(p => 
+            percent >= p && state.dataLoadStats.lastLoggedPercent < p
+        );
+        
+        if (currentSignificantPercent) {
+            console.log(`${currentSignificantPercent}% 진행: ${autocompleteData.length}개 항목 로드됨`);
+            state.dataLoadStats.lastLoggedPercent = currentSignificantPercent;
+            
+            // 로컬 스토리지에 현재 상태 저장
+            if (autocompleteData.length > 0) {
+                try {
+                    localStorage.setItem('autocompleteData', JSON.stringify(autocompleteData));
+                } catch (error) {
+                    console.warn(`캐시 저장 실패:`, error);
+                }
+            }
+        }
     }
     
     /**
@@ -198,69 +232,15 @@ const SearchManager = (() => {
         try {
             // 이미 로드되었으면 스킵
             if (autocompleteData.length > 0) {
-                console.log(`이미 자동완성 데이터가 로드됨: ${autocompleteData.length}개 항목`);
-                
-                // 검색 입력창 활성화
                 enableSearchInput();
                 return;
             }
             
-            // 로컬 스토리지에서 캐시된 데이터 확인
-            try {
-                const cachedData = localStorage.getItem('autocompleteData');
-                const cachedTimestamp = localStorage.getItem('autocompleteDataTimestamp');
-                const cachedVersion = localStorage.getItem('autocompleteDataVersion') || '1.0';
-                
-                // 캐시가 24시간 이내에 생성된 경우 사용 (버전도 확인)
-                const now = new Date().getTime();
-                const CACHE_VERSION = '1.1'; // 데이터 형식이 변경될 때마다 버전 업데이트
-                
-                if (cachedData && cachedTimestamp && 
-                    (now - parseInt(cachedTimestamp) < 24 * 60 * 60 * 1000) &&
-                    cachedVersion === CACHE_VERSION) {
-                    console.log('캐시된 자동완성 데이터 로드 중...');
-                    
-                    // 비동기로 데이터 파싱 (대용량 JSON 파싱이 메인 스레드 블로킹 방지)
-                    setTimeout(() => {
-                        try {
-                            const parsedData = JSON.parse(cachedData);
-                            if (Array.isArray(parsedData) && parsedData.length > 0) {
-                                autocompleteData.push(...parsedData);
-                                console.log(`캐시에서 자동완성 데이터 로드 완료: ${autocompleteData.length}개 항목`);
-                                
-                                // 검색 입력창 활성화
-                                enableSearchInput();
-                            } else {
-                                // 캐시 데이터 이상 - 새로 로드
-                                localStorage.removeItem('autocompleteData');
-                                localStorage.removeItem('autocompleteDataTimestamp');
-                                localStorage.removeItem('autocompleteDataVersion');
-                                loadItemListsByCategory();
-                            }
-                        } catch (parseError) {
-                            console.warn('캐시 데이터 파싱 실패:', parseError);
-                            localStorage.removeItem('autocompleteData');
-                            localStorage.removeItem('autocompleteDataTimestamp');
-                            localStorage.removeItem('autocompleteDataVersion');
-                            loadItemListsByCategory();
-                        }
-                    }, 0);
-                    
-                    return;
-                } else {
-                    console.log('캐시 만료 또는 버전 불일치. 새로운 데이터 로드 중...');
-                }
-            } catch (cacheError) {
-                console.warn('캐시 로드 실패, 데이터를 새로 로드합니다:', cacheError);
-            }
-            
-            // 카테고리에서 데이터 로드 (캐시가 없거나 만료된 경우)
+            // 카테고리에서 데이터 로드
             await loadItemListsByCategory();
             
         } catch (error) {
             console.error('자동완성 데이터 로드 중 오류:', error);
-            
-            // 오류 시 검색 입력창 오류 표시
             showSearchInputError('데이터를 불러올 수 없습니다. 페이지를 새로고침 해주세요.');
             throw error;
         }
@@ -298,7 +278,6 @@ const SearchManager = (() => {
                 const retryInterval = 200; // ms
                 
                 while (!state.categoryManagerReady && retryCount < maxRetries) {
-                    console.log(`CategoryManager 준비 대기 중... (시도 ${retryCount + 1}/${maxRetries})`);
                     await new Promise(resolve => setTimeout(resolve, retryInterval));
                     retryCount++;
                     
@@ -321,7 +300,7 @@ const SearchManager = (() => {
                 }
                 
                 if (!state.categoryManagerReady) {
-                    throw new Error('카테고리 관리자가 준비되지 않았습니다. 로드를 계속할 수 없습니다.');
+                    throw new Error('카테고리 관리자가 준비되지 않았습니다.');
                 }
             }
             
@@ -330,9 +309,14 @@ const SearchManager = (() => {
             
             if (!categories.subCategories || categories.subCategories.length === 0) {
                 console.warn('카테고리 정보가 로드되지 않았습니다.');
-                showSearchInputError('카테고리 정보를 불러올 수 없습니다. 페이지를 새로고침 해주세요.');
+                showSearchInputError('카테고리 정보를 불러올 수 없습니다.');
                 return;
             }
+            
+            // 전체 카테고리 개수 설정
+            state.dataLoadStats.total = categories.subCategories.length;
+            state.dataLoadStats.loaded = 0;
+            state.dataLoadStats.lastLoggedPercent = 0;
             
             // 로딩 상태 표시
             if (elements.searchInput) {
@@ -341,58 +325,26 @@ const SearchManager = (() => {
             
             // 작업자 풀 설정 - 카테고리 병렬 로드
             const CONCURRENT_REQUESTS = 5; // 동시에 처리할 요청 수
-            let completedCategories = 0;
-            const totalCategories = categories.subCategories.length;
-            
-            // 데이터 로드 진행률 업데이트 함수
-            const updateProgress = () => {
-                completedCategories++;
-                const percent = Math.round((completedCategories / totalCategories) * 100);
-                
-                if (elements.searchInput) {
-                    elements.searchInput.placeholder = `데이터 로드 중... (${percent}%)`;
-                }
-                
-                // 25%, 50%, 75% 및 100%에서 중간 캐시 저장
-                if (percent === 25 || percent === 50 || percent === 75 || percent === 100) {
-                    saveCacheSnapshot(percent);
-                }
-            };
-            
-            // 중간 캐시 저장
-            const saveCacheSnapshot = (percent) => {
-                if (autocompleteData.length > 0) {
-                    try {
-                        const now = new Date().getTime();
-                        localStorage.setItem('autocompleteData', JSON.stringify(autocompleteData));
-                        localStorage.setItem('autocompleteDataTimestamp', now.toString());
-                        localStorage.setItem('autocompleteDataVersion', '1.1');
-                        console.log(`${percent}% 진행 시점 캐시 저장: ${autocompleteData.length}개 항목`);
-                    } catch (error) {
-                        console.warn(`${percent}% 진행 시점 캐시 저장 실패:`, error);
-                    }
-                }
-            };
             
             // 로드 프로세스 시작
-            console.log(`${totalCategories}개 카테고리 로드 시작`);
+            console.log(`총 ${state.dataLoadStats.total}개 카테고리 로드 시작`);
             
             // 작업자 풀 구현 (동시 요청 제한)
             const processCategoryBatch = async (categoryBatch) => {
                 // 배치 내에서는 병렬 처리
                 await Promise.all(categoryBatch.map(category => 
                     loadItemListFromFile(category)
-                        .then(() => updateProgress())
                         .catch(error => {
-                            console.error(`카테고리 ${category.id} 아이템 목록 로드 실패:`, error);
-                            updateProgress(); // 실패해도 진행률 업데이트
+                            console.error(`카테고리 ${category.id} 로드 실패:`, error);
+                            state.dataLoadStats.loaded++; // 실패해도 진행률 업데이트
+                            updateLoadingProgress();
                         })
                 ));
             };
             
             // 카테고리를 배치로 나누기
             const batches = [];
-            for (let i = 0; i < totalCategories; i += CONCURRENT_REQUESTS) {
+            for (let i = 0; i < state.dataLoadStats.total; i += CONCURRENT_REQUESTS) {
                 batches.push(categories.subCategories.slice(i, i + CONCURRENT_REQUESTS));
             }
             
@@ -405,14 +357,14 @@ const SearchManager = (() => {
             }
             
             // 모든 카테고리 로드 완료
-            console.log(`모든 카테고리 아이템 로드 완료: 총 ${autocompleteData.length}개 항목`);
+            console.log(`데이터 로드 완료: 총 ${autocompleteData.length}개 항목`);
             
             // 검색 입력창 활성화
             enableSearchInput();
             
         } catch (error) {
             console.error('아이템 목록 로드 중 오류:', error);
-            showSearchInputError('아이템 목록을 불러올 수 없습니다. 페이지를 새로고침 해주세요.');
+            showSearchInputError('아이템 목록을 불러올 수 없습니다.');
             throw error;
         }
     }
@@ -436,12 +388,12 @@ const SearchManager = (() => {
                 
                 // 카테고리 데이터 확인
                 if (!categories) {
-                    reject(new Error('CategoryManager.getSelectedCategories가 유효한 데이터를 반환하지 않았습니다'));
+                    reject(new Error('CategoryManager가 유효한 데이터를 반환하지 않았습니다'));
                     return;
                 }
                 
                 if (!categories.subCategories || !Array.isArray(categories.subCategories) || categories.subCategories.length === 0) {
-                    reject(new Error('카테고리 정보가 비어 있거나 유효하지 않습니다'));
+                    reject(new Error('카테고리 정보가 유효하지 않습니다'));
                     return;
                 }
                 
@@ -467,58 +419,32 @@ const SearchManager = (() => {
         const url = `../../data/items/${encodeURIComponent(safeFileName)}.json`;
         
         // 각 파일의 타임스탬프 확인
-        const metaResponse = await fetch(url, {
-          method: 'HEAD'
-        });
+        const response = await fetch(url);
         
-        if (!metaResponse.ok) {
-          throw new Error(`아이템 목록 로드 실패: ${metaResponse.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP 오류: ${response.status}`);
         }
+        
+        const data = await response.json();
         
         // 캐시 유효성 검사
         const cachedTimestamp = localStorage.getItem(`category_${safeFileName}_timestamp`);
-        let needsFreshData = true;
         
-        if (cachedTimestamp) {
-          // 전체 데이터 가져와서 타임스탬프 비교
-          const response = await fetch(url);
-          const data = await response.json();
-          
-          if (data.updated === cachedTimestamp) {
-            // 타임스탬프가 같으면 캐시 사용
-            const cachedItems = JSON.parse(localStorage.getItem(`category_${safeFileName}_items`) || '[]');
-            if (cachedItems.length > 0) {
-              cachedItems.forEach(item => autocompleteData.push(item));
-              state.loadedItemFiles.add(category.id);
-              console.log(`카테고리 ${category.id} 캐시 사용: ${cachedItems.length}개 아이템`);
-              return;
-            }
+        // 타임스탬프 비교
+        if (cachedTimestamp === data.updated) {
+          // 캐시 활용
+          const cachedItems = JSON.parse(localStorage.getItem(`category_${safeFileName}_items`) || '[]');
+          if (cachedItems.length > 0) {
+            cachedItems.forEach(item => autocompleteData.push(item));
+            state.loadedItemFiles.add(category.id);
+            state.dataLoadStats.loaded++;
+            updateLoadingProgress();
+            return;
           }
-          
-          // 이미 응답을 받았으므로 파싱된 데이터 활용
-          const items = data.items || [];
-          processItems(items, category);
-          
-          // 새 캐시 저장
-          localStorage.setItem(`category_${safeFileName}_timestamp`, data.updated);
-          localStorage.setItem(`category_${safeFileName}_items`, JSON.stringify(
-            items.map(item => ({
-              name: item.name,
-              price: item.price || 0,
-              date: item.date || '',
-              mainCategory: category.mainCategory,
-              subCategory: category.id
-            }))
-          ));
-          
-          return;
         }
         
-        // 캐시가 없는 경우 전체 데이터 로드
-        const response = await fetch(url);
-        const data = await response.json();
+        // 캐시가 없거나 만료된 경우 데이터 처리
         const items = data.items || [];
-        
         processItems(items, category);
         
         // 캐시 저장
@@ -534,7 +460,7 @@ const SearchManager = (() => {
         ));
         
       } catch (error) {
-        console.warn(`카테고리 ${category.id} 아이템 목록 로드 중 오류:`, error);
+        console.warn(`카테고리 ${category.id} 아이템 목록 로드 실패:`, error);
         state.loadedItemFiles.add(category.id); // 오류 발생해도 다시 시도하지 않음
         throw error;
       }
@@ -587,7 +513,6 @@ const SearchManager = (() => {
             return [];
         }
         
-        // 2단계 검색 알고리즘: 1차 필터링 후 세부 점수 계산
         // 1차 필터링: 기본 점수 계산 (빠른 검색)
         const firstPassItems = [];
         
@@ -724,7 +649,6 @@ const SearchManager = (() => {
                     
                     categoryInfo = `<div class="suggestion-category">${mainCategoryName}${subCategoryName ? ' > ' + subCategoryName : ''}</div>`;
                 } catch (error) {
-                    // 카테고리 정보 가져오기 실패 시 자동완성 렌더링 못함
                     console.error('카테고리 정보 렌더링 중 오류:', error);
                     elements.suggestionsList.classList.remove('show');
                     state.isSuggestionVisible = false;
@@ -883,7 +807,7 @@ const SearchManager = (() => {
     /**
      * 검색 실행
      */
-        function handleSearch() {
+    function handleSearch() {
         // 로딩 또는 오류 상태면 무시
         if (state.isLoading || state.hasError) return;
         
@@ -993,8 +917,15 @@ const SearchManager = (() => {
     function clearCache() {
         try {
             localStorage.removeItem('autocompleteData');
-            localStorage.removeItem('autocompleteDataTimestamp');
-            localStorage.removeItem('autocompleteDataVersion');
+            
+            // 카테고리별 캐시 지우기
+            const categories = CategoryManager.getSelectedCategories()?.subCategories || [];
+            categories.forEach(category => {
+                const safeFileName = category.id.replace(/\//g, '_');
+                localStorage.removeItem(`category_${safeFileName}_timestamp`);
+                localStorage.removeItem(`category_${safeFileName}_items`);
+            });
+            
             console.log('자동완성 데이터 캐시가 지워졌습니다.');
             return true;
         } catch (error) {
