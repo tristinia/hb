@@ -255,14 +255,13 @@ const App = (() => {
      * 검색 처리
      * @param {CustomEvent} event - 검색 이벤트
      */
-    async function handleSearch(event) {
+   async function handleSearch(event) {
         const { searchTerm, selectedItem, mainCategory, subCategory } = event.detail;
     
         // 검색 모드로 전환
         enterSearchMode();
         
         // 검색 결과가 있을 때 세부 옵션 탭 활성화
-        // 사이드바가 닫혀있는 상태라면, 열리지 않음
         if (!state.sidebarState.isCollapsed) {
             activateTab('filter');
         }
@@ -283,11 +282,29 @@ const App = (() => {
                     itemName: selectedItem.name
                 });
                 
-                result = await ApiClient.searchByCategory(
-                    mainCat, 
-                    category, 
-                    selectedItem.name
-                );
+                // 특별 카테고리 확인 (인챈트 스크롤, 도면, 옷본)
+                const isSpecialCategory = ['인챈트 스크롤', '도면', '옷본'].includes(category);
+                
+                if (isSpecialCategory) {
+                    // 특별 카테고리는 먼저 카테고리 검색 후 클라이언트 측 필터링
+                    result = await ApiClient.searchByCategory(mainCat, category);
+                    
+                    // 클라이언트 측 필터링 - 선택된 아이템 이름과 일치하는 항목만 필터링
+                    if (result.items && result.items.length > 0) {
+                        const filteredItems = result.items.filter(item => 
+                            item.item_display_name === selectedItem.name
+                        );
+                        result.items = filteredItems;
+                        result.totalCount = filteredItems.length;
+                    }
+                } else {
+                    // 일반 카테고리는 기존 방식으로 처리
+                    result = await ApiClient.searchByCategory(
+                        mainCat, 
+                        category, 
+                        selectedItem.name
+                    );
+                }
             }
             // 카테고리 검색 처리
             else if (subCategory) {
