@@ -442,52 +442,92 @@ const SearchManager = (() => {
         });
     }
     
-/**
- * 파일에서 아이템 목록 로드
- * @param {Object} category - 카테고리 정보
- */
-async function loadItemListFromFile(category) {
-    if (state.loadedItemFiles.has(category.id)) return;
-    
-    try {
+    /**
+     * 파일에서 아이템 목록 로드
+     * @param {Object} category - 카테고리 정보
+     */
+    async function loadItemListFromFile(category) {
+      // 이미 로드한 경우 중복 로드 방지
+      if (state.loadedItemFiles.has(category.id)) return;
+      
+      try {
         // 카테고리 ID의 슬래시를 언더스코어로 변환
         const safeFileName = category.id.replace(/\//g, '_');
-        
         const url = `../../data/items/${encodeURIComponent(safeFileName)}.json`;
         
-        const response = await fetch(url);
+        // 각 파일의 타임스탬프 확인
+        const metaResponse = await fetch(url, {
+          method: 'HEAD'
+        });
         
-        if (!response.ok) {
-            throw new Error(`아이템 목록 로드 실패: ${response.status}`);
+        if (!metaResponse.ok) {
+          throw new Error(`아이템 목록 로드 실패: ${metaResponse.status}`);
         }
         
-        // JSON 파싱
+        // 캐시 유효성 검사
+        const cachedTimestamp = localStorage.getItem(`category_${safeFileName}_timestamp`);
+        let needsFreshData = true;
+        
+        if (cachedTimestamp) {
+          // 전체 데이터 가져와서 타임스탬프 비교
+          const response = await fetch(url);
+          const data = await response.json();
+          
+          if (data.updated === cachedTimestamp) {
+            // 타임스탬프가 같으면 캐시 사용
+            const cachedItems = JSON.parse(localStorage.getItem(`category_${safeFileName}_items`) || '[]');
+            if (cachedItems.length > 0) {
+              cachedItems.forEach(item => autocompleteData.push(item));
+              state.loadedItemFiles.add(category.id);
+              console.log(`카테고리 ${category.id} 캐시 사용: ${cachedItems.length}개 아이템`);
+              return;
+            }
+          }
+          
+          // 이미 응답을 받았으므로 파싱된 데이터 활용
+          const items = data.items || [];
+          processItems(items, category);
+          
+          // 새 캐시 저장
+          localStorage.setItem(`category_${safeFileName}_timestamp`, data.updated);
+          localStorage.setItem(`category_${safeFileName}_items`, JSON.stringify(
+            items.map(item => ({
+              name: item.name,
+              price: item.price || 0,
+              date: item.date || '',
+              mainCategory: category.mainCategory,
+              subCategory: category.id
+            }))
+          ));
+          
+          return;
+        }
+        
+        // 캐시가 없는 경우 전체 데이터 로드
+        const response = await fetch(url);
         const data = await response.json();
         const items = data.items || [];
         
-        // 메모리 최적화: 필요한 필드만 추출
-        items.forEach(item => {
-            if (item.name) {
-                autocompleteData.push({
-                    name: item.name,
-                    price: item.price || 0,
-                    date: item.date || '',
-                    mainCategory: category.mainCategory,
-                    subCategory: category.id
-                });
-            }
-        });
+        processItems(items, category);
         
-        // 로드 완료 표시
-        state.loadedItemFiles.add(category.id);
-        console.log(`카테고리 ${category.id} 아이템 목록 로드 완료: ${items.length}개 아이템`);
+        // 캐시 저장
+        localStorage.setItem(`category_${safeFileName}_timestamp`, data.updated);
+        localStorage.setItem(`category_${safeFileName}_items`, JSON.stringify(
+          items.map(item => ({
+            name: item.name,
+            price: item.price || 0,
+            date: item.date || '',
+            mainCategory: category.mainCategory,
+            subCategory: category.id
+          }))
+        ));
         
-    } catch (error) {
+      } catch (error) {
         console.warn(`카테고리 ${category.id} 아이템 목록 로드 중 오류:`, error);
         state.loadedItemFiles.add(category.id); // 오류 발생해도 다시 시도하지 않음
         throw error;
+      }
     }
-}
     
     /**
      * 검색어 입력 처리
