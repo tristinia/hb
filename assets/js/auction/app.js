@@ -393,10 +393,17 @@ const App = (() => {
         
         if (!searchTerm) return;
         
+        // SearchManager에서 상태 가져오기
+        const searchState = SearchManager.getSearchState();
+        const selectedItem = searchState.selectedItem;
+        
+        // 검색어가 선택된 아이템과 동일한 경우 해당 아이템 정보 사용
+        const useSelectedItem = selectedItem && selectedItem.name === searchTerm;
+        
         const searchEvent = new CustomEvent('search', {
             detail: {
                 searchTerm,
-                selectedItem: null,
+                selectedItem: useSelectedItem ? selectedItem : null,
                 mainCategory: null,
                 subCategory: null
             }
@@ -409,26 +416,30 @@ const App = (() => {
      * 검색 초기화 처리
      */
     function resetSearch() {
-        // 검색 입력창 초기화
-        clearSearchInput();
-        
-        // 초기 모드로 전환
-        exitSearchMode();
-        
-        // 카테고리 선택 초기화
-        CategoryManager.resetSelectedCategories();
-        
-        // 필터 초기화
-        FilterManager.resetFilters();
-        
-        // 사이드바 탭 상태 - 카테고리 탭 활성화
-        if (!state.sidebarState.isCollapsed) {
-            activateTab('category');
-        }
-        
-        // 검색 초기화 이벤트 발생
-        document.dispatchEvent(new CustomEvent('searchReset'));
+    // 검색 입력창 초기화
+    clearSearchInput();
+    
+    // 초기 모드로 전환
+    exitSearchMode();
+    
+    // 카테고리 선택 초기화
+    CategoryManager.resetSelectedCategories();
+    
+    // 필터 초기화
+    FilterManager.resetFilters();
+    
+    // 검색 상태 초기화
+    SearchManager.resetSearch();
+    
+    // 사이드바 탭 상태 - 카테고리 탭 활성화
+    if (!state.sidebarState.isCollapsed) {
+        activateTab('category');
     }
+    
+    // 검색 초기화 이벤트 발생
+    document.dispatchEvent(new CustomEvent('searchReset'));
+}
+
     
     /**
      * 검색 초기화 이벤트 핸들러
