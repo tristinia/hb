@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-30T16:00:13.285Z",
+  "updated": "2025-03-31T09:30:35.430Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -457,9 +457,9 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 22,
+          "min": 21,
           "max": 22,
-          "variable": false
+          "variable": true
         },
         {
           "template": "최소대미지 {value} 증가",
@@ -505,9 +505,9 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 4,
-          "max": 4,
-          "variable": false
+          "min": 3,
+          "max": 5,
+          "variable": true
         }
       ]
     },
@@ -1357,9 +1357,9 @@
         },
         {
           "template": "공격 속도 증가 세트 효과 수치 {value} 증가",
-          "min": 3,
+          "min": 1,
           "max": 3,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -1436,7 +1436,7 @@
         {
           "template": "최대대미지 {value} 증가",
           "min": 12,
-          "max": 13,
+          "max": 14,
           "variable": true
         },
         {
@@ -2107,6 +2107,36 @@
         }
       ]
     },
+    "똑똑한": {
+      "name": "똑똑한",
+      "rank": 5,
+      "effects": [
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 8,
+          "max": 8,
+          "variable": false
+        },
+        {
+          "template": "솜씨 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "의지 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "지력 {value} 증가",
+          "min": 15,
+          "max": 15,
+          "variable": false
+        }
+      ]
+    },
     "라이프": {
       "name": "라이프",
       "rank": 8,
@@ -2415,6 +2445,24 @@
           "template": "지력 {value} 증가",
           "min": 10,
           "max": 10,
+          "variable": false
+        }
+      ]
+    },
+    "마나 매지션": {
+      "name": "마나 매지션",
+      "rank": "C",
+      "effects": [
+        {
+          "template": "마나 소비 감소 {value}% 증가",
+          "min": 1,
+          "max": 1,
+          "variable": false
+        },
+        {
+          "template": "최대생명력 {value} 감소",
+          "min": 2,
+          "max": 2,
           "variable": false
         }
       ]
@@ -3259,6 +3307,42 @@
         }
       ]
     },
+    "믿음직한": {
+      "name": "믿음직한",
+      "rank": 9,
+      "effects": [
+        {
+          "template": "수리비 {value}% 감소",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "솜씨 {value} 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 4,
+          "max": 4,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 4,
+          "max": 4,
+          "variable": false
+        },
+        {
+          "template": "최소대미지 {value} 증가",
+          "min": 4,
+          "max": 4,
+          "variable": false
+        }
+      ]
+    },
     "밀렵꾼": {
       "name": "밀렵꾼",
       "rank": 7,
@@ -3386,7 +3470,7 @@
         {
           "template": "크리티컬 {value} 증가",
           "min": 5,
-          "max": 9,
+          "max": 10,
           "variable": true
         },
         {
@@ -3598,6 +3682,24 @@
           "min": 1,
           "max": 10,
           "variable": true
+        }
+      ]
+    },
+    "버스트 솔저": {
+      "name": "버스트 솔저",
+      "rank": "D",
+      "effects": [
+        {
+          "template": "폭발 저항 세트 효과 수치 {value} 증가",
+          "min": 1,
+          "max": 1,
+          "variable": false
+        },
+        {
+          "template": "의지 {value} 감소",
+          "min": 1,
+          "max": 1,
+          "variable": false
         }
       ]
     },
@@ -4243,6 +4345,54 @@
         }
       ]
     },
+    "상쾌한": {
+      "name": "상쾌한",
+      "rank": 5,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 300,
+          "max": 300,
+          "variable": false
+        },
+        {
+          "template": "솜씨 {value} 감소",
+          "min": 30,
+          "max": 30,
+          "variable": false
+        },
+        {
+          "template": "불 속성 연금술 대미지 {value} 증가",
+          "min": 15,
+          "max": 15,
+          "variable": false
+        },
+        {
+          "template": "물 속성 연금술 대미지 {value} 증가",
+          "min": 33,
+          "max": 33,
+          "variable": false
+        },
+        {
+          "template": "물 속성 연금술 대미지 {value} 증가",
+          "min": 15,
+          "max": 15,
+          "variable": false
+        },
+        {
+          "template": "스태미나 소모량 {value}% 감소",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "스태미나 소모량 {value}% 감소",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        }
+      ]
+    },
     "새끼너구리": {
       "name": "새끼너구리",
       "rank": 3,
@@ -4257,6 +4407,24 @@
           "template": "약해보임",
           "min": null,
           "max": null,
+          "variable": false
+        }
+      ]
+    },
+    "새벽": {
+      "name": "새벽",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "최대생명력 {value} 감소",
+          "min": 30,
+          "max": 30,
+          "variable": false
+        },
+        {
+          "template": "최대스태미나 {value} 증가",
+          "min": 20,
+          "max": 20,
           "variable": false
         }
       ]
@@ -4789,13 +4957,13 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 27,
+          "min": 26,
           "max": 39,
           "variable": true
         },
         {
           "template": "최소대미지 {value} 증가",
-          "min": 15,
+          "min": 14,
           "max": 27,
           "variable": true
         }
@@ -5857,9 +6025,9 @@
       "effects": [
         {
           "template": "최대스태미나 {value} 증가",
-          "min": 15,
+          "min": 12,
           "max": 15,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -6469,7 +6637,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 46,
+          "min": 42,
           "max": 52,
           "variable": true
         },
@@ -6691,15 +6859,15 @@
         },
         {
           "template": "마나 소비 감소 {value}% 증가",
-          "min": 2,
+          "min": 1,
           "max": 2,
-          "variable": false
+          "variable": true
         },
         {
           "template": "마법 공격력 {value} 증가",
-          "min": 9,
+          "min": 6,
           "max": 9,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -6715,9 +6883,9 @@
         },
         {
           "template": "피어싱 레벨 {value} 증가",
-          "min": 3,
+          "min": 2,
           "max": 3,
-          "variable": false
+          "variable": true
         },
         {
           "template": "행운 {value} 증가",
@@ -6734,8 +6902,8 @@
         {
           "template": "최대대미지 {value} 증가",
           "min": 41,
-          "max": 41,
-          "variable": false
+          "max": 45,
+          "variable": true
         }
       ]
     },
@@ -6921,6 +7089,42 @@
           "template": "행운 {value} 증가",
           "min": 10,
           "max": 10,
+          "variable": false
+        }
+      ]
+    },
+    "장군": {
+      "name": "장군",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "지력 {value} 감소",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "최대생명력 {value} 증가",
+          "min": 16,
+          "max": 16,
+          "variable": false
+        },
+        {
+          "template": "보호 {value} 증가",
+          "min": 1,
+          "max": 1,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 4,
+          "max": 4,
           "variable": false
         }
       ]
@@ -7184,7 +7388,7 @@
         {
           "template": "최대대미지 {value} 증가",
           "min": 25,
-          "max": 28,
+          "max": 29,
           "variable": true
         },
         {
@@ -7425,6 +7629,36 @@
           "template": "마법 공격력 {value} 증가",
           "min": 8,
           "max": 8,
+          "variable": false
+        }
+      ]
+    },
+    "지배자": {
+      "name": "지배자",
+      "rank": 3,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 6,
+          "max": 6,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 14,
+          "max": 14,
           "variable": false
         }
       ]
@@ -8192,7 +8426,7 @@
         {
           "template": "최대마나 {value} 증가",
           "min": 8,
-          "max": 10,
+          "max": 11,
           "variable": true
         },
         {
@@ -8407,7 +8641,7 @@
         },
         {
           "template": "최대마나 {value} 증가",
-          "min": 43,
+          "min": 32,
           "max": 46,
           "variable": true
         },
@@ -8979,6 +9213,42 @@
           "template": "분해 성공률 {value}% 증가",
           "min": 1,
           "max": 1,
+          "variable": false
+        }
+      ]
+    },
+    "플레임": {
+      "name": "플레임",
+      "rank": "A",
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        },
+        {
+          "template": "최대마나 {value} 증가",
+          "min": 12,
+          "max": 12,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 4,
+          "max": 4,
+          "variable": false
+        },
+        {
+          "template": "불 속성 연금술 대미지 {value} 증가",
+          "min": 6,
+          "max": 6,
           "variable": false
         }
       ]
@@ -9559,7 +9829,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 16,
+          "min": 13,
           "max": 17,
           "variable": true
         },
