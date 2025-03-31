@@ -157,7 +157,13 @@ const SearchManager = (() => {
             const { maintainSearchTerm } = e.detail;
             
             // maintainSearchTerm 플래그가 true면 검색어 유지, 그렇지 않으면 자동완성 처리
-            if (maintainSearchTerm) {
+            if (!maintainSearchTerm) {
+                // 검색어와 선택된 아이템 모두 초기화
+                state.selectedItem = null;
+                // 검색창의 텍스트도 초기화하는 경우 추가 가능
+                // if (elements.searchInput) elements.searchInput.value = '';
+                // state.searchTerm = '';
+            } else {
                 // 검색어는 유지하고 선택된 아이템만 초기화
                 state.selectedItem = null;
             }
@@ -473,7 +479,14 @@ const SearchManager = (() => {
         // 로딩 또는 오류 상태면 무시
         if (state.isLoading || state.hasError) return;
         
-        state.searchTerm = elements.searchInput.value.trim();
+        // 이전 검색어와 다르면 선택된 아이템 초기화
+        const newSearchTerm = elements.searchInput.value.trim();
+        if (newSearchTerm !== state.searchTerm && state.selectedItem) {
+            // 검색어가 변경되면 선택된 아이템 초기화
+            state.selectedItem = null;
+        }
+        
+        state.searchTerm = newSearchTerm;
         
         if (state.searchTerm === '') {
             clearSuggestions();
