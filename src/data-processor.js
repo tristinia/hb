@@ -1,10 +1,12 @@
 // data-processor.js - 데이터 가공 담당
-// 중복 제거 및 최저가만 저장하는 버전
 
 // 현재 날짜 객체
 const currentDate = new Date();
 // 날짜 포맷팅 (YYYY-MM-DD)
 const today = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
+
+// 특별 처리가 필요한 카테고리 정의
+const SPECIAL_CATEGORIES = ['인챈트 스크롤', '도면', '옷본'];
 
 /**
  * 아이템 목록 처리
@@ -17,12 +19,18 @@ function processItems(items, categoryId) {
     item.item_name // 아이템 이름만 있으면 충분
   );
 
+  // 특별 카테고리 여부 확인
+  const isSpecialCategory = SPECIAL_CATEGORIES.includes(categoryId);
+
   // 중복 제거를 위한 맵 생성
   const uniqueItems = new Map();
   
   // 모든 유효한 아이템 처리
   validItems.forEach(item => {
-    const itemName = item.item_name;
+    // 특별 카테고리는 item_display_name을 사용, 그렇지 않으면 item_name 사용
+    const itemName = isSpecialCategory && item.item_display_name ? 
+      item.item_display_name : item.item_name;
+    
     const price = item.auction_price_per_unit;
     
     // 간소화된 아이템 객체
