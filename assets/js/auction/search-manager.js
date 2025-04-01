@@ -720,6 +720,22 @@ const SearchManager = (() => {
         state.searchTerm = item.name;
         state.selectedItem = item;
         
+        // 특별 카테고리 확인
+        const specialCategories = ['인챈트 스크롤', '도면', '옷본'];
+        const isSpecialCategory = specialCategories.includes(item.subCategory);
+        
+        // 자동완성 선택 이벤트 발생 - 캐시 정보 갱신
+        const autocompleteEvent = new CustomEvent('autocompleteSelected', {
+            detail: {
+                searchTerm: item.name,
+                selectedItem: item,
+                category: item.subCategory,
+                mainCategory: item.mainCategory,
+                isSpecialCategory
+            }
+        });
+        document.dispatchEvent(autocompleteEvent);
+        
         // 카테고리 변경 이벤트
         const categoryEvent = new CustomEvent('categoryChanged', {
             detail: {
