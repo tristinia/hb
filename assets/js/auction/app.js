@@ -146,7 +146,7 @@ const App = (() => {
     function handleAutocompleteSelected(event) {
         const { searchTerm, selectedItem, category, mainCategory, isSpecialCategory } = event.detail;
         
-        // 자동완성 캐시 갱신
+        // 자동완성 캐시 갱신 - 선택된 아이템 정보 보존
         state.autocompleteCache = {
             searchTerm,
             selectedItem,
@@ -155,6 +155,11 @@ const App = (() => {
             isSpecialCategory,
             timestamp: Date.now()
         };
+        
+        // 특수 카테고리 여부 저장
+        if (isSpecialCategory) {
+            state.autocompleteCache.isSpecialCategory = true;
+        }
     }
     
     /**
@@ -272,10 +277,7 @@ const App = (() => {
     async function handleSearch(event) {
         const { searchTerm, selectedItem, mainCategory, subCategory } = event.detail;
     
-        // 로깅 추가 - 이벤트 세부 정보를 확인하기 위한 용도
-        // console.log('검색 이벤트 수신:', { searchTerm, mainCategory, subCategory });
-    
-        // 검색 중복 체크)
+        // 검색 중복 체크
         const currentTime = Date.now();
         const lastSearch = state.lastSearch;
         const isDuplicateSearch = 
@@ -287,10 +289,7 @@ const App = (() => {
             lastSearch.subCategory === subCategory &&
             (currentTime - lastSearch.timestamp < 300);
     
-        if (isDuplicateSearch) {
-            // console.log('중복 검색 요청 무시');
-            return;
-        }
+        if (isDuplicateSearch) return;
     
         // 검색 요청 정보 저장
         state.lastSearch = {
@@ -324,18 +323,21 @@ const App = (() => {
                                   
             const isSpecialCategory = specialCategories.includes(currentCategory);
             
-            // 자동완성으로 검색 (selectedItem이 있는 경우)
+            // 자동완성 캐시 체크
+            const hasValidCache = state.autocompleteCache && 
+                                 state.autocompleteCache.searchTerm === searchTerm && 
+                                 state.autocompleteCache.category === currentCategory;
+    
+            // 케이스 1: 자동완성으로 선택한 아이템으로 검색 (selectedItem이 있는 경우)
             if (selectedItem && selectedItem.name) {
                 const category = selectedItem.subCategory || subCategory;
                 const mainCat = selectedItem.mainCategory || mainCategory;
                 
                 if (isSpecialCategory) {
-                    // 특별 카테고리 검색 처리
-                    console.log(`키워드 검색:[${selectedItem.name}]`);
+                    // 특별 카테고리는 키워드 검색으로 처리
                     result = await ApiClient.searchByKeyword(selectedItem.name);
                 } else {
-                    // 일반 카테고리 검색 처리
-                    console.log(`아이템 검색:[${category}/${selectedItem.name}]`);
+                    // 일반 카테고리 검색 처리 - 카테고리/아이템명
                     result = await ApiClient.searchByCategory(
                         mainCat, 
                         category, 
@@ -343,25 +345,40 @@ const App = (() => {
                     );
                 }
             }
-            // 카테고리가 선택된 상태에서 검색
-            else if (subCategory) {
-                if (searchTerm && searchTerm.trim() !== '') {
-                    // 일반 검색 처리
-                    console.log(`아이템 검색:[${subCategory}/${searchTerm}]`);
+            // 케이스 2: 카테고리 선택 + 검색어 존재 시
+            else if (subCategory && searchTerm && searchTerm.trim() !== '') {
+                // 캐시와 비교
+                if (hasValidCache && state.autocompleteCache.selectedItem) {
+                    // 캐시된 아이템 정보로 검색
+                    const cachedItem = state.autocompleteCache.selectedItem;
+                    if (isSpecialCategory) {
+                        result = await ApiClient.searchByKeyword(searchTerm);
+                    } else {
+                        result = await ApiClient.searchByCategory(
+                            mainCategory, 
+                            subCategory, 
+                            searchTerm
+                        );
+                    }
+                } else {
+                    // 캐시 초기화 후 카테고리/검색어로 검색
+                    state.autocompleteCache = null;
                     result = await ApiClient.searchByCategory(
                         mainCategory, 
                         subCategory, 
                         searchTerm
                     );
-                } else {
-                    // 카테고리만 검색
-                    console.log(`아이템 검색:[${subCategory}]`);
-                    result = await ApiClient.searchByCategory(mainCategory, subCategory);
                 }
             }
-            // 키워드로만 검색
+            // 케이스 3: 카테고리만 선택된 경우 - 해당 카테고리 모든 아이템 검색
+            else if (subCategory) {
+                // 검색어 없이 카테고리만으로 검색
+                // 자동완성 캐시 초기화
+                state.autocompleteCache = null;
+                result = await ApiClient.searchByCategory(mainCategory, subCategory);
+            }
+            // 케이스 4: 검색어만 있고 카테고리 없는 경우 - 키워드 검색
             else if (searchTerm) {
-                console.log(`키워드 검색:[${searchTerm}]`);
                 result = await ApiClient.searchByKeyword(searchTerm);
             } 
             else {
@@ -511,19 +528,21 @@ const App = (() => {
     async function handleCategoryChanged(event) {
         const { mainCategory, subCategory, autoSelected, itemName } = event.detail;
     
-        // 카테고리 변경 시 항상 자동완성 캐시 초기화
-        state.autocompleteCache = null;
-    
-        // 카테고리가 선택된 경우
+        // 소분류 카테고리가 선택된 경우만 처리
         if (subCategory) {
             try {
+                // 자동완성 캐시 초기화 (itemName이 있는 경우 제외 - 자동완성 선택인 경우)
+                if (!itemName) {
+                    state.autocompleteCache = null;
+                }
+                
                 // 필터 업데이트
                 await FilterManager.updateFiltersForCategory(subCategory);
             
                 // 자동 검색을 요청하지 않은 경우는 중단
                 if (autoSelected === false) return;
             
-                // 검색 이벤트 생성 및 발생 (직접 API 호출 없이 검색 이벤트만 발생)
+                // 검색 이벤트 생성 및 발생 - 카테고리만으로 검색
                 const searchEvent = new CustomEvent('search', {
                     detail: {
                         searchTerm: itemName || '',
