@@ -720,8 +720,7 @@ const SearchManager = (() => {
         state.searchTerm = item.name;
         state.selectedItem = item;
         
-        // 카테고리 UI 자동 선택을 위한 이벤트를 직접 발생
-        // search 이벤트는 발생시키지 않고, 카테고리 변경 후 categoryChanged 핸들러가 검색을 시작하도록 함
+        // 카테고리 변경 이벤트
         const categoryEvent = new CustomEvent('categoryChanged', {
             detail: {
                 mainCategory: item.mainCategory,
