@@ -2,7 +2,7 @@
  * app.js - 마비노기 경매장 메인 스크립트
  */
 
-// 기존 모듈 가져오기
+// 필요한 모듈 가져오기
 import CategoryManager from './category-manager.js';
 import SearchManager from './search-manager.js';
 import ItemDisplay from './item-display.js';
@@ -37,6 +37,15 @@ const App = (() => {
             selectedItem: null,
             mainCategory: null, 
             subCategory: null,
+            timestamp: 0
+        },
+        // 자동완성 캐시
+        autocompleteCache: {
+            searchTerm: null,
+            selectedItem: null,
+            category: null,
+            mainCategory: null,
+            isSpecialCategory: false,
             timestamp: 0
         }
     };
@@ -80,6 +89,9 @@ const App = (() => {
         // 필터 변경 이벤트
         document.addEventListener('filterChanged', handleFilterChanged);
         
+        // 자동완성 선택 이벤트
+        document.addEventListener('autocompleteSelected', handleAutocompleteSelected);
+        
         // 검색창 이벤트 리스너
         if (elements.searchButton) {
             elements.searchButton.addEventListener('click', triggerSearch);
@@ -102,7 +114,7 @@ const App = (() => {
             elements.logoButton.addEventListener('click', resetSearch);
         }
         
-        // 사이드바 토글 버튼들
+        // 사이드바 토글 버튼
         if (elements.toggleSidebarBtn) {
             elements.toggleSidebarBtn.addEventListener('click', toggleSidebar);
         }
@@ -126,8 +138,23 @@ const App = (() => {
 
         // 윈도우 리사이즈 이벤트
         window.addEventListener('resize', Utils.debounce(handleResize, 200));
-
-        console.log('앱 이벤트 리스너 설정 완료');
+    }
+    
+    /**
+     * 자동완성 선택 처리
+     */
+    function handleAutocompleteSelected(event) {
+        const { searchTerm, selectedItem, category, mainCategory, isSpecialCategory } = event.detail;
+        
+        // 자동완성 캐시 갱신
+        state.autocompleteCache = {
+            searchTerm,
+            selectedItem,
+            category,
+            mainCategory,
+            isSpecialCategory,
+            timestamp: Date.now()
+        };
     }
     
     /**
@@ -139,6 +166,12 @@ const App = (() => {
             elements.clearButton.classList.add('visible');
         } else {
             elements.clearButton.classList.remove('visible');
+        }
+        
+        // 캐시된 검색어와 다른 경우에만 캐시 초기화
+        if (state.autocompleteCache && 
+            state.autocompleteCache.searchTerm !== elements.searchInput.value.trim()) {
+            state.autocompleteCache = null;
         }
     }
     
@@ -180,7 +213,6 @@ const App = (() => {
     
     /**
      * 사이드바 탭 활성화
-     * @param {string} tabName - 활성화할 탭 이름
      */
     function activateTab(tabName) {
         // 모든 탭 비활성화
@@ -224,9 +256,9 @@ const App = (() => {
      * 윈도우 리사이즈 처리
      */
     function handleResize() {
-        // 반응형 처리 필요한 경우 여기에 추가
+        // 반응형 처리
         if (window.innerWidth > 768 && !state.sidebarState.isCollapsed) {
-            // 상태 유지, 큰 화면에서는 사이드바를 열어둠
+            // 큰 화면에서는 사이드바를 열어둠
         } else if (window.innerWidth <= 768) {
             // 모바일 화면에서는 사이드바 접기
             state.sidebarState.isCollapsed = true;
@@ -235,34 +267,9 @@ const App = (() => {
     }
 
     /**
-     * 검색어로 아이템 목록 필터링
-     * @param {Array} items - 아이템 목록
-     * @param {string} searchTerm - 검색어
-     * @returns {Array} 필터링된 아이템 목록
-     */
-    function filterItemsBySearchTerm(items, searchTerm) {
-        if (!searchTerm || !Array.isArray(items)) {
-            return items;
-        }
-        
-        const normalizedTerm = searchTerm.toLowerCase();
-        
-        return items.filter(item => {
-            // 아이템 이름 필드 확인
-            const itemName = (item.item_name || '').toLowerCase();
-            const displayName = (item.item_display_name || '').toLowerCase();
-            
-            // 검색어 포함 여부 확인
-            return itemName.includes(normalizedTerm) || 
-                   displayName.includes(normalizedTerm);
-        });
-    }
-    
-    /**
      * 검색 처리
-     * @param {CustomEvent} event - 검색 이벤트
      */
-   async function handleSearch(event) {
+    async function handleSearch(event) {
         const { searchTerm, selectedItem, mainCategory, subCategory } = event.detail;
     
         // 검색 중복 체크 (300ms 이내 동일 검색 요청 무시)
@@ -278,7 +285,6 @@ const App = (() => {
             (currentTime - lastSearch.timestamp < 300);
     
         if (isDuplicateSearch) {
-            console.log('중복 검색 요청 무시');
             return;
         }
     
@@ -294,7 +300,7 @@ const App = (() => {
         // 검색 모드로 전환
         enterSearchMode();
         
-        // 검색 결과가 있을 때 세부 옵션 탭 활성화
+        // 필터 탭 활성화
         if (!state.sidebarState.isCollapsed) {
             activateTab('filter');
         }
@@ -304,34 +310,51 @@ const App = (() => {
         try {
             let result;
             
-            // 자동완성 검색 처리 - 이 조건을 먼저 체크
-            if (selectedItem && selectedItem.name) {
+            // 특별 카테고리 확인
+            const specialCategories = ['인챈트 스크롤', '도면', '옷본'];
+            
+            // 현재 카테고리 및 검색어 상태 확인
+            const currentCategory = subCategory || 
+                                  (selectedItem && selectedItem.subCategory) || 
+                                  (state.autocompleteCache && state.autocompleteCache.category);
+                                  
+            const isSpecialCategory = specialCategories.includes(currentCategory);
+            
+            // 자동완성 캐시가 유효한지 확인
+            const useCache = state.autocompleteCache && 
+                           state.autocompleteCache.searchTerm === searchTerm &&
+                           (state.autocompleteCache.category === currentCategory);
+            
+            // 자동완성 캐시가 유효
+            if (useCache) {
+                console.log(`저장된 캐시 사용: ${searchTerm}`);
+                
+                if (isSpecialCategory) {
+                    // 특별 카테고리 검색 처리
+                    console.log(`키워드 검색:[${searchTerm}]`);
+                    result = await ApiClient.searchByKeyword(searchTerm);
+                } else {
+                    // 일반 카테고리 검색 처리
+                    console.log(`아이템 검색:[${state.autocompleteCache.category}/${searchTerm}]`);
+                    result = await ApiClient.searchByCategory(
+                        state.autocompleteCache.mainCategory,
+                        state.autocompleteCache.category,
+                        searchTerm
+                    );
+                }
+            }
+            // 자동완성으로 검색
+            else if (selectedItem && selectedItem.name) {
                 const category = selectedItem.subCategory || subCategory;
                 const mainCat = selectedItem.mainCategory || mainCategory;
                 
-                console.log('아이템 검색: ', {
-                    mainCategory: mainCat,
-                    subCategory: category,
-                    itemName: selectedItem.name
-                });
-                
-                // 특별 카테고리 확인 (인챈트 스크롤, 도면, 옷본)
-                const isSpecialCategory = ['인챈트 스크롤', '도면', '옷본'].includes(category);
-                
                 if (isSpecialCategory) {
-                    // 특별 카테고리는 먼저 카테고리 검색 후 클라이언트 측 필터링
-                    result = await ApiClient.searchByCategory(mainCat, category);
-                    
-                    // 클라이언트 측 필터링
-                    if (result.items && result.items.length > 0) {
-                        const filteredItems = result.items.filter(item => 
-                            item.item_display_name === selectedItem.name
-                        );
-                        result.items = filteredItems;
-                        result.totalCount = filteredItems.length;
-                    }
+                    // 특별 카테고리 검색 처리
+                    console.log(`키워드 검색:[${selectedItem.name}]`);
+                    result = await ApiClient.searchByKeyword(selectedItem.name);
                 } else {
-                    // 일반 카테고리는 기존 방식으로 처리
+                    // 일반 카테고리 검색 처리
+                    console.log(`아이템 검색:[${category}/${selectedItem.name}]`);
                     result = await ApiClient.searchByCategory(
                         mainCat, 
                         category, 
@@ -339,20 +362,25 @@ const App = (() => {
                     );
                 }
             }
-            // 카테고리 검색 처리
+            // 카테고리가 선택된 상태에서 검색
             else if (subCategory) {
-                // 카테고리 검색 수행
-                console.log('카테고리 검색: ', {
-                    mainCategory,
-                    subCategory
-                });
-                
-                // 순수 카테고리 검색만 수행 (검색어 필터링 제거)
-                result = await ApiClient.searchByCategory(mainCategory, subCategory);
+                if (searchTerm && searchTerm.trim() !== '') {
+                    // 일반 검색 처리
+                    console.log(`아이템 검색:[${subCategory}/${searchTerm}]`);
+                    result = await ApiClient.searchByCategory(
+                        mainCategory, 
+                        subCategory, 
+                        searchTerm
+                    );
+                } else {
+                    // 카테고리만 검색
+                    console.log(`아이템 검색:[${subCategory}]`);
+                    result = await ApiClient.searchByCategory(mainCategory, subCategory);
+                }
             }
-            // 키워드 검색 처리
+            // 키워드로만 검색
             else if (searchTerm) {
-                console.log('키워드 검색: ', { searchTerm });
+                console.log(`키워드 검색:[${searchTerm}]`);
                 result = await ApiClient.searchByKeyword(searchTerm);
             } 
             else {
@@ -377,6 +405,7 @@ const App = (() => {
             ApiClient.setLoading(false);
         }
     }
+
     /**
      * 검색 모드로 전환
      */
@@ -472,7 +501,10 @@ const App = (() => {
             timestamp: 0
         };
         
-        // 사이드바 탭 상태 - 카테고리 탭 활성화
+        // 자동완성 캐시 초기화
+        state.autocompleteCache = null;
+        
+        // 카테고리 탭 활성화
         if (!state.sidebarState.isCollapsed) {
             activateTab('category');
         }
@@ -494,10 +526,14 @@ const App = (() => {
     
     /**
      * 카테고리 변경 처리
-     * @param {CustomEvent} event - 카테고리 변경 이벤트
      */
     async function handleCategoryChanged(event) {
         const { mainCategory, subCategory, autoSelected, itemName } = event.detail;
+    
+        // 자동 선택이 아닌 경우에만 캐시 초기화
+        if (!autoSelected) {
+            state.autocompleteCache = null;
+        }
     
         // 카테고리가 선택된 경우
         if (subCategory) {
@@ -532,7 +568,6 @@ const App = (() => {
     
     /**
      * 필터 변경 처리
-     * @param {CustomEvent} event - 필터 변경 이벤트
      */
     function handleFilterChanged(event) {
         // 로컬 필터링 적용
@@ -541,7 +576,6 @@ const App = (() => {
     
     /**
      * 페이지 변경 처리
-     * @param {CustomEvent} event - 페이지 변경 이벤트
      */
     function handlePageChanged(event) {
         const { startIndex, endIndex } = event.detail;
@@ -552,7 +586,6 @@ const App = (() => {
     
     /**
      * 아이템 선택 처리
-     * @param {CustomEvent} event - 아이템 선택 이벤트
      */
     function handleItemSelected(event) {
         const { item } = event.detail;
@@ -597,7 +630,6 @@ const App = (() => {
     
     /**
      * 오류 메시지 표시
-     * @param {string} message - 오류 메시지
      */
     function showErrorMessage(message) {
         const resultsBody = document.getElementById('results-body');
@@ -625,7 +657,6 @@ const App = (() => {
     
     /**
      * 모듈 초기화 진행 표시
-     * @param {string} moduleName - 모듈 이름
      */
     function markModuleInitialized(moduleName) {
         if (state.modules.hasOwnProperty(moduleName)) {
@@ -655,10 +686,7 @@ const App = (() => {
             elements.pagination.classList.remove('visible');
             
             // 순차적 초기화 (의존성 있는 모듈)
-            console.log('CategoryManager 초기화 시작...');
             await initCategoryManager();
-            
-            console.log('SearchManager 초기화 시작...');
             await initSearchManager();
             
             // 병렬 초기화 (남은 모듈)
@@ -790,7 +818,6 @@ const App = (() => {
     
     /**
      * 초기화 오류 표시
-     * @param {string} message - 오류 메시지
      */
     function showInitError(message) {
         const errorDiv = document.createElement('div');
@@ -819,8 +846,6 @@ const App = (() => {
     
     /**
      * 카테고리 ID로 정보 찾기
-     * @param {string} id - 카테고리 ID
-     * @returns {Object|null} 카테고리 정보
      */
     function findCategoryById(id) {
         if (!id || typeof CategoryManager === 'undefined' || !CategoryManager.getSelectedCategories) {
@@ -842,6 +867,5 @@ export default App;
 
 // DOM 로드 완료 시 애플리케이션 초기화
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM 로드 완료, 애플리케이션 초기화 시작');
     App.init();
 });
