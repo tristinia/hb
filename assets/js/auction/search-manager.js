@@ -137,47 +137,6 @@ const SearchManager = (() => {
         document.addEventListener('categoryChanged', (e) => {
             const { maintainSearchTerm } = e.detail;
             
-            // 카테고리 변경 시 자동완성 캐시 초기화
-            state.autocompleteCache = null;
-            
-            // maintainSearchTerm 플래그가 true면 검색어 유지, 그렇지 않으면 초기화
-            if (!maintainSearchTerm) {
-                state.selectedItem = null;
-            } else {
-                state.selectedItem = null;
-            }
-        });
-    }
-    
-    /**
-     * 이벤트 리스너 설정
-     */
-    function setupEventListeners() {
-        if (elements.searchInput) {
-            // 검색어 입력 이벤트
-            elements.searchInput.addEventListener('input', Utils.debounce(handleSearchInput, 300));
-            
-            // 키보드 이벤트 (화살표, Enter 등)
-            elements.searchInput.addEventListener('keydown', handleKeyDown);
-        }
-        
-        if (elements.searchButton) {
-            // 검색 버튼 클릭
-            elements.searchButton.addEventListener('click', handleSearch);
-        }
-        
-        if (elements.resetButton) {
-            // 초기화 버튼 클릭
-            elements.resetButton.addEventListener('click', resetSearch);
-        }
-        
-        // 문서 클릭 이벤트 (외부 클릭 시 자동완성 닫기)
-        document.addEventListener('click', handleDocumentClick);
-
-        // 카테고리 변경
-        document.addEventListener('categoryChanged', (e) => {
-            const { maintainSearchTerm } = e.detail;
-            
             // maintainSearchTerm 플래그가 true면 검색어 유지, 그렇지 않으면 자동완성 처리
             if (!maintainSearchTerm) {
                 // 검색어와 선택된 아이템 모두 초기화
@@ -232,23 +191,12 @@ const SearchManager = (() => {
             elements.searchInput.placeholder = `데이터 로드 중... (${percent}%)`;
         }
         
-        // 중요 진행률(25%, 50%, 75%, 100%)에서만 로그 출력
-        const significantPercents = [25, 50, 75, 100];
-        const currentSignificantPercent = significantPercents.find(p => 
-            percent >= p && state.dataLoadStats.lastLoggedPercent < p
-        );
-        
-        if (currentSignificantPercent) {
-            console.log(`${currentSignificantPercent}% 진행: ${autocompleteData.length}개 항목 로드됨`);
-            state.dataLoadStats.lastLoggedPercent = currentSignificantPercent;
-            
-            // 로컬 스토리지에 현재 상태 저장
-            if (autocompleteData.length > 0) {
-                try {
-                    localStorage.setItem('autocompleteData', JSON.stringify(autocompleteData));
-                } catch (error) {
-                    console.warn(`캐시 저장 실패:`, error);
-                }
+        // 로컬 스토리지에 현재 상태 저장
+        if (autocompleteData.length > 0) {
+            try {
+                localStorage.setItem('autocompleteData', JSON.stringify(autocompleteData));
+            } catch (error) {
+                console.warn(`캐시 저장 실패:`, error);
             }
         }
     }
@@ -354,9 +302,6 @@ const SearchManager = (() => {
             // 작업자 풀 설정 - 카테고리 병렬 로드
             const CONCURRENT_REQUESTS = 5; // 동시에 처리할 요청 수
             
-            // 로드 프로세스 시작
-            console.log(`총 ${state.dataLoadStats.total}개 카테고리 로드 시작`);
-            
             // 작업자 풀 구현 (동시 요청 제한)
             const processCategoryBatch = async (categoryBatch) => {
                 // 배치 내에서는 병렬 처리
@@ -383,9 +328,6 @@ const SearchManager = (() => {
                 // UI 렌더링을 위한 작은 지연
                 await new Promise(resolve => setTimeout(resolve, 10));
             }
-            
-            // 모든 카테고리 로드 완료
-            console.log(`데이터 로드 완료: 총 ${autocompleteData.length}개 항목`);
             
             // 검색 입력창 활성화
             enableSearchInput();
@@ -724,7 +666,7 @@ const SearchManager = (() => {
         const specialCategories = ['인챈트 스크롤', '도면', '옷본'];
         const isSpecialCategory = specialCategories.includes(item.subCategory);
         
-        // 자동완성 선택 이벤트 발생 - 캐시 정보 갱신
+        // 자동완성 선택 이벤트 발생
         const autocompleteEvent = new CustomEvent('autocompleteSelected', {
             detail: {
                 searchTerm: item.name,
@@ -980,6 +922,25 @@ const SearchManager = (() => {
             console.error('캐시 삭제 실패:', error);
             return false;
         }
+    }
+    
+    /**
+     * 검색 입력창에 오류 표시
+     * @param {string} message - 오류 메시지
+     */
+    function showSearchInputError(message) {
+        if (!elements.searchInput) return;
+        
+        elements.searchInput.placeholder = message;
+        elements.searchInput.classList.add('search-error');
+        
+        // 검색 버튼 비활성화
+        if (elements.searchButton) {
+            elements.searchButton.setAttribute('disabled', 'true');
+        }
+        
+        state.isLoading = false;
+        state.hasError = true;
     }
     
     // 공개 API
