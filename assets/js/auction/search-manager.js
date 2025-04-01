@@ -697,20 +697,32 @@ const SearchManager = (() => {
         elements.searchInput.value = item.name;
         state.searchTerm = item.name;
         state.selectedItem = item;
+        
+        // 특별 카테고리 확인
+        const isSpecialCategory = ['인챈트 스크롤', '도면', '옷본'].includes(item.subCategory);
     
-        // 카테고리 자동 선택
-        if (item.mainCategory && item.subCategory) {
-            // 카테고리 UI 자동 선택을 위한 이벤트 발생
-            const categoryEvent = new CustomEvent('categoryChanged', {
-                detail: {
-                    mainCategory: item.mainCategory,
-                    subCategory: item.subCategory,
-                    autoSelected: true,
-                    itemName: item.name
-                }
-            });
-            document.dispatchEvent(categoryEvent);
-        }
+        // 자동완성 캐시 업데이트 이벤트 발생
+        const cacheEvent = new CustomEvent('autocompleteSelected', {
+            detail: {
+                searchTerm: item.name,
+                selectedItem: item,
+                category: item.subCategory,
+                mainCategory: item.mainCategory,
+                isSpecialCategory
+            }
+        });
+        document.dispatchEvent(cacheEvent);
+    
+        // 카테고리 UI 자동 선택을 위한 이벤트 발생
+        const categoryEvent = new CustomEvent('categoryChanged', {
+            detail: {
+                mainCategory: item.mainCategory,
+                subCategory: item.subCategory,
+                autoSelected: true,
+                itemName: item.name
+            }
+        });
+        document.dispatchEvent(categoryEvent);
     
         // 자동완성 닫기
         clearSuggestions();
