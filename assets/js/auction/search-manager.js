@@ -720,21 +720,8 @@ const SearchManager = (() => {
         state.searchTerm = item.name;
         state.selectedItem = item;
         
-        // 특별 카테고리 확인
-        const isSpecialCategory = ['인챈트 스크롤', '도면', '옷본'].includes(item.subCategory);
-    
-        // 자동완성 캐시 업데이트 이벤트 발생
-        const cacheEvent = new CustomEvent('autocompleteSelected', {
-            detail: {
-                searchTerm: item.name,
-                selectedItem: item,
-                category: item.subCategory,
-                mainCategory: item.mainCategory,
-                isSpecialCategory
-            }
-        });
-        document.dispatchEvent(cacheEvent);
-        
+        // 카테고리 UI 자동 선택을 위한 이벤트를 직접 발생
+        // search 이벤트는 발생시키지 않고, 카테고리 변경 후 categoryChanged 핸들러가 검색을 시작하도록 함
         const categoryEvent = new CustomEvent('categoryChanged', {
             detail: {
                 mainCategory: item.mainCategory,
@@ -744,7 +731,7 @@ const SearchManager = (() => {
             }
         });
         document.dispatchEvent(categoryEvent);
-    
+        
         // 자동완성 닫기
         clearSuggestions();
     }
