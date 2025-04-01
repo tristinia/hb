@@ -109,22 +109,44 @@ const SearchManager = (() => {
     }
     
     /**
-     * 검색 입력 오류 표시
-     * @param {string} message - 오류 메시지
+     * 이벤트 리스너 설정
      */
-    function showSearchInputError(message) {
-        if (!elements.searchInput) return;
-        
-        elements.searchInput.placeholder = message;
-        elements.searchInput.classList.add('search-error');
-        
-        // 검색 버튼 비활성화
-        if (elements.searchButton) {
-            elements.searchButton.setAttribute('disabled', 'disabled');
+    function setupEventListeners() {
+        if (elements.searchInput) {
+            // 검색어 입력 이벤트
+            elements.searchInput.addEventListener('input', Utils.debounce(handleSearchInput, 300));
+            
+            // 키보드 이벤트 (화살표, Enter 등)
+            elements.searchInput.addEventListener('keydown', handleKeyDown);
         }
         
-        state.isLoading = false;
-        state.hasError = true;
+        if (elements.searchButton) {
+            // 검색 버튼 클릭
+            elements.searchButton.addEventListener('click', handleSearch);
+        }
+        
+        if (elements.resetButton) {
+            // 초기화 버튼 클릭
+            elements.resetButton.addEventListener('click', resetSearch);
+        }
+        
+        // 문서 클릭 이벤트 (외부 클릭 시 자동완성 닫기)
+        document.addEventListener('click', handleDocumentClick);
+    
+        // 카테고리 변경
+        document.addEventListener('categoryChanged', (e) => {
+            const { maintainSearchTerm } = e.detail;
+            
+            // 카테고리 변경 시 자동완성 캐시 초기화
+            state.autocompleteCache = null;
+            
+            // maintainSearchTerm 플래그가 true면 검색어 유지, 그렇지 않으면 초기화
+            if (!maintainSearchTerm) {
+                state.selectedItem = null;
+            } else {
+                state.selectedItem = null;
+            }
+        });
     }
     
     /**
@@ -712,8 +734,7 @@ const SearchManager = (() => {
             }
         });
         document.dispatchEvent(cacheEvent);
-    
-        // 카테고리 UI 자동 선택을 위한 이벤트 발생
+        
         const categoryEvent = new CustomEvent('categoryChanged', {
             detail: {
                 mainCategory: item.mainCategory,
