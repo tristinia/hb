@@ -272,12 +272,15 @@ const App = (() => {
     async function handleSearch(event) {
         const { searchTerm, selectedItem, mainCategory, subCategory } = event.detail;
     
-        // 검색 중복 체크 (300ms 이내 동일 검색 요청 무시)
+        // 로깅 추가 - 이벤트 세부 정보를 확인하기 위한 용도
+        // console.log('검색 이벤트 수신:', { searchTerm, mainCategory, subCategory });
+    
+        // 검색 중복 체크)
         const currentTime = Date.now();
         const lastSearch = state.lastSearch;
         const isDuplicateSearch = 
             lastSearch.searchTerm === searchTerm &&
-            ((!lastSearch.selectedItem && !selectedItem) || 
+            ((lastSearch.selectedItem === null && selectedItem === null) || 
              (lastSearch.selectedItem && selectedItem && 
               lastSearch.selectedItem.name === selectedItem.name)) &&
             lastSearch.mainCategory === mainCategory &&
@@ -285,6 +288,7 @@ const App = (() => {
             (currentTime - lastSearch.timestamp < 300);
     
         if (isDuplicateSearch) {
+            // console.log('중복 검색 요청 무시');
             return;
         }
     
@@ -320,29 +324,8 @@ const App = (() => {
                                   
             const isSpecialCategory = specialCategories.includes(currentCategory);
             
-            // 자동완성 캐시가 유효한지 확인
-            const useCache = state.autocompleteCache && 
-                           state.autocompleteCache.searchTerm === searchTerm &&
-                           (state.autocompleteCache.category === currentCategory);
-            
-            // 자동완성 캐시가 유효
-            if (useCache) {
-                if (isSpecialCategory) {
-                    // 특별 카테고리 검색 처리
-                    console.log(`키워드 검색:[${searchTerm}]`);
-                    result = await ApiClient.searchByKeyword(searchTerm);
-                } else {
-                    // 일반 카테고리 검색 처리
-                    console.log(`아이템 검색:[${state.autocompleteCache.category}/${searchTerm}]`);
-                    result = await ApiClient.searchByCategory(
-                        state.autocompleteCache.mainCategory,
-                        state.autocompleteCache.category,
-                        searchTerm
-                    );
-                }
-            }
-            // 자동완성으로 검색
-            else if (selectedItem && selectedItem.name) {
+            // 자동완성으로 검색 (selectedItem이 있는 경우)
+            if (selectedItem && selectedItem.name) {
                 const category = selectedItem.subCategory || subCategory;
                 const mainCat = selectedItem.mainCategory || mainCategory;
                 
