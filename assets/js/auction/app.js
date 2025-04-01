@@ -272,27 +272,13 @@ const App = (() => {
     async function handleSearch(event) {
         const { searchTerm, selectedItem, mainCategory, subCategory } = event.detail;
     
-        // 검색 중복 체크 (300ms 이내)
-        const currentTime = Date.now();
-        const lastSearch = state.lastSearch;
-        const isDuplicateSearch = 
-            lastSearch.searchTerm === searchTerm &&
-            ((lastSearch.selectedItem === null && selectedItem === null) || 
-             (lastSearch.selectedItem && selectedItem && 
-              lastSearch.selectedItem.name === selectedItem.name)) &&
-            lastSearch.mainCategory === mainCategory &&
-            lastSearch.subCategory === subCategory &&
-            (currentTime - lastSearch.timestamp < 300);
-    
-        if (isDuplicateSearch) return;
-    
         // 검색 요청 정보 저장
         state.lastSearch = {
             searchTerm,
             selectedItem,
             mainCategory,
             subCategory,
-            timestamp: currentTime
+            timestamp: Date.now()
         };
     
         // 검색 모드로 전환
@@ -313,12 +299,11 @@ const App = (() => {
             
             // 현재 카테고리 및 검색어 상태 확인
             const currentCategory = subCategory || 
-                                  (selectedItem && selectedItem.subCategory) || 
-                                  (state.autocompleteCache && state.autocompleteCache.category);
+                                  (selectedItem && selectedItem.subCategory);
                                   
             const isSpecialCategory = specialCategories.includes(currentCategory);
             
-            // 자동완성으로 검색 (selectedItem이 있는 경우)
+            // 1. 자동완성으로 선택한 아이템
             if (selectedItem && selectedItem.name) {
                 const category = selectedItem.subCategory || subCategory;
                 const mainCat = selectedItem.mainCategory || mainCategory;
@@ -337,18 +322,31 @@ const App = (() => {
                     );
                 }
             }
-            // 카테고리 선택 + 검색어 존재
-            else if (subCategory && searchTerm && searchTerm.trim() !== '') {
-                // 캐시와 비교
-                if (state.autocompleteCache && 
-                    state.autocompleteCache.searchTerm === searchTerm && 
-                    state.autocompleteCache.category === subCategory) {
-                    
-                    // 캐시와 일치하면 캐시 기반 검색
-                    if (isSpecialCategory) {
-                        console.log(`키워드 검색:[${searchTerm}]`);
-                        result = await ApiClient.searchByKeyword(searchTerm);
+            // 2&4. 카테고리 선택됨
+            else if (subCategory) {
+                // 특별 카테고리이고 검색어가 있는 경우
+                if (isSpecialCategory && searchTerm && searchTerm.trim() !== '') {
+                    console.log(`키워드 검색:[${searchTerm}]`);
+                    result = await ApiClient.searchByKeyword(searchTerm);
+                }
+                // 검색어 있음 (카테고리 + 검색어)
+                else if (searchTerm && searchTerm.trim() !== '') {
+                    // 캐시 비교
+                    if (state.autocompleteCache && 
+                        state.autocompleteCache.searchTerm === searchTerm && 
+                        state.autocompleteCache.category === subCategory) {
+                        
+                        // 캐시 일치 - 캐시 기반 검색
+                        const item = state.autocompleteCache.selectedItem;
+                        console.log(`아이템 검색:[${subCategory}/${searchTerm}]`);
+                        result = await ApiClient.searchByCategory(
+                            mainCategory, 
+                            subCategory, 
+                            searchTerm
+                        );
                     } else {
+                        // 캐시 불일치 - 캐시 초기화 후 일반 검색
+                        state.autocompleteCache = null;
                         console.log(`아이템 검색:[${subCategory}/${searchTerm}]`);
                         result = await ApiClient.searchByCategory(
                             mainCategory, 
@@ -356,29 +354,21 @@ const App = (() => {
                             searchTerm
                         );
                     }
-                } else {
-                    // 캐시와 불일치하면 캐시 초기화 후 일반 검색
+                }
+                // 검색어 없음 (카테고리만)
+                else {
+                    // 자동완성 캐시 초기화
                     state.autocompleteCache = null;
-                    console.log(`아이템 검색:[${subCategory}/${searchTerm}]`);
-                    result = await ApiClient.searchByCategory(
-                        mainCategory, 
-                        subCategory, 
-                        searchTerm
-                    );
+                    console.log(`아이템 검색:[${subCategory}]`);
+                    result = await ApiClient.searchByCategory(mainCategory, subCategory);
                 }
             }
-            // 카테고리만 선택된 경우
-            else if (subCategory) {
-                // 자동완성 캐시 초기화
-                state.autocompleteCache = null;
-                console.log(`아이템 검색:[${subCategory}]`);
-                result = await ApiClient.searchByCategory(mainCategory, subCategory);
-            }
-            // 검색어만 있는 경우
+            // 5. 검색어만 있음 (카테고리 없음)
             else if (searchTerm) {
                 console.log(`키워드 검색:[${searchTerm}]`);
                 result = await ApiClient.searchByKeyword(searchTerm);
-            } 
+            }
+            // 검색어도 카테고리도 없음
             else {
                 ApiClient.setLoading(false);
                 return;
@@ -454,6 +444,9 @@ const App = (() => {
         const searchState = SearchManager.getSearchState();
         const selectedItem = searchState.selectedItem;
         
+        // 카테고리 정보 가져오기
+        const { mainCategory, subCategory } = CategoryManager.getSelectedCategories();
+        
         // 검색어가 선택된 아이템과 동일한 경우 해당 아이템 정보 사용
         const useSelectedItem = selectedItem && selectedItem.name === searchTerm;
         
@@ -461,8 +454,8 @@ const App = (() => {
             detail: {
                 searchTerm,
                 selectedItem: useSelectedItem ? selectedItem : null,
-                mainCategory: null,
-                subCategory: null
+                mainCategory,
+                subCategory
             }
         });
         
