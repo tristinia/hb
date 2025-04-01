@@ -184,7 +184,6 @@ const App = (() => {
         
         // 사이드바를 열 때 검색 상태에 따라 적절한 탭 활성화
         if (!state.sidebarState.isCollapsed) {
-            // 검색 모드인 경우 필터 탭 활성화, 아닌 경우 카테고리 탭 활성화
             if (state.isSearchMode) {
                 activateTab('filter');
             } else {
@@ -303,18 +302,18 @@ const App = (() => {
                                   
             const isSpecialCategory = specialCategories.includes(currentCategory);
             
-            // 1. 자동완성으로 선택한 아이템
+            // 자동완성으로 선택한 아이템
             if (selectedItem && selectedItem.name) {
                 const category = selectedItem.subCategory || subCategory;
                 const mainCat = selectedItem.mainCategory || mainCategory;
                 
                 if (isSpecialCategory) {
                     // 특별 카테고리는 키워드 검색으로 처리
-                    console.log(`키워드 검색:[${selectedItem.name}]`);
+                    console.log(`키워드 검색: [${selectedItem.name}]`);
                     result = await ApiClient.searchByKeyword(selectedItem.name);
                 } else {
                     // 일반 카테고리 검색 처리
-                    console.log(`아이템 검색:[${category}/${selectedItem.name}]`);
+                    console.log(`아이템 검색: [${category}/${selectedItem.name}]`);
                     result = await ApiClient.searchByCategory(
                         mainCat, 
                         category, 
@@ -322,23 +321,29 @@ const App = (() => {
                     );
                 }
             }
-            // 2&4. 카테고리 선택됨
-            else if (subCategory) {
+            // 카테고리 선택됨, 검색어 없음
+            else if (subCategory && (!searchTerm || searchTerm.trim() === '')) {
+                // 자동완성 캐시 초기화
+                state.autocompleteCache = null;
+                
+                // 카테고리만으로 검색
+                console.log(`아이템 검색: [${subCategory}]`);
+                result = await ApiClient.searchByCategory(mainCategory, subCategory);
+            }
+            // 카테고리 선택됨, 검색어 있음 (자동완성 클릭 아닌 직접 검색)
+            else if (subCategory && searchTerm && searchTerm.trim() !== '') {
                 // 특별 카테고리이고 검색어가 있는 경우
-                if (isSpecialCategory && searchTerm && searchTerm.trim() !== '') {
-                    console.log(`키워드 검색:[${searchTerm}]`);
+                if (isSpecialCategory) {
+                    console.log(`키워드 검색: [${searchTerm}]`);
                     result = await ApiClient.searchByKeyword(searchTerm);
-                }
-                // 검색어 있음 (카테고리 + 검색어)
-                else if (searchTerm && searchTerm.trim() !== '') {
+                } else {
                     // 캐시 비교
                     if (state.autocompleteCache && 
                         state.autocompleteCache.searchTerm === searchTerm && 
                         state.autocompleteCache.category === subCategory) {
                         
                         // 캐시 일치 - 캐시 기반 검색
-                        const item = state.autocompleteCache.selectedItem;
-                        console.log(`아이템 검색:[${subCategory}/${searchTerm}]`);
+                        console.log(`아이템 검색: [${subCategory}/${searchTerm}]`);
                         result = await ApiClient.searchByCategory(
                             mainCategory, 
                             subCategory, 
@@ -347,7 +352,7 @@ const App = (() => {
                     } else {
                         // 캐시 불일치 - 캐시 초기화 후 일반 검색
                         state.autocompleteCache = null;
-                        console.log(`아이템 검색:[${subCategory}/${searchTerm}]`);
+                        console.log(`아이템 검색: [${subCategory}/${searchTerm}]`);
                         result = await ApiClient.searchByCategory(
                             mainCategory, 
                             subCategory, 
@@ -355,17 +360,10 @@ const App = (() => {
                         );
                     }
                 }
-                // 검색어 없음 (카테고리만)
-                else {
-                    // 자동완성 캐시 초기화
-                    state.autocompleteCache = null;
-                    console.log(`아이템 검색:[${subCategory}]`);
-                    result = await ApiClient.searchByCategory(mainCategory, subCategory);
-                }
             }
-            // 5. 검색어만 있음 (카테고리 없음)
+            // 검색어만 있음 (카테고리 없음)
             else if (searchTerm) {
-                console.log(`키워드 검색:[${searchTerm}]`);
+                console.log(`키워드 검색: [${searchTerm}]`);
                 result = await ApiClient.searchByKeyword(searchTerm);
             }
             // 검색어도 카테고리도 없음
