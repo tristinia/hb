@@ -328,8 +328,12 @@ const App = (() => {
             // 자동완성 캐시가 유효
             if (useCache) {
                 if (isSpecialCategory) {
+                    // 특별 카테고리 검색 처리
+                    console.log(`키워드 검색:[${searchTerm}]`);
                     result = await ApiClient.searchByKeyword(searchTerm);
                 } else {
+                    // 일반 카테고리 검색 처리
+                    console.log(`아이템 검색:[${state.autocompleteCache.category}/${searchTerm}]`);
                     result = await ApiClient.searchByCategory(
                         state.autocompleteCache.mainCategory,
                         state.autocompleteCache.category,
@@ -343,8 +347,12 @@ const App = (() => {
                 const mainCat = selectedItem.mainCategory || mainCategory;
                 
                 if (isSpecialCategory) {
+                    // 특별 카테고리 검색 처리
+                    console.log(`키워드 검색:[${selectedItem.name}]`);
                     result = await ApiClient.searchByKeyword(selectedItem.name);
                 } else {
+                    // 일반 카테고리 검색 처리
+                    console.log(`아이템 검색:[${category}/${selectedItem.name}]`);
                     result = await ApiClient.searchByCategory(
                         mainCat, 
                         category, 
@@ -355,6 +363,8 @@ const App = (() => {
             // 카테고리가 선택된 상태에서 검색
             else if (subCategory) {
                 if (searchTerm && searchTerm.trim() !== '') {
+                    // 일반 검색 처리
+                    console.log(`아이템 검색:[${subCategory}/${searchTerm}]`);
                     result = await ApiClient.searchByCategory(
                         mainCategory, 
                         subCategory, 
@@ -362,11 +372,13 @@ const App = (() => {
                     );
                 } else {
                     // 카테고리만 검색
+                    console.log(`아이템 검색:[${subCategory}]`);
                     result = await ApiClient.searchByCategory(mainCategory, subCategory);
                 }
             }
             // 키워드로만 검색
             else if (searchTerm) {
+                console.log(`키워드 검색:[${searchTerm}]`);
                 result = await ApiClient.searchByKeyword(searchTerm);
             } 
             else {
@@ -391,6 +403,7 @@ const App = (() => {
             ApiClient.setLoading(false);
         }
     }
+    
     /**
      * 검색 모드로 전환
      */
