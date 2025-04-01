@@ -540,7 +540,7 @@ const App = (() => {
                 // 자동 검색을 요청하지 않은 경우는 중단
                 if (autoSelected === false) return;
             
-                // 검색 이벤트 생성 및 발생
+                // 검색 이벤트 생성 및 발생 (직접 API 호출 없이 검색 이벤트만 발생)
                 const searchEvent = new CustomEvent('search', {
                     detail: {
                         searchTerm: itemName || '',
