@@ -1,6 +1,36 @@
 {
-  "updated": "2025-03-31T09:30:35.426Z",
+  "updated": "2025-04-01T09:30:14.805Z",
   "enchants": {
+    "56층의": {
+      "name": "56층의",
+      "rank": 3,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 200,
+          "max": 200,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 26,
+          "max": 26,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 52,
+          "max": 52,
+          "variable": false
+        }
+      ]
+    },
     "8주년 기념 비범한": {
       "name": "8주년 기념 비범한",
       "rank": 9,
@@ -49,7 +79,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 21,
+          "min": 20,
           "max": 24,
           "variable": true
         }
@@ -259,7 +289,7 @@
         },
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
-          "min": 16,
+          "min": 15,
           "max": 20,
           "variable": true
         },
@@ -920,7 +950,7 @@
         {
           "template": "체력 {value} 증가",
           "min": 21,
-          "max": 29,
+          "max": 30,
           "variable": true
         },
         {
@@ -1537,13 +1567,13 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 8,
-          "max": 9,
+          "min": 5,
+          "max": 10,
           "variable": true
         },
         {
           "template": "크리티컬 {value} 증가",
-          "min": 14,
+          "min": 12,
           "max": 15,
           "variable": true
         }
@@ -1809,6 +1839,18 @@
           "template": "크리티컬 {value} 증가",
           "min": 2,
           "max": 2,
+          "variable": false
+        }
+      ]
+    },
+    "낡은": {
+      "name": "낡은",
+      "rank": "F",
+      "effects": [
+        {
+          "template": "크리티컬 {value} 감소",
+          "min": 1,
+          "max": 1,
           "variable": false
         }
       ]
@@ -2845,9 +2887,9 @@
       "effects": [
         {
           "template": "최대부상률 {value} 증가",
-          "min": 2,
+          "min": 1,
           "max": 2,
-          "variable": false
+          "variable": true
         },
         {
           "template": "최소부상률 {value} 증가",
@@ -3901,6 +3943,30 @@
         }
       ]
     },
+    "베테랑의": {
+      "name": "베테랑의",
+      "rank": 9,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 5,
+          "max": 10,
+          "variable": true
+        },
+        {
+          "template": "최소대미지 {value} 증가",
+          "min": 2,
+          "max": 4,
+          "variable": true
+        }
+      ]
+    },
     "벼려진": {
       "name": "벼려진",
       "rank": "D",
@@ -3982,6 +4048,18 @@
           "min": 14,
           "max": 15,
           "variable": true
+        }
+      ]
+    },
+    "부유한": {
+      "name": "부유한",
+      "rank": "E",
+      "effects": [
+        {
+          "template": "솜씨 {value} 증가",
+          "min": 7,
+          "max": 7,
+          "variable": false
         }
       ]
     },
@@ -4435,9 +4513,9 @@
         },
         {
           "template": "연금술 생산 성공률 {value} 증가",
-          "min": 4,
+          "min": 3,
           "max": 4,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -5029,6 +5107,36 @@
         }
       ]
     },
+    "스나이퍼의": {
+      "name": "스나이퍼의",
+      "rank": "A",
+      "effects": [
+        {
+          "template": "최대생명력 {value} 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "최소대미지 {value} 증가",
+          "min": 7,
+          "max": 7,
+          "variable": false
+        },
+        {
+          "template": "공격 속도 증가 세트 효과 수치 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        }
+      ]
+    },
     "스네이크": {
       "name": "스네이크",
       "rank": "D",
@@ -5239,7 +5347,7 @@
       "effects": [
         {
           "template": "대미지밸런스 {value} 증가",
-          "min": 4,
+          "min": 3,
           "max": 5,
           "variable": true
         }
@@ -6547,7 +6655,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 13,
+          "min": 12,
           "max": 17,
           "variable": true
         }
@@ -6727,7 +6835,7 @@
         },
         {
           "template": "최소대미지 {value} 증가",
-          "min": 11,
+          "min": 10,
           "max": 12,
           "variable": true
         }
@@ -7027,9 +7135,9 @@
         },
         {
           "template": "크리티컬 {value} 증가",
-          "min": 4,
+          "min": 3,
           "max": 4,
-          "variable": false
+          "variable": true
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -7346,7 +7454,7 @@
         {
           "template": "대미지밸런스 {value} 감소",
           "min": 19,
-          "max": 20,
+          "max": 24,
           "variable": true
         }
       ]
@@ -7687,6 +7795,48 @@
         }
       ]
     },
+    "주말": {
+      "name": "주말",
+      "rank": 2,
+      "effects": [
+        {
+          "template": "체력 {value} 증가",
+          "min": 60,
+          "max": 60,
+          "variable": false
+        },
+        {
+          "template": "행운 {value} 증가",
+          "min": 60,
+          "max": 60,
+          "variable": false
+        },
+        {
+          "template": "의지 {value} 증가",
+          "min": 60,
+          "max": 60,
+          "variable": false
+        },
+        {
+          "template": "독 면역 세트 효과 수치 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        },
+        {
+          "template": "스톰프 저항 세트 효과 수치 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "폭발 저항 세트 효과 수치 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        }
+      ]
+    },
     "주먹의": {
       "name": "주먹의",
       "rank": "A",
@@ -7849,7 +7999,7 @@
         },
         {
           "template": "마법 공격력 {value} 증가",
-          "min": 5,
+          "min": 4,
           "max": 7,
           "variable": true
         }
@@ -7951,6 +8101,24 @@
         }
       ]
     },
+    "차가운": {
+      "name": "차가운",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 7,
+          "max": 7,
+          "variable": false
+        },
+        {
+          "template": "최소대미지 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        }
+      ]
+    },
     "차오르는": {
       "name": "차오르는",
       "rank": "A",
@@ -8008,6 +8176,30 @@
           "min": 55,
           "max": 65,
           "variable": true
+        }
+      ]
+    },
+    "첩보원의": {
+      "name": "첩보원의",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "최대스태미나 {value} 증가",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        },
+        {
+          "template": "최대생명력 {value} 증가",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 13,
+          "max": 13,
+          "variable": false
         }
       ]
     },
@@ -8143,7 +8335,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 21,
+          "min": 18,
           "max": 32,
           "variable": true
         }
@@ -8419,7 +8611,7 @@
         },
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
-          "min": 22,
+          "min": 21,
           "max": 30,
           "variable": true
         },
@@ -8977,6 +9169,18 @@
         }
       ]
     },
+    "폭스테이머": {
+      "name": "폭스테이머",
+      "rank": "B",
+      "effects": [
+        {
+          "template": "최소대미지 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        }
+      ]
+    },
     "폭스헌터": {
       "name": "폭스헌터",
       "rank": "E",
@@ -9081,6 +9285,18 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 5,
+          "variable": false
+        }
+      ]
+    },
+    "피그테이머": {
+      "name": "피그테이머",
+      "rank": "D",
+      "effects": [
+        {
+          "template": "최소대미지 {value} 감소",
+          "min": 3,
+          "max": 3,
           "variable": false
         }
       ]
@@ -9368,14 +9584,14 @@
         {
           "template": "최대대미지 {value} 감소",
           "min": 2,
-          "max": 9,
+          "max": 10,
           "variable": true
         },
         {
           "template": "최소대미지 {value} 감소",
           "min": 1,
-          "max": 1,
-          "variable": false
+          "max": 2,
+          "variable": true
         }
       ]
     },

@@ -1,5 +1,5 @@
 {
-  "updated": "2025-03-31T09:30:35.430Z",
+  "updated": "2025-04-01T09:30:14.809Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -457,15 +457,15 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 21,
+          "min": 17,
           "max": 22,
           "variable": true
         },
         {
           "template": "최소대미지 {value} 증가",
-          "min": 8,
+          "min": 2,
           "max": 8,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -991,13 +991,13 @@
         },
         {
           "template": "크리티컬 {value} 증가",
-          "min": 6,
+          "min": 5,
           "max": 7,
           "variable": true
         },
         {
           "template": "의지 {value} 증가",
-          "min": 20,
+          "min": 15,
           "max": 24,
           "variable": true
         }
@@ -1333,6 +1333,30 @@
         }
       ]
     },
+    "날렵한": {
+      "name": "날렵한",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 15,
+          "max": 15,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        },
+        {
+          "template": "의지 {value} 증가",
+          "min": 12,
+          "max": 12,
+          "variable": false
+        }
+      ]
+    },
     "남작": {
       "name": "남작",
       "rank": 6,
@@ -1360,6 +1384,30 @@
           "min": 1,
           "max": 3,
           "variable": true
+        }
+      ]
+    },
+    "네뷸러": {
+      "name": "네뷸러",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "지력 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "마법 공격력 {value} 증가",
+          "min": 9,
+          "max": 9,
+          "variable": false
         }
       ]
     },
@@ -1681,7 +1729,7 @@
         },
         {
           "template": "의지 {value} 증가",
-          "min": 9,
+          "min": 8,
           "max": 14,
           "variable": true
         },
@@ -1759,9 +1807,9 @@
         },
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
-          "min": 25,
+          "min": 10,
           "max": 25,
-          "variable": false
+          "variable": true
         },
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
@@ -1827,6 +1875,48 @@
           "template": "솜씨 {value} 증가",
           "min": 5,
           "max": 5,
+          "variable": false
+        }
+      ]
+    },
+    "데이드림": {
+      "name": "데이드림",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 감소",
+          "min": 30,
+          "max": 30,
+          "variable": false
+        },
+        {
+          "template": "최대생명력 {value} 증가",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        },
+        {
+          "template": "최대마나 {value} 증가",
+          "min": 30,
+          "max": 30,
+          "variable": false
+        },
+        {
+          "template": "지력 {value} 증가",
+          "min": 54,
+          "max": 54,
+          "variable": false
+        },
+        {
+          "template": "마법 공격력 {value} 증가",
+          "min": 10,
+          "max": 10,
           "variable": false
         }
       ]
@@ -2299,6 +2389,36 @@
         }
       ]
     },
+    "리볼버": {
+      "name": "리볼버",
+      "rank": 3,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 6,
+          "max": 6,
+          "variable": false
+        },
+        {
+          "template": "의지 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "솜씨 {value} 증가",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        }
+      ]
+    },
     "리플": {
       "name": "리플",
       "rank": "B",
@@ -2583,6 +2703,36 @@
           "template": "최대마나 {value} 증가",
           "min": 40,
           "max": 40,
+          "variable": false
+        }
+      ]
+    },
+    "마샬": {
+      "name": "마샬",
+      "rank": 9,
+      "effects": [
+        {
+          "template": "지력 {value} 감소",
+          "min": 15,
+          "max": 15,
+          "variable": false
+        },
+        {
+          "template": "최대생명력 {value} 증가",
+          "min": 12,
+          "max": 12,
+          "variable": false
+        },
+        {
+          "template": "보호 {value} 증가",
+          "min": 1,
+          "max": 1,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 3,
+          "max": 3,
           "variable": false
         }
       ]
@@ -3536,7 +3686,7 @@
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
           "min": 9,
-          "max": 11,
+          "max": 12,
           "variable": true
         }
       ]
@@ -4369,9 +4519,9 @@
         },
         {
           "template": "물 속성 연금술 대미지 {value} 증가",
-          "min": 33,
+          "min": 15,
           "max": 33,
-          "variable": false
+          "variable": true
         },
         {
           "template": "물 속성 연금술 대미지 {value} 증가",
@@ -4441,7 +4591,7 @@
         },
         {
           "template": "행운 {value} 증가",
-          "min": 16,
+          "min": 14,
           "max": 20,
           "variable": true
         },
@@ -4963,8 +5113,8 @@
         },
         {
           "template": "최소대미지 {value} 증가",
-          "min": 14,
-          "max": 27,
+          "min": 11,
+          "max": 28,
           "variable": true
         }
       ]
@@ -5198,7 +5348,7 @@
         {
           "template": "최소대미지 {value} 감소",
           "min": 5,
-          "max": 7,
+          "max": 8,
           "variable": true
         },
         {
@@ -6560,8 +6710,8 @@
         {
           "template": "솜씨 {value} 증가",
           "min": 2,
-          "max": 2,
-          "variable": false
+          "max": 3,
+          "variable": true
         }
       ]
     },
@@ -7400,7 +7550,7 @@
         {
           "template": "체력 {value} 증가",
           "min": 13,
-          "max": 15,
+          "max": 17,
           "variable": true
         }
       ]
@@ -7855,9 +8005,9 @@
         },
         {
           "template": "연금술 생산 성공률 {value} 증가",
-          "min": 4,
+          "min": 2,
           "max": 4,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -8091,6 +8241,30 @@
           "template": "최대대미지 {value} 증가",
           "min": 9,
           "max": 9,
+          "variable": false
+        }
+      ]
+    },
+    "침착한": {
+      "name": "침착한",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "최소대미지 {value} 감소",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "방어 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "최대부상률 {value} 증가",
+          "min": 10,
+          "max": 10,
           "variable": false
         }
       ]
@@ -8473,6 +8647,18 @@
         }
       ]
     },
+    "크레이피쉬": {
+      "name": "크레이피쉬",
+      "rank": "E",
+      "effects": [
+        {
+          "template": "방어 {value} 감소",
+          "min": 5,
+          "max": 6,
+          "variable": true
+        }
+      ]
+    },
     "크로코다일": {
       "name": "크로코다일",
       "rank": 7,
@@ -8647,7 +8833,7 @@
         },
         {
           "template": "마법 공격력 {value} 증가",
-          "min": 9,
+          "min": 5,
           "max": 12,
           "variable": true
         }
@@ -8683,9 +8869,9 @@
       "effects": [
         {
           "template": "의지 {value} 증가",
-          "min": 2,
+          "min": 1,
           "max": 2,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -9230,8 +9416,8 @@
         {
           "template": "크리티컬 {value} 증가",
           "min": 2,
-          "max": 2,
-          "variable": false
+          "max": 4,
+          "variable": true
         },
         {
           "template": "최대마나 {value} 증가",
@@ -9405,6 +9591,42 @@
           "template": "최대스태미나 {value} 증가",
           "min": 15,
           "max": 15,
+          "variable": false
+        }
+      ]
+    },
+    "합창": {
+      "name": "합창",
+      "rank": 5,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 200,
+          "max": 200,
+          "variable": false
+        },
+        {
+          "template": "행운 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "음악 버프 스킬 효과 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        },
+        {
+          "template": "음악 버프 스킬 지속시간 {value} 증가",
+          "min": 5,
+          "max": 10,
+          "variable": true
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 13,
+          "max": 13,
           "variable": false
         }
       ]
