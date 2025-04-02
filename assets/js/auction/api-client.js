@@ -42,7 +42,7 @@ const ApiClient = (() => {
             state.lastQuery = { type: 'keyword', keyword };
             
             // API 서버 호출
-            const url = `https://us-central1-${window.FIREBASE_CONFIG.projectId}.cloudfunctions.net/searchByKeyword?keyword=${encodeURIComponent(keyword)}`;
+            const url = `https://asia-northeast3-${window.FIREBASE_CONFIG.projectId}.cloudfunctions.net/searchByKeyword?keyword=${encodeURIComponent(keyword)}`;
             
             try {
                 const response = await fetch(url);
@@ -94,7 +94,7 @@ const ApiClient = (() => {
             };
             
             // API 서버 호출 (subCategory 파라미터로 변경)
-            let url = `https://us-central1-${window.FIREBASE_CONFIG.projectId}.cloudfunctions.net/searchByCategory?subCategory=${encodeURIComponent(subCategory)}`;
+            let url = `https://asia-northeast3-${window.FIREBASE_CONFIG.projectId}.cloudfunctions.net/searchByCategory?subCategory=${encodeURIComponent(subCategory)}`;
             
             if (itemName) {
                 url += `&itemName=${encodeURIComponent(itemName)}`;
