@@ -64,13 +64,13 @@ class MetadataLoader {
   async loadEnchantMetadata() {
     try {
       // 접두사 데이터 로드
-      const prefixResponse = await fetch('../../data/meta/enchants/prefix.json');
+      const prefixResponse = await fetch('../data/meta/enchants/prefix.json');
       if (prefixResponse.ok) {
         this.metadata.enchant.prefix = await prefixResponse.json();
       }
       
       // 접미사 데이터 로드
-      const suffixResponse = await fetch('../../data/meta/enchants/suffix.json');
+      const suffixResponse = await fetch('../data/meta/enchants/suffix.json');
       if (suffixResponse.ok) {
         this.metadata.enchant.suffix = await suffixResponse.json();
       }
@@ -89,7 +89,7 @@ class MetadataLoader {
    */
   async loadReforgeMetadata() {
     try {
-      const response = await fetch('../../data/meta/reforges/reforges.json');
+      const response = await fetch('../data/meta/reforges/reforges.json');
       if (response.ok) {
         this.metadata.reforge.data = await response.json();
         this.metadata.reforge.isLoaded = true;
@@ -118,7 +118,7 @@ class MetadataLoader {
       // 카테고리명 안전하게 변환 (/ -> _)
       const safeCategory = category.replace(/\//g, '_');
       
-      const response = await fetch(`../../data/meta/set_bonus/${encodeURIComponent(safeCategory)}.json`);
+      const response = await fetch(`../data/meta/set_bonus/${encodeURIComponent(safeCategory)}.json`);
       if (response.ok) {
         const data = await response.json();
         this.metadata.setEffect.categories[category] = data;
@@ -143,7 +143,7 @@ class MetadataLoader {
       // 카테고리명 안전하게 변환 (/ -> _)
       const safeCategory = category.replace(/\//g, '_');
       
-      const response = await fetch(`../../data/option_structure/${encodeURIComponent(safeCategory)}.json`);
+      const response = await fetch(`../data/option_structure/${encodeURIComponent(safeCategory)}.json`);
       
       // 카테고리별 파일이 없는 경우 빈 객체 반환
       if (!response.ok) {  
