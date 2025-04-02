@@ -64,7 +64,7 @@ class MetadataLoader {
   async loadEnchantMetadata() {
     try {
       // 접두사 데이터 로드
-      const prefixResponse = await fetch('../../../data/meta/enchants/prefix.json');
+      const prefixResponse = await fetch('/data/meta/enchants/prefix.json');
       if (prefixResponse.ok) {
         this.metadata.enchant.prefix = await prefixResponse.json();
       }
