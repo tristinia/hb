@@ -1,5 +1,5 @@
 {
-  "updated": "2025-04-01T09:30:14.805Z",
+  "updated": "2025-04-02T09:29:37.834Z",
   "enchants": {
     "56층의": {
       "name": "56층의",
@@ -320,14 +320,14 @@
         {
           "template": "최대스태미나 {value} 증가",
           "min": 2,
-          "max": 2,
-          "variable": false
+          "max": 3,
+          "variable": true
         },
         {
           "template": "솜씨 {value} 증가",
           "min": 2,
-          "max": 2,
-          "variable": false
+          "max": 4,
+          "variable": true
         }
       ]
     },
@@ -781,6 +781,36 @@
         }
       ]
     },
+    "결정적인": {
+      "name": "결정적인",
+      "rank": 6,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 200,
+          "max": 200,
+          "variable": false
+        },
+        {
+          "template": "공격 속도 증가 세트 효과 수치 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "최소대미지 {value} 증가",
+          "min": 25,
+          "max": 25,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 58,
+          "max": 58,
+          "variable": false
+        }
+      ]
+    },
     "결투의": {
       "name": "결투의",
       "rank": 9,
@@ -1160,8 +1190,8 @@
         {
           "template": "크리티컬 {value} 증가",
           "min": 6,
-          "max": 6,
-          "variable": false
+          "max": 8,
+          "variable": true
         },
         {
           "template": "마리오네트 최대 생명력 {value} 증가",
@@ -2113,7 +2143,7 @@
         },
         {
           "template": "불 속성 연금술 대미지 {value} 증가",
-          "min": 11,
+          "min": 10,
           "max": 20,
           "variable": true
         }
@@ -3322,6 +3352,30 @@
           "min": 3,
           "max": 8,
           "variable": true
+        }
+      ]
+    },
+    "마리오네트": {
+      "name": "마리오네트",
+      "rank": "C",
+      "effects": [
+        {
+          "template": "마리오네트 보호 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        },
+        {
+          "template": "마리오네트 방어 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        },
+        {
+          "template": "마리오네트 최대 생명력 {value} 증가",
+          "min": 20,
+          "max": 20,
+          "variable": false
         }
       ]
     },
@@ -5293,6 +5347,42 @@
         }
       ]
     },
+    "스칼러리": {
+      "name": "스칼러리",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "수리비 {value}% 감소",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 감소",
+          "min": 15,
+          "max": 15,
+          "variable": false
+        },
+        {
+          "template": "마나 소비 감소 {value}% 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        },
+        {
+          "template": "최대마나 {value} 증가",
+          "min": 20,
+          "max": 20,
+          "variable": false
+        },
+        {
+          "template": "마법 공격력 {value} 증가",
+          "min": 7,
+          "max": 7,
+          "variable": false
+        }
+      ]
+    },
     "스크랩": {
       "name": "스크랩",
       "rank": 3,
@@ -6433,9 +6523,9 @@
       "effects": [
         {
           "template": "솜씨 {value} 증가",
-          "min": 9,
+          "min": 5,
           "max": 9,
-          "variable": false
+          "variable": true
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -7081,6 +7171,30 @@
         }
       ]
     },
+    "육지의": {
+      "name": "육지의",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "행운 {value} 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 4,
+          "max": 4,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 4,
+          "max": 4,
+          "variable": false
+        }
+      ]
+    },
     "은 여우": {
       "name": "은 여우",
       "rank": 9,
@@ -7154,12 +7268,12 @@
         {
           "template": "최대부상률 {value} 증가",
           "min": 1,
-          "max": 3,
+          "max": 5,
           "variable": true
         },
         {
           "template": "최소부상률 {value} 증가",
-          "min": 2,
+          "min": 1,
           "max": 3,
           "variable": true
         }
@@ -7172,7 +7286,7 @@
         {
           "template": "대미지밸런스 {value} 감소",
           "min": 8,
-          "max": 10,
+          "max": 11,
           "variable": true
         }
       ]
@@ -8259,6 +8373,24 @@
           "template": "물 속성 연금술 대미지 {value} 증가",
           "min": 9,
           "max": 9,
+          "variable": false
+        }
+      ]
+    },
+    "추적하는": {
+      "name": "추적하는",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "의지 {value} 증가",
+          "min": 10,
+          "max": 10,
           "variable": false
         }
       ]
@@ -9590,7 +9722,7 @@
         {
           "template": "최소대미지 {value} 감소",
           "min": 1,
-          "max": 2,
+          "max": 5,
           "variable": true
         }
       ]

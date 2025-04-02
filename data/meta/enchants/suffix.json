@@ -1,5 +1,5 @@
 {
-  "updated": "2025-04-01T09:30:14.809Z",
+  "updated": "2025-04-02T09:29:37.838Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -943,7 +943,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 51,
+          "min": 50,
           "max": 55,
           "variable": true
         }
@@ -998,7 +998,7 @@
         {
           "template": "의지 {value} 증가",
           "min": 15,
-          "max": 24,
+          "max": 25,
           "variable": true
         }
       ]
@@ -2095,9 +2095,9 @@
       "effects": [
         {
           "template": "최대마나 {value} 감소",
-          "min": 9,
+          "min": 6,
           "max": 9,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -2236,6 +2236,30 @@
           "min": 12,
           "max": 16,
           "variable": true
+        }
+      ]
+    },
+    "락": {
+      "name": "락",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "보호 {value} 증가",
+          "min": 1,
+          "max": 1,
+          "variable": false
+        },
+        {
+          "template": "방어 {value} 증가",
+          "min": 6,
+          "max": 6,
+          "variable": false
+        },
+        {
+          "template": "골렘 소환중 방어 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
         }
       ]
     },
@@ -3500,8 +3524,8 @@
         {
           "template": "솜씨 {value} 증가",
           "min": 11,
-          "max": 11,
-          "variable": false
+          "max": 15,
+          "variable": true
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -3943,9 +3967,9 @@
       "effects": [
         {
           "template": "솜씨 {value} 증가",
-          "min": 8,
+          "min": 5,
           "max": 8,
-          "variable": false
+          "variable": true
         },
         {
           "template": "공격 속도 증가 세트 효과 수치 {value} 증가",
@@ -4113,6 +4137,24 @@
           "template": "최대대미지 {value} 증가",
           "min": 12,
           "max": 12,
+          "variable": false
+        }
+      ]
+    },
+    "부적": {
+      "name": "부적",
+      "rank": "A",
+      "effects": [
+        {
+          "template": "최대스태미나 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "행운 {value} 증가",
+          "min": 10,
+          "max": 10,
           "variable": false
         }
       ]
@@ -6230,7 +6272,7 @@
         {
           "template": "불 속성 연금술 대미지 {value} 증가",
           "min": 40,
-          "max": 49,
+          "max": 50,
           "variable": true
         }
       ]
@@ -6346,6 +6388,30 @@
           "min": 12,
           "max": 20,
           "variable": true
+        }
+      ]
+    },
+    "오거": {
+      "name": "오거",
+      "rank": "C",
+      "effects": [
+        {
+          "template": "최대생명력 {value} 감소",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "최소대미지 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 2,
+          "max": 2,
+          "variable": false
         }
       ]
     },
@@ -7016,7 +7082,7 @@
         {
           "template": "마법 공격력 {value} 증가",
           "min": 6,
-          "max": 9,
+          "max": 10,
           "variable": true
         }
       ]
@@ -8413,6 +8479,30 @@
         }
       ]
     },
+    "캡틴": {
+      "name": "캡틴",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "의지 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "방어 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false
+        }
+      ]
+    },
     "컨시더레이션": {
       "name": "컨시더레이션",
       "rank": "B",
@@ -9135,6 +9225,48 @@
           "template": "최대생명력 {value} 증가",
           "min": 10,
           "max": 10,
+          "variable": false
+        }
+      ]
+    },
+    "포어사이트": {
+      "name": "포어사이트",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 200,
+          "max": 200,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 감소",
+          "min": 30,
+          "max": 30,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최대마나 {value} 증가",
+          "min": 50,
+          "max": 50,
+          "variable": false
+        },
+        {
+          "template": "지력 {value} 증가",
+          "min": 57,
+          "max": 57,
+          "variable": false
+        },
+        {
+          "template": "마법 공격력 {value} 증가",
+          "min": 12,
+          "max": 12,
           "variable": false
         }
       ]
@@ -10052,7 +10184,7 @@
         {
           "template": "최대대미지 {value} 증가",
           "min": 13,
-          "max": 17,
+          "max": 18,
           "variable": true
         },
         {
