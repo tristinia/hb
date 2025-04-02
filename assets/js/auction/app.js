@@ -1,5 +1,5 @@
 /**
- * app.js - 마비노기 경매장 메인 스크립트
+ * app.js - 마비노기 도구모음 메인 스크립트
  */
 
 // 필요한 모듈 가져오기
@@ -11,6 +11,7 @@ import PaginationManager from './pagination.js';
 import ApiClient from './api-client.js';
 import Utils from './utils.js';
 import ItemTooltip from './item-tooltip.js';
+import Router from './router.js';
 
 /**
  * 애플리케이션 모듈
@@ -23,6 +24,7 @@ const App = (() => {
         isSearchMode: false,
         isSearching: false,  // 중복 검색 방지를 위한 플래그
         modules: {
+            router: false,
             category: false,
             search: false,
             filter: false,
@@ -68,7 +70,8 @@ const App = (() => {
         sidebarTabs: document.querySelectorAll('.sidebar-tab'),
         sidebarPanels: document.querySelectorAll('.sidebar-panel'),
         resultsContainer: document.getElementById('results-container'),
-        pagination: document.getElementById('pagination')
+        pagination: document.getElementById('pagination'),
+        pageContent: document.getElementById('page-content')
     };
 
     /**
@@ -95,6 +98,9 @@ const App = (() => {
         
         // 자동완성 선택 이벤트
         document.addEventListener('autocompleteSelected', handleAutocompleteSelected);
+        
+        // 라우트 변경 이벤트
+        document.addEventListener('routeChanged', handleRouteChanged);
         
         // 검색창 이벤트 리스너
         if (elements.searchButton) {
@@ -142,6 +148,21 @@ const App = (() => {
 
         // 윈도우 리사이즈 이벤트
         window.addEventListener('resize', Utils.debounce(handleResize, 200));
+    }
+    
+    /**
+     * 라우트 변경 처리
+     */
+    function handleRouteChanged(event) {
+        const { route, routeInfo } = event.detail;
+        
+        // 경매장 라우트인 경우 경매장 기능 활성화
+        if (route === 'search/auction') {
+            // 경매장은 기본 라우트이므로 특별한 처리 필요 없음
+        } else {
+            // 경매장이 아닌 라우트에서는 검색 모드 비활성화
+            exitSearchMode();
+        }
     }
     
     /**
@@ -274,6 +295,13 @@ const App = (() => {
      */
     async function handleSearch(event) {
         const { searchTerm, selectedItem, mainCategory, subCategory } = event.detail;
+        
+        // 현재 경로가 경매장 검색인지 확인
+        const currentRoute = Router.getCurrentRoute().path;
+        if (currentRoute !== 'search/auction') {
+            // 경매장 라우트로 이동
+            Router.navigateTo('search/auction');
+        }
         
         // 중복 검색 방지 - 이미 검색 중이면 중단
         if (state.isSearching) {
@@ -531,6 +559,9 @@ const App = (() => {
         
         // 검색 초기화 이벤트 발생
         document.dispatchEvent(new CustomEvent('searchReset'));
+        
+        // 기본 경매장 라우트로 이동
+        Router.navigateTo('search/auction');
     }
     
     /**
@@ -692,6 +723,20 @@ const App = (() => {
     }
     
     /**
+     * 라우터 초기화
+     */
+    async function initRouter() {
+        try {
+            Router.init();
+            markModuleInitialized('router');
+            return true;
+        } catch (error) {
+            console.error('라우터 초기화 실패:', error);
+            return false;
+        }
+    }
+    
+    /**
      * 애플리케이션 초기화
      */
     async function init() {
@@ -704,6 +749,9 @@ const App = (() => {
             elements.clearButton.classList.remove('visible');
             hideResultsContainer();
             elements.pagination.classList.remove('visible');
+            
+            // 라우터 초기화 (먼저 해야 함)
+            await initRouter();
             
             // 순차적 초기화 (의존성 있는 모듈)
             await initCategoryManager();
@@ -720,9 +768,6 @@ const App = (() => {
 
             // 반응형 레이아웃 초기 설정
             handleResize();
-            
-            // URL 파라미터 처리
-            processUrlParameters();
             
             console.log('애플리케이션 초기화 완료');
         } catch (error) {
@@ -802,41 +847,6 @@ const App = (() => {
     }
     
     /**
-     * URL 파라미터 처리
-     */
-    function processUrlParameters() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const searchTerm = urlParams.get('search');
-        const category = urlParams.get('category');
-        
-        // 검색어나 카테고리가 URL에 있는 경우 자동 검색
-        if (searchTerm) {
-            // 검색어 설정
-            if (elements.searchInput) {
-                elements.searchInput.value = searchTerm;
-                handleSearchInputChange();
-            }
-            
-            // 검색 실행
-            triggerSearch();
-        } else if (category) {
-            // 카테고리 선택 처리
-            const categoryInfo = findCategoryById(category);
-            if (categoryInfo) {
-                // 카테고리 자동 선택
-                const event = new CustomEvent('categoryChanged', {
-                    detail: {
-                        mainCategory: categoryInfo.mainCategory,
-                        subCategory: categoryInfo.id,
-                        autoSelected: true
-                    }
-                });
-                document.dispatchEvent(event);
-            }
-        }
-    }
-    
-    /**
      * 초기화 오류 표시
      */
     function showInitError(message) {
@@ -862,18 +872,6 @@ const App = (() => {
                 window.location.reload();
             });
         }
-    }
-    
-    /**
-     * 카테고리 ID로 정보 찾기
-     */
-    function findCategoryById(id) {
-        if (!id || typeof CategoryManager === 'undefined' || !CategoryManager.getSelectedCategories) {
-            return null;
-        }
-        
-        const { subCategories } = CategoryManager.getSelectedCategories();
-        return subCategories.find(cat => cat.id === id) || null;
     }
     
     // 공개 API
