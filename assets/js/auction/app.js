@@ -21,6 +21,7 @@ const App = (() => {
     const state = {
         initialized: false,
         isSearchMode: false,
+        isSearching: false,  // 중복 검색 방지를 위한 플래그
         modules: {
             category: false,
             search: false,
@@ -49,6 +50,9 @@ const App = (() => {
             timestamp: 0
         }
     };
+
+    // 특별 카테고리 정의
+    const SPECIAL_CATEGORIES = ['인챈트 스크롤', '도면', '옷본'];
 
     // DOM 요소 참조
     const elements = {
@@ -270,6 +274,14 @@ const App = (() => {
      */
     async function handleSearch(event) {
         const { searchTerm, selectedItem, mainCategory, subCategory } = event.detail;
+        
+        // 중복 검색 방지 - 이미 검색 중이면 중단
+        if (state.isSearching) {
+            return;
+        }
+        
+        // 검색 시작 플래그 설정
+        state.isSearching = true;
     
         // 검색 요청 정보 저장
         state.lastSearch = {
@@ -293,19 +305,29 @@ const App = (() => {
         try {
             let result;
             
-            // 특별 카테고리 확인
-            const specialCategories = ['인챈트 스크롤', '도면', '옷본'];
-            
-            // 현재 카테고리 및 검색어 상태 확인
-            const currentCategory = subCategory || 
-                                  (selectedItem && selectedItem.subCategory);
-                                  
-            const isSpecialCategory = specialCategories.includes(currentCategory);
-            
-            // 자동완성으로 선택한 아이템
-            if (selectedItem && selectedItem.name) {
+            // 1. 카테고리 메뉴에서 소분류 선택 시 - 현재 카테고리와 검색어에 상관없이 [카테고리]로 검색
+            if (subCategory && !searchTerm && !selectedItem) {
+                // 자동완성 캐시 초기화
+                state.autocompleteCache = null;
+                
+                console.log(`아이템 검색: [${subCategory}]`);
+                result = await ApiClient.searchByCategory(mainCategory, subCategory);
+            }
+            // 2. 카테고리 선택되어 있고 검색어가 없을 시 - [카테고리]로 검색
+            else if (subCategory && (!searchTerm || searchTerm.trim() === '')) {
+                // 자동완성 캐시 초기화
+                state.autocompleteCache = null;
+                
+                console.log(`아이템 검색: [${subCategory}]`);
+                result = await ApiClient.searchByCategory(mainCategory, subCategory);
+            }
+            // 3. 자동완성 리스트에서 아이템 클릭 시
+            else if (selectedItem && selectedItem.name) {
                 const category = selectedItem.subCategory || subCategory;
                 const mainCat = selectedItem.mainCategory || mainCategory;
+                
+                // 특별 카테고리 확인
+                const isSpecialCategory = SPECIAL_CATEGORIES.includes(category);
                 
                 if (isSpecialCategory) {
                     // 특별 카테고리는 키워드 검색으로 처리
@@ -321,28 +343,22 @@ const App = (() => {
                     );
                 }
             }
-            // 카테고리 선택됨, 검색어 없음
-            else if (subCategory && (!searchTerm || searchTerm.trim() === '')) {
-                // 자동완성 캐시 초기화
-                state.autocompleteCache = null;
-                
-                // 카테고리만으로 검색
-                console.log(`아이템 검색: [${subCategory}]`);
-                result = await ApiClient.searchByCategory(mainCategory, subCategory);
-            }
-            // 카테고리 선택됨, 검색어 있음 (자동완성 클릭 아닌 직접 검색)
+            // 4. 카테고리 선택되어 있고 검색어가 존재할 때 (직접 검색)
             else if (subCategory && searchTerm && searchTerm.trim() !== '') {
-                // 특별 카테고리이고 검색어가 있는 경우
+                // 특별 카테고리 확인
+                const isSpecialCategory = SPECIAL_CATEGORIES.includes(subCategory);
+                
                 if (isSpecialCategory) {
+                    // 특별 카테고리는 키워드 검색으로 처리
                     console.log(`키워드 검색: [${searchTerm}]`);
                     result = await ApiClient.searchByKeyword(searchTerm);
                 } else {
-                    // 캐시 비교
+                    // 자동완성 캐시와 비교
                     if (state.autocompleteCache && 
                         state.autocompleteCache.searchTerm === searchTerm && 
                         state.autocompleteCache.category === subCategory) {
                         
-                        // 캐시 일치 - 캐시 기반 검색
+                        // 캐시와 일치 - 캐시 기반 검색
                         console.log(`아이템 검색: [${subCategory}/${searchTerm}]`);
                         result = await ApiClient.searchByCategory(
                             mainCategory, 
@@ -350,7 +366,7 @@ const App = (() => {
                             searchTerm
                         );
                     } else {
-                        // 캐시 불일치 - 캐시 초기화 후 일반 검색
+                        // 캐시와 불일치 - 캐시 초기화 후 일반 검색
                         state.autocompleteCache = null;
                         console.log(`아이템 검색: [${subCategory}/${searchTerm}]`);
                         result = await ApiClient.searchByCategory(
@@ -361,14 +377,15 @@ const App = (() => {
                     }
                 }
             }
-            // 검색어만 있음 (카테고리 없음)
-            else if (searchTerm) {
+            // 5. 카테고리가 선택되어 있지 않을 때 - [아이템이름]으로 키워드 검색
+            else if (searchTerm && searchTerm.trim() !== '') {
                 console.log(`키워드 검색: [${searchTerm}]`);
                 result = await ApiClient.searchByKeyword(searchTerm);
             }
-            // 검색어도 카테고리도 없음
+            // 검색어와 카테고리 모두 없는 경우 (예외 처리)
             else {
                 ApiClient.setLoading(false);
+                state.isSearching = false;  // 검색 종료 플래그 설정
                 return;
             }
             
@@ -387,6 +404,7 @@ const App = (() => {
             showErrorMessage('검색 처리 중 오류가 발생했습니다.');
         } finally {
             ApiClient.setLoading(false);
+            state.isSearching = false;  // 검색 종료 플래그 설정
         }
     }
     
@@ -436,7 +454,22 @@ const App = (() => {
     function triggerSearch() {
         const searchTerm = elements.searchInput.value.trim();
         
-        if (!searchTerm) return;
+        if (!searchTerm) {
+            // 검색어가 없는 경우 현재 선택된 카테고리만으로 검색 시도
+            const { mainCategory, subCategory } = CategoryManager.getSelectedCategories();
+            if (subCategory) {
+                const searchEvent = new CustomEvent('search', {
+                    detail: {
+                        searchTerm: '',
+                        selectedItem: null,
+                        mainCategory,
+                        subCategory
+                    }
+                });
+                document.dispatchEvent(searchEvent);
+            }
+            return;
+        }
         
         // SearchManager에서 상태 가져오기
         const searchState = SearchManager.getSearchState();
