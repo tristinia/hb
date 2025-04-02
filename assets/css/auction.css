@@ -266,6 +266,115 @@ body {
     transform: translateX(0);
 }
 
+/* 메인 메뉴 스타일 */
+.main-menu {
+    border-bottom: 1px solid var(--color-light-gray);
+    margin-bottom: var(--spacing-sm);
+}
+
+.main-menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-menu-item {
+    position: relative;
+}
+
+.main-menu-button {
+    display: flex;
+    width: 100%;
+    padding: var(--spacing-md);
+    text-align: left;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--color-light-gray);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-dark);
+    transition: background-color var(--duration-fast);
+}
+
+.main-menu-button:hover {
+    background-color: var(--color-accent-20);
+}
+
+.main-menu-button.active {
+    background-color: var(--color-accent-40);
+}
+
+.expand-icon {
+    transition: transform var(--duration-normal);
+}
+
+.main-menu-button.expanded .expand-icon {
+    transform: rotate(180deg);
+}
+
+.submenu-list {
+    max-height: 0;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    transition: max-height var(--duration-normal) ease;
+    background-color: var(--color-off-white);
+}
+
+.submenu-list.expanded {
+    max-height: 500px;
+}
+
+.submenu-button {
+    display: block;
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    text-align: left;
+    background: none;
+    border: none;
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    color: var(--color-dark);
+    transition: background-color var(--duration-fast);
+}
+
+.submenu-button:hover {
+    background-color: var(--color-accent-20);
+}
+
+.submenu-button.active {
+    font-weight: var(--font-weight-medium);
+    background-color: var(--color-accent-40);
+}
+
+/* 페이지 섹션 스타일 */
+.page-section {
+    display: none;
+    padding: var(--spacing-md);
+}
+
+.page-section.active {
+    display: block;
+}
+
+.placeholder-content {
+    text-align: center;
+    padding: var(--spacing-xxl);
+    color: var(--color-medium);
+    background-color: var(--color-off-white);
+    border-radius: var(--border-radius-md);
+    margin-top: var(--spacing-xl);
+}
+
+.placeholder-content h2 {
+    margin-bottom: var(--spacing-md);
+    color: var(--color-dark);
+}
+
 /* 카테고리 리스트 */
 .category-list {
     list-style: none;
