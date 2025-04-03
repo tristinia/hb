@@ -187,6 +187,27 @@ const AutocompleteEngine = (() => {
             state.onSelect(item, index, state.context);
         }
     }
+
+    /**
+     * 자동완성 목록 비우기
+     */
+    function clearSuggestions() {
+        if (!elements.suggestionsList) return;
+        
+        // 페이드 아웃 애니메이션 시작
+        elements.suggestionsList.classList.add('hide');
+        elements.suggestionsList.classList.remove('show');
+        
+        // 애니메이션 완료 후 내용 지우기
+        setTimeout(() => {
+            elements.suggestionsList.innerHTML = '';
+            state.suggestions = [];
+            state.activeSuggestion = -1;
+            state.isSuggestionVisible = false;
+            
+            elements.suggestionsList.classList.remove('hide');
+        }, 300);
+    }
     
     /**
      * 데이터 소스 함수 설정
