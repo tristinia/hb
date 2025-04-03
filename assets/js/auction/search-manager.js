@@ -386,7 +386,7 @@ const SearchManager = (() => {
       try {
         // 카테고리 ID의 슬래시를 언더스코어로 변환
         const safeFileName = category.id.replace(/\//g, '_');
-        const url = `../../data/items/${encodeURIComponent(safeFileName)}.json`;
+        const url = `data/items/${encodeURIComponent(safeFileName)}.json`;
         
         // 각 파일의 타임스탬프 확인
         const response = await fetch(url);
