@@ -1,5 +1,5 @@
 {
-  "updated": "2025-04-03T09:29:06.005Z",
+  "updated": "2025-04-03T13:20:38.794Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -1156,6 +1156,33 @@
           "min": 5,
           "max": 10,
           "variable": true
+        }
+      ]
+    },
+    "기사": {
+      "name": "기사",
+      "rank": 6,
+      "effects": [
+        {
+          "template": "최대생명력 {value} 감소",
+          "min": 30,
+          "max": 30,
+          "variable": false,
+          "condition": "컴뱃 마스터리 랭크 8 이상일 때"
+        },
+        {
+          "template": "솜씨 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false,
+          "condition": "레벨이 40 이상일때"
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 15,
+          "max": 15,
+          "variable": false,
+          "condition": "레벨이 40 이상일때"
         }
       ]
     },
@@ -5155,7 +5182,7 @@
         },
         {
           "template": "최소대미지 {value} 증가",
-          "min": 11,
+          "min": 10,
           "max": 28,
           "variable": true
         }
@@ -7192,6 +7219,13 @@
           "min": 5,
           "max": 5,
           "variable": false
+        },
+        {
+          "template": "방어 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false,
+          "condition": "레벨이 76 이상일때"
         }
       ]
     },
@@ -7582,6 +7616,33 @@
           "min": 9,
           "max": 9,
           "variable": false
+        }
+      ]
+    },
+    "전쟁의": {
+      "name": "전쟁의",
+      "rank": 7,
+      "effects": [
+        {
+          "template": "행운 {value} 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false,
+          "condition": null
+        },
+        {
+          "template": "의지 {value} 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false,
+          "condition": null
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false,
+          "condition": null
         }
       ]
     },
@@ -9883,7 +9944,7 @@
         },
         {
           "template": "최소대미지 {value} 증가",
-          "min": 26,
+          "min": 25,
           "max": 35,
           "variable": true
         }

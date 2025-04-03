@@ -1,5 +1,5 @@
 {
-  "updated": "2025-04-03T09:29:06.000Z",
+  "updated": "2025-04-03T13:20:38.788Z",
   "enchants": {
     "56층의": {
       "name": "56층의",
@@ -4447,6 +4447,33 @@
         }
       ]
     },
+    "사랑스러운": {
+      "name": "사랑스러운",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "최대마나 {value} 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false,
+          "condition": null
+        },
+        {
+          "template": "최대생명력 {value} 증가",
+          "min": 15,
+          "max": 15,
+          "variable": false,
+          "condition": "레벨이 10 이상일때"
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false,
+          "condition": "레벨이 10 이상일때"
+        }
+      ]
+    },
     "사막거미": {
       "name": "사막거미",
       "rank": "A",
@@ -6524,7 +6551,7 @@
         {
           "template": "솜씨 {value} 증가",
           "min": 5,
-          "max": 9,
+          "max": 10,
           "variable": true
         },
         {
@@ -7088,8 +7115,8 @@
         {
           "template": "크리티컬 {value} 증가",
           "min": 6,
-          "max": 6,
-          "variable": false
+          "max": 16,
+          "variable": true
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -9826,6 +9853,33 @@
           "min": 26,
           "max": 40,
           "variable": true
+        }
+      ]
+    },
+    "행운의": {
+      "name": "행운의",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "솜씨 {value} 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false,
+          "condition": null
+        },
+        {
+          "template": "행운 {value} 증가",
+          "min": 15,
+          "max": 15,
+          "variable": false,
+          "condition": "레벨이 35 이상일때"
+        },
+        {
+          "template": "최대생명력 {value} 감소",
+          "min": 20,
+          "max": 20,
+          "variable": false,
+          "condition": "레벨이 30 이상일때"
         }
       ]
     },
