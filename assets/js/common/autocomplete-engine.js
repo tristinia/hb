@@ -188,7 +188,36 @@ const AutocompleteEngine = (() => {
         }
     }
     
-    // 나머지 메서드들...
+    /**
+     * 데이터 소스 함수 설정
+     * @param {Function} dataSourceFn - 검색어와 컨텍스트를 받아 추천 목록을 반환하는 함수
+     */
+    function setDataSource(dataSourceFn) {
+        if (typeof dataSourceFn === 'function') {
+            state.dataSource = dataSourceFn;
+        }
+    }
+    
+    /**
+     * 검색 컨텍스트 설정
+     * @param {string} context - 검색 컨텍스트 (auction, pouch 등)
+     */
+    function setContext(context) {
+        state.context = context;
+        
+        // 컨텍스트 변경 시 자동완성 목록 초기화
+        clearSuggestions();
+    }
+    
+    /**
+     * 항목 선택 핸들러 설정
+     * @param {Function} handlerFn - 선택 시 호출될 함수
+     */
+    function setSelectHandler(handlerFn) {
+        if (typeof handlerFn === 'function') {
+            state.onSelect = handlerFn;
+        }
+    }
     
     // 공개 API
     return {
