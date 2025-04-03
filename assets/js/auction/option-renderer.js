@@ -784,11 +784,16 @@ class OptionRenderer {
       const nameMatch = value.match(/(.*?)\s*\(랭크 (\d+)\)/);
       let enchantName = value;
       let rankText = '';
+      let rankNum = 0;
       
       if (nameMatch) {
         enchantName = nameMatch[1].trim();
         rankText = `(랭크 ${nameMatch[2]})`;
+        rankNum = parseInt(nameMatch[2]);
       }
+      
+      // 메타데이터 조회
+      const metadata = context.getEnchantMetadata(type, enchantName);
       
       // 인챈트 제목 요소
       const enchantElement = document.createElement('div');
@@ -818,8 +823,38 @@ class OptionRenderer {
           const effectElement = document.createElement('div');
           effectElement.className = `tooltip-special-stat ${gapClass}`;
           
-          const colorClass = isNegative ? 'item-red' : 'item-blue';
-          effectElement.innerHTML = `<span class="${colorClass}">- ${cleanEffect}</span>`;
+          // 값 추출 (예: "체력 44 증가" -> 44)
+          const valueMatch = cleanEffect.match(/(.*?)(\d+)(.*)/);
+          
+          if (valueMatch && metadata && metadata.effects) {
+            const [_, prefix, value, suffix] = valueMatch;
+            const displayEffect = `- ${cleanEffect}`;
+            
+            // 메타데이터에서 효과 찾기
+            let foundEffectTemplate = false;
+            let rangeText = '';
+            
+            for (const metaEffect of metadata.effects) {
+              const template = metaEffect.template;
+              // 정규식으로 템플릿 변환
+              const pattern = template.replace(/\{value\}/g, '\\d+');
+              
+              if (new RegExp(pattern).test(cleanEffect)) {
+                // 값 범위 정보 추가 (변동 가능 효과인 경우)
+                if (metaEffect.variable) {
+                  rangeText = ` <span class="item-navy">(${metaEffect.min}~${metaEffect.max})</span>`;
+                }
+                foundEffectTemplate = true;
+                break;
+              }
+            }
+            
+            const colorClass = isNegative ? 'item-red' : 'item-blue';
+            effectElement.innerHTML = `<span class="${colorClass}">- ${cleanEffect}</span>${rangeText}`;
+          } else {
+            const colorClass = isNegative ? 'item-red' : 'item-blue';
+            effectElement.innerHTML = `<span class="${colorClass}">- ${cleanEffect}</span>`;
+          }
           
           block.appendChild(effectElement);
         });
@@ -837,11 +872,16 @@ class OptionRenderer {
       const nameMatch = value.match(/(.*?)\s*\(랭크 (\d+)\)/);
       let enchantName = value;
       let rankText = '';
+      let rankNum = 0;
       
       if (nameMatch) {
         enchantName = nameMatch[1].trim();
         rankText = `(랭크 ${nameMatch[2]})`;
+        rankNum = parseInt(nameMatch[2]);
       }
+      
+      // 메타데이터 조회
+      const metadata = context.getEnchantMetadata(type, enchantName);
       
       const enchantElement = document.createElement('div');
       const hasEffects = enchant.option_desc && enchant.option_desc.length > 0;
@@ -868,8 +908,38 @@ class OptionRenderer {
           const effectElement = document.createElement('div');
           effectElement.className = `tooltip-special-stat ${gapClass}`;
           
-          const colorClass = isNegative ? 'item-red' : 'item-blue';
-          effectElement.innerHTML = `<span class="${colorClass}">- ${cleanEffect}</span>`;
+          // 값 추출 (예: "체력 44 증가" -> 44)
+          const valueMatch = cleanEffect.match(/(.*?)(\d+)(.*)/);
+          
+          if (valueMatch && metadata && metadata.effects) {
+            const [_, prefix, value, suffix] = valueMatch;
+            const displayEffect = `- ${cleanEffect}`;
+            
+            // 메타데이터에서 효과 찾기
+            let foundEffectTemplate = false;
+            let rangeText = '';
+            
+            for (const metaEffect of metadata.effects) {
+              const template = metaEffect.template;
+              // 정규식으로 템플릿 변환
+              const pattern = template.replace(/\{value\}/g, '\\d+');
+              
+              if (new RegExp(pattern).test(cleanEffect)) {
+                // 값 범위 정보 추가 (변동 가능 효과인 경우)
+                if (metaEffect.variable) {
+                  rangeText = ` <span class="item-navy">(${metaEffect.min}~${metaEffect.max})</span>`;
+                }
+                foundEffectTemplate = true;
+                break;
+              }
+            }
+            
+            const colorClass = isNegative ? 'item-red' : 'item-blue';
+            effectElement.innerHTML = `<span class="${colorClass}">- ${cleanEffect}</span>${rangeText}`;
+          } else {
+            const colorClass = isNegative ? 'item-red' : 'item-blue';
+            effectElement.innerHTML = `<span class="${colorClass}">- ${cleanEffect}</span>`;
+          }
           
           block.appendChild(effectElement);
         });
