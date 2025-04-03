@@ -218,3 +218,5 @@ const Utils = {
     createElement,
     similarityScore
 };
+
+export default Utils;
