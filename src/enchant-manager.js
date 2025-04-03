@@ -15,19 +15,23 @@ function parseEnchantEffect(effectText) {
     template: effectText,
     min: null,
     max: null,
-    variable: false
+    variable: false,
+    condition: null
   };
   
   // 효과 텍스트 처리
   let effectPart = effectText;
   
-  // 조건문 확인 - "때"가 있으면 그 이후 텍스트만 효과로 처리
-  const conditionMatch = effectText.match(/때\s+/);
+  // 조건문 확인
+  const conditionMatch = effectText.match(/(.*?때)\s+(.*)/);
   
   if (conditionMatch) {
-    // "때" 이후의 텍스트만 효과 부분으로 사용
-    const conditionEndIndex = conditionMatch.index + conditionMatch[0].length;
-    effectPart = effectText.substring(conditionEndIndex);
+    // 조건부와 효과 부분 분리
+    const conditionPart = conditionMatch[1].trim();
+    effectPart = conditionMatch[2].trim();
+    
+    // 조건부 텍스트 저장
+    result.condition = conditionPart;
   }
   
   // 효과 끝에 있는 "증가" 또는 "감소" 패턴 확인
