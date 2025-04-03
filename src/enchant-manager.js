@@ -15,8 +15,7 @@ function parseEnchantEffect(effectText) {
     template: effectText,
     min: null,
     max: null,
-    variable: false,
-    condition: null
+    variable: false
   };
   
   // 효과 텍스트 처리
