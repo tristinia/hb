@@ -231,7 +231,7 @@ const CategoryManager = (() => {
     async function loadCategories() {
         try {
             // 카테고리 데이터 로드 시도
-            const response = await fetch('../../data/categories.json');
+            const response = await fetch('data/categories.json');
             
             if (!response.ok) {
                 throw new Error(`카테고리 데이터 로드 실패: ${response.status}`);
