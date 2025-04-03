@@ -1,5 +1,5 @@
 {
-  "updated": "2025-04-02T09:29:37.838Z",
+  "updated": "2025-04-03T09:29:06.005Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -2389,7 +2389,7 @@
       "effects": [
         {
           "template": "최대스태미나 {value} 증가",
-          "min": 26,
+          "min": 22,
           "max": 28,
           "variable": true
         },
@@ -2935,7 +2935,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 15,
+          "min": 14,
           "max": 17,
           "variable": true
         },
@@ -4957,7 +4957,7 @@
         },
         {
           "template": "마법 공격력 {value} 증가",
-          "min": 4,
+          "min": 3,
           "max": 7,
           "variable": true
         }
@@ -7287,6 +7287,42 @@
           "template": "조금 약해보임",
           "min": null,
           "max": null,
+          "variable": false
+        }
+      ]
+    },
+    "잔재": {
+      "name": "잔재",
+      "rank": 6,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 200,
+          "max": 200,
+          "variable": false
+        },
+        {
+          "template": "의지 {value} 증가",
+          "min": 50,
+          "max": 50,
+          "variable": false
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 50,
+          "max": 50,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 80,
+          "max": 80,
+          "variable": false
+        },
+        {
+          "template": "피어싱 레벨 {value} 증가",
+          "min": 3,
+          "max": 3,
           "variable": false
         }
       ]
