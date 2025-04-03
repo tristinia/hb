@@ -22,6 +22,111 @@ const AutocompleteEngine = (() => {
         searchInput: null,
         suggestionsList: null
     };
+
+    /**
+     * 키보드 입력 처리
+     * @param {KeyboardEvent} e - 키보드 이벤트
+     */
+    function handleKeyDown(e) {
+        // 자동완성 목록이 표시된 경우에만 처리
+        if (!state.isSuggestionVisible) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                // 검색 이벤트 발생
+                const event = new CustomEvent('search', {
+                    detail: {
+                        context: state.context
+                    }
+                });
+                document.dispatchEvent(event);
+            }
+            return;
+        }
+        
+        const totalSuggestions = state.suggestions.length;
+        
+        switch (e.key) {
+            case 'ArrowDown':
+                e.preventDefault();
+                state.activeSuggestion = (state.activeSuggestion < totalSuggestions - 1) 
+                    ? state.activeSuggestion + 1 
+                    : totalSuggestions - 1;
+                updateActiveSuggestion();
+                scrollSuggestionIntoView();
+                break;
+                
+            case 'ArrowUp':
+                e.preventDefault();
+                state.activeSuggestion = (state.activeSuggestion > 0) 
+                    ? state.activeSuggestion - 1 
+                    : 0;
+                updateActiveSuggestion();
+                scrollSuggestionIntoView();
+                break;
+                
+            case 'Enter':
+                e.preventDefault();
+                if (state.activeSuggestion >= 0 && state.activeSuggestion < totalSuggestions) {
+                    handleSelectSuggestion(state.suggestions[state.activeSuggestion], state.activeSuggestion);
+                } else {
+                    // 검색 이벤트 발생
+                    const event = new CustomEvent('search', {
+                        detail: {
+                            context: state.context
+                        }
+                    });
+                    document.dispatchEvent(event);
+                }
+                break;
+                
+            case 'Escape':
+                clearSuggestions();
+                break;
+        }
+    }
+    
+    /**
+     * 활성화된 자동완성 항목 업데이트
+     */
+    function updateActiveSuggestion() {
+        const items = elements.suggestionsList.querySelectorAll('.suggestion-item');
+        
+        items.forEach((item, index) => {
+            item.classList.toggle('active', index === state.activeSuggestion);
+        });
+    }
+    
+    /**
+     * 선택된 자동완성 항목이 보이도록 스크롤
+     */
+    function scrollSuggestionIntoView() {
+        if (state.activeSuggestion < 0) return;
+        
+        const activeItem = elements.suggestionsList.querySelector(`.suggestion-item.active`);
+        if (activeItem) {
+            // 부드러운 스크롤로 항목을 보이게 함
+            activeItem.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+            });
+        }
+    }
+    
+    /**
+     * 문서 클릭 이벤트 처리
+     * @param {MouseEvent} event - 마우스 이벤트
+     */
+    function handleDocumentClick(event) {
+        // 자동완성 외부 클릭 시 닫기
+        if (
+            elements.searchInput && 
+            elements.suggestionsList &&
+            !elements.searchInput.contains(event.target) && 
+            !elements.suggestionsList.contains(event.target)
+        ) {
+            clearSuggestions();
+        }
+    }
     
     /**
      * 모듈 초기화
