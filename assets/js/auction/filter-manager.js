@@ -39,7 +39,7 @@ function logDebug(...args) {
 /**
  * 모듈 초기화
  */
-function init() {
+async function init() {
     // DOM 요소 참조 가져오기
     elements.filterSelector = document.getElementById('filter-selector');
     elements.activeFilters = document.getElementById('active-filters');
@@ -69,11 +69,15 @@ function init() {
     }
     
     // 메타데이터 로더 초기화
-    metadataLoader.initialize().then(() => {
-        logDebug('메타데이터 로더 초기화 완료');
-        // 초기 자동완성 데이터 로드
-        loadAllMetadata();
-    });
+    await metadataLoader.initialize();
+    logDebug('메타데이터 로더 초기화 완료');
+    
+    // optionFilter 초기화
+    await optionFilter.initialize();
+    logDebug('옵션 필터 초기화 완료');
+    
+    // 초기 자동완성 데이터 로드
+    await loadAllMetadata();
     
     state.isInitialized = true;
     logDebug('FilterManager 초기화 완료');
