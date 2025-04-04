@@ -7627,22 +7627,19 @@
           "template": "행운 {value} 증가",
           "min": 100,
           "max": 100,
-          "variable": false,
-          "condition": null
+          "variable": false
         },
         {
           "template": "의지 {value} 증가",
           "min": 100,
           "max": 100,
-          "variable": false,
-          "condition": null
+          "variable": false
         },
         {
           "template": "체력 {value} 증가",
           "min": 100,
           "max": 100,
-          "variable": false,
-          "condition": null
+          "variable": false
         }
       ]
     },
