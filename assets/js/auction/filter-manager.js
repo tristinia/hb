@@ -88,21 +88,19 @@ async function init() {
  */
 async function loadAllMetadata() {
     try {
-        // 인챈트 메타데이터 로드
-        const prefixData = await metadataLoader.loadEnchantMetadata();
-        if (prefixData && prefixData.prefix) {
-            state.autoCompleteData.enchants.prefix = prefixData.prefix;
+        // 자동완성 데이터 구성
+        const metadata = optionFilter.metadata;
+        
+        if (metadata.enchants && metadata.enchants.prefix) {
+            state.autoCompleteData.enchants.prefix = metadata.enchants.prefix;
         }
         
-        const suffixData = await metadataLoader.loadEnchantMetadata();
-        if (suffixData && suffixData.suffix) {
-            state.autoCompleteData.enchants.suffix = suffixData.suffix;
+        if (metadata.enchants && metadata.enchants.suffix) {
+            state.autoCompleteData.enchants.suffix = metadata.enchants.suffix;
         }
         
-        // 세공 메타데이터 로드
-        const reforgeData = await metadataLoader.loadReforgeMetadata();
-        if (reforgeData && reforgeData.data) {
-            state.autoCompleteData.reforges = reforgeData.data;
+        if (metadata.reforges) {
+            state.autoCompleteData.reforges = metadata.reforges;
         }
         
         logDebug('모든 메타데이터 로드 완료');
@@ -182,10 +180,10 @@ async function updateFiltersForCategory(category) {
         
         // 세트 효과 메타데이터 로드
         if (category) {
-            loadCategoryMetadata(category);
+            await loadCategoryMetadata(category);
         } else {
             // 카테고리가 없으면 모든 메타데이터 로드
-            loadAllMetadata();
+            await loadAllMetadata();
         }
         
         logDebug(`카테고리 ${category || '전체'}의 필터 옵션 업데이트 완료: ${filters.length}개 필터`);
@@ -211,7 +209,7 @@ async function updateFiltersForCategory(category) {
 async function loadCategoryMetadata(category) {
     try {
         // 세트 효과 메타데이터 로드
-        const setEffectData = await metadataLoader.loadSetEffectForCategory(category);
+        const setEffectData = await optionFilter.loadSetEffectMetadata(category);
         if (setEffectData) {
             state.autoCompleteData.setEffects[category] = setEffectData;
         }
