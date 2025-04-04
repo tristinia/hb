@@ -1,20 +1,46 @@
 /**
- * 아이템 옵션 필터링 전용 모듈
+ * 아이템 옵션 필터링 모듈
+ * option-filter-manager.js와 option-filter.js를 통합
  */
 
+import optionRenderer from './option-renderer.js';
 import metadataLoader from './metadata-loader.js';
 
 class OptionFilter {
   constructor() {
+    // 메타데이터 저장 (추후 로드)
+    this.metaData = {
+      reforges: [],
+      setEffects: {}
+    };
+    
+    // 디버그 모드 설정
     this.debug = false;
   }
 
+  /**
+   * 디버그 로그 출력
+   * @param {...any} args 로그 인자들
+   */
   logDebug(...args) {
     if (this.debug) {
       console.log('[OptionFilter]', ...args);
     }
   }
 
+  /**
+   * 메타데이터 설정
+   * @param {Object} metaData 메타데이터
+   */
+  setMetaData(metaData) {
+    this.metaData = metaData;
+  }
+  
+  /**
+   * 아이템에서 필터 정보 추출
+   * @param {Object} item 아이템 데이터
+   * @returns {Array} 필터 정보 배열
+   */
   extractFilters(item) {
     const options = item.options || item.item_option || [];
     if (!Array.isArray(options)) return [];
@@ -152,17 +178,39 @@ class OptionFilter {
     return filters;
   }
 
+  /**
+   * 필터 적용
+   * @param {Array} items 아이템 배열
+   * @param {Array} activeFilters 활성화된 필터 배열
+   * @returns {Array} 필터링된 아이템 배열
+   */
+  applyFilters(items, activeFilters) {
+    if (!activeFilters || activeFilters.length === 0) {
+      return items;
+    }
+    
+    return items.filter(item => this.itemPassesFilters(item, activeFilters));
+  }
+  
+  /**
+   * 아이템이 필터를 통과하는지 확인
+   * @param {Object} item 아이템 데이터
+   * @param {Array} activeFilters 활성화된 필터 배열
+   * @returns {boolean} 필터 통과 여부
+   */
   itemPassesFilters(item, activeFilters) {
+    // 필터가 없으면 항상 통과
     if (!activeFilters || activeFilters.length === 0) {
       return true;
     }
     
+    // 각 필터를 모두 통과해야 함
     return activeFilters.every(filter => {
       switch (filter.type) {
         case 'range':
           return this.checkRangeFilter(item, filter);
-        case 'select':
         case 'selection':
+        case 'select':
           return this.checkSelectionFilter(item, filter);
         case 'enchant':
           return this.checkEnchantFilter(item, filter);
@@ -182,6 +230,12 @@ class OptionFilter {
     });
   }
 
+  /**
+   * 범위 필터 체크
+   * @param {Object} item - 아이템 데이터
+   * @param {Object} filter - 필터 정보
+   * @returns {boolean} 필터 통과 여부
+   */
   checkRangeFilter(item, filter) {
     const options = item.options || item.item_option || [];
     
@@ -246,6 +300,12 @@ class OptionFilter {
     return true;
   }
 
+  /**
+   * 선택 필터 체크
+   * @param {Object} item - 아이템 데이터
+   * @param {Object} filter - 필터 정보
+   * @returns {boolean} 필터 통과 여부
+   */
   checkSelectionFilter(item, filter) {
     const options = item.options || item.item_option || [];
     
@@ -267,6 +327,9 @@ class OptionFilter {
 
   /**
    * 인챈트 필터 확인
+   * @param {Object} item - 아이템 데이터
+   * @param {Object} filter - 필터 정보
+   * @returns {boolean} 필터 통과 여부
    */
   checkEnchantFilter(item, filter) {
     const options = item.options || item.item_option || [];
@@ -312,7 +375,13 @@ class OptionFilter {
     return true;
   }
 
-    checkReforgeStatusFilter(item, filter) {
+  /**
+   * 세공 상태 필터 확인
+   * @param {Object} item - 아이템 데이터
+   * @param {Object} filter - 필터 정보
+   * @returns {boolean} 필터 통과 여부
+   */
+  checkReforgeStatusFilter(item, filter) {
     const options = item.options || item.item_option || [];
     
     // 세공 랭크 옵션 찾기
@@ -347,6 +416,12 @@ class OptionFilter {
     return true;
   }
   
+  /**
+   * 에르그 필터 확인
+   * @param {Object} item - 아이템 데이터
+   * @param {Object} filter - 필터 정보
+   * @returns {boolean} 필터 통과 여부
+   */
   checkErgFilter(item, filter) {
     const options = item.options || item.item_option || [];
     
@@ -387,6 +462,9 @@ class OptionFilter {
   
   /**
    * 세공 옵션 필터 확인
+   * @param {Object} item - 아이템 데이터
+   * @param {Object} filter - 필터 정보
+   * @returns {boolean} 필터 통과 여부
    */
   checkReforgeOptionFilter(item, filter) {
     const options = item.options || item.item_option || [];
@@ -454,6 +532,9 @@ class OptionFilter {
   
   /**
    * 세트 효과 필터 확인
+   * @param {Object} item - 아이템 데이터
+   * @param {Object} filter - 필터 정보
+   * @returns {boolean} 필터 통과 여부
    */
   checkSetEffectFilter(item, filter) {
     const options = item.options || item.item_option || [];
@@ -515,6 +596,12 @@ class OptionFilter {
     });
   }
   
+  /**
+   * 특별 개조 필터 확인
+   * @param {Object} item - 아이템 데이터
+   * @param {Object} filter - 필터 정보
+   * @returns {boolean} 필터 통과 여부
+   */
   checkSpecialModFilter(item, filter) {
     const options = item.options || item.item_option || [];
     
@@ -597,8 +684,48 @@ class OptionFilter {
       return true;
     });
   }
+
+  /**
+   * 필터 분류 및 그룹화
+   * @param {Array} filters 필터 배열
+   * @returns {Object} 분류된 필터 정보
+   */
+  categorizeFilters(filters) {
+    const basicFilters = filters;
+    const advancedFilters = [];
+    
+    // 범주별 그룹화
+    const categories = {
+      '기본': [],
+      '세공': [],
+      '세트 효과': [],
+      '특수': []
+    };
+    
+    basicFilters.forEach(filter => {
+      if (filter.category === '세공') {
+        categories['세공'].push(filter);
+      } else if (filter.category === '세트 효과') {
+        categories['세트 효과'].push(filter);
+      } else if (['특별개조 타입', '특별개조 단계', '에르그 등급', '에르그 레벨'].includes(filter.displayName || filter.name)) {
+        categories['특수'].push(filter);
+      } else {
+        categories['기본'].push(filter);
+      }
+    });
+    
+    return {
+      categories,
+      advancedFilters
+    };
+  }
 }
 
-// 싱글톤 인스턴스 생성 및 내보내기
+// 싱글톤 인스턴스 생성
 const optionFilter = new OptionFilter();
-export default optionFilter;
+
+// 하위 호환성을 위한 optionFilterManager 인스턴스도 동일 객체로 지정
+const optionFilterManager = optionFilter;
+
+// 두 인스턴스 모두 내보내기
+export { optionFilter as default, optionFilterManager };
