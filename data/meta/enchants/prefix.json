@@ -1,5 +1,5 @@
 {
-  "updated": "2025-04-03T13:20:38.788Z",
+  "updated": "2025-04-04T02:28:12.693Z",
   "enchants": {
     "56층의": {
       "name": "56층의",
@@ -57,13 +57,15 @@
           "template": "최대생명력 {value} 증가",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "히트 버스터 랭크 8 이상일 때"
         },
         {
           "template": "불 속성 연금술 대미지 {value} 증가",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "연금술 마스터리 랭크 A 이상일 때"
         }
       ]
     },
@@ -117,7 +119,8 @@
           "template": "방어 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "디펜스 랭크 8 이상일 때"
         }
       ]
     },
@@ -225,13 +228,15 @@
           "template": "솜씨 {value} 감소",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 10 이상일때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "자이언트이거나 자이언트를 지지중일때"
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -249,19 +254,22 @@
           "template": "최대스태미나 {value} 감소",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 10 이상일때"
         },
         {
           "template": "최대마나 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이하일때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 5 이상일때"
         }
       ]
     },
@@ -321,13 +329,15 @@
           "template": "최대스태미나 {value} 증가",
           "min": 2,
           "max": 3,
-          "variable": true
+          "variable": true,
+          "condition": "블랙스미스 랭크 B 이상일 때"
         },
         {
           "template": "솜씨 {value} 증가",
           "min": 2,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "방직 랭크 B 이상일 때"
         }
       ]
     },
@@ -351,25 +361,29 @@
           "template": "크리티컬 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "랜스 카운터 랭크 1 이상일 때"
         },
         {
           "template": "피어싱 레벨 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "랜스 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 감소",
           "min": 30,
           "max": 30,
-          "variable": false
+          "variable": false,
+          "condition": "랜스 차지 랭크가 1 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 17,
           "max": 17,
-          "variable": false
+          "variable": false,
+          "condition": "랜스 차지 랭크 3단 이상일 때"
         }
       ]
     },
@@ -387,13 +401,15 @@
           "template": "최소대미지 {value} 감소",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 18 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 10 이상일때"
         }
       ]
     },
@@ -411,7 +427,8 @@
           "template": "최소대미지 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "스매시 랭크 D 이상일 때"
         }
       ]
     },
@@ -423,19 +440,22 @@
           "template": "솜씨 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이상일때"
         },
         {
           "template": "체력 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 10 이하일때"
         },
         {
           "template": "최대생명력 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 8 이상일때"
         }
       ]
     },
@@ -453,7 +473,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 11,
-          "variable": true
+          "variable": true,
+          "condition": "컴뱃 마스터리 랭크 7 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -465,7 +486,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 1,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "크리티컬 히트 랭크 9 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -483,13 +505,15 @@
           "template": "최대마나 {value} 증가",
           "min": 37,
           "max": 62,
-          "variable": true
+          "variable": true,
+          "condition": "연성 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "모든 속성 연금술 대미지 {value} 증가",
           "min": 9,
           "max": 9,
-          "variable": false
+          "variable": false,
+          "condition": "라이프 드레인 랭크 1 이상일 때"
         }
       ]
     },
@@ -531,13 +555,15 @@
           "template": "솜씨 {value} 감소",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "라이트닝볼트 랭크 A 이상일 때"
         },
         {
           "template": "최대부상률 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "스매시 랭크 9 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -555,13 +581,15 @@
           "template": "솜씨 {value} 감소",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 16 이상일때"
         },
         {
           "template": "체력 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "컴뱃 마스터리 랭크 C 이상일 때"
         }
       ]
     },
@@ -573,13 +601,15 @@
           "template": "보호 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "윈드 블래스트 랭크 5 이상일 때"
         },
         {
           "template": "방어 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "라이프 드레인 랭크 9 이상일 때"
         }
       ]
     },
@@ -609,7 +639,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "크리티컬 히트 랭크 6 이상일 때"
         },
         {
           "template": "최대스태미나 {value} 감소",
@@ -645,25 +676,29 @@
           "template": "의지 {value} 감소",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "연속기 : 파운딩 랭크가 1 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 23,
           "max": 24,
-          "variable": true
+          "variable": true,
+          "condition": "연속기 : 파운딩 랭크 1단 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 14,
           "max": 16,
-          "variable": true
+          "variable": true,
+          "condition": "연속기 : 스크류 어퍼 랭크 2단 이상일 때"
         },
         {
           "template": "의지 {value} 증가",
           "min": 25,
           "max": 25,
-          "variable": false
+          "variable": false,
+          "condition": "연속기 : 대쉬 펀치 랭크 3단 이상일 때"
         }
       ]
     },
@@ -687,7 +722,8 @@
           "template": "체력 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "디펜스 랭크 C 이상일 때"
         }
       ]
     },
@@ -699,13 +735,15 @@
           "template": "크리티컬 {value} 증가",
           "min": 9,
           "max": 9,
-          "variable": false
+          "variable": false,
+          "condition": "크로스보우 마스터리 랭크 3 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "보우 마스터리 랭크 3 이상일 때"
         }
       ]
     },
@@ -747,13 +785,15 @@
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "크리티컬 히트 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 10,
           "max": 17,
-          "variable": true
+          "variable": true,
+          "condition": "윈드밀 랭크 1 이상일 때"
         }
       ]
     },
@@ -807,7 +847,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 58,
           "max": 58,
-          "variable": false
+          "variable": false,
+          "condition": "슈팅 러쉬 랭크 3단 이상일 때"
         }
       ]
     },
@@ -879,13 +920,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 7,
           "max": 12,
-          "variable": true
+          "variable": true,
+          "condition": "휴식 랭크 7 이상일 때"
         },
         {
           "template": "행운 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "휴식 랭크 8 이상일 때"
         }
       ]
     },
@@ -957,13 +1000,15 @@
           "template": "체력 {value} 증가",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 25 이상일때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 25 이상일때"
         }
       ]
     },
@@ -975,25 +1020,76 @@
           "template": "행운 {value} 증가",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "타운트 랭크 6 이상일 때"
         },
         {
           "template": "체력 {value} 증가",
-          "min": 21,
+          "min": 20,
           "max": 30,
-          "variable": true
+          "variable": true,
+          "condition": "소드 마스터리 랭크 6 이상일 때"
         },
         {
           "template": "최대생명력 {value} 증가",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "액스 마스터리 랭크 6 이상일 때"
         },
         {
           "template": "공격 속도 증가 세트 효과 수치 {value} 증가",
           "min": 1,
           "max": 3,
-          "variable": true
+          "variable": true,
+          "condition": "블런트 마스터리 랭크 6 이상일 때"
+        }
+      ]
+    },
+    "공허한": {
+      "name": "공허한",
+      "rank": 1,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false,
+          "condition": "전투 점성술 마스터리 랭크 1 이상일 때"
+        },
+        {
+          "template": "마나 소비 감소 {value}% 증가",
+          "min": 3,
+          "max": 3,
+          "variable": false,
+          "condition": "스핀 스퍼트 랭크 3단 이상일 때"
+        },
+        {
+          "template": "지력 {value} 증가",
+          "min": 25,
+          "max": 25,
+          "variable": false,
+          "condition": "스타 데토네이션 랭크 2단 이상일 때"
+        },
+        {
+          "template": "최대마나 {value} 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false,
+          "condition": "리볼브 쇼크 랭크 1 이상일 때"
+        },
+        {
+          "template": "마법 공격력 {value} 증가",
+          "min": 19,
+          "max": 19,
+          "variable": false,
+          "condition": "사이드 슬래시 랭크 3단 이상일 때"
         }
       ]
     },
@@ -1041,13 +1137,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 18,
           "max": 23,
-          "variable": true
+          "variable": true,
+          "condition": "다운 어택 랭크 1 이상일 때"
         },
         {
           "template": "체력 {value} 증가",
           "min": 15,
           "max": 20,
-          "variable": true
+          "variable": true,
+          "condition": "크리티컬 히트 랭크 1 이상일 때"
         }
       ]
     },
@@ -1095,13 +1193,15 @@
           "template": "마법 공격력 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "매직 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "컴뱃 마스터리 랭크 1 이상일 때"
         }
       ]
     },
@@ -1113,7 +1213,8 @@
           "template": "솜씨 {value} 감소",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 30 이상일때"
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -1167,7 +1268,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "캠프파이어 랭크 F 이상일 때"
         }
       ]
     },
@@ -1179,7 +1281,8 @@
           "template": "대미지밸런스 {value} 증가",
           "min": 1,
           "max": 3,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 3 이상일때"
         }
       ]
     },
@@ -1190,14 +1293,16 @@
         {
           "template": "크리티컬 {value} 증가",
           "min": 6,
-          "max": 8,
-          "variable": true
+          "max": 9,
+          "variable": true,
+          "condition": "9막: 깨어나는 생명 랭크 6 이상일 때"
         },
         {
           "template": "마리오네트 최대 생명력 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "9막: 깨어나는 생명 랭크 B 이상일 때"
         }
       ]
     },
@@ -1209,19 +1314,22 @@
           "template": "체력 {value} 감소",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "아이스볼트 랭크 A 이상일 때"
         },
         {
           "template": "최대스태미나 {value} 감소",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 28 이상일때"
         },
         {
           "template": "최대부상률 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이하일때"
         }
       ]
     },
@@ -1245,7 +1353,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 6,
-          "variable": true
+          "variable": true,
+          "condition": "마나실드 랭크 A 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -1257,7 +1366,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 25 이상일때"
         }
       ]
     },
@@ -1275,13 +1385,15 @@
           "template": "크리티컬 {value} 감소",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 25 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 15 이상일때"
         }
       ]
     },
@@ -1293,25 +1405,29 @@
           "template": "최대대미지 {value} 감소",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "레인지 컴뱃 마스터리 랭크 9 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 32 이상일때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 24 이상일때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 16 이상일때"
         }
       ]
     },
@@ -1419,7 +1535,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 9,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 20 이상일때"
         },
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
@@ -1461,19 +1578,22 @@
           "template": "체력 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "그림자 속박 랭크 1 이상일 때"
         },
         {
           "template": "의지 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "수리검 돌진 랭크 5 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 3,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "수리검 마스터리 랭크 7 이상일 때"
         }
       ]
     },
@@ -1485,25 +1605,29 @@
           "template": "솜씨 {value} 감소",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "레인지 컴뱃 마스터리 랭크 9 이상일 때"
         },
         {
           "template": "체력 {value} 감소",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "컴뱃 마스터리 랭크 9 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "워터 캐논 랭크 6 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "연금술 마스터리 랭크 9 이상일 때"
         }
       ]
     },
@@ -1521,7 +1645,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "컴뱃 마스터 타이틀을 달고 있을 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -1563,7 +1688,8 @@
           "template": "보호 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "방호벽 랭크 6 이상일 때"
         },
         {
           "template": "방호벽 설치중 보호 {value} 증가",
@@ -1599,13 +1725,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "레인지 컴뱃 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 12,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "매그넘 샷 랭크 1 이상일 때"
         }
       ]
     },
@@ -1629,13 +1757,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 7,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "방직 랭크 1 이상일 때"
         },
         {
           "template": "생산품 품질 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "천옷만들기 랭크 1 이상일 때"
         }
       ]
     },
@@ -1659,13 +1789,15 @@
           "template": "지력 {value} 증가",
           "min": 25,
           "max": 25,
-          "variable": false
+          "variable": false,
+          "condition": "볼트 마법 조합 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 7,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "탐험 레벨이 20 이상일때"
         }
       ]
     },
@@ -1683,19 +1815,22 @@
           "template": "최대대미지 {value} 증가",
           "min": 8,
           "max": 14,
-          "variable": true
+          "variable": true,
+          "condition": "랜스 카운터 랭크 7 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 10,
           "max": 14,
-          "variable": true
+          "variable": true,
+          "condition": "랜스 차지 랭크 5 이상일 때"
         },
         {
           "template": "피어싱 레벨 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "랜스 마스터리 랭크 3 이상일 때"
         }
       ]
     },
@@ -1707,7 +1842,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 3,
           "max": 8,
-          "variable": true
+          "variable": true,
+          "condition": "미식의 달인 타이틀을 달고 있을 때"
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -1743,7 +1879,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 4,
           "max": 8,
-          "variable": true
+          "variable": true,
+          "condition": "컴뱃 마스터리 랭크 8 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -1773,19 +1910,22 @@
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "크리티컬 히트 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 16,
           "max": 39,
-          "variable": true
+          "variable": true,
+          "condition": "다운 어택 랭크 1 이상일 때"
         },
         {
           "template": "체력 {value} 증가",
           "min": 57,
           "max": 57,
-          "variable": false
+          "variable": false,
+          "condition": "윈드밀 랭크 1 이상일 때"
         }
       ]
     },
@@ -1795,9 +1935,9 @@
       "effects": [
         {
           "template": "지력 {value} 증가",
-          "min": 14,
+          "min": 12,
           "max": 14,
-          "variable": false
+          "variable": true
         },
         {
           "template": "체력 {value} 감소",
@@ -1833,7 +1973,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 100 이상일때"
         }
       ]
     },
@@ -1845,19 +1986,22 @@
           "template": "보호 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "마나 리커버리 랭크 1 이상일 때"
         },
         {
           "template": "방어 {value} 증가",
           "min": 2,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "매직 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "마법 공격력 {value} 증가",
           "min": 7,
           "max": 8,
-          "variable": true
+          "variable": true,
+          "condition": "볼트 마법 조합 랭크 1 이상일 때"
         }
       ]
     },
@@ -1869,7 +2013,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 12 이상일때"
         }
       ]
     },
@@ -1899,13 +2044,15 @@
           "template": "솜씨 {value} 증가",
           "min": 3,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "스피닝 슬래시 랭크 9 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "도르카 마스터리 랭크 5 이상일 때"
         }
       ]
     },
@@ -1917,7 +2064,8 @@
           "template": "최대생명력 {value} 감소",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "컴뱃 마스터리 랭크 D 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -1947,7 +2095,8 @@
           "template": "체력 {value} 증가",
           "min": 18,
           "max": 42,
-          "variable": true
+          "variable": true,
+          "condition": "컴뱃 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "체력 {value} 증가",
@@ -1989,13 +2138,15 @@
           "template": "최소대미지 {value} 증가",
           "min": 5,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "기사회생 특성 5레벨 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 14,
           "max": 17,
-          "variable": true
+          "variable": true,
+          "condition": "원소 연마 특성 8레벨 이상일 때"
         }
       ]
     },
@@ -2019,7 +2170,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 8,
-          "variable": true
+          "variable": true,
+          "condition": "마나실드 랭크 B 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -2031,7 +2183,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 25 이상일때"
         }
       ]
     },
@@ -2061,13 +2214,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 8,
-          "variable": true
+          "variable": true,
+          "condition": "서포트 샷 랭크 1 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "크래시 샷 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -2127,25 +2282,29 @@
           "template": "흙 속성 연금술 대미지 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "흙 연금술 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "바람 속성 연금술 대미지 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "바람 연금술 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "물 속성 연금술 대미지 {value} 증가",
           "min": 10,
           "max": 20,
-          "variable": true
+          "variable": true,
+          "condition": "물 연금술 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "불 속성 연금술 대미지 {value} 증가",
           "min": 10,
           "max": 20,
-          "variable": true
+          "variable": true,
+          "condition": "불 연금술 마스터리 랭크 1 이상일 때"
         }
       ]
     },
@@ -2157,19 +2316,22 @@
           "template": "최대생명력 {value} 증가",
           "min": 50,
           "max": 50,
-          "variable": false
+          "variable": false,
+          "condition": "회피 랭크 6 이상일 때"
         },
         {
           "template": "마법 공격력 {value} 증가",
           "min": 2,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "볼트 마법 조합 랭크 1 이상일 때"
         },
         {
           "template": "음악 버프 스킬 효과 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "현혹의 연주 랭크 1 이상일 때"
         }
       ]
     },
@@ -2181,19 +2343,22 @@
           "template": "솜씨 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 25 이상일때"
         },
         {
           "template": "최대생명력 {value} 증가",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 18 이하일때"
         },
         {
           "template": "체력 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 5 이상일때"
         }
       ]
     },
@@ -2223,13 +2388,15 @@
           "template": "최대마나 {value} 증가",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "내츄럴 매직 실드 랭크 C 이상일 때"
         },
         {
           "template": "보호 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "내츄럴 매직 실드 랭크 C 이상일 때"
         }
       ]
     },
@@ -2241,13 +2408,15 @@
           "template": "최대스태미나 {value} 증가",
           "min": 4,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "악기 연주 랭크 9 이상일 때"
         },
         {
           "template": "최대생명력 {value} 증가",
           "min": 2,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "자장가 랭크 C 이상일 때"
         },
         {
           "template": "최대생명력 {value} 증가",
@@ -2271,7 +2440,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "컴뱃 마스터리 랭크 B 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -2307,7 +2477,8 @@
           "template": "방어 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "회피 랭크 9 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -2319,7 +2490,8 @@
           "template": "체력 {value} 증가",
           "min": 30,
           "max": 30,
-          "variable": false
+          "variable": false,
+          "condition": "랜스 카운터 랭크 1 이상일 때"
         }
       ]
     },
@@ -2361,7 +2533,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "카이토 타이틀을 달고 있을 때"
         },
         {
           "template": "지력 {value} 증가",
@@ -2409,7 +2582,8 @@
           "template": "솜씨 {value} 증가",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "6막: 유혹의 올가미 랭크 5 이상일 때"
         }
       ]
     },
@@ -2463,13 +2637,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 30 이상일때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 40 이하일때"
         }
       ]
     },
@@ -2488,6 +2664,13 @@
           "min": null,
           "max": null,
           "variable": false
+        },
+        {
+          "template": "프로즌 블래스트 랭크 A 이상일 때 프로즌 블래스트 지속시간 2초 증가",
+          "min": null,
+          "max": null,
+          "variable": false,
+          "condition": "프로즌 블래스트 랭크 A 이상일 때"
         }
       ]
     },
@@ -2511,7 +2694,8 @@
           "template": "최대생명력 {value} 증가",
           "min": 10,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "파티 힐링 랭크 9 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -2529,7 +2713,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 6,
           "max": 9,
-          "variable": true
+          "variable": true,
+          "condition": "힐링 랭크 5 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -2553,7 +2738,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 7,
-          "variable": true
+          "variable": true,
+          "condition": "컴뱃 마스터리 랭크 9 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -2649,13 +2835,15 @@
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "발구르기 랭크 3 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "발구르기 랭크 A 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -2679,19 +2867,22 @@
           "template": "행운 {value} 증가",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "포션 조제 랭크 2단 이상일 때"
         },
         {
           "template": "지력 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "매직 크래프트 랭크 1단 이상일 때"
         },
         {
           "template": "생산품 품질 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "천옷만들기 랭크 3단 이상일 때"
         }
       ]
     },
@@ -2733,7 +2924,8 @@
           "template": "보호 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "방호벽 랭크 6 이상일 때"
         },
         {
           "template": "방호벽 설치중 보호 {value} 증가",
@@ -2775,7 +2967,8 @@
           "template": "방어 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "돌진 랭크 B 이상일 때"
         }
       ]
     },
@@ -2787,7 +2980,8 @@
           "template": "불 속성 연금술 대미지 {value} 증가",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "플레이머 랭크 9 이상일 때"
         }
       ]
     },
@@ -2799,7 +2993,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 8,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 40 이상일때"
         }
       ]
     },
@@ -2877,13 +3072,15 @@
           "template": "행운 {value} 증가",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 35 이상일때"
         },
         {
           "template": "최대생명력 {value} 감소",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 30 이상일때"
         }
       ]
     },
@@ -2901,13 +3098,15 @@
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "크리티컬 히트 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 15,
           "max": 17,
-          "variable": true
+          "variable": true,
+          "condition": "윈드밀 랭크 1 이상일 때"
         }
       ]
     },
@@ -2937,7 +3136,8 @@
           "template": "최소부상률 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 19 이상일때"
         }
       ]
     },
@@ -2949,7 +3149,8 @@
           "template": "최대부상률 {value} 증가",
           "min": 6,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 24 이상일때"
         }
       ]
     },
@@ -2961,25 +3162,29 @@
           "template": "마리오네트 보호 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "콜로서스 마리오네트 랭크 3 이상일 때"
         },
         {
           "template": "마리오네트 방어 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "피에로 마리오네트 랭크 3 이상일 때"
         },
         {
           "template": "마리오네트 조종술 크리티컬 확률 {value} 증가",
           "min": 5,
           "max": 6,
-          "variable": true
+          "variable": true,
+          "condition": "1막: 우연한 충돌 랭크 1 이상일 때"
         },
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
           "min": 13,
           "max": 13,
-          "variable": false
+          "variable": false,
+          "condition": "6막: 유혹의 올가미 랭크 1 이상일 때"
         }
       ]
     },
@@ -3003,25 +3208,29 @@
           "template": "솜씨 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "크래시 샷 랭크 3단 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "매그넘 샷 랭크 2단 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 11,
           "max": 13,
-          "variable": true
+          "variable": true,
+          "condition": "레인지 컴뱃 마스터리 랭크 1단 이상일 때"
         },
         {
           "template": "체력 {value} 증가",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "디펜스 랭크 3단 이상일 때"
         }
       ]
     },
@@ -3033,19 +3242,22 @@
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "크로스보우 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 17,
           "max": 20,
-          "variable": true
+          "variable": true,
+          "condition": "서포트 샷 랭크 1 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 10,
           "max": 19,
-          "variable": true
+          "variable": true,
+          "condition": "레인지 컴뱃 마스터리 랭크 1 이상일 때"
         }
       ]
     },
@@ -3069,19 +3281,22 @@
           "template": "폭발 저항 세트 효과 수치 {value} 증가",
           "min": 2,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "매직 마스터리 랭크 A 이상일 때"
         },
         {
           "template": "보호 {value} 증가",
           "min": 1,
           "max": 3,
-          "variable": true
+          "variable": true,
+          "condition": "악기 연주 랭크 8 이상일 때"
         },
         {
           "template": "방어 {value} 증가",
           "min": 3,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "디펜스 랭크 6 이상일 때"
         },
         {
           "template": "방어 {value} 증가",
@@ -3111,7 +3326,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 12 이상일때"
         }
       ]
     },
@@ -3147,7 +3363,8 @@
           "template": "방어 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "돌진 랭크 B 이상일 때"
         }
       ]
     },
@@ -3165,7 +3382,8 @@
           "template": "체력 {value} 증가",
           "min": 20,
           "max": 35,
-          "variable": true
+          "variable": true,
+          "condition": "컴뱃 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "체력 {value} 증가",
@@ -3183,13 +3401,15 @@
           "template": "최대생명력 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 10 이상일때"
         },
         {
           "template": "보호 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이상일때"
         }
       ]
     },
@@ -3207,7 +3427,8 @@
           "template": "마법 공격력 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "매직 마스터리 랭크 A 이상일 때"
         }
       ]
     },
@@ -3225,7 +3446,8 @@
           "template": "마나 소비 감소 {value}% 증가",
           "min": 2,
           "max": 3,
-          "variable": true
+          "variable": true,
+          "condition": "메디테이션 랭크 9 이상일 때"
         }
       ]
     },
@@ -3243,7 +3465,8 @@
           "template": "마법 방어 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "마나실드 랭크 8 이상일 때"
         }
       ]
     },
@@ -3267,13 +3490,15 @@
           "template": "방어 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "디펜스 랭크 9 이상일 때"
         },
         {
           "template": "마법 방어 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "매직 마스터리 랭크 5 이상일 때"
         }
       ]
     },
@@ -3291,13 +3516,15 @@
           "template": "마법 공격력 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "아이스 스피어 랭크 8 이상일 때"
         },
         {
           "template": "마나 소비 감소 {value}% 증가",
           "min": 2,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "썬더 랭크 9 이상일 때"
         }
       ]
     },
@@ -3309,7 +3536,8 @@
           "template": "마법 공격력 {value} 증가",
           "min": 1,
           "max": 2,
-          "variable": true
+          "variable": true,
+          "condition": "매직 마스터리 랭크 5 이상일 때"
         },
         {
           "template": "마법 공격력 {value} 증가",
@@ -3339,19 +3567,22 @@
           "template": "최대마나 {value} 증가",
           "min": 50,
           "max": 50,
-          "variable": false
+          "variable": false,
+          "condition": "매직 크래프트 랭크 3 이상일 때"
         },
         {
           "template": "행운 {value} 증가",
           "min": 1,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "매직 크래프트 랭크 5 이상일 때"
         },
         {
           "template": "지력 {value} 증가",
           "min": 3,
           "max": 8,
-          "variable": true
+          "variable": true,
+          "condition": "매직 크래프트 랭크 9 이상일 때"
         }
       ]
     },
@@ -3411,7 +3642,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이상일때"
         },
         {
           "template": "최대생명력 {value} 증가",
@@ -3435,7 +3667,8 @@
           "template": "최대부상률 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "윈드밀 랭크 C 이상일 때"
         }
       ]
     },
@@ -3453,13 +3686,15 @@
           "template": "솜씨 {value} 증가",
           "min": 5,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "투아림 익스플로전 랭크 5 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 9,
           "max": 9,
-          "variable": false
+          "variable": false,
+          "condition": "도르카 마스터리 랭크 1 이상일 때"
         }
       ]
     },
@@ -3477,7 +3712,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 9,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 20 이상일때"
         },
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
@@ -3495,7 +3731,8 @@
           "template": "결정 제작 성공률 {value}% 증가",
           "min": 1,
           "max": 2,
-          "variable": true
+          "variable": true,
+          "condition": "방호벽 랭크 D 이상일 때"
         },
         {
           "template": "결정 제작 성공률 {value}% 증가",
@@ -3513,25 +3750,29 @@
           "template": "최대대미지 {value} 감소",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "레인지 컴뱃 마스터리 랭크 9 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 32 이상일때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 24 이상일때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 16 이상일때"
         }
       ]
     },
@@ -3543,19 +3784,22 @@
           "template": "체력 {value} 감소",
           "min": 11,
           "max": 11,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이상일때"
         },
         {
           "template": "최대스태미나 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 15 이상일때"
         },
         {
           "template": "지력 {value} 증가",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "아이스볼트 랭크 9 이상일 때"
         }
       ]
     },
@@ -3579,13 +3823,15 @@
           "template": "최대생명력 {value} 증가",
           "min": 7,
           "max": 7,
-          "variable": false
+          "variable": false,
+          "condition": "자장가 랭크 9 이상일 때"
         },
         {
           "template": "음악 버프 스킬 효과 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "악기 연주 랭크 8 이상일 때"
         }
       ]
     },
@@ -3603,7 +3849,8 @@
           "template": "물 속성 연금술 대미지 {value} 증가",
           "min": 9,
           "max": 18,
-          "variable": true
+          "variable": true,
+          "condition": "워터 캐논 랭크 5 이상일 때"
         },
         {
           "template": "물 속성 연금술 대미지 {value} 증가",
@@ -3675,19 +3922,22 @@
           "template": "최대마나 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "누적레벨이 500 이하일때"
         },
         {
           "template": "대미지밸런스 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "누적레벨이 500 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "누적레벨이 500 이하일때"
         }
       ]
     },
@@ -3705,13 +3955,15 @@
           "template": "마법 공격력 {value} 증가",
           "min": 3,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "썬더 랭크 1 이상일 때"
         },
         {
           "template": "지력 {value} 증가",
           "min": 15,
           "max": 30,
-          "variable": true
+          "variable": true,
+          "condition": "볼트 마스터리 랭크 1 이상일 때"
         }
       ]
     },
@@ -3747,13 +3999,15 @@
           "template": "솜씨 {value} 증가",
           "min": 18,
           "max": 24,
-          "variable": true
+          "variable": true,
+          "condition": "어전트 샷 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 11,
           "max": 16,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 100 이상일때"
         }
       ]
     },
@@ -3783,13 +4037,15 @@
           "template": "최대스태미나 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "윈드 블래스트 랭크 A 이상일 때"
         },
         {
           "template": "최대생명력 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "라이프 드레인 랭크 B 이상일 때"
         }
       ]
     },
@@ -3807,7 +4063,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "컴뱃 마스터리 랭크 C 이상일 때"
         }
       ]
     },
@@ -3819,13 +4076,15 @@
           "template": "마리오네트 조종술 크리티컬 확률 {value} 증가",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "2막: 솟구치는 분노 랭크 6 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "1막: 우연한 충돌 랭크 D 이상일 때"
         }
       ]
     },
@@ -3837,19 +4096,22 @@
           "template": "최대생명력 {value} 감소",
           "min": 100,
           "max": 100,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이상일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "나이가 20 이하일때"
         },
         {
           "template": "최소대미지 {value} 감소",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "나이가 14 이상일때"
         }
       ]
     },
@@ -3933,13 +4195,15 @@
           "template": "최소대미지 {value} 감소",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 9 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 4 이상일때"
         }
       ]
     },
@@ -3963,13 +4227,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 10,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "9막: 깨어나는 생명 랭크 1 이상일 때"
         },
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
           "min": 7,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "6막: 유혹의 올가미 랭크 1 이상일 때"
         }
       ]
     },
@@ -3987,13 +4253,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 9,
-          "variable": true
+          "variable": true,
+          "condition": "윈드밀 랭크 9 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 6,
           "max": 9,
-          "variable": true
+          "variable": true,
+          "condition": "스매시 랭크 9 이상일 때"
         }
       ]
     },
@@ -4011,13 +4279,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "클로져 랭크 5 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 2,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "듀얼건 마스터리 랭크 7 이상일 때"
         }
       ]
     },
@@ -4053,7 +4323,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "캠프파이어 랭크 E 이상일 때"
         }
       ]
     },
@@ -4071,7 +4342,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 2,
           "max": 12,
-          "variable": true
+          "variable": true,
+          "condition": "저지먼트 블레이드 랭크 5 이상일 때"
         },
         {
           "template": "솜씨 {value} 증가",
@@ -4137,7 +4409,8 @@
           "template": "분해 성공률 {value}% 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "마나 포밍 랭크 C 이상일 때"
         }
       ]
     },
@@ -4185,13 +4458,15 @@
           "template": "대미지밸런스 {value} 감소",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 13 이상일때"
         },
         {
           "template": "체력 {value} 감소",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "크리티컬 히트 랭크 E 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -4257,13 +4532,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 7,
           "max": 7,
-          "variable": false
+          "variable": false,
+          "condition": "랜스 카운터 랭크 1 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 7,
           "max": 7,
-          "variable": false
+          "variable": false,
+          "condition": "랜스 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "피어싱 레벨 {value} 증가",
@@ -4299,19 +4576,22 @@
           "template": "대미지밸런스 {value} 감소",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이상일때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이상일때"
         },
         {
           "template": "최대스태미나 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 15 이상일때"
         }
       ]
     },
@@ -4323,13 +4603,15 @@
           "template": "체력 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "7막: 광란의 질주 랭크 4 이상일 때"
         },
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
           "min": 6,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "4막: 질투의 화신 랭크 8 이상일 때"
         }
       ]
     },
@@ -4341,7 +4623,8 @@
           "template": "의지 {value} 감소",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 30 이상일때"
         },
         {
           "template": "최소대미지 {value} 증가",
@@ -4487,13 +4770,15 @@
           "template": "최소대미지 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 12 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 9 이상일때"
         }
       ]
     },
@@ -4511,13 +4796,15 @@
           "template": "최소대미지 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 9 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 6 이상일때"
         }
       ]
     },
@@ -4589,13 +4876,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "연성 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "연금술 생산 성공률 {value} 증가",
           "min": 3,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "금속 변환 랭크 1 이상일 때"
         }
       ]
     },
@@ -4631,13 +4920,15 @@
           "template": "물 속성 연금술 대미지 {value} 증가",
           "min": 10,
           "max": 20,
-          "variable": true
+          "variable": true,
+          "condition": "레인 캐스팅 랭크 1 이상일 때"
         },
         {
           "template": "불 속성 연금술 대미지 {value} 증가",
           "min": 10,
           "max": 20,
-          "variable": true
+          "variable": true,
+          "condition": "플레이머 랭크 1 이상일 때"
         }
       ]
     },
@@ -4655,7 +4946,8 @@
           "template": "마리오네트 최대 대미지 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "7막: 광란의 질주 랭크 9 이상일 때"
         },
         {
           "template": "마리오네트 최소 대미지 {value} 증가",
@@ -4679,19 +4971,22 @@
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "라이프 드레인 랭크 6 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "워터 캐논 랭크 1 이상일 때"
         },
         {
           "template": "최대생명력 {value} 증가",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "연금술 마스터리 랭크 9 이상일 때"
         }
       ]
     },
@@ -4727,7 +5022,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 12 이상일때"
         }
       ]
     },
@@ -4757,13 +5053,15 @@
           "template": "크리티컬 {value} 감소",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 5 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 3 이상일때"
         }
       ]
     },
@@ -4781,13 +5079,15 @@
           "template": "최소대미지 {value} 감소",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 15 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 8 이상일때"
         }
       ]
     },
@@ -4799,7 +5099,8 @@
           "template": "합성 성공률 {value}% 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "합성 랭크 B 이상일 때"
         }
       ]
     },
@@ -4829,13 +5130,15 @@
           "template": "최대생명력 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 10 이상일때"
         },
         {
           "template": "보호 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이상일때"
         }
       ]
     },
@@ -4847,7 +5150,8 @@
           "template": "솜씨 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "애로우 리볼버 랭크 B 이상일 때"
         },
         {
           "template": "솜씨 {value} 증가",
@@ -4871,13 +5175,15 @@
           "template": "보호 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "방호벽 랭크 B 이상일 때"
         },
         {
           "template": "방어 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "골렘 연성 랭크 B 이상일 때"
         }
       ]
     },
@@ -4907,19 +5213,22 @@
           "template": "음악 버프 스킬 지속시간 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "음악적 지식 랭크 1 이상일 때"
         },
         {
           "template": "음악 버프 스킬 효과 {value} 증가",
           "min": 5,
           "max": 6,
-          "variable": true
+          "variable": true,
+          "condition": "작곡 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 15,
           "max": 18,
-          "variable": true
+          "variable": true,
+          "condition": "전장의 서곡 랭크 1 이상일 때"
         }
       ]
     },
@@ -4961,7 +5270,8 @@
           "template": "최대스태미나 {value} 감소",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "방직 랭크 E 이상일 때"
         },
         {
           "template": "솜씨 {value} 증가",
@@ -4985,37 +5295,43 @@
           "template": "최소대미지 {value} 감소",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "불릿 스톰 랭크가 2 이하일때"
         },
         {
           "template": "체력 {value} 감소",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "리로드 랭크가 2 이하일때"
         },
         {
           "template": "대미지밸런스 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "크로스 버스터 랭크 3단 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 22,
           "max": 25,
-          "variable": true
+          "variable": true,
+          "condition": "크로스 버스터 랭크 1단 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "슈팅 러쉬 랭크 3단 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 12,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "슈팅 러쉬 랭크 1단 이상일 때"
         }
       ]
     },
@@ -5039,7 +5355,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "도르카 마스터리 랭크 A 이상일 때"
         }
       ]
     },
@@ -5063,19 +5380,22 @@
           "template": "음악 버프 스킬 효과 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "전장의 서곡 랭크 1 이상일 때"
         },
         {
           "template": "행운 {value} 증가",
           "min": 25,
           "max": 25,
-          "variable": false
+          "variable": false,
+          "condition": "풍년가 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "비바체 랭크 1 이상일 때"
         }
       ]
     },
@@ -5087,7 +5407,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 8,
-          "variable": true
+          "variable": true,
+          "condition": "수리검 마스터리 랭크 B 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
@@ -5111,7 +5432,8 @@
           "template": "최대부상률 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "윈드밀 랭크 F 이상일 때"
         }
       ]
     },
@@ -5135,19 +5457,22 @@
           "template": "최대생명력 {value} 증가",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "블레이즈 랭크 7 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "블레이즈 랭크 9 이상일 때"
         },
         {
           "template": "지력 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "블레이즈 랭크 C 이상일 때"
         }
       ]
     },
@@ -5183,7 +5508,8 @@
           "template": "방어 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "디펜스 랭크 8 이상일 때"
         }
       ]
     },
@@ -5201,19 +5527,22 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "크로스 버스터 랭크 7 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 7,
           "max": 7,
-          "variable": false
+          "variable": false,
+          "condition": "듀얼건 마스터리 랭크 5 이상일 때"
         },
         {
           "template": "공격 속도 증가 세트 효과 수치 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "리로드 랭크 9 이상일 때"
         }
       ]
     },
@@ -5225,13 +5554,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 1,
           "max": 2,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 4 이상일때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 4 이상일때"
         }
       ]
     },
@@ -5243,7 +5574,8 @@
           "template": "최소대미지 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 3 이상일때"
         }
       ]
     },
@@ -5279,19 +5611,22 @@
           "template": "최대대미지 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "매그넘 샷 랭크 6 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "윈드밀 랭크 6 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 30 이상일때"
         }
       ]
     },
@@ -5303,19 +5638,22 @@
           "template": "의지 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이상일때"
         },
         {
           "template": "지력 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 10 이하일때"
         },
         {
           "template": "최대마나 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 8 이상일때"
         }
       ]
     },
@@ -5339,13 +5677,15 @@
           "template": "최대부상률 {value} 증가",
           "min": 1,
           "max": 2,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 5 이상일때"
         },
         {
           "template": "최소부상률 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 5 이상일때"
         }
       ]
     },
@@ -5357,7 +5697,8 @@
           "template": "최소부상률 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 12 이상일때"
         }
       ]
     },
@@ -5369,7 +5710,8 @@
           "template": "최대부상률 {value} 증가",
           "min": 2,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 6 이상일때"
         }
       ]
     },
@@ -5465,7 +5807,8 @@
           "template": "대미지밸런스 {value} 증가",
           "min": 3,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 15 이상일때"
         }
       ]
     },
@@ -5495,19 +5838,22 @@
           "template": "솜씨 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이상일때"
         },
         {
           "template": "체력 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 10 이하일때"
         },
         {
           "template": "최대생명력 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 8 이상일때"
         }
       ]
     },
@@ -5525,7 +5871,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 11,
-          "variable": true
+          "variable": true,
+          "condition": "컴뱃 마스터리 랭크 7 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -5537,7 +5884,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 1,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "크리티컬 히트 랭크 9 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -5555,13 +5903,15 @@
           "template": "물 속성 연금술 대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "레인 캐스팅 랭크 B 이상일 때"
         },
         {
           "template": "불 속성 연금술 대미지 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "마나 포밍 랭크 B 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -5627,7 +5977,8 @@
           "template": "불 속성 연금술 대미지 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "플레이머 랭크 C 이상일 때"
         }
       ]
     },
@@ -5645,25 +5996,29 @@
           "template": "최대생명력 {value} 증가",
           "min": 50,
           "max": 50,
-          "variable": false
+          "variable": false,
+          "condition": "마나실드 랭크 7 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "파이어볼 랭크 7 이상일 때"
         },
         {
           "template": "마나 소비 감소 {value}% 증가",
           "min": 2,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "아이스 스피어 랭크 7 이상일 때"
         },
         {
           "template": "마법 공격력 {value} 증가",
           "min": 4,
           "max": 8,
-          "variable": true
+          "variable": true,
+          "condition": "썬더 랭크 7 이상일 때"
         }
       ]
     },
@@ -5693,13 +6048,15 @@
           "template": "의지 {value} 감소",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 24 이상일때"
         },
         {
           "template": "대미지밸런스 {value} 감소",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 18 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -5717,19 +6074,22 @@
           "template": "크리티컬 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "연금술 마스터리 랭크 5 이상일 때"
         },
         {
           "template": "물 속성 연금술 대미지 {value} 증가",
           "min": 7,
           "max": 11,
-          "variable": true
+          "variable": true,
+          "condition": "플레이머 랭크 9 이상일 때"
         },
         {
           "template": "불 속성 연금술 대미지 {value} 증가",
           "min": 3,
           "max": 7,
-          "variable": true
+          "variable": true,
+          "condition": "플레이머 랭크 5 이상일 때"
         },
         {
           "template": "불 속성 연금술 대미지 {value} 증가",
@@ -5777,19 +6137,22 @@
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 12,
-          "variable": true
+          "variable": true,
+          "condition": "랜스 마스터리 랭크 8 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "랜스 차지 랭크 5 이상일 때"
         },
         {
           "template": "피어싱 레벨 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "랜스 차지 랭크 8 이상일 때"
         }
       ]
     },
@@ -5807,19 +6170,22 @@
           "template": "행운 {value} 증가",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "포션 조제 랭크 2단 이상일 때"
         },
         {
           "template": "체력 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "힐웬 공학 랭크 1단 이상일 때"
         },
         {
           "template": "생산품 품질 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "블랙스미스 랭크 3단 이상일 때"
         }
       ]
     },
@@ -5873,13 +6239,15 @@
           "template": "신용도 상승률 {value}% 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "교역 마스터리 랭크 7 이상일 때"
         },
         {
           "template": "교역물품 구매 할인율 {value}% 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "교역 마스터리 랭크 A 이상일 때"
         }
       ]
     },
@@ -5891,7 +6259,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 8,
-          "variable": true
+          "variable": true,
+          "condition": "듀얼건 마스터리 랭크 B 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
@@ -5915,7 +6284,8 @@
           "template": "솜씨 {value} 증가",
           "min": 10,
           "max": 20,
-          "variable": true
+          "variable": true,
+          "condition": "파이널 샷 랭크 5 이상일 때"
         },
         {
           "template": "솜씨 {value} 증가",
@@ -5945,13 +6315,15 @@
           "template": "최소대미지 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "디펜스 랭크 7 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "디펜스 랭크 C 이상일 때"
         }
       ]
     },
@@ -6047,13 +6419,15 @@
           "template": "최대대미지 {value} 감소",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 44 이상일때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 22 이상일때"
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -6083,7 +6457,8 @@
           "template": "최대스태미나 {value} 감소",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "방직 랭크 E 이상일 때"
         },
         {
           "template": "솜씨 {value} 증가",
@@ -6119,7 +6494,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 18,
           "max": 18,
-          "variable": false
+          "variable": false,
+          "condition": "스매시 랭크 4 이상일 때"
         }
       ]
     },
@@ -6143,13 +6519,15 @@
           "template": "최대생명력 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "자장가 랭크 B 이상일 때"
         },
         {
           "template": "음악 버프 스킬 효과 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "악기 연주 랭크 B 이상일 때"
         }
       ]
     },
@@ -6227,19 +6605,22 @@
           "template": "마리오네트 최대 대미지 {value} 증가",
           "min": 10,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "4막: 질투의 화신 랭크 1 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 7,
           "max": 7,
-          "variable": false
+          "variable": false,
+          "condition": "와이어 풀링 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "와이어 바인딩 랭크 1 이상일 때"
         }
       ]
     },
@@ -6263,13 +6644,15 @@
           "template": "최대생명력 {value} 증가",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "자장가 랭크 5 이상일 때"
         },
         {
           "template": "음악 버프 스킬 효과 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "악기 연주 랭크 3 이상일 때"
         }
       ]
     },
@@ -6323,19 +6706,22 @@
           "template": "최대대미지 {value} 증가",
           "min": 20,
           "max": 25,
-          "variable": true
+          "variable": true,
+          "condition": "멜로디 쇼크 랭크 1 이상일 때"
         },
         {
           "template": "음악 버프 스킬 지속시간 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "음악적 지식 랭크 1 이상일 때"
         },
         {
           "template": "음악 버프 스킬 효과 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "비바체 랭크 1 이상일 때"
         }
       ]
     },
@@ -6359,25 +6745,29 @@
           "template": "최대생명력 {value} 증가",
           "min": 50,
           "max": 50,
-          "variable": false
+          "variable": false,
+          "condition": "인내의 노래 랭크 1 이상일 때"
         },
         {
           "template": "음악 버프 스킬 지속시간 {value} 증가",
           "min": 5,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "음악적 지식 랭크 1 이상일 때"
         },
         {
           "template": "음악 버프 스킬 효과 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "작곡 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 10,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "자장가 랭크 1 이상일 때"
         }
       ]
     },
@@ -6425,7 +6815,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 16,
           "max": 16,
-          "variable": false
+          "variable": false,
+          "condition": "스매시 랭크 8 이상일 때"
         }
       ]
     },
@@ -6437,19 +6828,22 @@
           "template": "체력 {value} 감소",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 15 이하일때"
         },
         {
           "template": "최대생명력 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 10 이상일때"
         },
         {
           "template": "최대스태미나 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 5 이상일때"
         }
       ]
     },
@@ -6461,7 +6855,8 @@
           "template": "결정 제작 성공률 {value}% 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "연금술 마스터리 랭크 D 이상일 때"
         }
       ]
     },
@@ -6491,7 +6886,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 16,
           "max": 16,
-          "variable": false
+          "variable": false,
+          "condition": "스매시 랭크 8 이상일 때"
         }
       ]
     },
@@ -6503,13 +6899,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 11,
           "max": 12,
-          "variable": true
+          "variable": true,
+          "condition": "휴식 랭크 7 이상일 때"
         },
         {
           "template": "행운 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "휴식 랭크 8 이상일 때"
         }
       ]
     },
@@ -6527,19 +6925,22 @@
           "template": "최대스태미나 {value} 증가",
           "min": 30,
           "max": 30,
-          "variable": false
+          "variable": false,
+          "condition": "힐웬 공학 랭크 3 이상일 때"
         },
         {
           "template": "솜씨 {value} 증가",
           "min": 5,
           "max": 12,
-          "variable": true
+          "variable": true,
+          "condition": "힐웬 공학 랭크 5 이상일 때"
         },
         {
           "template": "체력 {value} 증가",
           "min": 3,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "힐웬 공학 랭크 9 이상일 때"
         }
       ]
     },
@@ -6719,13 +7120,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 7,
           "max": 12,
-          "variable": true
+          "variable": true,
+          "condition": "연금술 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "연금술 생산 성공률 {value} 증가",
           "min": 2,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "마나 포밍 랭크 1 이상일 때"
         }
       ]
     },
@@ -6737,13 +7140,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 3,
           "max": 6,
-          "variable": true
+          "variable": true,
+          "condition": "누적레벨이 1000 이하일때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 3,
           "max": 6,
-          "variable": true
+          "variable": true,
+          "condition": "누적레벨이 1000 이하일때"
         }
       ]
     },
@@ -6797,7 +7202,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 6,
-          "variable": true
+          "variable": true,
+          "condition": "마나실드 랭크 A 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -6809,7 +7215,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 25 이상일때"
         }
       ]
     },
@@ -6821,19 +7228,22 @@
           "template": "의지 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이상일때"
         },
         {
           "template": "지력 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 10 이하일때"
         },
         {
           "template": "최대마나 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 8 이상일때"
         }
       ]
     },
@@ -6851,25 +7261,29 @@
           "template": "크리티컬 {value} 증가",
           "min": 8,
           "max": 12,
-          "variable": true
+          "variable": true,
+          "condition": "잿빛 연막술 랭크 2 이상일 때"
         },
         {
           "template": "체력 {value} 증가",
           "min": 15,
           "max": 20,
-          "variable": true
+          "variable": true,
+          "condition": "그림자 속박 랭크 1 이상일 때"
         },
         {
           "template": "의지 {value} 증가",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "그림자 은신 랭크 3 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 18,
           "max": 18,
-          "variable": false
+          "variable": false,
+          "condition": "벚꽃 비화술 랭크 3 이상일 때"
         }
       ]
     },
@@ -6887,13 +7301,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 10,
           "max": 28,
-          "variable": true
+          "variable": true,
+          "condition": "프렌지 랭크 1 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 4,
           "max": 8,
-          "variable": true
+          "variable": true,
+          "condition": "듀얼건 마스터리 랭크 1 이상일 때"
         }
       ]
     },
@@ -6923,37 +7339,43 @@
           "template": "최대대미지 {value} 감소",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "수리검 폭쇄 랭크가 2 이하일때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "수리검 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "체력 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "수리검 돌진 랭크 3단 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 19,
           "max": 20,
-          "variable": true
+          "variable": true,
+          "condition": "수리검 돌진 랭크 1단 이상일 때"
         },
         {
           "template": "의지 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "수리검 폭풍 랭크 3단 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 10,
           "max": 12,
-          "variable": true
+          "variable": true,
+          "condition": "수리검 폭풍 랭크 1단 이상일 때"
         }
       ]
     },
@@ -6977,13 +7399,15 @@
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 18 이상일때"
         },
         {
           "template": "대미지밸런스 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 6 이상일때"
         }
       ]
     },
@@ -6995,13 +7419,15 @@
           "template": "최대마나 {value} 증가",
           "min": 5,
           "max": 12,
-          "variable": true
+          "variable": true,
+          "condition": "누적레벨이 1000 이하일때"
         },
         {
           "template": "마법 공격력 {value} 증가",
           "min": 1,
           "max": 2,
-          "variable": true
+          "variable": true,
+          "condition": "누적레벨이 1000 이하일때"
         }
       ]
     },
@@ -7049,7 +7475,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 4,
           "max": 8,
-          "variable": true
+          "variable": true,
+          "condition": "컴뱃 마스터리 랭크 8 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -7073,19 +7500,22 @@
           "template": "행운 {value} 증가",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "실드 마스터리 랭크 5 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 25,
           "max": 31,
-          "variable": true
+          "variable": true,
+          "condition": "스매시 랭크 1 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 12,
           "max": 18,
-          "variable": true
+          "variable": true,
+          "condition": "소드 마스터리 랭크 1 이상일 때"
         }
       ]
     },
@@ -7097,7 +7527,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 4,
           "max": 6,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 10 이상일때"
         }
       ]
     },
@@ -7115,7 +7546,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 6,
           "max": 16,
-          "variable": true
+          "variable": true,
+          "condition": "크리티컬 히트 마스터 타이틀을 달고 있을 때"
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -7157,13 +7589,15 @@
           "template": "마나 소비 감소 {value}% 증가",
           "min": 2,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "마나 리커버리 랭크 1 이상일 때"
         },
         {
           "template": "마법 공격력 {value} 증가",
           "min": 6,
           "max": 9,
-          "variable": true
+          "variable": true,
+          "condition": "매직 웨폰 마스터리 랭크 1 이상일 때"
         }
       ]
     },
@@ -7229,7 +7663,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "나이가 16 이상일때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -7277,13 +7712,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "아이 오브 오더 랭크 B 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "스피리트 오브 오더 랭크 B 이상일 때"
         }
       ]
     },
@@ -7295,13 +7732,15 @@
           "template": "최대마나 {value} 증가",
           "min": 51,
           "max": 70,
-          "variable": true
+          "variable": true,
+          "condition": "연성 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "모든 속성 연금술 대미지 {value} 증가",
           "min": 7,
           "max": 9,
-          "variable": true
+          "variable": true,
+          "condition": "라이프 드레인 랭크 1 이상일 때"
         }
       ]
     },
@@ -7313,13 +7752,15 @@
           "template": "솜씨 {value} 감소",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "악기 연주 랭크가 9 이하일때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 3,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "작곡 랭크 9 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -7337,13 +7778,15 @@
           "template": "최대부상률 {value} 증가",
           "min": 1,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 55 이상일때"
         },
         {
           "template": "최소부상률 {value} 증가",
           "min": 1,
           "max": 3,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 55 이상일때"
         }
       ]
     },
@@ -7391,13 +7834,15 @@
           "template": "최소대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "디펜스 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "디펜스 마스터 타이틀을 달고 있을 때"
         },
         {
           "template": "대미지밸런스 {value} 증가",
@@ -7463,13 +7908,15 @@
           "template": "최소대미지 {value} 감소",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 12 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 6 이상일때"
         }
       ]
     },
@@ -7487,31 +7934,36 @@
           "template": "의지 {value} 증가",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "스매시 랭크 3단 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "돌진 랭크 2단 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 19,
           "max": 23,
-          "variable": true
+          "variable": true,
+          "condition": "윈드밀 랭크 2단 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 10,
           "max": 17,
-          "variable": true
+          "variable": true,
+          "condition": "다운 어택 랭크 1단 이상일 때"
         },
         {
           "template": "체력 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "컴뱃 마스터리 랭크 3단 이상일 때"
         }
       ]
     },
@@ -7529,13 +7981,15 @@
           "template": "솜씨 {value} 증가",
           "min": 5,
           "max": 9,
-          "variable": true
+          "variable": true,
+          "condition": "체인 스위핑 랭크 9 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 14,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "도르카 마스터리 랭크 5 이상일 때"
         }
       ]
     },
@@ -7553,13 +8007,15 @@
           "template": "최소대미지 {value} 증가",
           "min": 5,
           "max": 10,
-          "variable": true
+          "variable": true,
+          "condition": "디펜스 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 15,
           "max": 16,
-          "variable": true
+          "variable": true,
+          "condition": "컴뱃 마스터리 랭크 1 이상일 때"
         }
       ]
     },
@@ -7583,13 +8039,15 @@
           "template": "솜씨 {value} 감소",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "악기 연주 랭크가 9 이하일때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 3,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "작곡 랭크 9 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
@@ -7655,13 +8113,15 @@
           "template": "크리티컬 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "돌진 랭크 6 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 1,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "돌진 랭크 B 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -7691,7 +8151,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 34,
           "max": 40,
-          "variable": true
+          "variable": true,
+          "condition": "배쉬 랭크 8 이상일 때"
         }
       ]
     },
@@ -7709,7 +8170,8 @@
           "template": "스태미나 소모량 {value}% 감소",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "셀레스티얼 스파이크 랭크 5 이상일 때"
         },
         {
           "template": "불 속성 연금술 대미지 {value} 증가",
@@ -7733,7 +8195,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 4 이상일때"
         }
       ]
     },
@@ -7745,19 +8208,22 @@
           "template": "최대스태미나 {value} 감소",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 26 이상일때"
         },
         {
           "template": "최대생명력 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 14 이상일때"
         },
         {
           "template": "솜씨 {value} 증가",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "천옷만들기 랭크가 A 이하일때"
         }
       ]
     },
@@ -7775,19 +8241,22 @@
           "template": "체력 {value} 증가",
           "min": 40,
           "max": 40,
-          "variable": false
+          "variable": false,
+          "condition": "회피 랭크 6 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 10,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "파이널 히트 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 20,
           "max": 25,
-          "variable": true
+          "variable": true,
+          "condition": "윈드밀 랭크 1 이상일 때"
         }
       ]
     },
@@ -7805,25 +8274,29 @@
           "template": "최대생명력 {value} 증가",
           "min": 50,
           "max": 50,
-          "variable": false
+          "variable": false,
+          "condition": "마나실드 랭크 7 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "파이어볼 랭크 7 이상일 때"
         },
         {
           "template": "마나 소비 감소 {value}% 증가",
           "min": 2,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "아이스 스피어 랭크 7 이상일 때"
         },
         {
           "template": "마법 공격력 {value} 증가",
           "min": 4,
           "max": 8,
-          "variable": true
+          "variable": true,
+          "condition": "썬더 랭크 7 이상일 때"
         }
       ]
     },
@@ -7841,13 +8314,15 @@
           "template": "크리티컬 {value} 감소",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 15 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 9 이상일때"
         }
       ]
     },
@@ -7859,7 +8334,8 @@
           "template": "마법 공격력 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "연금술 구름 효과 받음 상태일때"
         }
       ]
     },
@@ -7883,7 +8359,8 @@
           "template": "마리오네트 최대 대미지 {value} 증가",
           "min": 17,
           "max": 17,
-          "variable": false
+          "variable": false,
+          "condition": "마리오네트 조종술 랭크 5 이상일 때"
         }
       ]
     },
@@ -7913,19 +8390,22 @@
           "template": "최대대미지 {value} 증가",
           "min": 20,
           "max": 25,
-          "variable": true
+          "variable": true,
+          "condition": "멜로디 쇼크 랭크 1 이상일 때"
         },
         {
           "template": "음악 버프 스킬 지속시간 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "음악적 지식 랭크 1 이상일 때"
         },
         {
           "template": "음악 버프 스킬 효과 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "비바체 랭크 1 이상일 때"
         }
       ]
     },
@@ -7949,7 +8429,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 8,
-          "variable": true
+          "variable": true,
+          "condition": "마나실드 랭크 B 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -7961,7 +8442,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 25 이상일때"
         }
       ]
     },
@@ -7973,7 +8455,8 @@
           "template": "대미지밸런스 {value} 증가",
           "min": 1,
           "max": 3,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 3 이상일때"
         }
       ]
     },
@@ -8033,7 +8516,8 @@
           "template": "의지 {value} 증가",
           "min": 18,
           "max": 24,
-          "variable": true
+          "variable": true,
+          "condition": "너클 마스터리 랭크 5 이상일 때"
         },
         {
           "template": "의지 {value} 증가",
@@ -8057,13 +8541,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "애로우 리볼버 랭크 6 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "애로우 리볼버 랭크 9 이상일 때"
         }
       ]
     },
@@ -8087,11 +8573,12 @@
           "template": "크리티컬 {value} 증가",
           "min": 2,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 40 이상일때"
         },
         {
           "template": "최대부상률 {value} 증가",
-          "min": 7,
+          "min": 5,
           "max": 9,
           "variable": true
         },
@@ -8111,25 +8598,29 @@
           "template": "방어 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "라이프 드레인 랭크 7 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "스파크 랭크 6 이상일 때"
         },
         {
           "template": "흙 속성 연금술 대미지 {value} 증가",
           "min": 31,
           "max": 34,
-          "variable": true
+          "variable": true,
+          "condition": "샌드 버스트 랭크 1 이상일 때"
         },
         {
           "template": "물 속성 연금술 대미지 {value} 증가",
           "min": 26,
           "max": 30,
-          "variable": true
+          "variable": true,
+          "condition": "프로즌 블래스트 랭크 1 이상일 때"
         }
       ]
     },
@@ -8141,25 +8632,29 @@
           "template": "방어 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "라이프 드레인 랭크 8 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "스파크 랭크 5 이상일 때"
         },
         {
           "template": "바람 속성 연금술 대미지 {value} 증가",
           "min": 25,
           "max": 35,
-          "variable": true
+          "variable": true,
+          "condition": "윈드 블래스트 랭크 1 이상일 때"
         },
         {
           "template": "불 속성 연금술 대미지 {value} 증가",
           "min": 20,
           "max": 30,
-          "variable": true
+          "variable": true,
+          "condition": "플레이머 랭크 1 이상일 때"
         }
       ]
     },
@@ -8171,19 +8666,22 @@
           "template": "마나 소비 감소 {value}% 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "파이어볼 랭크 1 이상일 때"
         },
         {
           "template": "지력 {value} 증가",
           "min": 20,
           "max": 45,
-          "variable": true
+          "variable": true,
+          "condition": "아이스 스피어 랭크 1 이상일 때"
         },
         {
           "template": "마법 공격력 {value} 증가",
           "min": 4,
           "max": 7,
-          "variable": true
+          "variable": true,
+          "condition": "썬더 랭크 1 이상일 때"
         }
       ]
     },
@@ -8237,7 +8735,8 @@
           "template": "최대마나 {value} 증가",
           "min": 30,
           "max": 48,
-          "variable": true
+          "variable": true,
+          "condition": "실드 오브 트러스트 랭크 5 이상일 때"
         },
         {
           "template": "지력 {value} 증가",
@@ -8273,13 +8772,15 @@
           "template": "크리티컬 {value} 증가",
           "min": 7,
           "max": 12,
-          "variable": true
+          "variable": true,
+          "condition": "랜스 마스터리 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 15,
           "max": 20,
-          "variable": true
+          "variable": true,
+          "condition": "랜스 차지 랭크 1 이상일 때"
         }
       ]
     },
@@ -8315,19 +8816,22 @@
           "template": "체력 {value} 증가",
           "min": 10,
           "max": 14,
-          "variable": true
+          "variable": true,
+          "condition": "수리검 폭풍 랭크 5 이상일 때"
         },
         {
           "template": "의지 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "수리검 폭쇄 랭크 4 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 10,
           "max": 14,
-          "variable": true
+          "variable": true,
+          "condition": "수리검 마스터리 랭크 5 이상일 때"
         }
       ]
     },
@@ -8369,19 +8873,22 @@
           "template": "최대스태미나 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "파 어웨이 랭크 1 이상일 때"
         },
         {
           "template": "최대생명력 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "파 어웨이 랭크 3 이상일 때"
         },
         {
           "template": "체력 {value} 증가",
           "min": 13,
           "max": 13,
-          "variable": false
+          "variable": false,
+          "condition": "클로져 랭크 1 이상일 때"
         }
       ]
     },
@@ -8435,7 +8942,8 @@
           "template": "물 속성 연금술 대미지 {value} 증가",
           "min": 9,
           "max": 18,
-          "variable": true
+          "variable": true,
+          "condition": "워터 캐논 랭크 5 이상일 때"
         },
         {
           "template": "물 속성 연금술 대미지 {value} 증가",
@@ -8471,19 +8979,22 @@
           "template": "대미지밸런스 {value} 감소",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이상일때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이상일때"
         },
         {
           "template": "최대스태미나 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 15 이상일때"
         }
       ]
     },
@@ -8501,13 +9012,15 @@
           "template": "솜씨 {value} 증가",
           "min": 13,
           "max": 20,
-          "variable": true
+          "variable": true,
+          "condition": "데스 마커 랭크 5 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 14,
           "max": 20,
-          "variable": true
+          "variable": true,
+          "condition": "도르카 마스터리 랭크 1 이상일 때"
         }
       ]
     },
@@ -8525,19 +9038,22 @@
           "template": "체력 {value} 증가",
           "min": 20,
           "max": 45,
-          "variable": true
+          "variable": true,
+          "condition": "회피 랭크 6 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "스매시 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 18,
           "max": 32,
-          "variable": true
+          "variable": true,
+          "condition": "윈드밀 랭크 1 이상일 때"
         }
       ]
     },
@@ -8549,19 +9065,22 @@
           "template": "대미지밸런스 {value} 감소",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 15 이상일때"
         },
         {
           "template": "최대마나 {value} 증가",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 30 이상일때"
         },
         {
           "template": "지력 {value} 증가",
           "min": 16,
           "max": 16,
-          "variable": false
+          "variable": false,
+          "condition": "힐링 랭크 9 이상일 때"
         }
       ]
     },
@@ -8585,19 +9104,22 @@
           "template": "최대마나 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "프렌지 랭크 1 이상일 때"
         },
         {
           "template": "최대생명력 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "프렌지 랭크 3 이상일 때"
         },
         {
           "template": "지력 {value} 증가",
           "min": 8,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "불릿 스톰 랭크 1 이상일 때"
         }
       ]
     },
@@ -8615,31 +9137,36 @@
           "template": "최대대미지 {value} 감소",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "체인 스위핑 랭크가 2 이하일때"
         },
         {
           "template": "솜씨 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "앵커 러시 랭크 1 이상일 때"
         },
         {
           "template": "행운 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "투아림 익스플로전 랭크 1 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 9,
           "max": 9,
-          "variable": false
+          "variable": false,
+          "condition": "데스 마커 랭크 1단 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 18,
           "max": 18,
-          "variable": false
+          "variable": false,
+          "condition": "스피닝 슬래시 랭크 3단 이상일 때"
         }
       ]
     },
@@ -8657,7 +9184,8 @@
           "template": "최대생명력 {value} 증가",
           "min": 50,
           "max": 80,
-          "variable": true
+          "variable": true,
+          "condition": "셀레스티얼 스파이크 랭크 5 이상일 때"
         },
         {
           "template": "체력 {value} 증가",
@@ -8687,7 +9215,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 40 이상일때"
         },
         {
           "template": "최대생명력 {value} 증가",
@@ -8729,25 +9258,29 @@
           "template": "최대대미지 {value} 감소",
           "min": 30,
           "max": 30,
-          "variable": false
+          "variable": false,
+          "condition": "랜스 카운터 랭크가 3 이하일때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 10,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "랜스 카운터 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 10,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "랜스 차지 랭크 1 이상일 때"
         },
         {
           "template": "피어싱 레벨 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "랜스 마스터리 랭크 1 이상일 때"
         }
       ]
     },
@@ -8783,13 +9316,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 2,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "연금술 마스터리 랭크 B 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "연금술 마스터리 랭크 D 이상일 때"
         }
       ]
     },
@@ -8801,25 +9336,29 @@
           "template": "마리오네트 최대 생명력 {value} 증가",
           "min": 100,
           "max": 100,
-          "variable": false
+          "variable": false,
+          "condition": "와이어 풀링 랭크 3 이상일 때"
         },
         {
           "template": "마리오네트 조종술 크리티컬 확률 {value} 증가",
           "min": 7,
           "max": 7,
-          "variable": false
+          "variable": false,
+          "condition": "와이어 바인딩 랭크 3 이상일 때"
         },
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
           "min": 21,
           "max": 30,
-          "variable": true
+          "variable": true,
+          "condition": "7막: 광란의 질주 랭크 1 이상일 때"
         },
         {
           "template": "마리오네트 최소 대미지 {value} 증가",
           "min": 15,
           "max": 20,
-          "variable": true
+          "variable": true,
+          "condition": "마리오네트 조종술 랭크 1 이상일 때"
         }
       ]
     },
@@ -8843,7 +9382,8 @@
           "template": "마리오네트 최대 대미지 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "마리오네트 조종술 랭크 5 이상일 때"
         }
       ]
     },
@@ -8909,19 +9449,22 @@
           "template": "최대생명력 {value} 증가",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "블레이즈 랭크 7 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "블레이즈 랭크 9 이상일 때"
         },
         {
           "template": "지력 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "블레이즈 랭크 C 이상일 때"
         }
       ]
     },
@@ -8939,19 +9482,22 @@
           "template": "의지 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "연속기 : 파운딩 랭크 9 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 7,
           "max": 7,
-          "variable": false
+          "variable": false,
+          "condition": "연속기 : 파운딩 랭크 5 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 17,
           "max": 25,
-          "variable": true
+          "variable": true,
+          "condition": "연속기 : 파운딩 랭크 1 이상일 때"
         }
       ]
     },
@@ -8963,13 +9509,15 @@
           "template": "최대스태미나 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "컴뱃 마스터리 랭크 D 이상일 때"
         },
         {
           "template": "최대생명력 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "자이언트이거나 자이언트를 지지중일때"
         }
       ]
     },
@@ -8981,13 +9529,15 @@
           "template": "크리티컬 {value} 증가",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "현혹의 연주 랭크 6 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "현혹의 연주 랭크 B 이상일 때"
         }
       ]
     },
@@ -9011,7 +9561,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 4 이상일때"
         }
       ]
     },
@@ -9029,7 +9580,8 @@
           "template": "체력 {value} 증가",
           "min": 25,
           "max": 30,
-          "variable": true
+          "variable": true,
+          "condition": "윈드 브레이커 랭크 5 이상일 때"
         },
         {
           "template": "체력 {value} 증가",
@@ -9059,7 +9611,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 8 이상일때"
         }
       ]
     },
@@ -9113,7 +9666,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "볼트 마법 조합 랭크 6 이상일 때"
         },
         {
           "template": "최소대미지 {value} 증가",
@@ -9143,7 +9697,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "캠프파이어 랭크 D 이상일 때"
         }
       ]
     },
@@ -9155,7 +9710,8 @@
           "template": "대미지밸런스 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 15 이상일때"
         }
       ]
     },
@@ -9179,7 +9735,8 @@
           "template": "최대부상률 {value} 증가",
           "min": 30,
           "max": 30,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 30 이상일때"
         }
       ]
     },
@@ -9191,7 +9748,8 @@
           "template": "크리티컬 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 4 이상일때"
         }
       ]
     },
@@ -9215,7 +9773,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 8,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "탐험 레벨이 15 이상일때"
         }
       ]
     },
@@ -9239,25 +9798,29 @@
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "체인 실린더 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 13,
           "max": 13,
-          "variable": false
+          "variable": false,
+          "condition": "샌드 버스트 랭크 1 이상일 때"
         },
         {
           "template": "물 속성 연금술 대미지 {value} 증가",
           "min": 10,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "워터 캐논 랭크 1 이상일 때"
         },
         {
           "template": "불 속성 연금술 대미지 {value} 증가",
           "min": 5,
           "max": 7,
-          "variable": true
+          "variable": true,
+          "condition": "플레이머 랭크 1 이상일 때"
         }
       ]
     },
@@ -9269,19 +9832,22 @@
           "template": "체력 {value} 감소",
           "min": 11,
           "max": 11,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이상일때"
         },
         {
           "template": "최대스태미나 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 15 이상일때"
         },
         {
           "template": "지력 {value} 증가",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "아이스볼트 랭크 9 이상일 때"
         }
       ]
     },
@@ -9293,19 +9859,22 @@
           "template": "최대생명력 {value} 감소",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 10 이상일때"
         },
         {
           "template": "최대스태미나 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이하일때"
         },
         {
           "template": "솜씨 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "요리 랭크 D 이상일 때"
         }
       ]
     },
@@ -9317,19 +9886,22 @@
           "template": "최대스태미나 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 25 이상일때"
         },
         {
           "template": "행운 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 15 이상일때"
         },
         {
           "template": "의지 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 5 이상일때"
         }
       ]
     },
@@ -9341,13 +9913,15 @@
           "template": "최대생명력 {value} 증가",
           "min": 12,
           "max": 12,
-          "variable": false
+          "variable": false,
+          "condition": "히트 버스터 랭크 8 이상일 때"
         },
         {
           "template": "불 속성 연금술 대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "연금술 마스터리 랭크 A 이상일 때"
         }
       ]
     },
@@ -9359,13 +9933,15 @@
           "template": "최대대미지 {value} 증가",
           "min": 1,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 14 이상일때"
         },
         {
           "template": "최소대미지 {value} 증가",
           "min": 1,
           "max": 2,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 14 이상일때"
         }
       ]
     },
@@ -9377,7 +9953,8 @@
           "template": "최소대미지 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 8 이상일때"
         }
       ]
     },
@@ -9389,7 +9966,8 @@
           "template": "최대대미지 {value} 증가",
           "min": 2,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 3 이상일때"
         }
       ]
     },
@@ -9401,7 +9979,39 @@
           "template": "크리티컬 {value} 증가",
           "min": 4,
           "max": 4,
+          "variable": false,
+          "condition": "레벨이 42 이상일때"
+        }
+      ]
+    },
+    "폴리포니": {
+      "name": "폴리포니",
+      "rank": 6,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 200,
+          "max": 200,
           "variable": false
+        },
+        {
+          "template": "행운 {value} 증가",
+          "min": 30,
+          "max": 30,
+          "variable": false
+        },
+        {
+          "template": "지력 {value} 증가",
+          "min": 30,
+          "max": 30,
+          "variable": false
+        },
+        {
+          "template": "음악 버프 스킬 효과 {value} 증가",
+          "min": 7,
+          "max": 7,
+          "variable": false,
+          "condition": "앵콜 랭크 1 이상일 때"
         }
       ]
     },
@@ -9425,7 +10035,8 @@
           "template": "최대마나 {value} 증가",
           "min": 16,
           "max": 19,
-          "variable": true
+          "variable": true,
+          "condition": "파티 힐링 랭크 B 이상일 때"
         },
         {
           "template": "최대마나 {value} 증가",
@@ -9473,13 +10084,15 @@
           "template": "크리티컬 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "돌진 랭크 6 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 1,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "돌진 랭크 B 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -9551,7 +10164,8 @@
           "template": "지력 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "피닉스의 탄생을 지켜본 타이틀을 달고 있을 때"
         },
         {
           "template": "마법 공격력 {value} 증가",
@@ -9575,19 +10189,22 @@
           "template": "솜씨 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 25 이상일때"
         },
         {
           "template": "최대생명력 {value} 증가",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 18 이하일때"
         },
         {
           "template": "체력 {value} 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 5 이상일때"
         }
       ]
     },
@@ -9599,13 +10216,15 @@
           "template": "최대스태미나 {value} 감소",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 15 이상일때"
         },
         {
           "template": "최대생명력 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 5 이상일때"
         }
       ]
     },
@@ -9653,19 +10272,22 @@
           "template": "마나 소비 감소 {value}% 증가",
           "min": 1,
           "max": 2,
-          "variable": true
+          "variable": true,
+          "condition": "파이어볼 랭크 7 이상일 때"
         },
         {
           "template": "최대마나 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "아이스 스피어 랭크 7 이상일 때"
         },
         {
           "template": "마법 공격력 {value} 증가",
           "min": 6,
           "max": 8,
-          "variable": true
+          "variable": true,
+          "condition": "썬더 랭크 7 이상일 때"
         }
       ]
     },
@@ -9689,13 +10311,15 @@
           "template": "솜씨 {value} 증가",
           "min": 17,
           "max": 25,
-          "variable": true
+          "variable": true,
+          "condition": "어전트 샷 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 10,
           "max": 16,
-          "variable": true
+          "variable": true,
+          "condition": "레벨이 100 이상일때"
         }
       ]
     },
@@ -9707,7 +10331,8 @@
           "template": "불 속성 연금술 대미지 {value} 증가",
           "min": 8,
           "max": 8,
-          "variable": false
+          "variable": false,
+          "condition": "플레이머 랭크 9 이상일 때"
         }
       ]
     },
@@ -9737,37 +10362,43 @@
           "template": "크리티컬 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "파이어볼 랭크 3단 이상일 때"
         },
         {
           "template": "지력 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "라이트닝로드 랭크 3단 이상일 때"
         },
         {
           "template": "마나 소비 감소 {value}% 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "썬더 랭크 3단 이상일 때"
         },
         {
           "template": "최대생명력 {value} 증가",
           "min": 20,
           "max": 20,
-          "variable": false
+          "variable": false,
+          "condition": "라이트닝볼트 랭크 1단 이상일 때"
         },
         {
           "template": "최대마나 {value} 증가",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "아이스볼트 랭크 2단 이상일 때"
         },
         {
           "template": "마법 공격력 {value} 증가",
-          "min": 18,
+          "min": 16,
           "max": 20,
-          "variable": true
+          "variable": true,
+          "condition": "파이어볼트 랭크 3단 이상일 때"
         }
       ]
     },
@@ -9791,13 +10422,15 @@
           "template": "대미지밸런스 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "메디테이션 랭크 B 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "메디테이션 랭크 D 이상일 때"
         }
       ]
     },
@@ -9849,9 +10482,10 @@
       "effects": [
         {
           "template": "행운 {value} 증가",
-          "min": 26,
+          "min": 25,
           "max": 40,
-          "variable": true
+          "variable": true,
+          "condition": "낚시 랭크 3 이상일 때"
         }
       ]
     },
@@ -9901,25 +10535,29 @@
           "template": "스태미나 소모량 {value}% 감소",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "플레이머 랭크 3단 이상일 때"
         },
         {
           "template": "불 속성 연금술 대미지 {value} 증가",
           "min": 12,
           "max": 13,
-          "variable": true
+          "variable": true,
+          "condition": "플레이머 랭크 3단 이상일 때"
         },
         {
           "template": "물 속성 연금술 대미지 {value} 증가",
           "min": 13,
           "max": 14,
-          "variable": true
+          "variable": true,
+          "condition": "워터 캐논 랭크 3단 이상일 때"
         },
         {
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "워터 캐논 랭크 1단 이상일 때"
         }
       ]
     },
@@ -9937,13 +10575,15 @@
           "template": "크리티컬 {value} 감소",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 10 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 6 이상일때"
         }
       ]
     },
@@ -9955,19 +10595,22 @@
           "template": "최대마나 {value} 감소",
           "min": 30,
           "max": 30,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 30 이상일때"
         },
         {
           "template": "최대마나 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이하일때"
         },
         {
           "template": "지력 {value} 증가",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 10 이상일때"
         }
       ]
     },
@@ -10087,19 +10730,22 @@
           "template": "크리티컬 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "파티 힐링 랭크 1 이상일 때"
         },
         {
           "template": "마법 공격력 {value} 증가",
           "min": 3,
           "max": 5,
-          "variable": true
+          "variable": true,
+          "condition": "인챈트 랭크 1 이상일 때"
         },
         {
           "template": "지력 {value} 증가",
           "min": 15,
           "max": 30,
-          "variable": true
+          "variable": true,
+          "condition": "헤일스톰 랭크 5 이상일 때"
         }
       ]
     },
@@ -10111,19 +10757,22 @@
           "template": "최대생명력 {value} 증가",
           "min": 50,
           "max": 50,
-          "variable": false
+          "variable": false,
+          "condition": "회피 랭크 6 이상일 때"
         },
         {
           "template": "마법 공격력 {value} 증가",
           "min": 2,
           "max": 4,
-          "variable": true
+          "variable": true,
+          "condition": "볼트 마법 조합 랭크 1 이상일 때"
         },
         {
           "template": "음악 버프 스킬 효과 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "현혹의 연주 랭크 1 이상일 때"
         }
       ]
     },
@@ -10141,13 +10790,15 @@
           "template": "최소대미지 {value} 감소",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 6 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 2 이상일때"
         }
       ]
     },
@@ -10165,13 +10816,15 @@
           "template": "크리티컬 {value} 감소",
           "min": 4,
           "max": 4,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 20 이하일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "탐험 레벨이 12 이상일때"
         }
       ]
     },
@@ -10189,7 +10842,8 @@
           "template": "최대생명력 {value} 증가",
           "min": 54,
           "max": 54,
-          "variable": false
+          "variable": false,
+          "condition": "실드 오브 트러스트 랭크 5 이상일 때"
         },
         {
           "template": "체력 {value} 증가",
@@ -10213,19 +10867,22 @@
           "template": "대미지밸런스 {value} 증가",
           "min": 15,
           "max": 15,
-          "variable": false
+          "variable": false,
+          "condition": "프렌지 랭크 3 이상일 때"
         },
         {
           "template": "공격 속도 증가 세트 효과 수치 {value} 증가",
           "min": 3,
           "max": 6,
-          "variable": true
+          "variable": true,
+          "condition": "리로드 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 19,
           "max": 25,
-          "variable": true
+          "variable": true,
+          "condition": "파 어웨이 랭크 1 이상일 때"
         }
       ]
     },
@@ -10267,13 +10924,15 @@
           "template": "최대스태미나 {value} 증가",
           "min": 10,
           "max": 10,
-          "variable": false
+          "variable": false,
+          "condition": "회피 랭크 6 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "윈드밀 랭크 1 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
@@ -10297,13 +10956,15 @@
           "template": "교역물품 구매 할인율 {value}% 증가",
           "min": 1,
           "max": 1,
-          "variable": false
+          "variable": false,
+          "condition": "교역 마스터리 랭크 9 이상일 때"
         },
         {
           "template": "교역 중 최대대미지 {value} 증가",
           "min": 5,
           "max": 5,
-          "variable": false
+          "variable": false,
+          "condition": "골드 스트라이크 랭크 C 이상일 때"
         }
       ]
     },
@@ -10345,13 +11006,15 @@
           "template": "크리티컬 {value} 증가",
           "min": 10,
           "max": 15,
-          "variable": true
+          "variable": true,
+          "condition": "상태 지원 특성 5레벨 이상일 때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 18,
           "max": 25,
-          "variable": true
+          "variable": true,
+          "condition": "급소 관통 특성 8레벨 이상일 때"
         }
       ]
     },
@@ -10363,19 +11026,22 @@
           "template": "최대생명력 {value} 감소",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 25 이상일때"
         },
         {
           "template": "체력 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "레벨이 15 이상일때"
         },
         {
           "template": "최대대미지 {value} 증가",
           "min": 6,
           "max": 6,
-          "variable": false
+          "variable": false,
+          "condition": "스매시 랭크가 C 이하일때"
         }
       ]
     },
@@ -10393,13 +11059,15 @@
           "template": "최대스태미나 {value} 증가",
           "min": 3,
           "max": 3,
-          "variable": false
+          "variable": false,
+          "condition": "블랙스미스 랭크 B 이상일 때"
         },
         {
           "template": "솜씨 {value} 증가",
           "min": 2,
           "max": 2,
-          "variable": false
+          "variable": false,
+          "condition": "방직 랭크 B 이상일 때"
         }
       ]
     }
