@@ -1,5 +1,5 @@
 {
-  "updated": "2025-04-04T02:28:12.693Z",
+  "updated": "2025-04-04T09:29:26.816Z",
   "enchants": {
     "56층의": {
       "name": "56층의",
@@ -1283,6 +1283,50 @@
           "max": 3,
           "variable": true,
           "condition": "레벨이 3 이상일때"
+        }
+      ]
+    },
+    "규칙의": {
+      "name": "규칙의",
+      "rank": 4,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 9,
+          "max": 9,
+          "variable": false
+        },
+        {
+          "template": "대미지밸런스 {value} 증가",
+          "min": 6,
+          "max": 6,
+          "variable": false,
+          "condition": "메이즈 평원 유적을 발견한 타이틀을 달고 있을 때"
+        },
+        {
+          "template": "대미지밸런스 {value} 증가",
+          "min": 12,
+          "max": 12,
+          "variable": false,
+          "condition": "힐링 마스터 타이틀을 달고 있을 때"
+        },
+        {
+          "template": "행운 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "의지 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최대스태미나 {value} 감소",
+          "min": 20,
+          "max": 20,
+          "variable": false
         }
       ]
     },
@@ -3182,8 +3226,8 @@
         {
           "template": "마리오네트 최대 대미지 {value} 증가",
           "min": 13,
-          "max": 13,
-          "variable": false,
+          "max": 15,
+          "variable": true,
           "condition": "6막: 유혹의 올가미 랭크 1 이상일 때"
         }
       ]
@@ -5357,6 +5401,32 @@
           "max": 6,
           "variable": false,
           "condition": "도르카 마스터리 랭크 A 이상일 때"
+        }
+      ]
+    },
+    "솔라 이클립스": {
+      "name": "솔라 이클립스",
+      "rank": 8,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 100,
+          "max": 100,
+          "variable": false
+        },
+        {
+          "template": "최소대미지 {value} 증가",
+          "min": 9,
+          "max": 9,
+          "variable": false,
+          "condition": "디펜스 랭크 1 이상일 때"
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 16,
+          "max": 16,
+          "variable": false,
+          "condition": "컴뱃 마스터리 랭크 1 이상일 때"
         }
       ]
     },
@@ -8149,7 +8219,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 34,
+          "min": 32,
           "max": 40,
           "variable": true,
           "condition": "배쉬 랭크 8 이상일 때"

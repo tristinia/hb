@@ -1,5 +1,5 @@
 {
-  "updated": "2025-04-04T02:28:12.698Z",
+  "updated": "2025-04-04T09:29:26.821Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -142,7 +142,7 @@
         },
         {
           "template": "최대마나 {value} 증가",
-          "min": 26,
+          "min": 25,
           "max": 30,
           "variable": true,
           "condition": "음악적 지식 랭크 A 이상일 때"
