@@ -173,6 +173,67 @@ class OptionRenderer {
         text = `전용 해제 거래 보증서 사용 불가`;
         color = 'red';
         break;
+
+      case '인챈트 종류':
+        const enchantType = option.option_sub_type;
+        const enchantValue = option.option_value;
+        
+        // 인챈트 이름과 랭크 추출
+        const nameMatch = enchantValue.match(/(.*?)\s*\(랭크 (\d+)\)/);
+        let enchantName = enchantValue;
+        let rankText = '';
+        let rankNum = 0;
+        
+        if (nameMatch) {
+          enchantName = nameMatch[1].trim();
+          rankNum = parseInt(nameMatch[2]);
+          rankText = `(${enchantType}:랭크 ${rankNum})`;
+        }
+        
+        // 메타데이터 가져오기
+        const metaType = enchantType === '접두' ? 'prefix' : 'suffix';
+        const enchantMeta = context.getEnchantMetadata?.(metaType, enchantName);
+        
+        // 기본 텍스트와 색상
+        text = `${enchantName} ${rankText}`;
+        color = 'navy';
+        
+        // 효과 추가 (역순으로)
+        if (enchantMeta && enchantMeta.effects) {
+          const effects = [...enchantMeta.effects].reverse();
+          
+          effects.forEach(effect => {
+            const template = effect.template;
+            const min = effect.min;
+            const max = effect.max;
+            const variable = effect.variable;
+            const condition = effect.condition || '';
+            
+            // 부정적 효과 확인 (수리비 증가)
+            const isNegative = template.includes('수리비') && template.includes('증가');
+            
+            // 값 표시 부분
+            const valueText = variable ? `${min}~${max}` : min;
+            const valueReplacedTemplate = template.replace('{value}', valueText);
+            
+            // 특별 처리: 피어싱 레벨
+            if (template.includes('피어싱 레벨')) {
+              text += `\n피어싱 레벨이 있을 때 ${valueReplacedTemplate}`;
+            } else if (condition) {
+              // 조건부 효과
+              text += `\n${condition} ${valueReplacedTemplate}`;
+            } else {
+              // 일반 효과
+              text += `\n${valueReplacedTemplate}`;
+            }
+          });
+        }
+        
+        // 전용 인챈트 스크롤인 경우 추가 텍스트
+        if (item.item_name && item.item_name.includes('전용') && item.item_name.includes('인챈트')) {
+          text += '\n인챈트 장비를 전용으로 만듦';
+        }
+        break;
         
       case '피어싱 레벨':
         const baseLevel = option.option_value || "0";
@@ -575,6 +636,15 @@ class OptionRenderer {
     const notEnchantableOption = options.find(opt => 
       opt.option_type === '인챈트 불가능' && opt.option_value === 'true'
     );
+
+    // 인챈트 종류 옵션 찾기
+    const enchantTypeOption = options.find(opt => opt.option_type === '인챈트 종류');
+    
+    // 내구도 옵션 찾기
+    const durabilityOption = options.find(opt => opt.option_type === '내구도');
+    
+    // 남은 거래 가능 횟수 옵션 찾기
+    const tradeCountOption = options.find(opt => opt.option_type === '남은 거래 가능 횟수');
     
     // 방어 관련 속성 확인
     const hasDefenseValues = options.some(opt => 
@@ -681,6 +751,15 @@ class OptionRenderer {
       
       // 피어싱 레벨은 별도 처리
       if (type === '피어싱 레벨') return;
+
+      // 추가: 인챈트 종류는 별도 처리
+      if (type === '인챈트 종류') return;
+      
+      // 추가: 내구도는 별도 처리
+      if (type === '내구도') return;
+      
+      // 추가: 남은 거래 가능 횟수는 별도 처리
+      if (type === '남은 거래 가능 횟수') return;
       
       // 방어 속성은 이미 defenseOptions에 수집됨
       if (defenseOptions.some(o => o.option_type === type)) return;
@@ -693,10 +772,25 @@ class OptionRenderer {
     defenseOptions.forEach(opt => {
       basicGroup.push(opt);
     });
+
+    // 인챈트 종류 추가
+    if (enchantTypeOption) {
+      basicGroup.push(enchantTypeOption);
+    }
     
     // 피어싱 옵션 추가
     if (piercingOption) {
       piercingGroup.push(piercingOption);
+    }
+
+    // 내구도 추가
+    if (durabilityOption) {
+      protectionGroup.push(durabilityOption);
+    }
+
+    // 남은 거래 횟수 추가
+    if (tradeCountOption) {
+      protectionGroup.push(tradeCountOption);
     }
     
     // 정렬
@@ -1205,6 +1299,77 @@ class OptionRenderer {
           text: `전용 해제 거래 보증서 사용 불가`,
           colorClass: 'item-red'
         };
+
+      case '인챈트 종류':
+        const enchantType = option.option_sub_type;
+        const enchantValue = option.option_value;
+        
+        const enchantMatch = enchantValue.match(/(.*?)\s*\(랭크 (\d+)\)/);
+        let enchantName = enchantValue;
+        let rankText = '';
+        
+        if (enchantMatch) {
+          enchantName = enchantMatch[1].trim();
+          rankText = `(${enchantType}:랭크 ${enchantMatch[2]})`;
+        }
+        
+        let html = `${enchantName} ${rankText}`;
+        
+        // 메타데이터 조회
+        const enchantMetaType = enchantType === '접두' ? 'prefix' : 'suffix';
+        const enchantMetadata = metadataLoader.getEnchantMetadata(enchantMetaType, enchantName);
+        
+        if (enchantMetadata && enchantMetadata.effects) {
+          const allEffects = [...enchantMetadata.effects].reverse();
+          
+          // 전용 인챈트 여부 확인
+          const isExclusive = item && item.item_name && item.item_name.includes('전용') && item.item_name.includes('인챈트');
+          
+          return {
+            html: html,
+            colorClass: 'item-navy',
+            effectsHtml: allEffects.map(effect => {
+              const template = effect.template;
+              const min = effect.min;
+              const max = effect.max;
+              const variable = effect.variable;
+              const condition = effect.condition || '';
+              
+              // 부정적 효과 확인
+              const isNegative = template.includes('수리비') && template.includes('증가');
+              
+              // 값 표시 부분
+              const valueText = variable ? `${min}~${max}` : min;
+              const valueReplacedTemplate = template.replace('{value}', valueText);
+              
+              let effectText = '';
+              
+              // 특별 처리: 피어싱 레벨
+              if (template.includes('피어싱 레벨')) {
+                effectText = `피어싱 레벨이 있을 때 ${valueReplacedTemplate}`;
+              } else if (condition) {
+                // 조건부 효과
+                effectText = `${condition} ${valueReplacedTemplate}`;
+              } else {
+                // 일반 효과
+                effectText = valueReplacedTemplate;
+              }
+              
+              return {
+                text: effectText,
+                colorClass: isNegative ? 'item-red' : 'item-blue'
+              };
+            }).concat(isExclusive ? [{
+              text: '인챈트 장비를 전용으로 만듦',
+              colorClass: 'item-red'
+            }] : [])
+          };
+        }
+        
+        return {
+          text: html,
+          colorClass: 'item-navy'
+        };
         
       case '피어싱 레벨':
         const baseLevel = option.option_value || "0";
@@ -1246,6 +1411,16 @@ class OptionRenderer {
         return {
           text: protectionText,
           colorClass: 'item-yellow'
+        };
+
+      case '내구도':
+        const durabilityValue = parseFloat(option.option_value.replace('%', ''));
+        const durabilityText = `내구도 ${option.option_value}`;
+        
+        // 20% 이하일 때 빨간색으로 표시
+        return {
+          text: durabilityText,
+          colorClass: durabilityValue <= 20 ? 'item-red' : 'item-yellow'
         };
         
       case '특별 개조':
