@@ -809,7 +809,7 @@ const App = (() => {
      */
     async function initFilterManager() {
         try {
-            FilterManager.init();
+            await FilterManager.init();
             markModuleInitialized('filter');
             return true;
         } catch (error) {
