@@ -191,11 +191,6 @@ async function collectEnchantMetadata(itemsData, enchantType) {
             
             // variable 필드 업데이트
             matchingEffect.variable = matchingEffect.min !== matchingEffect.max;
-
-            // condition 필드 업데이트 - 새로운 데이터에 condition이 있으면 추가
-            if (newEffect.condition) {
-              matchingEffect.condition = newEffect.condition;
-            }
           } else {
             // 새 효과 추가
             existingEnchant.effects.push(newEffect);
