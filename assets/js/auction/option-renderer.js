@@ -782,16 +782,6 @@ class OptionRenderer {
     if (piercingOption) {
       piercingGroup.push(piercingOption);
     }
-
-    // 내구도 추가
-    if (durabilityOption) {
-      protectionGroup.push(durabilityOption);
-    }
-
-    // 남은 거래 횟수 추가
-    if (tradeCountOption) {
-      protectionGroup.push(tradeCountOption);
-    }
     
     // 정렬
     basicGroup.sort((a, b) => attributeOrder.indexOf(a.option_type) - attributeOrder.indexOf(b.option_type));
@@ -844,6 +834,16 @@ class OptionRenderer {
         this.createOptionElement(option, block, gapClass);
       }
     });
+
+    // 내구도 옵션 추가
+    if (durabilityOption) {
+      const gapClass = tradeCountOption ? 'gap-xxs' : '';
+      this.createOptionElement(durabilityOption, block, gapClass);
+    }
+     // 거래 횟수 옵션 추가
+    if (tradeCountOption) {
+      this.createOptionElement(tradeCountOption, block, '');
+    }
   }
   
   renderEnchantsSection(options, block) {
