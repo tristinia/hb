@@ -850,8 +850,12 @@ class OptionRenderer {
     );
     
     // 접두/접미 구분
-    const prefixEnchants = options.filter(opt => opt.option_sub_type === '접두');
-    const suffixEnchants = options.filter(opt => opt.option_sub_type === '접미');
+    const prefixEnchants = options.filter(opt => 
+      opt.option_type === '인챈트' && opt.option_sub_type === '접두'
+    );
+    const suffixEnchants = options.filter(opt => 
+      opt.option_type === '인챈트' && opt.option_sub_type === '접미'
+    );
     
     // 인챈트 불가능 표시 - 가장 먼저 표시
     if (notEnchantableOption) {
@@ -1418,6 +1422,12 @@ class OptionRenderer {
         return {
           text: durabilityText,
           colorClass: durabilityValue <= 20 ? 'item-red' : 'item-yellow'
+        };
+
+      case '남은 거래 횟수':
+        return {
+          text: `남은 거래 가능 횟수 : ${option.option_value}`,
+          colorClass: 'item-yellow'
         };
         
       case '특별 개조':
