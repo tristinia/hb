@@ -1380,22 +1380,25 @@ class OptionRenderer {
           }
         }
         
-        // 전용 인챈트 여부 확인 및 메시지
+        // 효과 역순 정렬 (먼저 역순 처리)
+        const reversedEffects = [...effectHtmls].reverse();
+        
+        // 전용 인챈트 여부 확인 및 메시지 (역순 처리 후 추가)
         if (this.currentItem && this.currentItem.item_name && 
             this.currentItem.item_name.includes('전용') && 
             this.currentItem.item_name.includes('인챈트')) {
-          effectHtmls.push(`<div class="item-red">인챈트 장비를 전용으로 만듦</div>`);
+          reversedEffects.push(`<div class="item-red">인챈트 장비를 전용으로 만듦</div>`);
         }
         
         // 효과가 있는 경우에만 gap-xs 클래스 추가
-        const hasEffects = effectHtmls.length > 0;
+        const hasEffects = reversedEffects.length > 0;
         const className = hasEffects ? 'gap-xs' : '';
         
-        // 최종 HTML 구성 (효과는 역순으로 표시)
+        // 최종 HTML 구성 (이미 순서가 정렬된 배열 사용)
         const html = `
           <div class="${className}">
             <div>${enchantName} ${rankText}</div>
-            ${effectHtmls.reverse().join('')}
+            ${reversedEffects.join('')}
           </div>
         `;
         
