@@ -1326,30 +1326,28 @@ class OptionRenderer {
       case '인챈트 종류':
         const enchantType = option.option_sub_type;
         const enchantValue = option.option_value;
-        const desc = option.option_desc || '';
         
         // 인챈트 이름과 랭크 추출
-        const enchantMatch = enchantValue.match(/(.*?)\s*\(랭크 (\d+)\)/);
+        const enchantMatch = enchantValue.match(/(.*?)\s*\(랭크 ([A-Za-z0-9]+)\)/);
         let enchantName = enchantValue;
         let rankText = '';
-        let rankNum = 0;
         
         if (enchantMatch) {
           enchantName = enchantMatch[1].trim();
-          rankNum = parseInt(enchantMatch[2]);
-          rankText = `(${enchantType}:랭크 ${rankNum})`;
+          const rankValue = enchantMatch[2];
+          rankText = `(${enchantType}:랭크 ${rankValue})`;
         }
         
-        // 메타데이터 조회
+        // 메타데이터 검색 및 효과 추출
+        const effectHtmls = [];
         const enchantMetaType = enchantType === '접두' ? 'prefix' : 'suffix';
+        
+        // 메타데이터에서 인챈트 정보 검색
         const enchantMetadata = metadataLoader.getEnchantMetadata(enchantMetaType, enchantName);
         
-        // 효과 HTML 배열
-        const effectHtmls = [];
-        
-        if (enchantMetadata && enchantMetadata.effects) {
-          // 메타데이터에서 효과 정보 추출
-          for (const effect of enchantMetadata.effects) {
+        // 메타데이터에서 효과 추출
+        if (enchantMetadata && enchantMetadata.effects && enchantMetadata.effects.length > 0) {
+          enchantMetadata.effects.forEach(effect => {
             const template = effect.template;
             const min = effect.min;
             const max = effect.max;
@@ -1361,7 +1359,7 @@ class OptionRenderer {
               (template.includes('수리비') && template.includes('증가')) || 
               (!template.includes('수리비') && template.includes('감소'));
             
-            // 값 표시 부분
+            // 값 텍스트 구성
             const valueText = variable ? `${min}~${max}` : min;
             const valueReplacedTemplate = template.replace('{value}', valueText);
             
@@ -1375,30 +1373,46 @@ class OptionRenderer {
               effectText = valueReplacedTemplate;
             }
             
-            // 색상 클래스 적용하여 배열에 추가
-            effectHtmls.push(`<div class="${isNegative ? 'item-red' : 'item-blue'}">${effectText}</div>`);
-          }
-        }
-        
-        // 효과 역순 정렬 (먼저 역순 처리)
-        const reversedEffects = [...effectHtmls].reverse();
-        
-        // 전용 인챈트 여부 확인 및 메시지 (역순 처리 후 추가)
-        if (this.currentItem && this.currentItem.item_name && 
-            this.currentItem.item_name.includes('전용') && 
-            this.currentItem.item_name.includes('인챈트')) {
-          reversedEffects.push(`<div class="item-red">인챈트 장비를 전용으로 만듦</div>`);
+            effectHtmls.push({
+              text: effectText,
+              isNegative
+            });
+          });
         }
         
         // 효과가 있는 경우에만 gap-xs 클래스 추가
-        const hasEffects = reversedEffects.length > 0;
-        const className = hasEffects ? 'gap-xs' : '';
+        const hasEffects = effectHtmls.length > 0;
         
-        // 최종 HTML 구성 (이미 순서가 정렬된 배열 사용)
+        // 전용 인챈트 여부 확인 및 메시지
+        let specialEnchantHtml = '';
+        if (this.currentItem && this.currentItem.item_name && 
+            this.currentItem.item_name.includes('전용') && 
+            this.currentItem.item_name.includes('인챈트')) {
+          specialEnchantHtml = `<div class="item-red">인챈트 장비를 전용으로 만듦</div>`;
+        }
+        
+        // 효과 HTML 생성
+        let effectsHtml = '';
+        if (effectHtmls.length > 0) {
+          for (let i = 0; i < effectHtmls.length; i++) {
+            const effect = effectHtmls[i];
+            const isLast = i === effectHtmls.length - 1 && !specialEnchantHtml;
+            const gapClass = isLast ? '' : 'gap-xxs';
+            
+            effectsHtml += `<div class="${effect.isNegative ? 'item-red' : 'item-blue'} ${gapClass}">${effect.text}</div>`;
+          }
+        }
+        
+        // 특별 인챈트 메시지 추가
+        if (specialEnchantHtml) {
+          effectsHtml += specialEnchantHtml;
+        }
+        
+        // 최종 HTML 구성 - 효과가 있을 때만 gap-xs 클래스 적용
         const html = `
-          <div class="${className}">
+          <div class="${hasEffects ? 'gap-xs' : ''}">
             <div>${enchantName} ${rankText}</div>
-            ${reversedEffects.join('')}
+            ${effectsHtml}
           </div>
         `;
         
