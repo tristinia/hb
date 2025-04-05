@@ -20,6 +20,7 @@ class OptionRenderer {
     };
     
     this.debug = false;
+    this.currentItem = null;
   }
   
   logDebug(...args) {
@@ -504,6 +505,10 @@ class OptionRenderer {
   }
   
   renderMabinogiStyleTooltip(item) {
+    
+    // 현재 아이템 저장
+    this.currentItem = item;
+    
     // 최상위 툴팁 요소
     const tooltipElement = document.createElement('div');
     tooltipElement.className = 'item-tooltip';
@@ -644,7 +649,6 @@ class OptionRenderer {
         this.renderItemColorSection(options, block);
         break;
       default:
-        // 기타 옵션 기본 렌더링 (제거됨 - 더 이상 '기타' 카테고리 없음)
         break;
     }
     
@@ -1377,7 +1381,9 @@ class OptionRenderer {
         }
         
         // 전용 인챈트 여부 확인 및 메시지
-        if (option.item_name && option.item_name.includes('전용') && option.item_name.includes('인챈트')) {
+        if (this.currentItem && this.currentItem.item_name && 
+            this.currentItem.item_name.includes('전용') && 
+            this.currentItem.item_name.includes('인챈트')) {
           effectHtmls.push(`<div class="item-red">인챈트 장비를 전용으로 만듦</div>`);
         }
         
