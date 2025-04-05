@@ -1,5 +1,5 @@
 {
-  "updated": "2025-04-04T09:29:26.821Z",
+  "updated": "2025-04-05T09:25:53.730Z",
   "enchants": {
     "67층의": {
       "name": "67층의",
@@ -1187,7 +1187,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 27,
+          "min": 26,
           "max": 50,
           "variable": true
         }
@@ -1508,7 +1508,7 @@
         },
         {
           "template": "체력 {value} 증가",
-          "min": 16,
+          "min": 12,
           "max": 19,
           "variable": true,
           "condition": "다운 어택 랭크 6 이상일 때"
@@ -1885,7 +1885,7 @@
         {
           "template": "의지 {value} 증가",
           "min": 8,
-          "max": 14,
+          "max": 16,
           "variable": true,
           "condition": "리스토어 랭크 5 이상일 때"
         },
@@ -3171,7 +3171,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 14,
+          "min": 13,
           "max": 17,
           "variable": true,
           "condition": "랜스 차지 랭크 6 이상일 때"
@@ -3787,7 +3787,7 @@
       "effects": [
         {
           "template": "솜씨 {value} 증가",
-          "min": 11,
+          "min": 10,
           "max": 15,
           "variable": true,
           "condition": "실리엔 생태학 랭크 3 이상일 때"
@@ -4405,9 +4405,9 @@
       "effects": [
         {
           "template": "최대생명력 {value} 감소",
-          "min": 14,
+          "min": 11,
           "max": 14,
-          "variable": false
+          "variable": true
         }
       ]
     },
@@ -5040,7 +5040,7 @@
         {
           "template": "의지 {value} 증가",
           "min": 5,
-          "max": 9,
+          "max": 10,
           "variable": true
         }
       ]
@@ -5198,7 +5198,7 @@
         },
         {
           "template": "모든 속성 연금술 대미지 {value} 증가",
-          "min": 11,
+          "min": 10,
           "max": 15,
           "variable": true,
           "condition": "엘리멘탈 웨이브 랭크 1 이상일 때"
@@ -5767,6 +5767,44 @@
         }
       ]
     },
+    "스위트": {
+      "name": "스위트",
+      "rank": 9,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 50,
+          "max": 50,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 감소",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최대마나 {value} 증가",
+          "min": 26,
+          "max": 26,
+          "variable": false,
+          "condition": "음악적 지식 랭크 A 이상일 때"
+        },
+        {
+          "template": "최대스태미나 {value} 증가",
+          "min": 26,
+          "max": 26,
+          "variable": false,
+          "condition": "악기 연주 랭크 A 이상일 때"
+        },
+        {
+          "template": "방어 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
+        }
+      ]
+    },
     "스위트피": {
       "name": "스위트피",
       "rank": "A",
@@ -6266,6 +6304,30 @@
           "max": 20,
           "variable": false,
           "condition": "자이언트이거나 자이언트를 지지중일때"
+        }
+      ]
+    },
+    "안전한": {
+      "name": "안전한",
+      "rank": "A",
+      "effects": [
+        {
+          "template": "지력 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "최대마나 {value} 증가",
+          "min": 15,
+          "max": 15,
+          "variable": false
+        },
+        {
+          "template": "대미지밸런스 {value} 증가",
+          "min": 5,
+          "max": 5,
+          "variable": false
         }
       ]
     },
@@ -10228,7 +10290,7 @@
         },
         {
           "template": "지력 {value} 증가",
-          "min": 5,
+          "min": 4,
           "max": 6,
           "variable": true
         }

@@ -1,5 +1,5 @@
 {
-  "updated": "2025-04-04T09:29:26.816Z",
+  "updated": "2025-04-05T09:25:53.725Z",
   "enchants": {
     "56층의": {
       "name": "56층의",
@@ -1299,8 +1299,8 @@
         {
           "template": "대미지밸런스 {value} 증가",
           "min": 6,
-          "max": 6,
-          "variable": false,
+          "max": 12,
+          "variable": true,
           "condition": "메이즈 평원 유적을 발견한 타이틀을 달고 있을 때"
         },
         {
@@ -2725,8 +2725,8 @@
         {
           "template": "최대대미지 {value} 감소",
           "min": 5,
-          "max": 5,
-          "variable": false
+          "max": 6,
+          "variable": true
         }
       ]
     },
@@ -5488,6 +5488,24 @@
         }
       ]
     },
+    "송곳니": {
+      "name": "송곳니",
+      "rank": "D",
+      "effects": [
+        {
+          "template": "체력 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 8,
+          "max": 8,
+          "variable": false
+        }
+      ]
+    },
     "수상한": {
       "name": "수상한",
       "rank": "B",
@@ -6445,7 +6463,7 @@
         },
         {
           "template": "마법 공격력 {value} 증가",
-          "min": 23,
+          "min": 22,
           "max": 25,
           "variable": true
         }
@@ -7020,7 +7038,7 @@
       "effects": [
         {
           "template": "솜씨 {value} 증가",
-          "min": 5,
+          "min": 3,
           "max": 10,
           "variable": true
         },
@@ -8016,7 +8034,7 @@
         },
         {
           "template": "최대대미지 {value} 증가",
-          "min": 19,
+          "min": 18,
           "max": 23,
           "variable": true,
           "condition": "윈드밀 랭크 2단 이상일 때"
@@ -8252,8 +8270,8 @@
         {
           "template": "물 속성 연금술 대미지 {value} 증가",
           "min": 15,
-          "max": 15,
-          "variable": false
+          "max": 16,
+          "variable": true
         }
       ]
     },
@@ -10469,6 +10487,38 @@
           "max": 20,
           "variable": true,
           "condition": "파이어볼트 랭크 3단 이상일 때"
+        }
+      ]
+    },
+    "해빗": {
+      "name": "해빗",
+      "rank": 3,
+      "effects": [
+        {
+          "template": "수리비 {value}% 증가",
+          "min": 12,
+          "max": 12,
+          "variable": false
+        },
+        {
+          "template": "최대대미지 {value} 증가",
+          "min": 12,
+          "max": 12,
+          "variable": false,
+          "condition": "헝그리한 타이틀을 달고 있을 때"
+        },
+        {
+          "template": "크리티컬 {value} 증가",
+          "min": 10,
+          "max": 10,
+          "variable": false,
+          "condition": "럭셔리한 타이틀을 달고 있을 때"
+        },
+        {
+          "template": "체력 {value} 증가",
+          "min": 20,
+          "max": 20,
+          "variable": false
         }
       ]
     },
