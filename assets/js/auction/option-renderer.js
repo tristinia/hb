@@ -633,7 +633,7 @@ class OptionRenderer {
         '인챈트 종류', '피어싱 레벨', '인챈트 불가능', '아이템 보호', '내구도', '남은 거래 횟수'
       ];
       
-      // === 묶음 1: 기본 속성 + 전용 관련 + 인챈트 정보 ===
+      // === 묶음 1: 기본 속성 + 전용 관련 ===
       const group1 = [];
       
       // === 묶음 2: 피어싱 레벨 ===
@@ -647,14 +647,11 @@ class OptionRenderer {
         opt.option_type === '인챈트 불가능' && opt.option_value === 'true'
       );
   
-      // 인챈트 종류 옵션 찾기
-      const enchantTypeOption = options.find(opt => opt.option_type === '인챈트 종류');
-      
       // 내구도 옵션 찾기
       const durabilityOption = options.find(opt => opt.option_type === '내구도');
       
-      // 남은 거래 가능 횟수 옵션 찾기
-      const tradeCountOption = options.find(opt => opt.option_type === '남은 거래 가능 횟수');
+      // 남은 거래 횟수 옵션 찾기
+      const tradeCountOption = options.find(opt => opt.option_type === '남은 거래 횟수');
       
       // 방어 관련 속성 확인
       const hasDefenseValues = options.some(opt => 
@@ -770,11 +767,6 @@ class OptionRenderer {
         group1.push(opt);
       });
   
-      // 인챈트 종류 추가 (1번 그룹의 마지막에 배치)
-      if (enchantTypeOption) {
-        group1.push(enchantTypeOption);
-      }
-      
       // 1번 그룹 정렬
       group1.sort((a, b) => 
         attributeOrder.indexOf(a.option_type) - attributeOrder.indexOf(b.option_type)
@@ -988,9 +980,9 @@ class OptionRenderer {
         const effects = enchant.option_desc.split(',');
         
         effects.forEach((effect, i) => {
-          const isLast = i === effects.length - 1;
+          const isLastEffect = i === effects.length - 1;
           // 마지막 항목은 간격 없음, 중간 항목은 gap-xxs
-          const gapClass = isLast ? '' : 'gap-xxs';
+          const gapClass = isLastEffect ? '' : 'gap-xxs';
           
           const effectText = effect.trim();
           const conditionMatch = effectText.match(/(.*?때) (.*)/);
@@ -1308,67 +1300,57 @@ class OptionRenderer {
         const enchantMatch = enchantValue.match(/(.*?)\s*\(랭크 (\d+)\)/);
         let enchantName = enchantValue;
         let rankText = '';
+        let rankNum = 0;
         
         if (enchantMatch) {
           enchantName = enchantMatch[1].trim();
-          rankText = `(${enchantType}:랭크 ${enchantMatch[2]})`;
+          rankNum = parseInt(enchantMatch[2]);
+          rankText = `(${enchantType}:랭크 ${rankNum})`;
         }
         
-        let html = `${enchantName} ${rankText}`;
+        // 기본 텍스트 구성
+        let textContent = `${enchantName} ${rankText}`;
         
         // 메타데이터 조회
         const enchantMetaType = enchantType === '접두' ? 'prefix' : 'suffix';
         const enchantMetadata = metadataLoader.getEnchantMetadata(enchantMetaType, enchantName);
         
         if (enchantMetadata && enchantMetadata.effects) {
-          const allEffects = [...enchantMetadata.effects].reverse();
+          // 메타데이터에서 효과 정보 추출
+          const allEffects = enchantMetadata.effects;
           
-          // 전용 인챈트 여부 확인
-          const isExclusive = option.option_value && option.option_value.includes('전용 인챈트');
-          
-          return {
-            html: html,
-            colorClass: 'item-navy',
-            effectsHtml: allEffects.map(effect => {
-              const template = effect.template;
-              const min = effect.min;
-              const max = effect.max;
-              const variable = effect.variable;
-              const condition = effect.condition || '';
-              
-              // 부정적 효과 확인
-              const isNegative = template.includes('수리비') && template.includes('증가');
-              
-              // 값 표시 부분
-              const valueText = variable ? `${min}~${max}` : min;
-              const valueReplacedTemplate = template.replace('{value}', valueText);
-              
-              let effectText = '';
-              
-              // 특별 처리: 피어싱 레벨
-              if (template.includes('피어싱 레벨')) {
-                effectText = `피어싱 레벨이 있을 때 ${valueReplacedTemplate}`;
-              } else if (condition) {
-                // 조건부 효과
-                effectText = `${condition} ${valueReplacedTemplate}`;
-              } else {
-                // 일반 효과
-                effectText = valueReplacedTemplate;
-              }
-              
-              return {
-                text: effectText,
-                colorClass: isNegative ? 'item-red' : 'item-blue'
-              };
-            }).concat(isExclusive ? [{
-              text: '인챈트 장비를 전용으로 만듦',
-              colorClass: 'item-red'
-            }] : [])
-          };
+          // 각 효과에 대한 텍스트 추가
+          allEffects.forEach(effect => {
+            const template = effect.template;
+            const min = effect.min;
+            const max = effect.max;
+            const variable = effect.variable;
+            const condition = effect.condition || '';
+            
+            // 부정적 효과 확인
+            const isNegative = template.includes('수리비') && template.includes('증가');
+            
+            // 값 표시 부분
+            const valueText = variable ? `${min}~${max}` : min;
+            const valueReplacedTemplate = template.replace('{value}', valueText);
+            
+            // 효과 텍스트 구성
+            let effectText;
+            if (template.includes('피어싱 레벨')) {
+              effectText = `피어싱 레벨이 있을 때 ${valueReplacedTemplate}`;
+            } else if (condition) {
+              effectText = `${condition} ${valueReplacedTemplate}`;
+            } else {
+              effectText = valueReplacedTemplate;
+            }
+            
+            // 메인 텍스트에 효과 추가
+            textContent += `\n${effectText}`;
+          });
         }
         
         return {
-          text: html,
+          text: textContent,
           colorClass: 'item-navy'
         };
         
