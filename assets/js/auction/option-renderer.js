@@ -194,13 +194,16 @@ class OptionRenderer {
         const metaType = enchantType === '접두' ? 'prefix' : 'suffix';
         const enchantMeta = context.getEnchantMetadata?.(metaType, enchantName);
         
-        // 기본 텍스트와 색상
-        text = `${enchantName} ${rankText}`;
-        color = 'navy';
+        // HTML 구성을 위한 준비
+        let htmlContent = `<span class="enchant-type">[${enchantType}]</span> ${enchantName} <span class="item-pink">${rankText}</span>`;
         
-        // 효과 추가 (역순으로)
+        // 효과 HTML 배열 (나중에 역순으로 삽입)
+        const effectsHtml = [];
+        
+        // 효과 추가
         if (enchantMeta && enchantMeta.effects) {
-          const effects = [...enchantMeta.effects].reverse();
+          // 원본 효과 배열을 유지
+          const effects = [...enchantMeta.effects];
           
           effects.forEach(effect => {
             const template = effect.template;
@@ -209,31 +212,54 @@ class OptionRenderer {
             const variable = effect.variable;
             const condition = effect.condition || '';
             
-            // 부정적 효과 확인 (수리비 증가)
-            const isNegative = template.includes('수리비') && template.includes('증가');
+            // 부정적 효과 확인 (수리비 증가 또는 다른 감소 효과)
+            const isNegative = 
+              (template.includes('수리비') && template.includes('증가')) || 
+              (!template.includes('수리비') && template.includes('감소'));
             
             // 값 표시 부분
             const valueText = variable ? `${min}~${max}` : min;
             const valueReplacedTemplate = template.replace('{value}', valueText);
             
+            // 항목별 HTML 생성
+            let effectHtml = '';
+            
             // 특별 처리: 피어싱 레벨
             if (template.includes('피어싱 레벨')) {
-              text += `\n피어싱 레벨이 있을 때 ${valueReplacedTemplate}`;
+              effectHtml = `<span class="${isNegative ? 'item-red' : 'item-blue'}">피어싱 레벨이 있을 때 ${valueReplacedTemplate}</span>`;
             } else if (condition) {
               // 조건부 효과
-              text += `\n${condition} ${valueReplacedTemplate}`;
+              effectHtml = `<span class="${isNegative ? 'item-red' : 'item-blue'}">${condition} ${valueReplacedTemplate}</span>`;
             } else {
               // 일반 효과
-              text += `\n${valueReplacedTemplate}`;
+              effectHtml = `<span class="${isNegative ? 'item-red' : 'item-blue'}">${valueReplacedTemplate}</span>`;
             }
+            
+            // 효과 HTML 배열에 추가
+            effectsHtml.push(effectHtml);
           });
         }
         
-        // 전용 인챈트 스크롤인 경우 추가 텍스트
+        // 전용 인챈트 스크롤인 경우 추가
         if (item.item_name && item.item_name.includes('전용') && item.item_name.includes('인챈트')) {
-          text += '\n인챈트 장비를 전용으로 만듦';
+          effectsHtml.push('<span class="item-red">인챈트 장비를 전용으로 만듦</span>');
         }
-        break;
+        
+        // 효과가 있을 경우 gap-xs 클래스 적용
+        const containerClass = effectsHtml.length > 0 ? 'gap-xs' : '';
+        
+        // 최종 HTML 조합
+        const finalHtml = `
+          <div class="${containerClass}">
+            ${htmlContent}
+            ${effectsHtml.reverse().map(effect => `<div>${effect}</div>`).join('')}
+          </div>
+        `;
+        
+        return {
+          html: finalHtml,
+          filter: false
+        };
         
       case '피어싱 레벨':
         const baseLevel = option.option_value || "0";
