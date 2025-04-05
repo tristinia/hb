@@ -1322,7 +1322,9 @@ class OptionRenderer {
       case '인챈트 종류':
         const enchantType = option.option_sub_type;
         const enchantValue = option.option_value;
+        const desc = option.option_desc || '';
         
+        // 인챈트 이름과 랭크 추출
         const enchantMatch = enchantValue.match(/(.*?)\s*\(랭크 (\d+)\)/);
         let enchantName = enchantValue;
         let rankText = '';
@@ -1334,19 +1336,16 @@ class OptionRenderer {
           rankText = `(${enchantType}:랭크 ${rankNum})`;
         }
         
-        // 기본 텍스트 구성
-        let textContent = `${enchantName} ${rankText}`;
-        
         // 메타데이터 조회
         const enchantMetaType = enchantType === '접두' ? 'prefix' : 'suffix';
         const enchantMetadata = metadataLoader.getEnchantMetadata(enchantMetaType, enchantName);
         
+        // 효과 HTML 배열
+        const effectHtmls = [];
+        
         if (enchantMetadata && enchantMetadata.effects) {
           // 메타데이터에서 효과 정보 추출
-          const allEffects = enchantMetadata.effects;
-          
-          // 각 효과에 대한 텍스트 추가
-          allEffects.forEach(effect => {
+          for (const effect of enchantMetadata.effects) {
             const template = effect.template;
             const min = effect.min;
             const max = effect.max;
@@ -1354,7 +1353,9 @@ class OptionRenderer {
             const condition = effect.condition || '';
             
             // 부정적 효과 확인
-            const isNegative = template.includes('수리비') && template.includes('증가');
+            const isNegative = 
+              (template.includes('수리비') && template.includes('증가')) || 
+              (!template.includes('수리비') && template.includes('감소'));
             
             // 값 표시 부분
             const valueText = variable ? `${min}~${max}` : min;
@@ -1370,13 +1371,30 @@ class OptionRenderer {
               effectText = valueReplacedTemplate;
             }
             
-            // 메인 텍스트에 효과 추가
-            textContent += `\n${effectText}`;
-          });
+            // 색상 클래스 적용하여 배열에 추가
+            effectHtmls.push(`<div class="${isNegative ? 'item-red' : 'item-blue'}">${effectText}</div>`);
+          }
         }
         
+        // 전용 인챈트 여부 확인 및 메시지
+        if (option.item_name && option.item_name.includes('전용') && option.item_name.includes('인챈트')) {
+          effectHtmls.push(`<div class="item-red">인챈트 장비를 전용으로 만듦</div>`);
+        }
+        
+        // 효과가 있는 경우에만 gap-xs 클래스 추가
+        const hasEffects = effectHtmls.length > 0;
+        const className = hasEffects ? 'gap-xs' : '';
+        
+        // 최종 HTML 구성 (효과는 역순으로 표시)
+        const html = `
+          <div class="${className}">
+            <div>${enchantName} ${rankText}</div>
+            ${effectHtmls.reverse().join('')}
+          </div>
+        `;
+        
         return {
-          text: textContent,
+          html: html,
           colorClass: 'item-navy'
         };
         
