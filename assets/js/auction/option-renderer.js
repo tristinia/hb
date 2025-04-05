@@ -80,9 +80,9 @@ class OptionRenderer {
     // 주요 속성 순서 정의
     const optionOrder = [
       '공격', '부상률', '크리티컬', '밸런스', '방어력', '보호', '마법 방어력', '마법 보호', '내구력', '숙련',
-      '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가',
-      '피어싱 레벨', '아이템 보호', '인챈트', '일반 개조', '보석 개조',
-      '장인 개조', '특별 개조', '에르그', '세공 랭크', '세공 옵션', '세트 효과', '남은 거래 횟수'
+      '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가', '인챈트 종류',
+      '피어싱 레벨', '내구도', '남은 거래 횟수', '아이템 보호', '인챈트', '일반 개조', '보석 개조',
+      '장인 개조', '특별 개조', '에르그', '세공 랭크', '세공 옵션', '세트 효과'
     ];
     
     // 옵션 정렬
@@ -514,7 +514,8 @@ class OptionRenderer {
           type === '남은 전용 해제 가능 횟수' || type === '피어싱 레벨' || 
           type === '아이템 보호' || type === '방어력' || type === '보호' || 
           type === '마법 방어력' || type === '마법 보호' ||
-          type === '전용 해제 거래 보증서 사용 불가' || type === '인챈트 불가능') {
+          type === '전용 해제 거래 보증서 사용 불가' || type === '인챈트 불가능' || 
+          type === '인챈트 종류' || type === '내구도' || type === '남은 거래 횟수') {
         optionGroups['아이템 속성'].push(option);
       } 
       else if (type === '인챈트') {
@@ -1323,7 +1324,7 @@ class OptionRenderer {
           const allEffects = [...enchantMetadata.effects].reverse();
           
           // 전용 인챈트 여부 확인
-          const isExclusive = item && item.item_name && item.item_name.includes('전용') && item.item_name.includes('인챈트');
+          const isExclusive = option.option_value && option.option_value.includes('전용 인챈트');
           
           return {
             html: html,
