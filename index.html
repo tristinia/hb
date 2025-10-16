@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마비노기DB</title>
+    <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+    <link rel="preload" href="assets/images/logo.svg" as="image" type="image/svg+xml">
+    <link rel="prefetch" href="assets/images/logo-hover.svg" as="image" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/css/auction.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+</head>
+<body>
+    <div class="main-container" id="main-container">
+        <!-- 메인 콘텐츠 영역 -->
+        <div class="content">
+            <!-- 통합 검색 모듈 -->
+            <div class="search-module" id="search-module">
+                <!-- 메인 검색 영역 -->
+                <div class="search-container" id="search-container">
+                    <div class="search-wrapper">
+                        <button class="logo-button" id="logo-button" title="초기화">
+                            <div class="logo-image" style="width: 24px; height: 24px;" role="img" aria-label="마비노기DB"></div>
+                        </button>
+                        <input type="text" id="search-input" placeholder="아이템 이름을 입력하세요..." autocomplete="off">
+                        <button class="clear-button" id="clear-button" title="지우기">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                        <button class="search-button" id="search-button" title="검색">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- 컨텍스트 메뉴 -->
+                    <div id="context-menu" class="context-menu"></div>
+                </div>
+                
+                <!-- 자동완성 영역 -->
+                <div class="suggestions-container" id="suggestions-container">
+                    <div id="suggestions" class="suggestions-list"></div>
+                </div>
+                
+                <!-- 필터 영역 -->
+                <div class="filter-container" id="filter-container">
+                    <button class="filter-btn" id="main-filter-btn">
+                        필터
+                    </button>
+                    <div class="filter-options" id="filter-options">
+                        <!-- 필터 옵션은 동적으로 생성됩니다 -->
+                    </div>
+                </div>
+                
+                <!-- 필터 패널 영역 -->
+                <div class="filter-panels" id="filter-panels">
+                    <!-- 필터 패널은 동적으로 생성됩니다 -->
+                </div>
+            </div>
+            
+            <!-- 페이지 콘텐츠 영역 -->
+            <div id="page-content">
+                <!-- 기본 페이지 (경매장 검색) -->
+                <div id="auction-page" class="page-section active">
+                    <!-- 검색 결과 영역 -->
+                    <div class="results-container" id="results-container">
+                        <table class="results-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 53%">아이템</th>
+                                    <th style="width: 13%">남은 시간</th>
+                                    <th style="width: 8%">수량</th>
+                                    <th style="width: 26%">가격</th>
+                                </tr>
+                            </thead>
+                            <tbody id="results-body">
+                                <!-- 검색 결과가 여기에 표시됩니다 -->
+                            </tbody>
+                        </table>
+                        <!-- 테이블과 페이지네이션 사이에 구분자 추가 -->
+                        <div class="table-pagination-divider"></div>
+                        <!-- 페이지네이션 컨테이너 -->
+                        <div id="pagination" class="pagination">
+                            <!-- 페이지네이션 동적 생성 -->
+                        </div>
+                    </div>
+                </div>
+            </div>       
+        </div>
+    </div>
+
+    <!-- 툴팁 컨테이너 -->
+    <div id="item-tooltip" class="item-tooltip" style="display: none;"></div>
+
+    <!-- 로딩 스피너 -->
+    <div id="loading-spinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- JavaScript ES 모듈 -->
+    <script src="assets/js/auction/app.js" type="module"></script>
+    
+    <!-- 푸터는 기본적으로 숨김 상태 -->
+    <footer id="site-footer" class="site-footer hidden">
+        <p class="footer-text-line">NEXON Open API</p>
+        <p class="footer-text-line">© WF 신의컨트롤</p>
+    </footer>
+</body>
+</html>
