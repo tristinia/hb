@@ -3491,6 +3491,87 @@ option 예외 옵션
         }
       ]
     },
+//애뮬릿(중요)
+    {
+      "item_name": "삼하인의 기록이 담긴 애뮬릿",
+      "item_display_name": "삼하인의 기록이 담긴 애뮬릿",
+      "item_count": 1,
+      "auction_item_category": "애뮬릿",
+      "auction_price_per_unit": 19000000,
+      "date_auction_expire": "2025-10-29T19:34:00.000Z",
+      "item_option": [
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "지력",
+          "option_value": "10",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "체력",
+          "option_value": "4",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "솜씨",
+          "option_value": "6",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "의지",
+          "option_value": "8",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "최대 스태미나",
+          "option_value": "12",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "최대 마나",
+          "option_value": "2",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 추가 옵션",
+          "option_sub_type": "마법 재능 무기 마법 공격력",
+          "option_value": "22",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 강화 제한",
+          "option_sub_type": "남은 일반 강화 횟수",
+          "option_value": "0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 강화 제한",
+          "option_sub_type": "남은 추가 강화 횟수",
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 거래 횟수",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
 //알반 훈련석
 {
       "item_name": "알반 기사단의 훈련석 [숨겨진 층-아튼 시미니의 모루]",
@@ -5012,6 +5093,24 @@ option 예외 옵션
         }
       ]
     },
+//펫 토템
+    {
+      "item_name": "끈기의 노란색 목걸이(최대 스태미나 펫 토템)",
+      "item_display_name": "끈기의 노란색 목걸이(최대 스태미나 펫 토템)",
+      "item_count": 1,
+      "auction_item_category": "펫 토템",
+      "auction_price_per_unit": 600000,
+      "date_auction_expire": "2025-10-28T03:07:00.000Z",
+      "item_option": [
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "최대스태미나",
+          "option_value": "11",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
 //포션
 //해당 카테고리에서 이름에 '지정 색상'이 포함된 아이템은 중요
 //해당 카테고리에서 option_type이 '색상'값은 절대 예외처리 해서는 안됨
@@ -5067,7 +5166,7 @@ option 예외 옵션
       "date_auction_expire": "2025-10-22T18:11:00.000Z",
       "item_option": null
     },
-//한손 장비(중요)
+//한손 장비
 {
       "item_name": "판 퍼핏 인형",
       "item_display_name": "판 퍼핏 인형",

@@ -1,4 +1,6 @@
 /**
+ * @module mabinogi-auction-history
+ *
  * @summary 마비노기 경매장 '거래 완료' 내역을 수집하여 D1 데이터베이스에 저장하는 Cloudflare Worker
  * @description
  * 이 Worker는 5분마다 Cron 트리거로 자동 실행되어 다음 로직을 수행합니다.
@@ -12,24 +14,27 @@
 
 const NEXON_API_URL = 'https://open.api.nexon.com/mabinogi/v1/auction/history';
 
-// 옵션을 저장할 아이템 카테고리 목록
-const OPTION_SAVE_CATEGORIES = [
-	'검', '둔기', '도끼', '랜스', '활', '석궁', '아틀라틀', '듀얼건', '너클', '체인 블레이드', '수리검',
-	'원드', '스태프', '마도서', '오브', '핸들', '실린더', '악기', '한손 장비', '양손 장비',
-	'천옷', '경갑옷', '중갑옷', '모자/가발', '장갑', '신발',
-	'방패', '액세서리', '에코스톤', '토템', '생활 도구'
+// 옵션을 저장하지 않을 아이템 카테고리 목록 (기본적으로 모두 저장). 장비류를 제외한 대부분의 카테고리.
+const OPTION_IGNORE_CATEGORIES = [
+	'개조석', '기타', '기타 소모품', '기타 스크롤', '기타 장비', '기타 재료', '꼬리',
+	'날개', '낭만농장/달빛섬', '던전 통행증', '도면', '로브', '마기그래프',
+	'마기그래프 도안', '마리오네트', '마법가루', '마비노벨', '마족 스크롤',
+	'말풍선 스티커', '매직 크래프트', '변신 메달', '보석', '불타래', '뷰티 쿠폰',
+	'분양 메달', '스케치', '알반 훈련석', '얼굴 장식', '에이도스', '염색 앰플', '옷본',
+	'원거리 소모품', '음식', '의자/사물', '인챈트 스크롤', '제련/블랙스미스', '제스처', '주머니', '책',
+	'천옷/방직', '유물', '퍼퓸', '페이지', '펫 토템', '포션', '피니 펫', '핀즈비즈', '한손 장비', '허브', '힐웬 공학'
 ];
 
 // 저장하지 않을 옵션 타입 목록
 const IGNORED_OPTION_TYPES = ['아이템 색상', '남은 거래 횟수'];
 
 // 예외 처리 카테고리
-const EXCEPTION_CATEGORIES = {
-	USE_DISPLAY_NAME: ['인챈트 스크롤', '도면', '옷본'],
-	PET_MEDAL: '분양 메달'
+const ITEM_NAME_RULES = {
+	USE_DISPLAY_NAME_CATEGORIES: ['인챈트 스크롤', '도면', '옷본'],
+	PET_MEDAL_CATEGORY: '분양 메달'
 };
 
-const KV_LAST_TIMESTAMP_KEY = 'LAST_FETCH_TIMESTAMP';
+const KV_LAST_AUCTION_ID_KEY = 'LAST_FETCH_AUCTION_ID';
 
 // 분산 환경에서 중복 실행을 방지하기 위한 잠금 키 (KV)
 const CRON_JOB_LOCK_KEY = 'CRON_JOB_LOCK_V1';
@@ -86,31 +91,36 @@ export default {
 		}
 
 		try {
-			// 1. KV에서 수집 시간을 가져옵니다. (없으면 아주 오래된 날짜 사용)
-			const lastFetchTimestamp = await env.MABINOGI_AUCTION_KV.get(KV_LAST_TIMESTAMP_KEY) || '2000-01-01T00:00:00.000Z';
+			// 1. KV에서 마지막으로 수집한 auction_buy_id를 가져옵니다. (없으면 '0' 사용)
+			const lastFetchAuctionId = await env.MABINOGI_AUCTION_KV.get(KV_LAST_AUCTION_ID_KEY) || '0';
 
-			console.log(`저장된 수집 시간 : ${lastFetchTimestamp}`);
+			console.log(`저장된 마지막 거래 ID : ${lastFetchAuctionId}`);
 			
-			// 2. API에서 모든 페이지의 거래 내역을 가져옵니다.
-			const allHistoryItems = await fetchAllAuctionHistory(apiKey, lastFetchTimestamp);
+			// 2. API에서 마지막 거래 ID 이후의 새로운 거래 내역을 가져옵니다.
+			const newHistoryItems = await fetchAllAuctionHistory(apiKey, lastFetchAuctionId);
 
-			if (allHistoryItems.length === 0) {
+			if (newHistoryItems.length === 0) {
 				console.log('새로운 거래 내역이 없습니다.');
 				return;
 			}
 
-			console.log(`총 ${allHistoryItems.length}개의 새로운 거래 내역을 수집했습니다. 데이터베이스 저장을 시작합니다.`);
+			console.log(`총 ${newHistoryItems.length}개의 새로운 거래 내역을 수집했습니다. 데이터베이스 저장을 시작합니다.`);
 
-			// 3. 새로운 데이터를 분류하고 데이터베이스에 저장합니다.
-			const dbSuccess = await processAndStoreHistory(env.mabinogi_auction_db, allHistoryItems);
+			// 3. DB 저장을 위해 시간순(오래된 것 -> 최신)으로 정렬합니다. API는 최신순으로 반환하므로 배열을 뒤집습니다.
+			newHistoryItems.reverse();
 
-			// 4. 데이터베이스 저장이 성공했을 때만 수집 시간을 갱신합니다.
+			// 4. 새로운 데이터를 분류하고 데이터베이스에 저장합니다.
+			const dbSuccess = await processAndStoreHistory(env.mabinogi_auction_db, newHistoryItems);
+
+			// 5. 데이터베이스 저장이 성공했을 때만 마지막 거래 ID를 갱신합니다.
 			if (dbSuccess) {
-				await env.MABINOGI_AUCTION_KV.put(KV_LAST_TIMESTAMP_KEY, taskStartTime.toISOString()); // D1 저장이 성공했을 때만 마지막 수집 시간을 갱신합니다.
-				console.log(`성공: 수집 시간 저장 완료 (${taskStartTime.toISOString()})`);
+				// newHistoryItems 배열은 reverse() 되었으므로, 가장 마지막 요소가 가장 최신 거래입니다.
+				const latestAuctionId = newHistoryItems[newHistoryItems.length - 1].auction_buy_id;
+				await env.MABINOGI_AUCTION_KV.put(KV_LAST_AUCTION_ID_KEY, latestAuctionId);
+				console.log(`성공: 마지막 거래 ID 저장 완료 (${latestAuctionId})`);
 				console.log('데이터베이스 저장이 성공적으로 완료되었습니다.');
 			} else {
-				console.error('데이터베이스 저장 실패. 수집 시간을 갱신하지 않고 Worker를 종료합니다.');
+				console.error('데이터베이스 저장 실패. 마지막 거래 ID를 갱신하지 않고 Worker를 종료합니다.');
 			}
 		} catch (error) {
 			console.error('Worker 실행 중 심각한 오류 발생:', error);
@@ -134,7 +144,11 @@ async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
 	for (let i = 0; i < retries; i++) {
 		try {
 			const response = await fetch(url, options);
-			if (response.ok) return response; // 성공
+			if (response.ok) {
+				// 응답이 성공적이라도 JSON 파싱이 실패할 수 있으므로, clone하여 확인
+				await response.clone().json();
+				return response; // 성공
+			}
 			// 5xx 서버 오류일 때만 재시도
 			if (response.status >= 500) {
 				console.warn(`API 호출 실패 (시도 ${i + 1}/${retries}): ${response.status}`);
@@ -143,8 +157,11 @@ async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
 			} else {
 				return response; // 4xx 등 클라이언트 오류는 재시도 안 함
 			}
-		} catch (error) { // 네트워크 오류 등
+		} catch (error) { // 네트워크 오류 또는 JSON 파싱 오류
 			console.warn(`네트워크 오류 (시도 ${i + 1}/${retries}):`, error.message);
+		if (error.name === 'AbortError') throw error; // AbortError는 재시도하지 않고 즉시 전파
+		console.warn(`API 호출 중 오류 발생 (시도 ${i + 1}/${retries}):`, error.message);
+		if (i === retries - 1) console.error(`API 호출이 ${retries}번 시도 후 모두 실패했습니다. 마지막 오류:`, error.message);
 			await new Promise(resolve => setTimeout(resolve, delay * Math.pow(2, i)));
 		}
 	}
@@ -153,17 +170,16 @@ async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
 /**
  * Nexon API를 순차적으로 호출하여 새로운 거래 완료 내역을 가져옵니다.
  * @param {string} apiKey - Nexon Open API 키
- * @param {string} lastFetchTimestamp - 수집 시간 (ISO 8601 형식)
+ * @param {string} lastFetchAuctionId - 마지막으로 수집한 거래 ID (auction_buy_id)
  * @returns {Promise<Array>} 모든 신규 거래 내역 아이템 배열
  */
-async function fetchAllAuctionHistory(apiKey, lastFetchTimestamp) {
+async function fetchAllAuctionHistory(apiKey, lastFetchAuctionId) {
 	let allItems = [];
 	let nextPage = null;
 	let page = 1;
+	let shouldStop = false;
 	
-	const lastFetchTime = Date.parse(lastFetchTimestamp); // 문자열 비교 버그 수정을 위해 미리 파싱
-	let foundOverlap = false; // 겹치는 데이터를 찾았는지 여부
-	const url = new URL(NEXON_API_URL); // URL 객체를 루프 밖에서 한 번만 생성
+	const url = new URL(NEXON_API_URL);
 
 	do {
 		if (nextPage) { // next_cursor를 사용하여 다음 페이지 요청
@@ -192,43 +208,29 @@ async function fetchAllAuctionHistory(apiKey, lastFetchTimestamp) {
 		});
 
 		if (data.auction_history && data.auction_history.length > 0) {
-			const itemsInPage = data.auction_history;
-			allItems.push(...itemsInPage);
-
-			// 이전에 겹치는 데이터를 발견했다면, 이번 페이지가 '추가 수집 페이지'이므로 수집 후 즉시 종료
-			if (foundOverlap) {
-				console.log(`추가 페이지(${page}) 수집 완료. API 호출 중단.`);
-				break;
-			} else {
-				// 현재 페이지에 수집 시간보다 오래된 데이터가 있는지 확인 (Date.parse로 숫자 비교)
-				const hasOlderItem = itemsInPage.some(item => Date.parse(item.date_auction_buy) <= lastFetchTime);
-				if (hasOlderItem) {
-					console.log(`페이지 ${page}에서 겹치는 데이터 발견. 다음 페이지까지만 추가 수집 후 중단 예정.`);
-					foundOverlap = true; // 다음 루프에서 한 페이지만 더 가져오고 종료하기 위한 플래그
+			for (const item of data.auction_history) {
+				// 현재 아이템의 ID가 이전에 저장된 ID와 정확히 일치하면, 이미 처리된 데이터이므로 수집 중단
+				if (item.auction_buy_id === lastFetchAuctionId) {
+					shouldStop = true;
+					console.log(`페이지 ${page}에서 이전에 수집한 데이터(ID: ${item.auction_buy_id})를 발견했습니다. API 호출을 중단합니다.`);
+					break; // 현재 페이지의 나머지 아이템 처리를 중단
 				}
+				allItems.push(item);
 			}
 		} else {
 			console.log(`페이지 ${page}에서 더 이상 거래 내역이 없어 API 호출을 중단합니다.`);
-			break;
+			shouldStop = true;
 		}
 
 		nextPage = data.next_cursor;
 		page++;
-		if (nextPage) {
-			// API 과호출 방지를 위한 최소한의 지연 (10ms). 초당 약 100회 호출.
-			// API 허용량이 초당 500회이므로 매우 안전한 설정입니다.
-			await new Promise(resolve => setTimeout(resolve, 10));
-		}
-	} while (nextPage);
+		// Cloudflare Workers 환경에서는 I/O 작업 사이에 자동으로 약간의 지연이 발생하므로,
+		// 명시적인 짧은 대기(e.g., 10ms)는 일반적으로 불필요합니다.
+	} while (nextPage && !shouldStop);
 
-	// 1. auction_buy_id 기준으로 중복 제거 (Map은 마지막으로 추가된 값을 유지)
-	const uniqueItems = [...new Map(allItems.map(item => [item.auction_buy_id, item])).values()];
-
-	// 2. date_auction_buy 필드를 기준으로 오름차순 정렬 (가장 오래된 데이터부터)
-	uniqueItems.sort((a, b) => new Date(a.date_auction_buy).getTime() - new Date(b.date_auction_buy).getTime());
-
-	// 최종 메모리 필터링을 제거하고, 중복 처리를 D1의 INSERT OR IGNORE에 완전히 위임합니다.
-	return uniqueItems;
+	// API는 데이터를 순차적으로 반환합니다.
+	// API에서 반환한 값을 순차적으로 D1에 저장하기 위해서 이후 로직에서 reverse()를 사용합니다.
+	return allItems;
 }
 
 /**
@@ -264,40 +266,98 @@ async function processAndStoreHistory(db, newItems) {
 async function batchStoreItems(db, allItems, itemIdMap) {
 	const priceHistoryStmts = [];
 	const historyOptionsStmts = [];
+	const hourlyStatsUpdates = new Map();
+	const dailyStatsUpdates = new Map();
+	const monthlyStatsUpdates = new Map();
 
 	for (const item of allItems) {
 		const representativeName = getRepresentativeItemName(item);
 		const itemId = itemIdMap.get(representativeName);
 		if (!itemId) continue; // ID를 찾지 못한 경우 건너뛰기
 
-		priceHistoryStmts.push(
-			db.prepare('INSERT OR IGNORE INTO price_history (id, item_id, special_type, price, item_count, timestamp) VALUES (?, ?, ?, ?, ?, ?)')
-			.bind(item.auction_buy_id, itemId, getSpecialType(item.item_display_name), item.auction_price_per_unit, item.item_count, item.date_auction_buy)
-		);
+		// 시간별 통계 업데이트 준비
+		const kstTimestamp = convertToKST(item.date_auction_buy);
+		if (kstTimestamp) {
+			const price = item.auction_price_per_unit * item.item_count;
+			const volume = item.item_count;
+
+			// 통계 집계 함수
+			const aggregateStats = (map, key, bucket) => {
+				if (!map.has(key)) {
+					map.set(key, { itemId, timestampBucket: bucket, totalPrice: 0, transactions: 0, totalVolume: 0 });
+				}
+				const stats = map.get(key);
+				stats.totalPrice += price;
+				stats.transactions += 1;
+				stats.totalVolume += volume;
+			};
+
+			// 시간별, 일별, 월별 통계 집계
+			const hourlyBucket = `${kstTimestamp.slice(0, 13)}:00:00`;
+			aggregateStats(hourlyStatsUpdates, `${itemId}|${hourlyBucket}`, hourlyBucket);
+
+			const dailyBucket = kstTimestamp.slice(0, 10);
+			aggregateStats(dailyStatsUpdates, `${itemId}|${dailyBucket}`, dailyBucket);
+
+			const monthlyBucket = kstTimestamp.slice(0, 7);
+			aggregateStats(monthlyStatsUpdates, `${itemId}|${monthlyBucket}`, monthlyBucket);
+		}
 
 		// 옵션 저장 대상 아이템인 경우에만 옵션 저장
 		if (shouldSaveOptions(item) && item.item_option?.length > 0) {
-			const isSpecialColorItem = (item.auction_item_category === '염색 앰플' || item.auction_item_category === '포션') && (item.item_name || '').includes('지정 색상');
+			priceHistoryStmts.push(
+				db.prepare('INSERT OR IGNORE INTO price_history (id, item_id, special_type, price, item_count, timestamp) VALUES (?, ?, ?, ?, ?, ?)')
+				.bind(item.auction_buy_id, itemId, getSpecialType(item.item_display_name), item.auction_price_per_unit, item.item_count, kstTimestamp)
+			);
+
+			const isCurrentItemSpecialColor = isSpecialColorItem(item);
 			for (const option of item.item_option) {
-				if (IGNORED_OPTION_TYPES.includes(option.option_type) && !(isSpecialColorItem && option.option_type === '아이템 색상')) {
+				if (IGNORED_OPTION_TYPES.includes(option.option_type) && !(isCurrentItemSpecialColor && option.option_type === '색상')) {
 					continue;
 				}
 				historyOptionsStmts.push(
 					db.prepare('INSERT OR IGNORE INTO history_options (history_id, type, sub_type, value, value2) VALUES (?, ?, ?, ?, ?)')
-					.bind(item.auction_buy_id, option.option_type, option.option_sub_type, option.option_value, option.option_value2)
+						.bind(item.auction_buy_id, option.option_type, option.option_sub_type, option.option_value, option.option_value2)
 				);
 			}
 		}
 	}
 
-	try {
-		if (priceHistoryStmts.length > 0) {
-			console.log(`DB 저장: price_history ${priceHistoryStmts.length}건`);
-			await db.batch(priceHistoryStmts);
+	// 통계 업데이트 구문 생성 함수
+	const createStatsStmts = (map, tableName) => {
+		const stmts = [];
+		for (const stats of map.values()) {
+			stmts.push(
+				db.prepare(`
+				INSERT INTO ${tableName} (item_id, timestamp, total_price, transactions, total_volume)
+				VALUES (?, ?, ?, ?, ?)
+				ON CONFLICT(item_id, timestamp) DO UPDATE SET
+					total_price = total_price + excluded.total_price,
+					transactions = transactions + excluded.transactions,
+					total_volume = total_volume + excluded.total_volume
+			`).bind(stats.itemId, stats.timestampBucket, stats.totalPrice, stats.transactions, stats.totalVolume)
+			);
 		}
-		if (historyOptionsStmts.length > 0) {
-			console.log(`DB 저장: history_options ${historyOptionsStmts.length}건`);
-			await db.batch(historyOptionsStmts);
+		return stmts;
+	};
+
+	try {
+		const statsHourlyStmts = createStatsStmts(hourlyStatsUpdates, 'stats_hourly');
+		const statsDailyStmts = createStatsStmts(dailyStatsUpdates, 'stats_daily');
+		const statsMonthlyStmts = createStatsStmts(monthlyStatsUpdates, 'stats_monthly');
+
+		// 모든 DB 작업을 하나의 배열로 통합
+		const allDbOperations = [
+			...priceHistoryStmts, 
+			...historyOptionsStmts, 
+			...statsHourlyStmts, 
+			...statsDailyStmts, 
+			...statsMonthlyStmts
+		];
+
+		if (allDbOperations.length > 0) {
+			console.log(`DB 저장 시작: price_history(${priceHistoryStmts.length}), history_options(${historyOptionsStmts.length}), stats_hourly(${statsHourlyStmts.length}), stats_daily(${statsDailyStmts.length}), stats_monthly(${statsMonthlyStmts.length})`);
+			await db.batch(allDbOperations);
 		}
 		return true;
 	} catch (dbError) {
@@ -307,6 +367,10 @@ async function batchStoreItems(db, allItems, itemIdMap) {
 		return false;
 	}
 }
+
+
+
+
 
 /**
  * 아이템의 대표 이름을 생성합니다. (예외 처리 규칙 적용)
@@ -318,14 +382,14 @@ function getRepresentativeItemName(item) {
 
 	
 	// '분양 메달'은 '아이템 이름 - 펫 종족명' 형식으로 조합
-	if (category === EXCEPTION_CATEGORIES.PET_MEDAL) {
+	if (category === ITEM_NAME_RULES.PET_MEDAL_CATEGORY) {
 		const options = item.item_option || [];
 		const petRaceOption = options.find(opt => opt.option_type === '펫 정보' && opt.option_sub_type === '종족명');
 		return petRaceOption && petRaceOption.option_value ? `${item.item_name} - ${petRaceOption.option_value}` : item.item_name;
 	}
 
 	// '인챈트 스크롤', '도면', '옷본'은 item_display_name 사용
-	if (EXCEPTION_CATEGORIES.USE_DISPLAY_NAME.includes(category)) {
+	if (ITEM_NAME_RULES.USE_DISPLAY_NAME_CATEGORIES.includes(category)) {
 		// item_display_name이 없는 경우를 대비하여 item_name을 fallback으로 사용
 		return item.item_display_name || item.item_name;
 	}
@@ -346,6 +410,17 @@ function getSpecialType(displayName) {
 }
 
 /**
+ * 아이템이 '지정 색상'이 포함된 염색 앰플 또는 포션인지 확인합니다.
+ * 이 아이템들은 '아이템 색상' 옵션을 무시하지 않고 저장해야 합니다.
+ * @param {object} item - API에서 받은 아이템 객체
+ * @returns {boolean} '지정 색상' 아이템 여부
+ */
+function isSpecialColorItem(item) {
+    const category = item.auction_item_category;
+    const name = item.item_name || '';
+    return (category === '염색 앰플' || category === '포션') && name.includes('지정 색상');
+}
+/**
  * 아이템의 옵션을 저장해야 하는지 동적으로 확인합니다.
  * @param {object} item - API에서 받은 아이템 객체
  * @returns {boolean} 옵션 저장 여부
@@ -354,13 +429,15 @@ function shouldSaveOptions(item) {
 	const category = item.auction_item_category;
 	const name = item.item_name || '';
 
-	// 옵션 저장 대상 카테고리 목록에 포함되면 저장
-	if (OPTION_SAVE_CATEGORIES.includes(category)) return true;
-	// '지정 색상'이 포함된 염색 앰플이나 포션은 옵션 저장
-	if ((category === '염색 앰플' || category === '포션') && name.includes('지정 색상')) return true;
-	// '축제요리'는 옵션 저장
+	// 예외 규칙: 아래 아이템들은 카테고리 무관하게 항상 옵션을 저장합니다.
+	if (isSpecialColorItem(item)) return true;
 	if (category === '음식' && name === '축제요리') return true;
-	return false;
+
+	// 일반 규칙: 옵션 저장 제외 카테고리 목록에 포함되면 저장하지 않습니다.
+	if (OPTION_IGNORE_CATEGORIES.includes(category)) return false;
+
+	// 기본 규칙: 위의 조건에 해당하지 않는 모든 아이템은 옵션을 저장합니다.
+	return true;
 }
 
 /**
@@ -411,31 +488,63 @@ async function getOrCreateItemIds(db, itemNameToDataMap) {
 
 	// 3. 새로 생성해야 할 아이템이 있다면 일괄 INSERT
 	if (namesToCreate.length > 0) {
-		const insertStmts = namesToCreate.map(name =>
-			db.prepare('INSERT INTO items (name, category) VALUES (?, ?)').bind(name, itemNameToDataMap.get(name)?.category || '기타')
-		);
-		await db.batch(insertStmts);
-
-		// 4. 방금 생성한 아이템들의 ID를 다시 일괄 조회하여 Map에 추가
-		for (let i = 0; i < namesToCreate.length; i += CHUNK_SIZE) {
-			const chunk = namesToCreate.slice(i, i + CHUNK_SIZE);
-			if (chunk.length === 0) continue;
-
-			const newPlaceholders = chunk.map(() => '?').join(',');
-			const newItemsStmt = db.prepare(`SELECT id, name FROM items WHERE name IN (${newPlaceholders})`).bind(...chunk);
-			try {
-				const { results: newCreatedItems } = await newItemsStmt.all();
-				for (const item of newCreatedItems) {
-					itemIdMap.set(item.name, item.id);
-				}
-			} catch (e) {
-				console.error(`D1 'IN' 절 조회 실패 (새 아이템):`, {
-					message: e.message, cause: e.cause, stack: e.stack
-				});
-				throw e; // 조회 실패는 심각한 문제이므로 전파
+		// 3. RETURNING 절을 사용하여 INSERT와 동시에 생성된 ID를 가져옵니다.
+		try {
+			const insertStmts = namesToCreate.map(name =>
+				db.prepare('INSERT INTO items (name, category) VALUES (?, ?) RETURNING id, name')
+				  .bind(name, itemNameToDataMap.get(name)?.category || '기타')
+			);
+			const results = await db.batch(insertStmts);
+			for (const result of results) {
+				const newItem = result.results[0];
+				itemIdMap.set(newItem.name, newItem.id);
 			}
+		} catch (e) {
+			console.error(`D1 'INSERT ... RETURNING' 실패:`, {
+				message: e.message,
+				cause: e.cause,
+				itemsToCreate: namesToCreate.map(name => ({ name, category: itemNameToDataMap.get(name)?.category }))
+			});
+			throw e; // 생성 실패는 심각한 문제이므로 전파
 		}
 	}
 
 	return itemIdMap;
+}
+
+/**
+ * UTC Date 객체 또는 ISO 문자열을 KST 'YYYY-MM-DD HH:MM:SS' 형식의 문자열로 변환합니다.
+ * @param {Date | string} input - 변환할 Date 객체 또는 ISO 문자열
+ * @returns {string | null} 'YYYY-MM-DD HH:MM:SS' 형식의 KST 시간 문자열 또는 null (유효하지 않은 입력 시)
+ */
+function convertToKST(input) {
+	if (!input) return null;
+
+	let date;
+	if (typeof input === 'string') {
+		date = new Date(input); // ISO 문자열은 UTC로 파싱됩니다.
+	} else if (input instanceof Date) {
+		date = input; // Date 객체는 그대로 사용합니다.
+	} else {
+		return null;
+	}
+
+	// 유효하지 않은 날짜인 경우
+	if (isNaN(date.getTime())) {
+		return null;
+	}
+
+	// Intl.DateTimeFormat을 사용하여 KST로 포맷팅
+	const formatter = new Intl.DateTimeFormat('en-CA', { // 'en-CA'는 YYYY-MM-DD 형식을 보장합니다.
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit',
+		hour: '2-digit',
+		minute: '2-digit',
+		second: '2-digit',
+		hour12: false, // 24시간 형식
+		timeZone: 'Asia/Seoul'
+	});
+
+	return formatter.format(date).replace(/, /g, ' ');
 }
