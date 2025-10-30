@@ -41,27 +41,6 @@ const CRON_JOB_LOCK_KEY = 'CRON_JOB_LOCK_V1';
 
 export default {
 	/**
-	 * HTTP 요청을 처리하는 핸들러입니다.
-	 * 로컬 테스트 시 브라우저 접근으로 인한 오류를 방지하기 위해 추가되었습니다.
-	 * 이 워커의 실제 기능은 scheduled 핸들러에 있습니다.
-	 * @param {Request} request
-	 * @returns {Response}
-	 * @param {object} env
-	 * @param {ExecutionContext} ctx
-	 */
-	async fetch(request, env, ctx) {
-		const url = new URL(request.url);
-		// 수동 트리거 요청에 대한 핸들링
-		if (url.pathname === '/__scheduled') {
-			// waitUntil을 사용하여 scheduled 작업을 백그라운드에서 실행하고, 
-			// 브라우저에는 즉시 확인 메시지를 담은 Response를 반환합니다.
-			ctx.waitUntil(this.scheduled({ cron: 'manual-trigger' }, env, ctx));
-			return new Response('Scheduled event triggered manually. Check terminal for logs.');
-		}
-		return new Response('This is a scheduled Worker. It does not handle HTTP requests.');
-	},
-
-	/**
 	 * Cron 트리거에 의해 주기적으로 실행되는 메인 핸들러입니다.
 	 * @param {object} event - 스케줄 이벤트 정보
 	 * @param {object} env - 워커 환경 변수 및 바인딩 (API 키, D1 DB 등)
@@ -269,6 +248,7 @@ async function batchStoreItems(db, allItems, itemIdMap) {
 	const hourlyStatsUpdates = new Map();
 	const dailyStatsUpdates = new Map();
 	const monthlyStatsUpdates = new Map();
+	const tablesToCreate = new Map(); // 생성해야 할 월별 테이블 목록
 
 	for (const item of allItems) {
 		const representativeName = getRepresentativeItemName(item);
@@ -277,6 +257,23 @@ async function batchStoreItems(db, allItems, itemIdMap) {
 
 		// 시간별 통계 업데이트 준비
 		const kstTimestamp = convertToKST(item.date_auction_buy);
+		if (!kstTimestamp) continue;
+
+		// 월별 테이블 이름 생성 (예: price_history_202310)
+		const tableSuffix = kstTimestamp.substring(0, 7).replace('-', '');
+		const priceHistoryTable = `price_history_${tableSuffix}`;
+		const historyOptionsTable = `history_options_${tableSuffix}`;
+
+		// 생성해야 할 테이블 목록에 추가 (중복 방지)
+		if (!tablesToCreate.has(priceHistoryTable)) {
+			tablesToCreate.set(priceHistoryTable, db.prepare(`
+				CREATE TABLE IF NOT EXISTS ${priceHistoryTable} (
+					id TEXT PRIMARY KEY, item_id INTEGER NOT NULL, special_type INTEGER DEFAULT 0, price INTEGER NOT NULL, item_count INTEGER NOT NULL, timestamp TEXT NOT NULL
+				)
+			`));
+			tablesToCreate.set(historyOptionsTable, db.prepare(`CREATE TABLE IF NOT EXISTS ${historyOptionsTable} (history_id TEXT, type TEXT, sub_type TEXT, value TEXT, value2 TEXT, PRIMARY KEY (history_id, type, sub_type, value, value2)) WITHOUT ROWID`));
+		}
+
 		if (kstTimestamp) {
 			const price = item.auction_price_per_unit * item.item_count;
 			const volume = item.item_count;
@@ -306,17 +303,17 @@ async function batchStoreItems(db, allItems, itemIdMap) {
 		// 옵션 저장 대상 아이템인 경우에만 옵션 저장
 		if (shouldSaveOptions(item) && item.item_option?.length > 0) {
 			priceHistoryStmts.push(
-				db.prepare('INSERT OR IGNORE INTO price_history (id, item_id, special_type, price, item_count, timestamp) VALUES (?, ?, ?, ?, ?, ?)')
+				db.prepare(`INSERT OR IGNORE INTO ${priceHistoryTable} (id, item_id, special_type, price, item_count, timestamp) VALUES (?, ?, ?, ?, ?, ?)`)
 				.bind(item.auction_buy_id, itemId, getSpecialType(item.item_display_name), item.auction_price_per_unit, item.item_count, kstTimestamp)
 			);
 
 			const isCurrentItemSpecialColor = isSpecialColorItem(item);
 			for (const option of item.item_option) {
-				if (IGNORED_OPTION_TYPES.includes(option.option_type) && !(isCurrentItemSpecialColor && option.option_type === '색상')) {
+				if (IGNORED_OPTION_TYPES.includes(option.option_type) && !(isCurrentItemSpecialColor && option.option_type === '아이템 색상')) {
 					continue;
 				}
 				historyOptionsStmts.push(
-					db.prepare('INSERT OR IGNORE INTO history_options (history_id, type, sub_type, value, value2) VALUES (?, ?, ?, ?, ?)')
+					db.prepare(`INSERT OR IGNORE INTO ${historyOptionsTable} (history_id, type, sub_type, value, value2) VALUES (?, ?, ?, ?, ?)`)
 						.bind(item.auction_buy_id, option.option_type, option.option_sub_type, option.option_value, option.option_value2)
 				);
 			}
@@ -347,6 +344,7 @@ async function batchStoreItems(db, allItems, itemIdMap) {
 		const statsMonthlyStmts = createStatsStmts(monthlyStatsUpdates, 'stats_monthly');
 
 		// 모든 DB 작업을 하나의 배열로 통합
+		// 테이블 생성 구문을 가장 먼저 실행
 		const allDbOperations = [
 			...priceHistoryStmts, 
 			...historyOptionsStmts, 
@@ -356,8 +354,13 @@ async function batchStoreItems(db, allItems, itemIdMap) {
 		];
 
 		if (allDbOperations.length > 0) {
+			// 테이블 생성 D1 batch 실행
+			if (tablesToCreate.size > 0) {
+				console.log(`${tablesToCreate.size / 2}개의 새로운 월별 테이블 생성 시도...`);
+				await db.batch([...tablesToCreate.values()]);
+			}
 			console.log(`DB 저장 시작: price_history(${priceHistoryStmts.length}), history_options(${historyOptionsStmts.length}), stats_hourly(${statsHourlyStmts.length}), stats_daily(${statsDailyStmts.length}), stats_monthly(${statsMonthlyStmts.length})`);
-			await db.batch(allDbOperations);
+			await db.batch(allDbOperations); // 데이터 삽입 및 통계 업데이트
 		}
 		return true;
 	} catch (dbError) {
@@ -431,7 +434,7 @@ function shouldSaveOptions(item) {
 
 	// 예외 규칙: 아래 아이템들은 카테고리 무관하게 항상 옵션을 저장합니다.
 	if (isSpecialColorItem(item)) return true;
-	if (category === '음식' && name === '축제요리') return true;
+	if (category === '음식' && name.includes('축제 요리')) return true;
 
 	// 일반 규칙: 옵션 저장 제외 카테고리 목록에 포함되면 저장하지 않습니다.
 	if (OPTION_IGNORE_CATEGORIES.includes(category)) return false;
