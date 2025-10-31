@@ -4,7 +4,7 @@
  */
 
 import optionFilter from './option-filter.js';
-import metadataLoader from './metadata-loader.js';
+import metadataLoader from '../services/metadata-loader.js';
 
 // 필터 상태
 const state = {
@@ -157,17 +157,14 @@ async function updateFiltersForCategory(category) {
 /**
  * 필터 옵션 추가
  */
-function addFilterOption(filterOption) {
-    if (!filterOption) return;
+function addFilterOption(filterId, filterOption) {
+    if (!filterId || !filterOption) return;
     
-    // 필터 ID 확인
-    const filterId = filterOption.name || filterOption.id;
     if (!filterId) return;
     
     // 이미 존재하는 필터 제거
     state.activeFilters = state.activeFilters.filter(f => f.name !== filterId);
     
-    // 새 필터 추가
     state.activeFilters.push({
         name: filterId,
         displayName: filterOption.displayName || filterOption.name,

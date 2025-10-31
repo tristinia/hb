@@ -3,7 +3,7 @@
  * 페이지 분할 및 네비게이션 처리
  */
 
-const PaginationManager = (() => {
+const Pagination = (() => {
     // 페이지네이션 상태
     const state = {
         currentPage: 1,
@@ -41,7 +41,7 @@ const PaginationManager = (() => {
         // URL 해시에서 페이지 추출
         handleHashChange();
         
-        console.log('PaginationManager 초기화 완료');
+        console.log('Pagination 초기화 완료');
     }
     
     /**
@@ -484,4 +484,4 @@ const PaginationManager = (() => {
     };
 })();
 
-export default PaginationManager;
+export default Pagination;

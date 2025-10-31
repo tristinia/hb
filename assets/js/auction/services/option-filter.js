@@ -5,7 +5,7 @@
  * 옵션 추출, 메타데이터 관리, 필터 적용 기능 제공
  */
 
-import metadataLoader from './metadata-loader.js';
+import metadataLoader from '../services/metadata-loader.js';
 
 class OptionFilter {
   constructor() {

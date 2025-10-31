@@ -3,16 +3,15 @@
  */
 
 // 필요한 모듈 가져오기
-import CategoryManager from './category-manager.js';
-import SearchManager from './search-manager.js';
-import ItemDisplay from './item-display.js';
-import FilterManager from './filter-manager.js';
-import filterUI from './filter-ui.js';
-import PaginationManager from './pagination.js';
-import ApiClient from './api-client.js';
-import Utils from './utils.js';
-import ItemTooltip from './item-tooltip.js';
-import AutocompleteEngine from '../common/autocomplete-engine.js';
+import categories from './services/categories.js';
+import search from './services/search.js';
+import ItemList from './components/ItemList.js';
+import filter from './services/filter.js';
+import FilterPanel from './components/FilterPanel.js';
+import Pagination from './components/Pagination.js';
+import apiClient from './services/api-client.js';
+import Utils from './services/utils.js';
+import ItemTooltip from './components/ItemTooltip.js';
 
 /**
  * 애플리케이션 모듈
@@ -78,9 +77,6 @@ const App = (() => {
         // 페이지 변경 이벤트
         document.addEventListener('pageChanged', handlePageChanged);
         
-        // 아이템 선택 이벤트
-        document.addEventListener('itemSelected', handleItemSelected);
-        
         // 필터 변경 이벤트
         document.addEventListener('filterChanged', handleFilterChanged);
         
@@ -97,7 +93,8 @@ const App = (() => {
             
             elements.searchInput.addEventListener('keydown', (e) => {
                 // 자동완성이 표시되지 않은 상태에서만 엔터키로 검색 실행
-                if (e.key === 'Enter' && !AutocompleteEngine.isSuggestionVisible()) {
+                const searchState = search.getSearchState();
+                if (e.key === 'Enter' && !searchState.isSuggestionVisible) {
                     triggerSearch();
                 }
             });
@@ -127,21 +124,21 @@ const App = (() => {
                 // 분양 메달 필터링 적용 - 카테고리 검색이 아닌 경우에만 필터링
                 const isPetMedalSearch = !isCategorySearch && state.lastSearch && 
                                        state.lastSearch.selectedItem && 
-                                       SearchManager.isPetMedalCategory(state.lastSearch.selectedItem.subCategory);
+                                       search.isPetMedalCategory(state.lastSearch.selectedItem.subCategory);
                 
                 // 카테고리 검색인 경우 종족명만 추가하고 필터링은 하지 않음
                 const shouldFilter = isPetMedalSearch;
                 
-                const processedResults = SearchManager.filterPetMedalResults(
+                const processedResults = search.filterPetMedalResults(
                     results, 
                     shouldFilter ? searchTerm : null
                 );
                 
                 // 결과 표시
-                ItemDisplay.setSearchResults(processedResults);
+                ItemList.setSearchResults(processedResults);
                 
                 // silent 모드로 페이지네이션 업데이트 (로그 출력 안 함)
-                PaginationManager.resetPagination(processedResults.length, true);
+                Pagination.resetPagination(processedResults.length, true);
             }
         });
         
@@ -156,32 +153,32 @@ const App = (() => {
             const isCategorySearch = state.lastSearch && state.lastSearch.categorySearch;
             const isPetMedalSearch = !isCategorySearch && state.lastSearch && 
                                    state.lastSearch.selectedItem && 
-                                   SearchManager.isPetMedalCategory(state.lastSearch.selectedItem.subCategory);
+                                   search.isPetMedalCategory(state.lastSearch.selectedItem.subCategory);
             
             // 분양 메달 필터링 적용
             let displayItems = items;
             if (isPetMedalSearch) {
-                displayItems = SearchManager.filterPetMedalResults(
+                displayItems = search.filterPetMedalResults(
                     items, 
                     state.lastSearch ? state.lastSearch.searchTerm : ''
                 );
             } else if (isCategorySearch && state.lastSearch && state.lastSearch.selectedItem && 
-                     SearchManager.isPetMedalCategory(state.lastSearch.selectedItem.subCategory)) {
+                     search.isPetMedalCategory(state.lastSearch.selectedItem.subCategory)) {
                 // 카테고리 검색이지만 분양 메달 카테고리인 경우 종족명만 추가
-                displayItems = SearchManager.filterPetMedalResults(items, null);
+                displayItems = search.filterPetMedalResults(items, null);
             }
             
             // 결과 없음 처리
             if (!displayItems || displayItems.length === 0) {
-                ItemDisplay.showNoResults();
+                ItemList.showNoResults();
                 return;
             }
             
             // 결과 표시
-            ItemDisplay.setSearchResults(displayItems);
+            ItemList.setSearchResults(displayItems);
             
             // 페이지네이션 최종 업데이트 (정확한 전체 아이템 수)
-            PaginationManager.resetPagination(displayItems.length);
+            Pagination.resetPagination(displayItems.length);
         });
     
         // 페이지 로드 오류 이벤트
@@ -200,29 +197,29 @@ const App = (() => {
                 // 일부 결과만 로드된 경우 경고 메시지
                 console.warn(`일부 페이지만 로드됨: ${loadedPages}페이지, ${loadedItems.length}개 항목`);
                 
-                // 일부 로드된 결과라도 표시
+                // 일부 로드된 결과라도 표시 (displayItems로 변수명 변경)
                 const isCategorySearch = state.lastSearch && state.lastSearch.categorySearch;
                 const isPetMedalSearch = !isCategorySearch && state.lastSearch && 
                                        state.lastSearch.selectedItem && 
-                                       SearchManager.isPetMedalCategory(state.lastSearch.selectedItem.subCategory);
+                                       search.isPetMedalCategory(state.lastSearch.selectedItem.subCategory);
                 
                 // 분양 메달 필터링 적용
-                let displayItems = loadedItems;
+                let displayItems = loadedItems; // 변수 선언
                 if (isPetMedalSearch) {
-                    displayItems = SearchManager.filterPetMedalResults(
+                    displayItems = search.filterPetMedalResults(
                         loadedItems, 
                         state.lastSearch ? state.lastSearch.searchTerm : ''
                     );
                 } else if (isCategorySearch && state.lastSearch && state.lastSearch.selectedItem && 
-                         SearchManager.isPetMedalCategory(state.lastSearch.selectedItem.subCategory)) {
-                    displayItems = SearchManager.filterPetMedalResults(loadedItems, null);
+                         search.isPetMedalCategory(state.lastSearch.selectedItem.subCategory)) {
+                    displayItems = search.filterPetMedalResults(loadedItems, null);
                 }
                 
                 // 결과 표시
-                ItemDisplay.setSearchResults(displayItems);
+                ItemList.setSearchResults(displayItems);
                 
                 // 페이지네이션 업데이트
-                PaginationManager.resetPagination(displayItems.length);
+                Pagination.resetPagination(displayItems.length);
             }
         });
     }
@@ -249,7 +246,7 @@ const App = (() => {
         };
         
         // 분양 메달 여부 확인
-        if (SearchManager.isPetMedalCategory(item.subCategory)) {
+        if (search.isPetMedalCategory(item.subCategory)) {
             state.isPetMedalSearchActive = true;
             state.petMedalSearchTerm = elements.searchInput ? elements.searchInput.value : '';
         } else {
@@ -315,7 +312,7 @@ const App = (() => {
         }
         
         // 자동완성 닫기
-        AutocompleteEngine.clearSuggestions();
+        search.clearSuggestions();
         
         // 페이지 타이틀 업데이트
         document.title = searchTerm ? `${searchTerm} - 마비노기DB` : '마비노기DB';
@@ -331,7 +328,7 @@ const App = (() => {
             elements.searchInput.focus();
             
             // 자동완성 닫기
-            AutocompleteEngine.clearSuggestions();
+            search.clearSuggestions();
         }
     }
     
@@ -366,7 +363,7 @@ const App = (() => {
             state.isSearching = true;
     
             // 진행 중인 백그라운드 로딩 중단
-            ApiClient.abortBackgroundLoading();
+            apiClient.abortBackgroundLoading();
             
             // 이벤트에서 데이터 추출 또는 입력 필드에서 데이터 가져오기
             let searchTerm, selectedItem, mainCategory, subCategory;
@@ -380,8 +377,8 @@ const App = (() => {
                     searchTerm = elements.searchInput.value.trim();
                 }
                 
-                // SearchManager에서 상태 가져오기
-                const searchState = SearchManager.getSearchState();
+                // search (service)에서 상태 가져오기
+                const searchState = search.getSearchState();
                 selectedItem = searchState.selectedItem;
                 
                 // 검색어와 선택된 아이템 이름이 다른 경우 선택된 아이템 초기화
@@ -412,9 +409,9 @@ const App = (() => {
             
             // 검색 결과 표시 영역 표시
             showResultsContainer();
-            if (window.filterUI && typeof window.filterUI.adjustResultsContainerPosition === 'function') {
-                window.filterUI.adjustResultsContainerPosition();
-            }
+            // FilterPanel의 책임으로 변경
+            FilterPanel.adjustResultsContainerPosition();
+            
             
             // 마지막 검색 정보 저장
             state.lastSearch = {
@@ -431,7 +428,7 @@ const App = (() => {
             showLoading();
             
             // 결과 영역 초기화
-            ItemDisplay.clearResults();
+            ItemList.clearResults();
             
             // API 호출 또는 로컬 데이터 검색 수행
             let apiPromise;
@@ -448,24 +445,24 @@ const App = (() => {
                 if (isCategorySearch) {
                     // 카테고리 검색 - 모든 카테고리를 동일하게 처리
                     console.log(`카테고리 [${itemCategory}] 검색`);
-                    apiPromise = ApiClient.searchByCategory(
+                    apiPromise = apiClient.searchByCategory(
                         itemMainCategory, 
                         itemCategory, 
                         null  // 카테고리 검색은 검색어 없이 진행
                     );
                 } else {
                     // 특별 카테고리 확인
-                    const isKeywordSearchCategory = SearchManager.isSpecialKeywordCategory(itemCategory);
-                    const isPetMedalCategory = SearchManager.isPetMedalCategory(itemCategory);
+                    const isKeywordSearchCategory = search.isSpecialKeywordCategory(itemCategory);
+                    const isPetMedalCategory = search.isPetMedalCategory(itemCategory);
                     
                     if (isKeywordSearchCategory) {
                         // 인챈트, 옷본, 도면 검색 처리
                         console.log(`아이템 [${searchTerm}] 검색`);
-                        apiPromise = ApiClient.searchByKeyword(searchTerm);
+                        apiPromise = apiClient.searchByKeyword(searchTerm);
                     } else if (isPetMedalCategory) {
                         // 분양 메달 검색 처리
                         console.log(`아이템 [분양 메달(${searchTerm})] 검색`);
-                        apiPromise = ApiClient.searchByCategory(
+                        apiPromise = apiClient.searchByCategory(
                             itemMainCategory, 
                             itemCategory,
                             null
@@ -473,7 +470,7 @@ const App = (() => {
                     } else {
                         // 일반 아이템 검색 처리
                         console.log(`아이템 [${itemCategory}/${searchTerm}] 검색`);
-                        apiPromise = ApiClient.searchByCategory(
+                        apiPromise = apiClient.searchByCategory(
                             itemMainCategory, 
                             itemCategory, 
                             searchTerm
@@ -483,7 +480,7 @@ const App = (() => {
             } else {
                 // 일반 키워드 검색 처리
                 console.log(`아이템 [${searchTerm}] 검색`);
-                apiPromise = ApiClient.searchByKeyword(searchTerm);
+                apiPromise = apiClient.searchByKeyword(searchTerm);
             }
             
             // API 응답 처리
@@ -491,7 +488,7 @@ const App = (() => {
                 .then(results => {
                     // 결과가 없는 경우 처리
                     if (!results || !results.items || results.items.length === 0) {
-                        ItemDisplay.showNoResults();
+                        ItemList.showNoResults();
                         hideLoading(); // 결과가 없을 때만 바로 로딩 숨김
                         console.log(`검색 완료: 결과 없음, ${Math.ceil(performance.now() - startTime)}ms`);
                     }
@@ -618,8 +615,9 @@ const App = (() => {
         if (state.isLoading || state.hasError || state.isSearching) return;
         
         // 자동완성이 표시된 상태인지 확인
-        const isAutoCompleteVisible = AutocompleteEngine.isSuggestionVisible();
-        const activeItem = isAutoCompleteVisible ? AutocompleteEngine.getActiveItem() : null;
+        const searchState = search.getSearchState();
+        const isAutoCompleteVisible = searchState.isSuggestionVisible;
+        const activeItem = isAutoCompleteVisible ? search.getActiveItem() : null; // search.js에 getActiveItem 추가 필요
         
         // 선택된 자동완성 항목이 있으면 그것으로 검색
         if (isAutoCompleteVisible && activeItem) {
@@ -641,9 +639,8 @@ const App = (() => {
             return;
         }
         
-        // SearchManager에서 상태 가져오기
-        const searchState = SearchManager.getSearchState();
-        const selectedItem = searchState.selectedItem;
+        // search (service)에서 상태 가져오기
+        const selectedItem = searchState.selectedItem; // 이미 선언된 searchState 사용
         
         // 검색어가 선택된 아이템과 동일한 경우 해당 아이템 정보 사용
         const useSelectedItem = selectedItem && (
@@ -669,7 +666,7 @@ const App = (() => {
      */
     function resetSearch() {
         // 백그라운드 로딩 중단
-        ApiClient.abortBackgroundLoading();
+        apiClient.abortBackgroundLoading();
         
         // 필터 상태 초기화
         resetAllFilters();
@@ -681,7 +678,7 @@ const App = (() => {
         exitSearchMode();
         
         // 검색 상태 초기화
-        SearchManager.resetSearch();
+        search.resetSearch();
         
         // 마지막 검색 정보 초기화
         state.lastSearch = {
@@ -700,9 +697,8 @@ const App = (() => {
          document.title = '마비노기DB';
 
         // 필터 UI 위치 재조정
-        if (window.filterUI && typeof window.filterUI.adjustResultsContainerPosition === 'function') {
-            window.filterUI.adjustResultsContainerPosition();
-        }
+        FilterPanel.adjustResultsContainerPosition();
+
     }
     
     /**
@@ -710,10 +706,10 @@ const App = (() => {
      */
     function handleSearchReset() {
         // 백그라운드 로딩 중단
-        ApiClient.abortBackgroundLoading();
+        apiClient.abortBackgroundLoading();
         
         // 결과 테이블 초기화
-        ItemDisplay.clearResults();
+        ItemList.clearResults();
         
         // 초기 모드로 전환
         exitSearchMode();
@@ -730,7 +726,7 @@ const App = (() => {
      */
     function handleFilterChanged(event) {
         // 로컬 필터링 적용
-        ItemDisplay.applyLocalFiltering();
+        ItemList.applyLocalFiltering();
     }
     
     /**
@@ -740,32 +736,7 @@ const App = (() => {
         const { startIndex, endIndex } = event.detail;
         
         // 페이지 변경에 따른 아이템 표시 업데이트
-        ItemDisplay.renderItemsForPage(startIndex, endIndex);
-    }
-    
-    /**
-     * 아이템 선택 처리
-     * @param {CustomEvent} event - 아이템 선택 이벤트
-     */
-    function handleItemSelected(event) {
-        // 자동완성 리스트 닫기
-        AutocompleteEngine.clearSuggestions();
-        
-        const { item } = event.detail;
-        
-        if (!item) {
-            console.warn('선택된 아이템 정보가 없습니다.');
-            return;
-        }
-        
-        // 검색 이벤트 발생
-        const searchEvent = new CustomEvent('search', {
-            detail: {
-                searchTerm: item.item_name || item.name,
-                selectedItem: item
-            }
-        });
-        document.dispatchEvent(searchEvent);
+        ItemList.renderItemsForPage(startIndex, endIndex);
     }
     
     /**
@@ -797,12 +768,13 @@ const App = (() => {
         
         // 키보드 이벤트는 AutocompleteEngine에서 주로 처리
         // 여기서는 AutocompleteEngine과 충돌하지 않는 동작만 처리
+        // -> 이제 search.js에서 모두 처리
         searchInput.addEventListener('keydown', function(e) {
             // 자동완성 상태 확인
-            const isSuggestionVisible = AutocompleteEngine.isSuggestionVisible();
+            const searchState = search.getSearchState();
             
             // 자동완성이 표시되지 않은 상태에서만 Enter 키 처리
-            if (e.key === 'Enter' && !isSuggestionVisible) {
+            if (e.key === 'Enter' && !searchState.isSuggestionVisible) {
                 triggerSearch();
             }
         }, true);
@@ -826,10 +798,10 @@ const App = (() => {
             }
             
             // 검색 결과 표시
-            ItemDisplay.setSearchResults(processedResults);
+            ItemList.setSearchResults(processedResults);
             
             // 일반 모드로 페이지네이션 업데이트 (로그 표시)
-            PaginationManager.resetPagination(processedResults.length, false);
+            Pagination.resetPagination(processedResults.length, false);
         }
     }
     
@@ -872,11 +844,11 @@ const App = (() => {
             await Promise.all([
                 initFilterManager(),
                 initPaginationManager(),
-                initItemDisplay()
+                initItemList()
             ]);
             
             // 필터 UI 초기화
-            filterUI.init();
+            FilterPanel.init();
             
             ItemTooltip.init();
     
@@ -895,7 +867,7 @@ const App = (() => {
      */
     async function initSearchManager() {
         try {
-            SearchManager.init();
+            search.init();
             markModuleInitialized('search');
             return true;
         } catch (error) {
@@ -909,7 +881,7 @@ const App = (() => {
      */
     async function initFilterManager() {
         try {
-            await FilterManager.init();
+            await filter.init();
             markModuleInitialized('filter');
             return true;
         } catch (error) {
@@ -923,7 +895,7 @@ const App = (() => {
      */
     async function initPaginationManager() {
         try {
-            PaginationManager.init();
+            Pagination.init();
             markModuleInitialized('pagination');
             return true;
         } catch (error) {
@@ -933,11 +905,11 @@ const App = (() => {
     }
     
     /**
-     * 아이템 디스플레이 초기화
+     * 아이템 목록 컴포넌트 초기화
      */
-    async function initItemDisplay() {
+    async function initItemList() {
         try {
-            ItemDisplay.init();
+            ItemList.init();
             markModuleInitialized('display');
             return true;
         } catch (error) {
@@ -970,7 +942,7 @@ const App = (() => {
      */
     function resetAllFilters() {
         // FilterManager 초기화
-        FilterManager.resetFilters();
+        filter.resetFilters();
     }
     
     // 공개 API

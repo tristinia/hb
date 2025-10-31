@@ -3,10 +3,10 @@
  * 필터 UI 렌더링 및 이벤트 처리
  */
 
-import FilterManager from './filter-manager.js';
-import optionFilter from './option-filter.js';
+import filterService from '../services/filter.js';
+import optionFilter from '../services/option-filter.js';
 
-class FilterUI {
+class FilterPanel {
     constructor() {
         // DOM 요소 참조
         this.filterContainer = null;
@@ -29,7 +29,7 @@ class FilterUI {
         this.snapThreshold = 0.75;
 
         // 필터 위치
-        window.filterUI = this;
+        window.FilterPanel = this;
     }
     
     /**
@@ -501,7 +501,7 @@ class FilterUI {
                 window.ItemDisplay.getCurrentCategory() : null;
             
             // 사용 가능한 필터 가져오기
-            const availableFilters = await FilterManager.getAvailableFiltersForCategory(currentCategory);
+            const availableFilters = await filterService.getAvailableFiltersForCategory(currentCategory);
             
             // 필터 옵션 메뉴 초기화
             this.filterOptions.innerHTML = '';
@@ -728,7 +728,7 @@ class FilterUI {
         }
         
         // 필터 삭제
-        FilterManager.removeFilterOption(filterId);
+        filterService.removeFilterOption(filterId);
         
         // 필터 버튼 삭제로 인한 행 수 변경 확인
         this.checkFilterRows();
@@ -1311,17 +1311,17 @@ class FilterUI {
                 
                 if (min || max) {
                     // 필터 옵션 업데이트
-                    FilterManager.updateFilterOption(filter.name, {
+                    filterService.addFilterOption(filter.name, {
                         type: 'range',
                         min: min,
                         max: max
                     });
                     
                     // 필터 버튼 스타일 업데이트
-                    this.updateFilterButtonStyle(filter.name, true);
+                    this.updateFilterButtonStyle(filter.name, true, { min, max });
                 } else {
                     // 필터 제거
-                    FilterManager.removeFilterOption(filter.name);
+                    filterService.removeFilterOption(filter.name);
                     
                     // 필터 버튼 스타일 업데이트
                     this.updateFilterButtonStyle(filter.name, false);
@@ -1347,16 +1347,16 @@ class FilterUI {
                 
                 if (value) {
                     // 필터 옵션 업데이트
-                    FilterManager.updateFilterOption(filter.name, {
+                    filterService.addFilterOption(filter.name, {
                         type: 'selection',
                         value: value
                     });
                     
                     // 필터 버튼 스타일 업데이트
-                    this.updateFilterButtonStyle(filter.name, true);
+                    this.updateFilterButtonStyle(filter.name, true, { value });
                 } else {
                     // 필터 제거
-                    FilterManager.removeFilterOption(filter.name);
+                    filterService.removeFilterOption(filter.name);
                     
                     // 필터 버튼 스타일 업데이트
                     this.updateFilterButtonStyle(filter.name, false);
@@ -1380,17 +1380,17 @@ class FilterUI {
                 
                 if (prefix || suffix) {
                     // 필터 옵션 업데이트
-                    FilterManager.updateFilterOption(filter.name, {
+                    filterService.addFilterOption(filter.name, {
                         type: 'enchant',
                         prefixEnchant: prefix,
                         suffixEnchant: suffix
                     });
                     
                     // 필터 버튼 스타일 업데이트
-                    this.updateFilterButtonStyle(filter.name, true);
+                    this.updateFilterButtonStyle(filter.name, true, { prefix, suffix });
                 } else {
                     // 필터 제거
-                    FilterManager.removeFilterOption(filter.name);
+                    filterService.removeFilterOption(filter.name);
                     
                     // 필터 버튼 스타일 업데이트
                     this.updateFilterButtonStyle(filter.name, false);
@@ -1420,7 +1420,7 @@ class FilterUI {
                 
                 if (name || minLevel || maxLevel) {
                     // 필터 옵션 업데이트
-                    FilterManager.updateFilterOption(filter.name, {
+                    filterService.addFilterOption(filter.name, {
                         type: 'reforge-option',
                         options: [{
                             name: name,
@@ -1430,10 +1430,10 @@ class FilterUI {
                     });
                     
                     // 필터 버튼 스타일 업데이트
-                    this.updateFilterButtonStyle(filter.name, true);
+                    this.updateFilterButtonStyle(filter.name, true, { name, minLevel, maxLevel });
                 } else {
                     // 필터 제거
-                    FilterManager.removeFilterOption(filter.name);
+                    filterService.removeFilterOption(filter.name);
                     
                     // 필터 버튼 스타일 업데이트
                     this.updateFilterButtonStyle(filter.name, false);
@@ -1462,17 +1462,17 @@ class FilterUI {
                 
                 if (rank || lineCount) {
                     // 필터 옵션 업데이트
-                    FilterManager.updateFilterOption(filter.name, {
+                    filterService.addFilterOption(filter.name, {
                         type: 'reforge-status',
                         rank: rank,
                         lineCount: lineCount
                     });
                     
                     // 필터 버튼 스타일 업데이트
-                    this.updateFilterButtonStyle(filter.name, true);
+                    this.updateFilterButtonStyle(filter.name, true, { rank, lineCount });
                 } else {
                     // 필터 제거
-                    FilterManager.removeFilterOption(filter.name);
+                    filterService.removeFilterOption(filter.name);
                     
                     // 필터 버튼 스타일 업데이트
                     this.updateFilterButtonStyle(filter.name, false);
@@ -1502,7 +1502,7 @@ class FilterUI {
                 
                 if (grade || minLevel || maxLevel) {
                     // 필터 옵션 업데이트
-                    FilterManager.updateFilterOption(filter.name, {
+                    filterService.addFilterOption(filter.name, {
                         type: 'erg',
                         grade: grade,
                         minLevel: minLevel,
@@ -1510,10 +1510,10 @@ class FilterUI {
                     });
                     
                     // 필터 버튼 스타일 업데이트
-                    this.updateFilterButtonStyle(filter.name, true);
+                    this.updateFilterButtonStyle(filter.name, true, { grade, minLevel, maxLevel });
                 } else {
                     // 필터 제거
-                    FilterManager.removeFilterOption(filter.name);
+                    filterService.removeFilterOption(filter.name);
                     
                     // 필터 버튼 스타일 업데이트
                     this.updateFilterButtonStyle(filter.name, false);
@@ -1544,7 +1544,7 @@ class FilterUI {
                 
                 if (modType || minLevel || maxLevel) {
                     // 필터 옵션 업데이트
-                    FilterManager.updateFilterOption(filter.name, {
+                    filterService.addFilterOption(filter.name, {
                         type: 'special-mod',
                         modType: modType,
                         minLevel: minLevel,
@@ -1552,10 +1552,10 @@ class FilterUI {
                     });
                     
                     // 필터 버튼 스타일 업데이트
-                    this.updateFilterButtonStyle(filter.name, true);
+                    this.updateFilterButtonStyle(filter.name, true, { modType, minLevel, maxLevel });
                 } else {
                     // 필터 제거
-                    FilterManager.removeFilterOption(filter.name);
+                    filterService.removeFilterOption(filter.name);
                     
                     // 필터 버튼 스타일 업데이트
                     this.updateFilterButtonStyle(filter.name, false);
@@ -1586,7 +1586,7 @@ class FilterUI {
                 
                 if (name || minValue || maxValue) {
                     // 필터 옵션 업데이트
-                    FilterManager.updateFilterOption(filter.name, {
+                    filterService.addFilterOption(filter.name, {
                         type: 'set-effect',
                         effects: [{
                             name: name,
@@ -1596,10 +1596,10 @@ class FilterUI {
                     });
                     
                     // 필터 버튼 스타일 업데이트
-                    this.updateFilterButtonStyle(filter.name, true);
+                    this.updateFilterButtonStyle(filter.name, true, { name, minValue, maxValue });
                 } else {
                     // 필터 제거
-                    FilterManager.removeFilterOption(filter.name);
+                    filterService.removeFilterOption(filter.name);
                     
                     // 필터 버튼 스타일 업데이트
                     this.updateFilterButtonStyle(filter.name, false);
@@ -1616,7 +1616,7 @@ class FilterUI {
     /**
      * 필터 버튼 스타일 업데이트
      */
-    updateFilterButtonStyle(filterId, isActive) {
+    updateFilterButtonStyle(filterId, isActive, values = {}) {
         const filterBtn = document.querySelector(`.filter-btn[data-filter="${filterId}"]`);
         if (filterBtn) {
             if (isActive) {
@@ -1731,6 +1731,6 @@ class FilterUI {
 }
 
 // 싱글톤 인스턴스 생성 및 내보내기
-const filterUI = new FilterUI();
+const filterPanel = new FilterPanel();
 
-export default filterUI;
+export default filterPanel;

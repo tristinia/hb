@@ -211,292 +211,24 @@ class OptionRenderer {
   }
 
   renderItemAttributesSection(options, block) {
-    // 1. 속성을 6개 그룹으로 분류
-    // === 묶음 1: 기본 속성 + 전용 관련 + 새 속성들 ===
-    const group1 = [];
-    
-    // === 묶음 2: 피어싱 레벨 ===
-    const piercingOption = options.find(opt => opt.option_type === '피어싱 레벨');
-    
-    // === 묶음 3: 사용 효과, 조미료 효과, 내구도, 거래 횟수, 남은 사용 횟수, 인챈트 불가능, 아이템 보호 ===
-    const group3 = [];
-    
-    // === 묶음 4: 에코스톤 등급 ===
-    const ecostoneRankOption = options.find(opt => opt.option_type === '에코스톤 등급');
-    
-    // === 묶음 5: 에코스톤 고유 능력 ===
-    const ecostoneAbilityOptions = options.filter(opt => opt.option_type === '에코스톤 고유 능력');
-    
-    // === 묶음 6: 에코스톤 각성 능력 ===
-    const ecostoneAwakeningOptions = options.filter(opt => opt.option_type === '에코스톤 각성 능력');
-    
-    // 인챈트 종류 옵션 찾기 (group1에 속함)
-    const enchantTypeOptions = options.filter(opt => opt.option_type === '인챈트 종류');
-    
-    // 인챈트 불가능 옵션 확인 (group3에 속함)
-    const notEnchantableOption = options.find(opt => 
-      opt.option_type === '인챈트 불가능' && opt.option_value === 'true'
-    );
+    // 1. 데이터 준비: 옵션을 그룹별로 분류
+    const groupedOptions = this._groupOptions(options);
 
-    // 내구도 옵션 찾기 (group3에 속함)
-    const durabilityOption = options.find(opt => opt.option_type === '내구도');
-    
-    // 남은 거래 횟수 옵션 찾기 (group3에 속함)
-    const tradeCountOption = options.find(opt => opt.option_type === '남은 거래 횟수');
-    
-    // 남은 사용 횟수 옵션 찾기 (group3에 속함)
-    const usageCountOption = options.find(opt => opt.option_type === '남은 사용 횟수');
-    
-    // 사용 효과 옵션 (group3에 속함)
-    const usageEffectOptions = options.filter(opt => opt.option_type === '사용 효과');
-    
-    // 조미료 효과 옵션 (group3에 속함)
-    const spiceEffectOptions = options.filter(opt => opt.option_type === '조미료 효과');
-    
-    // 토템 관련 옵션 분류
-    const totemEffectOptions = options.filter(opt => opt.option_type === '토템 효과');
-    const totemAdditionalOptions = options.filter(opt => opt.option_type === '토템 추가 옵션');
-    const totemLimitOptions = options.filter(opt => opt.option_type === '토템 강화 제한');
-    
-    // 펫 정보 옵션 처리
-    const petInfoOptions = options.filter(opt => opt.option_type === '펫 정보');
-    if (petInfoOptions.length > 0) {
-      // 펫 정보의 경우 한 번에 처리하기 위해 별도 처리
-      const petInfo = this.processAllPetInfo(petInfoOptions);
-      if (petInfo) {
-        group1.push({
-          option_type: 'processed_pet_info',
-          option_value: petInfo
-        });
-      }
-    }
-    
-    // 토템 강화 제한이 있는지 확인
-    const hasTotemLimits = totemLimitOptions.length > 0;
-    
-    // 토템 효과나 추가 옵션이 없지만 강화 제한이 있는 경우 "없음" 옵션 생성
-    if (hasTotemLimits) {
-      if (totemEffectOptions.length === 0) {
-        group1.push({
-          option_type: 'totem_none_effect',
-          option_value: '일반 옵션 : 없음'
-        });
-      }
-      
-      if (totemAdditionalOptions.length === 0) {
-        group1.push({
-          option_type: 'totem_none_additional',
-          option_value: '추가 옵션 : 없음'
-        });
-      }
-    }
-    
-    // 방어 관련 속성 확인
-    const hasDefenseValues = options.some(opt => 
-      opt.option_type === '방어력' || opt.option_type === '보호'
-    );
-    
-    const hasMagicDefenseValues = options.some(opt => 
-      opt.option_type === '마법 방어력' || opt.option_type === '마법 보호'
-    );
-    
-    // 아이템 보호 옵션을 순서대로 수집
-    const protectionOptions = {
-      '인챈트 추출': null,
-      '인챈트 실패': null,
-      '수리 실패': null
-    };
-    
-    // 모든 아이템 보호 옵션 찾기
-    options.forEach(option => {
-      if (option.option_type === '아이템 보호') {
-        const value = option.option_value;
-        if (value in protectionOptions) {
-          protectionOptions[value] = option;
-        }
-      }
-    });
-
-    const hasProtectionOptions = Object.values(protectionOptions).some(opt => opt !== null);
-    
-    // 방어 관련 속성 보강
-    const defenseOptions = [];
-    
-    // 방어력 속성 보강
-    if (hasDefenseValues || hasMagicDefenseValues) {
-      // 방어력
-      const defenseOpt = options.find(opt => opt.option_type === '방어력');
-      if (defenseOpt) {
-        defenseOptions.push(defenseOpt);
-      } else {
-        // 방어력 속성이 없으면 0으로 가상 속성 추가
-        defenseOptions.push({
-          option_type: '방어력',
-          option_value: '0'
-        });
-      }
-      
-      // 보호
-      const protectionOpt = options.find(opt => opt.option_type === '보호');
-      if (protectionOpt) {
-        defenseOptions.push(protectionOpt);
-      } else {
-        // 보호 속성이 없으면 0으로 가상 속성 추가
-        defenseOptions.push({
-          option_type: '보호',
-          option_value: '0'
-        });
-      }
-    }
-    
-    // 마법 방어 관련 속성 보강
-    if (hasMagicDefenseValues) {
-      // 마법 방어력
-      const magicDefenseOpt = options.find(opt => opt.option_type === '마법 방어력');
-      if (magicDefenseOpt) {
-        defenseOptions.push(magicDefenseOpt);
-      } else {
-        // 마법 방어력 속성이 없으면 0으로 가상 속성 추가
-        defenseOptions.push({
-          option_type: '마법 방어력',
-          option_value: '0'
-        });
-      }
-      // 마법 보호
-      const magicProtectionOpt = options.find(opt => opt.option_type === '마법 보호');
-      if (magicProtectionOpt) {
-        defenseOptions.push(magicProtectionOpt);
-      } else {
-        // 마법 보호 속성이 없으면 0으로 가상 속성 추가
-        defenseOptions.push({
-          option_type: '마법 보호',
-          option_value: '0'
-        });
-      }
-    }
-    
-    // 각 옵션을 적절한 그룹에 할당
-    options.forEach(option => {
-      const type = option.option_type;
-      
-      // group3에 속하는 옵션
-      if (type === '내구도' || type === '남은 거래 횟수' || type === '남은 사용 횟수' ||
-          type === '인챈트 불가능' || type === '아이템 보호' || 
-          type === '사용 효과' || type === '조미료 효과') {
-        return; // 별도 처리
-      }
-      
-      // 피어싱 레벨은 group2에 할당
-      if (type === '피어싱 레벨') {
-        return; // 별도 처리
-      }
-      
-      // 인챈트 종류도 별도로 처리
-      if (type === '인챈트 종류') {
-        return; // 별도 처리
-      }
-      
-      // 에코스톤 관련 속성은 별도 처리
-      if (type === '에코스톤 등급' || type === '에코스톤 고유 능력' || type === '에코스톤 각성 능력') {
-        return; // 별도 처리
-      }
-      
-      // 토템 관련 속성은 별도 처리
-      if (type === '토템 효과' || type === '토템 추가 옵션' || type === '토템 강화 제한' ||
-          type === 'totem_none_effect' || type === 'totem_none_additional') {
-        if (type !== 'totem_none_effect' && type !== 'totem_none_additional') {
-          group1.push(option);
-        }
-        return;
-      }
-      
-      // 펫 정보는 processAllPetInfo에서 처리
-      if (type === '펫 정보' || type === 'processed_pet_info') {
-        if (type === 'processed_pet_info') {
-          return; // 이미 처리됨
-        }
-        return; // 별도 처리
-      }
-      
-      // 방어 속성은 이미 defenseOptions에 수집됨
-      if (defenseOptions.some(o => o.option_type === type)) {
-        return;
-      }
-      
-      // 나머지는 group1에 할당
-      group1.push(option);
-    });
-    
-    // 방어 속성 추가
-    defenseOptions.forEach(opt => {
-      group1.push(opt);
-    });
-    
-    // 인챈트 종류를 group1에 추가
-    enchantTypeOptions.forEach(opt => {
-      group1.push(opt);
-    });
-
-    // 1번 그룹 정렬
-    const attributeOrder = [
-      '공격', '부상률', '크리티컬', '밸런스', '방어력', '보호', '마법 방어력', '마법 보호', 
-      '내구력', '숙련', '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가', 
-      '인챈트 종류', '색상', '품질', '크기', '토템 효과', '토템 추가 옵션', '토템 강화 제한',
-      'totem_none_effect', 'totem_none_additional', 'processed_pet_info'
-    ];
-    
-    group1.sort((a, b) => 
-      attributeOrder.indexOf(a.option_type) - attributeOrder.indexOf(b.option_type)
-    );
-    
-    // 사용 효과 추가
-    usageEffectOptions.forEach(opt => {
-      group3.push(opt);
-    });
-    
-    // 조미료 효과 추가
-    spiceEffectOptions.forEach(opt => {
-      group3.push(opt);
-    });
-    
-    // 내구도 추가
-    if (durabilityOption) {
-      group3.push(durabilityOption);
-    }
-    
-    // 거래 횟수 추가
-    if (tradeCountOption) {
-      group3.push(tradeCountOption);
-    }
-    
-    // 남은 사용 횟수 추가
-    if (usageCountOption) {
-      group3.push(usageCountOption);
-    }
-    
-    // 인챈트 불가능 추가
-    if (notEnchantableOption && notEnchantableOption.option_value === 'true') {
-      group3.push(notEnchantableOption);
-    }
-    
-    // 아이템 보호 옵션 추가
-    ['인챈트 추출', '인챈트 실패', '수리 실패'].forEach(key => {
-      if (protectionOptions[key]) {
-        group3.push(protectionOptions[key]);
-      }
-    });
+    // 2. 데이터 처리: 각 그룹의 옵션을 정렬하고 필요한 데이터를 보강
+    this._processGroup1(groupedOptions.group1);
+    this._processGroup3(groupedOptions.group3);
     
     // === 그룹 렌더링 시작 ===
     
     // 그룹 1 렌더링
-    group1.forEach((option, index) => {
-      const isLast = index === group1.length - 1;
+    groupedOptions.group1.forEach((option, index) => {
+      const isLast = index === groupedOptions.group1.length - 1;
       
       // 간격 설정
       let gapClass = '';
       if (isLast) {
         // 다음 그룹이 있는지 확인
-        if (piercingOption || group3.length > 0 || ecostoneRankOption) {
+        if (groupedOptions.piercingOption || groupedOptions.group3.length > 0 || groupedOptions.ecostoneRankOption) {
           gapClass = 'gap-md';
         }
       } else {
@@ -524,21 +256,21 @@ class OptionRenderer {
     });
     
     // 그룹 2 (피어싱) 렌더링
-    if (piercingOption) {
+    if (groupedOptions.piercingOption) {
       // 다음 그룹이 있는지 확인
-      const hasNextGroup = group3.length > 0 || ecostoneRankOption;
+      const hasNextGroup = groupedOptions.group3.length > 0 || groupedOptions.ecostoneRankOption;
       const gapClass = hasNextGroup ? 'gap-md' : '';
-      this.createOptionElement(piercingOption, block, gapClass);
+      this.createOptionElement(groupedOptions.piercingOption, block, gapClass);
     }
     
     // 그룹 3 렌더링
     let lastSpiceEffectIndex = -1;
     let hasAddedSpiceHeader = false;
     
-    group3.forEach((option, index) => {
-      const isLast = index === group3.length - 1;
+    groupedOptions.group3.forEach((option, index) => {
+      const isLast = index === groupedOptions.group3.length - 1;
       // 다음 그룹이 있는지 확인
-      const hasNextGroup = ecostoneRankOption;
+      const hasNextGroup = groupedOptions.ecostoneRankOption;
       // 마지막 항목은 다음 그룹이 있으면 gap-md, 아니면 간격 없음, 그 외에는 xxs 간격
       const gapClass = isLast ? (hasNextGroup ? 'gap-md' : '') : 'gap-xxs';
       
@@ -581,8 +313,8 @@ class OptionRenderer {
     });
     
     // 그룹 4 (에코스톤 등급) 렌더링
-    if (ecostoneRankOption) {
-      const rank = parseInt(ecostoneRankOption.option_value) || 0;
+    if (groupedOptions.ecostoneRankOption) {
+      const rank = parseInt(groupedOptions.ecostoneRankOption.option_value) || 0;
       let colorClass = '';
       
       if (rank > 20) {
@@ -592,7 +324,7 @@ class OptionRenderer {
       }
       
       // 다음 그룹이 있는지 확인
-      const hasNextGroup = ecostoneAbilityOptions.length > 0 || ecostoneAwakeningOptions.length > 0;
+      const hasNextGroup = groupedOptions.ecostoneAbilityOptions.length > 0 || groupedOptions.ecostoneAwakeningOptions.length > 0;
       const gapClass = hasNextGroup ? 'gap-md' : '';
       
       const optionElement = document.createElement('div');
@@ -602,7 +334,7 @@ class OptionRenderer {
     }
     
     // 그룹 5 (에코스톤 고유 능력) 렌더링
-    if (ecostoneAbilityOptions.length > 0) {
+    if (groupedOptions.ecostoneAbilityOptions.length > 0) {
       // 헤더
       const headerElement = document.createElement('div');
       headerElement.className = 'tooltip-stat gap-xs';
@@ -610,10 +342,10 @@ class OptionRenderer {
       block.appendChild(headerElement);
       
       // 능력 렌더링
-      ecostoneAbilityOptions.forEach((option, index) => {
-        const isLast = index === ecostoneAbilityOptions.length - 1;
+      groupedOptions.ecostoneAbilityOptions.forEach((option, index) => {
+        const isLast = index === groupedOptions.ecostoneAbilityOptions.length - 1;
         // 다음 그룹이 있는지 확인
-        const hasNextGroup = ecostoneAwakeningOptions.length > 0;
+        const hasNextGroup = groupedOptions.ecostoneAwakeningOptions.length > 0;
         const gapClass = isLast ? (hasNextGroup ? 'gap-md' : '') : 'gap-xxs';
         
         const optionElement = document.createElement('div');
@@ -624,7 +356,7 @@ class OptionRenderer {
     }
     
     // 그룹 6 (에코스톤 각성 능력) 렌더링
-    if (ecostoneAwakeningOptions.length > 0) {
+    if (groupedOptions.ecostoneAwakeningOptions.length > 0) {
       // 헤더
       const headerElement = document.createElement('div');
       headerElement.className = 'tooltip-stat gap-xs';
@@ -632,8 +364,8 @@ class OptionRenderer {
       block.appendChild(headerElement);
       
       // 능력 렌더링
-      ecostoneAwakeningOptions.forEach((option, index) => {
-        const isLast = index === ecostoneAwakeningOptions.length - 1;
+      groupedOptions.ecostoneAwakeningOptions.forEach((option, index) => {
+        const isLast = index === groupedOptions.ecostoneAwakeningOptions.length - 1;
         const gapClass = isLast ? '' : 'gap-xxs'; // 마지막 항목은 간격 없음
         
         const optionElement = document.createElement('div');
@@ -642,6 +374,103 @@ class OptionRenderer {
         block.appendChild(optionElement);
       });
     }
+  }
+
+  _groupOptions(options) {
+    const attributeGroupConfig = {
+        'group1': ['공격', '부상률', '크리티컬', '밸런스', '내구력', '숙련', '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가', '인챈트 종류', '색상', '품질', '크기', '토템 효과', '토템 추가 옵션', '토템 강화 제한', '펫 정보', '방어력', '보호', '마법 방어력', '마법 보호'],
+        'group2': ['피어싱 레벨'],
+        'group3': ['사용 효과', '조미료 효과', '내구도', '남은 거래 횟수', '남은 사용 횟수', '인챈트 불가능', '아이템 보호'],
+        'group4': ['에코스톤 등급'],
+        'group5': ['에코스톤 고유 능력'],
+        'group6': ['에코스톤 각성 능력']
+    };
+
+    const grouped = options.reduce((acc, option) => {
+        let groupName = 'group1'; // 기본 그룹
+        for (const [key, types] of Object.entries(attributeGroupConfig)) {
+            if (types.includes(option.option_type)) {
+                groupName = key;
+                break;
+            }
+        }
+        if (!acc[groupName]) acc[groupName] = [];
+        acc[groupName].push(option);
+        return acc;
+    }, {});
+
+    return {
+        group1: grouped.group1 || [],
+        piercingOption: (grouped.group2 || [])[0],
+        group3: grouped.group3 || [],
+        ecostoneRankOption: (grouped.group4 || [])[0],
+        ecostoneAbilityOptions: grouped.group5 || [],
+        ecostoneAwakeningOptions: grouped.group6 || [],
+    };
+  }
+
+  _processGroup1(group1) {
+    // 펫 정보 통합
+    const petInfoOptions = group1.filter(opt => opt.option_type === '펫 정보');
+    if (petInfoOptions.length > 0) {
+        const petInfo = this.processAllPetInfo(petInfoOptions);
+        if (petInfo) {
+            const otherOptions = group1.filter(opt => opt.option_type !== '펫 정보');
+            group1.length = 0; // 배열 비우기
+            group1.push(...otherOptions, { option_type: 'processed_pet_info', option_value: petInfo });
+        }
+    }
+
+    // 토템 옵션 보강
+    if (group1.some(opt => opt.option_type === '토템 강화 제한')) {
+        if (!group1.some(opt => opt.option_type === '토템 효과')) {
+            group1.push({ option_type: 'totem_none_effect', option_value: '일반 옵션 : 없음' });
+        }
+        if (!group1.some(opt => opt.option_type === '토템 추가 옵션')) {
+            group1.push({ option_type: 'totem_none_additional', option_value: '추가 옵션 : 없음' });
+        }
+    }
+
+    // 방어 관련 속성 보강
+    const defenseTypes = ['방어력', '보호', '마법 방어력', '마법 보호'];
+    if (group1.some(opt => defenseTypes.includes(opt.option_type))) {
+        defenseTypes.forEach(type => {
+            if (!group1.some(opt => opt.option_type === type)) {
+                group1.push({ option_type: type, option_value: '0' });
+            }
+        });
+    }
+
+    // 그룹1 정렬
+    const attributeOrder = [
+      '공격', '부상률', '크리티컬', '밸런스', '방어력', '보호', '마법 방어력', '마법 보호', 
+      '내구력', '숙련', '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가', 
+      '인챈트 종류', '색상', '품질', '크기', '토템 효과', '토템 추가 옵션', '토템 강화 제한',
+      'totem_none_effect', 'totem_none_additional', 'processed_pet_info'
+    ];
+    group1.sort((a, b) => attributeOrder.indexOf(a.option_type) - attributeOrder.indexOf(b.option_type));
+  }
+
+  _processGroup3(group3) {
+    const group3Order = ['사용 효과', '조미료 효과', '내구도', '남은 거래 횟수', '남은 사용 횟수', '인챈트 불가능', '아이템 보호'];
+    const protectionOptions = { '인챈트 추출': null, '인챈트 실패': null, '수리 실패': null };
+    const otherGroup3Options = [];
+
+    group3.forEach(option => {
+        if (option.option_type === '아이템 보호' && option.option_value in protectionOptions) {
+            protectionOptions[option.option_value] = option;
+        } else {
+            otherGroup3Options.push(option);
+        }
+    });
+
+    otherGroup3Options.sort((a, b) => group3Order.indexOf(a.option_type) - group3Order.indexOf(b.option_type));
+    
+    group3.length = 0; // 배열 비우기
+    group3.push(...otherGroup3Options);
+    ['인챈트 추출', '인챈트 실패', '수리 실패'].forEach(key => {
+        if (protectionOptions[key]) group3.push(protectionOptions[key]);
+    });
   }
   
   processAllPetInfo(petOptions) {

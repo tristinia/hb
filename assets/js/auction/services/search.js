@@ -1,13 +1,10 @@
 /**
- * 경매장 검색 관리 모듈
+ * search 서비스
  * 경매장 특화 검색 기능 및 자동완성 처리
  */
 
-import Utils from '../common/utils.js';
-import SearchCore from '../common/search-core.js';
-import AutocompleteEngine from '../common/autocomplete-engine.js';
-import FilterManager from './filter-manager.js';
-import CategoryManager from './category-manager.js';
+import Utils from './utils.js';
+import categories from './categories.js';
 
 const MAX_RESULTS = 30;
 const MIN_SCORE = 40;
@@ -18,14 +15,14 @@ const SPECIAL_CATEGORIES = {
     PET_MEDAL: '분양 메달'
 };
 
-const SearchManager = (() => {
+const search = (() => {
     // 경매장 검색 상태
     const state = {
         searchTerm: '',
         suggestions: [],
-        activeSuggestion: -1,
+        activeSuggestion: -1, // 자동완성 활성 인덱스
         selectedItem: null,
-        isSuggestionVisible: false,
+        isSuggestionVisible: false, // 자동완성 표시 여부
         loadedItemFiles: new Set(),  // 이미 로드한 아이템 파일 추적
         isInitialized: false, // 초기화 상태 추적
         isLoading: false, // 로딩 상태
@@ -39,7 +36,8 @@ const SearchManager = (() => {
         lastSearchResults: [], // 마지막 검색 결과 저장
         isPetMedalSearchActive: false, // 분양 메달 특별 검색 모드
         petMedalSearchTerm: '', // 분양 메달 필터링용 검색어
-        isCategorySearch: false
+        isCategorySearch: false,
+        showViaDownArrow: false // 방향키로 자동완성 열었는지 여부
     };
     
     // 자동완성 데이터
@@ -68,7 +66,8 @@ const SearchManager = (() => {
         searchInput: null,
         searchButton: null,
         resetButton: null,
-        suggestionsList: null
+        suggestionsList: null,
+        suggestionsContainer: null
     };
     
     /**
@@ -80,7 +79,8 @@ const SearchManager = (() => {
             elements.searchInput = document.getElementById('search-input');
             elements.searchButton = document.querySelector('.search-button');
             elements.resetButton = document.getElementById('reset-button');
-            elements.suggestionsList = document.getElementById('suggestions');
+            elements.suggestionsList = document.getElementById('suggestions'); // 자동완성 목록
+            elements.suggestionsContainer = document.getElementById('suggestions-container'); // 자동완성 컨테이너
     
             // 로딩 상태 표시
             if (elements.searchInput) {
@@ -88,20 +88,6 @@ const SearchManager = (() => {
                 elements.searchInput.placeholder = "데이터 로딩 중...";
                 state.isLoading = true;
             }
-            
-            // 핵심 검색 모듈 초기화
-            SearchCore.init({
-                context: 'auction',
-                onSearch: handleSearch,
-                onReset: resetSearch
-            });
-            
-            // 자동완성 엔진 초기화
-            AutocompleteEngine.init({
-                context: 'auction',
-                dataSource: getSuggestions,
-                onSelect: handleAutocompleteSelect
-            });
             
             // 이벤트 리스너 설정
             setupEventListeners();
@@ -158,24 +144,106 @@ const SearchManager = (() => {
     function setupEventListeners() {
         // 검색 입력창 이벤트
         if (elements.searchInput) {
-            // 입력 이벤트
             elements.searchInput.addEventListener('input', handleSearchInput);
+            elements.searchInput.addEventListener('keydown', handleKeyDown, true);
+            elements.searchInput.addEventListener('click', handleSearchInputClick);
+            elements.searchInput.addEventListener('focus', handleSearchInputFocus);
         }
         
         if (elements.searchButton) {
-            // 검색 버튼 클릭
             elements.searchButton.addEventListener('click', handleSearch);
         }
         
         if (elements.resetButton) {
-            // 초기화 버튼 클릭
             elements.resetButton.addEventListener('click', resetSearch);
         }
-    
+
+        // 문서 클릭 시 자동완성 닫기
+        document.addEventListener('click', handleDocumentClick, true);
+
+        // 검색 완료 시 자동완성 닫기
+        document.addEventListener('search', clearSuggestions);
+
         // 검색 결과 수신 리스너
         document.addEventListener('searchResultsReceived', (e) => {
             const { results, searchTerm } = e.detail;
         });
+
+        // 자동완성 컨테이너 위치 조정을 위한 이벤트
+        if (window.ResizeObserver) {
+            const searchContainerObserver = new ResizeObserver(() => {
+                if (state.isSuggestionVisible) {
+                    updateSuggestionsPosition();
+                }
+            });
+            const searchContainer = document.querySelector('.search-container');
+            if (searchContainer) {
+                searchContainerObserver.observe(searchContainer);
+            }
+        }
+        window.addEventListener('resize', () => {
+            if (state.isSuggestionVisible) updateSuggestionsPosition();
+        });
+        window.addEventListener('scroll', () => {
+            if (state.isSuggestionVisible) updateSuggestionsPosition();
+        });
+    }
+
+    /**
+     * 자동완성 목록 위치 동적 계산
+     */
+    function updateSuggestionsPosition() {
+        if (!state.isSuggestionVisible || !elements.searchInput) return;
+        
+        const searchWrapper = document.querySelector('.search-wrapper');
+        if (!searchWrapper) return;
+        
+        const searchRect = searchWrapper.getBoundingClientRect();
+        const topPosition = searchRect.bottom + 10;
+        
+        elements.suggestionsContainer.style.position = 'fixed';
+        elements.suggestionsContainer.style.top = `${topPosition}px`;
+        elements.suggestionsContainer.style.width = `${searchRect.width}px`;
+        elements.suggestionsContainer.style.left = `${searchRect.left}px`;
+        elements.suggestionsContainer.style.transform = 'none';
+        elements.suggestionsContainer.style.maxWidth = 'none';
+        elements.suggestionsContainer.style.padding = '0';
+        
+        elements.suggestionsList.style.position = 'relative';
+        elements.suggestionsList.style.left = '0';
+        elements.suggestionsList.style.transform = 'none';
+        elements.suggestionsList.style.width = '100%';
+        elements.suggestionsList.style.maxWidth = '100%';
+        elements.suggestionsList.style.margin = '0';
+        
+        elements.suggestionsContainer.classList.add('visible');
+    }
+
+    /**
+     * 검색창 클릭 이벤트 처리
+     */
+    function handleSearchInputClick(e) {
+        if (elements.searchInput && elements.searchInput.value.trim()) {
+            updateSuggestions(elements.searchInput.value.trim());
+            e.stopPropagation();
+        }
+    }
+
+    /**
+     * 검색창 포커스 이벤트 처리
+     */
+    function handleSearchInputFocus(e) {
+        if (elements.searchInput && elements.searchInput.value.trim()) {
+            updateSuggestions(elements.searchInput.value.trim());
+        }
+    }
+
+    function handleDocumentClick(event) {
+        if (elements.searchInput && elements.suggestionsList &&
+            !elements.searchInput.contains(event.target) &&
+            !elements.suggestionsList.contains(event.target)) {
+            clearSuggestions();
+        }
     }
 
     /**
@@ -225,24 +293,6 @@ const SearchManager = (() => {
         
         // 아니면 종족명만 추가된 전체 결과 반환
         return processedResults;
-    }
-    
-    /**
-     * 자동완성 선택 처리 (콜백 함수)
-     * @param {Object} item - 선택한 아이템
-     * @param {number} index - 선택한 인덱스
-     */
-    function handleAutocompleteSelect(item, index) {
-        // 카테고리 아이템인 경우 특별 처리
-        if (item.isCategory) {
-            handleCategorySelect(item);
-            state.isCategorySearch = true;
-            return;
-        }
-        
-        state.isCategorySearch = false; // 일반 아이템 검색
-        // 일반 아이템 선택 처리
-        handleSelectSuggestion(item, index);
     }
     
     /**
@@ -719,13 +769,11 @@ const SearchManager = (() => {
         state.searchTerm = newSearchTerm;
         
         // 검색어 변경 이벤트 발생
-        const event = new CustomEvent('searchTermChanged', {
-            detail: {
-                term: state.searchTerm,
-                context: 'auction'
-            }
-        });
-        document.dispatchEvent(event);
+        if (!state.searchTerm) {
+            clearSuggestions();
+            return;
+        }
+        updateSuggestions(state.searchTerm);
     }
     
     /**
@@ -751,17 +799,93 @@ const SearchManager = (() => {
         return result;
     }
     
+    function handleKeyDown(e) {
+        switch (e.key) {
+            case 'ArrowDown':
+                e.preventDefault();
+                if (!state.isSuggestionVisible) {
+                    if (elements.searchInput && elements.searchInput.value.trim()) {
+                        state.showViaDownArrow = true;
+                        updateSuggestions(elements.searchInput.value.trim());
+                    }
+                } else {
+                    const totalSuggestions = state.suggestions.length;
+                    state.activeSuggestion = (state.activeSuggestion < totalSuggestions - 1) 
+                        ? state.activeSuggestion + 1 
+                        : totalSuggestions - 1;
+                    updateActiveSuggestion();
+                    scrollSuggestionIntoView();
+                }
+                break;
+                
+            case 'ArrowUp':
+                if (state.isSuggestionVisible) {
+                    e.preventDefault();
+                    state.activeSuggestion = (state.activeSuggestion > 0) 
+                        ? state.activeSuggestion - 1 
+                        : 0;
+                    updateActiveSuggestion();
+                    scrollSuggestionIntoView();
+                }
+                break;
+                
+            case 'Enter':
+                if (state.isSuggestionVisible && state.activeSuggestion >= 0 && state.activeSuggestion < state.suggestions.length) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleSelectSuggestion(state.suggestions[state.activeSuggestion], state.activeSuggestion);
+                    return false;
+                } else if (state.isSuggestionVisible) {
+                    clearSuggestions();
+                }
+                break;
+                
+            case 'Escape':
+                if (state.isSuggestionVisible) {
+                    e.preventDefault();
+                    clearSuggestions();
+                }
+                break;
+        }
+    }
+
+    function updateActiveSuggestion() {
+        const items = elements.suggestionsList.querySelectorAll('.suggestion-item');
+        items.forEach((item, index) => {
+            item.classList.toggle('active', index === state.activeSuggestion);
+        });
+    }
+
+    function scrollSuggestionIntoView() {
+        if (state.activeSuggestion < 0) return;
+        const activeItem = elements.suggestionsList.querySelector(`.suggestion-item.active`);
+        if (activeItem) {
+            activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    }
+
     /**
      * 검색어 기반 자동완성 추천 생성
      * @param {string} searchTerm - 검색어
      * @returns {Array} 추천 목록
      */
-    function getSuggestions(searchTerm) {
+    function updateSuggestions(searchTerm) {
         if (!searchTerm) return [];
         
+        state.lastSearchTerm = searchTerm;
+        const suggestions = generateSuggestions(searchTerm);
+
+        if (suggestions && suggestions.length > 0) {
+            state.suggestions = suggestions;
+            renderSuggestions();
+        } else {
+            clearSuggestions();
+        }
+    }
+
+    function generateSuggestions(searchTerm) {
         const normalizedTerm = searchTerm.toLowerCase();
         const noSpaceTerm = Utils.removeSpaces(normalizedTerm);
-        
         if (!Array.isArray(autocompleteData) || autocompleteData.length === 0) {
             return [];
         }
@@ -820,6 +944,67 @@ const SearchManager = (() => {
         
         // 최종 결과: 카테고리 결과 + 일반 아이템 결과
         return [...sortedCategories, ...sortedItems];
+    }
+
+    /**
+     * 추천 목록 렌더링
+     */
+    function renderSuggestions() {
+        if (!elements.suggestionsList) return;
+        
+        elements.suggestionsList.innerHTML = '';
+        
+        if (state.suggestions.length === 0) {
+            elements.suggestionsContainer.classList.remove('visible');
+            state.isSuggestionVisible = false;
+            return;
+        }
+        
+        elements.suggestionsList.classList.remove('hide');
+        const fragment = document.createDocumentFragment();
+        
+        state.suggestions.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.className = `suggestion-item ${index === state.activeSuggestion ? 'active' : ''}`;
+            
+            let content = '';
+            if (typeof item === 'object') {
+                const mainCat = item.mainCategory || '';
+                const subCat = item.isCategory ? item.name : (item.subCategory || '');
+                const categoryInfo = (mainCat || subCat) ? 
+                    `<div class="suggestion-category">${mainCat}${mainCat && subCat ? ' > ' : ''}${subCat}</div>` : '';
+                
+                if (item.isCategory) {
+                    content = `<div class="suggestion-name">카테고리: <span class="item-orange">${item.name}</span></div>${categoryInfo}`;
+                } else {
+                    content = `<div class="suggestion-name">${item.name || item.text || ''}</div>${categoryInfo}`;
+                }
+            } else {
+                content = `<div class="suggestion-name">${item}</div>`;
+            }
+            
+            li.innerHTML = content;
+            li.addEventListener('click', () => handleSelectSuggestion(item, index));
+            fragment.appendChild(li);
+        });
+        
+        elements.suggestionsList.appendChild(fragment);
+        elements.suggestionsContainer.classList.add('visible');
+        state.isSuggestionVisible = true;
+    
+        if (state.showViaDownArrow) {
+            state.activeSuggestion = 0;
+            state.showViaDownArrow = false;
+            updateActiveSuggestion();
+        }
+        
+        setTimeout(() => {
+            elements.suggestionsList.classList.add('show');
+        }, 10);
+        
+        elements.suggestionsList.classList.toggle('scrollable', state.suggestions.length > 10);
+        
+        updateSuggestionsPosition();
     }
     
     /**
@@ -1783,6 +1968,14 @@ const SearchManager = (() => {
         state.searchTerm = item.name;
         state.selectedItem = item;
         
+        // 카테고리 아이템인 경우 특별 처리
+        if (item.isCategory) {
+            handleCategorySelect(item);
+            state.isCategorySearch = true;
+            return;
+        }
+        state.isCategorySearch = false; // 일반 아이템 검색
+
         // 분양 메달 여부 확인 - 새로운 함수 사용
         const isPetMedalItem = isPetMedalCategory(item.subCategory);
         
@@ -1795,6 +1988,9 @@ const SearchManager = (() => {
             state.petMedalSearchTerm = '';
         }
         
+        // 자동완성 닫기
+        clearSuggestions();
+
         // 자동완성 선택 이벤트 발생 - 특별 카테고리 플래그 제거
         const autocompleteEvent = new CustomEvent('autocompleteSelected', {
             detail: {
@@ -1805,13 +2001,6 @@ const SearchManager = (() => {
             }
         });
         document.dispatchEvent(autocompleteEvent);
-        
-        // 필터 업데이트 호출
-        if (item.subCategory) {
-            FilterManager.updateFiltersForCategory(item.subCategory).catch(err => {
-                console.error('필터 업데이트 실패:', err);
-            });
-        }
         
         // 검색 이벤트 즉시 발생
         const searchEvent = new CustomEvent('search', {
@@ -1827,6 +2016,20 @@ const SearchManager = (() => {
         document.dispatchEvent(searchEvent);
     }
     
+    /**
+     * 활성화된 자동완성 아이템 가져오기
+     * @returns {Object|null} 활성화된 아이템 정보
+     */
+    function getActiveItem() {
+        if (state.isSuggestionVisible && state.activeSuggestion >= 0 && state.activeSuggestion < state.suggestions.length) {
+            return {
+                item: state.suggestions[state.activeSuggestion],
+                index: state.activeSuggestion
+            };
+        }
+        return null;
+    }
+
     /**
      * 검색 실행
      */
@@ -1846,11 +2049,9 @@ const SearchManager = (() => {
             }
             
             // 자동완성이 활성화되어 있고 선택된 항목이 있는지 확인
-            const isAutoCompleteVisible = AutocompleteEngine.isSuggestionVisible();
-            const activeItem = isAutoCompleteVisible ? AutocompleteEngine.getActiveItem() : null;
-            
-            if (isAutoCompleteVisible && activeItem) {
+            if (state.isSuggestionVisible && state.activeSuggestion >= 0) {
                 // 선택된 자동완성 항목으로 검색
+                const activeItem = state.suggestions[state.activeSuggestion];
                 handleSelectSuggestion(activeItem.item, activeItem.index);
                 return;
             }
@@ -1919,7 +2120,7 @@ const SearchManager = (() => {
             selectedItem: state.selectedItem,
             isLoading: state.isLoading,
             hasError: state.hasError,
-            isSuggestionVisible: AutocompleteEngine.isSuggestionVisible(),
+            isSuggestionVisible: state.isSuggestionVisible,
             isPetMedalSearchActive: state.isPetMedalSearchActive,
             petMedalSearchTerm: state.petMedalSearchTerm,
             isCategorySearch: state.isCategorySearch
@@ -1946,7 +2147,20 @@ const SearchManager = (() => {
      * 자동완성 목록 비우기
      */
     function clearSuggestions() {
-        AutocompleteEngine.clearSuggestions();
+        if (!elements.suggestionsList || !state.isSuggestionVisible) return;
+
+        elements.suggestionsList.classList.add('hide');
+        elements.suggestionsList.classList.remove('show');
+        
+        state.isSuggestionVisible = false;
+        elements.suggestionsContainer.classList.remove('visible');
+        
+        setTimeout(() => {
+            elements.suggestionsList.innerHTML = '';
+            state.suggestions = [];
+            state.activeSuggestion = -1;
+            elements.suggestionsList.classList.remove('hide');
+        }, 300);
     }
     
     /**
@@ -2024,8 +2238,9 @@ const SearchManager = (() => {
         clearCache,
         filterPetMedalResults,
         isSpecialKeywordCategory,
-        isPetMedalCategory
+        isPetMedalCategory,
+        getActiveItem
     };
 })();
 
-export default SearchManager;
+export default search;

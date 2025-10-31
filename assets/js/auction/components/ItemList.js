@@ -1,17 +1,17 @@
 /**
- * 아이템 표시 관리 모듈
+ * ItemList 컴포넌트
  * 검색 결과 표시, 아이템 정보, 툴팁 등 처리
  */
 
-import Utils from './utils.js';
-import ApiClient from './api-client.js';
-import FilterManager from './filter-manager.js';
-import PaginationManager from './pagination.js';
-import optionFilter from './option-filter.js';
-import optionRenderer from './option-renderer.js';
-import ItemTooltip from './item-tooltip.js';
+import Utils from '../services/utils.js';
+import apiClient from '../services/api-client.js';
+import filter from '../services/filter.js';
+import Pagination from './Pagination.js';
+import optionFilter from '../services/option-filter.js';
+import optionRenderer from '../services/option-renderer.js';
+import ItemTooltip from './ItemTooltip.js';
 
-const ItemDisplay = (() => {
+const ItemList = (() => {
     // 아이템 표시 상태
     const state = {
         searchResults: [],
@@ -135,23 +135,17 @@ const ItemDisplay = (() => {
      * 이벤트 리스너 설정
      */
     function setupEventListeners() {
-        const isMobile = Utils.isMobileDevice();
-        
-        if (isMobile) {
-            setupMobileEvents();
-        } else {
-            setupDesktopEvents();
-        }
+        setupDesktopEvents();
     }
     
     /**
      * 모바일 이벤트 설정
      */
     function setupMobileEvents() {
-        // 아이템 클릭 이벤트
-        elements.resultsBody.addEventListener('click', (e) => {
+        // 이벤트 위임: resultsBody에 하나의 리스너만 추가
+        elements.resultsBody.addEventListener('click', e => {
             const itemRow = e.target.closest('.item-row');
-            if (itemRow) {
+            if (itemRow && elements.resultsBody.contains(itemRow)) {
                 // 다른 아이템 클릭 시 이전 상태와 관계없이 항상 처리
                 handleItemClick(itemRow, e);
             }
@@ -178,27 +172,19 @@ const ItemDisplay = (() => {
      * PC 이벤트 설정
      */
     function setupDesktopEvents() {
-        // 아이템 호버 이벤트 - 테이블 전체에 대해 설정
-        elements.resultsTable.addEventListener('mouseover', (e) => {
+        // 이벤트 위임: mouseover와 click 이벤트를 resultsTable에 한 번만 등록
+        elements.resultsTable.addEventListener('mouseover', e => {
             const itemRow = e.target.closest('.item-row');
-            if (itemRow) {
+            if (itemRow && elements.resultsTable.contains(itemRow)) {
                 handleItemHover(itemRow, e);
             }
         });
-        
-        // 아이템 클릭 이벤트 (PC에서는 이벤트가 필요 없으나 일관성을 위해 유지)
-        elements.resultsTable.addEventListener('click', (e) => {
-            const itemRow = e.target.closest('.item-row');
-            if (itemRow) {
-                handleItemClick(itemRow, e);
-            }
-        });
-        
+
         // 문서 전체 마우스 이동 이벤트
-        document.addEventListener('mousemove', (e) => {
+        document.addEventListener('mousemove', e => {
             if (!ItemTooltip.isVisible()) {
                 // 툴팁이 표시되지 않은 상태에서 커서가 아이템 행 위에 있는 경우 툴팁 표시
-                const elementUnderCursor = document.elementFromPoint(e.clientX, e.clientY);
+                const elementUnderCursor = document.elementFromPoint(e.clientX, e.clientY); // This can be null
                 const itemRow = elementUnderCursor?.closest('.item-row');
                 if (itemRow) {
                     handleItemHover(itemRow, e);
@@ -207,16 +193,16 @@ const ItemDisplay = (() => {
             }
             
             // 마우스 위치 아래 요소 확인
-            const elementUnderCursor = document.elementFromPoint(e.clientX, e.clientY);
+            const elementUnderCursor = document.elementFromPoint(e.clientX, e.clientY); // This can be null
             
             // 툴팁 위에 있는 경우 처리
             if (elementUnderCursor?.closest('#item-tooltip')) {
                 // 툴팁 위치만 업데이트 (아이템 정보는 유지)
                 ItemTooltip.updatePosition(e.clientX, e.clientY);
-                return; // 여기서 종료하여 나머지 로직 실행하지 않음
+                return;
             }
             
-            const itemRow = elementUnderCursor?.closest('.item-row');
+            const itemRow = elementUnderCursor?.closest('.item-row'); // This can be null
             
             if (itemRow) {
                 // 아이템 행 위에 있을 때
@@ -320,7 +306,7 @@ const ItemDisplay = (() => {
      * @returns {Object} 시작 인덱스와 끝 인덱스
      */
     function getCurrentPageIndices() {
-        const paginationState = PaginationManager.getState();
+        const paginationState = Pagination.getState();
         if (!paginationState) return { startIndex: 0, endIndex: 0 };
         
         const startIndex = (paginationState.currentPage - 1) * paginationState.itemsPerPage;
@@ -395,10 +381,9 @@ const ItemDisplay = (() => {
         
         // 페이지네이션을 통해 첫 페이지 렌더링이 자동으로 호출되므로,
         // 여기서는 명시적으로 렌더링하지 않습니다.
-        // 페이지네이션 업데이트만으로 충분합니다.
-        // PaginationManager.resetPagination()이 'pageChanged' 이벤트를 발생시키고,
+        // 페이지네이션 업데이트만으로 충분합니다. (Pagination.resetPagination()이 'pageChanged' 이벤트를 발생시키고,
         // App.js의 handlePageChanged가 renderItemsForPage를 호출합니다.
-        PaginationManager.resetPagination(state.filteredResults.length);
+        Pagination.resetPagination(state.filteredResults.length);
         
         // 페이지네이션 표시 확인
         if (elements.pagination) {
@@ -420,13 +405,13 @@ const ItemDisplay = (() => {
         setTimeout(() => {
             try {
                 // 활성화된 필터 가져오기
-                const activeFilters = FilterManager.getFilters().activeFilters;
+                const activeFilters = filter.getFilters().activeFilters;
                 
                 // 필터링 로직 적용 - 필터가 없으면 모든 아이템 표시
                 let newFilteredResults;
                 if (activeFilters.length > 0) {
                     newFilteredResults = state.lastSearchResults.filter(item => {
-                        return FilterManager.itemPassesFilters(item) && 
+                        return filter.itemPassesFilters(item) && 
                             optionFilter.itemPassesFilters(item, activeFilters);
                     });
                 } else {
@@ -582,10 +567,11 @@ const ItemDisplay = (() => {
         const pageItems = state.filteredResults.slice(startIndex, endIndex);
         const fragment = document.createDocumentFragment();
 
+        // 각 행을 생성하여 fragment에 추가 (이벤트 리스너 등록은 하지 않음)
         pageItems.forEach(item => {
             fragment.appendChild(createItemRow(item));
         });
-        elements.resultsBody.appendChild(fragment);
+        elements.resultsBody.appendChild(fragment); // 최종적으로 DOM에 한 번만 추가
         
         // 페이지네이션 표시 확인
         if (elements.pagination) {
@@ -646,4 +632,4 @@ const ItemDisplay = (() => {
     };
 })();
 
-export default ItemDisplay;
+export default ItemList;

@@ -110,11 +110,9 @@ const ApiClient = (() => {
                 
                 // 다음 페이지 URL 설정 (수정된 부분)
                 if (pageData.next_cursor) {
-                    // 기존 URL에 커서 파라미터 추가 또는 갱신
-                    const nextUrl = new URL(currentUrl);
-                    nextUrl.searchParams.delete('cursor'); // 기존 커서값 제거
-                    nextUrl.searchParams.append('cursor', pageData.next_cursor);
-                    currentUrl = nextUrl.toString();
+                    const url = new URL(currentUrl);
+                    url.searchParams.set('cursor', pageData.next_cursor);
+                    currentUrl = url.toString();
                 } else {
                     currentUrl = null; // 다음 페이지가 없으면 종료
                 }

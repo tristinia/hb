@@ -1,5 +1,6 @@
 /**
  * 유틸리티 함수 모음
+ * 경매장 기능에 필요한 모든 헬퍼 함수를 포함합니다.
  */
 
 // 한글 관련 상수
@@ -29,6 +30,16 @@ const COMPOUND_JUNGSUNG_MAP = {
   'ㅗ': ['ㅘ', 'ㅙ', 'ㅚ'],
   'ㅜ': ['ㅝ', 'ㅞ', 'ㅟ'],
   'ㅡ': ['ㅢ']
+};
+
+// 영한 오타 매핑
+const ENG_TO_KOR_MAP = {
+    'q': 'ㅂ', 'w': 'ㅈ', 'e': 'ㄷ', 'r': 'ㄱ', 't': 'ㅅ',
+    'y': 'ㅛ', 'u': 'ㅕ', 'i': 'ㅑ', 'o': 'ㅐ', 'p': 'ㅔ',
+    'a': 'ㅁ', 's': 'ㄴ', 'd': 'ㅇ', 'f': 'ㄹ', 'g': 'ㅎ',
+    'h': 'ㅗ', 'j': 'ㅓ', 'k': 'ㅏ', 'l': 'ㅣ',
+    'z': 'ㅋ', 'x': 'ㅌ', 'c': 'ㅊ', 'v': 'ㅍ', 'b': 'ㅠ',
+    'n': 'ㅜ', 'm': 'ㅡ'
 };
 
 /**
@@ -75,6 +86,20 @@ function getChosung(str) {
     }
     
     return ''; // 문자열이 아닌 경우 빈 문자열 반환
+}
+
+/**
+ * 영문을 한글 자모로 변환 (오타 수정 용도)
+ * @param {string} str - 변환할 영문 문자열
+ * @returns {string} 변환된 한글 자모 문자열
+ */
+function engToKor(str) {
+    let result = '';
+    for (let i = 0; i < str.length; i++) {
+        const char = str[i].toLowerCase();
+        result += ENG_TO_KOR_MAP[char] || char;
+    }
+    return result;
 }
 
 /**
@@ -216,10 +241,10 @@ function debounce(func, wait) {
 }
 
 /**
- * 스로틀 함수 (일정 시간 간격으로 호출 제한)
+ * 스로틀 함수 (호출 빈도 제한)
  * @param {Function} func - 실행할 함수
  * @param {number} limit - 제한 시간 (ms)
- * @returns {Function} 스로틀링된 함수
+ * @returns {Function} 스로틀된 함수
  */
 function throttle(func, limit) {
     let inThrottle;
@@ -235,66 +260,32 @@ function throttle(func, limit) {
 }
 
 /**
- * 날짜 포맷팅 함수
- * @param {string} dateString - YYYY-MM-DD 형식의 날짜 문자열
- * @returns {string} 포맷팅된 날짜 문자열 (예: 2024년 03월 10일)
- */
-function formatDate(dateString) {
-    if (!dateString || typeof dateString !== 'string') return '';
-    
-    const parts = dateString.split('-');
-    if (parts.length !== 3) return dateString;
-    
-    return `${parts[0]}년 ${parts[1]}월 ${parts[2]}일`;
-}
-
-/**
- * 숫자에 천단위 콤마 추가
+ * 숫자에 천 단위 콤마 추가
  * @param {number} number - 포맷팅할 숫자
- * @returns {string} 포맷팅된 숫자 문자열
+ * @returns {string} 포맷팅된 문자열
  */
 function formatNumber(number) {
+    if (number === undefined || number === null) return '0';
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 /**
- * DOM 요소 생성 헬퍼 함수
- * @param {string} tag - 요소의 태그명
- * @param {object} attrs - 요소 속성
- * @param {Array|string} children - 자식 요소 또는 텍스트
- * @returns {HTMLElement} 생성된 요소
+ * 텍스트 절단 및 말줄임표 추가
+ * @param {string} text - 원본 텍스트
+ * @param {number} maxLength - 최대 길이
+ * @returns {string} 잘린 텍스트
  */
-function createElement(tag, attrs = {}, children = []) {
-    const element = document.createElement(tag);
-    
-    // 속성 설정
-    Object.entries(attrs).forEach(([key, value]) => {
-        if (key === 'className') {
-            element.className = value;
-        } else if (key === 'style' && typeof value === 'object') {
-            Object.assign(element.style, value);
-        } else if (key.startsWith('on') && typeof value === 'function') {
-            const eventName = key.slice(2).toLowerCase();
-            element.addEventListener(eventName, value);
-        } else {
-            element.setAttribute(key, value);
-        }
-    });
-    
-    // 자식 요소 추가
-    if (typeof children === 'string') {
-        element.textContent = children;
-    } else if (Array.isArray(children)) {
-        children.forEach(child => {
-            if (child instanceof Node) {
-                element.appendChild(child);
-            } else if (typeof child === 'string') {
-                element.appendChild(document.createTextNode(child));
-            }
-        });
-    }
-    
-    return element;
+function truncateText(text, maxLength = 50) {
+    if (!text || text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
+}
+
+/**
+ * 현재 디바이스가 모바일인지 확인
+ * @returns {boolean} 모바일 여부
+ */
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
 /**
@@ -305,54 +296,6 @@ function createElement(tag, attrs = {}, children = []) {
 function isCompleteHangul(char) {
   const code = char.charCodeAt(0);
   return code >= HANGUL_START && code <= HANGUL_END;
-}
-
-/**
- * 한글 관련 문자열 유사도를 보다 정확히 계산
- * @param {string} str1 - 첫 번째 문자열
- * @param {string} str2 - 두 번째 문자열
- * @returns {number} 유사도 점수 (0-1)
- */
-function hangulSimilarity(str1, str2) {
-    if (!str1 || !str2) return 0;
-    
-    const normalized1 = str1.toLowerCase();
-    const normalized2 = str2.toLowerCase();
-    
-    // 초성 추출
-    const chosung1 = getChosung(normalized1);
-    const chosung2 = getChosung(normalized2);
-    
-    // 자음/모음 분해
-    const decomposed1 = decomposeHangul(normalized1);
-    const decomposed2 = decomposeHangul(normalized2);
-    
-    // 1. 시작 부분 일치 확인 (높은 가중치)
-    if (normalized2.startsWith(normalized1)) {
-        return 1.0;
-    }
-    
-    // 2. 초성 시작 부분 일치 (중간 가중치)
-    if (chosung2.startsWith(chosung1)) {
-        return 0.8;
-    }
-    
-    // 3. 자모 분해 후 시작 부분 일치 (낮은 가중치)
-    if (decomposed2.startsWith(decomposed1)) {
-        return 0.7;
-    }
-    
-    // 4. 포함 관계 확인 (더 낮은 가중치)
-    if (normalized2.includes(normalized1)) {
-        return 0.6;
-    }
-    
-    // 5. 초성 포함 관계
-    if (chosung2.includes(chosung1)) {
-        return 0.5;
-    }
-    
-    return 0;
 }
 
 /**
@@ -394,24 +337,6 @@ function removeSpaces(str) {
 }
 
 /**
- * 문자열이 모두 한글 초성인지 확인
- * @param {string} str - 확인할 문자열
- * @returns {boolean} 모두 초성인지 여부
- */
-function isAllChosung(str) {
-  if (!str || str.length === 0) return false;
-  
-  // 한글 초성 목록
-  for (let i = 0; i < str.length; i++) {
-    if (!CHOSUNG.includes(str[i])) {
-      return false;
-    }
-  }
-  
-  return true;
-}
-
-/**
  * 두 문자열의 자모 레벨 유사도 계산
  * @param {string} searchTerm - 검색어
  * @param {string} targetStr - 대상 문자열
@@ -431,6 +356,24 @@ function jamoSimilarity(searchTerm, targetStr) {
   }
   
   return 0;
+}
+
+/**
+ * 문자열이 모두 한글 초성인지 확인
+ * @param {string} str - 확인할 문자열
+ * @returns {boolean} 모두 초성인지 여부
+ */
+function isAllChosung(str) {
+  if (!str || str.length === 0) return false;
+  
+  // 한글 초성 목록
+  for (let i = 0; i < str.length; i++) {
+    if (!CHOSUNG.includes(str[i])) {
+      return false;
+    }
+  }
+  
+  return true;
 }
 
 /**
@@ -470,26 +413,71 @@ function similarityScore(s1, s2) {
     return maxLength > 0 ? 1 - distance / maxLength : 1;
 }
 
-// 유틸리티 객체로 내보내기
-const Utils = {
+/**
+ * URL 매개변수 파싱
+ * @returns {Object} 파싱된 매개변수 객체
+ */
+function parseURLParams() {
+    const params = {};
+    const queryString = window.location.search.substring(1);
+    const pairs = queryString.split('&');
+    
+    for (let i = 0; i < pairs.length; i++) {
+        const pair = pairs[i].split('=');
+        if (pair.length === 2) {
+            params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+        }
+    }
+    
+    return params;
+}
+
+/**
+ * 오류 발생 시 로그 기록 및 처리
+ * @param {Error} error - 발생한 오류
+ * @param {string} context - 오류 발생 컨텍스트
+ * @returns {string} 사용자에게 표시할 오류 메시지
+ */
+function handleError(error, context) {
+    // 오류 로그 기록
+    console.error(`${context} 오류:`, error);
+    
+    // 사용자 표시용 메시지 생성
+    let userMessage = '처리 중 오류가 발생했습니다.';
+    
+    // 특정 오류 유형에 따른 메시지 커스터마이징
+    if (error.name === 'TypeError') {
+        userMessage = '데이터 형식이 올바르지 않습니다.';
+    } else if (error.name === 'SyntaxError') {
+        userMessage = '데이터 구문이 올바르지 않습니다.';
+    } else if (error.name === 'NetworkError' || error.message.includes('네트워크') || error.message.includes('network')) {
+        userMessage = '네트워크 연결을 확인해주세요.';
+    }
+    
+    return `${userMessage} 잠시 후 다시 시도해주세요.`;
+}
+
+// ES 모듈로 내보내기
+export default {
     decomposeHangul,
     getChosung,
+    engToKor,
     getJungsung,
     getCompoundJungsung,
     analyzeHangulChar,
     debounce,
     throttle,
-    formatDate,
-    formatNumber,
-    createElement,
     similarityScore,
+    formatNumber,
+    truncateText,
+    isMobileDevice,
     isCompleteHangul,
     analyzeHangulInput,
     removeSpaces,
     jamoSimilarity,
     isAllChosung,
+    parseURLParams,
+    handleError,
     COMPOUND_JONGSUNG_MAP,
     COMPOUND_JUNGSUNG_MAP
 };
-
-export default Utils;
