@@ -5,19 +5,11 @@
  * 옵션 추출, 메타데이터 관리, 필터 적용 기능 제공
  */
 
-import metadataLoader from '../services/metadata-loader.js';
+import metadataService from './metadata.js';
 
 class OptionFilter {
   constructor() {
-    this.metadata = {
-      reforges: null,
-      setEffects: {},
-      enchants: {
-        prefix: null,
-        suffix: null
-      }
-    };
-    
+    // metadataService에서 메타데이터를 참조합니다.
     this.filterRegistry = {
       'range': this.checkRangeFilter.bind(this),
       'selection': this.checkSelectionFilter.bind(this),
@@ -44,69 +36,14 @@ class OptionFilter {
         this.debug = !!options.debug;
       }
       
-      // 필수 메타데이터 로드
-      await Promise.all([
-        this.loadEnchantMetadata(),
-        this.loadReforgeMetadata()
-      ]);
+      // metadataService가 이미 초기화되었다고 가정합니다.
+      this.metadata = metadataService.metadata;
       
       this.log('필터 모듈 초기화 완료');
       return true;
     } catch (error) {
       console.error('필터 모듈 초기화 오류:', error);
       return false;
-    }
-  }
-  
-  /**
-   * 인챈트 메타데이터 로드
-   * @returns {Promise<void>}
-   */
-  async loadEnchantMetadata() {
-    try {
-      this.metadata.enchants.prefix = await metadataLoader.loadEnchantMetadata('prefix');
-      this.metadata.enchants.suffix = await metadataLoader.loadEnchantMetadata('suffix');
-      this.log('인챈트 메타데이터 로드 완료');
-    } catch (error) {
-      this.log('인챈트 메타데이터 로드 실패:', error);
-    }
-  }
-  
-  /**
-   * 세공 메타데이터 로드
-   * @returns {Promise<void>}
-   */
-  async loadReforgeMetadata() {
-    try {
-      this.metadata.reforges = await metadataLoader.loadReforgeMetadata();
-      this.log('세공 메타데이터 로드 완료');
-    } catch (error) {
-      this.log('세공 메타데이터 로드 실패:', error);
-    }
-  }
-  
-  /**
-   * 카테고리별 세트 효과 메타데이터 로드
-   * @param {string} category 카테고리명
-   * @returns {Promise<Object>} 세트 효과 메타데이터
-   */
-  async loadSetEffectMetadata(category) {
-    if (!category) return null;
-    
-    if (this.metadata.setEffects[category]) {
-      return this.metadata.setEffects[category];
-    }
-    
-    try {
-      const data = await metadataLoader.loadSetEffectForCategory(category);
-      if (data) {
-        this.metadata.setEffects[category] = data;
-        this.log(`카테고리 ${category} 세트 효과 로드 완료`);
-      }
-      return data;
-    } catch (error) {
-      this.log(`카테고리 ${category} 세트 효과 로드 실패:`, error);
-      return null;
     }
   }
   
@@ -118,138 +55,6 @@ class OptionFilter {
     if (this.debug) {
       console.log('[OptionFilter]', ...args);
     }
-  }
-
-  /**
-   * 아이템에서 필터 정보 추출
-   * @param {Object} item 아이템 데이터
-   * @returns {Array} 필터 정보 배열
-   */
-  extractFilters(item) {
-    const options = item.options || item.item_option || [];
-    if (!Array.isArray(options) || options.length === 0) {
-      return [];
-    }
-    
-    const filters = [];
-    const extractors = {
-      '공격': (option) => ({
-        name: '공격',
-        displayName: '최대 공격력',
-        type: 'range',
-        field: 'option_value2'
-      }),
-      
-      '내구력': (option) => ({
-        name: '내구력',
-        displayName: '최대 내구력',
-        type: 'range',
-        field: 'option_value2'
-      }),
-      
-      '밸런스': (option) => ({
-        name: '밸런스',
-        displayName: '밸런스',
-        type: 'range',
-        field: 'option_value',
-        isPercent: true
-      }),
-      
-      '방어력': (option) => ({
-        name: '방어력',
-        displayName: '방어력',
-        type: 'range',
-        field: 'option_value'
-      }),
-      
-      '보호': (option) => ({
-        name: '보호',
-        displayName: '보호',
-        type: 'range',
-        field: 'option_value'
-      }),
-      
-      '마법 방어력': (option) => ({
-        name: '마법 방어력',
-        displayName: '마법 방어력',
-        type: 'range',
-        field: 'option_value'
-      }),
-      
-      '마법 보호': (option) => ({
-        name: '마법 보호',
-        displayName: '마법 보호',
-        type: 'range',
-        field: 'option_value'
-      }),
-      
-      '크리티컬': (option) => ({
-        name: '크리티컬',
-        displayName: '크리티컬',
-        type: 'range',
-        field: 'option_value'
-      }),
-      
-      '피어싱 레벨': (option) => ({
-        name: '피어싱 레벨',
-        displayName: '피어싱 레벨',
-        type: 'range'
-      }),
-      
-      '인챈트': (option) => ({
-        name: '인챈트',
-        displayName: '인챈트',
-        type: 'enchant',
-        subTypes: ['접두', '접미']
-      }),
-      
-      '특별 개조': (option) => ({
-        name: '특별 개조',
-        displayName: '특수 개조',
-        type: 'special-mod'
-      }),
-      
-      '에르그': (option) => ({
-        name: '에르그',
-        displayName: '에르그',
-        type: 'erg'
-      }),
-      
-      '세공 랭크': (option) => ({
-        name: '세공 랭크',
-        displayName: '세공',
-        type: 'reforge-status'
-      }),
-      
-      '세공 옵션': (option) => ({
-        name: '세공 옵션',
-        displayName: '세공 옵션',
-        type: 'reforge-option'
-      }),
-      
-      '세트 효과': (option) => ({
-        name: '세트 효과',
-        displayName: '세트 효과',
-        type: 'set-effect'
-      })
-    };
-    
-    options.forEach(option => {
-      const optionType = option.option_type;
-      if (!optionType || !extractors[optionType]) {
-        return;
-      }
-      
-      // 옵션 추출 함수 실행
-      const filterInfo = extractors[optionType](option);
-      
-      // 원본 옵션 참조 추가
-      filterInfo.option = option;
-      
-      filters.push(filterInfo);
-    });
-    
-    return filters;
   }
 
   /**
@@ -727,45 +532,6 @@ class OptionFilter {
     }
     
     return true;
-  }
-
-  /**
-   * 필터 분류 및 그룹화
-   * @param {Array} filters 필터 배열
-   * @returns {Object} 분류된 필터 정보
-   */
-  categorizeFilters(filters) {
-    // 기본 필터 카테고리
-    const categories = {
-      '기본': [],
-      '세공': [],
-      '세트 효과': [],
-      '특수': []
-    };
-    
-    filters.forEach(filter => {
-      // 필터 카테고리 결정
-      if (filter.category === '세공' || 
-          ['세공 랭크', '세공 옵션'].includes(filter.name)) {
-        categories['세공'].push(filter);
-      } 
-      else if (filter.category === '세트 효과' || 
-               filter.name === '세트 효과') {
-        categories['세트 효과'].push(filter);
-      } 
-      else if (['특별 개조', '에르그'].includes(filter.name) || 
-               ['특별개조 타입', '특별개조 단계', '에르그 등급', '에르그 레벨'].includes(filter.displayName)) {
-        categories['특수'].push(filter);
-      } 
-      else {
-        categories['기본'].push(filter);
-      }
-    });
-    
-    return {
-      categories,
-      advancedFilters: []
-    };
   }
 }
 

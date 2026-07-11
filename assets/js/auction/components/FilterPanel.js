@@ -6,6 +6,57 @@
 import filterService from '../services/filter.js';
 import optionFilter from '../services/option-filter.js';
 
+/**
+ * 프론트엔드에서 지원하는 필터의 설정 목록.
+ * 여기에 정의된 필터만 사용자에게 표시됩니다.
+ * key: 백엔드의 availableFilters에 포함된 이름
+ * value: 필터 UI를 구성하기 위한 설정값
+ */
+const FILTER_CONFIGS = {
+    '공격': { displayName: '최대 공격력', type: 'range', fields: { min: '최소', max: '최대' }, field: 'option_value2' },
+    '내구력': { displayName: '최대 내구력', type: 'range', fields: { min: '최소', max: '최대' } },
+    '밸런스': { displayName: '밸런스', type: 'range', fields: { min: '최소', max: '최대' }, isPercent: true },
+    '방어력': { displayName: '방어력', type: 'range', fields: { min: '최소', max: '최대' } },
+    '보호': { displayName: '보호', type: 'range', fields: { min: '최소', max: '최대' } },
+    '피어싱 레벨': { displayName: '피어싱 레벨', type: 'range', fields: { min: '최소', max: '최대' } },
+    '남은 전용 해제 가능 횟수': { displayName: '전해 횟수', type: 'range', fields: { min: '최소', max: '최대' } },
+    '인챈트': { displayName: '인챈트', type: 'enchant' },
+    '특별 개조': { displayName: '특별 개조', type: 'special-mod' },
+    '에르그': {
+        displayName: '에르그',
+        type: 'composite',
+        fields: [
+            { id: 'grade', type: 'select', label: '에르그 등급', options: { '': '전체', '일반': '일반', '고급': '고급', '희귀': '희귀', '영웅': '영웅', '전설': '전설' } },
+            { id: 'level', type: 'range', label: '에르그 레벨', minId: 'minLevel', maxId: 'maxLevel' }
+        ],
+        filterType: 'erg'
+    },
+    '세공 옵션': {
+        displayName: '세공 옵션',
+        type: 'composite',
+        fields: [
+            { id: 'name', type: 'text', label: '세공 옵션 이름' },
+            { id: 'level', type: 'range', label: '레벨 범위', minId: 'minLevel', maxId: 'maxLevel' }
+        ],
+        filterType: 'reforge-option',
+        payloadKey: 'options'
+    },
+    '세트 효과': {
+        displayName: '세트 효과',
+        type: 'composite',
+        fields: [
+            { id: 'name', type: 'text', label: '세트 효과 이름' },
+            { id: 'value', type: 'range', label: '효과 수치', minId: 'minValue', maxId: 'maxValue' }
+        ],
+        filterType: 'set-effect',
+        payloadKey: 'effects'
+    },
+    '세공 랭크': { displayName: '세공', type: 'reforge-status' },
+    '남은 거래 횟수': { displayName: '남은 거래 횟수', type: 'range' },
+
+    '펫 정보: 남은 분양 횟수': { displayName: '남은 분양 횟수', type: 'range', category: '펫 정보' }
+};
+
 class FilterPanel {
     constructor() {
         // DOM 요소 참조
@@ -141,7 +192,7 @@ class FilterPanel {
         this.overlay.classList.remove('active');
         
         // 바디 오버플로우 복원
-        document.body.style.overflow = '';
+        document.body.style.overflow = 'auto';
     }
     
     /**
@@ -418,11 +469,6 @@ class FilterPanel {
      * 필터 버튼 클릭 시 드롭다운 메뉴를 표시하거나 숨김
      */
     toggleFilterOptions() {
-        // 필터 옵션이 열리려고 하면 콘텐츠 로드
-        if (!this.filterOptions.classList.contains('active')) {
-            this.loadFilterOptions();
-        }
-        
         // 옵션 토글
         this.filterOptions.classList.toggle('active');
         
@@ -493,18 +539,29 @@ class FilterPanel {
     /**
      * 필터 옵션 로드 함수
      * 현재 카테고리에 맞는 필터 옵션을 동적으로 생성
+     * @param {string[]} availableFilters - 백엔드에서 전달받은 사용 가능한 필터 이름 배열
      */
-    async loadFilterOptions() {
+    async loadFilterOptions(availableFilters = []) {
         try {
-            // 현재 카테고리 가져오기
-            const currentCategory = window.ItemDisplay ? 
-                window.ItemDisplay.getCurrentCategory() : null;
-            
-            // 사용 가능한 필터 가져오기
-            const availableFilters = await filterService.getAvailableFiltersForCategory(currentCategory);
-            
+            console.log('loadFilterOptions 호출됨, availableFilters:', availableFilters);
+
             // 필터 옵션 메뉴 초기화
             this.filterOptions.innerHTML = '';
+            
+            // 1. FILTER_CONFIGS에 정의된 순서를 기준으로 사용 가능한 필터 목록을 생성합니다.
+            const filtersToDisplay = Object.keys(FILTER_CONFIGS).reduce((acc, filterName) => {
+                // API에서 전달받은 availableFilters 목록에 포함된 필터만 추가합니다.
+                if (availableFilters.includes(filterName)) {
+                    acc.push({ name: filterName, ...FILTER_CONFIGS[filterName] });
+                }
+                return acc;
+            }, []);
+
+            // 필터가 없을 경우
+            if (filtersToDisplay.length === 0) {
+                this.filterOptions.innerHTML = '<div class="filter-option-none">사용 가능한 필터가 없습니다.</div>';
+                return;
+            }
             
             // 모바일 여부 확인
             const isMobile = window.innerWidth <= 768;
@@ -521,7 +578,7 @@ class FilterPanel {
                 optionsContent.className = 'options-content';
                 
                 // 필터 옵션 동적 생성
-                availableFilters.forEach(filter => {
+                filtersToDisplay.forEach(filter => {
                     if (filter.visible === false) return; // 숨겨진 필터 제외
                     
                     const option = document.createElement('div');
@@ -543,7 +600,7 @@ class FilterPanel {
                 this.filterOptions.appendChild(optionsContent);
             } else {
                 // 데스크톱에서는 기존 방식
-                availableFilters.forEach(filter => {
+                filtersToDisplay.forEach(filter => {
                     if (filter.visible === false) return; // 숨겨진 필터 제외
                     
                     const option = document.createElement('div');
@@ -566,6 +623,17 @@ class FilterPanel {
             console.error('필터 옵션 로드 실패:', error);
         }
     }
+
+    /**
+     * 필터 옵션 클릭 처리 (드롭다운 메뉴에서)
+     */
+    handleFilterOptionClickFromDropdown(filter) {
+        // 필터 옵션 메뉴 닫기
+        this.toggleFilterOptions(); // 메뉴를 닫는 동작으로 통일
+
+        // 필터 버튼 추가 및 패널 열기
+        this.addAndActivateFilter(filter);
+    }
     
     /**
      * 필터 옵션 클릭 처리
@@ -576,7 +644,7 @@ class FilterPanel {
         this.filterOptions.classList.remove('mobile-toast');
         
         // 메뉴가 닫힐 때 바디 오버플로우 복원
-        document.body.style.overflow = '';
+        document.body.style.overflow = 'auto';
         
         // 오버레이 비활성화
         if (this.overlay) {
@@ -591,24 +659,29 @@ class FilterPanel {
             return;
         }
         
-        // 필터 버튼 추가
-        this.addFilterButton(filter);
+        this.addAndActivateFilter(filter);
+    }
+
+    /**
+     * 필터 버튼을 추가하고 해당 패널을 활성화합니다.
+     * @param {object} filter - 필터 설정 객체
+     */
+    addAndActivateFilter(filter) {
+        // 이미 활성화된 필터인지 확인
+        const existingBtn = document.querySelector(`.filter-btn[data-filter="${filter.name}"]`);
+        if (existingBtn) {
+            // 이미 있는 버튼 활성화 및 패널 열기
+            this.activateFilterButton(existingBtn, filter.name);
+            return;
+        }
         
         // 필터 패널 추가
         this.addFilterPanel(filter);
         
-        // 새로 추가된 버튼 찾기
-        const newBtn = document.querySelector(`.filter-btn[data-filter="${filter.name}"]`);
-        if (newBtn) {
-            // 버튼 활성화 및 패널 열기
-            this.activateFilterButton(newBtn, filter.name);
-        }
-        
-        // 버튼 추가로 필터 컨테이너 높이가 변경되었을 수 있으므로 행 검사
-        this.checkFilterRows();
-        
-        // 필터 추가 시 결과 패널 위치 조정
-        setTimeout(() => this.adjustResultsContainerPosition(), 0);
+        // 필터 버튼 추가 (버튼 추가 후 활성화)
+        const newBtn = this.addFilterButton(filter);
+        // 버튼 활성화 및 패널 열기
+        this.activateFilterButton(newBtn, filter.name);
     }
 
     /**
@@ -636,7 +709,8 @@ class FilterPanel {
         button.classList.add('active');
         
         // 해당 패널 열기
-        const panel = document.getElementById(`filter-panel-${filterId}`);
+        const panelId = `filter-panel-${filterId.replace(/\s/g, '')}`;
+        const panel = document.getElementById(panelId);
         if (panel) {
             // 패널을 항상 filterPanels 컨테이너 내부에 배치
             if (panel.parentNode !== this.filterPanels) {
@@ -703,7 +777,8 @@ class FilterPanel {
         const isMobile = window.innerWidth <= 768;
         
         // 패널 찾기
-        const panel = document.getElementById(`filter-panel-${filterId}`);
+        const panelId = `filter-panel-${filterId.replace(/\s/g, '')}`;
+        const panel = document.getElementById(panelId);
         
         // 패널이 활성화되어 있으면 바디 오버플로우 복원
         if (panel && panel.classList.contains('active')) {
@@ -732,6 +807,9 @@ class FilterPanel {
         
         // 필터 버튼 삭제로 인한 행 수 변경 확인
         this.checkFilterRows();
+
+        // 필터 제거 시 결과 패널 위치 조정
+        this.adjustResultsContainerPosition();
         
         // 필터 제거 시 결과 패널 위치 조정
         setTimeout(() => this.adjustResultsContainerPosition(), 0);
@@ -810,6 +888,13 @@ class FilterPanel {
         
         // 필터 버튼 추가로 인한 행 수 변경 확인
         this.checkFilterRows();
+        // 필터 버튼 추가 후 위치 재조정
+        this.adjustResultsContainerPosition();
+
+        // 필터 버튼 추가 후 위치 재조정
+        this.adjustResultsContainerPosition();
+
+        return newButton;
     }
     
     /**
@@ -828,19 +913,18 @@ class FilterPanel {
         // 새 패널 생성
         const panel = document.createElement('div');
         panel.className = 'filter-panel';
-        panel.id = `filter-panel-${filter.name}`;
-
+        panel.id = `filter-panel-${filter.name.replace(/\s/g, '')}`;
+    
         if (isMobile) {
             this.createMobilePanelUI(panel, filter);
+            this.setupFilterEventListeners(panel, filter, true); // 모바일용 이벤트 설정
         } else {
             this.createDesktopPanelUI(panel, filter);
+            this.setupFilterEventListeners(panel, filter, false); // 데스크톱용 이벤트 설정
         }
         
         // 항상 filterPanels에 추가
         this.filterPanels.appendChild(panel);
-        
-        // 이벤트 리스너 설정
-        this.setupFilterEventListeners(panel, filter);
         
         return panel;
     }
@@ -864,40 +948,36 @@ class FilterPanel {
         content.className = 'panel-content';
 
         // 필터 유형에 따른 UI 생성
-        const filterContent = document.createElement('div');
-        filterContent.className = 'filter-group';
-
-        // 필터 타입에 따른 UI 요소 생성 (모바일용)
-        switch (filter.type) {
+        const setFilterContent = (filter) => { switch (filter.type) {
             case 'range':
                 filterContent.innerHTML = this.createMobileRangeFilterUI(filter);
                 break;
             case 'selection':
             case 'select':
                 filterContent.innerHTML = this.createMobileSelectionFilterUI(filter);
-                break;
+                break;            
             case 'enchant':
                 filterContent.innerHTML = this.createMobileEnchantFilterUI(filter);
-                break;
-            case 'reforge-option':
-                filterContent.innerHTML = this.createMobileReforgeOptionFilterUI(filter);
                 break;
             case 'reforge-status':
                 filterContent.innerHTML = this.createMobileReforgeStatusFilterUI(filter);
                 break;
-            case 'erg':
-                filterContent.innerHTML = this.createMobileErgFilterUI(filter);
-                break;
             case 'special-mod':
                 filterContent.innerHTML = this.createMobileSpecialModFilterUI(filter);
                 break;
-            case 'set-effect':
-                filterContent.innerHTML = this.createMobileSetEffectFilterUI(filter);
+            case 'composite':
+                filterContent.innerHTML = this.createMobileCompositeFilterUI(filter);
                 break;
             default:
                 filterContent.innerHTML = '<p>지원되지 않는 필터 유형입니다.</p>';
-        }
+        }};
 
+        const filterContent = document.createElement('div');
+        // 특별 개조 필터는 여러 filter-group을 가지므로 상위 div에 filter-group 클래스를 적용하지 않습니다.
+        if (filter.type !== 'special-mod') {
+            filterContent.className = 'filter-group';
+        }
+        setFilterContent(filter);
         content.appendChild(filterContent);
         panel.appendChild(content);
     }
@@ -912,23 +992,23 @@ class FilterPanel {
             </div>
         `;
 
-        const filterContent = document.createElement('div');
-        filterContent.className = 'filter-group';
-
-        switch (filter.type) {
-            case 'range': filterContent.innerHTML = this.createRangeFilterUI(filter); break;
-            case 'selection':
-            case 'select': filterContent.innerHTML = this.createSelectionFilterUI(filter); break;
-            case 'enchant': filterContent.innerHTML = this.createEnchantFilterUI(filter); break;
-            case 'reforge-option': filterContent.innerHTML = this.createReforgeOptionFilterUI(filter); break;
-            case 'reforge-status': filterContent.innerHTML = this.createReforgeStatusFilterUI(filter); break;
-            case 'erg': filterContent.innerHTML = this.createErgFilterUI(filter); break;
-            case 'special-mod': filterContent.innerHTML = this.createSpecialModFilterUI(filter); break;
-            case 'set-effect': filterContent.innerHTML = this.createSetEffectFilterUI(filter); break;
-            default: filterContent.innerHTML = '<p>지원되지 않는 필터 유형입니다.</p>';
+        if (filter.type === 'special-mod' || filter.type === 'composite' || filter.type === 'enchant' || filter.type === 'reforge-status') {
+            // 여러 filter-group을 반환하는 필터들은 바로 innerHTML로 설정
+            const filterContent = document.createElement('div');
+            if (filter.type === 'special-mod') filterContent.innerHTML = this.createSpecialModFilterUI(filter);
+            if (filter.type === 'composite') filterContent.innerHTML = this.createCompositeFilterUI(filter);
+            if (filter.type === 'enchant') filterContent.innerHTML = this.createEnchantFilterUI(filter);
+            if (filter.type === 'reforge-status') filterContent.innerHTML = this.createReforgeStatusFilterUI(filter);
+            panel.appendChild(filterContent);
+        } else {
+            // 단일 filter-group을 사용하는 필터들
+            const filterContent = document.createElement('div');
+            filterContent.className = 'filter-group';
+            if (filter.type === 'range') filterContent.innerHTML = this.createRangeFilterUI(filter);
+            else if (filter.type === 'selection' || filter.type === 'select') filterContent.innerHTML = this.createSelectionFilterUI(filter);
+            else filterContent.innerHTML = '<p>지원되지 않는 필터 유형입니다.</p>';
+            panel.appendChild(filterContent);
         }
-
-        panel.appendChild(filterContent);
     }
 
     /**
@@ -938,11 +1018,11 @@ class FilterPanel {
         return `
             <div class="filter-group">
                 <label class="filter-label">최소값</label>
-                <input type="number" class="range-input" id="${filter.name}-min" placeholder="최소값 입력">
+                <input type="number" class="range-input" id="${filter.name.replace(/\s/g, '')}-min" placeholder="최소값 입력">
             </div>
             <div class="filter-group">
                 <label class="filter-label">최대값</label>
-                <input type="number" class="range-input" id="${filter.name}-max" placeholder="최대값 입력">
+                <input type="number" class="range-input" id="${filter.name.replace(/\s/g, '')}-max" placeholder="최대값 입력">
             </div>
         `;
     }
@@ -954,7 +1034,7 @@ class FilterPanel {
         return `
             <div class="filter-group">
                 <label class="filter-label">선택</label>
-                <select class="dropdown-select" id="${filter.name}-select">
+                <select class="dropdown-select" id="${filter.name.replace(/\s/g, '')}-select">
                     <option value="">선택하세요</option>
                     <!-- 옵션은 동적으로 추가됩니다 -->
                 </select>
@@ -969,31 +1049,11 @@ class FilterPanel {
         return `
             <div class="filter-group">
                 <label class="filter-label">접두 인챈트</label>
-                <input type="text" class="range-input" id="${filter.name}-prefix" placeholder="접두 인챈트 검색">
+                <input type="text" class="range-input" id="${filter.name.replace(/\s/g, '')}-prefix" placeholder="접두 인챈트 검색">
             </div>
             <div class="filter-group">
                 <label class="filter-label">접미 인챈트</label>
-                <input type="text" class="range-input" id="${filter.name}-suffix" placeholder="접미 인챈트 검색">
-            </div>
-        `;
-    }
-    
-    /**
-     * 모바일용 세공 옵션 필터 UI 생성
-     */
-    createMobileReforgeOptionFilterUI(filter) {
-        return `
-            <div class="filter-group">
-                <label class="filter-label">세공 옵션 이름</label>
-                <input type="text" class="range-input" id="${filter.name}-name" placeholder="세공 옵션 이름">
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">최소 레벨</label>
-                <input type="number" class="range-input" id="${filter.name}-min-level" placeholder="최소 레벨">
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">최대 레벨</label>
-                <input type="number" class="range-input" id="${filter.name}-max-level" placeholder="최대 레벨">
+                <input type="text" class="range-input" id="${filter.name.replace(/\s/g, '')}-suffix" placeholder="접미 인챈트 검색">
             </div>
         `;
     }
@@ -1005,7 +1065,7 @@ class FilterPanel {
         return `
             <div class="filter-group">
                 <label class="filter-label">세공 랭크</label>
-                <select class="dropdown-select" id="${filter.name}-rank">
+                <select class="dropdown-select" id="${filter.name.replace(/\s/g, '')}-rank">
                     <option value="">전체</option>
                     <option value="1">1랭크</option>
                     <option value="2">2랭크</option>
@@ -1016,7 +1076,7 @@ class FilterPanel {
             </div>
             <div class="filter-group">
                 <label class="filter-label">옵션 줄 수</label>
-                <select class="dropdown-select" id="${filter.name}-line">
+                <select class="dropdown-select" id="${filter.name.replace(/\s/g, '')}-line">
                     <option value="">전체</option>
                     <option value="1">1줄</option>
                     <option value="2">2줄</option>
@@ -1028,107 +1088,88 @@ class FilterPanel {
     }
     
     /**
-     * 모바일용 에르그 필터 UI 생성
-     */
-    createMobileErgFilterUI(filter) {
-        return `
-            <div class="filter-group">
-                <label class="filter-label">에르그 등급</label>
-                <select class="dropdown-select" id="${filter.name}-grade">
-                    <option value="">전체</option>
-                    <option value="일반">일반</option>
-                    <option value="고급">고급</option>
-                    <option value="희귀">희귀</option>
-                    <option value="영웅">영웅</option>
-                    <option value="전설">전설</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">최소 레벨</label>
-                <input type="number" class="range-input" id="${filter.name}-min-level" placeholder="최소 레벨">
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">최대 레벨</label>
-                <input type="number" class="range-input" id="${filter.name}-max-level" placeholder="최대 레벨">
-            </div>
-        `;
-    }
-    
-    /**
      * 모바일용 특별 개조 필터 UI 생성
      */
     createMobileSpecialModFilterUI(filter) {
         return `
             <div class="filter-group">
                 <label class="filter-label">특별 개조 타입</label>
-                <select class="dropdown-select" id="${filter.name}-type">
-                    <option value="">전체</option>
-                    <option value="강화">강화</option>
-                    <option value="변형">변형</option>
-                    <option value="개조">개조</option>
-                </select>
+                <div class="special-mod-type-selector" id="${filter.name.replace(/\s/g, '')}-type-selector">
+                    <button class="mod-type-btn" data-type="R">R타입</button>
+                    <button class="mod-type-btn" data-type="S">S타입</button>
+                </div>
+                <input type="hidden" id="${filter.name.replace(/\s/g, '')}-type" value="">
             </div>
             <div class="filter-group">
-                <label class="filter-label">최소 단계</label>
-                <input type="number" class="range-input" id="${filter.name}-min-level" placeholder="최소 단계">
+                <label class="filter-label">특별 개조 단계 (최소)</label>
+                <input type="number" class="range-input" id="${filter.name.replace(/\s/g, '')}-min-level" placeholder="최소 단계 입력">
             </div>
             <div class="filter-group">
-                <label class="filter-label">최대 단계</label>
-                <input type="number" class="range-input" id="${filter.name}-max-level" placeholder="최대 단계">
+                <label class="filter-label">특별 개조 단계 (최대)</label>
+                <input type="number" class="range-input" id="${filter.name.replace(/\s/g, '')}-max-level" placeholder="최대 단계 입력">
             </div>
         `;
     }
     
     /**
-     * 모바일용 세트 효과 필터 UI 생성
+     * 모바일용 복합 필터 UI 생성
      */
-    createMobileSetEffectFilterUI(filter) {
-        return `
-            <div class="filter-group">
-                <label class="filter-label">세트 효과 이름</label>
-                <input type="text" class="range-input" id="${filter.name}-name" placeholder="세트 효과 이름">
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">최소 수치</label>
-                <input type="number" class="range-input" id="${filter.name}-min-value" placeholder="최소 수치">
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">최대 수치</label>
-                <input type="number" class="range-input" id="${filter.name}-max-value" placeholder="최대 수치">
-            </div>
-        `;
+    createMobileCompositeFilterUI(filter) {
+        return filter.fields.map(field => {
+            let fieldHtml = `<div class="filter-group"><label class="filter-label">${field.label}</label>`;
+            if (field.type === 'text') {
+                fieldHtml += `<input type="text" class="range-input" data-id="${field.id}" placeholder="${field.label}">`;
+            } else if (field.type === 'select') {
+                const optionsHtml = Object.entries(field.options).map(([value, text]) => `<option value="${value}">${text}</option>`).join('');
+                fieldHtml += `<select class="dropdown-select" data-id="${field.id}">${optionsHtml}</select>`;
+            } else if (field.type === 'range') {
+                fieldHtml += `<input type="number" class="range-input" data-id="${field.minId}" placeholder="최소">`;
+                fieldHtml += `<input type="number" class="range-input" data-id="${field.maxId}" placeholder="최대" style="margin-top: 8px;">`;
+            }
+            fieldHtml += `</div>`;
+            return fieldHtml;
+        }).join('');
     }
-    
+
+    /**
+     * 데스크톱용 복합 필터 UI 생성
+     */
+    createCompositeFilterUI(filter) {
+        return filter.fields.map(field => {
+            let fieldHtml = `<div class="filter-group"><label class="filter-label">${field.label}</label>`;
+            if (field.type === 'text') {
+                fieldHtml += `<input type="text" class="range-input" data-id="${field.id}" placeholder="${field.label}">`;
+            } else if (field.type === 'select') {
+                const optionsHtml = Object.entries(field.options).map(([value, text]) => `<option value="${value}">${text}</option>`).join('');
+                fieldHtml += `<select class="dropdown-select" data-id="${field.id}">${optionsHtml}</select>`;
+            } else if (field.type === 'range') {
+                fieldHtml += `<div class="range-filter"><input type="number" class="range-input" data-id="${field.minId}" placeholder="최소"><span>~</span><input type="number" class="range-input" data-id="${field.maxId}" placeholder="최대"></div>`;
+            }
+            fieldHtml += `</div>`;
+            return fieldHtml;
+        }).join('');
+    }
+
     /**
      * 필터 이벤트 리스너 설정
      */
-    setupFilterEventListeners(panel, filter) {
+    setupFilterEventListeners(panel, filter, isMobile = false) {
         // 필터 유형에 따른 이벤트 설정
         switch (filter.type) {
             case 'range':
-                this.setupRangeFilterEvents(panel, filter);
+                this.setupRangeFilterEvents(panel, filter, isMobile);
                 break;
             case 'selection':
             case 'select':
                 this.setupSelectionFilterEvents(panel, filter);
                 break;
-            case 'enchant':
-                this.setupEnchantFilterEvents(panel, filter);
-                break;
-            case 'reforge-option':
-                this.setupReforgeOptionFilterEvents(panel, filter);
-                break;
+            case 'enchant': this.setupEnchantFilterEvents(panel, filter); break;
             case 'reforge-status':
                 this.setupReforgeStatusFilterEvents(panel, filter);
                 break;
-            case 'erg':
-                this.setupErgFilterEvents(panel, filter);
-                break;
-            case 'special-mod':
-                this.setupSpecialModFilterEvents(panel, filter);
-                break;
-            case 'set-effect':
-                this.setupSetEffectFilterEvents(panel, filter);
+            case 'special-mod': this.setupSpecialModFilterEvents(panel, filter); break;
+            case 'composite':
+                this.setupCompositeFilterEvents(panel, filter);
                 break;
         }
     }
@@ -1136,12 +1177,12 @@ class FilterPanel {
     /**
      * 범위 필터 UI 생성 (데스크톱용)
      */
-    createRangeFilterUI(filter) {
+    createRangeFilterUI(filter, isMobile = false) {
         return `
             <div class="range-filter">
-                <input type="number" class="range-input" id="${filter.name}-min" placeholder="최소">
+                <input type="number" class="range-input" id="${filter.name.replace(/\s/g, '')}-min" placeholder="최소">
                 <span>~</span>
-                <input type="number" class="range-input" id="${filter.name}-max" placeholder="최대">
+                <input type="number" class="range-input" id="${filter.name.replace(/\s/g, '')}-max" placeholder="최대">
             </div>
         `;
     }
@@ -1152,7 +1193,7 @@ class FilterPanel {
     createSelectionFilterUI(filter) {
         // 옵션 목록은 동적으로 가져와야 합니다.
         return `
-            <select class="dropdown-select" id="${filter.name}-select">
+            <select class="dropdown-select" id="${filter.name.replace(/\s/g, '')}-select">
                 <option value="">선택하세요</option>
                 <!-- 옵션은 동적으로 추가됩니다 -->
             </select>
@@ -1166,30 +1207,34 @@ class FilterPanel {
         return `
             <div class="filter-group">
                 <label class="filter-label">접두 인챈트</label>
-                <input type="text" class="range-input" id="${filter.name}-prefix" placeholder="접두 인챈트 검색">
+                <input type="text" class="range-input" id="${filter.name.replace(/\s/g, '')}-prefix" placeholder="접두 인챈트 검색">
             </div>
             <div class="filter-group">
                 <label class="filter-label">접미 인챈트</label>
-                <input type="text" class="range-input" id="${filter.name}-suffix" placeholder="접미 인챈트 검색">
+                <input type="text" class="range-input" id="${filter.name.replace(/\s/g, '')}-suffix" placeholder="접미 인챈트 검색">
             </div>
         `;
     }
     
     /**
-     * 세공 옵션 필터 UI 생성 (데스크톱용)
+     * 특별 개조 필터 UI 생성 (데스크톱용)
      */
-    createReforgeOptionFilterUI(filter) {
+    createSpecialModFilterUI(filter) {
         return `
             <div class="filter-group">
-                <label class="filter-label">세공 옵션 이름</label>
-                <input type="text" class="range-input" id="${filter.name}-name" placeholder="세공 옵션 이름">
+                <label class="filter-label">특별 개조 타입</label>
+                <div class="special-mod-type-selector" id="${filter.name.replace(/\s/g, '')}-type-selector">
+                    <button class="mod-type-btn" data-type="R">R타입</button>
+                    <button class="mod-type-btn" data-type="S">S타입</button>
+                </div>
+                <input type="hidden" id="${filter.name.replace(/\s/g, '')}-type" value="">
             </div>
             <div class="filter-group">
-                <label class="filter-label">레벨 범위</label>
+                <label class="filter-label">특별 개조 단계</label>
                 <div class="range-filter">
-                    <input type="number" class="range-input" id="${filter.name}-min-level" placeholder="최소">
+                    <input type="number" class="range-input" id="${filter.name.replace(/\s/g, '')}-min-level" placeholder="최소">
                     <span>~</span>
-                    <input type="number" class="range-input" id="${filter.name}-max-level" placeholder="최대">
+                    <input type="number" class="range-input" id="${filter.name.replace(/\s/g, '')}-max-level" placeholder="최대">
                 </div>
             </div>
         `;
@@ -1202,7 +1247,7 @@ class FilterPanel {
         return `
             <div class="filter-group">
                 <label class="filter-label">세공 랭크</label>
-                <select class="dropdown-select" id="${filter.name}-rank">
+                <select class="dropdown-select" id="${filter.name.replace(/\s/g, '')}-rank">
                     <option value="">전체</option>
                     <option value="1">1랭크</option>
                     <option value="2">2랭크</option>
@@ -1213,95 +1258,23 @@ class FilterPanel {
             </div>
             <div class="filter-group">
                 <label class="filter-label">옵션 줄 수</label>
-                <select class="dropdown-select" id="${filter.name}-line">
+                <select class="dropdown-select" id="${filter.name.replace(/\s/g, '')}-line">
                     <option value="">전체</option>
                     <option value="1">1줄</option>
                     <option value="2">2줄</option>
                     <option value="3">3줄</option>
-                    <option value="4">4줄</option>
                 </select>
             </div>
         `;
     }
-    
-    /**
-     * 에르그 필터 UI 생성 (데스크톱용)
-     */
-    createErgFilterUI(filter) {
-        return `
-            <div class="filter-group">
-                <label class="filter-label">에르그 등급</label>
-                <select class="dropdown-select" id="${filter.name}-grade">
-                    <option value="">전체</option>
-                    <option value="일반">일반</option>
-                    <option value="고급">고급</option>
-                    <option value="희귀">희귀</option>
-                    <option value="영웅">영웅</option>
-                    <option value="전설">전설</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">에르그 레벨</label>
-                <div class="range-filter">
-                    <input type="number" class="range-input" id="${filter.name}-min-level" placeholder="최소">
-                    <span>~</span>
-                    <input type="number" class="range-input" id="${filter.name}-max-level" placeholder="최대">
-                </div>
-            </div>
-        `;
-    }
-    
-    /**
-     * 특별 개조 필터 UI 생성 (데스크톱용)
-     */
-    createSpecialModFilterUI(filter) {
-        return `
-            <div class="filter-group">
-                <label class="filter-label">특별 개조 타입</label>
-                <select class="dropdown-select" id="${filter.name}-type">
-                    <option value="">전체</option>
-                    <option value="강화">강화</option>
-                    <option value="변형">변형</option>
-                    <option value="개조">개조</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">특별 개조 단계</label>
-                <div class="range-filter">
-                    <input type="number" class="range-input" id="${filter.name}-min-level" placeholder="최소">
-                    <span>~</span>
-                    <input type="number" class="range-input" id="${filter.name}-max-level" placeholder="최대">
-                </div>
-            </div>
-        `;
-    }
-    
-    /**
-     * 세트 효과 필터 UI 생성 (데스크톱용)
-     */
-    createSetEffectFilterUI(filter) {
-        return `
-            <div class="filter-group">
-                <label class="filter-label">세트 효과 이름</label>
-                <input type="text" class="range-input" id="${filter.name}-name" placeholder="세트 효과 이름">
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">효과 수치</label>
-                <div class="range-filter">
-                    <input type="number" class="range-input" id="${filter.name}-min-value" placeholder="최소">
-                    <span>~</span>
-                    <input type="number" class="range-input" id="${filter.name}-max-value" placeholder="최대">
-                </div>
-            </div>
-        `;
-    }
-    
+
     /**
      * 범위 필터 이벤트 설정
      */
-    setupRangeFilterEvents(panel, filter) {
-        const minInput = panel.querySelector(`#${filter.name}-min`);
-        const maxInput = panel.querySelector(`#${filter.name}-max`);
+    setupRangeFilterEvents(panel, filter, isMobile = false) {
+        const filterId = filter.name.replace(/\s/g, '');
+        const minInput = panel.querySelector(`#${filterId}-min`);
+        const maxInput = panel.querySelector(`#${filterId}-max`);
         
         if (minInput && maxInput) {
             // 값 변경 이벤트
@@ -1311,8 +1284,8 @@ class FilterPanel {
                 
                 if (min || max) {
                     // 필터 옵션 업데이트
-                    filterService.addFilterOption(filter.name, {
-                        type: 'range',
+                    filterService.addFilterOption(filter.name, { // filter.name은 '공격'
+                        ...filter, // '공격' 필터의 모든 설정(field: 'option_value2' 포함)을 복사
                         min: min,
                         max: max
                     });
@@ -1338,7 +1311,8 @@ class FilterPanel {
      * 선택 필터 이벤트 설정
      */
     setupSelectionFilterEvents(panel, filter) {
-        const select = panel.querySelector(`#${filter.name}-select`);
+        const filterId = filter.name.replace(/\s/g, '');
+        const select = panel.querySelector(`#${filterId}-select`);
         
         if (select) {
             // 값 변경 이벤트
@@ -1369,8 +1343,9 @@ class FilterPanel {
      * 인챈트 필터 이벤트 설정
      */
     setupEnchantFilterEvents(panel, filter) {
-        const prefixInput = panel.querySelector(`#${filter.name}-prefix`);
-        const suffixInput = panel.querySelector(`#${filter.name}-suffix`);
+        const filterId = filter.name.replace(/\s/g, '');
+        const prefixInput = panel.querySelector(`#${filterId}-prefix`);
+        const suffixInput = panel.querySelector(`#${filterId}-suffix`);
         
         if (prefixInput && suffixInput) {
             // 값 변경 이벤트
@@ -1404,145 +1379,45 @@ class FilterPanel {
     }
     
     /**
-     * 세공 옵션 필터 이벤트 설정
-     */
-    setupReforgeOptionFilterEvents(panel, filter) {
-        const nameInput = panel.querySelector(`#${filter.name}-name`);
-        const minLevelInput = panel.querySelector(`#${filter.name}-min-level`);
-        const maxLevelInput = panel.querySelector(`#${filter.name}-max-level`);
-        
-        if (nameInput && minLevelInput && maxLevelInput) {
-            // 값 변경 이벤트
-            const updateFilter = () => {
-                const name = nameInput.value.trim();
-                const minLevel = minLevelInput.value.trim();
-                const maxLevel = maxLevelInput.value.trim();
-                
-                if (name || minLevel || maxLevel) {
-                    // 필터 옵션 업데이트
-                    filterService.addFilterOption(filter.name, {
-                        type: 'reforge-option',
-                        options: [{
-                            name: name,
-                            minLevel: minLevel,
-                            maxLevel: maxLevel
-                        }]
-                    });
-                    
-                    // 필터 버튼 스타일 업데이트
-                    this.updateFilterButtonStyle(filter.name, true, { name, minLevel, maxLevel });
-                } else {
-                    // 필터 제거
-                    filterService.removeFilterOption(filter.name);
-                    
-                    // 필터 버튼 스타일 업데이트
-                    this.updateFilterButtonStyle(filter.name, false);
-                }
-            };
-            
-            // 이벤트 리스너
-            nameInput.addEventListener('input', updateFilter);
-            minLevelInput.addEventListener('input', updateFilter);
-            maxLevelInput.addEventListener('input', updateFilter);
-        }
-    }
-    
-    /**
-     * 세공 상태 필터 이벤트 설정
-     */
-    setupReforgeStatusFilterEvents(panel, filter) {
-        const rankSelect = panel.querySelector(`#${filter.name}-rank`);
-        const lineSelect = panel.querySelector(`#${filter.name}-line`);
-        
-        if (rankSelect && lineSelect) {
-            // 값 변경 이벤트
-            const updateFilter = () => {
-                const rank = rankSelect.value;
-                const lineCount = lineSelect.value;
-                
-                if (rank || lineCount) {
-                    // 필터 옵션 업데이트
-                    filterService.addFilterOption(filter.name, {
-                        type: 'reforge-status',
-                        rank: rank,
-                        lineCount: lineCount
-                    });
-                    
-                    // 필터 버튼 스타일 업데이트
-                    this.updateFilterButtonStyle(filter.name, true, { rank, lineCount });
-                } else {
-                    // 필터 제거
-                    filterService.removeFilterOption(filter.name);
-                    
-                    // 필터 버튼 스타일 업데이트
-                    this.updateFilterButtonStyle(filter.name, false);
-                }
-            };
-            
-            // 이벤트 리스너
-            rankSelect.addEventListener('change', updateFilter);
-            lineSelect.addEventListener('change', updateFilter);
-        }
-    }
-    
-    /**
-     * 에르그 필터 이벤트 설정
-     */
-    setupErgFilterEvents(panel, filter) {
-        const gradeSelect = panel.querySelector(`#${filter.name}-grade`);
-        const minLevelInput = panel.querySelector(`#${filter.name}-min-level`);
-        const maxLevelInput = panel.querySelector(`#${filter.name}-max-level`);
-        
-        if (gradeSelect && minLevelInput && maxLevelInput) {
-            // 값 변경 이벤트
-            const updateFilter = () => {
-                const grade = gradeSelect.value;
-                const minLevel = minLevelInput.value.trim();
-                const maxLevel = maxLevelInput.value.trim();
-                
-                if (grade || minLevel || maxLevel) {
-                    // 필터 옵션 업데이트
-                    filterService.addFilterOption(filter.name, {
-                        type: 'erg',
-                        grade: grade,
-                        minLevel: minLevel,
-                        maxLevel: maxLevel
-                    });
-                    
-                    // 필터 버튼 스타일 업데이트
-                    this.updateFilterButtonStyle(filter.name, true, { grade, minLevel, maxLevel });
-                } else {
-                    // 필터 제거
-                    filterService.removeFilterOption(filter.name);
-                    
-                    // 필터 버튼 스타일 업데이트
-                    this.updateFilterButtonStyle(filter.name, false);
-                }
-            };
-            
-            // 이벤트 리스너
-            gradeSelect.addEventListener('change', updateFilter);
-            minLevelInput.addEventListener('input', updateFilter);
-            maxLevelInput.addEventListener('input', updateFilter);
-        }
-    }
-    
-    /**
      * 특별 개조 필터 이벤트 설정
      */
     setupSpecialModFilterEvents(panel, filter) {
-        const typeSelect = panel.querySelector(`#${filter.name}-type`);
-        const minLevelInput = panel.querySelector(`#${filter.name}-min-level`);
-        const maxLevelInput = panel.querySelector(`#${filter.name}-max-level`);
-        
-        if (typeSelect && minLevelInput && maxLevelInput) {
+        const filterId = filter.name.replace(/\s/g, '');
+        const typeSelector = panel.querySelector(`#${filterId}-type-selector`);
+        const typeInput = panel.querySelector(`#${filterId}-type`);
+        const minLevelInput = panel.querySelector(`#${filterId}-min-level`);
+        const maxLevelInput = panel.querySelector(`#${filterId}-max-level`);
+
+        if (typeSelector && typeInput && minLevelInput && maxLevelInput) {
+            // 타입 버튼 클릭 이벤트
+            typeSelector.addEventListener('click', (e) => {
+                if (e.target.matches('.mod-type-btn')) {
+                    const selectedType = e.target.dataset.type;
+                    
+                    // 이미 선택된 버튼을 다시 클릭한 경우 선택 해제
+                    if (e.target.classList.contains('active')) {
+                        typeInput.value = '';
+                        e.target.classList.remove('active');
+                    } else {
+                        typeInput.value = selectedType;
+    
+                        // 모든 버튼에서 active 클래스 제거 후 현재 버튼에 추가
+                        typeSelector.querySelectorAll('.mod-type-btn').forEach(btn => btn.classList.remove('active'));
+                        e.target.classList.add('active');
+                    }
+
+                    updateFilter();
+                }
+            });
+
             // 값 변경 이벤트
             const updateFilter = () => {
-                const modType = typeSelect.value;
+                const modType = typeInput.value;
                 const minLevel = minLevelInput.value.trim();
                 const maxLevel = maxLevelInput.value.trim();
                 
-                if (modType || minLevel || maxLevel) {
+                // 타입이 선택되었거나 레벨 값이 있을 때 필터 적용
+                if (modType || minLevel !== '' || maxLevel !== '') {
                     // 필터 옵션 업데이트
                     filterService.addFilterOption(filter.name, {
                         type: 'special-mod',
@@ -1563,56 +1438,94 @@ class FilterPanel {
             };
             
             // 이벤트 리스너
-            typeSelect.addEventListener('change', updateFilter);
             minLevelInput.addEventListener('input', updateFilter);
             maxLevelInput.addEventListener('input', updateFilter);
+        } else {
+            console.error('[DevDebug] 특별 개조 필터의 일부 UI 요소를 찾을 수 없습니다.');
         }
     }
     
     /**
-     * 세트 효과 필터 이벤트 설정
+     * 세공 상태 필터 이벤트 설정
      */
-    setupSetEffectFilterEvents(panel, filter) {
-        const nameInput = panel.querySelector(`#${filter.name}-name`);
-        const minValueInput = panel.querySelector(`#${filter.name}-min-value`);
-        const maxValueInput = panel.querySelector(`#${filter.name}-max-value`);
+    setupReforgeStatusFilterEvents(panel, filter) {
+        const filterId = filter.name.replace(/\s/g, '');
+        const rankSelect = panel.querySelector(`#${filterId}-rank`);
+        const lineSelect = panel.querySelector(`#${filterId}-line`);
         
-        if (nameInput && minValueInput && maxValueInput) {
-            // 값 변경 이벤트
+        if (rankSelect && lineSelect) {
             const updateFilter = () => {
-                const name = nameInput.value.trim();
-                const minValue = minValueInput.value.trim();
-                const maxValue = maxValueInput.value.trim();
+                const rank = rankSelect.value;
+                const lineCount = lineSelect.value;
                 
-                if (name || minValue || maxValue) {
-                    // 필터 옵션 업데이트
+                if (rank || lineCount) {
                     filterService.addFilterOption(filter.name, {
-                        type: 'set-effect',
-                        effects: [{
-                            name: name,
-                            minValue: minValue,
-                            maxValue: maxValue
-                        }]
+                        type: 'reforge-status',
+                        rank: rank,
+                        lineCount: lineCount
                     });
-                    
-                    // 필터 버튼 스타일 업데이트
-                    this.updateFilterButtonStyle(filter.name, true, { name, minValue, maxValue });
+                    this.updateFilterButtonStyle(filter.name, true, { rank, lineCount });
                 } else {
-                    // 필터 제거
                     filterService.removeFilterOption(filter.name);
-                    
-                    // 필터 버튼 스타일 업데이트
                     this.updateFilterButtonStyle(filter.name, false);
                 }
             };
             
-            // 이벤트 리스너
-            nameInput.addEventListener('input', updateFilter);
-            minValueInput.addEventListener('input', updateFilter);
-            maxValueInput.addEventListener('input', updateFilter);
+            rankSelect.addEventListener('change', updateFilter);
+            lineSelect.addEventListener('change', updateFilter);
         }
     }
-    
+
+    /**
+     * 복합 필터 이벤트 설정
+     */
+    setupCompositeFilterEvents(panel, filter) {
+        const inputs = panel.querySelectorAll('input, select');
+        const updateFilter = () => {
+            const values = {};
+            let hasValue = false;
+            inputs.forEach(input => {
+                const id = input.dataset.id;
+                const value = input.value.trim();
+                if (value) {
+                    hasValue = true;
+                }
+                values[id] = value;
+            });
+
+            if (hasValue) {
+                let payload = { ...values };
+
+                // 세공 옵션, 세트 효과는 배열 형태로 payload를 재구성
+                if (filter.payloadKey) {
+                    const nestedPayload = {};
+                    filter.fields.forEach(field => {
+                        if (field.type === 'text') nestedPayload[field.id] = values[field.id];
+                        if (field.type === 'range') {
+                            nestedPayload[field.minId] = values[field.minId];
+                            nestedPayload[field.maxId] = values[field.maxId];
+                        }
+                    });
+                    payload = { [filter.payloadKey]: [nestedPayload] };
+                }
+
+                filterService.addFilterOption(filter.name, {
+                    type: filter.filterType || filter.type,
+                    ...payload
+                });
+                this.updateFilterButtonStyle(filter.name, true, values);
+            } else {
+                filterService.removeFilterOption(filter.name);
+                this.updateFilterButtonStyle(filter.name, false);
+            }
+        };
+
+        inputs.forEach(input => {
+            input.addEventListener('input', updateFilter);
+            input.addEventListener('change', updateFilter);
+        });
+    }
+
     /**
      * 필터 버튼 스타일 업데이트
      */
@@ -1639,7 +1552,7 @@ class FilterPanel {
             this.filterOptions.classList.remove('mobile-toast');
             
             // 메뉴가 닫힐 때 바디 오버플로우 복원
-            document.body.style.overflow = '';
+            document.body.style.overflow = 'auto';
             
             // 오버레이 비활성화
             if (this.overlay) {
@@ -1661,7 +1574,7 @@ class FilterPanel {
             activeBtn.classList.remove('active');
             
             // 패널이 닫힐 때 바디 오버플로우 복원
-            document.body.style.overflow = '';
+            document.body.style.overflow = 'auto';
             
             // 오버레이 비활성화
             if (this.overlay) {
@@ -1707,26 +1620,23 @@ class FilterPanel {
         const searchWrapper = document.querySelector('.search-wrapper');
         if (!resultsContainer || !this.filterContainer || !searchWrapper) return;
         
-        // 검색창 너비 가져오기
+        // 검색창 너비를 기준으로 필터 및 결과 컨테이너 너비 설정
         const searchWrapperWidth = searchWrapper.offsetWidth;
-        
-        // 필터 컨테이너 너비를 검색창보다 10px 작게 설정
-        this.filterContainer.style.width = `${searchWrapperWidth - 10}px`;
+        // 필터 컨테이너 너비를 검색창과 동일하게 설정 (CSS에서 padding으로 여백 조절)
+        this.filterContainer.style.width = `${searchWrapperWidth}px`;
         
         // 결과 컨테이너 너비를 검색창과 동일하게 설정
         resultsContainer.style.width = `${searchWrapperWidth}px`;
         
-        // 기존 코드 유지 (마진 계산 부분)
-        const filterButtons = this.filterContainer.querySelectorAll('.filter-btn');
-        if (filterButtons.length <= 0) return;
-        
-        const firstButtonTop = filterButtons[0].getBoundingClientRect().top;
-        const lastButtonBottom = filterButtons[filterButtons.length - 1].getBoundingClientRect().bottom;
-        
-        const filterContainerTop = 70;
-        const bottomPosition = filterContainerTop + (lastButtonBottom - firstButtonTop) + 30;
-        
-        resultsContainer.style.marginTop = `${bottomPosition}px`;
+        // 검색 모드인지 확인 (search-container에 search-mode 클래스가 있는지)
+        const isSearchMode = document.getElementById('search-container').classList.contains('search-mode');
+
+        if (isSearchMode) {
+            // 검색 모드에서는 CSS에 정의된 기본 마진값(130px)을 사용하도록 설정합니다.
+            resultsContainer.style.marginTop = '130px';
+        } else {
+            resultsContainer.style.marginTop = '0px';
+        }
     }
 }
 

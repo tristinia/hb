@@ -411,8 +411,7 @@ const ItemList = (() => {
                 let newFilteredResults;
                 if (activeFilters.length > 0) {
                     newFilteredResults = state.lastSearchResults.filter(item => {
-                        return filter.itemPassesFilters(item) && 
-                            optionFilter.itemPassesFilters(item, activeFilters);
+                        return optionFilter.itemPassesFilters(item, activeFilters);
                     });
                 } else {
                     newFilteredResults = [...state.lastSearchResults];

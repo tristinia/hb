@@ -81,12 +81,24 @@ const CategoryManager = (() => {
      * @returns {string|null} 메인 카테고리 ID
      */
     function findMainCategoryForSubCategory(subCategoryId) {
-        if (!subCategoryId) return null;
-        
-        const subCategory = state.subCategories.find(cat => 
-            cat.id === subCategoryId || cat.name === subCategoryId);
-        
+        if (!subCategoryId) return null;        
+        const subCategory = state.subCategories.find(cat => cat.name === subCategoryId);
         return subCategory ? subCategory.mainCategory : null;
+    }
+
+    /**
+     * 정의되지 않은 카테고리를 동적으로 추가
+     * @param {string} subCategoryName - 서브 카테고리 이름
+     */
+    function addUndefinedCategory(subCategoryName) {
+        if (!subCategoryName) return;
+
+        const exists = state.subCategories.some(cat => cat.name === subCategoryName);
+        if (!exists) {
+            const newCategory = { id: null, name: subCategoryName, mainCategory: '' };
+            state.subCategories.push(newCategory);
+            console.log(`새로운 카테고리 추가: ${subCategoryName}`);
+        }
     }
     
     /**
@@ -123,6 +135,7 @@ const CategoryManager = (() => {
     return {
         init,
         findMainCategoryForSubCategory,
+        addUndefinedCategory,
         resetSelectedCategories,
         getSelectedCategories,
         getSubCategoriesByMainCategory,

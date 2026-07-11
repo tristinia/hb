@@ -1,14 +1,13 @@
 /**
  * search 서비스
- * 경매장 특화 검색 기능 및 자동완성 처리
+ * 경매장 특화 검색 기능 및 자동완성 처리 (클라이언트 사이드 인덱스 검색 방식으로 변경)
  */
 
 import Utils from './utils.js';
-import categories from './categories.js';
+import apiClient from './api-client.js'; // apiClient 사용
 
 const MAX_RESULTS = 30;
 const MIN_SCORE = 40;
-
 // 특별 카테고리 정의
 const SPECIAL_CATEGORIES = {
     KEYWORD_SEARCH: ['인챈트 스크롤', '도면', '옷본'],
@@ -23,43 +22,20 @@ const search = (() => {
         activeSuggestion: -1, // 자동완성 활성 인덱스
         selectedItem: null,
         isSuggestionVisible: false, // 자동완성 표시 여부
-        loadedItemFiles: new Set(),  // 이미 로드한 아이템 파일 추적
-        isInitialized: false, // 초기화 상태 추적
         isLoading: false, // 로딩 상태
         hasError: false, // 오류 상태
-        dataLoadStats: {
-            total: 0,
-            loaded: 0,
-            lastLoggedPercent: 0
-        },
-        lastSearchTerm: '', // 마지막 검색어 저장
-        lastSearchResults: [], // 마지막 검색 결과 저장
         isPetMedalSearchActive: false, // 분양 메달 특별 검색 모드
         petMedalSearchTerm: '', // 분양 메달 필터링용 검색어
         isCategorySearch: false,
-        showViaDownArrow: false // 방향키로 자동완성 열었는지 여부
+        showViaDownArrow: false, // 방향키로 자동완성 열었는지 여부
+        isIndexLoaded: false, // 아이템 인덱스 로딩 완료 여부
     };
     
     // 자동완성 데이터
-    const autocompleteData = [];
-    
-    // 초성 캐시 (아이템명 → 초성 맵핑)
-    const chosungCache = new Map();
-    
-    // 겹받침-초성 매핑
-    const COMPOUND_CHOSUNG_MAP = {
-        'ㄳ': ['ㄱ', 'ㅅ'],
-        'ㄵ': ['ㄴ', 'ㅈ'],
-        'ㄶ': ['ㄴ', 'ㅎ'],
-        'ㄺ': ['ㄹ', 'ㄱ'],
-        'ㄻ': ['ㄹ', 'ㅁ'],
-        'ㄼ': ['ㄹ', 'ㅂ'],
-        'ㄽ': ['ㄹ', 'ㅅ'],
-        'ㄾ': ['ㄹ', 'ㅌ'],
-        'ㄿ': ['ㄹ', 'ㅍ'],
-        'ㅀ': ['ㄹ', 'ㅎ'],
-        'ㅄ': ['ㅂ', 'ㅅ']
-    };
+    let allItems = []; // 전체 아이템 목록 (인덱스)
+    let lastKnownETag = null; // 아이템 인덱스의 ETag
+    const chosungCache = new Map(); // 초성 변환 결과 캐시 (모듈 스코프로 이동)
+    const UPDATE_INTERVAL = 5 * 60 * 1000; // 5분
     
     // DOM 요소 참조
     let elements = {
@@ -82,33 +58,17 @@ const search = (() => {
             elements.suggestionsList = document.getElementById('suggestions'); // 자동완성 목록
             elements.suggestionsContainer = document.getElementById('suggestions-container'); // 자동완성 컨테이너
     
-            // 로딩 상태 표시
             if (elements.searchInput) {
                 elements.searchInput.spellcheck = false;
-                elements.searchInput.placeholder = "데이터 로딩 중...";
-                state.isLoading = true;
+                elements.searchInput.placeholder = "아이템 이름을 입력하세요...";
             }
             
             // 이벤트 리스너 설정
             setupEventListeners();
-            
-            // 카테고리 초기화 완료 이벤트 리스너 추가
-            document.addEventListener('categoriesLoaded', () => {
-                state.categoryManagerReady = true;
-                
-                // 약간의 지연 후 데이터 로드
-                setTimeout(() => {
-                    loadAutocompleteData().catch(error => {
-                        console.error('아이템 목록 로드 실패:', error);
-                        showSearchInputError('데이터를 불러올 수 없습니다. 페이지를 새로고침 해주세요.');
-                    });
-                }, 100);
-            });
-            
-            // CategoryManager 준비 상태 확인
-            checkCategoryManagerAndLoadData();
-            
-            state.isInitialized = true;
+
+            // 백그라운드 업데이트 시작
+            setInterval(checkIndexForUpdates, UPDATE_INTERVAL);
+
         } catch (error) {
             console.error('검색 관리자 초기화 오류:', error);
             state.hasError = true;
@@ -120,34 +80,15 @@ const search = (() => {
     }
     
     /**
-     * CategoryManager 상태 확인 및 데이터 로드
-     */
-    function checkCategoryManagerAndLoadData() {
-      // 이미 로드된 경우 중복 실행 방지
-      if (autocompleteData.length > 0 || state.isLoading === false) {
-        return;
-      }
-      
-      console.log('자동완성 데이터 직접 로드 시작');
-      state.isLoading = true;
-      
-      // CategoryManager 의존성을 제거하고 직접 데이터 로드
-      loadAutocompleteData().catch(error => {
-        console.error('자동완성 데이터 로드 실패:', error);
-        showSearchInputError('데이터를 불러올 수 없습니다.');
-      });
-    }
-    
-    /**
      * 이벤트 리스너 설정
      */
     function setupEventListeners() {
         // 검색 입력창 이벤트
         if (elements.searchInput) {
-            elements.searchInput.addEventListener('input', handleSearchInput);
+            elements.searchInput.addEventListener('input', handleSearchInput); // Debounce 제거, 즉각 반응
             elements.searchInput.addEventListener('keydown', handleKeyDown, true);
             elements.searchInput.addEventListener('click', handleSearchInputClick);
-            elements.searchInput.addEventListener('focus', handleSearchInputFocus);
+            elements.searchInput.addEventListener('focus', loadItemIndex); // 포커스 시 인덱스 로딩
         }
         
         if (elements.searchButton) {
@@ -224,20 +165,11 @@ const search = (() => {
      */
     function handleSearchInputClick(e) {
         if (elements.searchInput && elements.searchInput.value.trim()) {
-            updateSuggestions(elements.searchInput.value.trim());
+            handleSearchInput();
             e.stopPropagation();
         }
     }
-
-    /**
-     * 검색창 포커스 이벤트 처리
-     */
-    function handleSearchInputFocus(e) {
-        if (elements.searchInput && elements.searchInput.value.trim()) {
-            updateSuggestions(elements.searchInput.value.trim());
-        }
-    }
-
+    
     function handleDocumentClick(event) {
         if (elements.searchInput && elements.suggestionsList &&
             !elements.searchInput.contains(event.target) &&
@@ -326,397 +258,6 @@ const search = (() => {
     }
     
     /**
-     * 아이템 데이터 처리 및 자동완성 데이터 형식으로 변환
-     * @param {Array} items - JSON에서 가져온 아이템 목록
-     * @param {Object} category - 카테고리 정보
-     */
-    function processItems(items, category) {
-      if (!Array.isArray(items) || items.length === 0) return;
-      
-      // 자동완성 데이터 형식으로 변환하여 추가
-      items.forEach(item => {
-        // 아이템 객체 생성 - 필드 제거
-        const autocompleteItem = {
-          name: item.name,
-          price: item.price || 0,
-          date: item.date || '',
-          mainCategory: category.mainCategory,
-          subCategory: category.id
-        };
-        
-        // 초성 미리 계산하여 저장
-        const itemName = item.name || '';
-        const noSpaceItemName = Utils.removeSpaces(itemName.toLowerCase());
-        const itemChosung = Utils.getChosung(noSpaceItemName);
-        
-        // 초성 캐시에 저장
-        chosungCache.set(itemName, itemChosung);
-        
-        // 자동완성 데이터에 추가
-        autocompleteData.push(autocompleteItem);
-      });
-      
-      // 로드 완료 표시
-      state.loadedItemFiles.add(category.id);
-      
-      // 진행 상황 업데이트
-      state.dataLoadStats.loaded++;
-      updateLoadingProgress();
-    }
-    
-    /**
-     * 진행 상황 업데이트 및 로그 표시
-     */
-    function updateLoadingProgress() {
-        if (state.dataLoadStats.total === 0) return;
-        
-        const percent = Math.round((state.dataLoadStats.loaded / state.dataLoadStats.total) * 100);
-        
-        // 검색창 placeholder 업데이트
-        if (elements.searchInput) {
-            elements.searchInput.placeholder = `데이터 로드 중... (${percent}%)`;
-        }
-    }
-    
-    /**
-     * 카테고리에서 자동완성 데이터 로드
-     */
-    async function loadAutocompleteData() {       
-        try {
-            // 이미 로드되었으면 스킵
-            if (autocompleteData.length > 0) {
-                enableSearchInput();
-                return;
-            }
-            
-            // 카테고리에서 아이템 목록 로드
-            await loadItemListsByCategory();
-            
-            // 카테고리 목록 로드
-            await loadCategoryData();
-            
-        } catch (error) {
-            console.error('자동완성 데이터 로드 중 오류:', error);
-            showSearchInputError('데이터를 불러올 수 없습니다.');
-            throw error;
-        }
-    }
-    
-    /**
-     * 검색 입력창 활성화
-     */
-    function enableSearchInput() {
-        if (!elements.searchInput) return;
-        
-        // 검색 입력창 활성화
-        elements.searchInput.placeholder = "아이템 이름을 입력하세요...";
-        elements.searchInput.classList.remove('search-error');
-        
-        // 검색 버튼 활성화
-        if (elements.searchButton) {
-            elements.searchButton.removeAttribute('disabled');
-        }
-        
-        state.isLoading = false;
-        state.hasError = false;
-    }
-
-    /**
-     * 카테고리 목록 로드
-     */
-    async function loadCategoryData() {
-      try {
-        // CategoryManager 대신 loadItemListsByCategory에서 가져온 데이터 사용
-        // 이 시점에서는 categories.json이 이미 로드되어 있음
-        const response = await fetch('data/categories.json');
-        if (!response.ok) {
-          throw new Error(`카테고리 데이터 로드 실패: ${response.status}`);
-        }
-        
-        // 카테고리 데이터 직접 파싱
-        const data = await response.json();
-        const subCategories = data.categories || [];
-        const mainCategories = data.mainCategories || [];
-        
-        if (!subCategories || subCategories.length === 0) {
-          console.error('유효한 카테고리 정보가 없습니다.');
-          return;
-        }
-        
-        // 이미 로드된 경우 중복 추가 방지
-        if (autocompleteData.some(item => item.isCategory)) {
-          return;
-        }
-        
-        // 모든 카테고리를 자동완성 데이터에 추가
-        subCategories.forEach(category => {
-          const categoryItem = {
-            name: category.name,
-            isCategory: true,
-            mainCategory: category.mainCategory,
-            subCategory: category.id
-          };
-          
-          // 자동완성 데이터에 추가
-          autocompleteData.push(categoryItem);
-        });
-        
-      } catch (error) {
-        console.error('카테고리 데이터 캐시 로드 중 오류:', error);
-      }
-    }
-    
-    /**
-     * 카테고리별 아이템 목록 로드
-     */
-    async function loadItemListsByCategory() {
-        try {
-            // 모든 카테고리 데이터 로드를 위한 경로 사용
-            const response = await fetch('data/categories.json');
-            
-            if (!response.ok) {
-                throw new Error(`카테고리 데이터 로드 실패: ${response.status}`);
-            }
-            
-            // JSON 데이터 파싱
-            const data = await response.json();
-            
-            // 카테고리 데이터 추출
-            const categories = {
-                mainCategories: data.mainCategories || [],
-                subCategories: data.categories || []
-            };
-            
-            if (!categories.subCategories || categories.subCategories.length === 0) {
-                console.warn('카테고리 정보가 로드되지 않았습니다.');
-                showSearchInputError('카테고리 정보를 불러올 수 없습니다.');
-                return;
-            }
-            
-            // 전체 카테고리 개수 설정
-            state.dataLoadStats.total = categories.subCategories.length;
-            state.dataLoadStats.loaded = 0;
-            
-            // 로딩 상태 표시
-            if (elements.searchInput) {
-                elements.searchInput.placeholder = "데이터 로드 중... (0%)";
-            }
-            
-            // 캐시 누락 감지
-            checkAndRepairMissingCache(categories.subCategories);
-            
-            // 병렬 처리
-            await Promise.all(categories.subCategories.map(category => 
-                loadItemListFromFileWithETag(category)
-                    .catch(error => {
-                        console.error(`카테고리 ${category.id} 로드 실패:`, error);
-                        state.dataLoadStats.loaded++;
-                        updateLoadingProgress();
-                    })
-            ));
-            
-            // 검색 입력창 활성화
-            enableSearchInput();
-            
-        } catch (error) {
-            console.error('아이템 목록 로드 중 오류:', error);
-            showSearchInputError('아이템 목록을 불러올 수 없습니다.');
-            throw error;
-        }
-    }
-
-    /**
-     * CategoryManager 준비 상태 확인
-     */
-    async function ensureCategoryManagerReady() {
-      let retryCount = 0;
-      const maxRetries = 5;
-      const retryInterval = 200; // ms
-      
-      while (!state.categoryManagerReady && retryCount < maxRetries) {
-        await new Promise(resolve => setTimeout(resolve, retryInterval));
-        retryCount++;
-        
-        checkCategoryManagerAndLoadData();
-        
-        if (CategoryManager.getSelectedCategories && 
-            typeof CategoryManager.getSelectedCategories === 'function') {
-          try {
-            const categories = CategoryManager.getSelectedCategories();
-            if (categories && categories.subCategories && categories.subCategories.length > 0) {
-              state.categoryManagerReady = true;
-              break;
-            }
-          } catch (error) {
-            console.log('CategoryManager 상태 확인 중 오류:', error);
-          }
-        }
-      }
-      
-      if (!state.categoryManagerReady) {
-        throw new Error('카테고리 관리자가 준비되지 않았습니다.');
-      }
-    }
-
-    /**
-     * 누락된 캐시 감지 및 복구
-     */
-    function checkAndRepairMissingCache(categories) {
-      categories.forEach(category => {
-        const safeFileName = category.id.replace(/\//g, '_');
-        const hasETag = localStorage.getItem(`category_${safeFileName}_etag`);
-        const hasItems = localStorage.getItem(`category_${safeFileName}_items`);
-        
-        // 캐시 데이터 불일치 감지
-        if (hasETag && !hasItems) {
-          localStorage.removeItem(`category_${safeFileName}_etag`);
-          localStorage.removeItem(`category_${safeFileName}_items`);
-        }
-      });
-    }
-
-    /**
-     * ETag를 활용한 조건부 요청
-     */
-    async function loadItemListFromFileWithETag(category) {
-      // 이미 로드한 경우 중복 로드 방지
-      if (state.loadedItemFiles.has(category.id)) return;
-      
-      // 카테고리 ID의 슬래시를 언더스코어로 변환
-      const safeFileName = category.id.replace(/\//g, '_');
-      const url = `data/items/${encodeURIComponent(safeFileName)}.json`;
-      
-      // 재시도 횟수를 추적하기 위한 변수
-      let retryCount = 0;
-      const maxRetries = 1; // 최대 1회 재시도
-    
-      async function attemptLoad(useCache = true) {
-        try {
-          // 저장된 ETag 가져오기
-          const cachedETag = useCache ? localStorage.getItem(`category_${safeFileName}_etag`) : null;
-          
-          // HTTP 요청 헤더 설정
-          const headers = new Headers();
-          if (cachedETag) {
-            // ETag 기반 조건부 요청
-            headers.append('If-None-Match', cachedETag);
-          }
-          
-          // 조건부 요청 수행
-          const response = await fetch(url, { headers });
-          
-          if (response.status === 304) { // 304 Not Modified - 캐시가 최신 상태
-            // 캐시된 데이터 사용
-            const cachedItems = JSON.parse(localStorage.getItem(`category_${safeFileName}_items`) || '[]');
-              if (cachedItems.length > 0) {
-                  // 캐시된 아이템 추가 전 불필요 필드 무시하는 접근 필요
-                  cachedItems.forEach(item => {
-                      // 필요한 필드만 autocompleteData에 추가
-                      autocompleteData.push({
-                          name: item.name,
-                          price: item.price || 0,
-                          date: item.date || '',
-                          mainCategory: item.mainCategory,
-                          subCategory: item.subCategory,
-                          isCategory: item.isCategory || false
-                      });
-                      
-                      // 초성 추출 및 캐싱
-                      if (item.name && !chosungCache.has(item.name)) {
-                          const noSpaceItemName = Utils.removeSpaces(item.name.toLowerCase());
-                          chosungCache.set(item.name, Utils.getChosung(noSpaceItemName));
-                      }
-                  });
-              }
-              return; // 캐시 사용 완료
-          }
-          
-          // 캐시 없음 또는 변경됨 (200 OK)
-          if (!response.ok) {
-            throw new Error(`서버 응답 오류: ${response.status}`);
-          }
-          
-          // 응답 본문을 텍스트로 먼저 받기
-          const responseText = await response.text();
-          
-          // 빈 응답인지 확인
-          if (!responseText || responseText.trim() === '') {
-            throw new Error('빈 응답 받음');
-          }
-          
-          // JSON으로 파싱 시도
-          let data;
-          try {
-            data = JSON.parse(responseText);
-          } catch (parseError) {
-            // JSON 파싱 실패 시 캐시 삭제 후 재시도 트리거
-            if (retryCount < maxRetries) {
-              // 캐시 삭제
-              localStorage.removeItem(`category_${safeFileName}_etag`);
-              localStorage.removeItem(`category_${safeFileName}_items`);
-              
-              // 재시도 횟수 증가
-              retryCount++;
-              
-              // 캐시 없이 재시도
-              return await attemptLoad(false);
-            }
-            
-            // 최대 재시도 횟수 초과 시 원래 오류 발생
-            throw parseError;
-          }
-          
-          // 새 ETag 저장
-          const newETag = response.headers.get('ETag');
-          if (newETag) {
-            localStorage.setItem(`category_${safeFileName}_etag`, newETag);
-          }
-          
-          // 데이터 처리
-          const items = data.items || [];
-          processItems(items, category);
-          
-          // 캐시 저장
-          localStorage.setItem(`category_${safeFileName}_items`, JSON.stringify(
-            items.map(item => ({
-              name: item.name,
-              price: item.price || 0,
-              date: item.date || '',
-              mainCategory: category.mainCategory,
-              subCategory: category.id
-            }))
-          ));
-          
-        } catch (error) {
-          // 첫 번째 시도에서 JSON 파싱 오류가 발생하고 재시도하지 않은 경우
-          if (error instanceof SyntaxError && useCache && retryCount < maxRetries) {
-            // 캐시 삭제
-            localStorage.removeItem(`category_${safeFileName}_etag`);
-            localStorage.removeItem(`category_${safeFileName}_items`);
-            
-            // 재시도 횟수 증가
-            retryCount++;
-            
-            // 캐시 없이 재시도
-            return await attemptLoad(false);
-          }
-          
-          console.warn(`카테고리 ${category.id} 아이템 목록 로드 실패:`, error);
-          state.loadedItemFiles.add(category.id);
-          
-          // 오류가 발생해도 로드 진행 상태는 업데이트
-          state.dataLoadStats.loaded++;
-          updateLoadingProgress();
-          
-          throw error;
-        }
-      }
-      
-      // 초기 로드 시도
-      await attemptLoad();
-    }
-    
-    /**
      * 카테고리 정보 가져오기
      * @returns {Promise<Object>} 카테고리 정보
      */
@@ -753,27 +294,108 @@ const search = (() => {
     }
     
     /**
+     * 서버로부터 전체 아이템 인덱스를 비동기적으로 가져옵니다. (최초 1회만 실행)
+     */
+    async function loadItemIndex() {
+        const originalPlaceholder = elements.searchInput.placeholder;
+        if (state.isIndexLoaded || state.isLoading) return;
+
+        state.isLoading = true;
+        elements.searchInput.placeholder = '로딩중...';
+        try {
+            console.log('[Search] 아이템 인덱스 초기 로딩 시작...');
+            const { data, etag } = await apiClient.fetchItemIndex();
+            let combinedItems = [];
+
+            if (data) {
+                combinedItems = data; // 아이템 목록 할당
+                lastKnownETag = etag;
+                state.isIndexLoaded = true;
+                console.log(`[Search] 아이템 인덱스 로딩 완료: ${data.length}개, ETag: ${etag}`);
+            }
+
+            // 1. 아이템 인덱스에서 모든 고유 카테고리 이름을 동적으로 추출
+            const dynamicCategories = new Set(data.map(item => item.category).filter(Boolean));
+            console.log(`[Search] 아이템 인덱스에서 ${dynamicCategories.size}개의 고유 카테고리 발견.`);
+
+            // 2. categories.json의 정적 카테고리 정보 로드
+            let staticCategories = [];
+            if (window.CategoryManager) {
+                staticCategories = window.CategoryManager.getSelectedCategories().subCategories;
+                staticCategories.forEach(cat => dynamicCategories.add(cat.name)); // 정적 목록도 포함 보장
+            }
+
+            // 3. 동적/정적 카테고리를 병합하여 최종 카테고리 목록 생성
+            const staticCategoryMap = new Map(staticCategories.map(cat => [cat.name, cat]));
+            const finalCategoryItems = Array.from(dynamicCategories).map(name => {
+                const staticInfo = staticCategoryMap.get(name);
+                return {
+                    name: name,
+                    mainCategory: staticInfo ? staticInfo.mainCategory : '', // 정보가 없으면 빈칸
+                    isCategory: true
+                };
+            });
+            console.log(`[Search] 최종 카테고리 목록 ${finalCategoryItems.length}개 생성.`);
+
+            // 4. 아이템 목록과 최종 카테고리 목록을 합쳐서 전체 검색 대상 생성
+            allItems = [...combinedItems, ...finalCategoryItems];
+            console.log(`[Search] 최종 아이템/카테고리 목록: ${allItems.length}개`);
+
+            // 인덱스 로딩 후, 현재 입력창에 값이 있으면 바로 검색 실행
+            if (elements.searchInput.value.trim()) {
+                handleSearchInput();
+            }
+        } catch (error) {
+            console.error("아이템 인덱스를 가져오는 데 실패했습니다:", error);
+            state.hasError = true;
+            showSearchInputError('검색 데이터를 불러올 수 없습니다.');
+        } finally {
+            state.isLoading = false;
+            elements.searchInput.placeholder = originalPlaceholder;
+        }
+    }
+
+    /**
+     * 백그라운드에서 아이템 인덱스 업데이트를 확인하고 적용합니다.
+     */
+    async function checkIndexForUpdates() {
+        if (!state.isIndexLoaded) return; // 아직 초기 로드가 안됐으면 실행 안함
+
+        console.log(`[Search] 백그라운드 업데이트 확인 시작... (ETag: ${lastKnownETag})`);
+        try {
+            const { data, etag, modified } = await apiClient.fetchItemIndex(lastKnownETag);
+
+            if (modified && data) {
+                console.log(`[Search] 새로운 아이템 인덱스 발견! 데이터 갱신. (New ETag: ${etag})`);
+                allItems = data;
+                lastKnownETag = etag;
+            } else {
+                console.log('[Search] 아이템 인덱스 변경 없음. 갱신 건너뜀.');
+            }
+        } catch (error) {
+            console.error('[Search] 백그라운드 업데이트 중 오류 발생:', error);
+        }
+    }
+
+    /**
      * 검색어 입력 처리
      */
-    function handleSearchInput() {
-        // 로딩 또는 오류 상태면 무시
-        if (state.isLoading || state.hasError) return;
-        
-        // 이전 검색어와 다르면 선택된 아이템 초기화
-        const newSearchTerm = elements.searchInput.value.trim();
-        if (newSearchTerm !== state.searchTerm && state.selectedItem) {
-            // 검색어가 변경되면 선택된 아이템 초기화
-            state.selectedItem = null;
+    async function handleSearchInput() {
+        // 인덱스가 로드되지 않았다면 로딩을 시도하고, 로딩이 끝나면 이 함수가 다시 호출될 것입니다.
+        if (!state.isIndexLoaded) {
+            await loadItemIndex();
+            return;
         }
-        
-        state.searchTerm = newSearchTerm;
-        
-        // 검색어 변경 이벤트 발생
-        if (!state.searchTerm) {
+
+        const searchTerm = elements.searchInput.value;
+
+        // 검색어가 비어있으면 자동완성 닫기
+        if (!searchTerm.trim()) {
             clearSuggestions();
             return;
         }
-        updateSuggestions(state.searchTerm);
+        
+        updateSuggestions(searchTerm);
     }
     
     /**
@@ -781,23 +403,6 @@ const search = (() => {
      * @param {string} chosungStr - 초성 문자열
      * @returns {string} 겹받침이 분해된 초성 문자열
      */
-    function processCompoundChosung(chosungStr) {
-        if (!chosungStr) return '';
-        
-        let result = '';
-        for (let i = 0; i < chosungStr.length; i++) {
-            const char = chosungStr[i];
-            // 겹받침인지 확인
-            if (COMPOUND_CHOSUNG_MAP[char]) {
-                // 겹받침을 분해하여 각 초성으로 변환
-                result += COMPOUND_CHOSUNG_MAP[char].join('');
-            } else {
-                result += char;
-            }
-        }
-        
-        return result;
-    }
     
     function handleKeyDown(e) {
         switch (e.key) {
@@ -806,7 +411,7 @@ const search = (() => {
                 if (!state.isSuggestionVisible) {
                     if (elements.searchInput && elements.searchInput.value.trim()) {
                         state.showViaDownArrow = true;
-                        updateSuggestions(elements.searchInput.value.trim());
+                        handleSearchInput();
                     }
                 } else {
                     const totalSuggestions = state.suggestions.length;
@@ -870,80 +475,86 @@ const search = (() => {
      * @returns {Array} 추천 목록
      */
     function updateSuggestions(searchTerm) {
-        if (!searchTerm) return [];
+        if (!searchTerm.trim() || allItems.length === 0) {
+            clearSuggestions();
+            return;
+        }
         
-        state.lastSearchTerm = searchTerm;
-        const suggestions = generateSuggestions(searchTerm);
+        // generateSuggestions를 통해 지능형 검색 실행
+        const suggestions = generateSuggestions(searchTerm.trim());
 
-        if (suggestions && suggestions.length > 0) {
+        if (suggestions.length > 0) {
             state.suggestions = suggestions;
             renderSuggestions();
         } else {
             clearSuggestions();
         }
     }
-
+    
     function generateSuggestions(searchTerm) {
+        // 이 함수는 이제 서버에서 처리되므로 클라이언트에서는 단순 필터링 또는 그대로 반환
         const normalizedTerm = searchTerm.toLowerCase();
         const noSpaceTerm = Utils.removeSpaces(normalizedTerm);
-        if (!Array.isArray(autocompleteData) || autocompleteData.length === 0) {
+        if (!Array.isArray(allItems) || allItems.length === 0) {
             return [];
         }
         
         const matchedItems = [];
         
-        // 초성 검색인지 확인
-        const isChosungSearch = Utils.isAllChosung(noSpaceTerm);
-        
-        // 검색어 처리 (초성인 경우 겹받침 분해)
-        const processedTerm = isChosungSearch ? processCompoundChosung(noSpaceTerm) : noSpaceTerm;
-        
-        // 검색 수행
-        if (processedTerm.length === 1) {
-            handleSingleCharSearch(processedTerm, matchedItems);
+        // --- 기존의 지능형 한글 검색 로직을 여기에 적용 ---
+        const isAllChosung = Utils.isAllChosung(noSpaceTerm);
+        let termToProcess = noSpaceTerm;
+
+        // 겹자음 초성이 포함된 경우, 이를 분해하여 처리
+        const hasCompoundConsonant = [...termToProcess].some(char => Utils.COMPOUND_JONGSUNG_MAP[char]);
+
+        if (hasCompoundConsonant) {
+            termToProcess = [...termToProcess].map(char => {
+                // 겹자음(종성) 맵에 해당 문자가 있으면 분해된 초성으로 변환
+                return Utils.COMPOUND_JONGSUNG_MAP[char] ? Utils.COMPOUND_JONGSUNG_MAP[char].join('') : char;
+            }).join('');
+        }
+
+        // isAllChosung을 분해된 검색어 기준으로 다시 판단하거나, 겹자음이 있었으면 초성 검색으로 간주
+        if (isAllChosung || hasCompoundConsonant) {
+            // 1. 초성만으로 이루어진 검색어 처리 (e.g., "ㅋㅌㅅ")
+            handleChosungMultiSearch(termToProcess, matchedItems);
+        } else if (noSpaceTerm.length === 1) { // 원본 검색어 기준
+            // 2. 한 글자 검색 처리 (e.g., "ㅋ", "켈", "켍")
+            handleSingleCharSearch(noSpaceTerm, matchedItems);
         } else {
-            // 초성 검색과 일반 검색 구분
-            if (isChosungSearch) {
-                handleChosungMultiSearch(processedTerm, matchedItems);
-            } else {
-                handleMultiCharSearch(processedTerm, matchedItems);
+            // 3. 두 글자 이상 검색 처리 (e.g., "켈티", "켈틱")
+            handleMultiCharSearch(noSpaceTerm, matchedItems);
+        }
+        
+        // 점수 기반으로 중복 제거 및 정렬
+        const uniqueItems = new Map();
+        matchedItems.forEach(entry => {
+            if (!uniqueItems.has(entry.item.name) || uniqueItems.get(entry.item.name).score < entry.score) {
+                uniqueItems.set(entry.item.name, entry);
             }
-        }
-        
-        // 분양 메달 관련 자동완성 처리
-        if (state.isPetMedalSearchActive && normalizedTerm) {
-            handlePetMedalSearch(normalizedTerm, matchedItems);
-        }
-        
-        // 카테고리 항목과 일반 항목 분리
-        const categoryMatches = matchedItems.filter(item => item.item.isCategory);
-        const itemMatches = matchedItems.filter(item => !item.item.isCategory);
-        
-        // 카테고리는 이미 함수 내에서 +5 보너스를 받았음
-        // 여기서는 UI 표시를 위해 더 큰 보너스를 추가하여 항상 상단에 표시되도록 함
-        categoryMatches.forEach(item => {
-            item.score += 100; // 개별 함수에서 이미 +5를 받았으므로 여기서는 +100만 추가
         });
-        
-        // 각 그룹 내에서 점수, 이름 길이 순으로 정렬
-        const sortedCategories = categoryMatches
+
+        const sortedSuggestions = Array.from(uniqueItems.values())
             .sort((a, b) => {
+                const aIsCategory = a.item.isCategory || false;
+                const bIsCategory = b.item.isCategory || false;
+
+                // 1. 카테고리 여부를 최우선으로 정렬 (카테고리가 위로)
+                if (aIsCategory !== bIsCategory) {
+                    return bIsCategory - aIsCategory; // true (1) - false (0) = 1 -> b가 앞으로
+                }
+
+                // 2. 카테고리 여부가 같으면 점수 높은 순으로 정렬
                 if (b.score !== a.score) return b.score - a.score;
-                return a.itemName.length - b.itemName.length;
+
+                // 3. 점수도 같으면 이름 길이순으로 정렬
+                return (a.item.name || '').length - (b.item.name || '').length;
             })
-            .slice(0, 5) // 최대 5개 카테고리만 표시
+            .slice(0, MAX_RESULTS)
             .map(entry => entry.item);
-        
-        const sortedItems = itemMatches
-            .sort((a, b) => {
-                if (b.score !== a.score) return b.score - a.score;
-                return a.itemName.length - b.itemName.length;
-            })
-            .slice(0, MAX_RESULTS - sortedCategories.length) // 남은 공간만큼 아이템 표시
-            .map(entry => entry.item);
-        
-        // 최종 결과: 카테고리 결과 + 일반 아이템 결과
-        return [...sortedCategories, ...sortedItems];
+
+        return sortedSuggestions;
     }
 
     /**
@@ -970,7 +581,7 @@ const search = (() => {
             let content = '';
             if (typeof item === 'object') {
                 const mainCat = item.mainCategory || '';
-                const subCat = item.isCategory ? item.name : (item.subCategory || '');
+                const subCat = item.isCategory ? item.name : (item.category || '');
                 const categoryInfo = (mainCat || subCat) ? 
                     `<div class="suggestion-category">${mainCat}${mainCat && subCat ? ' > ' : ''}${subCat}</div>` : '';
                 
@@ -1014,7 +625,7 @@ const search = (() => {
      */
     function handlePetMedalSearch(searchTerm, matchedItems) {
         // 분양 메달 카테고리 아이템만 필터링
-        const petMedalItems = autocompleteData.filter(item => 
+        const petMedalItems = allItems.filter(item => 
             item.subCategory === '분양 메달'
         );
         
@@ -1044,21 +655,19 @@ const search = (() => {
      * @param {Array} matchedItems - 결과 저장 배열
      */
     function handleChosungMultiSearch(chosungTerm, matchedItems) {
-        for (const item of autocompleteData) {
+        for (const item of allItems) {
             if (!item.name) continue;
             
             const itemName = item.name.toLowerCase();
             const noSpaceItemName = Utils.removeSpaces(itemName);
             
-            // 초성 캐시에서 가져오기
-            let itemChosung = chosungCache.get(item.name);
-            
-            // 캐시에 없는 경우 계산
+            // 초성 캐시 확인 및 계산
+            let itemChosung = chosungCache.get(noSpaceItemName);
             if (!itemChosung) {
                 itemChosung = Utils.getChosung(noSpaceItemName);
-                chosungCache.set(item.name, itemChosung);
+                chosungCache.set(noSpaceItemName, itemChosung);
             }
-            
+
             let score = 0;
             
             // 1. 완전 일치 - 초성이 정확히 일치 (가장 높은 점수)
@@ -1227,10 +836,16 @@ const search = (() => {
      * @param {Array} [itemsToSearch] - 검색 대상 아이템 목록 (없으면 전체 데이터)
      */
     function handleChosungSearch(chosung, matchedItems, itemsToSearch) {
-        const itemsArray = itemsToSearch || autocompleteData;
+        const itemsArray = itemsToSearch || allItems;
         
         // 겹받침 확인 및 분해
-        const processedChosung = processCompoundChosung(chosung);
+        const processedChosung = chosung.split('').map(char => {
+            // Utils에 있는 겹받침 맵을 사용
+            if (Utils.COMPOUND_JONGSUNG_MAP[char]) {
+                return Utils.COMPOUND_JONGSUNG_MAP[char].join('');
+            }
+            return char;
+        }).join('');
         
         for (const item of itemsArray) {
             if (!item.name) continue;
@@ -1240,13 +855,12 @@ const search = (() => {
             const itemLower = itemText.toLowerCase();
             const noSpaceItemText = Utils.removeSpaces(itemLower);
             
-            // 초성 캐시에서 가져오기
-            let itemChosung = chosungCache.get(itemText);
+            // 초성 캐시 확인 및 계산
+            let itemChosung = chosungCache.get(noSpaceItemText);
             
-            // 캐시에 없는 경우만 계산
             if (!itemChosung) {
                 itemChosung = Utils.getChosung(noSpaceItemText);
-                chosungCache.set(itemText, itemChosung);
+                chosungCache.set(noSpaceItemText, itemChosung);
             }
             
             let score = 0;
@@ -1287,7 +901,7 @@ const search = (() => {
      * @param {Array} matchedItems - 결과 저장 배열
      */
     function handleSyllableNoJongsungSearch(char, analysis, matchedItems) {
-        for (const item of autocompleteData) {
+        for (const item of allItems) {
             if (!item.name) continue;
             
             // 검색 대상 텍스트 결정 (카테고리/일반 아이템)
@@ -1319,8 +933,8 @@ const search = (() => {
             }
             
             // 3순위: 겹모음 확인 (현재 중성이 기본 모음인 경우)
-            if (score < 65 && Utils.COMPOUND_JUNGSUNG_MAP[analysis.jungsung]) {
-                const possibleCompoundJungsung = Utils.COMPOUND_JUNGSUNG_MAP[analysis.jungsung];
+            if (score < 65 && Utils.getCompoundJungsung(analysis.jungsung).length > 0) {
+                const possibleCompoundJungsung = Utils.getCompoundJungsung(analysis.jungsung);
                 
                 for (let i = 0; i < noSpaceItemText.length; i++) {
                     const itemChar = noSpaceItemText[i];
@@ -1359,7 +973,7 @@ const search = (() => {
      * @param {Array} matchedItems - 결과 저장 배열
      */
     function handleSyllableWithJongsungSearch(char, analysis, matchedItems) {
-        for (const item of autocompleteData) {
+        for (const item of allItems) {
             if (!item.name) continue;
             
             // 검색 대상 텍스트 결정 (카테고리/일반 아이템)
@@ -1445,7 +1059,7 @@ const search = (() => {
      * @param {Array} matchedItems - 결과 저장 배열
      */
     function handleCompoundJongsungSearch(char, analysis, matchedItems) {
-        for (const item of autocompleteData) {
+        for (const item of allItems) {
             if (!item.name) continue;
             
             // 검색 대상 텍스트 결정 (카테고리/일반 아이템)
@@ -1499,7 +1113,7 @@ const search = (() => {
      * @param {Array} matchedItems - 결과 저장 배열
      */
     function handleBasicCharSearch(char, matchedItems) {
-        for (const item of autocompleteData) {
+        for (const item of allItems) {
             if (!item.name) continue;
             
             // 검색 대상 텍스트 결정 (카테고리/일반 아이템)
@@ -1535,7 +1149,7 @@ const search = (() => {
      * @param {Array} matchedItems - 결과 저장 배열
      */
     function handleMultiCharSearch(term, matchedItems) {
-        for (const item of autocompleteData) {
+        for (const item of allItems) {
             if (!item.name) continue;
             
             // 검색 대상 텍스트 결정 (카테고리/일반 아이템)
@@ -1676,8 +1290,8 @@ const search = (() => {
         }
         
         // 겹모음 확인 (낮은 가중치)
-        if (Utils.COMPOUND_JUNGSUNG_MAP[lastCharAnalysis.jungsung]) {
-          const possibleCompoundJungsung = Utils.COMPOUND_JUNGSUNG_MAP[lastCharAnalysis.jungsung];
+        if (Utils.getCompoundJungsung(lastCharAnalysis.jungsung).length > 0) {
+          const possibleCompoundJungsung = Utils.getCompoundJungsung(lastCharAnalysis.jungsung);
           
           for (let j = 0; j < noSpaceItemName.length; j++) {
             const itemChar = noSpaceItemName[j];
@@ -1826,13 +1440,17 @@ const search = (() => {
         return 0;
       }
       
+      // 마지막 글자를 찾지 못했다면, 순차적 매칭은 불가능하므로 즉시 실패 처리합니다.
+      if (lastCharPositions.length === 0) {
+        return 0;
+      }
+
       // 위치 정보만 추출하여 배열에 추가
       const lastPosArray = lastCharPositions.map(item => item.pos);
       charPositions.push(lastPosArray);
       
       // 가능한 모든 경로 탐색 (순차적이지만 연속적일 필요는 없음)
       if (hasValidSequence(charPositions)) {
-        // 마지막 글자 매칭 가중치 기반 보너스 계산
         let matchBonus = 0;
         
         // 가장 높은 가중치 찾기
@@ -1857,45 +1475,31 @@ const search = (() => {
      * @returns {boolean} 유효한 경로 존재 여부
      */
     function hasValidSequence(positionsArray) {
-      if (!positionsArray.length) return false;
-      
-      // 첫 번째 글자의 모든 위치에서 시작
-      const paths = positionsArray[0].map(pos => [pos]);
-      
-      // 두 번째 글자부터 경로 확장
-      for (let i = 1; i < positionsArray.length; i++) {
-        const newPaths = [];
-        
-        // 기존 각 경로에서 확장 가능한 경로 찾기
-        for (const path of paths) {
-          const lastPos = path[path.length - 1];
-          
-          // 현재 글자의 위치가 이전 글자 위치보다 뒤에 있어야 함
-          for (const nextPos of positionsArray[i]) {
-            if (nextPos > lastPos) {
-              newPaths.push([...path, nextPos]);
-              
-              // 효율성을 위해 모든 경로를 찾을 필요 없이
-              // 마지막 글자까지 유효한 경로를 찾으면 성공
-              if (i === positionsArray.length - 1) {
+        if (!positionsArray || positionsArray.length === 0) return false;
+
+        // 재귀적으로 경로를 찾는 헬퍼 함수
+        function findPath(level, lastPosition) {
+            // 마지막 레벨(검색어 끝)까지 도달했다면 유효한 경로가 존재함
+            if (level === positionsArray.length) {
                 return true;
-              }
             }
-          }
+
+            const currentPositions = positionsArray[level];
+
+            for (const currentPosition of currentPositions) {
+                if (currentPosition > lastPosition) {
+                    // 다음 레벨에서 유효한 경로를 하나라도 찾으면 즉시 true 반환하고 모든 탐색 중단
+                    if (findPath(level + 1, currentPosition)) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
-        
-        // 더 이상 경로를 확장할 수 없으면 실패
-        if (newPaths.length === 0) {
-          return false;
-        }
-        
-        // 새 경로로 업데이트
-        paths.length = 0;
-        paths.push(...newPaths);
-      }
-      
-      // 끝까지 유효한 경로가 있으면 성공
-      return paths.length > 0;
+
+        // 0번째 글자부터 탐색 시작 (이전 위치는 -1로 설정하여 항상 통과)
+        return findPath(0, -1);
     }
     
     /**
@@ -1977,7 +1581,7 @@ const search = (() => {
         state.isCategorySearch = false; // 일반 아이템 검색
 
         // 분양 메달 여부 확인 - 새로운 함수 사용
-        const isPetMedalItem = isPetMedalCategory(item.subCategory);
+        const isPetMedalItem = isPetMedalCategory(item.subCategory || item.category);
         
         // 분양 메달 관련 상태 설정
         if (isPetMedalItem) {
@@ -1996,7 +1600,7 @@ const search = (() => {
             detail: {
                 searchTerm: state.searchTerm,
                 selectedItem: item,
-                category: item.subCategory,
+                category: item.subCategory || item.category,
                 mainCategory: item.mainCategory
             }
         });
@@ -2008,7 +1612,7 @@ const search = (() => {
                 searchTerm: item.name,
                 selectedItem: item,
                 mainCategory: item.mainCategory,
-                subCategory: item.subCategory,
+                subCategory: item.subCategory || item.category,
                 isPetMedalSearch: state.isPetMedalSearchActive,
                 petMedalSearchTerm: state.petMedalSearchTerm
             }
@@ -2097,14 +1701,6 @@ const search = (() => {
         state.searchTerm = '';
         state.selectedItem = null;
         
-        // 분양 메달 모드 초기화
-        state.isPetMedalSearchActive = false;
-        state.petMedalSearchTerm = '';
-        
-        // 초기화에 따른 상태 변수 정리
-        state.lastSearchTerm = '';
-        state.lastSearchResults = [];
-        
         // 이벤트 발생
         const event = new CustomEvent('searchReset');
         document.dispatchEvent(event);
@@ -2164,30 +1760,6 @@ const search = (() => {
     }
     
     /**
-     * 자동완성 데이터 캐시 지우기
-     */
-    function clearCache() {
-        try {
-            localStorage.removeItem('autocompleteData');
-            
-            // 카테고리별 캐시 초기화
-            const categories = CategoryManager.getSelectedCategories()?.subCategories || [];
-            categories.forEach(category => {
-                const safeFileName = category.id.replace(/\//g, '_');
-                localStorage.removeItem(`category_${safeFileName}_etag`);
-                localStorage.removeItem(`category_${safeFileName}_items`);
-            });
-            
-            chosungCache.clear();
-            console.log('자동완성 캐시 삭제 완료');
-            return true;
-        } catch (error) {
-            console.error('캐시 삭제 실패:', error);
-            return false;
-        }
-    }
-    
-    /**
      * 검색 입력창에 오류 표시
      * @param {string} message - 오류 메시지
      */
@@ -2235,8 +1807,8 @@ const search = (() => {
         getSearchState,
         setSearchTerm,
         clearSuggestions,
-        clearCache,
         filterPetMedalResults,
+        loadItemIndex, // 외부에서 호출할 수 있도록 노출
         isSpecialKeywordCategory,
         isPetMedalCategory,
         getActiveItem

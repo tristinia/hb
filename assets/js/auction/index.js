@@ -18,6 +18,7 @@ import ItemTooltip from './components/ItemTooltip.js';
  * 전체 앱 라이프사이클 관리 및 모듈 통합
  */
 const App = (() => {
+    window.CategoryManager = categories; // CategoryManager를 전역으로 노출
     // 앱 상태 관리
     const state = {
         initialized: false,
@@ -239,14 +240,14 @@ const App = (() => {
         state.autocompleteCache = {
             searchTerm: currentInputValue, // 수정: item.name → currentInputValue
             selectedItem: item,
-            category: item.subCategory || '',
+            category: item.subCategory || item.category || '',
             mainCategory: item.mainCategory || '',
             timestamp: Date.now(),
             isCategorySearch: item.isCategory || false
         };
         
         // 분양 메달 여부 확인
-        if (search.isPetMedalCategory(item.subCategory)) {
+        if (search.isPetMedalCategory(item.subCategory || item.category)) {
             state.isPetMedalSearchActive = true;
             state.petMedalSearchTerm = elements.searchInput ? elements.searchInput.value : '';
         } else {
@@ -362,15 +363,12 @@ const App = (() => {
             // 검색 중 상태로 설정
             state.isSearching = true;
     
-            // 진행 중인 백그라운드 로딩 중단
-            apiClient.abortBackgroundLoading();
-            
             // 이벤트에서 데이터 추출 또는 입력 필드에서 데이터 가져오기
-            let searchTerm, selectedItem, mainCategory, subCategory;
+            let searchTerm, selectedItem, subCategory;
             
             if (event && event.detail) {
                 // 이벤트에서 데이터 추출
-                ({ searchTerm, selectedItem, mainCategory, subCategory } = event.detail);
+                ({ searchTerm, selectedItem, subCategory } = event.detail);
             } else {
                 // 입력 필드에서 최신 검색어 가져오기
                 if (elements.searchInput) {
@@ -400,17 +398,11 @@ const App = (() => {
             // 캐시된 항목 정보 사용
             if (useCache) {
                 selectedItem = state.autocompleteCache.selectedItem;
-                subCategory = state.autocompleteCache.category;
-                mainCategory = state.autocompleteCache.mainCategory;
+                subCategory = state.autocompleteCache.category || selectedItem.category;
             }
             
             // 검색 모드로 전환
             enterSearchMode();
-            
-            // 검색 결과 표시 영역 표시
-            showResultsContainer();
-            // FilterPanel의 책임으로 변경
-            FilterPanel.adjustResultsContainerPosition();
             
             
             // 마지막 검색 정보 저장
@@ -430,68 +422,59 @@ const App = (() => {
             // 결과 영역 초기화
             ItemList.clearResults();
             
-            // API 호출 또는 로컬 데이터 검색 수행
-            let apiPromise;
+            // 페이지네이션 숨기기 (새로운 결과가 오기 전까지)
+            elements.pagination.classList.remove('visible');
             
-            // 자동완성 아이템 선택 혹은 캐시 존재 확인
-            if ((selectedItem && selectedItem.subCategory) || subCategory) {
-                const itemCategory = selectedItem ? selectedItem.subCategory : subCategory;
-                const itemMainCategory = selectedItem ? selectedItem.mainCategory : mainCategory;
-                
-                // 카테고리 검색인지 확인
-                const isCategorySearch = event && event.detail && event.detail.categorySearch;
-                
-                // 아이템 검색인지 카테고리 검색인지에 따라 분기
-                if (isCategorySearch) {
-                    // 카테고리 검색 - 모든 카테고리를 동일하게 처리
-                    console.log(`카테고리 [${itemCategory}] 검색`);
-                    apiPromise = apiClient.searchByCategory(
-                        itemMainCategory, 
-                        itemCategory, 
-                        null  // 카테고리 검색은 검색어 없이 진행
-                    );
+            // 카테고리 정보가 있는 경우 (자동완성 선택 등)
+            let apiParams = {};
+
+            if (selectedItem) {
+                if (selectedItem.isCategory) {
+                    // 시나리오 2: 카테고리만으로 검색
+                    apiParams = { category: selectedItem.name, itemName: null, keyword: null };
+                    console.log(`검색 실행: 카테고리='${selectedItem.name}'`);
                 } else {
-                    // 특별 카테고리 확인
-                    const isKeywordSearchCategory = search.isSpecialKeywordCategory(itemCategory);
-                    const isPetMedalCategory = search.isPetMedalCategory(itemCategory);
-                    
-                    if (isKeywordSearchCategory) {
-                        // 인챈트, 옷본, 도면 검색 처리
-                        console.log(`아이템 [${searchTerm}] 검색`);
-                        apiPromise = apiClient.searchByKeyword(searchTerm);
-                    } else if (isPetMedalCategory) {
-                        // 분양 메달 검색 처리
-                        console.log(`아이템 [분양 메달(${searchTerm})] 검색`);
-                        apiPromise = apiClient.searchByCategory(
-                            itemMainCategory, 
-                            itemCategory,
-                            null
-                        );
-                    } else {
-                        // 일반 아이템 검색 처리
-                        console.log(`아이템 [${itemCategory}/${searchTerm}] 검색`);
-                        apiPromise = apiClient.searchByCategory(
-                            itemMainCategory, 
-                            itemCategory, 
-                            searchTerm
-                        );
-                    }
+                    // 시나리오 1: 아이템 이름 + 카테고리 검색
+                    apiParams = { itemName: searchTerm, category: selectedItem.subCategory || selectedItem.category, keyword: null };
+                    console.log(`검색 실행: 아이템='${searchTerm}', 카테고리='${selectedItem.subCategory || selectedItem.category}'`);
                 }
             } else {
-                // 일반 키워드 검색 처리
-                console.log(`아이템 [${searchTerm}] 검색`);
-                apiPromise = apiClient.searchByKeyword(searchTerm);
+                // 시나리오 3: 키워드 검색
+                apiParams = { keyword: searchTerm, itemName: null, category: null };
+                console.log(`검색 실행: 키워드='${searchTerm}'`);
             }
             
+            // apiClient.search에 파라미터 객체 전달
+            const apiPromise = apiClient.search(apiParams);
+
             // API 응답 처리
             apiPromise
-                .then(results => {
-                    // 결과가 없는 경우 처리
-                    if (!results || !results.items || results.items.length === 0) {
-                        ItemList.showNoResults();
-                        hideLoading(); // 결과가 없을 때만 바로 로딩 숨김
-                        console.log(`검색 완료: 결과 없음, ${Math.ceil(performance.now() - startTime)}ms`);
+                .then(async results => {
+                    hideLoading(); // API 호출 완료 후 로딩 숨김
+                    if (results.availableFilters) {
+                        await FilterPanel.loadFilterOptions(results.availableFilters);
+                        
+                        // 필터 옵션이 로드된 후, 결과 컨테이너의 위치를 재조정합니다.
+                        FilterPanel.adjustResultsContainerPosition();
                     }
+                    // 결과가 없는 경우 처리
+                    if (!results || !results.items || results.items.length === 0) {                        
+                        ItemList.showNoResults();
+                        console.log(`검색 완료: 결과 없음, ${Math.ceil(performance.now() - startTime)}ms`);
+                        
+                        // 결과가 없으므로 페이지네이션을 0으로 리셋합니다.
+                        Pagination.resetPagination(0);
+                    } else {
+                        // 검색 결과가 있으면 ItemList에 전달하여 표시
+
+                        // 검색 결과가 있을 때만 setSearchResults를 호출합니다.
+                        ItemList.setSearchResults(results.items);
+                        // 페이지네이션 업데이트
+                        Pagination.resetPagination(results.items.length);
+                    }
+
+                    // 결과가 있으면 페이지네이션 표시
+                    elements.pagination.classList.add('visible');
                 })
                 .catch(error => {
                     // 로딩 숨김
@@ -665,9 +648,6 @@ const App = (() => {
      * 검색 초기화 처리
      */
     function resetSearch() {
-        // 백그라운드 로딩 중단
-        apiClient.abortBackgroundLoading();
-        
         // 필터 상태 초기화
         resetAllFilters();
         
@@ -705,9 +685,6 @@ const App = (() => {
      * 검색 초기화 이벤트 핸들러
      */
     function handleSearchReset() {
-        // 백그라운드 로딩 중단
-        apiClient.abortBackgroundLoading();
-        
         // 결과 테이블 초기화
         ItemList.clearResults();
         
@@ -832,6 +809,9 @@ const App = (() => {
             // 키보드 이벤트 캡처 설정
             setupKeyboardCapture();
                     
+            // 카테고리 관리자 초기화
+            categories.init();
+
             // 기본 UI 상태 설정
             elements.clearButton.classList.remove('visible');
             hideResultsContainer();

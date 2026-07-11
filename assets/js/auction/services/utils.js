@@ -32,16 +32,6 @@ const COMPOUND_JUNGSUNG_MAP = {
   'ㅡ': ['ㅢ']
 };
 
-// 영한 오타 매핑
-const ENG_TO_KOR_MAP = {
-    'q': 'ㅂ', 'w': 'ㅈ', 'e': 'ㄷ', 'r': 'ㄱ', 't': 'ㅅ',
-    'y': 'ㅛ', 'u': 'ㅕ', 'i': 'ㅑ', 'o': 'ㅐ', 'p': 'ㅔ',
-    'a': 'ㅁ', 's': 'ㄴ', 'd': 'ㅇ', 'f': 'ㄹ', 'g': 'ㅎ',
-    'h': 'ㅗ', 'j': 'ㅓ', 'k': 'ㅏ', 'l': 'ㅣ',
-    'z': 'ㅋ', 'x': 'ㅌ', 'c': 'ㅊ', 'v': 'ㅍ', 'b': 'ㅠ',
-    'n': 'ㅜ', 'm': 'ㅡ'
-};
-
 /**
  * 한글 분해 함수
  * @param {string} str - 분해할 문자열
@@ -86,20 +76,6 @@ function getChosung(str) {
     }
     
     return ''; // 문자열이 아닌 경우 빈 문자열 반환
-}
-
-/**
- * 영문을 한글 자모로 변환 (오타 수정 용도)
- * @param {string} str - 변환할 영문 문자열
- * @returns {string} 변환된 한글 자모 문자열
- */
-function engToKor(str) {
-    let result = '';
-    for (let i = 0; i < str.length; i++) {
-        const char = str[i].toLowerCase();
-        result += ENG_TO_KOR_MAP[char] || char;
-    }
-    return result;
 }
 
 /**
@@ -461,7 +437,6 @@ function handleError(error, context) {
 export default {
     decomposeHangul,
     getChosung,
-    engToKor,
     getJungsung,
     getCompoundJungsung,
     analyzeHangulChar,

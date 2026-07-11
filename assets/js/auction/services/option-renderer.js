@@ -1,8 +1,7 @@
 /**
  * 아이템 옵션 렌더링 전용 모듈
  */
-
-import metadataLoader from './metadata-loader.js';
+import metadataService from './metadata.js';
 
 /**
  * 옵션 렌더러 클래스
@@ -605,7 +604,7 @@ class OptionRenderer {
     prefixEnchants.forEach((enchant, index) => {
       // 인챈트 기본 정보
       const context = {
-        getEnchantMetadata: (type, name) => metadataLoader.getEnchantMetadata(type, name)
+        getEnchantMetadata: (type, name) => metadataService.getEnchantMetadata(type, name)
       };
       
       // 접두 이름과 랭크 추출
@@ -694,7 +693,7 @@ class OptionRenderer {
     // 접미 인챈트 렌더링 (접두와 유사)
     suffixEnchants.forEach((enchant, index) => {
       const context = {
-        getEnchantMetadata: (type, name) => metadataLoader.getEnchantMetadata(type, name)
+        getEnchantMetadata: (type, name) => metadataService.getEnchantMetadata(type, name)
       };
       
       const type = enchant.option_sub_type;
@@ -1055,7 +1054,7 @@ class OptionRenderer {
         const enchantMetaType = enchantType;
         
         // 메타데이터에서 인챈트 정보 검색
-        const enchantMetadata = metadataLoader.getEnchantMetadata(enchantMetaType, enchantName);
+        const enchantMetadata = metadataService.getEnchantMetadata(enchantMetaType, enchantName);
         
         // 효과 HTML 배열
         const effectHtmls = [];
