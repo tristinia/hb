@@ -47,6 +47,13 @@ const METADATA_CONFIG = {
     }
 };
 
+// 아이템 대표 이름(정체성 키) 생성 규칙 예외 처리 카테고리
+// mabinogi-auction-history/src/index.js의 getRepresentativeItemName과 동일한 판단 기준
+const ITEM_NAME_RULES = {
+    USE_DISPLAY_NAME_CATEGORIES: ['인챈트 스크롤', '도면', '옷본'],
+    PET_MEDAL_CATEGORY: '분양 메달'
+};
+
 export default {
     /**
      * Cron 트리거로 주기적으로 실행되어 전체 검색 인덱스를 갱신
@@ -80,6 +87,13 @@ export default {
      * Service Binding을 통해 다른 Worker로부터 호출되는 핸들러
      */
     async fetch(request, env, ctx) {
+        const url = new URL(request.url);
+
+        // D1 items 테이블 upsert 전용 경로 (기존 기본 경로/동작에는 영향 없음)
+        if (url.pathname === '/items/upsert') {
+            return handleItemsUpsertRequest(request, env);
+        }
+
         // 운영용 요청 크기 제한 (안정성)
         const MAX_ITEMS = 5000;
 
@@ -198,6 +212,130 @@ async function handleSearchIndexUpdate(env, allItems, isFullRebuild = false) {
     }
 }
 
+/**
+ * 아이템의 대표 이름(정체성 키) 생성 (예외 처리 규칙 적용)
+ * mabinogi-auction-history/src/index.js의 getRepresentativeItemName과 동일한 로직
+ * @param {object} item - item_name, item_display_name, auction_item_category 등을 포함한 아이템 객체
+ * @returns {string} 생성된 대표 이름
+ */
+function getRepresentativeItemName(item) {
+    const category = item.auction_item_category;
+
+    // '분양 메달'은 '아이템 이름 - 펫 종족명' 형식으로 조합
+    if (category === ITEM_NAME_RULES.PET_MEDAL_CATEGORY) {
+        const options = item.item_option || [];
+        const petRaceOption = options.find(opt => opt.option_type === '펫 정보' && opt.option_sub_type === '종족명');
+        return petRaceOption && petRaceOption.option_value ? `${item.item_name} - ${petRaceOption.option_value}` : item.item_name;
+    }
+
+    // '인챈트 스크롤', '도면', '옷본'은 item_display_name 사용
+    if (ITEM_NAME_RULES.USE_DISPLAY_NAME_CATEGORIES.includes(category)) {
+        return item.item_display_name || item.item_name;
+    }
+
+    return item.item_name;
+}
+
+/**
+ * 여러 아이템에 대해 D1 `items` 테이블 upsert 수행
+ * mabinogi-auction-history의 getOrCreateItemIds와 동일한 패턴(사전 SELECT 없이 INSERT ON CONFLICT DO NOTHING 후 재조회) 재사용
+ * @param {D1Database} db - D1 데이터베이스 인스턴스
+ * @param {Array} items - item_name, item_display_name, auction_item_category 등을 포함한 원본 아이템 배열
+ * @returns {Promise<Map<string, {itemId: number, isNew: boolean}>>} 대표 이름을 키로 하는 결과 Map
+ */
+async function upsertItemsToD1(db, items) {
+    const nameToCategory = new Map();
+    for (const item of items) {
+        const representativeName = getRepresentativeItemName(item);
+        if (!nameToCategory.has(representativeName)) {
+            nameToCategory.set(representativeName, item.auction_item_category || '기타');
+        }
+    }
+
+    const names = [...nameToCategory.keys()];
+    if (names.length === 0) {
+        return new Map();
+    }
+
+    // 1. INSERT OR IGNORE 배치 실행. db.batch()는 문장별로 개별 meta.changes를 반환하므로
+    // (changes: 0인 문장의 last_row_id는 신뢰할 수 없어 신규 여부 판단에만 사용하고, id는 아래 2단계에서 재조회)
+    const isNewMap = new Map();
+    try {
+        const insertStmts = names.map(name =>
+            db.prepare('INSERT INTO items (name, category) VALUES (?, ?) ON CONFLICT(name) DO NOTHING')
+              .bind(name, nameToCategory.get(name))
+        );
+        const insertResults = await db.batch(insertStmts);
+        insertResults.forEach((res, i) => {
+            isNewMap.set(names[i], res.meta.changes > 0);
+        });
+    } catch (e) {
+        console.error(`D1 'INSERT ON CONFLICT' 실패`, { message: e.message, cause: e.cause });
+        throw e;
+    }
+
+    // 2. 모든 대표 이름에 대한 id를 청크 단위로 재조회
+    const finalMap = new Map();
+    const CHUNK_SIZE = 90;
+    for (let i = 0; i < names.length; i += CHUNK_SIZE) {
+        const chunk = names.slice(i, i + CHUNK_SIZE);
+        if (chunk.length === 0) continue;
+
+        const placeholders = chunk.map(() => '?').join(',');
+        const selectStmt = db.prepare(`SELECT id, name FROM items WHERE name IN (${placeholders})`).bind(...chunk);
+        try {
+            const { results: existingItems } = await selectStmt.all();
+            for (const row of existingItems) {
+                finalMap.set(row.name, { itemId: row.id, isNew: isNewMap.get(row.name) || false });
+            }
+        } catch (e) {
+            console.error(`D1 'IN' 절 조회 실패 (ID 매핑)`, { message: e.message, cause: e.cause });
+            throw e;
+        }
+    }
+    return finalMap;
+}
+
+/**
+ * POST /items/upsert 요청 핸들러
+ * 원본 아이템 배열을 받아 대표 이름을 계산하고 D1 items 테이블에 upsert, 호출자가 필요로 하는 item_id/isNew를 응답
+ * @param {Request} request
+ * @param {object} env
+ */
+async function handleItemsUpsertRequest(request, env) {
+    if (request.method !== 'POST') {
+        return new Response('POST 요청만 허용', { status: 405 });
+    }
+
+    try {
+        const body = await request.json();
+        const items = Array.isArray(body) ? body : [body];
+        if (items.length === 0) {
+            return new Response('아이템 목록이 비어있음', { status: 400 });
+        }
+
+        const resultMap = await upsertItemsToD1(env.mabinogi_auction_db, items);
+
+        const response = items.map(item => {
+            const representativeName = getRepresentativeItemName(item);
+            const result = resultMap.get(representativeName);
+            return {
+                representative_name: representativeName,
+                category: item.auction_item_category || '기타',
+                item_id: result?.itemId ?? null,
+                isNew: result?.isNew ?? false,
+            };
+        });
+
+        return new Response(JSON.stringify(response), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+        });
+    } catch (error) {
+        console.error('아이템 upsert 처리 중 오류 발생:', error);
+        return new Response('아이템 upsert 처리 중 오류 발생', { status: 500 });
+    }
+}
 
 /**
  * 인챈트 메타데이터 처리 및 저장 ('상태 병합' 전략)
