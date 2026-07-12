@@ -7,9 +7,13 @@
  * 1. KV에서 마지막으로 수집한 거래 ID 조회
  * 2. Nexon API '거래 완료 내역' 엔드포인트 반복 호출, 마지막 거래 ID 이후 데이터 수집
  *    - 마지막으로 수집한 거래 발견 시 API 호출 중단
- * 3. 수집된 거래 내역을 월별 파티션 테이블(`price_history_YYYYMM`, `history_options_YYYYMM`)에 저장
- * 4. 아이템 통계(시간별, 일별, 월별) 집계 및 업데이트
- * 5. 데이터베이스 저장 성공 시, 가장 최근 거래 ID를 KV에 갱신
+ * 3. mabinogi-metadata-processor의 `/items/upsert`를 Service Binding으로 await 호출하여
+ *    이번 사이클의 아이템 전체에 대한 item_id를 일괄 수신 (실패 시 사이클 전체 스킵)
+ * 4. 수집된 거래 내역을 월별 파티션 테이블(`price_history_YYYYMM`, `history_options_YYYYMM`)에 저장
+ * 5. 아이템 통계(시간별, 일별, 월별) 집계 및 업데이트
+ * 6. 데이터베이스 저장 성공 시에만, 메타데이터 프로세서의 `/items`(검색 인덱스 등 KV 캐시 갱신)를
+ *    Fire-and-forget으로 호출
+ * 7. 데이터베이스 저장 성공 시에만, 가장 최근 거래 ID를 KV에 갱신
  */
 
 const NEXON_API_URL = 'https://open.api.nexon.com/mabinogi/v1/auction/history';
@@ -28,13 +32,15 @@ const OPTION_IGNORE_CATEGORIES = [
 // 저장 제외 옵션 타입 목록
 const IGNORED_OPTION_TYPES = ['아이템 색상', '남은 거래 횟수'];
 
-// 아이템 이름 생성 규칙 예외 처리 카테고리
-const ITEM_NAME_RULES = {
-	USE_DISPLAY_NAME_CATEGORIES: ['인챈트 스크롤', '도면', '옷본'],
-	PET_MEDAL_CATEGORY: '분양 메달'
-};
-
 const KV_LAST_AUCTION_ID_KEY = 'LAST_FETCH_AUCTION_ID';
+
+// 메타데이터 프로세서 /items/upsert 호출 설정
+// 캐치업(장애 복구 등으로 대량 수집) 시 한 번에 수천 건을 단일 호출로 보내면
+// metadata-processor의 D1 배치 처리 시간이 늘어나 타임아웃/한도 문제가 생길 수 있어,
+// 청크 단위로 순차 호출하고 청크 크기에 비례해 타임아웃도 늘림
+const METADATA_UPSERT_CHUNK_SIZE = 500;
+const METADATA_UPSERT_BASE_TIMEOUT_MS = 10000;
+const METADATA_UPSERT_PER_ITEM_TIMEOUT_MS = 15;
 
 // 분산 환경 중복 실행 방지용 잠금 키 (KV)
 const CRON_JOB_LOCK_KEY = 'CRON_JOB_LOCK_V1';
@@ -87,11 +93,39 @@ export default {
 			// DB 저장을 위해 시간순(오래된 것 -> 최신)으로 정렬, API는 최신순으로 반환하므로 배열 뒤집기
 			newHistoryItems.reverse();
 
-			// 새로운 데이터 분류 및 데이터베이스 저장
-			const dbSuccess = await processAndStoreHistory(env.mabinogi_auction_db, newHistoryItems);
+			// 메타데이터 프로세서에 이번 사이클의 아이템 전체를 일괄 upsert 요청, item_id를 수신
+			// 실패 시(네트워크 오류/타임아웃/비정상 응답 등) 이번 사이클 전체를 스킵, 커서 미갱신
+			// -> 다음 5분 cron이 동일 구간을 통째로 재시도 (D1 INSERT OR IGNORE로 재시도는 멱등)
+			const upsertResults = await upsertItemsViaMetadataProcessor(env, newHistoryItems);
+			if (!upsertResults) {
+				console.error(`메타데이터 프로세서 아이템 upsert 실패로 이번 사이클(${newHistoryItems.length}건) 스킵, 커서 미갱신`);
+				return;
+			}
 
-			// 데이터베이스 저장 성공 시에만 마지막 거래 ID 갱신
+			// upsertResults는 newHistoryItems와 동일한 순서/길이이므로 인덱스로 item_id/대표 이름을 각 아이템에 결합
+			newHistoryItems.forEach((item, i) => {
+				item.item_id = upsertResults[i].item_id;
+				item.representative_name = upsertResults[i].representative_name;
+			});
+
+			// 분류된 데이터를 데이터베이스에 일괄 저장
+			const dbSuccess = await batchStoreItems(env.mabinogi_auction_db, newHistoryItems);
+
+			// 데이터베이스 저장 성공 시에만 메타데이터 캐시 갱신 및 마지막 거래 ID 갱신
 			if (dbSuccess) {
+				if (env.METADATA_PROCESSOR) {
+					// 검색 인덱스 등 KV 메타데이터 캐시 갱신 (Fire and Forget)
+					// item.representative_name은 위에서 이미 결합했으므로 별도 가공 없이 그대로 전달
+					ctx.waitUntil(
+						env.METADATA_PROCESSOR.fetch('https://metadata-processor/items', {
+							method: 'POST',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify(newHistoryItems)
+						}).catch(err => console.error('메타데이터 프로세서 호출 실패:', err))
+					);
+					console.log(`${newHistoryItems.length}개 아이템을 메타데이터 프로세서로 전송`);
+				}
+
 				// newHistoryItems 배열은 reverse() 되었으므로, 가장 마지막 요소가 가장 최신 거래
 				const latestAuctionId = newHistoryItems[newHistoryItems.length - 1].auction_buy_id;
 				ctx.waitUntil(env.MABINOGI_AUCTION_KV.put(KV_LAST_AUCTION_ID_KEY, latestAuctionId));
@@ -99,24 +133,6 @@ export default {
 				console.log('데이터베이스 저장 성공적으로 완료');
 			} else {
 				console.error('데이터베이스 저장 실패, 마지막 거래 ID 갱신 없이 Worker 종료');
-			}
-
-			// [신규 아키텍처] 수집된 데이터를 메타데이터 처리 워커로 전달 (Fire and Forget)
-			if (env.METADATA_PROCESSOR && newHistoryItems.length > 0) {
-				// D1에 저장한 대표 이름(정제된 이름)을 함께 전달해, 메타데이터 프로세서가
-				// 정제 전 원본 item_name 대신 이 이름을 검색 인덱스에 사용하도록 함
-				const itemsWithRepresentativeName = newHistoryItems.map(item => ({
-					...item,
-					representative_name: getRepresentativeItemName(item)
-				}));
-				ctx.waitUntil(
-					env.METADATA_PROCESSOR.fetch('https://metadata-processor/items', {
-						method: 'POST',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify(itemsWithRepresentativeName)
-					}).catch(err => console.error('메타데이터 프로세서 호출 실패:', err))
-				);
-				console.log(`${newHistoryItems.length}개 아이템을 메타데이터 프로세서로 전송`);
 			}
 
 		} catch (error) {
@@ -231,36 +247,96 @@ async function fetchAllAuctionHistory(apiKey, lastFetchAuctionId) {
 }
 
 /**
- * 수집된 거래 내역을 D1 데이터베이스에 저장
- * @param {D1Database} db - D1 데이터베이스 인스턴스
- * @param {Array} newItems - 필터링된 새로운 거래 내역 배열
- * @returns {Promise<boolean>} 저장 성공 여부
+ * 메타데이터 프로세서의 `/items/upsert`를 Service Binding으로 호출하여
+ * 이번 사이클 아이템 전체의 item_id/대표 이름을 일괄 수신.
+ * 아이템 수가 많으면(캐치업 등) METADATA_UPSERT_CHUNK_SIZE 단위로 나눠 순차 호출
+ * @param {object} env - 워커 환경 변수 및 바인딩
+ * @param {Array} items - 원본 거래 내역 아이템 배열
+ * @returns {Promise<Array<{representative_name: string, category: string, item_id: number|null, isNew: boolean}>|null>}
+ *   items와 동일한 순서/길이의 결과 배열, 청크 중 하나라도 실패하면 전체 null (사이클 전체 스킵)
  */
-async function processAndStoreHistory(db, newItems) {
-	// 1. 아이템 대표 이름과 카테고리 정보 추출 후 Map 생성
-	const representativeNameToItemDataMap = new Map();
-	for (const item of newItems) {
-		const representativeName = getRepresentativeItemName(item);
-		if (!representativeNameToItemDataMap.has(representativeName)) {
-			representativeNameToItemDataMap.set(representativeName, { category: item.auction_item_category });
-		}
+async function upsertItemsViaMetadataProcessor(env, items) {
+	if (!env.METADATA_PROCESSOR) {
+		console.error('METADATA_PROCESSOR 서비스 바인딩 미설정');
+		return null;
 	}
 
-	// 2. DB에서 아이템 ID 일괄 조회/생성 후 Map으로 수신
-	const itemIdMap = await getOrCreateItemIds(db, representativeNameToItemDataMap);
+	const totalChunks = Math.ceil(items.length / METADATA_UPSERT_CHUNK_SIZE);
+	const allResults = [];
 
-	// 3. 분류된 데이터를 데이터베이스에 일괄 저장
-	return await batchStoreItems(db, newItems, itemIdMap);
+	for (let i = 0; i < items.length; i += METADATA_UPSERT_CHUNK_SIZE) {
+		const chunk = items.slice(i, i + METADATA_UPSERT_CHUNK_SIZE);
+		const chunkIndex = Math.floor(i / METADATA_UPSERT_CHUNK_SIZE) + 1;
+
+		const chunkResults = await upsertItemsChunk(env, chunk, chunkIndex, totalChunks);
+		if (!chunkResults) {
+			return null; // 청크 하나라도 실패하면 전체 실패로 취급
+		}
+		allResults.push(...chunkResults);
+	}
+
+	return allResults;
+}
+
+/**
+ * `/items/upsert`에 아이템 청크 1개를 호출. 청크 크기에 비례해 타임아웃을 늘림
+ * @param {object} env - 워커 환경 변수 및 바인딩
+ * @param {Array} chunk - 이번 호출로 보낼 아이템 청크
+ * @param {number} chunkIndex - 1부터 시작하는 청크 순번 (로그용)
+ * @param {number} totalChunks - 전체 청크 수 (로그용)
+ * @returns {Promise<Array|null>} chunk와 동일한 순서/길이의 결과 배열, 실패 시 null
+ */
+async function upsertItemsChunk(env, chunk, chunkIndex, totalChunks) {
+	const startTime = new Date();
+	const timeoutMs = METADATA_UPSERT_BASE_TIMEOUT_MS + chunk.length * METADATA_UPSERT_PER_ITEM_TIMEOUT_MS;
+	const controller = new AbortController();
+	const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+	const chunkLabel = `${chunkIndex}/${totalChunks}`;
+
+	try {
+		const response = await env.METADATA_PROCESSOR.fetch('https://metadata-processor/items/upsert', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(chunk),
+			signal: controller.signal
+		});
+
+		if (!response.ok) {
+			const body = await response.text().catch(() => '');
+			console.error('메타데이터 프로세서 items/upsert 응답 실패', {
+				time: startTime.toISOString(), reason: `HTTP ${response.status}`, chunk: chunkLabel, itemCount: chunk.length, body
+			});
+			return null;
+		}
+
+		const results = await response.json();
+		if (!Array.isArray(results) || results.length !== chunk.length) {
+			console.error('메타데이터 프로세서 items/upsert 응답 형식 불일치', {
+				time: startTime.toISOString(), chunk: chunkLabel, itemCount: chunk.length,
+				resultCount: Array.isArray(results) ? results.length : typeof results
+			});
+			return null;
+		}
+
+		return results;
+	} catch (error) {
+		const reason = error.name === 'AbortError' ? `타임아웃(${timeoutMs}ms)` : error.message;
+		console.error('메타데이터 프로세서 items/upsert 호출 중 오류 발생', {
+			time: startTime.toISOString(), reason, chunk: chunkLabel, itemCount: chunk.length
+		});
+		return null;
+	} finally {
+		clearTimeout(timeoutId);
+	}
 }
 
 /**
  * 분류된 데이터를 D1에 일괄 저장
  * @param {D1Database} db - D1 데이터베이스 인스턴스
- * @param {Array} allItems - 저장할 모든 아이템 목록
- * @param {Map<string, number>} itemIdMap - 아이템 이름과 ID를 매핑한 Map
+ * @param {Array} allItems - 저장할 모든 아이템 목록 (각 아이템은 item_id가 이미 결합되어 있어야 함)
  * @returns {Promise<boolean>} 저장 성공 여부
  */
-async function batchStoreItems(db, allItems, itemIdMap) {
+async function batchStoreItems(db, allItems) {
 	const priceHistoryStmts = [];
 	const historyOptionsStmts = [];
 	const hourlyStatsUpdates = new Map();
@@ -269,8 +345,7 @@ async function batchStoreItems(db, allItems, itemIdMap) {
 	const tablesToCreate = new Map(); // 생성할 월별 테이블 목록
 
 	for (const item of allItems) {
-		const representativeName = getRepresentativeItemName(item);
-		const itemId = itemIdMap.get(representativeName);
+		const itemId = item.item_id;
 		if (!itemId) continue; // ID 조회 실패 시 건너뛰기
 
 		// 통계 업데이트 준비
@@ -388,35 +463,6 @@ async function batchStoreItems(db, allItems, itemIdMap) {
 	}
 }
 
-
-
-
-
-/**
- * 아이템의 대표 이름 생성 (예외 처리 규칙 적용)
- * @param {object} item - API에서 받은 아이템 객체
- * @returns {string} 생성된 대표 이름
- */
-function getRepresentativeItemName(item) {
-	const category = item.auction_item_category;
-
-	
-	// '분양 메달'은 '아이템 이름 - 펫 종족명' 형식으로 조합
-	if (category === ITEM_NAME_RULES.PET_MEDAL_CATEGORY) {
-		const options = item.item_option || [];
-		const petRaceOption = options.find(opt => opt.option_type === '펫 정보' && opt.option_sub_type === '종족명');
-		return petRaceOption && petRaceOption.option_value ? `${item.item_name} - ${petRaceOption.option_value}` : item.item_name;
-	}
-
-	// '인챈트 스크롤', '도면', '옷본'은 item_display_name 사용
-	if (ITEM_NAME_RULES.USE_DISPLAY_NAME_CATEGORIES.includes(category)) {
-		// item_display_name이 없는 경우 item_name을 fallback으로 사용
-		return item.item_display_name || item.item_name;
-	}
-
-	return item.item_name;
-}
-
 /**
  * '신성한/축복받은' 상태를 숫자 코드로 변환
  * @param {string} displayName - 아이템의 item_display_name
@@ -458,55 +504,6 @@ function shouldSaveOptions(item) {
 
 	// 기본 규칙: 위 조건에 해당하지 않는 모든 아이템은 옵션 저장
 	return true;
-}
-
-/**
- * 여러 아이템 이름에 대해 `items` 테이블을 조회하고, 없는 아이템은 새로 생성한 후,
- * { itemName: itemId } 형태의 Map 반환
- * @param {D1Database} db - D1 데이터베이스 인스턴스.
- * @param {Map<string, {category: string}>} itemNameToDataMap - 아이템 대표 이름과 데이터(카테고리 등)를 매핑한 Map.
- * @returns {Promise<Map<string, number>>} 아이템 대표 이름과 ID를 매핑한 Map.
- */
-async function getOrCreateItemIds(db, itemNameToDataMap) {
-	const itemNames = [...itemNameToDataMap.keys()];
-	if (itemNames.length === 0) {
-		return new Map();
-	}
-
-	// 1. 모든 아이템 이름에 대해 INSERT OR IGNORE 실행
-	// ON CONFLICT(name) DO NOTHING: 'name' 컬럼에 UNIQUE 제약 조건이 있을 때만 동작
-	// 중복된 이름이 있으면 아무 작업도 하지 않음
-	try {
-		const insertStmts = itemNames.map(name =>
-			db.prepare('INSERT INTO items (name, category) VALUES (?, ?) ON CONFLICT(name) DO NOTHING')
-			  .bind(name, itemNameToDataMap.get(name)?.category || '기타')
-		);
-		await db.batch(insertStmts);
-	} catch (e) {
-		console.error(`D1 'INSERT ON CONFLICT' 실패`, { message: e.message, cause: e.cause });
-		throw e; // INSERT 실패는 심각한 문제이므로 전파
-	}
-
-	// 2. 모든 아이템 이름에 대한 ID를 다시 한번에 조회
-	const finalItemIdMap = new Map();
-	const CHUNK_SIZE = 90;
-	for (let i = 0; i < itemNames.length; i += CHUNK_SIZE) {
-		const chunk = itemNames.slice(i, i + CHUNK_SIZE);
-		if (chunk.length === 0) continue;
-
-		const placeholders = chunk.map(() => '?').join(',');
-		const existingItemsStmt = db.prepare(`SELECT id, name FROM items WHERE name IN (${placeholders})`).bind(...chunk);
-		try {
-			const { results: existingItems } = await existingItemsStmt.all();
-			for (const item of existingItems) {
-				finalItemIdMap.set(item.name, item.id);
-			}
-		} catch (e) {
-			console.error(`D1 'IN' 절 조회 실패 (ID 매핑)`, { message: e.message, cause: e.cause });
-			throw e; // 조회 실패는 심각한 문제이므로 전파
-		}
-	}
-	return finalItemIdMap;
 }
 
 /**
