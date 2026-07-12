@@ -6,7 +6,7 @@
 
 const NEXON_API_BASE_URL = "https://open.api.nexon.com/mabinogi/v1/auction";
 const API_CONFIG = { MAX_PAGES: 100, DELAY_MS: 5 };
-const KEYWORD_SEARCH_CATEGORIES = ['인챈트 스크롤', '도면', '옷본'];
+const KEYWORD_SEARCH_CATEGORIES = ['인챈트 스크롤', '도면', '옷본', '뷰티 쿠폰', '기타'];
 const PET_MEDAL_CATEGORY = '분양 메달';
 
 // 키워드 검색 결과가 이 개수를 넘으면(탐색성 검색으로 판단) 검색 인덱스 동기화를 스킵
@@ -28,9 +28,10 @@ function jsonResponse(data, status = 200, extraHeaders = {}) {
  * API 관련 오류 처리를 위한 사용자 정의 오류 클래스
  */
 class ApiError extends Error {
-    constructor(message, statusCode) {
+    constructor(message, statusCode, errorCode = null) {
         super(message);
         this.statusCode = statusCode;
+        this.errorCode = errorCode;
     }
 }
 
@@ -40,12 +41,12 @@ class ApiError extends Error {
 function mapNexonError(errorData, originalStatus) {
     const errorCode = errorData.error?.name;
     switch (errorCode) {
-        case "OPENAPI00001": return { message: "서버 내부 오류가 발생했습니다.", statusCode: 500 };
-        case "OPENAPI00004": return { message: "파라미터가 누락되었거나 유효하지 않습니다.", statusCode: 400 };
-        case "OPENAPI00005": return { message: "유효하지 않은 API KEY 입니다.", statusCode: 401 };
-        case "OPENAPI00007": return { message: "API 호출 한도를 초과했습니다. 잠시 후 다시 시도해주세요.", statusCode: 429 };
-        case "OPENAPI00009": return { message: "데이터 준비 중입니다. 잠시 후 다시 시도해주세요.", statusCode: 503 };
-        default: return { message: errorData.error?.message || "알 수 없는 API 오류가 발생했습니다.", statusCode: originalStatus };
+        case "OPENAPI00001": return { message: "서버 내부 오류가 발생했습니다.", statusCode: 500, errorCode };
+        case "OPENAPI00004": return { message: "파라미터가 누락되었거나 유효하지 않습니다.", statusCode: 400, errorCode };
+        case "OPENAPI00005": return { message: "유효하지 않은 API KEY 입니다.", statusCode: 401, errorCode };
+        case "OPENAPI00007": return { message: "API 호출 한도를 초과했습니다. 잠시 후 다시 시도해주세요.", statusCode: 429, errorCode };
+        case "OPENAPI00009": return { message: "데이터 준비 중입니다. 잠시 후 다시 시도해주세요.", statusCode: 503, errorCode };
+        default: return { message: errorData.error?.message || "알 수 없는 API 오류가 발생했습니다.", statusCode: originalStatus, errorCode };
     }
 }
 
@@ -164,8 +165,25 @@ async function handleUnifiedSearch(url, env, corsHeaders, ctx) {
         throw new ApiError("검색 파라미터(itemName, category, keyword) 중 하나 이상 필요", 400);
     }
 
-    const { url: initialUrl, isPetMedalSearch, isKeywordOnlySearch } = buildNexonApiUrl(itemName, category, keyword);
-    const allItems = await fetchAllPagesFromNexonApi(initialUrl.toString(), apiKey);
+    const { url: initialUrl, isPetMedalSearch, isKeywordOnlySearch, isDirectNameFilter } = buildNexonApiUrl(itemName, category, keyword);
+
+    let allItems;
+    try {
+        allItems = await fetchAllPagesFromNexonApi(initialUrl.toString(), apiKey);
+    } catch (error) {
+        // 세이프티넷: 화이트리스트(KEYWORD_SEARCH_CATEGORIES)에 없는 카테고리도 Nexon이
+        // item_name을 "(Unknown)"으로 주는 경우가 있어(대표 이름을 item_name으로 보내 매칭 실패),
+        // 이 특정 에러 코드에서만 keyword-search로 1회 재시도. 다른 에러는 그대로 전파.
+        if (isDirectNameFilter && error.errorCode === 'OPENAPI00004') {
+            console.warn(`item_name 직접 매칭 실패(OPENAPI00004), keyword-search로 재시도: category='${category}'`);
+            const fallbackUrl = new URL(`${NEXON_API_BASE_URL}/keyword-search`);
+            fallbackUrl.searchParams.set('keyword', itemName);
+            allItems = await fetchAllPagesFromNexonApi(fallbackUrl.toString(), apiKey);
+        } else {
+            throw error;
+        }
+    }
+
     const finalItems = processAndFilterResults(allItems, isPetMedalSearch, itemName);
     const availableFilters = generateAvailableFilters(finalItems);
 
@@ -192,6 +210,7 @@ function buildNexonApiUrl(itemName, category, keyword) {
     let url;
     let isPetMedalSearch = false;
     let isKeywordOnlySearch = false;
+    let isDirectNameFilter = false;
 
     if (itemName && category) {
         if (KEYWORD_SEARCH_CATEGORIES.includes(category)) {
@@ -205,6 +224,7 @@ function buildNexonApiUrl(itemName, category, keyword) {
             url = new URL(`${NEXON_API_BASE_URL}/list`);
             url.searchParams.set('auction_item_category', category);
             url.searchParams.set('item_name', itemName);
+            isDirectNameFilter = true;
         }
     } else if (category) {
         url = new URL(`${NEXON_API_BASE_URL}/list`);
@@ -215,7 +235,7 @@ function buildNexonApiUrl(itemName, category, keyword) {
         url.searchParams.set('keyword', keyword || itemName);
         isKeywordOnlySearch = true;
     }
-    return { url, isPetMedalSearch, isKeywordOnlySearch };
+    return { url, isPetMedalSearch, isKeywordOnlySearch, isDirectNameFilter };
 }
 
 /**
@@ -329,8 +349,8 @@ async function fetchAllPagesFromNexonApi(initialUrl, apiKey) {
 
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({ error: { message: "알 수 없는 API 오류" } }));
-            const { message } = mapNexonError(errorData, response.status);
-            throw new ApiError(`API 호출 실패 (페이지 ${pageCount}): ${message}`, response.status);
+            const { message, errorCode } = mapNexonError(errorData, response.status);
+            throw new ApiError(`API 호출 실패 (페이지 ${pageCount}): ${message}`, response.status, errorCode);
         }
 
         const pageData = await response.json().catch(() => { throw new ApiError("API 응답 JSON 파싱 실패", 500) });
