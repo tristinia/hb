@@ -1,0 +1,5593 @@
+/**
+오늘 날짜: 2024-05-21
+
+option 예외 옵션
+아이템 색상
+남은 거래 횟수
+*/
+
+[
+// 개조석
+{
+      "item_name": "6단계 붉은 개조석",
+      "item_display_name": "6단계 붉은 개조석",
+      "item_count": 10,
+      "auction_item_category": "개조석",
+      "auction_price_per_unit": 1850,
+      "date_auction_expire": "2025-10-23T15:54:00.000Z",
+      "item_option": null
+    },
+//검(중요)
+{
+      "item_name": "소울 리버레이트 블레이드",
+      "item_display_name": "거침없는 폭주 소울 리버레이트 블레이드",
+      "item_count": 1,
+      "auction_item_category": "검",
+      "auction_price_per_unit": 7800000000,
+      "date_auction_expire": "2025-10-22T18:36:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "인챈트 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "219",
+          "option_value2": "325",
+          "option_desc": null
+        },
+        {
+          "option_type": "부상률",
+          "option_sub_type": null,
+          "option_value": "35%",
+          "option_value2": "60%",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "83%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "73%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "28",
+          "option_value2": "28",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "128,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "128,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 E",
+          "option_value": "255,179,48",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 F",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "거침없는 (랭크 6)",
+          "option_value2": null,
+          "option_desc": "수리비 200% 증가,최대생명력 100 증가,윈드밀 랭크 3단 이상일 때 최대대미지 59 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "폭주 (랭크 6)",
+          "option_value2": null,
+          "option_desc": "수리비 200% 증가,다운 어택 랭크 3단 이상일 때 최대대미지 80 증가,피어싱 레벨 3 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "장인 개조",
+          "option_sub_type": null,
+          "option_value": "최소대미지 12 증가,체력 33 증가,최대생명력 11 증가,최대대미지 25 증가",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "R",
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "최대 공격력(14레벨:28 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "스매시 대미지(20레벨:200 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "공격 속도 증가 세트 효과 수치(5레벨:5 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에르그",
+          "option_sub_type": "S",
+          "option_value": "50",
+          "option_value2": "50",
+          "option_desc": null
+        },
+        {
+          "option_type": "피어싱 레벨",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "+3",
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//경갑옷(중요)
+{
+      "item_name": "스페셜 포레스트 레인저 머플러 웨어(여성용)",
+      "item_display_name": "사라진 궤적 스페셜 포레스트 레인저 머플러 웨어(여성용)",
+      "item_count": 1,
+      "auction_item_category": "경갑옷",
+      "auction_price_per_unit": 599000000,
+      "date_auction_expire": "2025-10-21T04:58:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "인챈트 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "방어력",
+          "option_sub_type": null,
+          "option_value": "23",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "보호",
+          "option_sub_type": null,
+          "option_value": "17",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "마법 방어력",
+          "option_sub_type": null,
+          "option_value": "6",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "마법 보호",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "15",
+          "option_value2": "15",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "57,55,50",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "255,224,98",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "255,244,98",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "255,244,98",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 E",
+          "option_value": "255,228,196",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 F",
+          "option_value": "57,55,50",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "사라진 (랭크 6)",
+          "option_value2": null,
+          "option_desc": "수리비 200% 증가,보호 3 증가,대미지밸런스 10 증가,최대생명력 25 증가,마리오네트 최대 대미지 10 증가,최대대미지 53 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "궤적 (랭크 6)",
+          "option_value2": null,
+          "option_desc": "수리비 200% 증가,마법 보호 3 증가,대미지밸런스 10 증가,최대마나 25 증가,마법 공격력 20 감소,마리오네트 최대 대미지 22 증가,최대대미지 53 증가"
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "레인지 컴뱃 마스터리 원거리 공격 최대 대미지(20레벨:20 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "컨트롤 오브 다크니스 지속 시간(13레벨:195 초 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "돌진 원거리 대미지 감소율(15레벨:11.25 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "크리티컬 대미지 증가",
+          "option_value2": "4",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "2",
+          "option_value": "충격 흡수 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "3",
+          "option_value": "공격 속도 증가",
+          "option_value2": "4",
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//기타
+{
+      "item_name": "삼하인 변신 메달 선택 상자",
+      "item_display_name": "삼하인 변신 메달 선택 상자",
+      "item_count": 1,
+      "auction_item_category": "기타",
+      "auction_price_per_unit": 640000,
+      "date_auction_expire": "2025-10-22T16:08:00.000Z",
+      "item_option": [
+        {
+          "option_type": "남은 거래 횟수",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//기타 소모품
+{
+      "item_name": "애뮬릿 초기화 스톤(추가 강화용)",
+      "item_display_name": "애뮬릿 초기화 스톤(추가 강화용)",
+      "item_count": 1,
+      "auction_item_category": "기타 소모품",
+      "auction_price_per_unit": 2900000,
+      "date_auction_expire": "2025-10-23T06:24:00.000Z",
+      "item_option": [
+        {
+          "option_type": "남은 거래 횟수",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//기타 스크롤
+{
+      "item_name": "화이트 드래곤 소환 스크롤",
+      "item_display_name": "화이트 드래곤 소환 스크롤",
+      "item_count": 10,
+      "auction_item_category": "기타 스크롤",
+      "auction_price_per_unit": 2880000,
+      "date_auction_expire": "2025-10-23T01:39:00.000Z",
+      "item_option": [
+        {
+          "option_type": "남은 거래 횟수",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//기타 장비
+{
+      "item_name": "봄의 부케",
+      "item_display_name": "봄의 부케",
+      "item_count": 1,
+      "auction_item_category": "기타 장비",
+      "auction_price_per_unit": 4500000,
+      "date_auction_expire": "2025-10-22T02:15:00.000Z",
+      "item_option": [
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "12",
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "7",
+          "option_value2": "7",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "255,255,255",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "241,236,216",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "183,224,235",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//기타 재료
+{
+      "item_name": "마기그래프 회복 주문서(100)",
+      "item_display_name": "마기그래프 회복 주문서(100)",
+      "item_count": 100,
+      "auction_item_category": "기타 재료",
+      "auction_price_per_unit": 45000,
+      "date_auction_expire": "2025-10-21T18:22:00.000Z",
+      "item_option": null
+    },
+//꼬리
+{
+      "item_name": "페리스의 꼬리",
+      "item_display_name": "페리스의 꼬리",
+      "item_count": 1,
+      "auction_item_category": "꼬리",
+      "auction_price_per_unit": 32000000,
+      "date_auction_expire": "2025-10-21T20:26:00.000Z",
+      "item_option": [
+        {
+          "option_type": "방어력",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "보호",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "14",
+          "option_value2": "14",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "255,255,255",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//날개
+{
+      "item_name": "찬란한 시크릿 포레스트 스위트 윙",
+      "item_display_name": "찬란한 시크릿 포레스트 스위트 윙",
+      "item_count": 1,
+      "auction_item_category": "날개",
+      "auction_price_per_unit": 60000000,
+      "date_auction_expire": "2025-10-22T03:12:00.000Z",
+      "item_option": [
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "10",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "238,238,238",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "238,238,238",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//낭만농장/달빛섬
+{
+      "item_name": "낭만 농장 신비의 서고 벽난로",
+      "item_display_name": "낭만 농장 신비의 서고 벽난로",
+      "item_count": 1,
+      "auction_item_category": "낭만농장/달빛섬",
+      "auction_price_per_unit": 40000,
+      "date_auction_expire": "2025-10-22T21:23:00.000Z",
+      "item_option": null
+    },
+//너클(중요)
+{
+      "item_name": "나이트브링어 베가본드",
+      "item_display_name": "신성한 쾌속의 다운버스트 나이트브링어 베가본드",
+      "item_count": 1,
+      "auction_item_category": "너클",
+      "auction_price_per_unit": 400000000,
+      "date_auction_expire": "2025-10-22T01:20:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "인챈트 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "131",
+          "option_value2": "301",
+          "option_desc": null
+        },
+        {
+          "option_type": "부상률",
+          "option_sub_type": null,
+          "option_value": "10%",
+          "option_value2": "25%",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "73%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "64%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "35",
+          "option_value2": "35",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "190,184,210",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "190,184,210",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "33,28,53",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "쾌속의 (랭크 7)",
+          "option_value2": null,
+          "option_desc": "수리비 50% 증가,연속기 : 파운딩 랭크 9 이상일 때 의지 20 증가,연속기 : 파운딩 랭크 5 이상일 때 최소대미지 7 증가,연속기 : 파운딩 랭크 1 이상일 때 최대대미지 25 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "다운버스트 (랭크 4)",
+          "option_value2": null,
+          "option_desc": "의지 20 증가,행운 20 증가,체력 30 증가,최대대미지 72 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "R",
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "연속기 : 대쉬 펀치 대미지(17레벨:51 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "체력(16레벨:24.00 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "최대 공격력(15레벨:30 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에르그",
+          "option_sub_type": "S",
+          "option_value": "50",
+          "option_value2": "50",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "연속기 : 드롭킥 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//던전 통행증
+{
+      "item_name": "빛나는 구슬",
+      "item_display_name": "빛나는 구슬",
+      "item_count": 5,
+      "auction_item_category": "던전 통행증",
+      "auction_price_per_unit": 380000,
+      "date_auction_expire": "2025-10-21T22:13:00.000Z",
+      "item_option": [
+        {
+          "option_type": "남은 거래 횟수",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//도끼(중요)
+{
+      "item_name": "나이트브링어 바이킹",
+      "item_display_name": "악몽의 검은안개 나이트브링어 바이킹",
+      "item_count": 1,
+      "auction_item_category": "도끼",
+      "auction_price_per_unit": 420000000,
+      "date_auction_expire": "2025-10-23T16:11:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "인챈트 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "104",
+          "option_value2": "210",
+          "option_desc": null
+        },
+        {
+          "option_type": "부상률",
+          "option_sub_type": null,
+          "option_value": "0%",
+          "option_value2": "10%",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "57%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "51%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "22",
+          "option_value2": "22",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "52,52,50",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "0,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "52,52,50",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "0,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 E",
+          "option_value": "255,255,255",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "악몽의 (랭크 8)",
+          "option_value2": null,
+          "option_desc": "솜씨 10 감소,크리티컬 8 증가,최소대미지 13 증가,스매시 랭크 4 이상일 때 최대대미지 18 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "검은안개 (랭크 8)",
+          "option_value2": null,
+          "option_desc": "지력 10 감소,대미지밸런스 5 증가,최소대미지 12 증가,디펜스 랭크 4 이상일 때 최대대미지 20 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "S",
+          "option_value": "6",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "지력(6레벨:15.00 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "최대마나(5레벨:25 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "돌진 대미지(8레벨:120 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에르그",
+          "option_sub_type": "S",
+          "option_value": "50",
+          "option_value2": "50",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "윈드밀 강화",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "피어싱 레벨",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//도면
+{
+      "item_name": "도면",
+      "item_display_name": "도면 - 블리안 엔더스 인텐스 아머(여성용)",
+      "item_count": 1,
+      "auction_item_category": "도면",
+      "auction_price_per_unit": 30000,
+      "date_auction_expire": "2025-10-21T17:44:00.000Z",
+      "item_option": [
+        {
+          "option_type": "남은 사용 횟수",
+          "option_sub_type": null,
+          "option_value": "30",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//둔기(중요)
+{
+      "item_name": "나이트브링어 인포서",
+      "item_display_name": "나선의 헤비레인 나이트브링어 인포서",
+      "item_count": 1,
+      "auction_item_category": "둔기",
+      "auction_price_per_unit": 390000000,
+      "date_auction_expire": "2025-10-22T07:01:00.000Z",
+      "item_option": [
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "104",
+          "option_value2": "208",
+          "option_desc": null
+        },
+        {
+          "option_type": "부상률",
+          "option_sub_type": null,
+          "option_value": "0%",
+          "option_value2": "10%",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "35%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "48%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "20",
+          "option_value2": "20",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 E",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "나선의 (랭크 3)",
+          "option_value2": null,
+          "option_desc": "수리비 200% 증가,크리티컬 히트 랭크 1 이상일 때 크리티컬 7 증가,다운 어택 랭크 1 이상일 때 최대대미지 33 증가,윈드밀 랭크 1 이상일 때 체력 57 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "헤비레인 (랭크 4)",
+          "option_value2": null,
+          "option_desc": "크리티컬 15 증가,최대대미지 61 증가,최소대미지 31 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "R",
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "퓨리 오브 라이트 대미지(9레벨:27 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "스매시 대미지(10레벨:100 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "솜씨(10레벨:25.00 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에르그",
+          "option_sub_type": "S",
+          "option_value": "50",
+          "option_value2": "50",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "배쉬 강화",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "2",
+          "option_value": "윈드밀 강화",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "피어싱 레벨",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//듀얼건(중요)
+{
+      "item_name": "나이트브링어 뱅퀴셔",
+      "item_display_name": "회오리 퓨리 나이트브링어 뱅퀴셔",
+      "item_count": 1,
+      "auction_item_category": "듀얼건",
+      "auction_price_per_unit": 270000000,
+      "date_auction_expire": "2025-10-23T14:29:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "인챈트 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "23",
+          "option_value2": "114",
+          "option_desc": null
+        },
+        {
+          "option_type": "부상률",
+          "option_sub_type": null,
+          "option_value": "25%",
+          "option_value2": "60%",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "47%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "29%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "27",
+          "option_value2": "27",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "250,223,221",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "250,223,221",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "255,255,255",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "250,223,221",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "회오리 (랭크 6)",
+          "option_value2": null,
+          "option_desc": "프렌지 랭크 3 이상일 때 대미지밸런스 15 증가,리로드 랭크 1 이상일 때 공격 속도 증가 세트 효과 수치 5 증가,파 어웨이 랭크 1 이상일 때 최대대미지 20 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "퓨리 (랭크 4)",
+          "option_value2": null,
+          "option_desc": "수리비 200% 증가,피어싱 레벨 3 증가,대미지밸런스 5 증가,지력 40 증가,크로스 버스터 랭크 3단 이상일 때 최대대미지 32 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "장인 개조",
+          "option_sub_type": null,
+          "option_value": "행운 52 증가,최대대미지 11 증가",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "R",
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "솜씨(8레벨:20.00 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "지력(17레벨:42.50 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "듀얼건 최대 대미지(20레벨:100 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "프렌지 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "2",
+          "option_value": "슈팅 러쉬 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "피어싱 레벨",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": "+3",
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "6",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//랜스(중요)
+{
+      "item_name": "나이트브링어 스피어헤드",
+      "item_display_name": "충돌의 다운버스트 나이트브링어 스피어헤드",
+      "item_count": 1,
+      "auction_item_category": "랜스",
+      "auction_price_per_unit": 375000000,
+      "date_auction_expire": "2025-10-23T14:50:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "인챈트 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "69",
+          "option_value2": "201",
+          "option_desc": null
+        },
+        {
+          "option_type": "부상률",
+          "option_sub_type": null,
+          "option_value": "10%",
+          "option_value2": "20%",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "23%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "12%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "35",
+          "option_value2": "35",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "172,178,186",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "95,93,106",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "206,217,231",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "충돌의 (랭크 4)",
+          "option_value2": null,
+          "option_desc": "수리비 200% 증가,회피 랭크 6 이상일 때 체력 27 증가,스매시 랭크 1 이상일 때 최소대미지 15 증가,윈드밀 랭크 1 이상일 때 최대대미지 31 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "다운버스트 (랭크 4)",
+          "option_value2": null,
+          "option_desc": "의지 20 증가,행운 20 증가,체력 30 증가,최대대미지 73 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "장인 개조",
+          "option_sub_type": null,
+          "option_value": "행운 20 증가,최대생명력 18 증가,체력 68 증가,최대스태미나 11 증가",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "R",
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "최대 공격력(13레벨:26 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "랜스 차지 마상 돌진 대미지(20레벨:60 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "파이어볼트 최대 대미지(19레벨:1.90 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에르그",
+          "option_sub_type": "S",
+          "option_value": "50",
+          "option_value2": "50",
+          "option_desc": null
+        },
+        {
+          "option_type": "피어싱 레벨",
+          "option_sub_type": null,
+          "option_value": "8",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "4",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//로브
+{
+      "item_name": "파멸의 로브(여성용)",
+      "item_display_name": "축복받은 파멸의 로브(여성용)",
+      "item_count": 1,
+      "auction_item_category": "로브",
+      "auction_price_per_unit": 3300000000,
+      "date_auction_expire": "2025-10-23T16:36:00.000Z",
+      "item_option": [
+        {
+          "option_type": "보호",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "30",
+          "option_value2": "30",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "84,4,4",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "114,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "51,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "20,1,4",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 E",
+          "option_value": "104,93,79",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 F",
+          "option_value": "51,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "피어싱 레벨",
+          "option_sub_type": null,
+          "option_value": "3",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//마기그래프
+{
+      "item_name": "마기그래프",
+      "item_display_name": "마기그래프",
+      "item_count": 1,
+      "auction_item_category": "마기그래프",
+      "auction_price_per_unit": 150000,
+      "date_auction_expire": "2025-10-22T01:58:00.000Z",
+      "item_option": [
+        {
+          "option_type": "남은 거래 횟수",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//마기그래프 도안
+{
+      "item_name": "마기그래프 도안",
+      "item_display_name": "마기그래프 도안",
+      "item_count": 1,
+      "auction_item_category": "마기그래프 도안",
+      "auction_price_per_unit": 10000,
+      "date_auction_expire": "2025-10-22T16:20:00.000Z",
+      "item_option": null
+    },
+//마도서(중요)
+{
+      "item_name": "나이트브링어 프로핏",
+      "item_display_name": "축복받은 광포한 직감의 나이트브링어 프로핏",
+      "item_count": 1,
+      "auction_item_category": "마도서",
+      "auction_price_per_unit": 120000000,
+      "date_auction_expire": "2025-10-23T15:24:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "인챈트 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "26",
+          "option_value2": "26",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "255,255,255",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "250,185,182",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "255,255,255",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "249,186,188",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "광포한 (랭크 7)",
+          "option_value2": null,
+          "option_desc": "대미지밸런스 1 감소,매직 마스터리 랭크 1 이상일 때 마법 공격력 5 증가,컴뱃 마스터리 랭크 1 이상일 때 최대대미지 12 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "직감의 (랭크 7)",
+          "option_value2": null,
+          "option_desc": "마법 공격력 4 증가,최대대미지 5 증가"
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "소드 오브 오더 [변신 중] 대미지(9레벨:36 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "마법 공격력(19레벨:76 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "스피어 오브 라이트 대미지(9레벨:135 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "마법 공격력 증가",
+          "option_value2": "10",
+          "option_desc": null
+        }
+      ]
+    },
+//마리오네트
+{
+      "item_name": "몰락자의 피에로 미니어처",
+      "item_display_name": "몰락자의 피에로 미니어처",
+      "item_count": 1,
+      "auction_item_category": "마리오네트",
+      "auction_price_per_unit": 2990000,
+      "date_auction_expire": "2025-10-21T11:53:00.000Z",
+      "item_option": [
+        {
+          "option_type": "방어력",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "보호",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "마법 방어력",
+          "option_sub_type": null,
+          "option_value": "4",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "마법 보호",
+          "option_sub_type": null,
+          "option_value": "4",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "191,183,208",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "124,105,82",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "176,205,94",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "인형술 스킬 쿨타임 감소",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "2",
+          "option_value": "마리오네트 크리티컬 대미지 배율",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "3",
+          "option_value": "마리오네트 자동방어 확률",
+          "option_value2": "5",
+          "option_desc": null
+        }
+      ]
+    },
+//마법가루
+{
+      "item_name": "고대의 마법가루",
+      "item_display_name": "고대의 마법가루",
+      "item_count": 1,
+      "auction_item_category": "마법가루",
+      "auction_price_per_unit": 16000,
+      "date_auction_expire": "2025-10-23T09:07:00.000Z",
+      "item_option": [
+        {
+          "option_type": "남은 거래 횟수",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//마비노벨
+{
+      "item_name": "마비노벨",
+      "item_display_name": "마비노벨",
+      "item_count": 1,
+      "auction_item_category": "마비노벨",
+      "auction_price_per_unit": 6000000,
+      "date_auction_expire": "2025-10-22T15:30:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "83,8,31",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "46,41,36",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "32,113,183",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//마족 스크롤
+{
+      "item_name": "너구리 마족 스크롤",
+      "item_display_name": "너구리 마족 스크롤",
+      "item_count": 3,
+      "auction_item_category": "마족 스크롤",
+      "auction_price_per_unit": 989,
+      "date_auction_expire": "2025-10-21T15:17:00.000Z",
+      "item_option": null
+    },
+//말풍선 스티커
+{
+      "item_name": "알터 말풍선 스티커",
+      "item_display_name": "알터 말풍선 스티커",
+      "item_count": 2,
+      "auction_item_category": "말풍선 스티커",
+      "auction_price_per_unit": 650000,
+      "date_auction_expire": "2025-10-22T15:28:00.000Z",
+      "item_option": null
+    },
+//매직 크래프트
+{
+      "item_name": "돌연변이 토끼의 발",
+      "item_display_name": "돌연변이 토끼의 발",
+      "item_count": 100,
+      "auction_item_category": "매직 크래프트",
+      "auction_price_per_unit": 7700,
+      "date_auction_expire": "2025-10-21T16:00:00.000Z",
+      "item_option": null
+    },
+//모자/가발(중요)
+{
+      "item_name": "블리안 엔더스 인텐스 써클릿(여성용)",
+      "item_display_name": "노련한 레지스탕스 블리안 엔더스 인텐스 써클릿(여성용)",
+      "item_count": 1,
+      "auction_item_category": "모자/가발",
+      "auction_price_per_unit": 125000000,
+      "date_auction_expire": "2025-10-21T05:29:00.000Z",
+      "item_option": [
+        {
+          "option_type": "방어력",
+          "option_sub_type": null,
+          "option_value": "3",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "보호",
+          "option_sub_type": null,
+          "option_value": "3",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "마법 방어력",
+          "option_sub_type": null,
+          "option_value": "14",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "마법 보호",
+          "option_sub_type": null,
+          "option_value": "11",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "19",
+          "option_value2": "20",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "0,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "230,208,172",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "230,208,172",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "노련한 (랭크 5)",
+          "option_value2": null,
+          "option_desc": "수리비 100% 증가,최대생명력 50 감소,초월 : 생명 재사용 대기시간 초기화 확률 3 증가,기사회생 특성 5레벨 이상일 때 최소대미지 6 증가,원소 연마 특성 8레벨 이상일 때 최대대미지 17 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "레지스탕스 (랭크 5)",
+          "option_value2": null,
+          "option_desc": "수리비 100% 증가,위기 탈출 랭크 1 이상일 때 크리티컬 5 증가,레이지 임팩트 랭크 1 이상일 때 최대대미지 18 증가"
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "연속기 : 드롭킥 쿨타임 감소(4레벨:4 초 감소)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "근접 자동 방어(4레벨:4 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "랜스 차지 쿨타임 감소(5레벨:5 초 감소)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "크리티컬 대미지 증가",
+          "option_value2": "4",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "2",
+          "option_value": "최대 대미지 증가",
+          "option_value2": "4",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "3",
+          "option_value": "피어싱 저항 증가",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//방패(중요)
+{
+      "item_name": "나이트브링어 뱅가드",
+      "item_display_name": "축복받은 마력의 단장 나이트브링어 뱅가드",
+      "item_count": 1,
+      "auction_item_category": "방패",
+      "auction_price_per_unit": 110000000,
+      "date_auction_expire": "2025-10-22T15:23:00.000Z",
+      "item_option": [
+        {
+          "option_type": "방어력",
+          "option_sub_type": null,
+          "option_value": "23",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "보호",
+          "option_sub_type": null,
+          "option_value": "17",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "마법 방어력",
+          "option_sub_type": null,
+          "option_value": "18",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "마법 보호",
+          "option_sub_type": null,
+          "option_value": "13",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "55",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "45",
+          "option_value2": "45",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "2,7,21",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "241,146,146",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "2,7,21",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "마력의 (랭크 9)",
+          "option_value2": null,
+          "option_desc": "수리비 30% 감소,매직 크래프트 랭크 3 이상일 때 최대마나 50 증가,매직 크래프트 랭크 5 이상일 때 행운 8 증가,매직 크래프트 랭크 9 이상일 때 지력 8 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "단장 (랭크 8)",
+          "option_value2": null,
+          "option_desc": "최대스태미나 6 감소,의지 10 감소,지력 7 증가,내츄럴 매직 실드 랭크 C 이상일 때 최대마나 8 증가,내츄럴 매직 실드 랭크 C 이상일 때 보호 2 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "3",
+          "option_value2": "3",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "근접 자동 방어(5레벨:5 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "실드 오브 피시스 [변신 중] 보호(18레벨:4.50 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "아머 오브 콘누스 [변신 중] 보호(5레벨:1.25 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "배쉬 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "2",
+          "option_value": "내구도 감소 완화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "3",
+          "option_value": "윈드밀 강화",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "4",
+          "option_value": "돌진 강화",
+          "option_value2": "10",
+          "option_desc": null
+        }
+      ]
+    },
+//변신 메달
+{
+      "item_name": "샤말라의 변신 메달",
+      "item_display_name": "샤말라의 변신 메달",
+      "item_count": 1,
+      "auction_item_category": "변신 메달",
+      "auction_price_per_unit": 5000000,
+      "date_auction_expire": "2025-10-21T06:30:00.000Z",
+      "item_option": null
+    },
+//보석
+{
+      "item_name": "루비",
+      "item_display_name": "루비",
+      "item_count": 1,
+      "auction_item_category": "보석",
+      "auction_price_per_unit": 10000,
+      "date_auction_expire": "2025-10-22T10:12:00.000Z",
+      "item_option": [
+        {
+          "option_type": "크기",
+          "option_sub_type": null,
+          "option_value": "10.00cm",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//분양 메달
+{
+      "item_name": "동물 캐릭터 분양 메달",
+      "item_display_name": "동물 캐릭터 분양 메달",
+      "item_count": 1,
+      "auction_item_category": "분양 메달",
+      "auction_price_per_unit": 23000000,
+      "date_auction_expire": "2025-10-22T13:39:00.000Z",
+      "item_option": [
+        {
+          "option_type": "펫 정보",
+          "option_sub_type": "종족명",
+          "option_value": "세이버 X",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "펫 정보",
+          "option_sub_type": "펫 포인트",
+          "option_value": "16965",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "펫 정보",
+          "option_sub_type": "레벨",
+          "option_value": "200",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "펫 정보",
+          "option_sub_type": "누적 레벨",
+          "option_value": "11485",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "펫 정보",
+          "option_sub_type": "남은 분양 횟수",
+          "option_value": "4",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "펫 정보",
+          "option_sub_type": "나이",
+          "option_value": "25",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "펫 정보",
+          "option_sub_type": "생명력",
+          "option_value": "803",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "펫 정보",
+          "option_sub_type": "마나",
+          "option_value": "271",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "펫 정보",
+          "option_sub_type": "스태미나",
+          "option_value": "612",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "펫 정보",
+          "option_sub_type": "체력",
+          "option_value": "394",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "펫 정보",
+          "option_sub_type": "의지",
+          "option_value": "199",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "펫 정보",
+          "option_sub_type": "솜씨",
+          "option_value": "236",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "펫 정보",
+          "option_sub_type": "지력",
+          "option_value": "222",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "펫 정보",
+          "option_sub_type": "행운",
+          "option_value": "139",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "펫 정보",
+          "option_sub_type": "최대 소환 시간",
+          "option_value": "120",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 거래 횟수",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//불타래
+{
+      "item_name": "불타래",
+      "item_display_name": "불타래",
+      "item_count": 12,
+      "auction_item_category": "불타래",
+      "auction_price_per_unit": 70,
+      "date_auction_expire": "2025-10-22T16:54:00.000Z",
+      "item_option": null
+    },
+//뷰티 쿠폰
+{
+      "item_name": "이올라의 입 뷰티 쿠폰",
+      "item_display_name": "이올라의 입 뷰티 쿠폰",
+      "item_count": 1,
+      "auction_item_category": "뷰티 쿠폰",
+      "auction_price_per_unit": 18000,
+      "date_auction_expire": "2025-10-22T01:34:00.000Z",
+      "item_option": [
+        {
+          "option_type": "남은 거래 횟수",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//생활 도구(중요)
+{
+      "item_name": "이상한 이웨카 야금용 체",
+      "item_display_name": "축복받은 도둑 이상한 이웨카 야금용 체",
+      "item_count": 1,
+      "auction_item_category": "생활 도구",
+      "auction_price_per_unit": 9000000,
+      "date_auction_expire": "2025-10-21T16:11:00.000Z",
+      "item_option": [
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "0",
+          "option_value2": "4",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "20%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "30%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "6",
+          "option_value2": "6",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "183,183,183",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "136,151,173",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "155,109,74",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "도둑 (랭크 A)",
+          "option_value2": null,
+          "option_desc": "레벨이 30 이상일때 행운 10 증가,레벨이 25 이상일때 최대생명력 15 감소"
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "솜씨(7레벨:17.50 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "행운(4레벨:6.00 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "야금술 1회 최대 채집량(2레벨:2 개까지 추가 채집 가능)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "채집 성공 확률 증가",
+          "option_value2": "10",
+          "option_desc": null
+        }
+      ]
+    },
+//석궁(중요)
+{
+      "item_name": "나이트브링어 로그",
+      "item_display_name": "창백한 명사수 나이트브링어 로그",
+      "item_count": 1,
+      "auction_item_category": "석궁",
+      "auction_price_per_unit": 300000000,
+      "date_auction_expire": "2025-10-22T00:31:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "인챈트 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "64",
+          "option_value2": "189",
+          "option_desc": null
+        },
+        {
+          "option_type": "부상률",
+          "option_sub_type": null,
+          "option_value": "0%",
+          "option_value2": "100%",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "37%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "23%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "20",
+          "option_value2": "26",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "164,150,146",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "255,173,165",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "255,255,255",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "117,112,92",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "창백한 (랭크 4)",
+          "option_value2": null,
+          "option_desc": "피어싱 레벨 3 증가,솜씨 35 증가,크리티컬 18 증가,최대대미지 60 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "명사수 (랭크 6)",
+          "option_value2": null,
+          "option_desc": "보우 마스터리 랭크 1 이상일 때 솜씨 30 증가,어전트 샷 랭크 1 이상일 때 최대대미지 25 증가,매그넘 샷 랭크 1 이상일 때 최소대미지 18 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "R",
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "애로우 리볼버 최대 대미지(9레벨:45 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "최대 공격력(15레벨:30 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "유효 사거리(17레벨:11.90 m 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에르그",
+          "option_sub_type": "S",
+          "option_value": "50",
+          "option_value2": "50",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "크래시 샷 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "2",
+          "option_value": "파이널 샷 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "피어싱 레벨",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "+3",
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "6",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//수리검(중요)
+{
+      "item_name": "페러시우스 스위프트 수리검",
+      "item_display_name": "축복받은 데미 리치 스텔라 페러시우스 스위프트 수리검",
+      "item_count": 1,
+      "auction_item_category": "수리검",
+      "auction_price_per_unit": 300000000,
+      "date_auction_expire": "2025-10-21T19:16:00.000Z",
+      "item_option": [
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "73",
+          "option_value2": "142",
+          "option_desc": null
+        },
+        {
+          "option_type": "부상률",
+          "option_sub_type": null,
+          "option_value": "5%",
+          "option_value2": "100%",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "31%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "35%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "19",
+          "option_value2": "27",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "32,32,46",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "148,118,128",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "148,118,128",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "148,118,128",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "데미 리치 (랭크 8)",
+          "option_value2": null,
+          "option_desc": "최대생명력 100 감소,레벨이 30 이상일때 최대대미지 20 증가,레벨이 40 이하일때 최소대미지 10 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "스텔라 (랭크 4)",
+          "option_value2": null,
+          "option_desc": "수리비 200% 증가,피어싱 레벨 2 증가,크리티컬 5 증가,의지 20 증가,수리검 돌진 랭크 3단 이상일 때 최대대미지 50 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "장인 개조",
+          "option_sub_type": null,
+          "option_value": "대미지밸런스 9 증가,최대대미지 38 증가",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "R",
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "수리검 마스터리 최대 대미지(19레벨:57 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "최소 공격력(8레벨:8 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "그림자 속박 지속 시간(20레벨:10.00 초 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에르그",
+          "option_sub_type": "S",
+          "option_value": "50",
+          "option_value2": "50",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "벚꽃 비화술 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "2",
+          "option_value": "수리검 폭풍 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//스케치
+{
+      "item_name": "도화지",
+      "item_display_name": "도화지",
+      "item_count": 18,
+      "auction_item_category": "스케치",
+      "auction_price_per_unit": 300,
+      "date_auction_expire": "2025-10-23T13:35:00.000Z",
+      "item_option": null
+    },
+//스태프(중요)
+{
+      "item_name": "나이트브링어 인퀴지터",
+      "item_display_name": "불가사의한 나이트폴 나이트브링어 인퀴지터",
+      "item_count": 1,
+      "auction_item_category": "스태프",
+      "auction_price_per_unit": 510000000,
+      "date_auction_expire": "2025-10-22T04:31:00.000Z",
+      "item_option": [
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "20",
+          "option_value2": "45",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "27%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "70%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "26",
+          "option_value2": "26",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "0,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "13,13,14",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "47,44,44",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "불가사의한 (랭크 3)",
+          "option_value2": null,
+          "option_desc": "수리비 20% 감소,체력 30 감소,최대마나 30 증가,지력 18 증가,마법 공격력 20 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "나이트폴 (랭크 4)",
+          "option_value2": null,
+          "option_desc": "최대마나 98 증가,마나 소비 감소 8% 증가,마법 공격력 55 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "S",
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "스피어 오브 라이트 대미지(18레벨:270 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "파이어볼트 최대 대미지(14레벨:1.40 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "마법 공격력(19레벨:76 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에르그",
+          "option_sub_type": "S",
+          "option_value": "50",
+          "option_value2": "50",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "헤일스톰 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "6",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//신발(중요)
+{
+      "item_name": "슈팅 스타 플라잉 슈즈",
+      "item_display_name": "신성한 광포한 카모플라쥬 슈팅 스타 플라잉 슈즈",
+      "item_count": 1,
+      "auction_item_category": "신발",
+      "auction_price_per_unit": 210000000,
+      "date_auction_expire": "2025-10-22T02:45:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "인챈트 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "방어력",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "20",
+          "option_value2": "20",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "2,7,21",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "2,7,21",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "2,7,21",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "광포한 (랭크 7)",
+          "option_value2": null,
+          "option_desc": "대미지밸런스 1 감소,매직 마스터리 랭크 1 이상일 때 마법 공격력 5 증가,컴뱃 마스터리 랭크 1 이상일 때 최대대미지 12 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "카모플라쥬 (랭크 9)",
+          "option_value2": null,
+          "option_desc": "듀얼건 마스터리 랭크 3 이상일 때 최대대미지 9 증가"
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "타운트 최소 유인 몬스터 수(20레벨:5.00 마리 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "자이언트 풀 스윙 공격 범위(10레벨:0.50 m 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "이동 속도(3레벨:9 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "이웨카 이동 속도 증가",
+          "option_value2": "10",
+          "option_desc": null
+        }
+      ]
+    },
+//실린더(중요)
+{
+      "item_name": "나이트브링어 테크니션",
+      "item_display_name": "증발된 여우비 나이트브링어 테크니션",
+      "item_count": 1,
+      "auction_item_category": "실린더",
+      "auction_price_per_unit": 330000000,
+      "date_auction_expire": "2025-10-21T14:38:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "인챈트 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "29",
+          "option_value2": "55",
+          "option_desc": null
+        },
+        {
+          "option_type": "부상률",
+          "option_sub_type": null,
+          "option_value": "15%",
+          "option_value2": "25%",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "54%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "59%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "50",
+          "option_value2": "51",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "25,22,22",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "73,73,73",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "37,37,37",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "25,22,22",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "증발된 (랭크 5)",
+          "option_value2": null,
+          "option_desc": "라이프 드레인 랭크 8 이상일 때 방어 4 증가,스파크 랭크 5 이상일 때 크리티컬 5 증가,윈드 블래스트 랭크 1 이상일 때 바람 속성 연금술 대미지 34 증가,플레이머 랭크 1 이상일 때 불 속성 연금술 대미지 30 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "여우비 (랭크 4)",
+          "option_value2": null,
+          "option_desc": "크리티컬 18 증가,물 속성 연금술 대미지 63 증가,불 속성 연금술 대미지 50 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "장인 개조",
+          "option_sub_type": null,
+          "option_value": "최대마나 56 증가,최대스태미나 50 증가,최대생명력 38 증가,바람 속성 연금술 대미지 25 증가,흙 속성 연금술 대미지 25 증가,물 속성 연금술 대미지 25 증가,불 속성 연금술 대미지 25 증가",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "R",
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "워터 캐논 최대 대미지(14레벨:8.40 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "샌드 버스트 최소 대미지(12레벨:1.80 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "물 속성 연금술 대미지(20레벨:20 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에르그",
+          "option_sub_type": "S",
+          "option_value": "50",
+          "option_value2": "50",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "전투 연금술 강화",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "2",
+          "option_value": "영웅 연금술 강화",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "3",
+          "option_value": "연성 연금술 강화",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "피어싱 레벨",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "6",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//아틀라틀(중요)
+{
+      "item_name": "본 아틀라틀",
+      "item_display_name": "신성한 정복자 다운버스트 본 아틀라틀",
+      "item_count": 1,
+      "auction_item_category": "아틀라틀",
+      "auction_price_per_unit": 350000000,
+      "date_auction_expire": "2025-10-21T11:33:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "인챈트 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "22",
+          "option_value2": "99",
+          "option_desc": null
+        },
+        {
+          "option_type": "부상률",
+          "option_sub_type": null,
+          "option_value": "4%",
+          "option_value2": "28%",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "21%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "49%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "21",
+          "option_value2": "21",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "116,93,47",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "127,114,55",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "80,80,80",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "정복자 (랭크 4)",
+          "option_value2": null,
+          "option_desc": "수리비 200% 증가,회피 랭크 6 이상일 때 체력 40 증가,파이널 히트 랭크 1 이상일 때 최소대미지 14 증가,윈드밀 랭크 1 이상일 때 최대대미지 25 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "다운버스트 (랭크 4)",
+          "option_value2": null,
+          "option_desc": "의지 20 증가,행운 20 증가,체력 30 증가,최대대미지 70 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "S",
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "최대 공격력(19레벨:38 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "던지기 공격 쿨타임 감소(5레벨:2.00 초 감소)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "행운(17레벨:25.50 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에르그",
+          "option_sub_type": "S",
+          "option_value": "50",
+          "option_value2": "50",
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "4",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//악기(중요)
+{
+      "item_name": "소울 리버레이트 리라",
+      "item_display_name": "축복받은 모데라토 소울 리버레이트 리라",
+      "item_count": 1,
+      "auction_item_category": "악기",
+      "auction_price_per_unit": 8500000000,
+      "date_auction_expire": "2025-10-23T13:29:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "인챈트 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "21",
+          "option_value2": "40",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "33%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "82%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "65",
+          "option_value2": "65",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "47,0,72",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "255,255,255",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "255,255,255",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "47,0,72",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 E",
+          "option_value": "255,255,255",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 F",
+          "option_value": "47,0,72",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "모데라토 (랭크 A)",
+          "option_value2": null,
+          "option_desc": "최대스태미나 15 증가,최대대미지 5 증가,자장가 랭크 9 이상일 때 최대생명력 7 증가,악기 연주 랭크 8 이상일 때 음악 버프 스킬 효과 2 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "장인 개조",
+          "option_sub_type": null,
+          "option_value": "음악 버프 스킬 효과 6 증가,대미지밸런스 6 증가,최대대미지 7 증가",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "악기 연주 효과(17레벨:17 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "현혹의 연주 쿨타임 감소(15레벨:3.75 초 감소)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "음악적 지식 신들린 연주 효과(10레벨:10 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//애뮬릿(중요)
+    {
+      "item_name": "삼하인의 기록이 담긴 애뮬릿",
+      "item_display_name": "삼하인의 기록이 담긴 애뮬릿",
+      "item_count": 1,
+      "auction_item_category": "애뮬릿",
+      "auction_price_per_unit": 19000000,
+      "date_auction_expire": "2025-10-29T19:34:00.000Z",
+      "item_option": [
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "지력",
+          "option_value": "10",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "체력",
+          "option_value": "4",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "솜씨",
+          "option_value": "6",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "의지",
+          "option_value": "8",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "최대 스태미나",
+          "option_value": "12",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "최대 마나",
+          "option_value": "2",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 추가 옵션",
+          "option_sub_type": "마법 재능 무기 마법 공격력",
+          "option_value": "22",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 강화 제한",
+          "option_sub_type": "남은 일반 강화 횟수",
+          "option_value": "0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 강화 제한",
+          "option_sub_type": "남은 추가 강화 횟수",
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 거래 횟수",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//알반 훈련석
+{
+      "item_name": "알반 기사단의 훈련석 [숨겨진 층-아튼 시미니의 모루]",
+      "item_display_name": "알반 기사단의 훈련석 [숨겨진 층-아튼 시미니의 모루]",
+      "item_count": 1,
+      "auction_item_category": "알반 훈련석",
+      "auction_price_per_unit": 99990,
+      "date_auction_expire": "2025-10-21T12:31:00.000Z",
+      "item_option": [
+        {
+          "option_type": "남은 거래 횟수",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//액세서리(중요)
+{
+      "item_name": "고대의 뿔 반지",
+      "item_display_name": "축복받은 고대의 뿔 반지",
+      "item_count": 1,
+      "auction_item_category": "액세서리",
+      "auction_price_per_unit": 75000000,
+      "date_auction_expire": "2025-10-23T02:34:00.000Z",
+      "item_option": [
+        {
+          "option_type": "방어력",
+          "option_sub_type": null,
+          "option_value": "6",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "보호",
+          "option_sub_type": null,
+          "option_value": "4",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "128,128,128",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "128,128,128",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "128,128,128",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "소드 마스터리 최대 대미지(3레벨:3 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "9막: 깨어나는 생명 발동시 최소 대미지 보너스(1레벨:1 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "스매시 대미지(3레벨:30 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+    //양손 장비(중요)
+    {
+      "item_name": "나이트브링어 옵저버 사이드",
+      "item_display_name": "쏟아지는 별 조각 나이트브링어 옵저버 사이드",
+      "item_count": 1,
+      "auction_item_category": "양손 장비",
+      "auction_price_per_unit": 420000000,
+      "date_auction_expire": "2025-10-23T14:39:00.000Z",
+      "item_option": [
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "30",
+          "option_value2": "55",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "30%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "40%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "14",
+          "option_value2": "24",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "95,99,72",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "255,129,106",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "149,177,109",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "226,37,60",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 E",
+          "option_value": "205,213,201",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 F",
+          "option_value": "71,122,119",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "쏟아지는 (랭크 3)",
+          "option_value2": null,
+          "option_desc": "지력 25 증가,체력 50 감소,크리티컬 10 증가,최대마나 80 증가,마나 소비 감소 3% 증가,마법 공격력 23 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "별 조각 (랭크 4)",
+          "option_value2": null,
+          "option_desc": "체력 50 감소,크리티컬 7 증가,최대마나 200 증가,마나 소비 감소 8% 증가,마법 공격력 41 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "S",
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "마법 공격력(20레벨:80 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "의지(12레벨:18.00 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "지력(18레벨:45.00 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에르그",
+          "option_sub_type": "S",
+          "option_value": "50",
+          "option_value2": "50",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "카드 드로우 강화",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "6",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//얼굴 장식
+{
+      "item_name": "샤인 스테이지 마이크(얼굴 장식 슬롯 전용)",
+      "item_display_name": "샤인 스테이지 마이크(얼굴 장식 슬롯 전용)",
+      "item_count": 1,
+      "auction_item_category": "얼굴 장식",
+      "auction_price_per_unit": 890000,
+      "date_auction_expire": "2025-10-22T19:26:00.000Z",
+      "item_option": [
+        {
+          "option_type": "방어력",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "10",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "0,0,51",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "113,107,103",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "33,33,40",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "35,35,40",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//에이도스
+{
+      "item_name": "에이도스 : 언밸런스드 화이트 스카이 윙",
+      "item_display_name": "에이도스 : 언밸런스드 화이트 스카이 윙(비활성)",
+      "item_count": 1,
+      "auction_item_category": "에이도스",
+      "auction_price_per_unit": 4998,
+      "date_auction_expire": "2025-10-23T16:20:00.000Z",
+      "item_option": null
+    },
+//에코스톤(중요)
+{
+      "item_name": "레드 에코스톤",
+      "item_display_name": "레드 에코스톤",
+      "item_count": 1,
+      "auction_item_category": "에코스톤",
+      "auction_price_per_unit": 130000000,
+      "date_auction_expire": "2025-10-21T06:32:00.000Z",
+      "item_option": [
+        {
+          "option_type": "에코스톤 등급",
+          "option_sub_type": null,
+          "option_value": "30",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에코스톤 고유 능력",
+          "option_sub_type": "체력",
+          "option_value": "109",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에코스톤 각성 능력",
+          "option_sub_type": null,
+          "option_value": "컴뱃 마스터리 최대 대미지 19 레벨",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "6",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//염색 앰플
+//염색 앰플 카테고리의 아이템에 '지정 색상'이라는 이름이 포함되어 있으면 중요
+//해당 카테고리에서 option_type이 '색상'값은 절대 예외처리 해서는 안됨
+{
+      "item_name": "지정 색상 염색 앰플",
+      "item_display_name": "지정 색상 염색 앰플",
+      "item_count": 1,
+      "auction_item_category": "염색 앰플",
+      "auction_price_per_unit": 650000,
+      "date_auction_expire": "2025-10-21T17:11:00.000Z",
+      "item_option": [
+        {
+          "option_type": "색상",
+          "option_sub_type": null,
+          "option_value": "255,255,0",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//오브(중요)
+{
+      "item_name": "나이트브링어 베가 오브",
+      "item_display_name": "축복받은 광포한 직감의 나이트브링어 베가 오브",
+      "item_count": 1,
+      "auction_item_category": "오브",
+      "auction_price_per_unit": 140000000,
+      "date_auction_expire": "2025-10-23T18:15:00.000Z",
+      "item_option": [
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "17",
+          "option_value2": "26",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "128,128,128",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "광포한 (랭크 7)",
+          "option_value2": null,
+          "option_desc": "대미지밸런스 1 감소,매직 마스터리 랭크 1 이상일 때 마법 공격력 5 증가,컴뱃 마스터리 랭크 1 이상일 때 최대대미지 12 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "직감의 (랭크 7)",
+          "option_value2": null,
+          "option_desc": "마법 공격력 4 증가,최대대미지 5 증가"
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "퓨리 오브 콘누스 [변신 중] 최소 대미지(19레벨:19 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "최대마나(19레벨:95 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "마법 공격력(20레벨:80 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "카드 드로우 강화",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "피어싱 레벨",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//옷본
+{
+      "item_name": "옷본",
+      "item_display_name": "옷본 - 리파인드 보헤미안 웨어(여성용)",
+      "item_count": 1,
+      "auction_item_category": "옷본",
+      "auction_price_per_unit": 50000,
+      "date_auction_expire": "2025-10-22T13:28:00.000Z",
+      "item_option": [
+        {
+          "option_type": "남은 사용 횟수",
+          "option_sub_type": null,
+          "option_value": "30",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//원거리 소모품
+{
+      "item_name": "나이트브링어 샤프슈터",
+      "item_display_name": "축복받은 나이트브링어 샤프슈터",
+      "item_count": 1,
+      "auction_item_category": "원거리 소모품",
+      "auction_price_per_unit": 38000000,
+      "date_auction_expire": "2025-10-23T15:20:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "27,45,71",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "200,194,183",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//원드(중요)
+{
+      "item_name": "나이트브링어 엘리멘토",
+      "item_display_name": "축복받은 아련한 나이트폴 나이트브링어 엘리멘토",
+      "item_count": 1,
+      "auction_item_category": "원드",
+      "auction_price_per_unit": 70000000,
+      "date_auction_expire": "2025-10-23T17:55:00.000Z",
+      "item_option": [
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "17",
+          "option_value2": "35",
+          "option_desc": null
+        },
+        {
+          "option_type": "부상률",
+          "option_sub_type": null,
+          "option_value": "20%",
+          "option_value2": "40%",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "35%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "42%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "18",
+          "option_value2": "56",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "3,25,53",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "3,25,53",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "아련한 (랭크 7)",
+          "option_value2": null,
+          "option_desc": "지력 10 증가,최대마나 100 증가,메테오 스트라이크 랭크 1 이상일 때 마법 공격력 25 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "나이트폴 (랭크 4)",
+          "option_value2": null,
+          "option_desc": "최대마나 86 증가,마나 소비 감소 8% 증가,마법 공격력 47 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "S",
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "캐스팅 속도(20레벨:30.00 % 증가, 원드에는 2회 적용)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "아이스볼트 최대 대미지(19레벨:1.90 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "의지(15레벨:22.50 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "크리티컬 대미지 증가",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//음식
+//해당 카테고리에서 이름이 '축제요리'인 음식은 중요
+{
+      "item_name": "축제요리",
+      "item_display_name": "축제요리",
+      "item_count": 1,
+      "auction_item_category": "음식",
+      "auction_price_per_unit": 100000,
+      "date_auction_expire": "2025-10-22T04:25:00.000Z",
+      "item_option": [
+        {
+          "option_type": "사용 효과",
+          "option_sub_type": "1",
+          "option_value": "최대대미지 10 증가",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "사용 효과",
+          "option_sub_type": "2",
+          "option_value": "보호 20 증가",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "사용 효과",
+          "option_sub_type": "3",
+          "option_value": "방어 50 증가",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "사용 효과",
+          "option_sub_type": "4",
+          "option_value": "마법 보호 20 증가",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "사용 효과",
+          "option_sub_type": "5",
+          "option_value": "마법 방어 50 증가",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "사용 효과",
+          "option_sub_type": "6",
+          "option_value": "마법 공격력 10 증가",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//의자/사물
+{
+      "item_name": "별자리 고래",
+      "item_display_name": "별자리 고래",
+      "item_count": 1,
+      "auction_item_category": "의자/사물",
+      "auction_price_per_unit": 1350000,
+      "date_auction_expire": "2025-10-22T23:18:00.000Z",
+      "item_option": [
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "10",
+          "option_value2": "10",
+          "option_desc": null
+        }
+      ]
+    },
+//인챈트 스크롤
+{
+      "item_name": "전용 인챈트 스크롤",
+      "item_display_name": "전용 인챈트 스크롤 - 나이트폴",
+      "item_count": 1,
+      "auction_item_category": "인챈트 스크롤",
+      "auction_price_per_unit": 7990000,
+      "date_auction_expire": "2025-10-22T03:37:00.000Z",
+      "item_option": [
+        {
+          "option_type": "내구도",
+          "option_sub_type": null,
+          "option_value": "100%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트 종류",
+          "option_sub_type": "접미",
+          "option_value": "나이트폴 (랭크 4)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 거래 횟수",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//장갑(중요)
+{
+      "item_name": "블리안 엔더스 클래시 글러브",
+      "item_display_name": "블리안 엔더스 클래시 글러브",
+      "item_count": 1,
+      "auction_item_category": "장갑",
+      "auction_price_per_unit": 40000000,
+      "date_auction_expire": "2025-10-22T11:09:00.000Z",
+      "item_option": [
+        {
+          "option_type": "방어력",
+          "option_sub_type": null,
+          "option_value": "3",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "보호",
+          "option_sub_type": null,
+          "option_value": "3",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "마법 방어력",
+          "option_sub_type": null,
+          "option_value": "2",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "마법 보호",
+          "option_sub_type": null,
+          "option_value": "2",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "15",
+          "option_value2": "15",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "189,192,210",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "99,182,225",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "62,119,100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "60,120,94",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "히트 버스터 최대 대미지(12레벨:12.00 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "보우 마스터리 최대 대미지(20레벨:20 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "라이트닝볼트 원드 영향력(19레벨:0.57 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "크리티컬 대미지 증가",
+          "option_value2": "3",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "2",
+          "option_value": "연금술 대미지 증가",
+          "option_value2": "2",
+          "option_desc": null
+        }
+      ]
+    },
+//제련/블랙스미스
+{
+      "item_name": "미스릴광석 조각",
+      "item_display_name": "미스릴광석 조각",
+      "item_count": 29,
+      "auction_item_category": "제련/블랙스미스",
+      "auction_price_per_unit": 470,
+      "date_auction_expire": "2025-10-23T04:14:00.000Z",
+      "item_option": null
+    },
+//제스처
+{
+      "item_name": "턴 댄스 제스처 카드",
+      "item_display_name": "턴 댄스 제스처 카드",
+      "item_count": 1,
+      "auction_item_category": "제스처",
+      "auction_price_per_unit": 2000000,
+      "date_auction_expire": "2025-10-22T01:53:00.000Z",
+      "item_option": [
+        {
+          "option_type": "남은 거래 횟수",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//주머니
+{
+      "item_name": "튼튼한 양털 주머니",
+      "item_display_name": "튼튼한 양털 주머니",
+      "item_count": 1,
+      "auction_item_category": "주머니",
+      "auction_price_per_unit": 650000,
+      "date_auction_expire": "2025-10-22T03:39:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "239,231,231",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "255,179,72",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//중갑옷(중요)
+{
+      "item_name": "블리안 엔더스 듀러블 가드(남성용)",
+      "item_display_name": "가라앉은 자취 블리안 엔더스 듀러블 가드(남성용)",
+      "item_count": 1,
+      "auction_item_category": "중갑옷",
+      "auction_price_per_unit": 590000000,
+      "date_auction_expire": "2025-10-23T18:51:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "인챈트 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "방어력",
+          "option_sub_type": null,
+          "option_value": "28",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "보호",
+          "option_sub_type": null,
+          "option_value": "23",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "마법 방어력",
+          "option_sub_type": null,
+          "option_value": "19",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "마법 보호",
+          "option_sub_type": null,
+          "option_value": "13",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "12",
+          "option_value2": "13",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "0,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "0,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "0,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "0,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 E",
+          "option_value": "0,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 F",
+          "option_value": "0,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "가라앉은 (랭크 6)",
+          "option_value2": null,
+          "option_desc": "수리비 200% 증가,보호 4 증가,대미지밸런스 5 증가,최대생명력 50 증가,최대대미지 38 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "자취 (랭크 6)",
+          "option_value2": null,
+          "option_desc": "수리비 200% 증가,마법 보호 5 증가,대미지밸런스 15 증가,최대마나 50 증가,마법 공격력 20 감소,최대대미지 39 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "장인 개조",
+          "option_sub_type": null,
+          "option_value": "보호 10 증가,방어 5 증가",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "클로져 대미지 배율(20레벨:80 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "스피리트 오브 오더 [변신 중] 최대 생명력(11레벨:110 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "레인 캐스팅 워터캐논 대미지(5레벨:25 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "크리티컬 대미지 증가",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "2",
+          "option_value": "충격 흡수 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "3",
+          "option_value": "피어싱 저항 증가",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "6",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//책
+{
+      "item_name": "악기의 심장, 울림통",
+      "item_display_name": "악기의 심장, 울림통",
+      "item_count": 1,
+      "auction_item_category": "책",
+      "auction_price_per_unit": 550000,
+      "date_auction_expire": "2025-10-23T18:33:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "89,100,29",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "68,53,56",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "244,174,5",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//천옷(중요)
+{
+      "item_name": "블리안 엔더스 클래시 수트(남성용)",
+      "item_display_name": "블리안 엔더스 클래시 수트(남성용)",
+      "item_count": 1,
+      "auction_item_category": "천옷",
+      "auction_price_per_unit": 30000000,
+      "date_auction_expire": "2025-10-23T13:44:00.000Z",
+      "item_option": [
+        {
+          "option_type": "방어력",
+          "option_sub_type": null,
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "보호",
+          "option_sub_type": null,
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "마법 방어력",
+          "option_sub_type": null,
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "마법 보호",
+          "option_sub_type": null,
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "21",
+          "option_value2": "21",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "108,131,91",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "208,156,102",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "252,195,185",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "111,202,242",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 E",
+          "option_value": "119,80,131",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 F",
+          "option_value": "107,77,98",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "크리티컬 대미지 증가",
+          "option_value2": "4",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "2",
+          "option_value": "마법 속성 마스터리 대미지 증가",
+          "option_value2": "4",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "3",
+          "option_value": "연금술 대미지 증가",
+          "option_value2": "5",
+          "option_desc": null
+        }
+      ]
+    },
+//천옷/방직
+{
+      "item_name": "고급 가죽",
+      "item_display_name": "고급 가죽",
+      "item_count": 8,
+      "auction_item_category": "천옷/방직",
+      "auction_price_per_unit": 14999,
+      "date_auction_expire": "2025-10-22T10:49:00.000Z",
+      "item_option": null
+    },
+//체인블레이드(중요)
+{
+      "item_name": "켈틱 하울링 체인 블레이드",
+      "item_display_name": "축복받은 데미 리치 기르가쉬 켈틱 하울링 체인 블레이드",
+      "item_count": 1,
+      "auction_item_category": "체인 블레이드",
+      "auction_price_per_unit": 249999999,
+      "date_auction_expire": "2025-10-22T01:13:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "수리 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "인챈트 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "96",
+          "option_value2": "160",
+          "option_desc": null
+        },
+        {
+          "option_type": "부상률",
+          "option_sub_type": null,
+          "option_value": "10%",
+          "option_value2": "25%",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "43%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "38%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "26",
+          "option_value2": "26",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": "235,235,235",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "235,235,235",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "데미 리치 (랭크 8)",
+          "option_value2": null,
+          "option_desc": "최대생명력 100 감소,레벨이 30 이상일때 최대대미지 20 증가,레벨이 40 이하일때 최소대미지 10 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "기르가쉬 (랭크 8)",
+          "option_value2": null,
+          "option_desc": "수리비 300% 증가,기르가쉬 도전자 타이틀을 달고 있을 때 최대생명력 40 증가,기르가쉬 척결자 타이틀을 달고 있을 때 최대생명력 60 증가,기르가쉬 학살자 타이틀을 달고 있을 때 최대생명력 80 증가,체력 38 증가,크리티컬 15 증가,최대대미지 34 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "장인 개조",
+          "option_sub_type": null,
+          "option_value": "행운 10 증가,최대생명력 34 증가,최대대미지 25 증가",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "R",
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "체인 블레이드 마스터리 최대 대미지 13 레벨",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "최대스태미나 5 레벨",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "최대 공격력 17 레벨",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에르그",
+          "option_sub_type": "S",
+          "option_value": "45",
+          "option_value2": "45",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "체인 임페일 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "2",
+          "option_value": "스피닝 슬래시 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "2",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//토템(중요)
+{
+      "item_name": "두근두근 튤립(올 스탯 토템)",
+      "item_display_name": "두근두근 튤립(올 스탯 토템)",
+      "item_count": 1,
+      "auction_item_category": "토템",
+      "auction_price_per_unit": 26000000,
+      "date_auction_expire": "2025-10-21T11:22:00.000Z",
+      "item_option": [
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "체력",
+          "option_value": "2",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "솜씨",
+          "option_value": "14",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "지력",
+          "option_value": "29",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "의지",
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "행운",
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//유물
+{
+      "item_name": "파도의 진정",
+      "item_display_name": "축복받은 파도의 진정",
+      "item_count": 1,
+      "auction_item_category": "유물",
+      "auction_price_per_unit": 70000000,
+      "date_auction_expire": "2025-10-21T19:53:00.000Z",
+      "item_option": [
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "3",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//퍼퓸
+{
+      "item_name": "조화의 코스모스 퍼퓸",
+      "item_display_name": "조화의 코스모스 퍼퓸",
+      "item_count": 100,
+      "auction_item_category": "퍼퓸",
+      "auction_price_per_unit": 8690,
+      "date_auction_expire": "2025-10-23T18:40:00.000Z",
+      "item_option": null
+    },
+//페이지
+{
+      "item_name": "애로우 리볼버의 책 5페이지",
+      "item_display_name": "애로우 리볼버의 책 5페이지",
+      "item_count": 1,
+      "auction_item_category": "페이지",
+      "auction_price_per_unit": 20000,
+      "date_auction_expire": "2025-10-22T18:02:00.000Z",
+      "item_option": [
+        {
+          "option_type": "내구도",
+          "option_sub_type": null,
+          "option_value": "100%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트 종류",
+          "option_sub_type": "접미",
+          "option_value": "애로우 리볼버의 책 5 페이지 (랭크 6)",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//펫 토템
+    {
+      "item_name": "끈기의 노란색 목걸이(최대 스태미나 펫 토템)",
+      "item_display_name": "끈기의 노란색 목걸이(최대 스태미나 펫 토템)",
+      "item_count": 1,
+      "auction_item_category": "펫 토템",
+      "auction_price_per_unit": 600000,
+      "date_auction_expire": "2025-10-28T03:07:00.000Z",
+      "item_option": [
+        {
+          "option_type": "토템 효과",
+          "option_sub_type": "최대스태미나",
+          "option_value": "11",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//포션
+//해당 카테고리에서 이름에 '지정 색상'이 포함된 아이템은 중요
+//해당 카테고리에서 option_type이 '색상'값은 절대 예외처리 해서는 안됨
+{
+      "item_name": "이름/채팅 지정 색상 변경 포션",
+      "item_display_name": "이름/채팅 지정 색상 변경 포션",
+      "item_count": 1,
+      "auction_item_category": "포션",
+      "auction_price_per_unit": 900000,
+      "date_auction_expire": "2025-10-22T15:27:00.000Z",
+      "item_option": [
+        {
+          "option_type": "색상",
+          "option_sub_type": null,
+          "option_value": "166,255,77",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 거래 횟수",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//피니 펫
+{
+      "item_name": "서큐버스 피니 펫 호루라기",
+      "item_display_name": "서큐버스 피니 펫 호루라기",
+      "item_count": 1,
+      "auction_item_category": "피니 펫",
+      "auction_price_per_unit": 42000,
+      "date_auction_expire": "2025-10-23T01:42:00.000Z",
+      "item_option": [
+        {
+          "option_type": "남은 거래 횟수",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//핀즈비즈
+{
+      "item_name": "언샤인드 고급 핀즈비즈 : 풀링 필드",
+      "item_display_name": "언샤인드 고급 핀즈비즈 : 풀링 필드",
+      "item_count": 1,
+      "auction_item_category": "핀즈비즈",
+      "auction_price_per_unit": 569999,
+      "date_auction_expire": "2025-10-22T18:11:00.000Z",
+      "item_option": null
+    },
+//한손 장비
+{
+      "item_name": "판 퍼핏 인형",
+      "item_display_name": "판 퍼핏 인형",
+      "item_count": 1,
+      "auction_item_category": "한손 장비",
+      "auction_price_per_unit": 1900000,
+      "date_auction_expire": "2025-10-21T22:38:00.000Z",
+      "item_option": [
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": "9",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "5%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "15%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "10",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "128,128,128",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//핸들(중요)
+{
+      "item_name": "나이트브링어 트릭스터",
+      "item_display_name": "커튼콜 스카이글로우 나이트브링어 트릭스터",
+      "item_count": 1,
+      "auction_item_category": "핸들",
+      "auction_price_per_unit": 320000000,
+      "date_auction_expire": "2025-10-23T17:57:00.000Z",
+      "item_option": [
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "44",
+          "option_value2": "128",
+          "option_desc": null
+        },
+        {
+          "option_type": "부상률",
+          "option_sub_type": null,
+          "option_value": "10%",
+          "option_value2": "35%",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "35%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "45%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "37",
+          "option_value2": "37",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "커튼콜 (랭크 8)",
+          "option_value2": null,
+          "option_desc": "와이어 풀링 랭크 3 이상일 때 마리오네트 최대 생명력 100 증가,와이어 바인딩 랭크 3 이상일 때 마리오네트 조종술 크리티컬 확률 7 증가,7막: 광란의 질주 랭크 1 이상일 때 마리오네트 최대 대미지 30 증가,마리오네트 조종술 랭크 1 이상일 때 마리오네트 최소 대미지 16 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "스카이글로우 (랭크 4)",
+          "option_value2": null,
+          "option_desc": "체력 47 증가,마리오네트 조종술 크리티컬 확률 15 증가,마리오네트 최대 대미지 80 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "R",
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "체력(17레벨:25.50 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "2막: 솟구치는 분노 대미지 배율(9레벨:27 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "7막: 광란의 질주 대미지 배율(18레벨:144 % 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에르그",
+          "option_sub_type": "S",
+          "option_value": "50",
+          "option_value2": "50",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "2막 : 솟구치는 분노 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "2",
+          "option_value": "인형술 스킬 쿨타임 감소",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "3",
+          "option_value": "마리오네트 크리티컬 대미지 배율",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "4",
+          "option_value": "마리오네트 자동방어 확률",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "4",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//허브
+{
+      "item_name": "포이즌 허브",
+      "item_display_name": "포이즌 허브",
+      "item_count": 100,
+      "auction_item_category": "허브",
+      "auction_price_per_unit": 460,
+      "date_auction_expire": "2025-10-23T18:50:00.000Z",
+      "item_option": null
+    },
+//활(중요)
+{
+      "item_name": "나이트브링어 프레데터",
+      "item_display_name": "창백한 명사수 나이트브링어 프레데터",
+      "item_count": 1,
+      "auction_item_category": "활",
+      "auction_price_per_unit": 630000000,
+      "date_auction_expire": "2025-10-23T19:01:00.000Z",
+      "item_option": [
+        {
+          "option_type": "아이템 보호",
+          "option_sub_type": null,
+          "option_value": "인챈트 실패",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "공격",
+          "option_sub_type": null,
+          "option_value": "64",
+          "option_value2": "193",
+          "option_desc": null
+        },
+        {
+          "option_type": "부상률",
+          "option_sub_type": null,
+          "option_value": "20%",
+          "option_value2": "60%",
+          "option_desc": null
+        },
+        {
+          "option_type": "크리티컬",
+          "option_sub_type": null,
+          "option_value": "31%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "밸런스",
+          "option_sub_type": null,
+          "option_value": "28%",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "숙련",
+          "option_sub_type": null,
+          "option_value": "100",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "내구력",
+          "option_sub_type": null,
+          "option_value": "25",
+          "option_value2": "25",
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 A",
+          "option_value": "0,0,0",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 B",
+          "option_value": null,
+          "option_value2": null,
+          "option_desc": "(반짝)"
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 C",
+          "option_value": "255,255,255",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "아이템 색상",
+          "option_sub_type": "파트 D",
+          "option_value": "31,7,12",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접두",
+          "option_value": "창백한 (랭크 4)",
+          "option_value2": null,
+          "option_desc": "피어싱 레벨 3 증가,솜씨 35 증가,크리티컬 18 증가,최대대미지 63 증가"
+        },
+        {
+          "option_type": "인챈트",
+          "option_sub_type": "접미",
+          "option_value": "명사수 (랭크 6)",
+          "option_value2": null,
+          "option_desc": "보우 마스터리 랭크 1 이상일 때 솜씨 30 증가,어전트 샷 랭크 1 이상일 때 최대대미지 25 증가,매그넘 샷 랭크 1 이상일 때 최소대미지 11 증가"
+        },
+        {
+          "option_type": "일반 개조",
+          "option_sub_type": null,
+          "option_value": "5",
+          "option_value2": "5",
+          "option_desc": null
+        },
+        {
+          "option_type": "보석 개조",
+          "option_sub_type": null,
+          "option_value": "1",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "특별 개조",
+          "option_sub_type": "R",
+          "option_value": "7",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "1",
+          "option_value": "유효 사거리(16레벨:11.20 m 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "2",
+          "option_value": "최대 공격력(19레벨:38 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "세공 옵션",
+          "option_sub_type": "3",
+          "option_value": "최소 공격력(10레벨:10 증가)",
+          "option_value2": null,
+          "option_desc": null
+        },
+        {
+          "option_type": "에르그",
+          "option_sub_type": "S",
+          "option_value": "50",
+          "option_value2": "50",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "1",
+          "option_value": "크래시 샷 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "세트 효과",
+          "option_sub_type": "2",
+          "option_value": "파이널 샷 강화",
+          "option_value2": "10",
+          "option_desc": null
+        },
+        {
+          "option_type": "피어싱 레벨",
+          "option_sub_type": null,
+          "option_value": "3",
+          "option_value2": "+3",
+          "option_desc": null
+        },
+        {
+          "option_type": "남은 전용 해제 가능 횟수",
+          "option_sub_type": null,
+          "option_value": "2",
+          "option_value2": null,
+          "option_desc": null
+        }
+      ]
+    },
+//힐웬 공학
+{
+      "item_name": "융합된 힐웬 합금",
+      "item_display_name": "융합된 힐웬 합금",
+      "item_count": 1,
+      "auction_item_category": "힐웬 공학",
+      "auction_price_per_unit": 360000,
+      "date_auction_expire": "2025-10-23T19:15:00.000Z",
+      "item_option": null
+    }
+]

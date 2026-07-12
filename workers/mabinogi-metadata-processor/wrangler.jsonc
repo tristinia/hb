@@ -1,0 +1,32 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "mabinogi-metadata-processor",
+	"main": "src/index.js",
+	"compatibility_date": "2025-10-20",
+	"observability": {
+		"enabled": true
+	},
+
+	"account_id": "57d27a287a9d78a0f12936ec68eb2d86",
+
+	"d1_databases": [
+		{
+			"binding": "mabinogi_auction_db",
+			"database_name": "mabinogi-auction-db",
+			"database_id": "c20d5fae-2e18-49d9-9aba-1ed3248f14eb",
+			"remote": true
+		}
+	],
+	
+	"kv_namespaces": [
+		{
+			"binding": "MABINOGI_METADATA_CACHE",
+			"id": "eb36ae19571547839a2e42bbf26e3ead",
+			"remote": true
+		}
+	],
+
+	"triggers": {
+		"crons": ["0 * * * *"]
+	}
+}
