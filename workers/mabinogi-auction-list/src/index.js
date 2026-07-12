@@ -9,6 +9,10 @@ const API_CONFIG = { MAX_PAGES: 100, DELAY_MS: 5 };
 const KEYWORD_SEARCH_CATEGORIES = ['인챈트 스크롤', '도면', '옷본'];
 const PET_MEDAL_CATEGORY = '분양 메달';
 
+// 키워드 검색 결과가 이 개수를 넘으면(탐색성 검색으로 판단) 검색 인덱스 동기화를 스킵
+const MAX_SYNC_ITEMS = 500;
+const METADATA_SYNC_TIMEOUT_MS = 17500;
+
 /**
  * JSON 응답 생성 헬퍼 함수
  */
@@ -82,7 +86,7 @@ export default {
             // if (requestPath.startsWith('search/autocomplete')) { ... }
 
             if (requestPath.startsWith('search/')) {
-                return await handleUnifiedSearch(url, env, corsHeaders);
+                return await handleUnifiedSearch(url, env, corsHeaders, ctx);
             }
 
             if (requestPath.startsWith('meta/')) {
@@ -145,7 +149,7 @@ async function handleItemIndexRequest(request, env, corsHeaders) {
     return jsonResponse([], 404, { ...corsHeaders, 'X-Cache-Status': 'MISS' });
 }
 
-async function handleUnifiedSearch(url, env, corsHeaders) {
+async function handleUnifiedSearch(url, env, corsHeaders, ctx) {
     const apiKey = env.NEXON_API_KEY;
     if (!apiKey) {
         console.error("NEXON_API_KEY secret is not set.");
@@ -160,10 +164,23 @@ async function handleUnifiedSearch(url, env, corsHeaders) {
         throw new ApiError("검색 파라미터(itemName, category, keyword) 중 하나 이상 필요", 400);
     }
 
-    const { url: initialUrl, isPetMedalSearch } = buildNexonApiUrl(itemName, category, keyword);
+    const { url: initialUrl, isPetMedalSearch, isKeywordOnlySearch } = buildNexonApiUrl(itemName, category, keyword);
     const allItems = await fetchAllPagesFromNexonApi(initialUrl.toString(), apiKey);
     const finalItems = processAndFilterResults(allItems, isPetMedalSearch, itemName);
     const availableFilters = generateAvailableFilters(finalItems);
+
+    // 사용자 응답은 절대 기다리지 않음(fire-and-forget), 실패해도 검색 자체엔 영향 없음
+    if (isKeywordOnlySearch && allItems.length > 0) {
+        if (allItems.length <= MAX_SYNC_ITEMS) {
+            ctx.waitUntil(
+                syncSearchResultsToMetadataProcessor(env, allItems).catch(err =>
+                    console.error('metadata-processor 검색 결과 동기화 실패:', err)
+                )
+            );
+        } else {
+            console.log(`검색 결과 ${allItems.length}건 > ${MAX_SYNC_ITEMS}, 인덱스 동기화 스킵 (탐색성 검색으로 판단)`);
+        }
+    }
 
     return jsonResponse({
         items: finalItems,
@@ -174,6 +191,7 @@ async function handleUnifiedSearch(url, env, corsHeaders) {
 function buildNexonApiUrl(itemName, category, keyword) {
     let url;
     let isPetMedalSearch = false;
+    let isKeywordOnlySearch = false;
 
     if (itemName && category) {
         if (KEYWORD_SEARCH_CATEGORIES.includes(category)) {
@@ -192,10 +210,80 @@ function buildNexonApiUrl(itemName, category, keyword) {
         url = new URL(`${NEXON_API_BASE_URL}/list`);
         url.searchParams.set('auction_item_category', category);
     } else {
+        // 순수 키워드 검색 — 신규 아이템 검색 인덱스 동기화 대상
         url = new URL(`${NEXON_API_BASE_URL}/keyword-search`);
         url.searchParams.set('keyword', keyword || itemName);
+        isKeywordOnlySearch = true;
     }
-    return { url, isPetMedalSearch };
+    return { url, isPetMedalSearch, isKeywordOnlySearch };
+}
+
+/**
+ * 키워드 검색 결과(원본, 가공 전)를 metadata-processor에 동기화
+ * 1. /items/upsert (await) → D1 items 테이블 저장, item_id/representative_name 수신
+ * 2. 받은 representative_name을 각 아이템에 재결합
+ * 3. /items (await) → KV 검색 인덱스 갱신 + 신규 있으면 CDN 자동 퍼지
+ * 호출자가 이미 ctx.waitUntil로 감싸서 fire-and-forget 처리하므로, 여기서는 순서 보장을 위해 그대로 await 체인으로 작성
+ * @param {object} env - 워커 환경 변수 및 바인딩
+ * @param {Array} rawItems - Nexon이 반환한 원본 아이템 배열 (가공 전)
+ */
+async function syncSearchResultsToMetadataProcessor(env, rawItems) {
+    if (!env.METADATA_PROCESSOR) {
+        console.warn('METADATA_PROCESSOR 서비스 바인딩 미설정, 검색 결과 동기화 스킵');
+        return;
+    }
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), METADATA_SYNC_TIMEOUT_MS);
+
+    try {
+        const upsertResponse = await env.METADATA_PROCESSOR.fetch('https://metadata-processor/items/upsert', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(rawItems),
+            signal: controller.signal,
+        });
+
+        if (!upsertResponse.ok) {
+            const body = await upsertResponse.text().catch(() => '');
+            console.error('metadata-processor items/upsert 실패', { status: upsertResponse.status, itemCount: rawItems.length, body });
+            return;
+        }
+
+        const upsertResults = await upsertResponse.json();
+        if (!Array.isArray(upsertResults) || upsertResults.length !== rawItems.length) {
+            console.error('metadata-processor items/upsert 응답 형식 불일치', {
+                itemCount: rawItems.length,
+                resultCount: Array.isArray(upsertResults) ? upsertResults.length : typeof upsertResults,
+            });
+            return;
+        }
+
+        // representative_name을 재결합하지 않으면 /items가 item_name(오염 가능)으로 폴백됨
+        const itemsWithRepresentativeName = rawItems.map((item, i) => ({
+            ...item,
+            representative_name: upsertResults[i].representative_name,
+        }));
+
+        const indexResponse = await env.METADATA_PROCESSOR.fetch('https://metadata-processor/items', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(itemsWithRepresentativeName),
+            signal: controller.signal,
+        });
+
+        if (!indexResponse.ok) {
+            console.error('metadata-processor items(검색 인덱스 갱신) 실패', { status: indexResponse.status, itemCount: rawItems.length });
+            return;
+        }
+
+        console.log(`검색 결과 ${rawItems.length}건 metadata-processor 동기화 완료`);
+    } catch (error) {
+        const reason = error.name === 'AbortError' ? `타임아웃(${METADATA_SYNC_TIMEOUT_MS}ms)` : error.message;
+        console.error('metadata-processor 동기화 중 오류 발생', { reason, itemCount: rawItems.length });
+    } finally {
+        clearTimeout(timeoutId);
+    }
 }
 
 function processAndFilterResults(items, isPetMedalSearch, itemName) {

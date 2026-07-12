@@ -26,6 +26,14 @@
 			"id": "eb36ae19571547839a2e42bbf26e3ead",
 			"remote": true
 		}
+	],
+
+	"services": [
+		{
+			"binding": "METADATA_PROCESSOR",
+			"service": "mabinogi-metadata-processor",
+			"remote": true
+		}
 	]
-	
+
 }
