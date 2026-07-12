@@ -240,14 +240,14 @@ const App = (() => {
         state.autocompleteCache = {
             searchTerm: currentInputValue, // 수정: item.name → currentInputValue
             selectedItem: item,
-            category: item.subCategory || item.category || '',
+            category: item.category || '',
             mainCategory: item.mainCategory || '',
             timestamp: Date.now(),
             isCategorySearch: item.isCategory || false
         };
-        
+
         // 분양 메달 여부 확인
-        if (search.isPetMedalCategory(item.subCategory || item.category)) {
+        if (search.isPetMedalCategory(item.category)) {
             state.isPetMedalSearchActive = true;
             state.petMedalSearchTerm = elements.searchInput ? elements.searchInput.value : '';
         } else {
@@ -435,8 +435,8 @@ const App = (() => {
                     console.log(`검색 실행: 카테고리='${selectedItem.name}'`);
                 } else {
                     // 시나리오 1: 아이템 이름 + 카테고리 검색
-                    apiParams = { itemName: searchTerm, category: selectedItem.subCategory || selectedItem.category, keyword: null };
-                    console.log(`검색 실행: 아이템='${searchTerm}', 카테고리='${selectedItem.subCategory || selectedItem.category}'`);
+                    apiParams = { itemName: searchTerm, category: selectedItem.category, keyword: null };
+                    console.log(`검색 실행: 아이템='${searchTerm}', 카테고리='${selectedItem.category}'`);
                 }
             } else {
                 // 시나리오 3: 키워드 검색

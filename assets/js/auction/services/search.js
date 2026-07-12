@@ -1580,8 +1580,8 @@ const search = (() => {
         }
         state.isCategorySearch = false; // 일반 아이템 검색
 
-        // 분양 메달 여부 확인 - 새로운 함수 사용
-        const isPetMedalItem = isPetMedalCategory(item.subCategory || item.category);
+        // 분양 메달 여부 확인
+        const isPetMedalItem = isPetMedalCategory(item.category);
         
         // 분양 메달 관련 상태 설정
         if (isPetMedalItem) {
@@ -1600,7 +1600,7 @@ const search = (() => {
             detail: {
                 searchTerm: state.searchTerm,
                 selectedItem: item,
-                category: item.subCategory || item.category,
+                category: item.category,
                 mainCategory: item.mainCategory
             }
         });
@@ -1612,7 +1612,7 @@ const search = (() => {
                 searchTerm: item.name,
                 selectedItem: item,
                 mainCategory: item.mainCategory,
-                subCategory: item.subCategory || item.category,
+                subCategory: item.category,
                 isPetMedalSearch: state.isPetMedalSearchActive,
                 petMedalSearchTerm: state.petMedalSearchTerm
             }
