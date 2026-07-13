@@ -35,7 +35,8 @@ const ItemList = (() => {
     function formatItemDisplayName(item) {
         // 기본값 설정
         const displayName = item.item_display_name || item.item_name || '이름 없음';
-        const baseName = item.item_name || '';
+        // item_display_name엔 '@'가 없으므로, 원본 item_name과 대조하려면 선행 '@'를 제거해야 매칭된다
+        const baseName = (item.item_name || '').replace(/^@/, '');
         
         // 인챈트 불가능 확인
         const options = item.options || item.item_option || [];
