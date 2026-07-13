@@ -61,7 +61,9 @@ export default {
             // 그 외의 경우, 기본적으로 프로덕션 도메인을 허용합니다.
             allowedOrigin = 'https://mabidb.com';
         }
-        const corsHeaders = { 'Access-Control-Allow-Origin': allowedOrigin };
+        // etag는 CORS 안전목록에 없는 헤더라 명시적으로 노출해야 브라우저 fetch에서 읽힘
+        // (안 열어주면 클라이언트의 If-None-Match 캐시 비교가 항상 실패해 폴링마다 무조건 갱신으로 오판함)
+        const corsHeaders = { 'Access-Control-Allow-Origin': allowedOrigin, 'Access-Control-Expose-Headers': 'etag' };
 
         if (request.method === 'OPTIONS') {
             return new Response(null, {

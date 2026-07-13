@@ -294,6 +294,39 @@ const search = (() => {
     }
     
     /**
+     * 순수 아이템 배열에 카테고리 항목(동적 추출 + categories.json 정적 정보 병합)을 합쳐
+     * 자동완성 전체 대상 배열을 만든다. 최초 로딩과 백그라운드 갱신이 공통으로 사용하며,
+     * 이 함수를 거치지 않고 allItems를 직접 대입하면 카테고리 자동완성이 누락된다.
+     * @param {Array} items - 서버에서 받은 순수 아이템 배열
+     * @returns {Array} 아이템 + 카테고리가 합쳐진 배열
+     */
+    function buildSearchableItems(items) {
+        // 1. 아이템 인덱스에서 모든 고유 카테고리 이름을 동적으로 추출
+        const dynamicCategories = new Set(items.map(item => item.category).filter(Boolean));
+
+        // 2. categories.json의 정적 카테고리 정보 로드
+        let staticCategories = [];
+        if (window.CategoryManager) {
+            staticCategories = window.CategoryManager.getSelectedCategories().subCategories;
+            staticCategories.forEach(cat => dynamicCategories.add(cat.name)); // 정적 목록도 포함 보장
+        }
+
+        // 3. 동적/정적 카테고리를 병합하여 최종 카테고리 목록 생성
+        const staticCategoryMap = new Map(staticCategories.map(cat => [cat.name, cat]));
+        const finalCategoryItems = Array.from(dynamicCategories).map(name => {
+            const staticInfo = staticCategoryMap.get(name);
+            return {
+                name: name,
+                mainCategory: staticInfo ? staticInfo.mainCategory : '', // 정보가 없으면 빈칸
+                isCategory: true
+            };
+        });
+
+        // 4. 아이템 목록과 최종 카테고리 목록을 합쳐서 전체 검색 대상 생성
+        return [...items, ...finalCategoryItems];
+    }
+
+    /**
      * 서버로부터 전체 아이템 인덱스를 비동기적으로 가져옵니다. (최초 1회만 실행)
      */
     async function loadItemIndex() {
@@ -305,40 +338,14 @@ const search = (() => {
         try {
             console.log('[Search] 아이템 인덱스 초기 로딩 시작...');
             const { data, etag } = await apiClient.fetchItemIndex();
-            let combinedItems = [];
 
             if (data) {
-                combinedItems = data; // 아이템 목록 할당
                 lastKnownETag = etag;
                 state.isIndexLoaded = true;
                 console.log(`[Search] 아이템 인덱스 로딩 완료: ${data.length}개, ETag: ${etag}`);
             }
 
-            // 1. 아이템 인덱스에서 모든 고유 카테고리 이름을 동적으로 추출
-            const dynamicCategories = new Set(data.map(item => item.category).filter(Boolean));
-            console.log(`[Search] 아이템 인덱스에서 ${dynamicCategories.size}개의 고유 카테고리 발견.`);
-
-            // 2. categories.json의 정적 카테고리 정보 로드
-            let staticCategories = [];
-            if (window.CategoryManager) {
-                staticCategories = window.CategoryManager.getSelectedCategories().subCategories;
-                staticCategories.forEach(cat => dynamicCategories.add(cat.name)); // 정적 목록도 포함 보장
-            }
-
-            // 3. 동적/정적 카테고리를 병합하여 최종 카테고리 목록 생성
-            const staticCategoryMap = new Map(staticCategories.map(cat => [cat.name, cat]));
-            const finalCategoryItems = Array.from(dynamicCategories).map(name => {
-                const staticInfo = staticCategoryMap.get(name);
-                return {
-                    name: name,
-                    mainCategory: staticInfo ? staticInfo.mainCategory : '', // 정보가 없으면 빈칸
-                    isCategory: true
-                };
-            });
-            console.log(`[Search] 최종 카테고리 목록 ${finalCategoryItems.length}개 생성.`);
-
-            // 4. 아이템 목록과 최종 카테고리 목록을 합쳐서 전체 검색 대상 생성
-            allItems = [...combinedItems, ...finalCategoryItems];
+            allItems = buildSearchableItems(data || []);
             console.log(`[Search] 최종 아이템/카테고리 목록: ${allItems.length}개`);
 
             // 인덱스 로딩 후, 현재 입력창에 값이 있으면 바로 검색 실행
@@ -367,7 +374,7 @@ const search = (() => {
 
             if (modified && data) {
                 console.log(`[Search] 새로운 아이템 인덱스 발견! 데이터 갱신. (New ETag: ${etag})`);
-                allItems = data;
+                allItems = buildSearchableItems(data);
                 lastKnownETag = etag;
             } else {
                 console.log('[Search] 아이템 인덱스 변경 없음. 갱신 건너뜀.');
