@@ -6,8 +6,6 @@
 
 const NEXON_API_BASE_URL = "https://open.api.nexon.com/mabinogi/v1/auction";
 const API_CONFIG = { MAX_PAGES: 100, DELAY_MS: 5 };
-const KEYWORD_SEARCH_CATEGORIES = ['인챈트 스크롤', '도면', '옷본', '뷰티 쿠폰', '기타'];
-const PET_MEDAL_CATEGORY = '분양 메달';
 
 // 키워드 검색 결과가 이 개수를 넘으면(탐색성 검색으로 판단) 검색 인덱스 동기화를 스킵
 const MAX_SYNC_ITEMS = 500;
@@ -28,10 +26,9 @@ function jsonResponse(data, status = 200, extraHeaders = {}) {
  * API 관련 오류 처리를 위한 사용자 정의 오류 클래스
  */
 class ApiError extends Error {
-    constructor(message, statusCode, errorCode = null) {
+    constructor(message, statusCode) {
         super(message);
         this.statusCode = statusCode;
-        this.errorCode = errorCode;
     }
 }
 
@@ -165,30 +162,32 @@ async function handleUnifiedSearch(url, env, corsHeaders, ctx) {
         throw new ApiError("검색 파라미터(itemName, category, keyword) 중 하나 이상 필요", 400);
     }
 
-    const { url: initialUrl, isPetMedalSearch, isKeywordOnlySearch, isDirectNameFilter } = buildNexonApiUrl(itemName, category, keyword);
-
     let allItems;
-    try {
-        allItems = await fetchAllPagesFromNexonApi(initialUrl.toString(), apiKey);
-    } catch (error) {
-        // 세이프티넷: 화이트리스트(KEYWORD_SEARCH_CATEGORIES)에 없는 카테고리도 Nexon이
-        // item_name을 "(Unknown)"으로 주는 경우가 있어(대표 이름을 item_name으로 보내 매칭 실패),
-        // 이 특정 에러 코드에서만 keyword-search로 1회 재시도. 다른 에러는 그대로 전파.
-        if (isDirectNameFilter && error.errorCode === 'OPENAPI00004') {
-            console.warn(`item_name 직접 매칭 실패(OPENAPI00004), keyword-search로 재시도: category='${category}'`);
-            const fallbackUrl = new URL(`${NEXON_API_BASE_URL}/keyword-search`);
-            fallbackUrl.searchParams.set('keyword', itemName);
-            allItems = await fetchAllPagesFromNexonApi(fallbackUrl.toString(), apiKey);
-        } else {
-            throw error;
-        }
+    let isFreeTextSearch = false;
+
+    if (itemName && category) {
+        // 시나리오 1: 자동완성으로 아이템을 선택한 검색 (카테고리별 화이트리스트 없이 통일된 로직)
+        allItems = await searchByItemNameAndCategory(itemName, category, apiKey);
+    } else if (category) {
+        // 시나리오 2: 카테고리만 선택한 검색 — 그대로 유지
+        const listUrl = new URL(`${NEXON_API_BASE_URL}/list`);
+        listUrl.searchParams.set('auction_item_category', category);
+        allItems = await fetchAllPagesFromNexonApi(listUrl.toString(), apiKey);
+    } else {
+        // 시나리오 3: 자유 텍스트 키워드 검색 — 이번 변경의 대상이 아니므로 기존 동작 그대로 유지
+        const keywordUrl = new URL(`${NEXON_API_BASE_URL}/keyword-search`);
+        keywordUrl.searchParams.set('keyword', keyword || itemName);
+        allItems = await fetchAllPagesFromNexonApi(keywordUrl.toString(), apiKey);
+        isFreeTextSearch = true;
     }
 
-    const finalItems = processAndFilterResults(allItems, isPetMedalSearch, itemName);
+    const finalItems = enrichPetMedalDisplayNames(allItems);
     const availableFilters = generateAvailableFilters(finalItems);
 
-    // 사용자 응답은 절대 기다리지 않음(fire-and-forget), 실패해도 검색 자체엔 영향 없음
-    if (isKeywordOnlySearch && allItems.length > 0) {
+    // D1/KV 동기화는 오직 자유 텍스트 검색(신규 아이템 발견 가능성이 있는 탐색성 검색)에서만 실행.
+    // 자동완성으로 선택한 아이템(시나리오 1)은 이미 D1/KV에 존재하는 게 확실하므로 동기화가 불필요함 —
+    // "라우팅 방식"과 "동기화 필요 여부"를 별도 플래그(isFreeTextSearch)로 분리해 겸용하지 않는다.
+    if (isFreeTextSearch && allItems.length > 0) {
         if (allItems.length <= MAX_SYNC_ITEMS) {
             ctx.waitUntil(
                 syncSearchResultsToMetadataProcessor(env, allItems).catch(err =>
@@ -206,36 +205,38 @@ async function handleUnifiedSearch(url, env, corsHeaders, ctx) {
     }, 200, corsHeaders);
 }
 
-function buildNexonApiUrl(itemName, category, keyword) {
-    let url;
-    let isPetMedalSearch = false;
-    let isKeywordOnlySearch = false;
-    let isDirectNameFilter = false;
+/**
+ * 시나리오 1(자동완성으로 아이템 선택) 전용 검색.
+ * 카테고리 이름을 분기 조건으로 쓰는 화이트리스트가 없음 — 모든 카테고리를 동일한 알고리즘으로 처리:
+ *   1) itemName을 그대로 keyword-search (item_display_name이 실제 검색 가능한 텍스트인 경우 여기서 정확히 매칭됨)
+ *   2) 결과가 0건이고 itemName이 "기본이름 - 접미어" 형태의 합성 이름이면, 기본이름만으로 재검색한 뒤
+ *      표시명+옵션값에 접미어가 포함된 것만 남김 (종족명처럼 옵션 값으로만 존재해 텍스트 검색이 원천적으로
+ *      안 되는 식별자를, 카테고리를 몰라도 결과 자체로 판단해 처리)
+ *   3) category로 후처리 필터링 (Nexon keyword-search가 카테고리를 무시하므로 직접 걸러야 함)
+ */
+async function searchByItemNameAndCategory(itemName, category, apiKey) {
+    let allItems = await fetchAllPagesFromNexonApi(buildKeywordSearchUrl(itemName), apiKey);
 
-    if (itemName && category) {
-        if (KEYWORD_SEARCH_CATEGORIES.includes(category)) {
-            url = new URL(`${NEXON_API_BASE_URL}/keyword-search`);
-            url.searchParams.set('keyword', itemName);
-        } else if (category === PET_MEDAL_CATEGORY) {
-            url = new URL(`${NEXON_API_BASE_URL}/list`);
-            url.searchParams.set('auction_item_category', category);
-            isPetMedalSearch = true;
-        } else {
-            url = new URL(`${NEXON_API_BASE_URL}/list`);
-            url.searchParams.set('auction_item_category', category);
-            url.searchParams.set('item_name', itemName);
-            isDirectNameFilter = true;
-        }
-    } else if (category) {
-        url = new URL(`${NEXON_API_BASE_URL}/list`);
-        url.searchParams.set('auction_item_category', category);
-    } else {
-        // 순수 키워드 검색 — 신규 아이템 검색 인덱스 동기화 대상
-        url = new URL(`${NEXON_API_BASE_URL}/keyword-search`);
-        url.searchParams.set('keyword', keyword || itemName);
-        isKeywordOnlySearch = true;
+    if (allItems.length === 0 && itemName.includes(' - ')) {
+        const [baseName, ...rest] = itemName.split(' - ');
+        const suffix = rest.join(' - ');
+        const baseItems = await fetchAllPagesFromNexonApi(buildKeywordSearchUrl(baseName), apiKey);
+        allItems = baseItems.filter(item => itemTextBlob(item).includes(suffix));
     }
-    return { url, isPetMedalSearch, isKeywordOnlySearch, isDirectNameFilter };
+
+    return allItems.filter(item => item.auction_item_category === category);
+}
+
+function buildKeywordSearchUrl(keyword) {
+    const url = new URL(`${NEXON_API_BASE_URL}/keyword-search`);
+    url.searchParams.set('keyword', keyword);
+    return url.toString();
+}
+
+/** 아이템의 표시명 + 모든 옵션 값을 하나의 텍스트로 합침 (합성 이름 접미어 매칭용) */
+function itemTextBlob(item) {
+    const optionValues = (item.item_option || []).map(opt => opt.option_value).join(' ');
+    return `${item.item_display_name || ''} ${optionValues}`;
 }
 
 /**
@@ -306,30 +307,25 @@ async function syncSearchResultsToMetadataProcessor(env, rawItems) {
     }
 }
 
-function processAndFilterResults(items, isPetMedalSearch, itemName) {
-    const processedItems = items.map(item => {
-        if (item.auction_item_category === PET_MEDAL_CATEGORY && item.item_option) {
-            const petRaceOptionIndex = item.item_option.findIndex(opt => opt.option_type === '펫 정보' && opt.option_sub_type === '종족명');
-            if (petRaceOptionIndex > -1) {
-                const petRaceOption = item.item_option[petRaceOptionIndex];
-                if (petRaceOption.option_value) {
-                    const newItem = { ...item, item_display_name: `${item.item_name} - ${petRaceOption.option_value}` };
-                    newItem.item_option = newItem.item_option.filter((_, index) => index !== petRaceOptionIndex);
-                    return newItem;
-                }
-            }
-        }
-        return item;
+/**
+ * 종족명이 옵션 값으로만 존재하는 아이템(분양 메달)의 표시명에 종족명을 붙여준다.
+ * 카테고리 이름이 아니라 옵션 형태(펫 정보/종족명 옵션 존재 여부)로만 판단하므로
+ * 특정 카테고리를 하드코딩한 분기가 아니다 — 해당 옵션이 없는 아이템에는 자연히 적용되지 않는다.
+ */
+function enrichPetMedalDisplayNames(items) {
+    return items.map(item => {
+        if (!item.item_option) return item;
+
+        const petRaceOptionIndex = item.item_option.findIndex(opt => opt.option_type === '펫 정보' && opt.option_sub_type === '종족명');
+        if (petRaceOptionIndex === -1) return item;
+
+        const petRaceOption = item.item_option[petRaceOptionIndex];
+        if (!petRaceOption.option_value) return item;
+
+        const newItem = { ...item, item_display_name: `${item.item_name} - ${petRaceOption.option_value}` };
+        newItem.item_option = newItem.item_option.filter((_, index) => index !== petRaceOptionIndex);
+        return newItem;
     });
-
-    if (isPetMedalSearch) {
-        const petRaceFilter = itemName ? itemName.split(' - ')[1] : null;
-        return petRaceFilter
-            ? processedItems.filter(item => item.item_display_name?.toLowerCase().includes(petRaceFilter.toLowerCase()))
-            : processedItems.filter(item => item.auction_item_category === PET_MEDAL_CATEGORY);
-    }
-
-    return processedItems;
 }
 
 async function fetchAllPagesFromNexonApi(initialUrl, apiKey) {
@@ -349,8 +345,8 @@ async function fetchAllPagesFromNexonApi(initialUrl, apiKey) {
 
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({ error: { message: "알 수 없는 API 오류" } }));
-            const { message, errorCode } = mapNexonError(errorData, response.status);
-            throw new ApiError(`API 호출 실패 (페이지 ${pageCount}): ${message}`, response.status, errorCode);
+            const { message } = mapNexonError(errorData, response.status);
+            throw new ApiError(`API 호출 실패 (페이지 ${pageCount}): ${message}`, response.status);
         }
 
         const pageData = await response.json().catch(() => { throw new ApiError("API 응답 JSON 파싱 실패", 500) });
