@@ -199,6 +199,9 @@ async function handleUnifiedSearch(url, env, corsHeaders, ctx) {
         }
     }
 
+    // 가격 오름차순 정렬 — 프론트는 서버가 정렬해서 준 순서를 그대로 표시한다
+    finalItems.sort((a, b) => a.auction_price_per_unit - b.auction_price_per_unit);
+
     return jsonResponse({
         items: finalItems,
         availableFilters: availableFilters

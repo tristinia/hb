@@ -466,6 +466,7 @@ const App = (() => {
                         Pagination.resetPagination(0);
                     } else {
                         // 검색 결과가 있으면 ItemList에 전달하여 표시
+                        // 가격 오름차순 정렬은 서버(워커)에서 처리되어 응답 시점에 이미 정렬돼 있음
 
                         // 검색 결과가 있을 때만 setSearchResults를 호출합니다.
                         ItemList.setSearchResults(results.items);

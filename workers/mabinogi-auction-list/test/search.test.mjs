@@ -335,3 +335,60 @@ test('분양 메달 표시명 보강은 카테고리 문자열이 아니라 옵�
         assert.ok(!it.item_option.some(o => o.option_sub_type === '종족명'), '종족명 옵션이 제거되지 않음');
     }
 });
+
+// ── 5. 가격 오름차순 정렬 검증 (서버에서 정렬, 프론트는 더 이상 정렬하지 않음) ──
+
+function mockUnsortedPriceFetch(items) {
+    return async (urlStr, options) => {
+        return new Response(JSON.stringify({ auction_item: items, next_cursor: null }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+        });
+    };
+}
+
+test('정렬: 시나리오1(자동완성) 응답이 가격 오름차순으로 정렬된다', async () => {
+    const unsorted = [
+        mkItem({ item_name: '해머', item_display_name: '해머', category: '둔기', price: 5000 }),
+        mkItem({ item_name: '해머', item_display_name: '해머', category: '둔기', price: 1000 }),
+        mkItem({ item_name: '해머', item_display_name: '해머', category: '둔기', price: 3000 }),
+    ];
+    globalThis.fetch = mockUnsortedPriceFetch(unsorted);
+    const env = makeEnv(async () => new Response('[]', { status: 200 }));
+    const ctx = makeCtx();
+
+    const { body } = await runSearch({ itemName: '해머', category: '둔기' }, env, ctx);
+
+    assert.deepEqual(body.items.map(i => i.auction_price_per_unit), [1000, 3000, 5000]);
+});
+
+test('정렬: 시나리오2(카테고리만) 응답이 가격 오름차순으로 정렬된다', async () => {
+    const unsorted = [
+        mkItem({ item_name: 'A', item_display_name: 'A', category: '둔기', price: 700 }),
+        mkItem({ item_name: 'B', item_display_name: 'B', category: '둔기', price: 200 }),
+        mkItem({ item_name: 'C', item_display_name: 'C', category: '둔기', price: 400 }),
+    ];
+    globalThis.fetch = mockUnsortedPriceFetch(unsorted);
+    const env = makeEnv(async () => new Response('[]', { status: 200 }));
+    const ctx = makeCtx();
+
+    const { body } = await runSearch({ category: '둔기' }, env, ctx);
+
+    assert.deepEqual(body.items.map(i => i.auction_price_per_unit), [200, 400, 700]);
+});
+
+test('정렬: 시나리오3(자유 텍스트) 응답도 가격 오름차순으로 정렬된다', async () => {
+    const unsorted = [
+        mkItem({ item_name: 'A', item_display_name: 'A', category: '둔기', price: 900 }),
+        mkItem({ item_name: 'B', item_display_name: 'B', category: '기타 스크롤', price: 100 }),
+        mkItem({ item_name: 'C', item_display_name: 'C', category: '인챈트 스크롤', price: 500 }),
+    ];
+    globalThis.fetch = mockUnsortedPriceFetch(unsorted);
+    const env = makeEnv(async () => new Response('[]', { status: 200 }));
+    const ctx = makeCtx();
+
+    const { body } = await runSearch({ keyword: '아무거나' }, env, ctx);
+    await ctx.flush();
+
+    assert.deepEqual(body.items.map(i => i.auction_price_per_unit), [100, 500, 900]);
+});
