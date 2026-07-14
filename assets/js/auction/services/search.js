@@ -1669,7 +1669,11 @@ const search = (() => {
             
             // 이전 자동완성 선택된 아이템 확인
             // 검색어와 선택된 아이템 이름이 다른 경우에만 초기화
-            if (state.selectedItem && state.selectedItem.name !== state.searchTerm) {
+            // 카테고리 선택 시 입력창/searchTerm에는 "카테고리: 이름" 표시용 라벨이 들어가므로,
+            // 그 라벨과 일치하는 경우까지 다른 선택으로 오인해 초기화하지 않는다.
+            const matchesCategoryLabel = state.selectedItem && state.selectedItem.isCategory &&
+                state.searchTerm === `카테고리: ${state.selectedItem.name}`;
+            if (state.selectedItem && state.selectedItem.name !== state.searchTerm && !matchesCategoryLabel) {
                 state.selectedItem = null;
             }
             
