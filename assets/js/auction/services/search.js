@@ -301,8 +301,11 @@ const search = (() => {
      * @returns {Array} 아이템 + 카테고리가 합쳐진 배열
      */
     function buildSearchableItems(items) {
+        // 0. 서버 응답에 null/undefined나 이름이 없는 손상된 항목이 섞여 있을 수 있으므로 제거
+        const validItems = Array.isArray(items) ? items.filter(item => item && item.name) : [];
+
         // 1. 아이템 인덱스에서 모든 고유 카테고리 이름을 동적으로 추출
-        const dynamicCategories = new Set(items.map(item => item.category).filter(Boolean));
+        const dynamicCategories = new Set(validItems.map(item => item.category).filter(Boolean));
 
         // 2. categories.json의 정적 카테고리 정보 로드
         let staticCategories = [];
@@ -323,7 +326,7 @@ const search = (() => {
         });
 
         // 4. 아이템 목록과 최종 카테고리 목록을 합쳐서 전체 검색 대상 생성
-        return [...items, ...finalCategoryItems];
+        return [...validItems, ...finalCategoryItems];
     }
 
     /**
@@ -339,23 +342,25 @@ const search = (() => {
             console.log('[Search] 아이템 인덱스 초기 로딩 시작...');
             const { data, etag } = await apiClient.fetchItemIndex();
 
+            // buildSearchableItems가 실패하면(손상된 응답 등) isIndexLoaded를 true로 만들지 않아,
+            // 다음 포커스 때 재시도할 수 있도록 성공 이후에만 상태를 갱신한다.
+            allItems = buildSearchableItems(data || []);
+            console.log(`[Search] 최종 아이템/카테고리 목록: ${allItems.length}개`);
+
             if (data) {
                 lastKnownETag = etag;
                 state.isIndexLoaded = true;
                 console.log(`[Search] 아이템 인덱스 로딩 완료: ${data.length}개, ETag: ${etag}`);
             }
 
-            allItems = buildSearchableItems(data || []);
-            console.log(`[Search] 최종 아이템/카테고리 목록: ${allItems.length}개`);
-
             // 인덱스 로딩 후, 현재 입력창에 값이 있으면 바로 검색 실행
             if (elements.searchInput.value.trim()) {
                 handleSearchInput();
             }
         } catch (error) {
+            // 인덱스 로딩 실패는 자동완성만 일시적으로 못 쓰는 상황이므로, 검색 버튼 자체를
+            // 영구적으로 잠그지 않는다 (isIndexLoaded가 false로 남아 다음 포커스 때 재시도됨).
             console.error("아이템 인덱스를 가져오는 데 실패했습니다:", error);
-            state.hasError = true;
-            showSearchInputError('검색 데이터를 불러올 수 없습니다.');
         } finally {
             state.isLoading = false;
             elements.searchInput.placeholder = originalPlaceholder;
