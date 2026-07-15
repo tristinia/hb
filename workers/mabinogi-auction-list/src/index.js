@@ -4,6 +4,8 @@
  * @description /api/ 로 들어오는 모든 요청을 처리합니다. (mabinogi-auction-list, mabinogi-metadata-api 워커 통합)
  */
 
+import { getRepresentativeItemName } from '../../shared/item-identity.js';
+
 const NEXON_API_BASE_URL = "https://open.api.nexon.com/mabinogi/v1/auction";
 const API_CONFIG = { MAX_PAGES: 100, DELAY_MS: 5 };
 
@@ -211,37 +213,60 @@ async function handleUnifiedSearch(url, env, corsHeaders, ctx) {
 }
 
 /**
- * 시나리오 1(자동완성으로 아이템 선택) 전용 검색.
- * 카테고리 이름을 분기 조건으로 쓰는 화이트리스트가 없음 — 모든 카테고리를 동일한 알고리즘으로 처리:
- *   1) itemName을 그대로 keyword-search (item_display_name이 실제 검색 가능한 텍스트인 경우 여기서 정확히 매칭됨)
- *   2) 결과가 0건이고 itemName이 "기본이름 - 접미어" 형태의 합성 이름이면, 기본이름만으로 재검색한 뒤
- *      표시명+옵션값에 접미어가 포함된 것만 남김 (종족명처럼 옵션 값으로만 존재해 텍스트 검색이 원천적으로
- *      안 되는 식별자를, 카테고리를 몰라도 결과 자체로 판단해 처리)
- *   3) category로 후처리 필터링 (Nexon keyword-search가 카테고리를 무시하므로 직접 걸러야 함)
+ *
+ * 검색 시도 전략: itemName 그대로 keyword-search를 시도하고, 결과가 없거나 Nexon이 글자수
+ * 제한으로 검색어 자체를 거부(400)하면 검색어 끝의 접미어 단위를 하나씩 제거하며 재시도한다
+ * (예: "A(B)(C)" 실패 → "A(B)" → "A"). 몇 번을 자르든 매 시도의 결과는 위 정체성 키 정확 일치
+ * 필터를 거치므로, 짧게 잘라 Nexon이 관대하게 더 많은(무관한) 결과를 줘도 정확도는 보장된다.
  */
 async function searchByItemNameAndCategory(itemName, category, apiKey) {
-    let allItems = await fetchAllPagesFromNexonApi(buildKeywordSearchUrl(itemName), apiKey);
+    const parenCount = (itemName.match(/\(/g) || []).length;
+    const maxAttempts = parenCount + (itemName.includes(' - ') ? 1 : 0) + 1;
 
-    if (allItems.length === 0 && itemName.includes(' - ')) {
-        const [baseName, ...rest] = itemName.split(' - ');
-        const suffix = rest.join(' - ');
-        const baseItems = await fetchAllPagesFromNexonApi(buildKeywordSearchUrl(baseName), apiKey);
-        allItems = baseItems.filter(item => itemTextBlob(item).includes(suffix));
+    let searchKeyword = itemName;
+    let allItems = [];
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+        try {
+            allItems = await fetchAllPagesFromNexonApi(buildKeywordSearchUrl(searchKeyword), apiKey);
+        } catch (error) {
+            // Nexon이 검색어 길이 제한 등으로 요청 자체를 거부(400)한 경우에만 잘라서 재시도.
+            // 그 외 오류(인증/쿼터/서버 오류 등)는 잘라도 해결되지 않으므로 그대로 전파한다.
+            if (error.statusCode !== 400) throw error;
+            allItems = [];
+        }
+
+        if (allItems.length > 0) break;
+
+        const shortened = shortenSearchKeyword(searchKeyword);
+        if (shortened === null) break;
+        searchKeyword = shortened;
     }
 
-    return allItems.filter(item => item.auction_item_category === category);
+    return allItems.filter(item =>
+        item.auction_item_category === category &&
+        getRepresentativeItemName(item) === itemName
+    );
+}
+
+/**
+ * 검색어 끝의 접미어 단위를 하나 제거한다 (괄호 묶음 우선, 없으면 " - 접미어" 구분자).
+ * "A(B)(C)" -> "A(B)" -> "A" -> null,  "기본이름 - 종족명" -> "기본이름" -> null
+ */
+function shortenSearchKeyword(text) {
+    const parenMatch = text.match(/^(.*?)\s*\([^()]*\)$/);
+    if (parenMatch) return parenMatch[1];
+
+    const dashIndex = text.lastIndexOf(' - ');
+    if (dashIndex !== -1) return text.slice(0, dashIndex);
+
+    return null;
 }
 
 function buildKeywordSearchUrl(keyword) {
     const url = new URL(`${NEXON_API_BASE_URL}/keyword-search`);
     url.searchParams.set('keyword', keyword);
     return url.toString();
-}
-
-/** 아이템의 표시명 + 모든 옵션 값을 하나의 텍스트로 합침 (합성 이름 접미어 매칭용) */
-function itemTextBlob(item) {
-    const optionValues = (item.item_option || []).map(opt => opt.option_value).join(' ');
-    return `${item.item_display_name || ''} ${optionValues}`;
 }
 
 /**
