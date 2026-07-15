@@ -19,19 +19,19 @@ function mkItem({ item_name, item_display_name, category, price = 1000, options 
 }
 
 const MOCK_ITEMS = [
-    // 둔기 - 정상 매물
+    // 둔기 - 일반 아이템(정체성 키 = item_name). "해머"와 "켈틱 워 해머"는 이름이 다른 별개 아이템.
     mkItem({ item_name: '@해머', item_display_name: '해머', category: '둔기', price: 1000 }),
     mkItem({ item_name: '@해머', item_display_name: '해머', category: '둔기', price: 1200 }),
     mkItem({ item_name: '켈틱 워 해머', item_display_name: '켈틱 워 해머', category: '둔기', price: 5000 }),
     // 오염 사례 재현: 이름에 "해머"가 들어있지만 카테고리가 다른 외형 주문서 (실측에서 실제로 확인된 패턴)
     mkItem({ item_name: '프론티어 뱅가드 빅 해머 외형 주문서', item_display_name: '프론티어 뱅가드 빅 해머 외형 주문서', category: '기타 스크롤', price: 800 }),
 
-    // 인챈트 스크롤 - 합성 이름(item_display_name)으로 1차 keyword-search에서 바로 성공하는 부류
+    // 인챈트 스크롤 - 합성어 아이템(정체성 키 = item_display_name). 1차 keyword-search에서 바로 정확 매칭되는 부류.
     mkItem({ item_name: '전용 인챈트 스크롤', item_display_name: '전용 인챈트 스크롤 - 벌레스크', category: '인챈트 스크롤', price: 300 }),
     mkItem({ item_name: '전용 인챈트 스크롤', item_display_name: '전용 인챈트 스크롤 - 벌레스크', category: '인챈트 스크롤', price: 350 }),
     mkItem({ item_name: '전용 인챈트 스크롤', item_display_name: '전용 인챈트 스크롤 - 무관심한', category: '인챈트 스크롤', price: 400 }),
 
-    // 분양 메달 - 종족명이 옵션 값에만 있어 1차 검색은 0건, 폴백(기본이름 재검색+옵션필터)이 필요한 부류
+    // 분양 메달 - 종족명이 옵션 값에만 있어 1차 검색은 0건, 재시도(기본이름) 후 정체성 키(=item_name - 종족명)로 필터링해야 하는 부류
     mkItem({
         item_name: '동물 캐릭터 분양 메달', item_display_name: '동물 캐릭터 분양 메달', category: '분양 메달', price: 10000,
         options: [{ option_type: '펫 정보', option_sub_type: '종족명', option_value: '잔망루피 알파카' }],
@@ -45,12 +45,18 @@ const MOCK_ITEMS = [
         options: [{ option_type: '펫 정보', option_sub_type: '종족명', option_value: '북극의 도도한 폭스롯' }],
     }),
 
-    // (Unknown) 계열 - item_name은 플레이스홀더, item_display_name이 실제 검색 가능한 텍스트
-    mkItem({ item_name: '(Unknown)', item_display_name: '백화된 고혹적인 눈빛(오드아이) 뷰티 쿠폰(1회 거래 가능)', category: '뷰티 쿠폰', price: 50000 }),
+    // (Unknown) 계열 - item_name은 플레이스홀더, item_display_name이 정체성 키. 접미어 있는/없는 버전이 공존.
+    mkItem({ item_name: '(Unknown)', item_display_name: '광기 어린 입 뷰티 쿠폰(1회 거래 가능)', category: '뷰티 쿠폰', price: 50000 }),
+    mkItem({ item_name: '(Unknown)', item_display_name: '광기 어린 입 뷰티 쿠폰', category: '뷰티 쿠폰', price: 3750000 }),
+    // 괄호가 두 개 겹치는(글자수 제한으로 400을 유발하는) 실측 패턴의 재현용 아이템
+    mkItem({ item_name: '(Unknown)', item_display_name: '굵은 웨이브 레이어드 스타일 롱 헤어 뷰티 쿠폰(여성용)(1회 거래 가능)', category: '뷰티 쿠폰', price: 40000000 }),
 
     // 화이트리스트에 있어본 적 없는 임의의 새 카테고리 - 통일 로직이면 이것도 동일하게 동작해야 함
     mkItem({ item_name: '몰라던전 지도', item_display_name: '몰라던전 지도', category: '지도', price: 200 }),
 ];
+
+// Nexon keyword-search의 글자수 제한(실측: 약 34자 초과 시 400)을 흉내낸다.
+const NEXON_KEYWORD_LENGTH_LIMIT = 34;
 
 function mockNexonFetch(requestedUrls) {
     return async (urlStr, options) => {
@@ -62,6 +68,14 @@ function mockNexonFetch(requestedUrls) {
         let matched;
         if (url.pathname.endsWith('/keyword-search')) {
             const keyword = url.searchParams.get('keyword');
+
+            if ([...keyword].length > NEXON_KEYWORD_LENGTH_LIMIT) {
+                return new Response(
+                    JSON.stringify({ error: { name: 'OPENAPI00004', message: '파라미터가 누락되었거나 유효하지 않습니다.' } }),
+                    { status: 400, headers: { 'Content-Type': 'application/json' } }
+                );
+            }
+
             matched = MOCK_ITEMS.filter(it =>
                 (it.item_display_name && it.item_display_name.includes(keyword)) ||
                 (it.item_name && it.item_name.includes(keyword))
@@ -110,9 +124,9 @@ async function runSearch(params, env, ctx) {
     return { status: response.status, body };
 }
 
-// ── 1. 시나리오 1: 자동완성으로 아이템 선택 — 오염 없이 정확히 걸러지는지 ──
+// ── 1. 시나리오 1: 자동완성으로 아이템 선택 — 정체성 키 정확 일치로 걸러지는지 ──
 
-test('시나리오1: 일반 카테고리(둔기) - 카테고리 오염이 후처리로 제거된다', async () => {
+test('시나리오1: 일반 아이템(둔기) - 이름이 다른 별개 아이템(켈틱 워 해머)은 섞이지 않는다', async () => {
     const requestedUrls = [];
     globalThis.fetch = mockNexonFetch(requestedUrls);
     const syncSpy = [];
@@ -123,12 +137,13 @@ test('시나리오1: 일반 카테고리(둔기) - 카테고리 오염이 후처
     await ctx.flush();
 
     assert.equal(status, 200);
-    assert.equal(body.items.length, 3, '둔기 3건만 남아야 함(기타 스크롤 오염 제거)');
-    assert.ok(body.items.every(it => it.auction_item_category === '둔기'), '결과에 둔기가 아닌 카테고리가 섞임');
+    assert.equal(body.items.length, 2, '정체성 키가 정확히 "해머"인 매물 2건만 남아야 함(켈틱 워 해머, 외형 주문서 모두 제외)');
+    assert.ok(body.items.every(it => it.auction_item_category === '둔기'));
+    assert.ok(body.items.every(it => it.item_display_name === '해머'), '이름이 다른 아이템(켈틱 워 해머)이 섞임');
     assert.equal(syncSpy.length, 0, '자동완성 검색인데 D1/KV 동기화가 호출됨');
 });
 
-test('시나리오1: 인챈트 스크롤(구 화이트리스트 카테고리) - 합성 이름으로 1차에 정확히 매칭', async () => {
+test('시나리오1: 합성어 아이템(인챈트 스크롤) - item_display_name 정체성 키로 1차에 정확히 매칭', async () => {
     const requestedUrls = [];
     globalThis.fetch = mockNexonFetch(requestedUrls);
     const env = makeEnv(async () => new Response('[]', { status: 200 }));
@@ -138,12 +153,12 @@ test('시나리오1: 인챈트 스크롤(구 화이트리스트 카테고리) - 
 
     assert.equal(body.items.length, 2, '벌레스크 매물 2건만 나와야 함(무관심한은 제외)');
     assert.ok(body.items.every(it => it.item_display_name === '전용 인챈트 스크롤 - 벌레스크'));
-    // 1차 keyword-search만으로 끝나야 함(0건 폴백 안 탐) -> keyword-search 호출 1회
+    // 1차 keyword-search만으로 끝나야 함(0건 재시도 안 탐) -> keyword-search 호출 1회
     const keywordCalls = requestedUrls.filter(u => u.includes('/keyword-search'));
     assert.equal(keywordCalls.length, 1, '합성 이름이 1차에 바로 맞았는데 불필요하게 재검색함');
 });
 
-test('시나리오1: 분양 메달(구 특수분기 카테고리) - 1차 0건 -> 폴백으로 종족 필터링', async () => {
+test('시나리오1: 분양 메달 - 종족명이 옵션에만 있어 1차 0건 -> " - " 재시도 -> 정체성 키(이름 - 종족명)로 필터링', async () => {
     const requestedUrls = [];
     globalThis.fetch = mockNexonFetch(requestedUrls);
     const env = makeEnv(async () => new Response('[]', { status: 200 }));
@@ -153,23 +168,55 @@ test('시나리오1: 분양 메달(구 특수분기 카테고리) - 1차 0건 ->
 
     assert.equal(body.items.length, 2, '잔망루피 알파카 매물 2건만 나와야 함(북극의 도도한 폭스롯 제외)');
     assert.ok(body.items.every(it => it.item_display_name === '동물 캐릭터 분양 메달 - 잔망루피 알파카'));
-    // 1차(0건) + 폴백(기본이름) = keyword-search 2회 호출
+    // 1차(0건) + " - " 재시도(기본이름) = keyword-search 2회 호출
     const keywordCalls = requestedUrls.filter(u => u.includes('/keyword-search'));
-    assert.equal(keywordCalls.length, 2, '0건 폴백 로직이 정상 작동하지 않음(재검색이 안 일어남)');
+    assert.equal(keywordCalls.length, 2, '0건 재시도 로직이 정상 작동하지 않음(재검색이 안 일어남)');
 });
 
-test('시나리오1: (Unknown) item_name 계열 - 대표 이름(item_display_name)으로 정상 검색', async () => {
+test('시나리오1: (Unknown) item_name 계열 - item_display_name 정체성 키로 정확히 걸러지고, 접미어 없는 변종은 섞이지 않는다', async () => {
     const requestedUrls = [];
     globalThis.fetch = mockNexonFetch(requestedUrls);
     const env = makeEnv(async () => new Response('[]', { status: 200 }));
     const ctx = makeCtx();
 
     const { body } = await runSearch(
-        { itemName: '백화된 고혹적인 눈빛(오드아이) 뷰티 쿠폰(1회 거래 가능)', category: '뷰티 쿠폰' }, env, ctx
+        { itemName: '광기 어린 입 뷰티 쿠폰(1회 거래 가능)', category: '뷰티 쿠폰' }, env, ctx
     );
 
     assert.equal(body.items.length, 1);
-    assert.equal(body.items[0].auction_item_category, '뷰티 쿠폰');
+    assert.equal(body.items[0].item_display_name, '광기 어린 입 뷰티 쿠폰(1회 거래 가능)');
+});
+
+test('시나리오1: 접미어 없는 기본 이름으로 검색해도 접미어 붙은 변종이 섞이지 않는다 (증상3/5 재현 케이스)', async () => {
+    const requestedUrls = [];
+    globalThis.fetch = mockNexonFetch(requestedUrls);
+    const env = makeEnv(async () => new Response('[]', { status: 200 }));
+    const ctx = makeCtx();
+
+    const { body } = await runSearch(
+        { itemName: '광기 어린 입 뷰티 쿠폰', category: '뷰티 쿠폰' }, env, ctx
+    );
+
+    assert.equal(body.items.length, 1, '접미어 붙은 변종("...1회 거래 가능")이 같이 나오면 안 됨');
+    assert.equal(body.items[0].item_display_name, '광기 어린 입 뷰티 쿠폰');
+});
+
+test('시나리오1: 괄호 두 개가 겹쳐 Nexon 글자수 제한(400)에 걸리는 이름 -> 괄호 단위로 잘라가며 재시도해 정확히 찾는다', async () => {
+    const requestedUrls = [];
+    globalThis.fetch = mockNexonFetch(requestedUrls);
+    const env = makeEnv(async () => new Response('[]', { status: 200 }));
+    const ctx = makeCtx();
+
+    const itemName = '굵은 웨이브 레이어드 스타일 롱 헤어 뷰티 쿠폰(여성용)(1회 거래 가능)';
+    const { status, body } = await runSearch({ itemName, category: '뷰티 쿠폰' }, env, ctx);
+
+    assert.equal(status, 200, '400으로 전체 요청이 실패하면 안 됨(잘라서 재시도로 우회해야 함)');
+    assert.equal(body.items.length, 1);
+    assert.equal(body.items[0].item_display_name, itemName);
+
+    // 1차(400, 괄호2개) -> 괄호 1개 뗀 재시도(성공) = keyword-search 2회 호출
+    const keywordCalls = requestedUrls.filter(u => u.includes('/keyword-search'));
+    assert.equal(keywordCalls.length, 2, '괄호를 하나씩 떼며 재시도하는 로직이 예상과 다르게 동작함');
 });
 
 test('시나리오1: 화이트리스트에 있어본 적 없는 새 카테고리도 동일 로직으로 동작 (화이트리스트 삭제 검증)', async () => {
@@ -193,7 +240,6 @@ test('동기화 분리: 자동완성 선택(시나리오1)은 결과가 있어�
     const env = makeEnv(async (...args) => { syncCalls.push(args); return new Response('[]', { status: 200 }); });
     const ctx = makeCtx();
 
-    // 화이트리스트였던 카테고리, 특수분기였던 카테고리, 일반 카테고리 전부 확인
     await runSearch({ itemName: '해머', category: '둔기' }, env, ctx);
     await runSearch({ itemName: '전용 인챈트 스크롤 - 벌레스크', category: '인챈트 스크롤' }, env, ctx);
     await runSearch({ itemName: '동물 캐릭터 분양 메달 - 잔망루피 알파카', category: '분양 메달' }, env, ctx);
@@ -249,14 +295,14 @@ test('회귀 없음: keyword 파라미터 자유 텍스트 검색은 항상 /key
     await runSearch({ keyword: '해머' }, env, ctx);
     await ctx.flush();
 
-    assert.equal(requestedUrls.length, 1, '자유 텍스트 검색이 여러 번 호출됨 — 폴백/후처리 로직이 잘못 섞여 들어감');
+    assert.equal(requestedUrls.length, 1, '자유 텍스트 검색이 여러 번 호출됨 — 재시도/후처리 로직이 잘못 섞여 들어감');
     const url = new URL(requestedUrls[0]);
     assert.equal(url.pathname, '/mabinogi/v1/auction/keyword-search');
     assert.equal(url.searchParams.get('keyword'), '해머');
     assert.equal(url.searchParams.get('auction_item_category'), null, '자유 텍스트 검색에 카테고리 파라미터가 실리면 안 됨');
 });
 
-test('회귀 없음: 자유 텍스트 검색 결과는 카테고리 후처리 필터를 타지 않는다(오염 제거 로직 미적용, 기존과 동일)', async () => {
+test('회귀 없음: 자유 텍스트 검색 결과는 카테고리/정체성 후처리 필터를 타지 않는다(기존과 동일)', async () => {
     const requestedUrls = [];
     globalThis.fetch = mockNexonFetch(requestedUrls);
     const env = makeEnv(async () => new Response('[]', { status: 200 }));
@@ -265,7 +311,7 @@ test('회귀 없음: 자유 텍스트 검색 결과는 카테고리 후처리 �
     const { body } = await runSearch({ keyword: '해머' }, env, ctx);
     await ctx.flush();
 
-    // 둔기 3건 + 기타 스크롤(오염) 1건 = 4건 그대로 나와야 함 (자유 텍스트 검색은 원래도 필터링 안 했음)
+    // 둔기 3건(해머 x2 + 켈틱 워 해머) + 기타 스크롤(오염) 1건 = 4건 그대로 나와야 함
     assert.equal(body.items.length, 4);
 });
 
@@ -308,7 +354,7 @@ test('파라미터 누락 시 400 에러', async () => {
     assert.equal(response.status, 400);
 });
 
-test('Nexon 에러는 그대로 전파된다(OPENAPI00001)', async () => {
+test('Nexon 서버 오류(400이 아닌 경우)는 잘라서 재시도하지 않고 그대로 전파된다(OPENAPI00001)', async () => {
     globalThis.fetch = async () => new Response(
         JSON.stringify({ error: { name: 'OPENAPI00001', message: '서버 오류' } }),
         { status: 500 }
