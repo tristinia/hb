@@ -540,10 +540,12 @@ const search = (() => {
         }
         
         // 점수 기반으로 중복 제거 및 정렬
+        // 키에 isCategory를 포함해야 함 (카테고리와 일반 아이템이 같은 이름일 수 있음)
         const uniqueItems = new Map();
         matchedItems.forEach(entry => {
-            if (!uniqueItems.has(entry.item.name) || uniqueItems.get(entry.item.name).score < entry.score) {
-                uniqueItems.set(entry.item.name, entry);
+            const key = `${entry.item.name}::${!!entry.item.isCategory}`;
+            if (!uniqueItems.has(key) || uniqueItems.get(key).score < entry.score) {
+                uniqueItems.set(key, entry);
             }
         });
 
