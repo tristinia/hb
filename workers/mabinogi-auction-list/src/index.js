@@ -56,8 +56,8 @@ export default {
         const requestOrigin = request.headers.get('Origin');
         let allowedOrigin;
 
-        // 요청 Origin이 허용된 Origin 목록에 있는지 확인하고, 있다면 해당 Origin을 허용합니다.
-        if (requestOrigin === 'http://127.0.0.1:5500' || requestOrigin === 'https://mabidb.com') {
+        // 요청 Origin이 허용된 Origin인지 확인하고, 있다면 해당 Origin을 허용합니다.
+        if (requestOrigin === 'http://127.0.0.1:5500' || requestOrigin === 'https://mabidb.com' || requestOrigin === 'https://tristinia.taild8e7aa.ts.net') {
             allowedOrigin = requestOrigin;
         } else {
             // 그 외의 경우, 기본적으로 프로덕션 도메인을 허용합니다.
