@@ -16,7 +16,6 @@ class OptionFilter {
       'select': this.checkSelectionFilter.bind(this),
       'enchant': this.checkEnchantFilter.bind(this),
       'reforge-option': this.checkReforgeOptionFilter.bind(this),
-      'reforge-status': this.checkReforgeStatusFilter.bind(this),
       'erg': this.checkErgFilter.bind(this),
       'special-mod': this.checkSpecialModFilter.bind(this),
       'set-effect': this.checkSetEffectFilter.bind(this)
@@ -235,46 +234,6 @@ class OptionFilter {
       });
       
       if (!hasMatchingSuffix) {
-        return false;
-      }
-    }
-    
-    return true;
-  }
-
-  /**
-   * 세공 상태 필터 체크
-   * @param {Object} item 아이템 데이터
-   * @param {Object} filter 필터 정보
-   * @returns {boolean} 필터 통과 여부
-   */
-  checkReforgeStatusFilter(item, filter) {
-    const options = item.options || item.item_option || [];
-    
-    // 세공 랭크 옵션 찾기
-    const reforgeRankOption = options.find(opt => opt.option_type === '세공 랭크');
-    
-    if (!reforgeRankOption) {
-      return false;
-    }
-    
-    // 랭크 검사
-    if (filter.rank) {
-      const rank = parseInt(reforgeRankOption.option_value);
-      const filterRank = parseInt(filter.rank);
-      
-      if (isNaN(rank) || rank !== filterRank) {
-        return false;
-      }
-    }
-    
-    // 줄 수 검사
-    if (filter.lineCount) {
-      const reforgeOptions = options.filter(opt => opt.option_type === '세공 옵션');
-      const lineCount = reforgeOptions.length;
-      const filterLineCount = parseInt(filter.lineCount);
-      
-      if (lineCount !== filterLineCount) {
         return false;
       }
     }

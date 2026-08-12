@@ -51,7 +51,6 @@ const FILTER_CONFIGS = {
         filterType: 'set-effect',
         payloadKey: 'effects'
     },
-    '세공 랭크': { displayName: '세공', type: 'reforge-status' },
     '남은 거래 횟수': { displayName: '남은 거래 횟수', type: 'range' },
 
     '펫 정보: 남은 분양 횟수': { displayName: '남은 분양 횟수', type: 'range', category: '펫 정보' }
@@ -1240,20 +1239,6 @@ class FilterPanel {
                 if (suffixEl) suffixEl.addEventListener('input', onUpdate);
                 break;
             }
-            case 'reforge-status': {
-                const rankEl = wrapper.querySelector(`#${filterId}-rank`);
-                const lineEl = wrapper.querySelector(`#${filterId}-line`);
-                const onUpdate = () => {
-                    const rank = rankEl ? rankEl.value : '';
-                    const lineCount = lineEl ? lineEl.value : '';
-                    draft.hasValue = !!(rank || lineCount);
-                    draft.payload = draft.hasValue ? { type: 'reforge-status', rank, lineCount } : null;
-                    notify();
-                };
-                if (rankEl) rankEl.addEventListener('change', onUpdate);
-                if (lineEl) lineEl.addEventListener('change', onUpdate);
-                break;
-            }
             case 'special-mod': {
                 const typeSelector = wrapper.querySelector(`#${filterId}-type-selector`);
                 const typeInput = wrapper.querySelector(`#${filterId}-type`);
@@ -1374,13 +1359,6 @@ class FilterPanel {
                 const suffixEl = wrapper.querySelector(`#${filterId}-suffix`);
                 if (prefixEl) prefixEl.value = stored.prefixEnchant || '';
                 if (suffixEl) suffixEl.value = stored.suffixEnchant || '';
-                break;
-            }
-            case 'reforge-status': {
-                const rankEl = wrapper.querySelector(`#${filterId}-rank`);
-                const lineEl = wrapper.querySelector(`#${filterId}-line`);
-                if (rankEl) rankEl.value = stored.rank || '';
-                if (lineEl) lineEl.value = stored.lineCount || '';
                 break;
             }
             case 'special-mod': {
@@ -1609,12 +1587,11 @@ class FilterPanel {
 
         panel.classList.toggle('filter-panel--popover', ['range', 'special-mod', 'composite', 'enchant'].includes(filter.type));
 
-        if (filter.type === 'special-mod' || filter.type === 'composite' || filter.type === 'enchant' || filter.type === 'reforge-status' || filter.type === 'range') {
+        if (filter.type === 'special-mod' || filter.type === 'composite' || filter.type === 'enchant' || filter.type === 'range') {
             const filterContent = document.createElement('div');
             if (filter.type === 'special-mod') filterContent.innerHTML = this.createSpecialModFilterUI(filter);
             if (filter.type === 'composite') filterContent.innerHTML = this.createCompositeFilterUI(filter);
             if (filter.type === 'enchant') filterContent.innerHTML = this.createEnchantFilterUI(filter);
-            if (filter.type === 'reforge-status') filterContent.innerHTML = this.createReforgeStatusFilterUI(filter);
             if (filter.type === 'range') filterContent.innerHTML = this.createRangeFilterUI(filter);
             panel.appendChild(filterContent);
         } else {
@@ -1697,9 +1674,6 @@ class FilterPanel {
                 this.setupSelectionFilterEvents(panel, filter);
                 break;
             case 'enchant': this.setupEnchantFilterEvents(panel, filter); break;
-            case 'reforge-status':
-                this.setupReforgeStatusFilterEvents(panel, filter);
-                break;
             case 'special-mod': this.setupSpecialModFilterEvents(panel, filter); break;
             case 'composite':
                 this.setupCompositeFilterEvents(panel, filter);
@@ -1812,34 +1786,6 @@ class FilterPanel {
         `;
     }
     
-    /**
-     * 세공 상태 필터 UI 생성
-     */
-    createReforgeStatusFilterUI(filter) {
-        return `
-            <div class="filter-group filter-group--stacked">
-                <label class="filter-label">세공 랭크</label>
-                <select class="dropdown-select" id="${filter.name.replace(/\s/g, '')}-rank">
-                    <option value="">전체</option>
-                    <option value="1">1랭크</option>
-                    <option value="2">2랭크</option>
-                    <option value="3">3랭크</option>
-                    <option value="4">4랭크</option>
-                    <option value="5">5랭크</option>
-                </select>
-            </div>
-            <div class="filter-group filter-group--stacked">
-                <label class="filter-label">옵션 줄 수</label>
-                <select class="dropdown-select" id="${filter.name.replace(/\s/g, '')}-line">
-                    <option value="">전체</option>
-                    <option value="1">1줄</option>
-                    <option value="2">2줄</option>
-                    <option value="3">3줄</option>
-                </select>
-            </div>
-        `;
-    }
-
     /**
      * 범위 필터 이벤트 설정
      */
@@ -2113,37 +2059,6 @@ class FilterPanel {
         this.setupConditionalRangeEvents(panel, `${filterId}-level`, minKey, maxKey, 'id', updateFilter);
     }
     
-    /**
-     * 세공 상태 필터 이벤트 설정
-     */
-    setupReforgeStatusFilterEvents(panel, filter) {
-        const filterId = filter.name.replace(/\s/g, '');
-        const rankSelect = panel.querySelector(`#${filterId}-rank`);
-        const lineSelect = panel.querySelector(`#${filterId}-line`);
-        
-        if (rankSelect && lineSelect) {
-            const updateFilter = () => {
-                const rank = rankSelect.value;
-                const lineCount = lineSelect.value;
-                
-                if (rank || lineCount) {
-                    filterService.addFilterOption(filter.name, {
-                        type: 'reforge-status',
-                        rank: rank,
-                        lineCount: lineCount
-                    });
-                    this.updateFilterButtonStyle(filter.name, true, { rank, lineCount });
-                } else {
-                    filterService.removeFilterOption(filter.name);
-                    this.updateFilterButtonStyle(filter.name, false);
-                }
-            };
-            
-            rankSelect.addEventListener('change', updateFilter);
-            lineSelect.addEventListener('change', updateFilter);
-        }
-    }
-
     /**
      * 복합 필터 이벤트 설정
      */
