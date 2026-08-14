@@ -905,9 +905,14 @@ class FilterPanel {
      * 데스크톱 팝오버 닫힘 - 모든 경로 공유
      * @param {HTMLElement} panel
      * @param {HTMLElement|null} button
+     * @param {boolean} destroy - true면 닫힘 후 패널 DOM 자체를 제거(필터 삭제 시 재생성 대비 입력값 잔존 방지)
      */
-    closeDesktopPanel(panel, button = null) {
-        if (!panel || !panel.classList.contains('active')) return;
+    closeDesktopPanel(panel, button = null, destroy = false) {
+        if (!panel) return;
+        if (!panel.classList.contains('active')) {
+            if (destroy) panel.remove();
+            return;
+        }
         const token = (panel._closeToken = (panel._closeToken || 0) + 1);
 
         panel.classList.add('closing');
@@ -915,7 +920,11 @@ class FilterPanel {
 
         const finishClose = () => {
             if (panel._closeToken !== token) return; // 재오픈으로 무효화
-            panel.classList.remove('active', 'closing');
+            if (destroy) {
+                panel.remove();
+            } else {
+                panel.classList.remove('active', 'closing');
+            }
         };
 
         panel.addEventListener('animationend', finishClose, { once: true });
@@ -949,7 +958,7 @@ class FilterPanel {
         }
 
         if (panel) {
-            this.closeDesktopPanel(panel);
+            this.closeDesktopPanel(panel, null, true);
         }
 
         // 필터 삭제
@@ -1850,10 +1859,22 @@ class FilterPanel {
             ? inputsContainer.querySelector(`[data-id="${key}"]`)
             : inputsContainer.querySelector(`#${key}`);
 
+        // 조건 전환으로 필드가 안 보이는 동안에도 값 보존
+        const cache = { min: '', max: '' };
+        const syncCache = () => {
+            const minInput = getInput(minKey);
+            const maxInput = getInput(maxKey);
+            if (minInput) cache.min = minInput.value.trim();
+            if (maxInput) cache.max = maxInput.value.trim();
+        };
+
         const wireInputs = () => {
             this.attachNumericInputGuards(inputsContainer);
             inputsContainer.querySelectorAll('input').forEach(input => {
-                input.addEventListener('input', onUpdate);
+                input.addEventListener('input', () => {
+                    syncCache();
+                    onUpdate();
+                });
             });
         };
         wireInputs();
@@ -1866,10 +1887,7 @@ class FilterPanel {
             if (!btn || btn.classList.contains('active')) return;
 
             const newMode = btn.dataset.mode;
-            const minInput = getInput(minKey);
-            const maxInput = getInput(maxKey);
-            const minVal = minInput ? minInput.value.trim() : '';
-            const maxVal = maxInput ? maxInput.value.trim() : '';
+            syncCache();
 
             segment.querySelectorAll('.segment-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -1878,11 +1896,11 @@ class FilterPanel {
             inputsContainer.innerHTML = this.renderConditionInputsHTML(newMode, idAttr, minKey, maxKey, groupId);
             wireInputs();
 
-            // 기존에 입력된 값이 있으면 새 모드에서도 유지
+            // 캐시된 값으로 복원 (숨겨졌던 필드도 포함)
             const newMinInput = getInput(minKey);
             const newMaxInput = getInput(maxKey);
-            if (newMinInput && minVal) newMinInput.value = minVal;
-            if (newMaxInput && maxVal) newMaxInput.value = maxVal;
+            if (newMinInput && cache.min) newMinInput.value = cache.min;
+            if (newMaxInput && cache.max) newMaxInput.value = cache.max;
 
             onUpdate();
         });
