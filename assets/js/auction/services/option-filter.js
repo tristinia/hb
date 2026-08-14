@@ -6,6 +6,7 @@
  */
 
 import metadataService from './metadata.js';
+import { FILTER_CONFIGS } from '../components/FilterPanel.js';
 
 class OptionFilter {
   constructor() {
@@ -108,28 +109,29 @@ class OptionFilter {
     // 해당 옵션 찾기
     const option = options.find(opt => opt.option_type === filter.name);
     
-    // 옵션이 없는 경우 처리 - 필터 값이 있으면 실패, 없으면 통과
-    if (!option) {
-      if ((filter.min !== undefined && filter.min !== null && filter.min !== '' && parseFloat(filter.min) > 0) ||
-          (filter.max !== undefined && filter.max !== null && filter.max !== '' && parseFloat(filter.max) > 0)) {
-        return false;
-      }
-      return true;
-    }
-    
     // 값 계산
     let value;
-    
-    // 특수 케이스: 피어싱 레벨
-    if (filter.name === '피어싱 레벨') {
+
+    if (!option) {
+      const defaultValue = FILTER_CONFIGS[filter.name]?.defaultValue;
+      if (defaultValue === undefined) {
+        if ((filter.min !== undefined && filter.min !== null && filter.min !== '' && parseFloat(filter.min) > 0) ||
+            (filter.max !== undefined && filter.max !== null && filter.max !== '' && parseFloat(filter.max) > 0)) {
+          return false;
+        }
+        return true;
+      }
+      value = defaultValue;
+    } else if (filter.name === '피어싱 레벨') {
+      // 특수 케이스: 피어싱 레벨
       const baseLevel = parseInt(option.option_value || "0");
-      const additionalLevel = option.option_value2 ? 
+      const additionalLevel = option.option_value2 ?
         parseInt(option.option_value2.replace(/\+/g, '')) : 0;
       value = baseLevel + additionalLevel;
     } else {
       // 일반 케이스
       const field = filter.field || 'option_value';
-      
+
       if (option[field] === undefined || option[field] === null) {
         value = 0;
       } else {

@@ -12,14 +12,15 @@ import optionFilter from '../services/option-filter.js';
  * key: 백엔드의 availableFilters에 포함된 이름
  * value: 필터 UI를 구성하기 위한 설정값
  */
-const FILTER_CONFIGS = {
+export const FILTER_CONFIGS = {
     '공격': { displayName: '최대 공격력', type: 'range', fields: { min: '최소', max: '최대' }, field: 'option_value2' },
     '내구력': { displayName: '최대 내구력', type: 'range', fields: { min: '최소', max: '최대' } },
     '밸런스': { displayName: '밸런스', type: 'range', fields: { min: '최소', max: '최대' }, isPercent: true },
     '방어력': { displayName: '방어력', type: 'range', fields: { min: '최소', max: '최대' } },
     '보호': { displayName: '보호', type: 'range', fields: { min: '최소', max: '최대' } },
     '피어싱 레벨': { displayName: '피어싱 레벨', type: 'range', fields: { min: '최소', max: '최대' } },
-    '남은 전용 해제 가능 횟수': { displayName: '전해 횟수', type: 'range', fields: { min: '최소', max: '최대' } },
+    // 전용 해제 옵션이 없는 아이템은 기본 8회로 간주
+    '남은 전용 해제 가능 횟수': { displayName: '전해 횟수', type: 'range', fields: { min: '최소', max: '최대' }, defaultValue: 8 },
     '인챈트': { displayName: '인챈트', type: 'enchant' },
     '특별 개조': { displayName: '특별 개조', type: 'special-mod' },
     '에르그': {
