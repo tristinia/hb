@@ -2175,6 +2175,10 @@ class FilterPanel {
      * 외부 클릭 처리
      */
     handleOutsideClick(event) {
+        // 마우스 드래그 클릭 무시
+        const selection = window.getSelection();
+        if (selection && selection.toString().length > 0) return;
+
         // 인라인 후보 필터 칩 접기
         if (this.candidatesExpanded &&
             !event.target.closest('.filter-btn, .filter-btn-candidate') &&
