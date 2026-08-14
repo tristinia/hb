@@ -797,10 +797,6 @@ body {
   border-color: var(--dark);
 }
 
-.text-input-wrap {
-  position: relative;
-}
-
 .range-input {
   flex: 1;
   padding: 7px 12px;
@@ -817,6 +813,39 @@ body {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 2px var(--accent-20);
+}
+
+.range-input-wrap {
+  position: relative;
+}
+
+.range-input-wrap .range-input {
+  padding-right: 34px;
+}
+
+.range-input-clear {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #BBBBBB;
+  cursor: pointer;
+}
+
+.range-input-clear.visible {
+  display: flex;
+}
+
+.range-input-clear:hover {
+  color: var(--dark);
 }
 
 /* 팝오버형 패널 제외 범위 */
@@ -896,10 +925,18 @@ body {
   color: #333333;
 }
 
+.filter-panel--popover:not(.mobile-filter-sheet) .range-input-wrap .range-input {
+  padding-right: 36px;
+}
+
 .filter-panel--popover:not(.mobile-filter-sheet) .range-input:focus {
   outline: none;
   border: 2px solid #E8B923;
   padding: 9px 13px;
+}
+
+.filter-panel--popover:not(.mobile-filter-sheet) .range-input-wrap .range-input:focus {
+  padding-right: 35px;
 }
 
 .range-input[type="number"] {

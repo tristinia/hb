@@ -1247,8 +1247,14 @@ class FilterPanel {
                     draft.payload = draft.hasValue ? { type: 'enchant', prefixEnchant: prefix, suffixEnchant: suffix } : null;
                     notify();
                 };
-                if (prefixEl) prefixEl.addEventListener('input', onUpdate);
-                if (suffixEl) suffixEl.addEventListener('input', onUpdate);
+                if (prefixEl) {
+                    prefixEl.addEventListener('input', () => { this.syncClearVisibility(prefixEl); onUpdate(); });
+                    this.attachClearButton(prefixEl);
+                }
+                if (suffixEl) {
+                    suffixEl.addEventListener('input', () => { this.syncClearVisibility(suffixEl); onUpdate(); });
+                    this.attachClearButton(suffixEl);
+                }
                 break;
             }
             case 'special-mod': {
@@ -1324,8 +1330,9 @@ class FilterPanel {
 
                 wrapper.querySelectorAll('[data-id]').forEach(input => {
                     if (rangeFieldIds.has(input.dataset.id)) return;
-                    input.addEventListener('input', onUpdate);
+                    input.addEventListener('input', () => { this.syncClearVisibility(input); onUpdate(); });
                     input.addEventListener('change', onUpdate);
+                    this.attachClearButton(input);
                 });
                 break;
             }
@@ -1631,6 +1638,42 @@ class FilterPanel {
     }
 
     /**
+     * .range-input-wrap 하위 X버튼 마크업 (range/text 계열 입력창 공용)
+     */
+    renderClearButtonHTML() {
+        return `
+            <button type="button" class="range-input-clear" tabindex="-1" aria-label="입력값 지우기">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        `;
+    }
+
+    /**
+     * 값 유무에 따라 X버튼 표시 토글
+     */
+    syncClearVisibility(input) {
+        const wrap = input.closest('.range-input-wrap');
+        const clearBtn = wrap ? wrap.querySelector('.range-input-clear') : null;
+        if (clearBtn) clearBtn.classList.toggle('visible', input.value.trim() !== '');
+    }
+
+    /**
+     * X버튼 클릭 시 입력값 초기화 - 기존 input 리스너로 위임
+     */
+    attachClearButton(input) {
+        const wrap = input.closest('.range-input-wrap');
+        const clearBtn = wrap ? wrap.querySelector('.range-input-clear') : null;
+        if (!clearBtn) return;
+        clearBtn.addEventListener('click', () => {
+            input.value = '';
+            input.dispatchEvent(new Event('input'));
+        });
+    }
+
+    /**
      * 복합 필터 UI
      */
     createCompositeFilterUI(filter) {
@@ -1664,7 +1707,7 @@ class FilterPanel {
             const textInputId = `${groupPrefix}-${field.id}`;
             let fieldHtml = `<div class="filter-group filter-group--stacked"><label class="filter-label"${field.type === 'text' ? ` for="${textInputId}"` : ''}>${fieldLabel(field)}</label>`;
             if (field.type === 'text') {
-                fieldHtml += `<div class="text-input-wrap"><input type="text" class="range-input" autocomplete="off" data-id="${field.id}" id="${textInputId}"></div>`;
+                fieldHtml += `<div class="range-input-wrap"><input type="text" class="range-input" autocomplete="off" data-id="${field.id}" id="${textInputId}">${this.renderClearButtonHTML()}</div>`;
             } else if (field.type === 'select') {
                 const optionsHtml = Object.entries(field.options).map(([value, text]) => `<option value="${value}">${text}</option>`).join('');
                 fieldHtml += `<select class="dropdown-select" data-id="${field.id}">${optionsHtml}</select>`;
@@ -1741,7 +1784,12 @@ class FilterPanel {
      */
     renderConditionInputsHTML(mode, idAttr, minKey, maxKey, groupId) {
         const attr = (key) => idAttr === 'data-id' ? `data-id="${key}" id="${groupId}-${key}"` : `id="${key}"`;
-        const field = (key, extraClass = '') => `<input type="text" inputmode="decimal" data-numeric="true" autocomplete="off" class="range-input${extraClass}" ${attr(key)}>`;
+        const field = (key, extraClass = '') => `
+            <div class="range-input-wrap${extraClass}">
+                <input type="text" inputmode="decimal" data-numeric="true" autocomplete="off" class="range-input" ${attr(key)}>
+                ${this.renderClearButtonHTML()}
+            </div>
+        `;
 
         if (mode === 'gte') return `<div class="range-filter">${field(minKey)}</div>`;
         if (mode === 'lte') return `<div class="range-filter">${field(maxKey)}</div>`;
@@ -1769,14 +1817,16 @@ class FilterPanel {
         return `
             <div class="filter-group filter-group--stacked">
                 <label class="filter-label" for="${filterId}-prefix">접두 인챈트</label>
-                <div class="text-input-wrap">
+                <div class="range-input-wrap">
                     <input type="text" class="range-input" autocomplete="off" id="${filterId}-prefix">
+                    ${this.renderClearButtonHTML()}
                 </div>
             </div>
             <div class="filter-group filter-group--stacked">
                 <label class="filter-label" for="${filterId}-suffix">접미 인챈트</label>
-                <div class="text-input-wrap">
+                <div class="range-input-wrap">
                     <input type="text" class="range-input" autocomplete="off" id="${filterId}-suffix">
+                    ${this.renderClearButtonHTML()}
                 </div>
             </div>
         `;
@@ -1878,8 +1928,10 @@ class FilterPanel {
             inputsContainer.querySelectorAll('input').forEach(input => {
                 input.addEventListener('input', () => {
                     syncCache();
+                    this.syncClearVisibility(input);
                     onUpdate();
                 });
+                this.attachClearButton(input);
             });
         };
         wireInputs();
@@ -1904,8 +1956,8 @@ class FilterPanel {
             // 캐시된 값으로 복원 (숨겨졌던 필드도 포함)
             const newMinInput = getInput(minKey);
             const newMaxInput = getInput(maxKey);
-            if (newMinInput && cache.min) newMinInput.value = cache.min;
-            if (newMaxInput && cache.max) newMaxInput.value = cache.max;
+            if (newMinInput && cache.min) { newMinInput.value = cache.min; this.syncClearVisibility(newMinInput); }
+            if (newMaxInput && cache.max) { newMaxInput.value = cache.max; this.syncClearVisibility(newMaxInput); }
 
             onUpdate();
         });
@@ -1973,8 +2025,10 @@ class FilterPanel {
             };
             
             // 이벤트 리스너
-            prefixInput.addEventListener('input', updateFilter);
-            suffixInput.addEventListener('input', updateFilter);
+            prefixInput.addEventListener('input', () => { this.syncClearVisibility(prefixInput); updateFilter(); });
+            suffixInput.addEventListener('input', () => { this.syncClearVisibility(suffixInput); updateFilter(); });
+            this.attachClearButton(prefixInput);
+            this.attachClearButton(suffixInput);
         }
     }
     
@@ -2150,8 +2204,9 @@ class FilterPanel {
 
         panel.querySelectorAll('[data-id]').forEach(input => {
             if (rangeFieldIds.has(input.dataset.id)) return;
-            input.addEventListener('input', updateFilter);
+            input.addEventListener('input', () => { this.syncClearVisibility(input); updateFilter(); });
             input.addEventListener('change', updateFilter);
+            this.attachClearButton(input);
         });
     }
 
