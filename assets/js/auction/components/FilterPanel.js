@@ -1079,7 +1079,9 @@ class FilterPanel {
      */
     updateMobileFilterChipStyle() {
         const count = filterService.getFilters().activeFilters.length;
-        this.mainFilterBtn.classList.toggle('filtered', count > 0);
+        // 모바일 전용 칩 강조
+        const isMobile = window.innerWidth <= 768;
+        this.mainFilterBtn.classList.toggle('filtered', isMobile && count > 0);
 
         const title = this.filterOptions.querySelector('.mobile-filter-list-title');
         if (title) title.textContent = count === 0 ? '필터 없음' : `필터 ${count}개`;
@@ -1522,7 +1524,6 @@ class FilterPanel {
             this.addFilterButton(filter);
         }
         this.updateFilterButtonStyle(filter.name, true, draft.payload);
-        this.updateMobileFilterChipStyle();
 
         this.returnToMobileFilterList();
         this.renderMobileFilterSheetList();
@@ -1568,6 +1569,9 @@ class FilterPanel {
         this.activeButtonEl = null;
 
         document.querySelectorAll('.filter-btn.active[data-filter]').forEach(btn => btn.classList.remove('active'));
+
+        // 전환 시점에 메인 버튼 강조 갱신
+        this.updateMobileFilterChipStyle();
     }
 
     addFilterPanel(filter) {
@@ -2162,6 +2166,9 @@ class FilterPanel {
                 filterBtn.classList.remove('filtered');
             }
         }
+
+        // +필터 버튼 스타일 갱신
+        this.updateMobileFilterChipStyle();
     }
     
     /**
