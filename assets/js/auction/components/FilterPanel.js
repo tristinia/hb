@@ -1375,11 +1375,11 @@ class FilterPanel {
     }
 
     /**
-     * 입력 페이지 진입 시 저장된 값 사용
+     * 저장된 필터 값으로 입력 필드 채우기
      * @param {HTMLElement} wrapper
      * @param {object} filter
      */
-    populateMobileFilterValueForm(wrapper, filter) {
+    populateFilterValueForm(wrapper, filter) {
         const stored = filterService.getFilters().activeFilters.find(f => f.name === filter.name);
         if (!stored) return;
 
@@ -1459,7 +1459,7 @@ class FilterPanel {
         this.mobileFilterValueContent.appendChild(wrapper);
 
         const { getDraft } = this.wireMobileFilterValueForm(wrapper, filter);
-        this.populateMobileFilterValueForm(wrapper, filter);
+        this.populateFilterValueForm(wrapper, filter);
 
         wrapper.querySelectorAll('input, select').forEach(el => {
             el.dispatchEvent(new Event(el.tagName === 'SELECT' ? 'change' : 'input'));
@@ -1561,6 +1561,8 @@ class FilterPanel {
 
         filterService.addFilterOption(filter.name, draft.payload);
 
+        // 데스크톱 팝오버 동시 생성
+        this.addFilterPanel(filter);
         if (!document.querySelector(`.filter-btn[data-filter="${filter.name}"]`)) {
             this.addFilterButton(filter);
         }
@@ -1611,22 +1613,32 @@ class FilterPanel {
 
         document.querySelectorAll('.filter-btn.active[data-filter]').forEach(btn => btn.classList.remove('active'));
 
-        // 전환 시점에 메인 버튼 강조 갱신
+        // 전환 시점에 메인 버튼 갱신
         this.updateMobileFilterChipStyle();
+        this.updateMainFilterBtnVisibility();
     }
 
     addFilterPanel(filter) {
-        const existingPanel = document.getElementById(`filter-panel-${filter.name}`);
+        const panelId = `filter-panel-${filter.name.replace(/\s/g, '')}`;
+        const existingPanel = document.getElementById(panelId);
         if (existingPanel) {
             return existingPanel;
         }
 
         const panel = document.createElement('div');
         panel.className = 'filter-panel';
-        panel.id = `filter-panel-${filter.name.replace(/\s/g, '')}`;
+        panel.id = panelId;
 
         this.createDesktopPanelUI(panel, filter);
         this.setupFilterEventListeners(panel, filter, false);
+
+        // 이미 적용된 필터면 값 추가
+        if (filterService.getFilters().activeFilters.some(f => f.name === filter.name)) {
+            this.populateFilterValueForm(panel, filter);
+            panel.querySelectorAll('input, select').forEach(el => {
+                el.dispatchEvent(new Event(el.tagName === 'SELECT' ? 'change' : 'input'));
+            });
+        }
 
         this.filterPanels.appendChild(panel);
 
