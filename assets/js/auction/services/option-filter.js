@@ -105,10 +105,11 @@ class OptionFilter {
    */
   checkRangeFilter(item, filter) {
     const options = item.options || item.item_option || [];
-    
-    // 해당 옵션 찾기
-    const option = options.find(opt => opt.option_type === filter.name);
-    
+
+    const option = filter.category
+      ? options.find(opt => opt.option_type === filter.category && opt.option_sub_type === filter.name.slice(filter.category.length + 2))
+      : options.find(opt => opt.option_type === filter.name);
+
     // 값 계산
     let value;
 

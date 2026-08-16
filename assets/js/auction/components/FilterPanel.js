@@ -123,7 +123,14 @@ class FilterPanel {
         // 필터 위치
         window.FilterPanel = this;
     }
-    
+
+    /**
+     * 필터명 -> DOM id/선택자용 안전 문자열 변환
+     */
+    toSafeFilterId(name) {
+        return name.replace(/[^\p{L}\p{N}_-]/gu, '');
+    }
+
     /**
      * 모듈 초기화 진행 표시
      */
@@ -826,7 +833,7 @@ class FilterPanel {
     activateFilterButton(button, filterId) {
 
         // 재클릭 시 토글 닫기
-        const targetPanelId = `filter-panel-${filterId.replace(/\s/g, '')}`;
+        const targetPanelId = `filter-panel-${this.toSafeFilterId(filterId)}`;
         const targetPanel = document.getElementById(targetPanelId);
         if (button.classList.contains('active') && targetPanel && targetPanel.classList.contains('active')) {
             this.closeDesktopPanel(targetPanel, button);
@@ -944,7 +951,7 @@ class FilterPanel {
      * 필터 삭제
      */
     removeFilter(filterId) {
-        const panelId = `filter-panel-${filterId.replace(/\s/g, '')}`;
+        const panelId = `filter-panel-${this.toSafeFilterId(filterId)}`;
         const panel = document.getElementById(panelId);
 
         // 패널이 활성화되어 있으면 바디 오버플로우 복원
@@ -996,7 +1003,7 @@ class FilterPanel {
     resetAllFilterUI() {
         document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
             const filterId = btn.dataset.filter;
-            const panelId = `filter-panel-${filterId.replace(/\s/g, '')}`;
+            const panelId = `filter-panel-${this.toSafeFilterId(filterId)}`;
             const panel = document.getElementById(panelId);
 
             if (panel && panel.classList.contains('active')) {
@@ -1243,7 +1250,7 @@ class FilterPanel {
      * @returns {{getDraft: () => {hasValue: boolean, payload: object|null}}}
      */
     wireMobileFilterValueForm(wrapper, filter) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         const draft = { hasValue: false, payload: null };
 
         const isApplied = filterService.getFilters().activeFilters.some(f => f.name === filter.name);
@@ -1383,7 +1390,7 @@ class FilterPanel {
         const stored = filterService.getFilters().activeFilters.find(f => f.name === filter.name);
         if (!stored) return;
 
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
 
         const setRangeGroup = (groupId, idAttr, minKey, maxKey, minVal, maxVal) => {
             const segment = wrapper.querySelector(`.condition-segment[data-group="${groupId}"]`);
@@ -1619,7 +1626,7 @@ class FilterPanel {
     }
 
     addFilterPanel(filter) {
-        const panelId = `filter-panel-${filter.name.replace(/\s/g, '')}`;
+        const panelId = `filter-panel-${this.toSafeFilterId(filter.name)}`;
         const existingPanel = document.getElementById(panelId);
         if (existingPanel) {
             return existingPanel;
@@ -1722,7 +1729,7 @@ class FilterPanel {
      * 복합 필터 UI
      */
     createCompositeFilterUI(filter) {
-        const groupPrefix = filter.name.replace(/\s/g, '');
+        const groupPrefix = this.toSafeFilterId(filter.name);
 
         // 팝오버/입력 페이지 전용 축약 라벨
         const desktopFieldLabels = {
@@ -1787,7 +1794,7 @@ class FilterPanel {
      * 범위 필터 UI 생성
      */
     createRangeFilterUI(filter, isMobile = false) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         return this.createConditionalRangeGroupHTML(filter.displayName, filterId, 'id', `${filterId}-min`, `${filterId}-max`);
     }
 
@@ -1847,7 +1854,7 @@ class FilterPanel {
     createSelectionFilterUI(filter) {
                 // 옵션 목록은 동적으로 가져와야 합니다.
         return `
-            <select class="dropdown-select" id="${filter.name.replace(/\s/g, '')}-select">
+            <select class="dropdown-select" id="${this.toSafeFilterId(filter.name)}-select">
                 <option value="">선택하세요</option>
                 <!-- 옵션은 동적으로 추가됩니다 -->
             </select>
@@ -1858,7 +1865,7 @@ class FilterPanel {
      * 인챈트 필터 UI 생성
      */
     createEnchantFilterUI(filter) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         return `
             <div class="filter-group filter-group--stacked">
                 <label class="filter-label" for="${filterId}-prefix">접두 인챈트</label>
@@ -1881,7 +1888,7 @@ class FilterPanel {
      * 특별 개조 필터 UI 생성
      */
     createSpecialModFilterUI(filter) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         return `
             <div class="filter-group filter-group--stacked">
                 <label class="filter-label">특별 개조 타입</label>
@@ -1899,7 +1906,7 @@ class FilterPanel {
      * 범위 필터 이벤트 설정
      */
     setupRangeFilterEvents(panel, filter, isMobile = false) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         const minKey = `${filterId}-min`;
         const maxKey = `${filterId}-max`;
 
@@ -2012,7 +2019,7 @@ class FilterPanel {
      * 선택 필터 이벤트 설정
      */
     setupSelectionFilterEvents(panel, filter) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         const select = panel.querySelector(`#${filterId}-select`);
         
         if (select) {
@@ -2042,7 +2049,7 @@ class FilterPanel {
      * 인챈트 필터 이벤트 설정
      */
     setupEnchantFilterEvents(panel, filter) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         const prefixInput = panel.querySelector(`#${filterId}-prefix`);
         const suffixInput = panel.querySelector(`#${filterId}-suffix`);
         
@@ -2128,7 +2135,7 @@ class FilterPanel {
     }
 
     setupSpecialModFilterEvents(panel, filter) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         const typeSelector = panel.querySelector(`#${filterId}-type-selector`);
         const typeInput = panel.querySelector(`#${filterId}-type`);
         const minKey = `${filterId}-min-level`;
@@ -2185,7 +2192,7 @@ class FilterPanel {
      * 복합 필터 이벤트 설정
      */
     setupCompositeFilterEvents(panel, filter) {
-        const groupPrefix = filter.name.replace(/\s/g, '');
+        const groupPrefix = this.toSafeFilterId(filter.name);
 
         const updateFilter = () => {
             const values = {};
