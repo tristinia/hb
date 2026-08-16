@@ -924,6 +924,9 @@ const App = (() => {
     function resetAllFilters() {
         // FilterManager 초기화
         filter.resetFilters();
+
+        // 필터 UI 전체 초기화
+        FilterPanel.resetAllFilterUI();
     }
     
     // 공개 API

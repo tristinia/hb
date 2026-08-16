@@ -989,7 +989,40 @@ class FilterPanel {
         this.adjustResultsContainerPosition();
         setTimeout(() => this.adjustResultsContainerPosition(), 0);
     }
-    
+
+    /**
+     * 필터 UI 전체 초기화
+     */
+    resetAllFilterUI() {
+        document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+            const filterId = btn.dataset.filter;
+            const panelId = `filter-panel-${filterId.replace(/\s/g, '')}`;
+            const panel = document.getElementById(panelId);
+
+            if (panel && panel.classList.contains('active')) {
+                document.body.style.overflow = '';
+            }
+            if (panel) {
+                this.closeDesktopPanel(panel, null, true);
+            }
+
+            btn.remove();
+        });
+
+        if (this.candidatesExpanded) {
+            this.collapseFilterCandidates();
+        }
+
+        this.updateMobileFilterChipStyle();
+        if (window.innerWidth <= 768 && this.filterOptions.classList.contains('active')) {
+            this.renderMobileFilterSheetList();
+        }
+
+        this.updateMainFilterBtnVisibility();
+        this.checkFilterRows();
+        this.adjustResultsContainerPosition();
+    }
+
     /**
      * 필터 컨테이너가 다층으로 표시되는지 확인
      */
