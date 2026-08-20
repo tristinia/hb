@@ -4,7 +4,6 @@
  */
 
 import optionFilter from './option-filter.js';
-import metadataService from '../services/metadata.js';
 
 // 필터 상태
 const state = {
@@ -34,10 +33,6 @@ function logDebug(...args) {
  */
 async function init() {
     try {
-        // 메타데이터 서비스 초기화
-        await metadataService.initialize();
-        logDebug('메타데이터 서비스 초기화 완료');
-        
         // optionFilter 초기화
         await optionFilter.initialize();
         logDebug('옵션 필터 초기화 완료');
@@ -124,22 +119,6 @@ function removeFilterOption(filterId) {
     
     // 필터 적용
     applyFilters();
-}
-
-/**
- * 카테고리별 메타데이터 로드
- */
-async function loadCategoryMetadata(category) {
-    try {
-        // metadataService를 통해 카테고리별 데이터 로드
-        await metadataService.loadSetEffectForCategory(category);
-        await metadataService.loadReforgeOptionsForCategory(category);
-        
-        // 데이터는 metadataService.metadata에 저장됩니다.
-        logDebug(`카테고리 ${category}의 메타데이터 로드 완료`);
-    } catch (error) {
-        console.error(`카테고리 ${category} 메타데이터 로드 중 오류:`, error);
-    }
 }
 
 /**

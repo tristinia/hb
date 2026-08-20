@@ -92,7 +92,7 @@ export default {
             }
 
             if (requestPath.startsWith('meta/')) {
-                return await handleMetadataRequest(url, env, corsHeaders);
+                return await handleMetadataRequest(request, url, env, ctx, corsHeaders);
             }
 
             return jsonResponse({ error: '찾을 수 없는 API 경로입니다.' }, 404, corsHeaders);
@@ -418,39 +418,48 @@ function generateAvailableFilters(items) {
     return Array.from(foundOptionTypes);
 }
 
-async function handleMetadataRequest(url, env, corsHeaders) {
+// 메타데이터 유형별 KV 키
+const META_KV_CONFIG = {
+    enchants: { kvKey: 'meta:enchants_combined', emptyValue: { prefix: {}, suffix: {} } },
+    reforges: { kvKey: 'meta:reforges_combined', emptyValue: {}, emptyCategoryValue: [] },
+    'set-effects': { kvKey: 'meta:seteffects_combined', emptyValue: {}, emptyCategoryValue: [] },
+    ecostones: { kvKey: 'meta:ecostones_combined', emptyValue: {}, emptyCategoryValue: [] },
+};
+
+async function handleMetadataRequest(request, url, env, ctx, corsHeaders) {
     const path = url.pathname.replace('/api/meta/', ''); // 'enchants', 'reforges' 등
     const category = url.searchParams.get('category');
+    const config = META_KV_CONFIG[path];
 
-    let kvKey;
-    let isCombinedEnchants = false;
-
-    if (path === 'enchants') {
-        kvKey = 'meta:enchants_combined';
-        isCombinedEnchants = true;
-    } else if (path === 'reforges' && category) {
-        kvKey = `meta:reforge:${encodeURIComponent(category)}`;
-    } else if (path === 'set-effects' && category) {
-        kvKey = `meta:seteffect:${encodeURIComponent(category)}`;
-    } else if (path === 'ecostones' && category) {
-        kvKey = `meta:ecostone:${encodeURIComponent(category)}`;
-    } else {
+    if (!config) {
         return jsonResponse({ error: '유효하지 않은 메타데이터 요청입니다.' }, 400, corsHeaders);
     }
 
-    const cachedData = await env.MABINOGI_METADATA_CACHE.get(kvKey, 'json');
+    // 응답 직접 캐시 및 출처별 캐시 분리(잘못된 접근 허용 방지)
+    const cache = caches.default;
+    const cacheKeyUrl = new URL(request.url);
+    cacheKeyUrl.searchParams.set('__cache_origin', corsHeaders['Access-Control-Allow-Origin']);
+    const cacheKey = new Request(cacheKeyUrl.toString(), request);
 
-    if (cachedData) {
-        // CDN과 브라우저에 1시간(3600초) 동안 캐시하도록 헤더를 추가합니다.
-        const cacheHeaders = {
-            ...corsHeaders,
-            'Cache-Control': 'public, max-age=3600, s-maxage=3600',
-            'X-Cache-Status': 'HIT'
-        };
-        return jsonResponse(cachedData, 200, cacheHeaders);
+    const cachedResponse = await cache.match(cacheKey);
+    if (cachedResponse) {
+        return cachedResponse;
     }
 
-    console.warn(`메타데이터 캐시 미스: ${kvKey}`);
-    const emptyResponse = isCombinedEnchants ? { prefix: {}, suffix: {} } : [];
-    return jsonResponse(emptyResponse, 404, { ...corsHeaders, 'X-Cache-Status': 'MISS' });
+    const cachedData = await env.MABINOGI_METADATA_CACHE.get(config.kvKey, 'json');
+    const responseData = category
+        ? (cachedData?.[category] ?? config.emptyCategoryValue ?? [])
+        : (cachedData ?? config.emptyValue);
+
+    const cacheHeaders = {
+        ...corsHeaders,
+        'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+        'X-Cache-Status': cachedData ? 'HIT' : 'MISS'
+    };
+
+    if (!cachedData) console.warn(`메타데이터 캐시 미스: ${config.kvKey}`);
+    const response = jsonResponse(responseData, cachedData ? 200 : 404, cacheHeaders);
+
+    ctx.waitUntil(cache.put(cacheKey, response.clone()));
+    return response;
 }

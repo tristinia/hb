@@ -1,10 +1,11 @@
 /**
  * search 서비스
- * 경매장 특화 검색 기능 및 자동완성 처리 (클라이언트 사이드 인덱스 검색 방식으로 변경)
+ * 경매장 특화 검색 기능 및 자동완성 처리
  */
 
 import Utils from './utils.js';
 import apiClient from './api-client.js'; // apiClient 사용
+import metadataService from './metadata.js';
 
 const MAX_RESULTS = 30;
 const MIN_SCORE = 40;
@@ -330,7 +331,7 @@ const search = (() => {
     }
 
     /**
-     * 서버로부터 전체 아이템 인덱스를 비동기적으로 가져옵니다. (최초 1회만 실행)
+     * 아이템 인덱스 로드
      */
     async function loadItemIndex() {
         const originalPlaceholder = elements.searchInput.placeholder;
@@ -338,6 +339,10 @@ const search = (() => {
 
         state.isLoading = true;
         elements.searchInput.placeholder = '로딩중...';
+
+        // 메타데이터도 같은 시점에 로드
+        metadataService.loadAll();
+
         try {
             console.log('[Search] 아이템 인덱스 초기 로딩 시작...');
             const { data, etag } = await apiClient.fetchItemIndex();
