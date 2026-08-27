@@ -308,30 +308,29 @@ class OptionFilter {
     
     // 각 필터 옵션 검사
     return filter.options.every(filterOption => {
-      // 빈 필터 옵션은 무시
-      if (!filterOption.name || filterOption.name.trim() === '') {
+      const hasName = !!(filterOption.name && filterOption.name.trim() !== '');
+      const hasLevel = !!((filterOption.minLevel && filterOption.minLevel.trim() !== '') ||
+        (filterOption.maxLevel && filterOption.maxLevel.trim() !== ''));
+
+      if (!hasName && !hasLevel) {
         return true;
       }
-      
-      // 옵션 이름 검색
-      const searchTerm = filterOption.name.toLowerCase().trim();
-      const matchingOptions = reforgeOptions.filter(opt => {
-        const optionValue = (opt.option_value || '').toLowerCase();
-        return optionValue.includes(searchTerm);
-      });
-      
+
+      const matchingOptions = hasName
+        ? reforgeOptions.filter(opt => (opt.option_value || '').toLowerCase().includes(filterOption.name.toLowerCase().trim()))
+        : reforgeOptions;
+
       if (matchingOptions.length === 0) {
         return false;
       }
-      
-      // 레벨 범위 검사가 없으면 통과
-      if (!filterOption.minLevel && !filterOption.maxLevel) {
+
+      if (!hasLevel) {
         return true;
       }
-      
+
       // 하나 이상의 옵션이 레벨 범위를 만족하는지 확인
       return matchingOptions.some(opt => {
-        // "(20레벨:40 증가)" 형식에서 레벨 추출
+        // 괄호 안 숫자와 레벨 표기에서 레벨 값 추출
         const match = opt.option_value && opt.option_value.match(/\((\d+)레벨:/);
         if (!match) return true; // 레벨 정보가 없으면 통과
         
@@ -379,24 +378,23 @@ class OptionFilter {
     
     // 각 필터 효과 검사
     return filter.effects.every(filterEffect => {
-      // 빈 필터 효과는 무시
-      if (!filterEffect.name || filterEffect.name.trim() === '') {
+      const hasName = !!(filterEffect.name && filterEffect.name.trim() !== '');
+      const hasValue = !!((filterEffect.minValue && filterEffect.minValue.trim() !== '') ||
+        (filterEffect.maxValue && filterEffect.maxValue.trim() !== ''));
+
+      if (!hasName && !hasValue) {
         return true;
       }
-      
-      // 효과 이름 검색
-      const searchTerm = filterEffect.name.toLowerCase().trim();
-      const matchingEffects = setEffectOptions.filter(opt => {
-        const effectValue = (opt.option_value || '').toLowerCase();
-        return effectValue.includes(searchTerm);
-      });
-      
+
+      const matchingEffects = hasName
+        ? setEffectOptions.filter(opt => (opt.option_value || '').toLowerCase().includes(filterEffect.name.toLowerCase().trim()))
+        : setEffectOptions;
+
       if (matchingEffects.length === 0) {
         return false;
       }
-      
-      // 수치 범위 검사가 없으면 통과
-      if (!filterEffect.minValue && !filterEffect.maxValue) {
+
+      if (!hasValue) {
         return true;
       }
       

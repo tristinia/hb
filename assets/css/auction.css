@@ -848,6 +848,50 @@ body {
   color: var(--dark);
 }
 
+.filter-autocomplete-list {
+  display: none;
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: var(--white);
+  border: 1.5px solid #E8B923;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+}
+
+.filter-autocomplete-list.visible {
+  display: block;
+  animation: filterFadeIn var(--duration-fast) ease-in-out;
+}
+
+.filter-autocomplete-list.visible.closing {
+  animation: filterFadeOut 0.1s ease-in forwards;
+}
+
+.filter-autocomplete-item {
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: var(--filter-font-size);
+  color: var(--dark);
+  cursor: pointer;
+  transition: background-color var(--duration-fast);
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.filter-autocomplete-item:last-child {
+  border-bottom: none;
+}
+
+.filter-autocomplete-item:hover {
+  background-color: var(--gray-100);
+}
+
+.filter-autocomplete-item.active {
+  background-color: var(--gray-200);
+}
+
 /* 팝오버형 패널 제외 범위 */
 .filter-panel:not(.mobile-filter-sheet):not(.filter-panel--popover) .range-input {
   width: 100%;
@@ -931,12 +975,114 @@ body {
 
 .filter-panel--popover:not(.mobile-filter-sheet) .range-input:focus {
   outline: none;
-  border: 2px solid #E8B923;
+  border: 1.5px solid #E8B923;
   padding: 9px 13px;
 }
 
 .filter-panel--popover:not(.mobile-filter-sheet) .range-input-wrap .range-input:focus {
   padding-right: 35px;
+}
+
+/* 다중조건 필터 슬롯 모바일 시트 전용 캐러셀 (PC는 슬롯별 독립 팝오버) */
+.slot-carousel-arrow {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--medium);
+  cursor: pointer;
+}
+
+.slot-carousel-arrow:hover:not(:disabled) {
+  color: var(--dark);
+}
+
+.slot-carousel-arrow:disabled {
+  color: var(--gray-200);
+  cursor: default;
+  pointer-events: none;
+}
+
+.slot-carousel-viewport {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  /* 세로 스크롤만 브라우저 제스처로 허용 (가로 이동 중 길게 누르기 제스처 충돌 방지) */
+  touch-action: pan-y;
+}
+
+.slot-carousel-track {
+  display: flex;
+  transition: transform var(--duration-fast) ease-out;
+}
+
+.slot-carousel-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.slot-carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* 바깥 링(현재 슬롯 표시)은 그림자 대신 테두리로 구현 */
+.slot-carousel-dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 1.5px solid transparent;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+}
+
+.slot-carousel-dot.active {
+  border-color: var(--gray-400);
+}
+
+.slot-carousel-dot-inner {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--gray-200);
+  background-color: transparent;
+}
+
+/* 값이 채워진 슬롯은 완료 버튼과 동일한 노란색 */
+.slot-carousel-dot.filled .slot-carousel-dot-inner {
+  background-color: var(--accent-readable);
+  border-color: var(--accent-readable);
+}
+
+/* 모바일 전용 화살표와 점 카드를 필드 카드와 분리 (스타일은 필드 카드 값 재사용) */
+.slot-carousel-indicator-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  margin-top: var(--space-md);
+  padding: 10px 16px;
+  background-color: var(--white);
+  border: 1px solid var(--light-gray);
+  border-radius: 12px;
+}
+
+/* 화살표와 한 줄 배치라 트랙 아래 여백 불필요 */
+.slot-carousel-indicator-card .slot-carousel-dots {
+  margin-top: 0;
 }
 
 .range-input[type="number"] {

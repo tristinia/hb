@@ -186,11 +186,9 @@ async function handleUnifiedSearch(url, env, corsHeaders, ctx) {
     }
 
     const finalItems = enrichPetMedalDisplayNames(allItems);
-    const availableFilters = generateAvailableFilters(finalItems);
 
-    // D1/KV 동기화는 오직 자유 텍스트 검색(신규 아이템 발견 가능성이 있는 탐색성 검색)에서만 실행.
-    // 자동완성으로 선택한 아이템(시나리오 1)은 이미 D1/KV에 존재하는 게 확실하므로 동기화가 불필요함 —
-    // "라우팅 방식"과 "동기화 필요 여부"를 별도 플래그(isFreeTextSearch)로 분리해 겸용하지 않는다.
+    // D1/KV 동기화는 자유 텍스트 검색에서만 실행 (신규 아이템 발견 가능성이 있는 탐색성 검색)
+    // 자동완성으로 선택한 아이템은 이미 존재가 확인된 상태라 동기화 불필요
     if (isFreeTextSearch && allItems.length > 0) {
         if (allItems.length <= MAX_SYNC_ITEMS) {
             ctx.waitUntil(
@@ -203,12 +201,11 @@ async function handleUnifiedSearch(url, env, corsHeaders, ctx) {
         }
     }
 
-    // 가격 오름차순 정렬 — 프론트는 서버가 정렬해서 준 순서를 그대로 표시한다
+    // 가격 오름차순 정렬 (프론트는 서버가 정렬한 순서를 그대로 표시)
     finalItems.sort((a, b) => a.auction_price_per_unit - b.auction_price_per_unit);
 
     return jsonResponse({
-        items: finalItems,
-        availableFilters: availableFilters
+        items: finalItems
     }, 200, corsHeaders);
 }
 
@@ -394,28 +391,6 @@ async function fetchAllPagesFromNexonApi(initialUrl, apiKey) {
     }
 
     return allItems;
-}
-
-function generateAvailableFilters(items) {
-    const foundOptionTypes = new Set();
-    if (!items || items.length === 0) {
-        return [];
-    }
-
-    for (const item of items) {
-        if (item.item_option && Array.isArray(item.item_option)) {
-            for (const option of item.item_option) {
-                if (option.option_type === '펫 정보' && option.option_sub_type && option.option_sub_type !== '종족명') {
-                    foundOptionTypes.add(`펫 정보: ${option.option_sub_type}`);
-                }
-                else if (option.option_type && option.option_type !== '펫 정보') {
-                    foundOptionTypes.add(option.option_type);
-                }
-            }
-        }
-    }
-
-    return Array.from(foundOptionTypes);
 }
 
 // 메타데이터 유형별 KV 키

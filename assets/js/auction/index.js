@@ -430,16 +430,13 @@ const App = (() => {
 
             if (selectedItem) {
                 if (selectedItem.isCategory) {
-                    // 시나리오 2: 카테고리만으로 검색
                     apiParams = { category: selectedItem.name, itemName: null, keyword: null };
                     console.log(`검색 실행: 카테고리='${selectedItem.name}'`);
                 } else {
-                    // 시나리오 1: 아이템 이름 + 카테고리 검색
                     apiParams = { itemName: searchTerm, category: selectedItem.category, keyword: null };
                     console.log(`검색 실행: 아이템='${searchTerm}', 카테고리='${selectedItem.category}'`);
                 }
             } else {
-                // 시나리오 3: 키워드 검색
                 apiParams = { keyword: searchTerm, itemName: null, category: null };
                 console.log(`검색 실행: 키워드='${searchTerm}'`);
             }
@@ -451,12 +448,16 @@ const App = (() => {
             apiPromise
                 .then(async results => {
                     hideLoading(); // API 호출 완료 후 로딩 숨김
-                    if (results.availableFilters) {
-                        await FilterPanel.loadFilterOptions(results.availableFilters);
-                        
-                        // 필터 옵션이 로드된 후, 결과 컨테이너의 위치를 재조정합니다.
-                        FilterPanel.adjustResultsContainerPosition();
-                    }
+
+                    const resultItems = results.items || [];
+
+                    // 자동완성 후보를 현재 결과 카테고리로 한정
+                    filter.setCurrentCategories(filter.computeAvailableCategories(resultItems));
+
+                    await FilterPanel.loadFilterOptions(filter.computeAvailableFilters(resultItems));
+
+                    // 필터 옵션 로드 후 결과 컨테이너 위치 재조정
+                    FilterPanel.adjustResultsContainerPosition();
                     // 결과가 없는 경우 처리
                     if (!results || !results.items || results.items.length === 0) {                        
                         ItemList.showNoResults();
@@ -465,10 +466,7 @@ const App = (() => {
                         // 결과가 없으므로 페이지네이션을 0으로 리셋합니다.
                         Pagination.resetPagination(0);
                     } else {
-                        // 검색 결과가 있으면 ItemList에 전달하여 표시
-                        // 가격 오름차순 정렬은 서버(워커)에서 처리되어 응답 시점에 이미 정렬돼 있음
-
-                        // 검색 결과가 있을 때만 setSearchResults를 호출합니다.
+                        // 가격 오름차순 정렬은 서버에서 처리되어 응답 시점에 이미 정렬 완료
                         ItemList.setSearchResults(results.items);
                         // 페이지네이션 업데이트
                         Pagination.resetPagination(results.items.length);
