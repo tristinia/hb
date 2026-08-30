@@ -6,13 +6,31 @@
  * 판단하면 검색 결과와 실제 저장된 시세가 어긋난다 (이슈 #29).
  */
 
+import { ARCANA_SKILL_NAMES } from './arcana-skill-names.js';
+
 // 아이템 대표 이름(정체성 키) 생성 규칙 예외 처리 카테고리
 export const ITEM_NAME_RULES = {
     // '뷰티 쿠폰', '기타'는 item_name이 Nexon API에서 "(Unknown)"으로 오는 사례가 확인되어 추가
     // (이중 안전망: 카테고리 화이트리스트 + 아래 getRepresentativeItemName의 값 자체 검증)
     USE_DISPLAY_NAME_CATEGORIES: ['인챈트 스크롤', '도면', '옷본', '뷰티 쿠폰', '기타'],
     PET_MEDAL_CATEGORY: '분양 메달',
+    MURIAS_RELIC_CATEGORY: '유물',
 };
+
+/**
+ * 무리아스 유물 옵션 값에서 아르카나 스킬명 추출 (매칭 실패 시 숫자/퍼센트/괄호 부연 제거한 값으로 대체)
+ * @param {string} optionValue - 무리아스 유물 옵션의 option_value
+ * @returns {string} 매칭된 스킬명 또는 정규화된 값
+ */
+export function resolveMuriasRelicSuffix(optionValue) {
+    const matchedSkillName = ARCANA_SKILL_NAMES.find(name => optionValue.includes(name));
+    // 매칭 실패 시 수치가 다른 같은 스킬끼리 묶이도록 숫자/퍼센트/괄호 부연 제거
+    return matchedSkillName || optionValue
+        .replace(/\([^)]*\)/g, '')
+        .replace(/[\d%]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
 
 /**
  * 아이템의 대표 이름(정체성 키) 생성 (예외 처리 규칙 적용)
@@ -32,11 +50,22 @@ export function getRepresentativeItemName(item) {
         return item.item_display_name || normalizedName;
     }
 
-    // '분양 메달'은 '아이템 이름 - 펫 종족명' 형식으로 조합
+    // 분양 메달 카테고리는 아이템 이름 뒤에 펫 종족명 붙여 조합
     if (category === ITEM_NAME_RULES.PET_MEDAL_CATEGORY) {
         const options = item.item_option || [];
         const petRaceOption = options.find(opt => opt.option_type === '펫 정보' && opt.option_sub_type === '종족명');
         return petRaceOption && petRaceOption.option_value ? `${normalizedName} - ${petRaceOption.option_value}` : normalizedName;
+    }
+
+    // 유물(무리아스 유물) 카테고리는 아이템 이름 뒤에 옵션 값에서 매칭된 스킬명 붙여 조합
+    if (category === ITEM_NAME_RULES.MURIAS_RELIC_CATEGORY) {
+        const options = item.item_option || [];
+        const relicOption = options.find(opt => opt.option_type === '무리아스 유물');
+        if (!relicOption || !relicOption.option_value) {
+            return normalizedName;
+        }
+
+        return `${normalizedName} - ${resolveMuriasRelicSuffix(relicOption.option_value)}`;
     }
 
     // '인챈트 스크롤', '도면', '옷본', '뷰티 쿠폰', '기타'는 item_display_name 사용

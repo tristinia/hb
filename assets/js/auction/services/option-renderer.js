@@ -74,7 +74,8 @@ class OptionRenderer {
           type === '색상' || type === '품질' || type === '크기' || type === '남은 사용 횟수' ||
           type === '토템 효과' || type === '토템 추가 옵션' || type === '토템 강화 제한' ||
           type === '펫 정보' || type === '사용 효과' || type === '조미료 효과' ||
-          type === '에코스톤 등급' || type === '에코스톤 고유 능력' || type === '에코스톤 각성 능력') {
+          type === '에코스톤 등급' || type === '에코스톤 고유 능력' || type === '에코스톤 각성 능력' ||
+          type === '무리아스 유물') {
         optionGroups['아이템 속성'].push(option);
       } 
       else if (type === '인챈트') {
@@ -95,6 +96,9 @@ class OptionRenderer {
       } 
       else if (type === '아이템 색상') {
         optionGroups['아이템 색상'].push(option);
+      }
+      else {
+        optionGroups['아이템 속성'].push(option);
       }
     });
     
@@ -210,24 +214,20 @@ class OptionRenderer {
   }
 
   renderItemAttributesSection(options, block) {
-    // 1. 데이터 준비: 옵션을 그룹별로 분류
     const groupedOptions = this._groupOptions(options);
 
-    // 2. 데이터 처리: 각 그룹의 옵션을 정렬하고 필요한 데이터를 보강
-    this._processGroup1(groupedOptions.group1);
-    this._processGroup3(groupedOptions.group3);
-    
-    // === 그룹 렌더링 시작 ===
-    
-    // 그룹 1 렌더링
-    groupedOptions.group1.forEach((option, index) => {
-      const isLast = index === groupedOptions.group1.length - 1;
-      
+    this._processCoreStats(groupedOptions.coreStats);
+    this._processUsageOptions(groupedOptions.usageOptions);
+
+    // 핵심 스탯 렌더링
+    groupedOptions.coreStats.forEach((option, index) => {
+      const isLast = index === groupedOptions.coreStats.length - 1;
+
       // 간격 설정
       let gapClass = '';
       if (isLast) {
         // 다음 그룹이 있는지 확인
-        if (groupedOptions.piercingOption || groupedOptions.group3.length > 0 || groupedOptions.ecostoneRankOption) {
+        if (groupedOptions.relicOption || groupedOptions.piercingOption || groupedOptions.usageOptions.length > 0 || groupedOptions.ecostoneRankOption) {
           gapClass = 'gap-md';
         }
       } else {
@@ -253,21 +253,33 @@ class OptionRenderer {
         this.createOptionElement(option, block, gapClass);
       }
     });
-    
-    // 그룹 2 (피어싱) 렌더링
+
+    // 무리아스 유물 렌더링
+    if (groupedOptions.relicOption) {
+      // 다음 그룹이 있는지 확인
+      const hasNextGroup = groupedOptions.piercingOption || groupedOptions.usageOptions.length > 0 || groupedOptions.ecostoneRankOption;
+      const gapClass = hasNextGroup ? 'gap-md' : '';
+
+      const optionElement = document.createElement('div');
+      optionElement.className = `tooltip-stat item-blue ${gapClass}`;
+      optionElement.textContent = groupedOptions.relicOption.option_value;
+      block.appendChild(optionElement);
+    }
+
+    // 피어싱 렌더링
     if (groupedOptions.piercingOption) {
       // 다음 그룹이 있는지 확인
-      const hasNextGroup = groupedOptions.group3.length > 0 || groupedOptions.ecostoneRankOption;
+      const hasNextGroup = groupedOptions.usageOptions.length > 0 || groupedOptions.ecostoneRankOption;
       const gapClass = hasNextGroup ? 'gap-md' : '';
       this.createOptionElement(groupedOptions.piercingOption, block, gapClass);
     }
-    
-    // 그룹 3 렌더링
+
+    // 사용 옵션 렌더링
     let lastSpiceEffectIndex = -1;
     let hasAddedSpiceHeader = false;
-    
-    groupedOptions.group3.forEach((option, index) => {
-      const isLast = index === groupedOptions.group3.length - 1;
+
+    groupedOptions.usageOptions.forEach((option, index) => {
+      const isLast = index === groupedOptions.usageOptions.length - 1;
       // 다음 그룹이 있는지 확인
       const hasNextGroup = groupedOptions.ecostoneRankOption;
       // 마지막 항목은 다음 그룹이 있으면 gap-md, 아니면 간격 없음, 그 외에는 xxs 간격
@@ -311,7 +323,7 @@ class OptionRenderer {
       }
     });
     
-    // 그룹 4 (에코스톤 등급) 렌더링
+    // 에코스톤 등급 렌더링
     if (groupedOptions.ecostoneRankOption) {
       const rank = parseInt(groupedOptions.ecostoneRankOption.option_value) || 0;
       let colorClass = '';
@@ -332,7 +344,7 @@ class OptionRenderer {
       block.appendChild(optionElement);
     }
     
-    // 그룹 5 (에코스톤 고유 능력) 렌더링
+    // 에코스톤 고유 능력 렌더링
     if (groupedOptions.ecostoneAbilityOptions.length > 0) {
       // 헤더
       const headerElement = document.createElement('div');
@@ -354,7 +366,7 @@ class OptionRenderer {
       });
     }
     
-    // 그룹 6 (에코스톤 각성 능력) 렌더링
+    // 에코스톤 각성 능력 렌더링
     if (groupedOptions.ecostoneAwakeningOptions.length > 0) {
       // 헤더
       const headerElement = document.createElement('div');
@@ -377,16 +389,17 @@ class OptionRenderer {
 
   _groupOptions(options) {
     const attributeGroupConfig = {
-        'group1': ['공격', '부상률', '크리티컬', '밸런스', '내구력', '숙련', '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가', '인챈트 종류', '색상', '품질', '크기', '토템 효과', '토템 추가 옵션', '토템 강화 제한', '펫 정보', '방어력', '보호', '마법 방어력', '마법 보호'],
-        'group2': ['피어싱 레벨'],
-        'group3': ['사용 효과', '조미료 효과', '내구도', '남은 거래 횟수', '남은 사용 횟수', '인챈트 불가능', '아이템 보호'],
-        'group4': ['에코스톤 등급'],
-        'group5': ['에코스톤 고유 능력'],
-        'group6': ['에코스톤 각성 능력']
+        'coreStats': ['공격', '부상률', '크리티컬', '밸런스', '내구력', '숙련', '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가', '인챈트 종류', '색상', '품질', '크기', '토템 효과', '토템 추가 옵션', '토템 강화 제한', '펫 정보', '방어력', '보호', '마법 방어력', '마법 보호'],
+        'relic': ['무리아스 유물'],
+        'piercing': ['피어싱 레벨'],
+        'usageOptions': ['사용 효과', '조미료 효과', '내구도', '남은 거래 횟수', '남은 사용 횟수', '인챈트 불가능', '아이템 보호'],
+        'ecostoneRank': ['에코스톤 등급'],
+        'ecostoneAbility': ['에코스톤 고유 능력'],
+        'ecostoneAwakening': ['에코스톤 각성 능력']
     };
 
     const grouped = options.reduce((acc, option) => {
-        let groupName = 'group1'; // 기본 그룹
+        let groupName = 'coreStats'; // 기본 그룹
         for (const [key, types] of Object.entries(attributeGroupConfig)) {
             if (types.includes(option.option_type)) {
                 groupName = key;
@@ -399,76 +412,77 @@ class OptionRenderer {
     }, {});
 
     return {
-        group1: grouped.group1 || [],
-        piercingOption: (grouped.group2 || [])[0],
-        group3: grouped.group3 || [],
-        ecostoneRankOption: (grouped.group4 || [])[0],
-        ecostoneAbilityOptions: grouped.group5 || [],
-        ecostoneAwakeningOptions: grouped.group6 || [],
+        coreStats: grouped.coreStats || [],
+        relicOption: (grouped.relic || [])[0],
+        piercingOption: (grouped.piercing || [])[0],
+        usageOptions: grouped.usageOptions || [],
+        ecostoneRankOption: (grouped.ecostoneRank || [])[0],
+        ecostoneAbilityOptions: grouped.ecostoneAbility || [],
+        ecostoneAwakeningOptions: grouped.ecostoneAwakening || [],
     };
   }
 
-  _processGroup1(group1) {
+  _processCoreStats(coreStats) {
     // 펫 정보 통합
-    const petInfoOptions = group1.filter(opt => opt.option_type === '펫 정보');
+    const petInfoOptions = coreStats.filter(opt => opt.option_type === '펫 정보');
     if (petInfoOptions.length > 0) {
         const petInfo = this.processAllPetInfo(petInfoOptions);
         if (petInfo) {
-            const otherOptions = group1.filter(opt => opt.option_type !== '펫 정보');
-            group1.length = 0; // 배열 비우기
-            group1.push(...otherOptions, { option_type: 'processed_pet_info', option_value: petInfo });
+            const otherOptions = coreStats.filter(opt => opt.option_type !== '펫 정보');
+            coreStats.length = 0; // 배열 비우기
+            coreStats.push(...otherOptions, { option_type: 'processed_pet_info', option_value: petInfo });
         }
     }
 
     // 토템 옵션 보강
-    if (group1.some(opt => opt.option_type === '토템 강화 제한')) {
-        if (!group1.some(opt => opt.option_type === '토템 효과')) {
-            group1.push({ option_type: 'totem_none_effect', option_value: '일반 옵션 : 없음' });
+    if (coreStats.some(opt => opt.option_type === '토템 강화 제한')) {
+        if (!coreStats.some(opt => opt.option_type === '토템 효과')) {
+            coreStats.push({ option_type: 'totem_none_effect', option_value: '일반 옵션 : 없음' });
         }
-        if (!group1.some(opt => opt.option_type === '토템 추가 옵션')) {
-            group1.push({ option_type: 'totem_none_additional', option_value: '추가 옵션 : 없음' });
+        if (!coreStats.some(opt => opt.option_type === '토템 추가 옵션')) {
+            coreStats.push({ option_type: 'totem_none_additional', option_value: '추가 옵션 : 없음' });
         }
     }
 
     // 방어 관련 속성 보강
     const defenseTypes = ['방어력', '보호', '마법 방어력', '마법 보호'];
-    if (group1.some(opt => defenseTypes.includes(opt.option_type))) {
+    if (coreStats.some(opt => defenseTypes.includes(opt.option_type))) {
         defenseTypes.forEach(type => {
-            if (!group1.some(opt => opt.option_type === type)) {
-                group1.push({ option_type: type, option_value: '0' });
+            if (!coreStats.some(opt => opt.option_type === type)) {
+                coreStats.push({ option_type: type, option_value: '0' });
             }
         });
     }
 
-    // 그룹1 정렬
+    // 정렬
     const attributeOrder = [
-      '공격', '부상률', '크리티컬', '밸런스', '방어력', '보호', '마법 방어력', '마법 보호', 
-      '내구력', '숙련', '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가', 
+      '공격', '부상률', '크리티컬', '밸런스', '방어력', '보호', '마법 방어력', '마법 보호',
+      '내구력', '숙련', '남은 전용 해제 가능 횟수', '전용 해제 거래 보증서 사용 불가',
       '인챈트 종류', '색상', '품질', '크기', '토템 효과', '토템 추가 옵션', '토템 강화 제한',
       'totem_none_effect', 'totem_none_additional', 'processed_pet_info'
     ];
-    group1.sort((a, b) => attributeOrder.indexOf(a.option_type) - attributeOrder.indexOf(b.option_type));
+    coreStats.sort((a, b) => attributeOrder.indexOf(a.option_type) - attributeOrder.indexOf(b.option_type));
   }
 
-  _processGroup3(group3) {
-    const group3Order = ['사용 효과', '조미료 효과', '내구도', '남은 거래 횟수', '남은 사용 횟수', '인챈트 불가능', '아이템 보호'];
+  _processUsageOptions(usageOptions) {
+    const usageOrder = ['사용 효과', '조미료 효과', '내구도', '남은 거래 횟수', '남은 사용 횟수', '인챈트 불가능', '아이템 보호'];
     const protectionOptions = { '인챈트 추출': null, '인챈트 실패': null, '수리 실패': null };
-    const otherGroup3Options = [];
+    const otherUsageOptions = [];
 
-    group3.forEach(option => {
+    usageOptions.forEach(option => {
         if (option.option_type === '아이템 보호' && option.option_value in protectionOptions) {
             protectionOptions[option.option_value] = option;
         } else {
-            otherGroup3Options.push(option);
+            otherUsageOptions.push(option);
         }
     });
 
-    otherGroup3Options.sort((a, b) => group3Order.indexOf(a.option_type) - group3Order.indexOf(b.option_type));
-    
-    group3.length = 0; // 배열 비우기
-    group3.push(...otherGroup3Options);
+    otherUsageOptions.sort((a, b) => usageOrder.indexOf(a.option_type) - usageOrder.indexOf(b.option_type));
+
+    usageOptions.length = 0; // 배열 비우기
+    usageOptions.push(...otherUsageOptions);
     ['인챈트 추출', '인챈트 실패', '수리 실패'].forEach(key => {
-        if (protectionOptions[key]) group3.push(protectionOptions[key]);
+        if (protectionOptions[key]) usageOptions.push(protectionOptions[key]);
     });
   }
   
@@ -903,23 +917,29 @@ class OptionRenderer {
   }
   
   renderItemColorSection(options, block) {
-    options.forEach((option, index) => {
-      const isLast = index === options.length - 1;
-      const gapClass = isLast ? '' : 'gap-xxs';
-      
-      let colorText = `${option.option_sub_type}: `;
-      if (option.option_value) {
-        colorText += option.option_value;
-      }
-      if (option.option_desc) {
-        colorText += ` ${option.option_desc}`;
-      }
-      
-      const optionElement = document.createElement('div');
-      optionElement.className = `tooltip-stat ${gapClass}`;
-      optionElement.textContent = colorText;
-      block.appendChild(optionElement);
+    const containerElement = document.createElement('div');
+    containerElement.style.cssText = 'display: grid; grid-template-columns: repeat(3, max-content); justify-content: start; row-gap: 2px; column-gap: 8px;';
+
+    options.forEach(option => {
+      const colorParts = (option.option_value || '').split(',');
+      const r = parseInt(colorParts[0] || 0);
+      const g = parseInt(colorParts[1] || 0);
+      const b = parseInt(colorParts[2] || 0);
+
+      // 마지막 글자만 고정폭 처리해 옆 색상 상자와 세로 정렬 맞춤
+      const subType = option.option_sub_type || '';
+      const spaceIndex = subType.lastIndexOf(' ');
+      const labelPrefix = spaceIndex !== -1 ? subType.slice(0, spaceIndex + 1) : '';
+      const labelLetter = spaceIndex !== -1 ? subType.slice(spaceIndex + 1) : subType;
+
+      const itemElement = document.createElement('div');
+      itemElement.className = 'tooltip-stat';
+      itemElement.style.cssText = 'display: flex; align-items: center; gap: 1px; white-space: nowrap;';
+      itemElement.innerHTML = `<span>${labelPrefix}<span style="display: inline-block; width: 1.2em; text-align: left; flex-shrink: 0;">${labelLetter}</span></span><div style="width: 12px; height: 12px; background-color: rgb(${r}, ${g}, ${b}); border: 1px solid white; border-radius: 2px;"></div>`;
+      containerElement.appendChild(itemElement);
     });
+
+    block.appendChild(containerElement);
   }
   
   createOptionElement(option, block, gapClass) {
