@@ -2117,7 +2117,7 @@ class FilterPanel {
     /**
      * 라벨과 필드 순서 등 복합 필터 요소 구성 (다중 조건 카드에서도 공용)
      * @param {object} filter
-     * @param {string} groupPrefix - id/data-id 접두사 (다중 조건일 땐 카드별로 달라야 함)
+     * @param {string} groupPrefix - id/data-id 접두사 (다중 조건 카드별 구분값)
      */
     renderCompositeFieldsHTML(filter, groupPrefix) {
         // 팝오버와 입력 페이지 전용 축약 라벨
@@ -2146,7 +2146,8 @@ class FilterPanel {
                 `;
             }
             const textInputId = `${groupPrefix}-${field.id}`;
-            let fieldHtml = `<div class="filter-group filter-group--stacked"><label class="filter-label"${field.type === 'text' ? ` for="${textInputId}"` : ''}>${fieldLabel(field)}</label>`;
+            // 클릭 시 자동완성 목록 호출 방지
+            let fieldHtml = `<div class="filter-group filter-group--stacked"><label class="filter-label">${fieldLabel(field)}</label>`;
             if (field.type === 'text') {
                 fieldHtml += `<div class="range-input-wrap"><input type="text" class="range-input" autocomplete="off" data-id="${field.id}" id="${textInputId}">${this.renderClearButtonHTML()}<ul class="filter-autocomplete-list"></ul></div>`;
             } else if (field.type === 'select') {
@@ -2443,11 +2444,10 @@ class FilterPanel {
      * @param {string} maxKey
      */
     createConditionalRangeGroupHTML(label, groupId, idAttr, minKey, maxKey) {
-        const primaryInputId = idAttr === 'data-id' ? `${groupId}-${minKey}` : minKey;
         return `
             <div class="filter-group filter-group--conditional">
                 <div class="condition-row">
-                    <label class="filter-label" for="${primaryInputId}">${label}</label>
+                    <label class="filter-label">${label}</label>
                     <div class="condition-segment" data-group="${groupId}">
                         <span class="segment-indicator"></span>
                         <button type="button" class="segment-btn active" data-mode="gte">이상</button>
@@ -2504,7 +2504,7 @@ class FilterPanel {
         const filterId = this.toSafeFilterId(filter.name);
         return `
             <div class="filter-group filter-group--stacked">
-                <label class="filter-label" for="${filterId}-prefix">접두 인챈트</label>
+                <label class="filter-label">접두 인챈트</label>
                 <div class="range-input-wrap">
                     <input type="text" class="range-input" autocomplete="off" id="${filterId}-prefix">
                     ${this.renderClearButtonHTML()}
@@ -2512,7 +2512,7 @@ class FilterPanel {
                 </div>
             </div>
             <div class="filter-group filter-group--stacked">
-                <label class="filter-label" for="${filterId}-suffix">접미 인챈트</label>
+                <label class="filter-label">접미 인챈트</label>
                 <div class="range-input-wrap">
                     <input type="text" class="range-input" autocomplete="off" id="${filterId}-suffix">
                     ${this.renderClearButtonHTML()}
