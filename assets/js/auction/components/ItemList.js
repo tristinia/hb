@@ -297,9 +297,13 @@ const ItemList = (() => {
         state.searchResults = items || [];
         state.lastSearchResults = [...state.searchResults];
         state.filteredResults = [...state.searchResults];
-        
-        // 결과 렌더링
-        renderItemsTable();
+
+        // 활성 필터가 있으면 새 결과에도 유지 적용
+        if (filter.getFilters().activeFilters.length > 0) {
+            applyLocalFiltering();
+        } else {
+            renderItemsTable();
+        }
     }
     
     /**

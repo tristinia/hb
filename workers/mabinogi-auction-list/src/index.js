@@ -56,8 +56,8 @@ export default {
         const requestOrigin = request.headers.get('Origin');
         let allowedOrigin;
 
-        // 요청 Origin이 허용된 Origin 목록에 있는지 확인하고, 있다면 해당 Origin을 허용합니다.
-        if (requestOrigin === 'http://127.0.0.1:5500' || requestOrigin === 'https://mabidb.com') {
+        // 요청 Origin이 허용된 Origin인지 확인하고, 있다면 해당 Origin을 허용합니다.
+        if (requestOrigin === 'http://127.0.0.1:5500' || requestOrigin === 'https://mabidb.com' || requestOrigin === 'https://tristinia.taild8e7aa.ts.net') {
             allowedOrigin = requestOrigin;
         } else {
             // 그 외의 경우, 기본적으로 프로덕션 도메인을 허용합니다.
@@ -92,7 +92,7 @@ export default {
             }
 
             if (requestPath.startsWith('meta/')) {
-                return await handleMetadataRequest(url, env, corsHeaders);
+                return await handleMetadataRequest(request, url, env, ctx, corsHeaders);
             }
 
             return jsonResponse({ error: '찾을 수 없는 API 경로입니다.' }, 404, corsHeaders);
@@ -186,11 +186,9 @@ async function handleUnifiedSearch(url, env, corsHeaders, ctx) {
     }
 
     const finalItems = enrichMuriasRelicDisplayNames(enrichPetMedalDisplayNames(allItems));
-    const availableFilters = generateAvailableFilters(finalItems);
 
-    // D1/KV 동기화는 오직 자유 텍스트 검색(신규 아이템 발견 가능성이 있는 탐색성 검색)에서만 실행.
-    // 자동완성으로 선택한 아이템(시나리오 1)은 이미 D1/KV에 존재하는 게 확실하므로 동기화가 불필요함 —
-    // "라우팅 방식"과 "동기화 필요 여부"를 별도 플래그(isFreeTextSearch)로 분리해 겸용하지 않는다.
+    // D1/KV 동기화는 자유 텍스트 검색에서만 실행 (신규 아이템 발견 가능성이 있는 탐색성 검색)
+    // 자동완성으로 선택한 아이템은 이미 존재가 확인된 상태라 동기화 불필요
     if (isFreeTextSearch && allItems.length > 0) {
         if (allItems.length <= MAX_SYNC_ITEMS) {
             ctx.waitUntil(
@@ -203,12 +201,11 @@ async function handleUnifiedSearch(url, env, corsHeaders, ctx) {
         }
     }
 
-    // 가격 오름차순 정렬 — 프론트는 서버가 정렬해서 준 순서를 그대로 표시한다
+    // 가격 오름차순 정렬 (프론트는 서버가 정렬한 순서를 그대로 표시)
     finalItems.sort((a, b) => a.auction_price_per_unit - b.auction_price_per_unit);
 
     return jsonResponse({
-        items: finalItems,
-        availableFilters: availableFilters
+        items: finalItems
     }, 200, corsHeaders);
 }
 
@@ -410,61 +407,48 @@ async function fetchAllPagesFromNexonApi(initialUrl, apiKey) {
     return allItems;
 }
 
-function generateAvailableFilters(items) {
-    const foundOptionTypes = new Set();
-    if (!items || items.length === 0) {
-        return [];
-    }
+// 메타데이터 유형별 KV 키
+const META_KV_CONFIG = {
+    enchants: { kvKey: 'meta:enchants_combined', emptyValue: { prefix: {}, suffix: {} } },
+    reforges: { kvKey: 'meta:reforges_combined', emptyValue: {}, emptyCategoryValue: [] },
+    'set-effects': { kvKey: 'meta:seteffects_combined', emptyValue: {}, emptyCategoryValue: [] },
+    ecostones: { kvKey: 'meta:ecostones_combined', emptyValue: {}, emptyCategoryValue: [] },
+};
 
-    for (const item of items) {
-        if (item.item_option && Array.isArray(item.item_option)) {
-            for (const option of item.item_option) {
-                if (option.option_type === '펫 정보' && option.option_sub_type && option.option_sub_type !== '종족명') {
-                    foundOptionTypes.add(`펫 정보: ${option.option_sub_type}`);
-                }
-                else if (option.option_type && option.option_type !== '펫 정보') {
-                    foundOptionTypes.add(option.option_type);
-                }
-            }
-        }
-    }
-
-    return Array.from(foundOptionTypes);
-}
-
-async function handleMetadataRequest(url, env, corsHeaders) {
+async function handleMetadataRequest(request, url, env, ctx, corsHeaders) {
     const path = url.pathname.replace('/api/meta/', ''); // 'enchants', 'reforges' 등
     const category = url.searchParams.get('category');
+    const config = META_KV_CONFIG[path];
 
-    let kvKey;
-    let isCombinedEnchants = false;
-
-    if (path === 'enchants') {
-        kvKey = 'meta:enchants_combined';
-        isCombinedEnchants = true;
-    } else if (path === 'reforges' && category) {
-        kvKey = `meta:reforge:${encodeURIComponent(category)}`;
-    } else if (path === 'set-effects' && category) {
-        kvKey = `meta:seteffect:${encodeURIComponent(category)}`;
-    } else if (path === 'ecostones' && category) {
-        kvKey = `meta:ecostone:${encodeURIComponent(category)}`;
-    } else {
+    if (!config) {
         return jsonResponse({ error: '유효하지 않은 메타데이터 요청입니다.' }, 400, corsHeaders);
     }
 
-    const cachedData = await env.MABINOGI_METADATA_CACHE.get(kvKey, 'json');
+    // 응답 직접 캐시 및 출처별 캐시 분리(잘못된 접근 허용 방지)
+    const cache = caches.default;
+    const cacheKeyUrl = new URL(request.url);
+    cacheKeyUrl.searchParams.set('__cache_origin', corsHeaders['Access-Control-Allow-Origin']);
+    const cacheKey = new Request(cacheKeyUrl.toString(), request);
 
-    if (cachedData) {
-        // CDN과 브라우저에 1시간(3600초) 동안 캐시하도록 헤더를 추가합니다.
-        const cacheHeaders = {
-            ...corsHeaders,
-            'Cache-Control': 'public, max-age=3600, s-maxage=3600',
-            'X-Cache-Status': 'HIT'
-        };
-        return jsonResponse(cachedData, 200, cacheHeaders);
+    const cachedResponse = await cache.match(cacheKey);
+    if (cachedResponse) {
+        return cachedResponse;
     }
 
-    console.warn(`메타데이터 캐시 미스: ${kvKey}`);
-    const emptyResponse = isCombinedEnchants ? { prefix: {}, suffix: {} } : [];
-    return jsonResponse(emptyResponse, 404, { ...corsHeaders, 'X-Cache-Status': 'MISS' });
+    const cachedData = await env.MABINOGI_METADATA_CACHE.get(config.kvKey, 'json');
+    const responseData = category
+        ? (cachedData?.[category] ?? config.emptyCategoryValue ?? [])
+        : (cachedData ?? config.emptyValue);
+
+    const cacheHeaders = {
+        ...corsHeaders,
+        'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+        'X-Cache-Status': cachedData ? 'HIT' : 'MISS'
+    };
+
+    if (!cachedData) console.warn(`메타데이터 캐시 미스: ${config.kvKey}`);
+    const response = jsonResponse(responseData, cachedData ? 200 : 404, cacheHeaders);
+
+    ctx.waitUntil(cache.put(cacheKey, response.clone()));
+    return response;
 }

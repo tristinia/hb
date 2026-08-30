@@ -4,13 +4,12 @@
  */
 
 import optionFilter from './option-filter.js';
-import metadataService from '../services/metadata.js';
 
 // 필터 상태
 const state = {
     availableFilters: [],
     activeFilters: [],
-    currentCategory: null,
+    currentCategories: [],
     isInitialized: false,
     debug: false,
     autoCompleteData: {
@@ -34,10 +33,6 @@ function logDebug(...args) {
  */
 async function init() {
     try {
-        // 메타데이터 서비스 초기화
-        await metadataService.initialize();
-        logDebug('메타데이터 서비스 초기화 완료');
-        
         // optionFilter 초기화
         await optionFilter.initialize();
         logDebug('옵션 필터 초기화 완료');
@@ -127,19 +122,66 @@ function removeFilterOption(filterId) {
 }
 
 /**
- * 카테고리별 메타데이터 로드
+ * 검색 결과에 등장하는 아이템 옵션을 추출 (필터 패널에 표시할 필터 종류 결정)
+ * @param {Array} items
+ * @returns {string[]}
  */
-async function loadCategoryMetadata(category) {
-    try {
-        // metadataService를 통해 카테고리별 데이터 로드
-        await metadataService.loadSetEffectForCategory(category);
-        await metadataService.loadReforgeOptionsForCategory(category);
-        
-        // 데이터는 metadataService.metadata에 저장됩니다.
-        logDebug(`카테고리 ${category}의 메타데이터 로드 완료`);
-    } catch (error) {
-        console.error(`카테고리 ${category} 메타데이터 로드 중 오류:`, error);
+function computeAvailableFilters(items) {
+    const foundOptionTypes = new Set();
+    if (!items || items.length === 0) {
+        return [];
     }
+
+    for (const item of items) {
+        if (item.item_option && Array.isArray(item.item_option)) {
+            for (const option of item.item_option) {
+                if (option.option_type === '펫 정보' && option.option_sub_type && option.option_sub_type !== '종족명') {
+                    foundOptionTypes.add(`펫 정보: ${option.option_sub_type}`);
+                }
+                else if (option.option_type && option.option_type !== '펫 정보') {
+                    foundOptionTypes.add(option.option_type);
+                }
+            }
+        }
+    }
+
+    return Array.from(foundOptionTypes);
+}
+
+/**
+ * 검색 결과에 등장하는 카테고리를 추출
+ * @param {Array} items
+ * @returns {string[]}
+ */
+function computeAvailableCategories(items) {
+    const foundCategories = new Set();
+    if (!items || items.length === 0) {
+        return [];
+    }
+
+    for (const item of items) {
+        if (item.auction_item_category) {
+            foundCategories.add(item.auction_item_category);
+        }
+    }
+
+    return Array.from(foundCategories);
+}
+
+/**
+ * 검색 결과에 등장한 카테고리만 기록 (세공 및 세트효과 메타데이터는 이미 전체 로드 상태)
+ * @param {string[]} categories
+ */
+function setCurrentCategories(categories) {
+    state.currentCategories = Array.isArray(categories) ? categories.filter(Boolean) : [];
+}
+
+/**
+ * 현재 검색 결과 카테고리 목록 반환
+ * @returns {string[]}
+ */
+function getCurrentCategories() {
+    return state.currentCategories;
 }
 
 /**
@@ -179,5 +221,9 @@ export default {
     addFilterOption,
     removeFilterOption,
     updateFilterOption,
-    applyFilters
+    applyFilters,
+    setCurrentCategories,
+    getCurrentCategories,
+    computeAvailableFilters,
+    computeAvailableCategories
 };

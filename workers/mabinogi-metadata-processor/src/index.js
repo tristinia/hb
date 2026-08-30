@@ -6,45 +6,55 @@
 
 import { getRepresentativeItemName } from '../../shared/item-identity.js';
 
+/**
+ * option_value에서 이름만 추출
+ */
+function extractOptionName(value) {
+    // 괄호 및 레벨값 패턴 제거
+    let name = value.indexOf('(') !== -1 ? value.slice(0, value.indexOf('(')) : value;
+    name = name.replace(/\s*\d+\s*레벨\s*$/, '');
+    return name.trim();
+}
+
 // 메타데이터 유형별 설정
 const METADATA_CONFIG = {
     'search-index': { // 검색 인덱스 생성 설정 추가
         dbTable: 'items',
         kvKey: 'meta:search_index',
         kvHashKey: 'meta:search_index:hash',
-        cronEnabled: true, // Cron 트리거로 독립 실행 가능하도록 설정
     },
     reforge: {
         dbTable: 'reforges',
         groupColumn: 'category',
-        kvKey: 'meta:reforges_all',
-        kvHashKey: 'meta:reforges_all:hash',
+        kvKey: 'meta:reforges_combined',
+        kvHashKey: 'meta:reforges_combined:hash',
         optionType: '세공 옵션',
-        parseOption: (option) => option.option_value.replace(/\s*\(.*\)/, '').trim(),
+        parseOption: (option) => extractOptionName(option.option_value),
     },
     'set-effect': {
         dbTable: 'set_effects',
         groupColumn: 'category',
-        kvKey: 'meta:seteffects_all',
-        kvHashKey: 'meta:seteffects_all:hash',
+        kvKey: 'meta:seteffects_combined',
+        kvHashKey: 'meta:seteffects_combined:hash',
         optionType: '세트 효과',
         parseOption: (option) => option.option_value,
     },
     ecostone: {
         dbTable: 'ecostones',
         groupColumn: 'type',
-        kvKey: 'meta:ecostones_all',
-        kvHashKey: 'meta:ecostones_all:hash',
+        kvKey: 'meta:ecostones_combined',
+        kvHashKey: 'meta:ecostones_combined:hash',
         optionType: '에코스톤 각성 능력',
         // option: 옵션 객체, item: 아이템 객체
         parseOption: (option, item) => ({
-            type: item.item_name.replace(' 에코스톤', ''), // '레드 에코스톤' -> '레드'
-            name: option.option_value.replace(/\s*\d+\s*레벨$/, '').trim() // "컴뱃 마스터리 최대 대미지 19 레벨" -> "컴뱃 마스터리 최대 대미지"
+            type: item.item_name.replace(' 에코스톤', ''),
+            name: extractOptionName(option.option_value)
         }),
     },
     enchant: { // 인챈트 설정도 명시적으로 추가
         dbTable: 'enchants',
         kvKey: 'meta:enchants_combined',
+        kvHashKey: 'meta:enchants_combined:hash',
         optionType: '인챈트',
     }
 };
@@ -432,16 +442,13 @@ async function handleMetadataUpdate(env, allItems, config, logName) {
             console.log(`[${logName}] D1에 ${totalChanges}개의 신규 옵션 저장됨. KV 캐시 갱신을 시작합니다.`);
             const urlsToPurge = new Set();
 
-            // 1. KV에서 기존 캐시와 해시를 읽어옵니다.
             const [existingCache, oldHash] = await Promise.all([
-                env.MABINOGI_METADATA_CACHE.get(config.kvKey, 'json') || {},
+                env.MABINOGI_METADATA_CACHE.get(config.kvKey, 'json'),
                 env.MABINOGI_METADATA_CACHE.get(config.kvHashKey)
             ]);
 
-            // 2. 메모리에서 캐시를 병합합니다.
             const updatedCache = { ...existingCache };
             for (const groupKey in newOptionsByGroup) {
-                // 캐시 무효화를 위한 URL 생성
                 if (config.dbTable === 'reforges') {
                     urlsToPurge.add(`https://api.mabidb.com/api/meta/reforges?category=${encodeURIComponent(groupKey)}`);
                 } else if (config.dbTable === 'set_effects') {
@@ -450,21 +457,14 @@ async function handleMetadataUpdate(env, allItems, config, logName) {
                     urlsToPurge.add(`https://api.mabidb.com/api/meta/ecostones?category=${encodeURIComponent(groupKey)}`);
                 }
 
-
-                if (!updatedCache[groupKey]) updatedCache[groupKey] = [];
-                const newOpts = Array.from(newOptionsByGroup[groupKey]);
-                newOpts.forEach(opt => {
-                    if (!updatedCache[groupKey].includes(opt)) {
-                        updatedCache[groupKey].push(opt);
-                    }
-                });
-                updatedCache[groupKey].sort(); // 일관성을 위해 정렬
+                const merged = new Set(updatedCache[groupKey] || []);
+                for (const opt of newOptionsByGroup[groupKey]) merged.add(opt);
+                updatedCache[groupKey] = Array.from(merged).sort();
             }
-            
-            // 3. 해시를 비교하여 변경되었을 때만 KV에 저장합니다.
+
             await updateKvCacheWithHash(env, config.kvKey, config.kvHashKey, updatedCache, oldHash);
 
-            // 4. 관련된 URL의 CDN 캐시를 무효화합니다.
+            // 별도 캐시가 존재하지 않아 퍼지 대상 아님
             if (urlsToPurge.size > 0) {
                 await purgeCloudflareCache(env, Array.from(urlsToPurge));
             }
@@ -517,7 +517,8 @@ function parseEnchantNameAndRank(enchantStr) {
 // --- 캐시/집계 헬퍼들 ---
 
 async function updateEnchantCombinedCache(env) {
-    const metaKey = 'meta:enchants_combined';
+    const metaKey = METADATA_CONFIG.enchant.kvKey;
+    const hashKey = METADATA_CONFIG.enchant.kvHashKey;
     // 1. D1의 `enchant_effects` 테이블에서 모든 효과를 가져옵니다.
     const { results: allEffects } = await env.mabinogi_auction_db.prepare(
         'SELECT name, type, rank, template, min, max, variable, condition FROM enchants'
@@ -549,7 +550,12 @@ async function updateEnchantCombinedCache(env) {
         }
     });
 
-    await env.MABINOGI_METADATA_CACHE.put(metaKey, JSON.stringify(payload));
+    const payloadJson = JSON.stringify(payload);
+    const payloadHash = await generateSha256(payloadJson);
+    await Promise.all([
+        env.MABINOGI_METADATA_CACHE.put(metaKey, payloadJson),
+        env.MABINOGI_METADATA_CACHE.put(hashKey, payloadHash)
+    ]);
 
     // 인챈트 API 경로 캐시 무효화
     await purgeCloudflareCache(env, ['https://api.mabidb.com/api/meta/enchants']);

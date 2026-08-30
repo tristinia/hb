@@ -5,21 +5,44 @@
 
 import filterService from '../services/filter.js';
 import optionFilter from '../services/option-filter.js';
+import metadataService from '../services/metadata.js';
+import hangulMatch from '../services/hangul-match.js';
+
+const FILTER_AUTOCOMPLETE_MAX_RESULTS = 3;
 
 /**
- * 프론트엔드에서 지원하는 필터의 설정 목록.
- * 여기에 정의된 필터만 사용자에게 표시됩니다.
- * key: 백엔드의 availableFilters에 포함된 이름
- * value: 필터 UI를 구성하기 위한 설정값
+ * 팝업 및 입력창의 위치 기준 영역 추적
  */
-const FILTER_CONFIGS = {
+function findFixedContainingBlockRect(el) {
+    let node = el.parentElement;
+    while (node && node !== document.body) {
+        const style = getComputedStyle(node);
+        if (
+            style.transform !== 'none' ||
+            style.perspective !== 'none' ||
+            style.filter !== 'none' ||
+            (style.willChange && /transform|perspective|filter/.test(style.willChange)) ||
+            (style.contain && /paint|layout|strict|content/.test(style.contain))
+        ) {
+            return node.getBoundingClientRect();
+        }
+        node = node.parentElement;
+    }
+    return null;
+}
+
+/**
+ * 필터별 표시 및 입력 설정값
+ */
+export const FILTER_CONFIGS = {
     '공격': { displayName: '최대 공격력', type: 'range', fields: { min: '최소', max: '최대' }, field: 'option_value2' },
     '내구력': { displayName: '최대 내구력', type: 'range', fields: { min: '최소', max: '최대' } },
     '밸런스': { displayName: '밸런스', type: 'range', fields: { min: '최소', max: '최대' }, isPercent: true },
     '방어력': { displayName: '방어력', type: 'range', fields: { min: '최소', max: '최대' } },
     '보호': { displayName: '보호', type: 'range', fields: { min: '최소', max: '최대' } },
     '피어싱 레벨': { displayName: '피어싱 레벨', type: 'range', fields: { min: '최소', max: '최대' } },
-    '남은 전용 해제 가능 횟수': { displayName: '전해 횟수', type: 'range', fields: { min: '최소', max: '최대' } },
+    // 전용 해제 옵션이 없는 아이템은 기본 8회로 간주
+    '남은 전용 해제 가능 횟수': { displayName: '전해 횟수', type: 'range', fields: { min: '최소', max: '최대' }, defaultValue: 8 },
     '인챈트': { displayName: '인챈트', type: 'enchant' },
     '특별 개조': { displayName: '특별 개조', type: 'special-mod' },
     '에르그': {
@@ -39,7 +62,9 @@ const FILTER_CONFIGS = {
             { id: 'level', type: 'range', label: '레벨 범위', minId: 'minLevel', maxId: 'maxLevel' }
         ],
         filterType: 'reforge-option',
-        payloadKey: 'options'
+        payloadKey: 'options',
+        multiCondition: true,
+        maxConditions: 3
     },
     '세트 효과': {
         displayName: '세트 효과',
@@ -49,9 +74,10 @@ const FILTER_CONFIGS = {
             { id: 'value', type: 'range', label: '효과 수치', minId: 'minValue', maxId: 'maxValue' }
         ],
         filterType: 'set-effect',
-        payloadKey: 'effects'
+        payloadKey: 'effects',
+        multiCondition: true,
+        maxConditions: 3
     },
-    '세공 랭크': { displayName: '세공', type: 'reforge-status' },
     '남은 거래 횟수': { displayName: '남은 거래 횟수', type: 'range' },
 
     '펫 정보: 남은 분양 횟수': { displayName: '남은 분양 횟수', type: 'range', category: '펫 정보' }
@@ -123,7 +149,14 @@ class FilterPanel {
         // 필터 위치
         window.FilterPanel = this;
     }
-    
+
+    /**
+     * 필터명 -> DOM id/선택자용 안전 문자열 변환
+     */
+    toSafeFilterId(name) {
+        return name.replace(/[^\p{L}\p{N}_-]/gu, '');
+    }
+
     /**
      * 모듈 초기화 진행 표시
      */
@@ -667,8 +700,13 @@ class FilterPanel {
         );
 
         const filtersToDisplay = Object.keys(FILTER_CONFIGS).reduce((acc, filterName) => {
-            if (this.currentAvailableFilters.includes(filterName) && !activeNames.has(filterName)) {
-                const filter = { name: filterName, ...FILTER_CONFIGS[filterName] };
+            const config = FILTER_CONFIGS[filterName];
+            // 다중 필터링 칩 후보상태 유지
+            const isExcluded = config.multiCondition
+                ? this.countSlotChips(filterName) >= (config.maxConditions || 3)
+                : activeNames.has(filterName);
+            if (this.currentAvailableFilters.includes(filterName) && !isExcluded) {
+                const filter = { name: filterName, ...config };
                 if (filter.visible !== false) acc.push(filter);
             }
             return acc;
@@ -686,7 +724,7 @@ class FilterPanel {
                 if (this.candidatesExpansionId !== expansionId) return;
 
                 const candidate = this.createCandidateChip(filter);
-                // "+필터" 칩 바로 앞에 삽입
+                // +필터 칩 바로 앞에 삽입
                 this.filterContainer.insertBefore(candidate, this.mainFilterBtn);
 
                 this.checkFilterRows();
@@ -704,7 +742,7 @@ class FilterPanel {
         if (candidates.length === 0) {
             this.updateMainFilterBtnVisibility();
         } else {
-            // DOM 제거 후에만 "+필터" 표시
+            // DOM 제거 후에만 +필터 표시
             let remaining = candidates.length;
             candidates.forEach(el => {
                 el.classList.add('candidate-exiting');
@@ -725,10 +763,10 @@ class FilterPanel {
     }
 
     /**
-     * 후보 없음/펼침 중엔 "+필터" 숨김
+     * 후보 없음 또는 펼침 중엔 +필터 숨김
      */
     updateMainFilterBtnVisibility() {
-        // 모바일은 단일 "필터" 칩 구조
+        // 모바일은 단일 필터 칩 구조
         if (window.innerWidth <= 768) {
             this.mainFilterBtn.style.display = '';
             return;
@@ -739,7 +777,9 @@ class FilterPanel {
         );
         const hasCandidates = this.currentAvailableFilters.some(filterName => {
             const config = FILTER_CONFIGS[filterName];
-            return !activeNames.has(filterName) && config && config.visible !== false;
+            if (!config || config.visible === false) return false;
+            if (config.multiCondition) return this.countSlotChips(filterName) < (config.maxConditions || 3);
+            return !activeNames.has(filterName);
         });
 
         this.mainFilterBtn.style.display = (hasCandidates && !this.candidatesExpanded) ? '' : 'none';
@@ -754,11 +794,266 @@ class FilterPanel {
 
         candidate.addEventListener('click', (e) => {
             e.stopPropagation();
+            // 3개가 다 찰 때까지 후보 유지
+            if (filter.multiCondition) {
+                this.activateNextSlotChip(filter, candidate);
+                return;
+            }
             candidate.remove();
             this.addAndActivateFilter(filter, false);
         });
 
         return candidate;
+    }
+
+    /**
+     * 다중 필터링 설정 (PC 전용)
+     * @param {object} baseFilter - 필터 설정 원본
+     * @param {HTMLElement} candidateEl - 슬롯이 다 차면 제거할 후보 칩 엘리먼트
+     */
+    activateNextSlotChip(baseFilter, candidateEl) {
+        const maxSlots = baseFilter.maxConditions || 3;
+        const usedIndices = new Set();
+        document.querySelectorAll(`.filter-btn[data-filter^="${baseFilter.name}#"]`).forEach(btn => {
+            const idx = parseInt(btn.dataset.filter.split('#')[1], 10);
+            if (!Number.isNaN(idx)) usedIndices.add(idx);
+        });
+
+        let slotIndex = 0;
+        while (usedIndices.has(slotIndex) && slotIndex < maxSlots) slotIndex++;
+        if (slotIndex >= maxSlots) return;
+
+        const slotFilter = {
+            ...baseFilter,
+            name: `${baseFilter.name}#${slotIndex}`,
+            multiCondition: false,
+            baseName: baseFilter.name,
+            slotIndex,
+            baseFilter
+        };
+
+        this.addAndActivateFilter(slotFilter, false);
+
+        if (usedIndices.size + 1 >= maxSlots) {
+            candidateEl.remove();
+        }
+    }
+
+    /**
+     * 필터 이름#인덱스 패턴 칩 개수 카운트
+     */
+    countSlotChips(baseName) {
+        return document.querySelectorAll(`.filter-btn[data-filter^="${baseName}#"]`).length;
+    }
+
+    /**
+     * 슬롯 삭제 후 뒤 슬롯 순서 재배치 (버튼 위치 유지 교체 및 패널 재생성)
+     * @param {object} slotFilter
+     */
+    deleteSlotChip(slotFilter) {
+        const baseFilter = slotFilter.baseFilter;
+        const maxSlots = baseFilter.maxConditions || 3;
+        const deletedIndex = slotFilter.slotIndex;
+        const deletedId = `${baseFilter.name}#${deletedIndex}`;
+
+        const deletedButton = document.querySelector(`.filter-btn[data-filter="${deletedId}"]`);
+        if (deletedButton) {
+            const deletedPanel = document.getElementById(`filter-panel-${this.toSafeFilterId(deletedId)}`);
+            if (this.activePanel === deletedId) { this.activePanel = null; this.activeButtonEl = null; }
+            deletedButton.remove();
+            // 페이드아웃 후 패널 제거
+            if (deletedPanel) this.closeDesktopPanel(deletedPanel, null, true);
+        }
+        filterService.removeFilterOption(deletedId);
+
+        for (let i = deletedIndex + 1; i < maxSlots; i++) {
+            const oldId = `${baseFilter.name}#${i}`;
+            const newId = `${baseFilter.name}#${i - 1}`;
+            const oldButton = document.querySelector(`.filter-btn[data-filter="${oldId}"]`);
+            if (!oldButton) continue;
+
+            const oldPanel = document.getElementById(`filter-panel-${this.toSafeFilterId(oldId)}`);
+            const wasActivePanel = this.activePanel === oldId;
+
+            const entry = filterService.getFilters().activeFilters.find(f => f.name === oldId);
+            if (entry) {
+                const { name, ...rest } = entry;
+                filterService.addFilterOption(newId, rest);
+            }
+            filterService.removeFilterOption(oldId);
+
+            // 동일 식별자 패널 생성 전 기존 패널 제거
+            if (oldPanel) oldPanel.remove();
+
+            const newSlotFilter = { ...baseFilter, name: newId, multiCondition: false, baseName: baseFilter.name, slotIndex: i - 1, baseFilter };
+            this.addFilterPanel(newSlotFilter);
+            const newButton = this.addFilterButton(newSlotFilter);
+
+            if (newButton) {
+                oldButton.replaceWith(newButton);
+                this.updateFilterButtonStyle(newId, !!entry);
+                if (wasActivePanel) { this.activePanel = newId; this.activeButtonEl = newButton; }
+            } else {
+                oldButton.remove();
+            }
+        }
+
+        this.checkFilterRows();
+        this.adjustResultsContainerPosition();
+        this.updateMainFilterBtnVisibility();
+
+        if (this.candidatesExpanded &&
+            this.currentAvailableFilters.includes(baseFilter.name) &&
+            !this.filterContainer.querySelector(`.filter-btn-candidate[data-candidate-filter="${baseFilter.name}"]`)) {
+            const candidateChip = this.createCandidateChip(baseFilter);
+            this.filterContainer.insertBefore(candidateChip, this.mainFilterBtn);
+        }
+    }
+
+    /**
+     * 다중조건 필터는 슬롯 인덱스 전체 순회로 적용 여부 판단
+     * @param {object} filter
+     */
+    isMultiConditionFilterApplied(filter) {
+        const activeFilters = filterService.getFilters().activeFilters;
+        const maxSlots = filter.maxConditions || 3;
+        for (let i = 0; i < maxSlots; i++) {
+            if (activeFilters.some(f => f.name === `${filter.name}#${i}`)) return true;
+        }
+        return false;
+    }
+
+    /**
+     * 다중조건 필터는 저장 슬롯 순서 재조립으로 캐러셀 채울 배열 구성
+     * @param {object} filter
+     * @returns {Array<Object>|null} 채울 슬롯 배열, 적용된 값이 전혀 없으면 null
+     */
+    getSlotArrayForFilter(filter) {
+        const activeFilters = filterService.getFilters().activeFilters;
+        const maxSlots = filter.maxConditions || 3;
+        const slots = [];
+        let hasAny = false;
+        for (let i = 0; i < maxSlots; i++) {
+            const entry = activeFilters.find(f => f.name === `${filter.name}#${i}`);
+            const slotValue = entry && filter.payloadKey && Array.isArray(entry[filter.payloadKey]) ? entry[filter.payloadKey][0] : null;
+            if (slotValue) {
+                slots.push(slotValue);
+                hasAny = true;
+            } else {
+                slots.push({});
+            }
+        }
+        return hasAny ? slots : null;
+    }
+
+    /**
+     * 다중조건 필터는 인덱스 0부터 지정 인덱스까지 없는 슬롯 칩과 패널 생성
+     * @param {object} baseFilter
+     * @param {number} uptoIndex
+     */
+    ensureSlotChipsUpTo(baseFilter, uptoIndex) {
+        for (let i = 0; i <= uptoIndex; i++) {
+            const slotId = `${baseFilter.name}#${i}`;
+            if (document.querySelector(`.filter-btn[data-filter="${slotId}"]`)) continue;
+
+            const slotFilter = {
+                ...baseFilter,
+                name: slotId,
+                multiCondition: false,
+                baseName: baseFilter.name,
+                slotIndex: i,
+                baseFilter
+            };
+            // 저장된 값 있으면 패널 생성 시 입력폼에 자동 반영
+            this.addFilterPanel(slotFilter);
+            this.addFilterButton(slotFilter);
+        }
+    }
+
+    /**
+     * 슬롯 하나(칩과 패널과 데이터) 제거 (뒤 슬롯 재배치 제외)
+     * @param {string} slotId
+     */
+    removeSlotChip(slotId) {
+        const button = document.querySelector(`.filter-btn[data-filter="${slotId}"]`);
+        if (button) {
+            const panel = document.getElementById(`filter-panel-${this.toSafeFilterId(slotId)}`);
+            if (this.activePanel === slotId) { this.activePanel = null; this.activeButtonEl = null; }
+            button.remove();
+            if (panel) this.closeDesktopPanel(panel, null, true);
+        }
+        filterService.removeFilterOption(slotId);
+    }
+
+    /**
+     * 다중조건 필터는 캐러셀 완료 시점 슬롯 배열을 빈 슬롯 제거와 값 있는 슬롯 갱신으로 반영
+     * @param {object} filter
+     * @param {Array<Object>} conditions
+     */
+    commitSlotConditions(filter, conditions) {
+        let maxValueIndex = -1;
+
+        conditions.forEach((values, i) => {
+            const slotId = `${filter.name}#${i}`;
+            const hasValue = Object.values(values).some(v => v);
+
+            if (hasValue) {
+                maxValueIndex = i;
+                const nestedPayload = {};
+                filter.fields.forEach(field => {
+                    if (field.type === 'text') nestedPayload[field.id] = values[field.id] || '';
+                    if (field.type === 'range') {
+                        nestedPayload[field.minId] = values[field.minId] || '';
+                        nestedPayload[field.maxId] = values[field.maxId] || '';
+                    }
+                });
+                filterService.addFilterOption(slotId, {
+                    type: filter.filterType || filter.type,
+                    [filter.payloadKey]: [nestedPayload]
+                });
+            } else {
+                this.removeSlotChip(slotId);
+            }
+        });
+
+        if (maxValueIndex >= 0) this.ensureSlotChipsUpTo(filter, maxValueIndex);
+
+        conditions.forEach((values, i) => {
+            const slotId = `${filter.name}#${i}`;
+            const hasValue = Object.values(values).some(v => v);
+            this.updateFilterButtonStyle(slotId, hasValue);
+            if (!hasValue) return;
+
+            // 기존 패널의 입력폼 값 재반영 (열려있는 패널은 예외)
+            const panel = document.getElementById(`filter-panel-${this.toSafeFilterId(slotId)}`);
+            if (!panel || panel.classList.contains('active')) return;
+
+            const slotFilter = { ...filter, name: slotId, multiCondition: false, baseName: filter.name, slotIndex: i, baseFilter: filter };
+            this.populateFilterValueForm(panel, slotFilter);
+            panel.querySelectorAll('input, select').forEach(el => {
+                el.dispatchEvent(new Event(el.tagName === 'SELECT' ? 'change' : 'input'));
+            });
+        });
+    }
+
+    /**
+     * 다중조건 필터는 슬롯 전부(데이터와 칩과 패널) 제거 (모바일 삭제 버튼 전용)
+     * @param {object} baseFilter
+     */
+    removeAllSlotChips(baseFilter) {
+        const maxSlots = baseFilter.maxConditions || 3;
+        for (let i = 0; i < maxSlots; i++) {
+            const slotId = `${baseFilter.name}#${i}`;
+            filterService.removeFilterOption(slotId);
+            const button = document.querySelector(`.filter-btn[data-filter="${slotId}"]`);
+            if (!button) continue;
+            const panel = document.getElementById(`filter-panel-${this.toSafeFilterId(slotId)}`);
+            if (panel) this.closeDesktopPanel(panel, button, true);
+            button.remove();
+        }
+        this.checkFilterRows();
+        this.adjustResultsContainerPosition();
+        this.updateMainFilterBtnVisibility();
     }
 
     /**
@@ -826,7 +1121,7 @@ class FilterPanel {
     activateFilterButton(button, filterId) {
 
         // 재클릭 시 토글 닫기
-        const targetPanelId = `filter-panel-${filterId.replace(/\s/g, '')}`;
+        const targetPanelId = `filter-panel-${this.toSafeFilterId(filterId)}`;
         const targetPanel = document.getElementById(targetPanelId);
         if (button.classList.contains('active') && targetPanel && targetPanel.classList.contains('active')) {
             this.closeDesktopPanel(targetPanel, button);
@@ -906,9 +1201,14 @@ class FilterPanel {
      * 데스크톱 팝오버 닫힘 - 모든 경로 공유
      * @param {HTMLElement} panel
      * @param {HTMLElement|null} button
+     * @param {boolean} destroy - true면 닫힘 후 패널 DOM 자체를 제거(필터 삭제 시 재생성 대비 입력값 잔존 방지)
      */
-    closeDesktopPanel(panel, button = null) {
-        if (!panel || !panel.classList.contains('active')) return;
+    closeDesktopPanel(panel, button = null, destroy = false) {
+        if (!panel) return;
+        if (!panel.classList.contains('active')) {
+            if (destroy) panel.remove();
+            return;
+        }
         const token = (panel._closeToken = (panel._closeToken || 0) + 1);
 
         panel.classList.add('closing');
@@ -916,7 +1216,11 @@ class FilterPanel {
 
         const finishClose = () => {
             if (panel._closeToken !== token) return; // 재오픈으로 무효화
-            panel.classList.remove('active', 'closing');
+            if (destroy) {
+                panel.remove();
+            } else {
+                panel.classList.remove('active', 'closing');
+            }
         };
 
         panel.addEventListener('animationend', finishClose, { once: true });
@@ -935,7 +1239,7 @@ class FilterPanel {
      * 필터 삭제
      */
     removeFilter(filterId) {
-        const panelId = `filter-panel-${filterId.replace(/\s/g, '')}`;
+        const panelId = `filter-panel-${this.toSafeFilterId(filterId)}`;
         const panel = document.getElementById(panelId);
 
         // 패널이 활성화되어 있으면 바디 오버플로우 복원
@@ -950,7 +1254,7 @@ class FilterPanel {
         }
 
         if (panel) {
-            this.closeDesktopPanel(panel);
+            this.closeDesktopPanel(panel, null, true);
         }
 
         // 필터 삭제
@@ -980,7 +1284,40 @@ class FilterPanel {
         this.adjustResultsContainerPosition();
         setTimeout(() => this.adjustResultsContainerPosition(), 0);
     }
-    
+
+    /**
+     * 필터 UI 전체 초기화
+     */
+    resetAllFilterUI() {
+        document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+            const filterId = btn.dataset.filter;
+            const panelId = `filter-panel-${this.toSafeFilterId(filterId)}`;
+            const panel = document.getElementById(panelId);
+
+            if (panel && panel.classList.contains('active')) {
+                document.body.style.overflow = '';
+            }
+            if (panel) {
+                this.closeDesktopPanel(panel, null, true);
+            }
+
+            btn.remove();
+        });
+
+        if (this.candidatesExpanded) {
+            this.collapseFilterCandidates();
+        }
+
+        this.updateMobileFilterChipStyle();
+        if (window.innerWidth <= 768 && this.filterOptions.classList.contains('active')) {
+            this.renderMobileFilterSheetList();
+        }
+
+        this.updateMainFilterBtnVisibility();
+        this.checkFilterRows();
+        this.adjustResultsContainerPosition();
+    }
+
     /**
      * 필터 컨테이너가 다층으로 표시되는지 확인
      */
@@ -1046,7 +1383,7 @@ class FilterPanel {
             this.activateFilterButton(newButton, filter.name);
         });
         
-        // 적용된 칩은 항상 후보/+필터보다 앞에 위치
+        // 적용된 칩 위치는 후보 칩보다 앞이면서 활성 목록 끝
         const firstCandidate = this.filterContainer.querySelector('.filter-btn-candidate');
         this.filterContainer.insertBefore(newButton, firstCandidate || this.mainFilterBtn);
 
@@ -1055,7 +1392,12 @@ class FilterPanel {
         if (removeBtn) {
             removeBtn.addEventListener('click', (event) => {
                 event.stopPropagation();
-                this.removeFilter(filter.name);
+                // 슬롯 칩은 그 슬롯 전체 삭제 후 뒤 슬롯 순서 재배치
+                if (filter.baseFilter) {
+                    this.deleteSlotChip(filter);
+                } else {
+                    this.removeFilter(filter.name);
+                }
             });
         }
         
@@ -1071,7 +1413,9 @@ class FilterPanel {
      */
     updateMobileFilterChipStyle() {
         const count = filterService.getFilters().activeFilters.length;
-        this.mainFilterBtn.classList.toggle('filtered', count > 0);
+        // 모바일 전용 칩 강조
+        const isMobile = window.innerWidth <= 768;
+        this.mainFilterBtn.classList.toggle('filtered', isMobile && count > 0);
 
         const title = this.filterOptions.querySelector('.mobile-filter-list-title');
         if (title) title.textContent = count === 0 ? '필터 없음' : `필터 ${count}개`;
@@ -1130,12 +1474,25 @@ class FilterPanel {
         Object.keys(FILTER_CONFIGS).forEach(name => {
             const config = FILTER_CONFIGS[name];
             if (!config || config.visible === false) return;
-            if (appliedNames.has(name)) {
-                applied.push({ name, ...config });
+            const filter = { name, ...config };
+            // 다중조건 필터는 슬롯별 항목 기준으로 적용 여부 판정
+            const isApplied = config.multiCondition
+                ? this.isMultiConditionFilterApplied(filter)
+                : appliedNames.has(name);
+            if (isApplied) {
+                applied.push(filter);
             } else if (this.currentAvailableFilters.includes(name)) {
-                candidates.push({ name, ...config });
+                candidates.push(filter);
             }
         });
+
+        // 적용된 필터 순서는 화면에 놓인 순서 기준
+        const addOrder = new Map();
+        this.filterContainer.querySelectorAll(':scope > .filter-btn[data-filter]').forEach((btn, index) => {
+            const baseName = btn.dataset.filter.split('#')[0];
+            if (!addOrder.has(baseName)) addOrder.set(baseName, index);
+        });
+        applied.sort((a, b) => addOrder.get(a.name) - addOrder.get(b.name));
 
         const optionsContent = document.createElement('div');
         optionsContent.className = 'options-content';
@@ -1189,6 +1546,14 @@ class FilterPanel {
         const wrapper = document.createElement('div');
         wrapper.className = 'mobile-filter-value-panel';
         this.createDesktopPanelUI(wrapper, filter);
+
+        // 다중 조건 캐러셀 인디케이터는 별도 카드로 저장 후 시트 오픈 시 부착
+        if (filter.multiCondition) {
+            const holder = document.createElement('div');
+            holder.innerHTML = this.createSlotIndicatorCardHTML(filter);
+            wrapper._slotIndicatorCard = holder.firstElementChild;
+        }
+
         return wrapper;
     }
 
@@ -1199,10 +1564,12 @@ class FilterPanel {
      * @returns {{getDraft: () => {hasValue: boolean, payload: object|null}}}
      */
     wireMobileFilterValueForm(wrapper, filter) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         const draft = { hasValue: false, payload: null };
 
-        const isApplied = filterService.getFilters().activeFilters.some(f => f.name === filter.name);
+        const isApplied = filter.multiCondition
+            ? this.isMultiConditionFilterApplied(filter)
+            : filterService.getFilters().activeFilters.some(f => f.name === filter.name);
 
         const notify = () => this.updateMobileValueSheetButtons(draft.hasValue, isApplied);
 
@@ -1236,22 +1603,24 @@ class FilterPanel {
                     draft.payload = draft.hasValue ? { type: 'enchant', prefixEnchant: prefix, suffixEnchant: suffix } : null;
                     notify();
                 };
-                if (prefixEl) prefixEl.addEventListener('input', onUpdate);
-                if (suffixEl) suffixEl.addEventListener('input', onUpdate);
-                break;
-            }
-            case 'reforge-status': {
-                const rankEl = wrapper.querySelector(`#${filterId}-rank`);
-                const lineEl = wrapper.querySelector(`#${filterId}-line`);
-                const onUpdate = () => {
-                    const rank = rankEl ? rankEl.value : '';
-                    const lineCount = lineEl ? lineEl.value : '';
-                    draft.hasValue = !!(rank || lineCount);
-                    draft.payload = draft.hasValue ? { type: 'reforge-status', rank, lineCount } : null;
-                    notify();
-                };
-                if (rankEl) rankEl.addEventListener('change', onUpdate);
-                if (lineEl) lineEl.addEventListener('change', onUpdate);
+                if (prefixEl) {
+                    prefixEl.addEventListener('input', () => { this.syncClearVisibility(prefixEl); onUpdate(); });
+                    this.attachClearButton(prefixEl);
+                    this.setupEnchantAutocomplete(prefixEl, '접두', (name) => {
+                        prefixEl.value = name;
+                        this.syncClearVisibility(prefixEl);
+                        onUpdate();
+                    });
+                }
+                if (suffixEl) {
+                    suffixEl.addEventListener('input', () => { this.syncClearVisibility(suffixEl); onUpdate(); });
+                    this.attachClearButton(suffixEl);
+                    this.setupEnchantAutocomplete(suffixEl, '접미', (name) => {
+                        suffixEl.value = name;
+                        this.syncClearVisibility(suffixEl);
+                        onUpdate();
+                    });
+                }
                 break;
             }
             case 'special-mod': {
@@ -1276,6 +1645,19 @@ class FilterPanel {
                 break;
             }
             case 'composite': {
+                if (filter.multiCondition) {
+                    // 슬롯 값 완료 전 임시 보관
+                    const onChange = (conditions) => {
+                        const hasAny = conditions.some(values => Object.values(values).some(v => v));
+                        draft.hasValue = hasAny;
+                        draft.payload = conditions;
+                        notify();
+                    };
+
+                    wrapper._slotCarouselApi = this.setupSlotCarousel(wrapper, filter, onChange, wrapper._slotIndicatorCard);
+                    break;
+                }
+
                 const groupPrefix = filterId;
                 const onUpdate = () => {
                     const values = {};
@@ -1327,8 +1709,15 @@ class FilterPanel {
 
                 wrapper.querySelectorAll('[data-id]').forEach(input => {
                     if (rangeFieldIds.has(input.dataset.id)) return;
-                    input.addEventListener('input', onUpdate);
+                    input.addEventListener('input', () => { this.syncClearVisibility(input); onUpdate(); });
                     input.addEventListener('change', onUpdate);
+                    this.attachClearButton(input);
+                });
+
+                this.setupCompositeNameAutocomplete(wrapper, filter, (name, nameInput) => {
+                    nameInput.value = name;
+                    this.syncClearVisibility(nameInput);
+                    onUpdate();
                 });
                 break;
             }
@@ -1338,15 +1727,24 @@ class FilterPanel {
     }
 
     /**
-     * 입력 페이지 진입 시 저장된 값 사용
+     * 저장된 필터 값으로 입력 필드 채우기
      * @param {HTMLElement} wrapper
      * @param {object} filter
      */
-    populateMobileFilterValueForm(wrapper, filter) {
+    populateFilterValueForm(wrapper, filter) {
+        // 다중조건 캐러셀은 슬롯 전체를 재조립해 값 구성
+        if (filter.multiCondition) {
+            const slots = this.getSlotArrayForFilter(filter);
+            if (slots && wrapper._slotCarouselApi) {
+                wrapper._slotCarouselApi.populate(slots);
+            }
+            return;
+        }
+
         const stored = filterService.getFilters().activeFilters.find(f => f.name === filter.name);
         if (!stored) return;
 
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
 
         const setRangeGroup = (groupId, idAttr, minKey, maxKey, minVal, maxVal) => {
             const segment = wrapper.querySelector(`.condition-segment[data-group="${groupId}"]`);
@@ -1374,13 +1772,6 @@ class FilterPanel {
                 const suffixEl = wrapper.querySelector(`#${filterId}-suffix`);
                 if (prefixEl) prefixEl.value = stored.prefixEnchant || '';
                 if (suffixEl) suffixEl.value = stored.suffixEnchant || '';
-                break;
-            }
-            case 'reforge-status': {
-                const rankEl = wrapper.querySelector(`#${filterId}-rank`);
-                const lineEl = wrapper.querySelector(`#${filterId}-line`);
-                if (rankEl) rankEl.value = stored.rank || '';
-                if (lineEl) lineEl.value = stored.lineCount || '';
                 break;
             }
             case 'special-mod': {
@@ -1427,9 +1818,12 @@ class FilterPanel {
         const wrapper = this.buildMobileFilterValueMarkup(filter);
         this.mobileFilterValueContent.innerHTML = '';
         this.mobileFilterValueContent.appendChild(wrapper);
+        if (wrapper._slotIndicatorCard) {
+            this.mobileFilterValueContent.appendChild(wrapper._slotIndicatorCard);
+        }
 
         const { getDraft } = this.wireMobileFilterValueForm(wrapper, filter);
-        this.populateMobileFilterValueForm(wrapper, filter);
+        this.populateFilterValueForm(wrapper, filter);
 
         wrapper.querySelectorAll('input, select').forEach(el => {
             el.dispatchEvent(new Event(el.tagName === 'SELECT' ? 'change' : 'input'));
@@ -1526,16 +1920,30 @@ class FilterPanel {
      */
     commitMobileFilterValue() {
         const filter = this.currentMobileValueFilter;
+        if (!filter) return;
+
+        // 다중조건 필터는 임시 보관 슬롯 값 일괄 반영
+        if (filter.multiCondition) {
+            const draft = this.currentMobileValueDraft ? this.currentMobileValueDraft() : null;
+            const conditions = draft ? draft.payload : null;
+            if (Array.isArray(conditions)) this.commitSlotConditions(filter, conditions);
+
+            this.returnToMobileFilterList();
+            this.renderMobileFilterSheetList();
+            return;
+        }
+
         const draft = this.currentMobileValueDraft ? this.currentMobileValueDraft() : null;
-        if (!filter || !draft || !draft.hasValue) return;
+        if (!draft || !draft.hasValue) return;
 
         filterService.addFilterOption(filter.name, draft.payload);
 
+        // 데스크톱 팝오버 동시 생성
+        this.addFilterPanel(filter);
         if (!document.querySelector(`.filter-btn[data-filter="${filter.name}"]`)) {
             this.addFilterButton(filter);
         }
         this.updateFilterButtonStyle(filter.name, true, draft.payload);
-        this.updateMobileFilterChipStyle();
 
         this.returnToMobileFilterList();
         this.renderMobileFilterSheetList();
@@ -1547,6 +1955,14 @@ class FilterPanel {
     clearMobileFilterValue() {
         const filter = this.currentMobileValueFilter;
         if (!filter) return;
+
+        // 다중조건 필터는 슬롯 전체를 한 번에 제거 (모바일 삭제 버튼 전용 동작)
+        if (filter.multiCondition) {
+            this.removeAllSlotChips(filter);
+            this.returnToMobileFilterList();
+            this.renderMobileFilterSheetList();
+            return;
+        }
 
         if (document.querySelector(`.filter-btn[data-filter="${filter.name}"]`)) {
             this.removeFilter(filter.name);
@@ -1581,20 +1997,33 @@ class FilterPanel {
         this.activeButtonEl = null;
 
         document.querySelectorAll('.filter-btn.active[data-filter]').forEach(btn => btn.classList.remove('active'));
+
+        // 전환 시점에 메인 버튼 갱신
+        this.updateMobileFilterChipStyle();
+        this.updateMainFilterBtnVisibility();
     }
 
     addFilterPanel(filter) {
-        const existingPanel = document.getElementById(`filter-panel-${filter.name}`);
+        const panelId = `filter-panel-${this.toSafeFilterId(filter.name)}`;
+        const existingPanel = document.getElementById(panelId);
         if (existingPanel) {
             return existingPanel;
         }
 
         const panel = document.createElement('div');
         panel.className = 'filter-panel';
-        panel.id = `filter-panel-${filter.name.replace(/\s/g, '')}`;
+        panel.id = panelId;
 
         this.createDesktopPanelUI(panel, filter);
         this.setupFilterEventListeners(panel, filter, false);
+
+        // 이미 적용된 필터면 값 추가
+        if (filterService.getFilters().activeFilters.some(f => f.name === filter.name)) {
+            this.populateFilterValueForm(panel, filter);
+            panel.querySelectorAll('input, select').forEach(el => {
+                el.dispatchEvent(new Event(el.tagName === 'SELECT' ? 'change' : 'input'));
+            });
+        }
 
         this.filterPanels.appendChild(panel);
 
@@ -1609,12 +2038,11 @@ class FilterPanel {
 
         panel.classList.toggle('filter-panel--popover', ['range', 'special-mod', 'composite', 'enchant'].includes(filter.type));
 
-        if (filter.type === 'special-mod' || filter.type === 'composite' || filter.type === 'enchant' || filter.type === 'reforge-status' || filter.type === 'range') {
+        if (filter.type === 'special-mod' || filter.type === 'composite' || filter.type === 'enchant' || filter.type === 'range') {
             const filterContent = document.createElement('div');
             if (filter.type === 'special-mod') filterContent.innerHTML = this.createSpecialModFilterUI(filter);
             if (filter.type === 'composite') filterContent.innerHTML = this.createCompositeFilterUI(filter);
             if (filter.type === 'enchant') filterContent.innerHTML = this.createEnchantFilterUI(filter);
-            if (filter.type === 'reforge-status') filterContent.innerHTML = this.createReforgeStatusFilterUI(filter);
             if (filter.type === 'range') filterContent.innerHTML = this.createRangeFilterUI(filter);
             panel.appendChild(filterContent);
         } else {
@@ -1640,12 +2068,59 @@ class FilterPanel {
     }
 
     /**
-     * 복합 필터 UI
+     * .range-input-wrap 하위 X버튼 마크업 (range/text 계열 입력창 공용)
+     */
+    renderClearButtonHTML() {
+        return `
+            <button type="button" class="range-input-clear" tabindex="-1" aria-label="입력값 지우기">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        `;
+    }
+
+    /**
+     * 값 유무에 따라 X버튼 표시 토글
+     */
+    syncClearVisibility(input) {
+        const wrap = input.closest('.range-input-wrap');
+        const clearBtn = wrap ? wrap.querySelector('.range-input-clear') : null;
+        if (clearBtn) clearBtn.classList.toggle('visible', input.value.trim() !== '');
+    }
+
+    /**
+     * X버튼 클릭 시 입력값 초기화 - 기존 input 리스너로 위임
+     */
+    attachClearButton(input) {
+        const wrap = input.closest('.range-input-wrap');
+        const clearBtn = wrap ? wrap.querySelector('.range-input-clear') : null;
+        if (!clearBtn) return;
+        clearBtn.addEventListener('click', () => {
+            input.value = '';
+            input.dispatchEvent(new Event('input'));
+        });
+    }
+
+    /**
+     * 복합 필터 UI (다중조건 필터는 모바일 시트 캐러셀 요소만 사용)
      */
     createCompositeFilterUI(filter) {
-        const groupPrefix = filter.name.replace(/\s/g, '');
+        if (filter.multiCondition) {
+            return this.createSlotTrackUI(filter);
+        }
 
-        // 팝오버/입력 페이지 전용 축약 라벨
+        return this.renderCompositeFieldsHTML(filter, this.toSafeFilterId(filter.name));
+    }
+
+    /**
+     * 라벨과 필드 순서 등 복합 필터 요소 구성 (다중 조건 카드에서도 공용)
+     * @param {object} filter
+     * @param {string} groupPrefix - id/data-id 접두사 (다중 조건 카드별 구분값)
+     */
+    renderCompositeFieldsHTML(filter, groupPrefix) {
+        // 팝오버와 입력 페이지 전용 축약 라벨
         const desktopFieldLabels = {
             'erg': { grade: '에르그 등급', level: '에르그 레벨' },
             'reforge-option': { name: '세공 이름', level: '세공 레벨' },
@@ -1671,9 +2146,10 @@ class FilterPanel {
                 `;
             }
             const textInputId = `${groupPrefix}-${field.id}`;
-            let fieldHtml = `<div class="filter-group filter-group--stacked"><label class="filter-label"${field.type === 'text' ? ` for="${textInputId}"` : ''}>${fieldLabel(field)}</label>`;
+            // 클릭 시 자동완성 목록 호출 방지
+            let fieldHtml = `<div class="filter-group filter-group--stacked"><label class="filter-label">${fieldLabel(field)}</label>`;
             if (field.type === 'text') {
-                fieldHtml += `<div class="text-input-wrap"><input type="text" class="range-input" autocomplete="off" data-id="${field.id}" id="${textInputId}"></div>`;
+                fieldHtml += `<div class="range-input-wrap"><input type="text" class="range-input" autocomplete="off" data-id="${field.id}" id="${textInputId}">${this.renderClearButtonHTML()}<ul class="filter-autocomplete-list"></ul></div>`;
             } else if (field.type === 'select') {
                 const optionsHtml = Object.entries(field.options).map(([value, text]) => `<option value="${value}">${text}</option>`).join('');
                 fieldHtml += `<select class="dropdown-select" data-id="${field.id}">${optionsHtml}</select>`;
@@ -1681,6 +2157,253 @@ class FilterPanel {
             fieldHtml += `</div>`;
             return fieldHtml;
         }).join('');
+    }
+
+    /**
+     * 슬롯 트랙(뷰포트와 슬라이드) 담당 (화살표와 점은 별도 컴포넌트)
+     */
+    createSlotTrackUI(filter) {
+        const slotCount = filter.maxConditions || 3;
+        const groupBase = this.toSafeFilterId(filter.name);
+
+        const slidesHtml = Array.from({ length: slotCount }, (_, i) => {
+            const fieldsHtml = this.renderCompositeFieldsHTML(filter, `${groupBase}-slot${i}`);
+            return `<div class="slot-carousel-slide" data-slot-index="${i}">${fieldsHtml}</div>`;
+        }).join('');
+
+        return `<div class="slot-carousel-viewport"><div class="slot-carousel-track">${slidesHtml}</div></div>`;
+    }
+
+    /**
+     * 슬롯 점 인디케이터만 (화살표는 별도 컴포넌트)
+     */
+    createSlotDotsUI(filter) {
+        const slotCount = filter.maxConditions || 3;
+        const dotsHtml = Array.from({ length: slotCount }, (_, i) =>
+            `<button type="button" class="slot-carousel-dot" data-slot-index="${i}" aria-label="조건 ${i + 1}"><span class="slot-carousel-dot-inner"></span></button>`
+        ).join('');
+        return `<div class="slot-carousel-dots">${dotsHtml}</div>`;
+    }
+
+    /**
+     * 이전과 다음 화살표 버튼 1개
+     * @param {'prev'|'next'} direction
+     */
+    renderSlotArrowHTML(direction) {
+        const points = direction === 'prev' ? '15 18 9 12 15 6' : '9 18 15 12 9 6';
+        const label = direction === 'prev' ? '이전 조건' : '다음 조건';
+        return `
+            <button type="button" class="slot-carousel-arrow slot-carousel-arrow--${direction}" aria-label="${label}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="${points}"></polyline></svg>
+            </button>
+        `;
+    }
+
+    /**
+     * 모바일 전용 화살표와 점을 필드 카드와 분리된 별도 카드로 감싼 요소 (한 줄 배치)
+     */
+    createSlotIndicatorCardHTML(filter) {
+        return `
+            <div class="slot-carousel-indicator-card">
+                ${this.renderSlotArrowHTML('prev')}
+                ${this.createSlotDotsUI(filter)}
+                ${this.renderSlotArrowHTML('next')}
+            </div>
+        `;
+    }
+
+    /**
+     * 다중조건 필터 슬롯 캐러셀 동작 연결 (모바일 시트 전용)
+     * @param {HTMLElement} panel - 트랙(뷰포트/슬라이드)이 들어있는 요소
+     * @param {object} filter
+     * @param {Function} onChange - (conditions: Array<Object>) => void, 항상 슬롯 개수만큼의 배열
+     * @param {HTMLElement} indicatorRoot - 화살표/점이 들어있는 별도 카드
+     * @returns {{ populate: (storedArray: Array<Object>) => void }}
+     */
+    setupSlotCarousel(panel, filter, onChange, indicatorRoot) {
+        const track = panel.querySelector('.slot-carousel-track');
+        const viewport = panel.querySelector('.slot-carousel-viewport');
+        if (!track || !viewport) return { populate: () => {} };
+
+        const root = indicatorRoot;
+        const prevBtn = root.querySelector('.slot-carousel-arrow--prev');
+        const nextBtn = root.querySelector('.slot-carousel-arrow--next');
+        const slides = Array.from(track.querySelectorAll('.slot-carousel-slide'));
+        const dotsContainer = root.querySelector('.slot-carousel-dots');
+        const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.slot-carousel-dot')) : [];
+        const slotCount = slides.length;
+
+        let currentIndex = 0;
+
+        const getSlotValues = (index) => {
+            const values = {};
+            slides[index].querySelectorAll('[data-id]').forEach(input => { values[input.dataset.id] = input.value.trim(); });
+            return values;
+        };
+
+        // 채움 여부는 필드 값 존재 기준 (저장 판정 기준과 동일)
+        const updateDots = () => {
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+                const values = getSlotValues(i);
+                const filled = Object.values(values).some(v => v);
+                dot.classList.toggle('filled', filled);
+            });
+        };
+
+        const updateArrows = () => {
+            if (prevBtn) prevBtn.disabled = currentIndex === 0;
+            if (nextBtn) nextBtn.disabled = currentIndex === slotCount - 1;
+        };
+
+        // 비활성 슬라이드 요소는 화면 밖에서도 유지되어 포커스 이동 가능 (현재 슬라이드만 포커스 허용)
+        const updateInputFocusability = () => {
+            slides.forEach((slide, i) => {
+                slide.querySelectorAll('input').forEach(input => { input.tabIndex = i === currentIndex ? 0 : -1; });
+            });
+        };
+
+        let settleTimer = null;
+        const goTo = (index, animate = true) => {
+            currentIndex = Math.max(0, Math.min(slotCount - 1, index));
+
+            // 전환 시점에 트랙 안 입력창이 포커스를 쥐고 있으면(화면 밖으로 밀려나도 포커스는
+            // 안 풀림) 다음 슬라이드가 마치 클릭된 것처럼 보이므로 미리 해제
+            const active = document.activeElement;
+            if (active && track.contains(active) && typeof active.blur === 'function') active.blur();
+
+            const targetTransform = `translateX(-${currentIndex * 100}%)`;
+            track.style.transition = animate ? 'transform var(--duration-fast) ease-out' : 'none';
+            track.style.transform = targetTransform;
+            updateInputFocusability();
+            updateDots();
+            updateArrows();
+
+            // 전환 도중 새 터치 개입 시 애니메이션이 중간에 멈출 수 있음 (지속시간 후 목표 위치로 재보정)
+            if (settleTimer) clearTimeout(settleTimer);
+            if (animate) {
+                settleTimer = setTimeout(() => { track.style.transform = targetTransform; }, 200);
+            }
+        };
+
+        const notifyChange = () => {
+            onChange(slides.map((_, i) => getSlotValues(i)));
+            updateDots();
+        };
+
+        if (prevBtn) prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
+        if (nextBtn) nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
+        dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+        // 스와이프는 세로 드래그(시트 닫기)와 겹치지 않도록 가로 이동이 뚜렷할 때만 개입
+        const SWIPE_THRESHOLD = 40;
+        let touchStartX = null;
+        let touchStartY = null;
+        let dragging = false;
+
+        viewport.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            dragging = false;
+        }, { passive: true });
+
+        viewport.addEventListener('touchmove', (e) => {
+            if (touchStartX === null) return;
+            const dx = e.touches[0].clientX - touchStartX;
+            const dy = e.touches[0].clientY - touchStartY;
+            if (!dragging) {
+                if (Math.abs(dx) < 10 || Math.abs(dx) < Math.abs(dy)) return;
+                dragging = true;
+                track.style.transition = 'none';
+            }
+            if (e.cancelable) e.preventDefault();
+            e.stopPropagation();
+            const percent = (dx / viewport.clientWidth) * 100;
+            track.style.transform = `translateX(calc(-${currentIndex * 100}% + ${percent}%))`;
+        }, { passive: false });
+
+        viewport.addEventListener('touchend', (e) => {
+            if (touchStartX === null) return;
+            const endX = e.changedTouches && e.changedTouches.length ? e.changedTouches[0].clientX : touchStartX;
+            const dx = endX - touchStartX;
+            touchStartX = null;
+            touchStartY = null;
+            if (!dragging) return;
+            dragging = false;
+
+            if (dx <= -SWIPE_THRESHOLD) goTo(currentIndex + 1);
+            else if (dx >= SWIPE_THRESHOLD) goTo(currentIndex - 1);
+            else goTo(currentIndex);
+        });
+
+        viewport.addEventListener('touchcancel', () => {
+            touchStartX = null;
+            touchStartY = null;
+            if (dragging) {
+                dragging = false;
+                goTo(currentIndex);
+            }
+        });
+
+        slides.forEach((slide, i) => {
+            const rangeFieldIds = new Set();
+            filter.fields.forEach(field => {
+                if (field.type !== 'range') return;
+                rangeFieldIds.add(field.minId);
+                rangeFieldIds.add(field.maxId);
+                const groupId = `${this.toSafeFilterId(filter.name)}-slot${i}-${field.id}`;
+                this.setupConditionalRangeEvents(slide, groupId, field.minId, field.maxId, 'data-id', notifyChange);
+            });
+
+            slide.querySelectorAll('[data-id]').forEach(input => {
+                if (rangeFieldIds.has(input.dataset.id)) return;
+                input.addEventListener('input', () => { this.syncClearVisibility(input); notifyChange(); });
+                this.attachClearButton(input);
+            });
+
+            this.setupCompositeNameAutocomplete(slide, filter, (name, nameInput) => {
+                nameInput.value = name;
+                this.syncClearVisibility(nameInput);
+                notifyChange();
+            });
+        });
+
+        // 패널과 시트를 처음 열 때 첫 번째 슬롯 기본 표시
+        goTo(0, false);
+
+        const populate = (storedArray) => {
+            if (!Array.isArray(storedArray)) return;
+            slides.forEach((slide, i) => {
+                const flatValues = storedArray[i] || {};
+                filter.fields.forEach(field => {
+                    if (field.type === 'text') {
+                        const el = slide.querySelector(`[data-id="${field.id}"]`);
+                        if (el) el.value = flatValues[field.id] || '';
+                        return;
+                    }
+                    if (field.type !== 'range') return;
+
+                    const groupId = `${this.toSafeFilterId(filter.name)}-slot${i}-${field.id}`;
+                    const segment = slide.querySelector(`.condition-segment[data-group="${groupId}"]`);
+                    if (!segment) return;
+
+                    const minVal = flatValues[field.minId];
+                    const maxVal = flatValues[field.maxId];
+                    const mode = (minVal && maxVal) ? 'range' : (maxVal ? 'lte' : 'gte');
+                    const targetBtn = segment.querySelector(`.segment-btn[data-mode="${mode}"]`);
+                    if (targetBtn && !targetBtn.classList.contains('active')) targetBtn.click();
+
+                    const get = (key) => slide.querySelector(`.condition-inputs[data-group="${groupId}"] [data-id="${key}"]`);
+                    const minEl = get(field.minId);
+                    const maxEl = get(field.maxId);
+                    if (minEl && minVal) minEl.value = minVal;
+                    if (maxEl && maxVal) maxEl.value = maxVal;
+                });
+            });
+            updateDots();
+        };
+
+        return { populate };
     }
 
     /**
@@ -1697,9 +2420,6 @@ class FilterPanel {
                 this.setupSelectionFilterEvents(panel, filter);
                 break;
             case 'enchant': this.setupEnchantFilterEvents(panel, filter); break;
-            case 'reforge-status':
-                this.setupReforgeStatusFilterEvents(panel, filter);
-                break;
             case 'special-mod': this.setupSpecialModFilterEvents(panel, filter); break;
             case 'composite':
                 this.setupCompositeFilterEvents(panel, filter);
@@ -1711,7 +2431,7 @@ class FilterPanel {
      * 범위 필터 UI 생성
      */
     createRangeFilterUI(filter, isMobile = false) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         return this.createConditionalRangeGroupHTML(filter.displayName, filterId, 'id', `${filterId}-min`, `${filterId}-max`);
     }
 
@@ -1724,11 +2444,10 @@ class FilterPanel {
      * @param {string} maxKey
      */
     createConditionalRangeGroupHTML(label, groupId, idAttr, minKey, maxKey) {
-        const primaryInputId = idAttr === 'data-id' ? `${groupId}-${minKey}` : minKey;
         return `
             <div class="filter-group filter-group--conditional">
                 <div class="condition-row">
-                    <label class="filter-label" for="${primaryInputId}">${label}</label>
+                    <label class="filter-label">${label}</label>
                     <div class="condition-segment" data-group="${groupId}">
                         <span class="segment-indicator"></span>
                         <button type="button" class="segment-btn active" data-mode="gte">이상</button>
@@ -1753,7 +2472,12 @@ class FilterPanel {
      */
     renderConditionInputsHTML(mode, idAttr, minKey, maxKey, groupId) {
         const attr = (key) => idAttr === 'data-id' ? `data-id="${key}" id="${groupId}-${key}"` : `id="${key}"`;
-        const field = (key, extraClass = '') => `<input type="text" inputmode="decimal" data-numeric="true" autocomplete="off" class="range-input${extraClass}" ${attr(key)}>`;
+        const field = (key, extraClass = '') => `
+            <div class="range-input-wrap${extraClass}">
+                <input type="text" inputmode="decimal" data-numeric="true" autocomplete="off" class="range-input" ${attr(key)}>
+                ${this.renderClearButtonHTML()}
+            </div>
+        `;
 
         if (mode === 'gte') return `<div class="range-filter">${field(minKey)}</div>`;
         if (mode === 'lte') return `<div class="range-filter">${field(maxKey)}</div>`;
@@ -1766,7 +2490,7 @@ class FilterPanel {
     createSelectionFilterUI(filter) {
                 // 옵션 목록은 동적으로 가져와야 합니다.
         return `
-            <select class="dropdown-select" id="${filter.name.replace(/\s/g, '')}-select">
+            <select class="dropdown-select" id="${this.toSafeFilterId(filter.name)}-select">
                 <option value="">선택하세요</option>
                 <!-- 옵션은 동적으로 추가됩니다 -->
             </select>
@@ -1777,18 +2501,22 @@ class FilterPanel {
      * 인챈트 필터 UI 생성
      */
     createEnchantFilterUI(filter) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         return `
             <div class="filter-group filter-group--stacked">
-                <label class="filter-label" for="${filterId}-prefix">접두 인챈트</label>
-                <div class="text-input-wrap">
+                <label class="filter-label">접두 인챈트</label>
+                <div class="range-input-wrap">
                     <input type="text" class="range-input" autocomplete="off" id="${filterId}-prefix">
+                    ${this.renderClearButtonHTML()}
+                    <ul class="filter-autocomplete-list"></ul>
                 </div>
             </div>
             <div class="filter-group filter-group--stacked">
-                <label class="filter-label" for="${filterId}-suffix">접미 인챈트</label>
-                <div class="text-input-wrap">
+                <label class="filter-label">접미 인챈트</label>
+                <div class="range-input-wrap">
                     <input type="text" class="range-input" autocomplete="off" id="${filterId}-suffix">
+                    ${this.renderClearButtonHTML()}
+                    <ul class="filter-autocomplete-list"></ul>
                 </div>
             </div>
         `;
@@ -1798,7 +2526,7 @@ class FilterPanel {
      * 특별 개조 필터 UI 생성
      */
     createSpecialModFilterUI(filter) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         return `
             <div class="filter-group filter-group--stacked">
                 <label class="filter-label">특별 개조 타입</label>
@@ -1813,38 +2541,10 @@ class FilterPanel {
     }
     
     /**
-     * 세공 상태 필터 UI 생성
-     */
-    createReforgeStatusFilterUI(filter) {
-        return `
-            <div class="filter-group filter-group--stacked">
-                <label class="filter-label">세공 랭크</label>
-                <select class="dropdown-select" id="${filter.name.replace(/\s/g, '')}-rank">
-                    <option value="">전체</option>
-                    <option value="1">1랭크</option>
-                    <option value="2">2랭크</option>
-                    <option value="3">3랭크</option>
-                    <option value="4">4랭크</option>
-                    <option value="5">5랭크</option>
-                </select>
-            </div>
-            <div class="filter-group filter-group--stacked">
-                <label class="filter-label">옵션 줄 수</label>
-                <select class="dropdown-select" id="${filter.name.replace(/\s/g, '')}-line">
-                    <option value="">전체</option>
-                    <option value="1">1줄</option>
-                    <option value="2">2줄</option>
-                    <option value="3">3줄</option>
-                </select>
-            </div>
-        `;
-    }
-
-    /**
      * 범위 필터 이벤트 설정
      */
     setupRangeFilterEvents(panel, filter, isMobile = false) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         const minKey = `${filterId}-min`;
         const maxKey = `${filterId}-max`;
 
@@ -1904,10 +2604,24 @@ class FilterPanel {
             ? inputsContainer.querySelector(`[data-id="${key}"]`)
             : inputsContainer.querySelector(`#${key}`);
 
+        // 조건 전환으로 필드가 안 보이는 동안에도 값 보존
+        const cache = { min: '', max: '' };
+        const syncCache = () => {
+            const minInput = getInput(minKey);
+            const maxInput = getInput(maxKey);
+            if (minInput) cache.min = minInput.value.trim();
+            if (maxInput) cache.max = maxInput.value.trim();
+        };
+
         const wireInputs = () => {
             this.attachNumericInputGuards(inputsContainer);
             inputsContainer.querySelectorAll('input').forEach(input => {
-                input.addEventListener('input', onUpdate);
+                input.addEventListener('input', () => {
+                    syncCache();
+                    this.syncClearVisibility(input);
+                    onUpdate();
+                });
+                this.attachClearButton(input);
             });
         };
         wireInputs();
@@ -1920,10 +2634,7 @@ class FilterPanel {
             if (!btn || btn.classList.contains('active')) return;
 
             const newMode = btn.dataset.mode;
-            const minInput = getInput(minKey);
-            const maxInput = getInput(maxKey);
-            const minVal = minInput ? minInput.value.trim() : '';
-            const maxVal = maxInput ? maxInput.value.trim() : '';
+            syncCache();
 
             segment.querySelectorAll('.segment-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -1932,11 +2643,11 @@ class FilterPanel {
             inputsContainer.innerHTML = this.renderConditionInputsHTML(newMode, idAttr, minKey, maxKey, groupId);
             wireInputs();
 
-            // 기존에 입력된 값이 있으면 새 모드에서도 유지
+            // 캐시된 값으로 복원 (숨겨졌던 필드도 포함)
             const newMinInput = getInput(minKey);
             const newMaxInput = getInput(maxKey);
-            if (newMinInput && minVal) newMinInput.value = minVal;
-            if (newMaxInput && maxVal) newMaxInput.value = maxVal;
+            if (newMinInput && cache.min) { newMinInput.value = cache.min; this.syncClearVisibility(newMinInput); }
+            if (newMaxInput && cache.max) { newMaxInput.value = cache.max; this.syncClearVisibility(newMaxInput); }
 
             onUpdate();
         });
@@ -1946,7 +2657,7 @@ class FilterPanel {
      * 선택 필터 이벤트 설정
      */
     setupSelectionFilterEvents(panel, filter) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         const select = panel.querySelector(`#${filterId}-select`);
         
         if (select) {
@@ -1976,7 +2687,7 @@ class FilterPanel {
      * 인챈트 필터 이벤트 설정
      */
     setupEnchantFilterEvents(panel, filter) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         const prefixInput = panel.querySelector(`#${filterId}-prefix`);
         const suffixInput = panel.querySelector(`#${filterId}-suffix`);
         
@@ -2004,11 +2715,239 @@ class FilterPanel {
             };
             
             // 이벤트 리스너
-            prefixInput.addEventListener('input', updateFilter);
-            suffixInput.addEventListener('input', updateFilter);
+            prefixInput.addEventListener('input', () => { this.syncClearVisibility(prefixInput); updateFilter(); });
+            suffixInput.addEventListener('input', () => { this.syncClearVisibility(suffixInput); updateFilter(); });
+            this.attachClearButton(prefixInput);
+            this.attachClearButton(suffixInput);
+
+            this.setupEnchantAutocomplete(prefixInput, '접두', (name) => {
+                prefixInput.value = name;
+                this.syncClearVisibility(prefixInput);
+                updateFilter();
+            });
+            this.setupEnchantAutocomplete(suffixInput, '접미', (name) => {
+                suffixInput.value = name;
+                this.syncClearVisibility(suffixInput);
+                updateFilter();
+            });
         }
     }
-    
+
+    /**
+     * 텍스트 입력창에 초성 인식 자동완성 드롭다운 연결 (인챈트 세공 옵션 세트 효과 공용)
+     * @param {HTMLInputElement} input
+     * @param {Function} getCandidates - () => string[] 자동완성 후보 문자열 배열 (매 입력마다 호출)
+     * @param {Function} onSelect - 후보 선택 시 호출 (name: string) => void
+     */
+    setupAutocompleteDropdown(input, getCandidates, onSelect) {
+        const wrap = input.closest('.range-input-wrap');
+        const listEl = wrap ? wrap.querySelector('.filter-autocomplete-list') : null;
+        if (!listEl) return;
+
+        // 슬롯 캐러셀 뷰포트 내부 잘림 방지 위치 이동 (다른 입력창과 동일 위치)
+        const carouselViewport = listEl.closest('.slot-carousel-viewport');
+        if (carouselViewport && carouselViewport.parentElement) {
+            carouselViewport.parentElement.appendChild(listEl);
+        }
+
+        let activeIndex = -1;
+        let currentNames = [];
+
+        // 팝오버와 시트 조상 영역에 잘리지 않도록 입력창 위치 기준 매번 재계산
+        // 실제 기준 영역(위치 변형 있는 조상 또는 화면) 기준 좌표 정렬
+        const positionList = () => {
+            const rect = input.getBoundingClientRect();
+            const containingRect = findFixedContainingBlockRect(listEl);
+
+            let originLeft = 0;
+            let originTop = 0;
+            if (containingRect) {
+                originLeft = containingRect.left;
+                originTop = containingRect.top;
+            } else if (window.visualViewport) {
+                // 화면 좌표 기준일 때만 키보드 노출 등으로 밀린 만큼 보정
+                originLeft = -window.visualViewport.offsetLeft;
+                originTop = -window.visualViewport.offsetTop;
+            }
+
+            listEl.style.left = `${rect.left - originLeft}px`;
+            listEl.style.top = `${rect.bottom - originTop + 4}px`;
+            listEl.style.width = `${rect.width}px`;
+        };
+
+        // 화면 고정 요소는 스크롤을 따라오지 않아 스크롤이나 크기 변경 시 위치 재계산
+        const reposition = () => positionList();
+
+        const showList = () => {
+            // 닫힘 애니메이션 도중 재오픈된 경우 무효화 (다른 패널 닫힘 처리와 동일 패턴)
+            listEl._closeToken = (listEl._closeToken || 0) + 1;
+            listEl.classList.remove('closing');
+            window.addEventListener('scroll', reposition, true);
+            window.addEventListener('resize', reposition);
+            positionList();
+            listEl.classList.add('visible'); // 이미 열린 상태에서는 클래스 재추가로만 애니메이션 재생 가능
+        };
+
+        const hideList = () => {
+            if (!listEl.classList.contains('visible')) return;
+
+            const token = (listEl._closeToken = (listEl._closeToken || 0) + 1);
+            listEl.classList.add('closing');
+
+            const finishHide = () => {
+                if (listEl._closeToken !== token) return;
+                listEl.classList.remove('visible', 'closing');
+                listEl.innerHTML = ''; // 닫힘 효과 끝난 뒤 내용 비움 (빈 상자로 남는 문제 방지)
+                window.removeEventListener('scroll', reposition, true);
+                window.removeEventListener('resize', reposition);
+            };
+
+            listEl.addEventListener('animationend', finishHide, { once: true });
+            setTimeout(finishHide, 120);
+        };
+
+        const closeList = () => {
+            hideList();
+            activeIndex = -1;
+            currentNames = [];
+        };
+
+        const updateActive = () => {
+            listEl.querySelectorAll('.filter-autocomplete-item').forEach((el, idx) => {
+                el.classList.toggle('active', idx === activeIndex);
+            });
+        };
+
+        const renderList = (names) => {
+            currentNames = names;
+            activeIndex = -1;
+            if (names.length > 0) {
+                // 닫히는 동안 목록 내용 유지 (급작스러운 항목 제거 방지)
+                listEl.innerHTML = names.map(name => `<li class="filter-autocomplete-item">${name}</li>`).join('');
+                showList();
+            } else {
+                hideList();
+            }
+        };
+
+        const selectName = (name) => {
+            closeList();
+            onSelect(name);
+        };
+
+        const updateSuggestions = (e) => {
+            // 프로그램적으로 발생시킨 값 변경은 무시 (실제 타이핑이나 탭 입력에만 반응)
+            if (e && !e.isTrusted) return;
+
+            const query = input.value.trim();
+            if (!query) {
+                closeList();
+                return;
+            }
+
+            const candidates = getCandidates();
+            if (!candidates || candidates.length === 0) {
+                closeList();
+                return;
+            }
+
+            const matches = hangulMatch.match(query, candidates);
+            const ranked = hangulMatch.rank(matches);
+            renderList(ranked.slice(0, FILTER_AUTOCOMPLETE_MAX_RESULTS).map(entry => entry.text));
+        };
+
+        input.addEventListener('input', updateSuggestions);
+        // 값 채워진 채 재포커스해도 메인 검색창과 동일하게 목록 재실행
+        input.addEventListener('focus', updateSuggestions);
+
+        input.addEventListener('keydown', (e) => {
+            if (!listEl.classList.contains('visible')) return;
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                activeIndex = Math.min(activeIndex + 1, currentNames.length - 1);
+                updateActive();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                activeIndex = Math.max(activeIndex - 1, 0);
+                updateActive();
+            } else if (e.key === 'Enter') {
+                if (activeIndex >= 0) {
+                    e.preventDefault();
+                    selectName(currentNames[activeIndex]);
+                }
+            } else if (e.key === 'Escape') {
+                closeList();
+            }
+        });
+
+        // 클릭 선택이 입력창 포커스 해제보다 먼저 처리되도록 마우스 눌림 시점에 처리
+        listEl.addEventListener('mousedown', (e) => {
+            const item = e.target.closest('.filter-autocomplete-item');
+            if (!item) return;
+            e.preventDefault();
+            const idx = Array.from(listEl.children).indexOf(item);
+            selectName(currentNames[idx]);
+        });
+
+        input.addEventListener('blur', () => {
+            // 목록 클릭 처리 시간 확보 후 종료
+            setTimeout(closeList, 120);
+        });
+    }
+
+    /**
+     * 인챈트 접두와 접미 입력창 자동완성
+     * @param {HTMLInputElement} input
+     * @param {'접두'|'접미'} type
+     * @param {Function} onSelect
+     */
+    setupEnchantAutocomplete(input, type, onSelect) {
+        this.setupAutocompleteDropdown(input, () => {
+            const enchantMeta = metadataService.metadata.enchant;
+            if (!enchantMeta.isLoaded) return [];
+            const source = type === '접두' ? enchantMeta.prefix : enchantMeta.suffix;
+            return source && source.enchants ? Object.keys(source.enchants) : [];
+        }, onSelect);
+    }
+
+    /**
+     * 카테고리별로 갈라진 후보 맵에서 현재 검색 결과 카테고리에 해당하는 후보만 합쳐 하나의 목록으로 반환
+     * @param {Object} candidatesByCategory - { [category]: string[] }
+     * @returns {string[]}
+     */
+    mergeCandidatesForCurrentCategories(candidatesByCategory) {
+        const categories = filterService.getCurrentCategories();
+        const merged = new Set();
+        categories.forEach(category => {
+            const list = candidatesByCategory ? candidatesByCategory[category] : null;
+            if (Array.isArray(list)) list.forEach(name => merged.add(name));
+        });
+        return Array.from(merged);
+    }
+
+    /**
+     * 세공 옵션 이름 입력창 자동완성 (현재 검색 결과 카테고리 후보 합집합)
+     * @param {HTMLInputElement} input
+     * @param {Function} onSelect
+     */
+    setupReforgeAutocomplete(input, onSelect) {
+        this.setupAutocompleteDropdown(input, () => {
+            return this.mergeCandidatesForCurrentCategories(metadataService.metadata.reforge.data?.reforges);
+        }, onSelect);
+    }
+
+    /**
+     * 세트 효과 이름 입력창 자동완성 (현재 검색 결과 카테고리 후보 합집합)
+     * @param {HTMLInputElement} input
+     * @param {Function} onSelect
+     */
+    setupSetEffectAutocomplete(input, onSelect) {
+        this.setupAutocompleteDropdown(input, () => {
+            return this.mergeCandidatesForCurrentCategories(metadataService.metadata.setEffect.categories);
+        }, onSelect);
+    }
+
     /**
      * 타입/등급 선택 버튼 그룹에 슬라이딩 인디케이터 스타일 애니메이션
      */
@@ -2060,7 +2999,7 @@ class FilterPanel {
     }
 
     setupSpecialModFilterEvents(panel, filter) {
-        const filterId = filter.name.replace(/\s/g, '');
+        const filterId = this.toSafeFilterId(filter.name);
         const typeSelector = panel.querySelector(`#${filterId}-type-selector`);
         const typeInput = panel.querySelector(`#${filterId}-type`);
         const minKey = `${filterId}-min-level`;
@@ -2114,41 +3053,10 @@ class FilterPanel {
     }
     
     /**
-     * 세공 상태 필터 이벤트 설정
-     */
-    setupReforgeStatusFilterEvents(panel, filter) {
-        const filterId = filter.name.replace(/\s/g, '');
-        const rankSelect = panel.querySelector(`#${filterId}-rank`);
-        const lineSelect = panel.querySelector(`#${filterId}-line`);
-        
-        if (rankSelect && lineSelect) {
-            const updateFilter = () => {
-                const rank = rankSelect.value;
-                const lineCount = lineSelect.value;
-                
-                if (rank || lineCount) {
-                    filterService.addFilterOption(filter.name, {
-                        type: 'reforge-status',
-                        rank: rank,
-                        lineCount: lineCount
-                    });
-                    this.updateFilterButtonStyle(filter.name, true, { rank, lineCount });
-                } else {
-                    filterService.removeFilterOption(filter.name);
-                    this.updateFilterButtonStyle(filter.name, false);
-                }
-            };
-            
-            rankSelect.addEventListener('change', updateFilter);
-            lineSelect.addEventListener('change', updateFilter);
-        }
-    }
-
-    /**
-     * 복합 필터 이벤트 설정
+     * 복합 필터 이벤트 설정 (다중조건 슬롯 캐러셀 이벤트는 별도 경로 연결)
      */
     setupCompositeFilterEvents(panel, filter) {
-        const groupPrefix = filter.name.replace(/\s/g, '');
+        const groupPrefix = this.toSafeFilterId(filter.name);
 
         const updateFilter = () => {
             const values = {};
@@ -2165,7 +3073,7 @@ class FilterPanel {
             if (hasValue) {
                 let payload = { ...values };
 
-                // 세공 옵션, 세트 효과는 배열 형태로 payload를 재구성
+                // 중첩 구조가 필요한 필터는 값을 배열로 재구성
                 if (filter.payloadKey) {
                     const nestedPayload = {};
                     filter.fields.forEach(field => {
@@ -2189,7 +3097,7 @@ class FilterPanel {
             }
         };
 
-        // 타입/등급 필터 처리
+        // 타입 및 등급 필터 처리
         panel.querySelectorAll('.special-mod-type-selector[data-track-for]').forEach(selector => {
             const fieldId = selector.dataset.trackFor;
             const hiddenInput = panel.querySelector(`input[type="hidden"][data-id="${fieldId}"]`);
@@ -2212,9 +3120,35 @@ class FilterPanel {
 
         panel.querySelectorAll('[data-id]').forEach(input => {
             if (rangeFieldIds.has(input.dataset.id)) return;
-            input.addEventListener('input', updateFilter);
+            input.addEventListener('input', () => { this.syncClearVisibility(input); updateFilter(); });
             input.addEventListener('change', updateFilter);
+            this.attachClearButton(input);
         });
+
+        this.setupCompositeNameAutocomplete(panel, filter, (name, nameInput) => {
+            nameInput.value = name;
+            this.syncClearVisibility(nameInput);
+            updateFilter();
+        });
+    }
+
+    /**
+     * 세공 옵션과 세트 효과 필터의 이름 필드에 자동완성 연결 (복합 필터 이벤트 설정 공용)
+     * @param {HTMLElement} scope - 필드를 찾을 범위 (데스크톱 panel 또는 모바일 wrapper)
+     * @param {object} filter
+     * @param {Function} onSelect - (name: string, nameInput: HTMLInputElement) => void
+     */
+    setupCompositeNameAutocomplete(scope, filter, onSelect) {
+        if (filter.filterType !== 'reforge-option' && filter.filterType !== 'set-effect') return;
+
+        const nameInput = scope.querySelector('[data-id="name"]');
+        if (!nameInput) return;
+
+        const setup = filter.filterType === 'reforge-option'
+            ? this.setupReforgeAutocomplete.bind(this)
+            : this.setupSetEffectAutocomplete.bind(this);
+
+        setup(nameInput, (name) => onSelect(name, nameInput));
     }
 
     /**
@@ -2229,12 +3163,19 @@ class FilterPanel {
                 filterBtn.classList.remove('filtered');
             }
         }
+
+        // +필터 버튼 스타일 갱신
+        this.updateMobileFilterChipStyle();
     }
     
     /**
      * 외부 클릭 처리
      */
     handleOutsideClick(event) {
+        // 마우스 드래그 클릭 무시
+        const selection = window.getSelection();
+        if (selection && selection.toString().length > 0) return;
+
         // 인라인 후보 필터 칩 접기
         if (this.candidatesExpanded &&
             !event.target.closest('.filter-btn, .filter-btn-candidate') &&

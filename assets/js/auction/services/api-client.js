@@ -31,20 +31,19 @@ const ApiClient = (() => {
     /**
      * 통합 검색 API 호출
      * @param {Object} searchParams - 검색 파라미터 객체 (예: { itemName: '...', category: '...' })
-     * @returns {Promise<Object>} 검색 결과 (items, availableFilters 포함)
+     * @returns {Promise<Object>} 검색 결과 (items 포함)
      */
     async function search(searchParams) {
         if (!searchParams || Object.keys(searchParams).length === 0) {
-            return { items: [], availableFilters: [], error: '검색어가 필요합니다.' };
+            return { items: [], error: '검색어가 필요합니다.' };
         }
 
         try {
             setLoading(true);
 
-            // URL 쿼리 파라미터로 검색 조건을 전달하도록 변경
             const url = new URL(`${API_CONFIG.BASE_URL}/search/`);
             Object.entries(searchParams).forEach(([key, value]) => {
-                if (value) { // null이나 undefined가 아닌 값만 추가
+                if (value) {
                     url.searchParams.append(key, value);
                 }
             });
@@ -58,13 +57,12 @@ const ApiClient = (() => {
 
             const data = await response.json();
             setLoading(false);
-            return data; // { items: [...], availableFilters: [...] }
+            return data; // { items: [...] }
         } catch (error) {
             console.error('검색 API 오류:', error);
             setLoading(false);
             return {
                 items: [],
-                availableFilters: [],
                 error: `검색 중 오류가 발생했습니다: ${error.message}`
             };
         }
