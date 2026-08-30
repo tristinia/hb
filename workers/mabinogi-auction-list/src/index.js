@@ -4,7 +4,7 @@
  * @description /api/ 로 들어오는 모든 요청을 처리합니다. (mabinogi-auction-list, mabinogi-metadata-api 워커 통합)
  */
 
-import { getRepresentativeItemName } from '../../shared/item-identity.js';
+import { getRepresentativeItemName, resolveMuriasRelicSuffix } from '../../shared/item-identity.js';
 
 const NEXON_API_BASE_URL = "https://open.api.nexon.com/mabinogi/v1/auction";
 const API_CONFIG = { MAX_PAGES: 100, DELAY_MS: 5 };
@@ -185,7 +185,7 @@ async function handleUnifiedSearch(url, env, corsHeaders, ctx) {
         isFreeTextSearch = true;
     }
 
-    const finalItems = enrichPetMedalDisplayNames(allItems);
+    const finalItems = enrichMuriasRelicDisplayNames(enrichPetMedalDisplayNames(allItems));
 
     // D1/KV 동기화는 자유 텍스트 검색에서만 실행 (신규 아이템 발견 가능성이 있는 탐색성 검색)
     // 자동완성으로 선택한 아이템은 이미 존재가 확인된 상태라 동기화 불필요
@@ -352,6 +352,20 @@ function enrichPetMedalDisplayNames(items) {
         const newItem = { ...item, item_display_name: `${item.item_name} - ${petRaceOption.option_value}` };
         newItem.item_option = newItem.item_option.filter((_, index) => index !== petRaceOptionIndex);
         return newItem;
+    });
+}
+
+/**
+ * 무리아스 유물 옵션 값에서 매칭된 스킬명 표시명 반영
+ */
+function enrichMuriasRelicDisplayNames(items) {
+    return items.map(item => {
+        if (!item.item_option) return item;
+
+        const relicOption = item.item_option.find(opt => opt.option_type === '무리아스 유물');
+        if (!relicOption || !relicOption.option_value) return item;
+
+        return { ...item, item_display_name: `${item.item_name} - ${resolveMuriasRelicSuffix(relicOption.option_value)}` };
     });
 }
 
