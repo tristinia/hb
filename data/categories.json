@@ -3,6 +3,7 @@
     { "id": "근거리 장비", "name": "근거리 장비" },
     { "id": "원거리 장비", "name": "원거리 장비" },
     { "id": "마법 장비", "name": "마법 장비" },
+    { "id": "점성술 장비", "name": "점성술 장비" },
     { "id": "갑옷", "name": "갑옷" },
     { "id": "방어 장비", "name": "방어 장비" },
     { "id": "액세서리", "name": "액세서리" },
@@ -39,8 +40,10 @@
     { "id": "스태프", "name": "스태프", "mainCategory": "마법 장비" },
     { "id": "원드", "name": "원드", "mainCategory": "마법 장비" },
     { "id": "마도서", "name": "마도서", "mainCategory": "마법 장비" },
-    { "id": "오브", "name": "오브", "mainCategory": "마법 장비" },
-    
+
+    { "id": "오브", "name": "오브", "mainCategory": "점성술 장비" },
+    { "id": "대형 낫", "name": "대형 낫", "mainCategory": "점성술 장비" },
+
     { "id": "중갑옷", "name": "중갑옷", "mainCategory": "갑옷" },
     { "id": "경갑옷", "name": "경갑옷", "mainCategory": "갑옷" },
     { "id": "천옷", "name": "천옷", "mainCategory": "갑옷" },
